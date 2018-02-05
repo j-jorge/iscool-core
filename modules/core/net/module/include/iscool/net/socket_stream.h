@@ -1,0 +1,71 @@
+/*
+  Copyright 2018-present IsCool Entertainment
+
+  Licensed under the Apache License, Version 2.0 (the "License");
+  you may not use this file except in compliance with the License.
+  You may obtain a copy of the License at
+
+  http://www.apache.org/licenses/LICENSE-2.0
+
+  Unless required by applicable law or agreed to in writing, software
+  distributed under the License is distributed on an "AS IS" BASIS,
+  WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
+  See the License for the specific language governing permissions and
+  limitations under the License.
+*/
+#ifndef ISCOOL_NET_SOCKET_STREAM_H
+#define ISCOOL_NET_SOCKET_STREAM_H
+
+#include "iscool/net/byte_array.h"
+#include "iscool/net/detail/socket.h"
+#include "iscool/signals/declare_signal.h"
+
+#include <boost/thread.hpp>
+
+namespace iscool
+{
+    namespace net
+    {
+        class socket_stream
+        {
+        public:
+            DECLARE_SIGNAL
+            ( void( const endpoint&, const iscool::net::byte_array& ),
+              received, _received );
+
+        public:
+            explicit socket_stream( const std::string& host);
+            ~socket_stream();
+
+            void send( const iscool::net::byte_array& bytes );
+            void send
+            ( const endpoint& target,
+              const iscool::net::byte_array& bytes );
+
+        private:
+            struct queued_bytes
+            {
+                endpoint target;
+                byte_array bytes;
+            };
+
+            typedef std::vector< queued_bytes > bytes_queue;
+
+        private:
+            void queue_bytes
+            ( const endpoint& target, const byte_array& bytes );
+            void dispatch_bytes();
+
+        private:
+            iscool::net::detail::socket _socket;
+
+            bytes_queue _bytes_queue;
+            boost::mutex _queue_access_mutex;
+            boost::thread _update_thread;
+
+            iscool::signals::connection _dispatch_connection;
+        };
+    }
+}
+
+#endif

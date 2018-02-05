@@ -1,0 +1,62 @@
+/*
+  Copyright 2018-present IsCool Entertainment
+
+  Licensed under the Apache License, Version 2.0 (the "License");
+  you may not use this file except in compliance with the License.
+  You may obtain a copy of the License at
+
+  http://www.apache.org/licenses/LICENSE-2.0
+
+  Unless required by applicable law or agreed to in writing, software
+  distributed under the License is distributed on an "AS IS" BASIS,
+  WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
+  See the License for the specific language governing permissions and
+  limitations under the License.
+*/
+#ifndef ISCOOL_META_REMOVE_CONST_REFERENCE_TESTS_H
+#define ISCOOL_META_REMOVE_CONST_REFERENCE_TESTS_H
+
+namespace iscool
+{
+    namespace meta
+    {
+        namespace tests
+        {
+            static_assert
+            ( std::is_same
+              <
+                  int,
+                  iscool::meta::remove_const_reference< int >::type
+              >::value,
+              "Incorrect type returned by remove_const_reference on type"
+              " int." );
+
+            static_assert
+            ( std::is_same
+              <
+                  int,
+                  iscool::meta::remove_const_reference< int& >::type
+              >::value,
+              "Failed to remove the reference of int&." );
+
+            static_assert
+            ( std::is_same
+              <
+                  int,
+                  iscool::meta::remove_const_reference< const int >::type
+              >::value,
+              "Failed to remove the constness of const int." );
+
+            static_assert
+            ( std::is_same
+              <
+                  int,
+                  iscool::meta::remove_const_reference< const int& >::type
+              >::value,
+              "Failed to remove the reference and the constness of"
+              " const int&." );
+        }
+    }
+}
+
+#endif

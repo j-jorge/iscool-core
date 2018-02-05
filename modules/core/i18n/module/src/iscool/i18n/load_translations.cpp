@@ -1,0 +1,38 @@
+/*
+  Copyright 2018-present IsCool Entertainment
+
+  Licensed under the Apache License, Version 2.0 (the "License");
+  you may not use this file except in compliance with the License.
+  You may obtain a copy of the License at
+
+  http://www.apache.org/licenses/LICENSE-2.0
+
+  Unless required by applicable law or agreed to in writing, software
+  distributed under the License is distributed on an "AS IS" BASIS,
+  WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
+  See the License for the specific language governing permissions and
+  limitations under the License.
+*/
+#include "iscool/i18n/load_translations.h"
+
+#include "iscool/i18n/detail/assign_plural_index.h"
+
+#include "mofilereader/moFileReader.h"
+
+bool iscool::i18n::load_translations
+( const std::string& language_code, std::istream& stream )
+{
+    const std::string data( std::istreambuf_iterator<char>( stream ), {} );
+    moFileLib::moFileReader& reader
+        ( moFileLib::moFileReaderSingleton::GetInstance() );
+    reader.ClearTable();
+    const moFileLib::moFileReader::eErrorCode error
+        ( reader.ParseData( data ) );
+
+    detail::assign_plural_index( language_code );
+    
+    if ( error == moFileLib::moFileReader::EC_SUCCESS )
+        return true;
+    
+    return false;
+}
