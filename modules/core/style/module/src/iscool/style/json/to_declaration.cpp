@@ -21,7 +21,7 @@
 #include "iscool/log/nature/error.h"
 #include "iscool/style/detail/set_property_from_json_value.h"
 
-#include "lib_json/value.h"
+#include "json/value.h"
 
 iscool::style::declaration
 iscool::style::json::to_declaration( const Json::Value& value )

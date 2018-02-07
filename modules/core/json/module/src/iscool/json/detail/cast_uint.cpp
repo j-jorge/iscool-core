@@ -22,7 +22,7 @@
 #include "iscool/json/is_of_type.h"
 #include "iscool/json/is_of_type.impl.tpp"
 
-#include <lib_json/value.h>
+#include <json/value.h>
 
 IMPLEMENT_JSON_CAST( unsigned int )
 IMPLEMENT_JSON_IS_OF_TYPE( unsigned int )

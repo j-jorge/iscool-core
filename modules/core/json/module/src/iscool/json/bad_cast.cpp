@@ -15,7 +15,7 @@
 */
 #include "iscool/json/bad_cast.h"
 
-#include <lib_json/value.h>
+#include <json/value.h>
 
 iscool::json::bad_cast::bad_cast
 ( const Json::Value& value, const std::string& expected )

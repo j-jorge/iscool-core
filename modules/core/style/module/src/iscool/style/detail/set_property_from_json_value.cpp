@@ -145,7 +145,7 @@ iscool::style::detail::get_merged_json_style_property
             styles.emplace_back( json::to_declaration( property[ i ] ) );
         else if ( iscool::json::is_of_type< std::string >( property[ i ] ) )
             styles.emplace_back
-                ( loader::load
+              ( iscool::style::loader::load
                   ( iscool::json::cast< std::string >( property[ i ] ) ) );
         else
         {

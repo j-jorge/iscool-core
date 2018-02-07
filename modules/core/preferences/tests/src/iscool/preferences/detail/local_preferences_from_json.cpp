@@ -17,7 +17,7 @@
 
 #include "iscool/preferences/property_map.impl.h"
 
-#include "lib_json/value.h"
+#include "json/value.h"
 
 #include <functional>
 #include <unistd.h>

@@ -16,6 +16,6 @@
 #include "iscool/optional.h"
 #include "iscool/optional.impl.tpp"
 
-#include <lib_json/value.h>
+#include <json/value.h>
 
 template class iscool::optional< Json::Value >;

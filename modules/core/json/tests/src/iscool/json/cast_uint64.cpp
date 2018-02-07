@@ -17,7 +17,7 @@
 #include "iscool/json/cast_uint64.h"
 #include "iscool/json/is_of_type_uint64.h"
 
-#include <lib_json/value.h>
+#include <json/value.h>
 
 #include "gtest/gtest.h"
 

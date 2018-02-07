@@ -22,7 +22,7 @@
 #include "iscool/json/is_of_type.h"
 #include "iscool/json/is_of_type.impl.tpp"
 
-#include <lib_json/value.h>
+#include <json/value.h>
 
 IMPLEMENT_JSON_CAST( std::uint64_t )
 IMPLEMENT_JSON_IS_OF_TYPE( std::uint64_t )
@@ -31,7 +31,7 @@ bool
 iscool::json::detail::cast< std::uint64_t >::is_valid
 ( const Json::Value& value )
 {
-    return value.isUInt() || ( value.isInt() && ( value.asInt64() >= 0 ) );
+    return value.isUInt64();
 }
 
 std::uint64_t

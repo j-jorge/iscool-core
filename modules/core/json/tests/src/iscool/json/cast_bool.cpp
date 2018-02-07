@@ -17,7 +17,7 @@
 #include "iscool/json/cast_bool.h"
 #include "iscool/json/is_of_type_bool.h"
 
-#include <lib_json/value.h>
+#include <json/value.h>
 
 #include "gtest/gtest.h"
 

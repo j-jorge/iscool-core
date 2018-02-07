@@ -15,6 +15,7 @@
 */
 #include "iscool/audio/default_effect_player.h"
 
+#include "iscool/audio/mixer.h"
 #include "iscool/audio/detail/default_mixer.h"
 
 iscool::audio::track_id iscool::audio::play_effect

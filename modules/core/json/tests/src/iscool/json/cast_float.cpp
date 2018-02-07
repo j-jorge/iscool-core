@@ -17,7 +17,7 @@
 #include "iscool/json/cast_float.h"
 #include "iscool/json/is_of_type_float.h"
 
-#include <lib_json/value.h>
+#include <json/value.h>
 
 #include "gtest/gtest.h"
 

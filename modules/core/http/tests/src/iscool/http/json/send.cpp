@@ -23,7 +23,7 @@
 
 #include "gtest/gtest.h"
 
-#include <lib_json/reader.h>
+#include <json/reader.h>
 
 class json_send_mockup
 {

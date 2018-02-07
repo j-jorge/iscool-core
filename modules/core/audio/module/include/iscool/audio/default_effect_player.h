@@ -18,6 +18,8 @@
 
 #include "iscool/audio/track_id.h"
 
+#include <string>
+
 namespace iscool
 {
     namespace audio

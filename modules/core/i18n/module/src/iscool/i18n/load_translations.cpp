@@ -17,7 +17,7 @@
 
 #include "iscool/i18n/detail/assign_plural_index.h"
 
-#include "mofilereader/moFileReader.h"
+#include "moFileReader/moFileReader.h"
 
 bool iscool::i18n::load_translations
 ( const std::string& language_code, std::istream& stream )

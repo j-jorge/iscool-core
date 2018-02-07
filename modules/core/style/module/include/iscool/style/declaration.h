@@ -19,7 +19,7 @@
 #include "iscool/optional.h"
 #include "iscool/style/detail/properties_handle.h"
 
-#include <lib_json/value.h>
+#include <json/value.h>
 
 #include <boost/range/iterator_range.hpp>
 

@@ -16,7 +16,7 @@
 #ifndef ISCOOL_JSON_PARSE_STRING_H
 #define ISCOOL_JSON_PARSE_STRING_H
 
-#include <lib_json/value.h>
+#include <json/value.h>
 
 namespace iscool
 {

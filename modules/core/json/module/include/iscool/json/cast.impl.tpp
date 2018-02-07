@@ -19,7 +19,7 @@
 #include "iscool/json/cast.h"
 #include "iscool/json/detail/cast_fwd.h"
 
-#include <lib_json/value.h>
+#include <json/value.h>
 
 template< typename T >
 T iscool::json::cast( const Json::Value& value )

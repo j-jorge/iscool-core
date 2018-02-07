@@ -20,7 +20,7 @@
 #include "iscool/log/causeless_log.h"
 #include "iscool/log/nature/error.h"
 
-#include <lib_json/reader.h>
+#include <json/reader.h>
 
 Json::Value iscool::json::parse_stream( std::istream& stream )
 {

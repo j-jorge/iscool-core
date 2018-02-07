@@ -18,7 +18,7 @@
 
 #include "iscool/json/bad_cast.h"
 
-#include "lib_json/value.h"
+#include "json/value.h"
 
 template< typename K, typename V >
 bool

@@ -27,7 +27,7 @@
 #include "iscool/log/nature/error.h"
 #include "iscool/preferences/property_map.impl.h"
 
-#include <lib_json/value.h>
+#include <json/value.h>
 
 iscool::preferences::property_map
 iscool::preferences::detail::local_preferences_from_json

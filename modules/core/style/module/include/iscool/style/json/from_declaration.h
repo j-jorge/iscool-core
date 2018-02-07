@@ -16,7 +16,7 @@
 #ifndef ISCOOL_STYLE_JSON_FROM_DECLARATION_H
 #define ISCOOL_STYLE_JSON_FROM_DECLARATION_H
 
-#include "lib_json/value.h"
+#include "json/value.h"
 
 namespace iscool
 {

@@ -17,7 +17,7 @@
 
 #include "iscool/i18n/detail/plural_index.h"
 
-#include "mofilereader/moFileReader.h"
+#include "moFileReader/moFileReader.h"
 
 const char* iscool::i18n::detail::localize( const char* message )
 {

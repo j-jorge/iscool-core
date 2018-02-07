@@ -16,7 +16,7 @@
 #ifndef ISCOOL_JSON_PARSE_STREAM_H
 #define ISCOOL_JSON_PARSE_STREAM_H
 
-#include <lib_json/value.h>
+#include <json/value.h>
 #include <iosfwd>
 
 namespace iscool

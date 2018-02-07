@@ -20,7 +20,7 @@
 #include "iscool/log/causeless_log.h"
 #include "iscool/log/nature/error.h"
 
-#include "lib_json/writer.h"
+#include "json/writer.h"
 
 #include <fstream>
 

@@ -16,6 +16,8 @@
 #ifndef ISCOOL_NET_BYTE_ARRAY_BIT_INSERTER_H
 #define ISCOOL_NET_BYTE_ARRAY_BIT_INSERTER_H
 
+#include <cstdint>
+
 namespace iscool
 {
     namespace net

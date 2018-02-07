@@ -18,7 +18,7 @@
 
 #include "iscool/http/response_handler.h"
 
-#include <lib_json/value.h>
+#include <json/value.h>
 
 namespace iscool
 {
