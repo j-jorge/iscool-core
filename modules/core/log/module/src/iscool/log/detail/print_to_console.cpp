@@ -102,7 +102,7 @@ void iscool::log::detail::print_to_console
 
 #include <iostream>
 
-iscool::log::print_delegate iscool::log::detail::print_to_console
+void iscool::log::detail::print_to_console
 ( const nature::nature& nature, const context& context,
   const std::string& message )
 {
