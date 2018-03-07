@@ -39,4 +39,6 @@ declare_iscool_library( NAME jni
   iscool_schedule
   iscool_signals
   ${Boost_LIBRARIES}
+
+  ANDROID
   )
