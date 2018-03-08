@@ -47,4 +47,6 @@ declare_iscool_library_test( NAME system
   "application_events.cpp"
   "application_event_source.cpp"
   "capture_screen.cpp"
+  LINK
+  iscool_testing
   )

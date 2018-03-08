@@ -22,4 +22,6 @@ declare_iscool_library_test( NAME wish
   FILES
   "genie_test.cpp"
   "wishing_well_test.cpp"
+  LINK
+  iscool_testing
   )

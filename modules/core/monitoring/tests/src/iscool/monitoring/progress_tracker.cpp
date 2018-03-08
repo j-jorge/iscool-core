@@ -16,6 +16,8 @@
 #include "iscool/monitoring/declare_progress_tracker.h"
 #include "iscool/monitoring/implement_progress_tracker.h"
 
+#include "iscool/test/debug_crash.h"
+
 #include <gtest/gtest.h>
 
 ic_monitoring_declare_progress_tracker
@@ -58,8 +60,8 @@ TEST( iscool_progress_tracker, double_completion_failure )
           } );
 
     tracker.done( dummy::in_namespace_tracker::step::step_2 );
-    ASSERT_DEATH
-        ( tracker.done( dummy::in_namespace_tracker::step::step_2 ), "" );
+    EXPECT_DEBUG_CRASH
+        ( tracker.done( dummy::in_namespace_tracker::step::step_2 ) );
 }
 
 TEST( iscool_progress_tracker, reset )

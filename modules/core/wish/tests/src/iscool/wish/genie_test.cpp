@@ -13,12 +13,13 @@
   See the License for the specific language governing permissions and
   limitations under the License.
 */
-#include "gtest/gtest.h"
-
 #include "iscool/wish/genie.h"
+
+#include "iscool/test/debug_crash.h"
 
 #include <boost/bind.hpp>
 
+#include <gtest/gtest.h>
 
 class genie_fixture:
     public ::testing::Test
@@ -66,16 +67,15 @@ TEST_F( genie_fixture, double_empower )
     iscool::wish::genie genie;
     genie.empower<genie_test_wish>
         ( boost::bind( &genie_fixture::grant_test_wish, this ) );
-    EXPECT_DEATH
+    EXPECT_DEBUG_CRASH
         ( genie.empower<genie_test_wish>
-          ( boost::bind( &genie_fixture::grant_test_wish, this ) ),
-          "" );
+          ( boost::bind( &genie_fixture::grant_test_wish, this ) ) );
 }
 
 TEST( genie, grant_empty_wish )
 {
     iscool::wish::genie genie;
-    EXPECT_DEATH( genie.grant<genie_test_wish>( genie_test_wish() ), "" );
+    EXPECT_DEBUG_CRASH( genie.grant<genie_test_wish>( genie_test_wish() ) );
 }
 
 TEST( genie, is_wish_valid )

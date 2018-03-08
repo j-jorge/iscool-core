@@ -16,7 +16,9 @@
 #include "iscool/system/capture_screen.h"
 #include "iscool/system/setup.h"
 
-#include "gtest/gtest.h"
+#include "iscool/test/debug_crash.h"
+
+#include <gtest/gtest.h>
 
 TEST( iscool_system_test, capture_screen )
 {
@@ -140,7 +142,7 @@ TEST( iscool_system_test, capture_immediate_call )
               called = true;
           } );
     
-    EXPECT_DEATH( iscool::system::capture_screen( "test", callback ), "" );
+    EXPECT_DEBUG_CRASH( iscool::system::capture_screen( "test", callback ) );
 
     iscool::system::finalize();
 }

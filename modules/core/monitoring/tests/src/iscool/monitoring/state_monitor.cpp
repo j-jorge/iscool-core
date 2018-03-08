@@ -15,7 +15,9 @@
 */
 #include "iscool/monitoring/implement_state_monitor.h"
 
-#include "gtest/gtest.h"
+#include "iscool/test/debug_crash.h"
+
+#include <gtest/gtest.h>
 
 TEST( iscool_monitoring_state_monitor, simple_initial_state )
 {
@@ -58,13 +60,13 @@ TEST( iscool_monitoring_state_monitor, invalid_simple_set_state )
           ( ( end ) () ) );
 
     EXPECT_TRUE( monitor->is_begin_state() );
-    EXPECT_DEATH( monitor->set_begin_state(), "" );
+    EXPECT_DEBUG_CRASH( monitor->set_begin_state() );
     
     monitor->set_end_state();
     
     EXPECT_TRUE( monitor->is_end_state() );
-    EXPECT_DEATH( monitor->set_begin_state(), "" );
-    EXPECT_DEATH( monitor->set_end_state(), "" );
+    EXPECT_DEBUG_CRASH( monitor->set_begin_state() );
+    EXPECT_DEBUG_CRASH( monitor->set_end_state() );
 }
 
 TEST( iscool_monitoring_state_monitor, multiple_set_state )
@@ -83,10 +85,10 @@ TEST( iscool_monitoring_state_monitor, multiple_set_state )
     EXPECT_FALSE( monitor->is_third_state() );
     EXPECT_FALSE( monitor->is_end_state() );
 
-    EXPECT_DEATH( monitor->set_begin_state(), "" );
-    EXPECT_DEATH( monitor->set_second_state(), "" );
-    EXPECT_DEATH( monitor->set_third_state(), "" );
-    EXPECT_DEATH( monitor->set_end_state(), "" );
+    EXPECT_DEBUG_CRASH( monitor->set_begin_state() );
+    EXPECT_DEBUG_CRASH( monitor->set_second_state() );
+    EXPECT_DEBUG_CRASH( monitor->set_third_state() );
+    EXPECT_DEBUG_CRASH( monitor->set_end_state() );
 
     monitor->set_first_state();
 
@@ -96,9 +98,9 @@ TEST( iscool_monitoring_state_monitor, multiple_set_state )
     EXPECT_FALSE( monitor->is_third_state() );
     EXPECT_FALSE( monitor->is_end_state() );
     
-    EXPECT_DEATH( monitor->set_begin_state(), "" );
-    EXPECT_DEATH( monitor->set_end_state(), "" );
-    EXPECT_DEATH( monitor->set_first_state(), "" );
+    EXPECT_DEBUG_CRASH( monitor->set_begin_state() );
+    EXPECT_DEBUG_CRASH( monitor->set_end_state() );
+    EXPECT_DEBUG_CRASH( monitor->set_first_state() );
     
     monitor->set_second_state();
 
@@ -108,9 +110,9 @@ TEST( iscool_monitoring_state_monitor, multiple_set_state )
     EXPECT_FALSE( monitor->is_third_state() );
     EXPECT_FALSE( monitor->is_end_state() );
 
-    EXPECT_DEATH( monitor->set_begin_state(), "" );
-    EXPECT_DEATH( monitor->set_second_state(), "" );
-    EXPECT_DEATH( monitor->set_end_state(), "" );
+    EXPECT_DEBUG_CRASH( monitor->set_begin_state() );
+    EXPECT_DEBUG_CRASH( monitor->set_second_state() );
+    EXPECT_DEBUG_CRASH( monitor->set_end_state() );
     
     monitor->set_first_state();
 
@@ -120,9 +122,9 @@ TEST( iscool_monitoring_state_monitor, multiple_set_state )
     EXPECT_FALSE( monitor->is_third_state() );
     EXPECT_FALSE( monitor->is_end_state() );
     
-    EXPECT_DEATH( monitor->set_begin_state(), "" );
-    EXPECT_DEATH( monitor->set_end_state(), "" );
-    EXPECT_DEATH( monitor->set_first_state(), "" );
+    EXPECT_DEBUG_CRASH( monitor->set_begin_state() );
+    EXPECT_DEBUG_CRASH( monitor->set_end_state() );
+    EXPECT_DEBUG_CRASH( monitor->set_first_state() );
     
     monitor->set_third_state();
 
@@ -132,9 +134,9 @@ TEST( iscool_monitoring_state_monitor, multiple_set_state )
     EXPECT_TRUE( monitor->is_third_state() );
     EXPECT_FALSE( monitor->is_end_state() );
 
-    EXPECT_DEATH( monitor->set_begin_state(), "" );
-    EXPECT_DEATH( monitor->set_third_state(), "" );
-    EXPECT_DEATH( monitor->set_first_state(), "" );
+    EXPECT_DEBUG_CRASH( monitor->set_begin_state() );
+    EXPECT_DEBUG_CRASH( monitor->set_third_state() );
+    EXPECT_DEBUG_CRASH( monitor->set_first_state() );
     
     monitor->set_end_state();
 
@@ -144,9 +146,9 @@ TEST( iscool_monitoring_state_monitor, multiple_set_state )
     EXPECT_FALSE( monitor->is_third_state() );
     EXPECT_TRUE( monitor->is_end_state() );
 
-    EXPECT_DEATH( monitor->set_begin_state(), "" );
-    EXPECT_DEATH( monitor->set_first_state(), "" );
-    EXPECT_DEATH( monitor->set_second_state(), "" );
-    EXPECT_DEATH( monitor->set_third_state(), "" );
-    EXPECT_DEATH( monitor->set_end_state(), "" );
+    EXPECT_DEBUG_CRASH( monitor->set_begin_state() );
+    EXPECT_DEBUG_CRASH( monitor->set_first_state() );
+    EXPECT_DEBUG_CRASH( monitor->set_second_state() );
+    EXPECT_DEBUG_CRASH( monitor->set_third_state() );
+    EXPECT_DEBUG_CRASH( monitor->set_end_state() );
 }

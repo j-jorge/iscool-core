@@ -20,8 +20,7 @@
 
 #ifdef NDEBUG
 
-    #define EXPECT_DEBUG_CRASH( statement )                               \
-        EXPECT_EXIT( statement, ::testing::ExitedWithCode( 0 ), "" )
+    #define EXPECT_DEBUG_CRASH( statement )
 
 #else
 
