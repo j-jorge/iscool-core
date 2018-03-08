@@ -2,9 +2,16 @@ project( iscool-meta )
 
 include( declare-iscool-library )
 
+find_package(
+  Boost ${required_boost_version} REQUIRED
+  )
+
 declare_iscool_interface_library(
   NAME
   meta
+
+  INCLUDE
+  ${Boost_INCLUDE_DIRS}
 
   TEST
   "constant_equality.cpp"
