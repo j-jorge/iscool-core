@@ -15,8 +15,6 @@
 */
 #include "iscool/collections/binary_search.h"
 
-#include <boost/bind.hpp>
-
 #include <gtest/gtest.h>
 
 namespace iscool
@@ -25,14 +23,30 @@ namespace iscool
     {
         namespace tests
         {
-            static int int_compare( int a, int b );
+            class int_compare
+	    {
+	    public:
+	      explicit int_compare( int rhs );
+
+	      int operator()( int lhs ) const;
+
+	    private:
+	      const int _rhs;
+
+	    };
         }
     }
 }
 
-int iscool::collections::tests::int_compare( int a, int b )
+iscool::collections::tests::int_compare::int_compare( int rhs )
+  : _rhs( rhs )
 {
-    return a - b;
+
+}
+
+int iscool::collections::tests::int_compare::operator()( int lhs ) const
+{
+    return lhs - _rhs;
 }
 
 TEST( iscool_collections_binary_search, empty )
@@ -43,7 +57,7 @@ TEST( iscool_collections_binary_search, empty )
         ( values.end(),
           iscool::collections::binary_search
           ( values.begin(), values.end(),
-            boost::bind( &iscool::collections::tests::int_compare, _1, 10 ) ) );
+            iscool::collections::tests::int_compare( 10 ) ) );
 }
 
 TEST( iscool_collections_binary_search, singleton )
@@ -57,12 +71,12 @@ TEST( iscool_collections_binary_search, singleton )
         ( end,
           iscool::collections::binary_search
           ( begin, end,
-            boost::bind( &iscool::collections::tests::int_compare, _1, 20 ) ) );
+            iscool::collections::tests::int_compare( 20 ) ) );
     EXPECT_EQ
         ( begin,
           iscool::collections::binary_search
           ( begin, end,
-            boost::bind( &iscool::collections::tests::int_compare, _1, 10 ) ) );
+            iscool::collections::tests::int_compare( 10 ) ) );
 }
 
 TEST( iscool_collections_binary_search, two_values )
@@ -76,17 +90,17 @@ TEST( iscool_collections_binary_search, two_values )
         ( begin,
           iscool::collections::binary_search
           ( begin, end,
-            boost::bind( &iscool::collections::tests::int_compare, _1, 10 ) ) );
+            iscool::collections::tests::int_compare( 10 ) ) );
     EXPECT_EQ
         ( begin + 1,
           iscool::collections::binary_search
           ( begin, end,
-            boost::bind( &iscool::collections::tests::int_compare, _1, 20 ) ) );
+            iscool::collections::tests::int_compare( 20 ) ) );
     EXPECT_EQ
         ( end,
           iscool::collections::binary_search
           ( begin, end,
-            boost::bind( &iscool::collections::tests::int_compare, _1, 30 ) ) );
+            iscool::collections::tests::int_compare( 30 ) ) );
 }
 
 TEST( iscool_collections_binary_search, 5_values )
@@ -100,17 +114,17 @@ TEST( iscool_collections_binary_search, 5_values )
         ( begin,
           iscool::collections::binary_search
           ( begin, end,
-            boost::bind( &iscool::collections::tests::int_compare, _1, 10 ) ) );
+            iscool::collections::tests::int_compare( 10 ) ) );
     EXPECT_EQ
         ( begin + 1,
           iscool::collections::binary_search
           ( begin, end,
-            boost::bind( &iscool::collections::tests::int_compare, _1, 20 ) ) );
+            iscool::collections::tests::int_compare( 20 ) ) );
 
     const auto duplicate_it
         ( iscool::collections::binary_search
           ( begin, end,
-            boost::bind( &iscool::collections::tests::int_compare, _1, 30 ) ) );
+            iscool::collections::tests::int_compare( 30 ) ) );
         
     EXPECT_TRUE
         ( ( duplicate_it == begin + 2 ) || ( duplicate_it == begin + 3 ) );
@@ -119,10 +133,10 @@ TEST( iscool_collections_binary_search, 5_values )
         ( begin + 4,
           iscool::collections::binary_search
           ( begin, end,
-            boost::bind( &iscool::collections::tests::int_compare, _1, 40 ) ) );
+            iscool::collections::tests::int_compare( 40 ) ) );
     EXPECT_EQ
         ( end,
           iscool::collections::binary_search
           ( begin, end,
-            boost::bind( &iscool::collections::tests::int_compare, _1, 50 ) ) );
+            iscool::collections::tests::int_compare( 50 ) ) );
 }
