@@ -8,7 +8,7 @@ set( CMAKE_CXX_STANDARD 11 )
 
 if( CMAKE_SYSTEM_NAME STREQUAL "Android" )
   include( boost-android )
-elseif( CMAKE_SYSTEM_NAME STREQUAL "Darwin" )
+elseif( IOS_SDK_VERSION )
   include( boost-ios )
 else()
   set( ISCOOL_TEST_ENABLED 1 )
