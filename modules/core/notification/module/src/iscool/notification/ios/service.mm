@@ -112,8 +112,6 @@ void iscool::notification::ios::service::schedule
                            error.localizedDescription.UTF8String );
              }
       ];
-
-    [ content release ];
 }
 
 void iscool::notification::ios::service::cancel_all()

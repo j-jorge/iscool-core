@@ -13,20 +13,32 @@ set( files
   "detail/capture_screen_signal_pool.cpp"
   )
 
-if( CMAKE_SYSTEM_NAME STREQUAL "Android" )
+if( TARGET_ANDROID )
+
   set( files
     ${files}
-    android/language_code.cpp
-    android/send_to_background.cpp
+    "android/language_code.cpp"
+    "android/send_to_background.cpp"
     )
   set( libraries iscool_jni )
   set( platform_arguments ANDROID )
+  
+elseif( TARGET_IOS )
+
+  set( files
+    ${files}
+    "ios/language_code.mm"
+    "ios/send_to_background.mm"
+    )
+  
 else()
+
   set( files
     ${files}
     "language_code.cpp"
     "send_to_background.cpp"
     )    
+
 endif()
 
 declare_iscool_library( NAME system

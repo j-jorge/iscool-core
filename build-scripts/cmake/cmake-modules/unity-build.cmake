@@ -1,3 +1,5 @@
+include( platform )
+
 function( make_compilation_unit unit_file name )
 
   set( temporary_unit "${PROJECT_BINARY_DIR}/${name}.unit.tmp" )
@@ -7,7 +9,13 @@ function( make_compilation_unit unit_file name )
     file( APPEND "${temporary_unit}" "#include \"${f}\"\n" )
   endforeach()
 
-  set( final_unit "${PROJECT_BINARY_DIR}/${name}.unit.cpp" )
+  if( TARGET_IOS )
+    set( extension ".mm" )
+  else()
+    set( extension ".cpp" )
+  endif()
+
+  set( final_unit "${PROJECT_BINARY_DIR}/${name}.unit.${extension}" )
 
   execute_process( COMMAND ${CMAKE_COMMAND}
     -E compare_files

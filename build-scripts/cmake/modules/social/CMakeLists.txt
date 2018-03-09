@@ -8,7 +8,8 @@ set( files
   "share_service.cpp"
   )
 
-if( CMAKE_SYSTEM_NAME STREQUAL "Android" )
+if( TARGET_ANDROID )
+  
   set( files
     ${files}
     "android/link_service.cpp"
@@ -16,7 +17,21 @@ if( CMAKE_SYSTEM_NAME STREQUAL "Android" )
     )
   set( libraries iscool_jni )
   set( platform_arguments ANDROID )
+  
+elseif( TARGET_IOS )
+  
+  set( files
+    ${files}
+    "ios/link_service.mm"
+    "ios/present_activity_view_controller.mm"
+    "ios/share_service.mm"
+    )
+  set( libraries
+    iscool_ios
+    )
+
 else()
+  
   set( files
     ${files}
     "detail/mockup_link_service.cpp"
@@ -25,6 +40,7 @@ else()
   set( libraries
     iscool_log
     )
+  
 endif()
 
 declare_iscool_library( NAME social
