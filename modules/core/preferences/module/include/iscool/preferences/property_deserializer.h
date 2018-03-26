@@ -35,6 +35,12 @@ namespace iscool
             void add_float_property( const std::string& key );
             void add_string_property( const std::string& key );
 
+            void remove_int_property( const std::string& key );
+            void remove_uint64_property( const std::string& key );
+            void remove_bool_property( const std::string& key );
+            void remove_float_property( const std::string& key );
+            void remove_string_property( const std::string& key );
+
             std::vector< std::string > get_all_keys() const;
 
             void merge( const property_deserializer& that );

@@ -23,7 +23,7 @@ namespace iscool
     namespace preferences
     {
         string_property declare_global_string_property
-        ( const std::string& name, const std::string& fallback );
+        ( std::string&& name, std::string&& fallback );
     }
 }
 

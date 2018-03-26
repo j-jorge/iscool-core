@@ -116,6 +116,56 @@ TEST( iscool_preferences_property_deserializer_test, bad_float )
     EXPECT_FALSE( map.has< float >( "float" ) );
 }
 
+TEST( iscool_preferences_property_deserializer_test, remove )
+{
+    iscool::preferences::property_deserializer deserializer;
+    deserializer.add_int_property( "int" );
+    deserializer.add_int_property( "int2" );
+    deserializer.add_string_property( "string" );
+    deserializer.add_string_property( "string2" );
+    deserializer.add_bool_property( "bool" );
+    deserializer.add_bool_property( "bool2" );
+    deserializer.add_float_property( "float" );
+    deserializer.add_float_property( "float2" );
+
+    {
+        const std::vector< std::string > keys( deserializer.get_all_keys() );
+
+        const auto bit( keys.begin() );
+        const auto eit( keys.end() );
+    
+        EXPECT_NE( eit, std::find( bit, eit, "int" ) );
+        EXPECT_NE( eit, std::find( bit, eit, "int2" ) );
+        EXPECT_NE( eit, std::find( bit, eit, "string" ) );
+        EXPECT_NE( eit, std::find( bit, eit, "string2" ) );
+        EXPECT_NE( eit, std::find( bit, eit, "bool" ) );
+        EXPECT_NE( eit, std::find( bit, eit, "bool2" ) );
+        EXPECT_NE( eit, std::find( bit, eit, "float" ) );
+        EXPECT_NE( eit, std::find( bit, eit, "float2" ) );
+    }
+
+    deserializer.remove_int_property( "int2" );
+    deserializer.remove_string_property( "string2" );
+    deserializer.remove_bool_property( "bool2" );
+    deserializer.remove_float_property( "float2" );
+
+    {
+        const std::vector< std::string > keys( deserializer.get_all_keys() );
+
+        const auto bit( keys.begin() );
+        const auto eit( keys.end() );
+    
+        EXPECT_NE( eit, std::find( bit, eit, "int" ) );
+        EXPECT_EQ( eit, std::find( bit, eit, "int2" ) );
+        EXPECT_NE( eit, std::find( bit, eit, "string" ) );
+        EXPECT_EQ( eit, std::find( bit, eit, "string2" ) );
+        EXPECT_NE( eit, std::find( bit, eit, "bool" ) );
+        EXPECT_EQ( eit, std::find( bit, eit, "bool2" ) );
+        EXPECT_NE( eit, std::find( bit, eit, "float" ) );
+        EXPECT_EQ( eit, std::find( bit, eit, "float2" ) );
+    }
+}
+
 TEST( iscool_preferences_property_deserializer_test, get_all_keys )
 {
     iscool::preferences::property_deserializer deserializer;

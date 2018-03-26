@@ -44,9 +44,11 @@ iscool::i18n::detail::assign_plural_index( const std::string& language_code )
     if ( ( language_code == "de" )
          || ( language_code == "en" )
          || ( language_code == "es" )
+         || ( language_code == "fi" )
          || ( language_code == "it" )
          || ( language_code == "nl" )
-         || ( language_code == "pt" ) )
+         || ( language_code == "pt" )
+         || ( language_code == "sv" ) )
         assign_index_expression_and_return( ( n != 1 ) ? 1 : 0 );
 
     if ( ( language_code == "ja" )
@@ -56,6 +58,24 @@ iscool::i18n::detail::assign_plural_index( const std::string& language_code )
          || ( language_code == "zh_TW" ) )
         assign_index_expression_and_return( 0 );
 
+    if ( language_code == "pl" )
+        assign_index_expression_and_return
+            ( ( n == 1 )
+              ? 0
+              : ( ( n % 10 >= 2 ) && ( n % 10 <= 4 )
+                  && ( ( n % 100 < 10 ) || ( n % 100 >= 20 ) )
+                  ? 1
+                  : 2 ) );
+    
+    if ( language_code == "ru" )
+        assign_index_expression_and_return
+            ( ( ( n % 10 == 1 ) && ( n % 100 != 11 ) )
+              ? 0
+              : ( ( n % 10 >= 2 ) && ( n % 10 <= 4 )
+                  && ( ( n % 100 < 10 ) || ( n % 100 >= 20 ) )
+                  ? 1
+                  : 2 ) );
+    
     assert( false );
 }
 

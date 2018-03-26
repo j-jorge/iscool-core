@@ -25,7 +25,7 @@ bool iscool::containers::detail::heterogeneous_map_empty< 0 >::run( T )
 template< std::size_t N >
 template< typename Key, typename... T >
 bool iscool::containers::detail::heterogeneous_map_empty< N >::run
-( const std::tuple< std::map< Key, T >... >& maps )
+( const std::tuple< std::unordered_map< Key, T >... >& maps )
 {
     return
         std::get< N - 1 >( maps ).empty()

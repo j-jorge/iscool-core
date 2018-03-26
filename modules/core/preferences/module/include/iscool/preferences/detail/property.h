@@ -28,11 +28,13 @@ namespace iscool
             class property
             {
             public:
-                property( const std::string& name, const T& fallback );
+                property();
+                property( std::string&& name, T&& fallback );
+                property( std::string&& name, const T& fallback );
 
             public:
-                const std::string name;
-                const T fallback;
+                std::string name;
+                T fallback;
             };
 
             extern template class property< bool >;

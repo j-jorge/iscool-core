@@ -54,6 +54,36 @@ void iscool::preferences::property_deserializer::add_string_property
     add_key( _string, key );
 }
 
+void iscool::preferences::property_deserializer::remove_int_property
+( const std::string& key )
+{
+    _int.erase( key );
+}
+
+void iscool::preferences::property_deserializer::remove_uint64_property
+( const std::string& key )
+{
+    _uint64.erase( key );
+}
+
+void iscool::preferences::property_deserializer::remove_bool_property
+( const std::string& key )
+{
+    _bool.erase( key );
+}
+
+void iscool::preferences::property_deserializer::remove_float_property
+( const std::string& key )
+{
+    _float.erase( key );
+}
+
+void iscool::preferences::property_deserializer::remove_string_property
+( const std::string& key )
+{
+    _string.erase( key );
+}
+
 std::vector< std::string >
 iscool::preferences::property_deserializer::get_all_keys() const
 {

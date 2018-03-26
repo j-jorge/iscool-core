@@ -21,9 +21,9 @@
 
 iscool::preferences::int_property
 iscool::preferences::declare_global_int_property
-( const std::string& name, int fallback )
+( std::string&& name, int fallback )
 {
     detail::global_deserializer().add_int_property( name );
-    return int_property( name, fallback );
+    return int_property( std::move( name ), fallback );
 }
 

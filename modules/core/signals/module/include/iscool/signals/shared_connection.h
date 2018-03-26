@@ -30,8 +30,9 @@ namespace iscool
 
         public:
             shared_connection();
-            shared_connection( connection c );
-
+            shared_connection( const connection& c );
+            ~shared_connection();
+            
             bool connected() const;
             void disconnect();
 

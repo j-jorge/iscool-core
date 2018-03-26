@@ -9,6 +9,7 @@ find_package(
 
 declare_iscool_library( NAME random
   FILES
+  "distinct_random.cpp"
   "rand.cpp"
 
   INCLUDE
@@ -20,6 +21,7 @@ declare_iscool_library( NAME random
 
 declare_iscool_library_test( NAME random
   FILES
+  "distinct_random.cpp"
   "generator.cpp"
   "queue.cpp"
 

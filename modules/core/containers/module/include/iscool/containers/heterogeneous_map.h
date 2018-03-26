@@ -18,7 +18,7 @@
 
 #include "iscool/optional.h"
 
-#include <map>
+#include <unordered_map>
 #include <tuple>
 
 namespace iscool
@@ -38,6 +38,9 @@ namespace iscool
             template< typename U >
             iscool::optional< U > get( const Key& key ) const;
             
+            template< typename U >
+            void erase( const Key& key );
+            
             template< typename Visitor >
             void visit( Visitor v ) const;
 
@@ -48,7 +51,7 @@ namespace iscool
             void clear();
             
         private:
-            std::tuple< std::map< Key, T >... > _maps;
+            std::tuple< std::unordered_map< Key, T >... > _maps;
         };
     }
 }

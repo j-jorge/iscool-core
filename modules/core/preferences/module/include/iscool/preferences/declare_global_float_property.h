@@ -23,7 +23,7 @@ namespace iscool
     namespace preferences
     {
         float_property declare_global_float_property
-        ( const std::string& name, float fallback );
+        ( std::string&& name, float fallback );
     }
 }
 

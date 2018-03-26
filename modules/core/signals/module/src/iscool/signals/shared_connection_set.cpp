@@ -18,6 +18,11 @@
 #include <algorithm>
 #include <cassert>
 
+template class std::vector< iscool::signals::shared_connection >;
+
+iscool::signals::shared_connection_set::shared_connection_set() = default;
+iscool::signals::shared_connection_set::~shared_connection_set() = default;
+
 void iscool::signals::shared_connection_set::insert( shared_connection c )
 {
     assert( std::find( _connections.begin(), _connections.end(), c )

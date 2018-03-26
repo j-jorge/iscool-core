@@ -21,7 +21,8 @@
 #include "iscool/preferences/property_map.impl.h"
 
 template< typename T >
-T iscool::preferences::detail::get_global_property( const property< T >& property )
+T iscool::preferences::detail::get_global_property
+( const property< T >& property )
 {
     const iscool::optional< T > result
         ( detail::global_properties().get< T >( property.name ) );

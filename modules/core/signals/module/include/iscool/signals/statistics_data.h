@@ -27,7 +27,8 @@ namespace iscool
         public:
             statistics_data
             ( const std::string& signal_identifier, std::size_t slot_count );
-
+            ~statistics_data();
+            
         public:
             std::string signal_identifier;
             std::size_t slot_count;

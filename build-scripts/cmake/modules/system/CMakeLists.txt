@@ -19,6 +19,8 @@ if( TARGET_ANDROID )
     ${files}
     "android/language_code.cpp"
     "android/send_to_background.cpp"
+
+    "android/detail/device_time_milliseconds.cpp"
     )
   set( libraries iscool_jni )
   set( platform_arguments ANDROID )
@@ -29,6 +31,8 @@ elseif( TARGET_IOS )
     ${files}
     "ios/language_code.mm"
     "ios/send_to_background.mm"
+
+    "ios/detail/device_time_milliseconds.mm"
     )
   
 else()
@@ -37,6 +41,8 @@ else()
     ${files}
     "language_code.cpp"
     "send_to_background.cpp"
+
+    "detail/device_time_milliseconds.cpp"
     )    
 
 endif()

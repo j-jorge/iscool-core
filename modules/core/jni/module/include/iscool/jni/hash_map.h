@@ -16,7 +16,9 @@
 #ifndef ISCOOL_JNI_HASH_MAP_H
 #define ISCOOL_JNI_HASH_MAP_H
 
-#include "iscool/jni/java_ptr.h"
+#include "iscool/jni/map_entry.h"
+
+#include <vector>
 
 namespace iscool
 {
@@ -31,12 +33,15 @@ namespace iscool
         
         public:
             hash_map();
-        
-            java_ptr< jobject > get_java_object() const;
+            explicit hash_map( const java_ptr< jobject >& impl );
+            
+            const java_ptr< jobject >& get_java_object() const;
 
             value_type
             put( const key_type& key, const value_type& value ) const;
-        
+
+            std::vector< map_entry< K, V > > get_entry_set() const;
+            
         private:
             java_ptr< jobject > _map;
         };

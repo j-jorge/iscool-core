@@ -16,6 +16,9 @@
 #ifndef ISCOOL_SIGNALS_DETAIL_SLOT_H
 #define ISCOOL_SIGNALS_DETAIL_SLOT_H
 
+#include <memory>
+#include <vector>
+
 namespace iscool
 {
     namespace signals
@@ -26,7 +29,8 @@ namespace iscool
             {
             public:
                 slot();
-    
+                virtual ~slot();
+                
                 bool connected() const;
                 void disconnect();
     
@@ -36,5 +40,14 @@ namespace iscool
         }
     }
 }
+
+extern template
+class std::shared_ptr< iscool::signals::detail::slot >;
+
+extern template
+class std::weak_ptr< iscool::signals::detail::slot >;
+
+extern template
+class std::vector< std::shared_ptr< iscool::signals::detail::slot > >;
 
 #endif

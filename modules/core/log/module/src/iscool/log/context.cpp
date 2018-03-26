@@ -28,6 +28,8 @@ iscool::log::context::context
 
 }
 
+iscool::log::context::~context() = default;
+
 const std::string& iscool::log::context::get_reporter() const
 {
     return _reporter;

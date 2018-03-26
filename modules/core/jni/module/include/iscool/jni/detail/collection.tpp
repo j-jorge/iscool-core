@@ -18,6 +18,7 @@
 
 #include "iscool/jni/get_method.h"
 #include "iscool/jni/method_jint.h"
+#include "iscool/jni/method_jobject.h"
 
 template< typename T >
 iscool::jni::collection< T >::collection( jobject impl )
@@ -47,10 +48,10 @@ template< typename T >
 iscool::jni::iterator< T > iscool::jni::collection< T >::get_iterator() const
 {
     const auto method
-        ( get_method< java_ptr< jobject > >
-          ( "java/util/Collection", "iterator", "()Ljava/lang/Object;" ) );
+        ( get_method< jobject >
+          ( "java/util/Collection", "iterator", "()Ljava/util/Iterator;" ) );
 
-    return iterator< T >( method( _impl ).release() );
+    return iterator< T >( method( _impl ) );
 }
 
 template< typename T >

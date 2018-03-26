@@ -21,9 +21,9 @@
 
 iscool::preferences::float_property
 iscool::preferences::declare_global_float_property
-( const std::string& name, float fallback )
+( std::string&& name, float fallback )
 {
     detail::global_deserializer().add_float_property( name );
-    return float_property( name, fallback );
+    return float_property( std::move( name ), fallback );
 }
 

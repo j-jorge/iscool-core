@@ -120,4 +120,16 @@ namespace iscool
     iscool::optional< T > make_optional( T value );
 }
 
+extern template class iscool::optional< bool >;
+extern template class iscool::optional< char >;
+extern template class iscool::optional< unsigned char >;
+extern template class iscool::optional< int >;
+extern template class iscool::optional< unsigned int >;
+extern template class iscool::optional< long >;
+extern template class iscool::optional< unsigned long >;
+extern template class iscool::optional< long long >;
+extern template class iscool::optional< unsigned long long >;
+extern template class iscool::optional< float >;
+extern template class iscool::optional< double >;
+
 #endif

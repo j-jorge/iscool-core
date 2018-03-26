@@ -65,12 +65,13 @@ namespace iscool
                 {
                     explicit internal_slot
                     ( const boost::function< Signature >& f );
-                
+                    ~internal_slot();
+                    
                     boost::function< Signature > callback;
                 };
 
             private:
-                std::vector< std::shared_ptr< internal_slot > > _slots;
+                std::vector< std::shared_ptr< slot > > _slots;
             };
         }
     }

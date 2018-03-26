@@ -37,7 +37,7 @@ namespace iscool
             {
                 template< typename Key, typename... T >
                 static bool run
-                ( const std::tuple< std::map< Key, T >... >& maps );
+                ( const std::tuple< std::unordered_map< Key, T >... >& maps );
             };
         }
     }

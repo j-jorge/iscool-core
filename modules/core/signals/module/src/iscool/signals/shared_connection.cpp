@@ -21,11 +21,13 @@ iscool::signals::shared_connection::shared_connection()
 
 }
 
-iscool::signals::shared_connection::shared_connection( connection c )
+iscool::signals::shared_connection::shared_connection( const connection& c )
     : _connection( std::make_shared< scoped_connection >( c ) )
 {
 
 }
+
+iscool::signals::shared_connection::~shared_connection() = default;
 
 bool iscool::signals::shared_connection::connected() const
 {

@@ -21,9 +21,9 @@
 
 iscool::preferences::bool_property
 iscool::preferences::declare_global_bool_property
-( const std::string& name, bool fallback )
+( std::string&& name, bool fallback )
 {
     detail::global_deserializer().add_bool_property( name );
-    return bool_property( name, fallback );
+    return bool_property( std::move( name ), fallback );
 }
 

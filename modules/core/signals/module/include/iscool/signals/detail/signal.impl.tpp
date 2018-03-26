@@ -36,11 +36,12 @@ template< typename... Arg >
 void
 iscool::signals::detail::signal< Signature >::operator()( Arg&&... arg ) const
 {
-    std::vector< std::shared_ptr< internal_slot > > slots( _slots );
+    std::vector< std::shared_ptr< slot > > slots( _slots );
 
     for( const auto& s : slots )
         if ( s->connected() )
-            s->callback( std::forward< Arg >( arg )... );
+            std::dynamic_pointer_cast< internal_slot >( s )->callback
+                ( std::forward< Arg >( arg )... );
 }
 
 template< typename Signature >
@@ -85,5 +86,9 @@ iscool::signals::detail::signal< Signature >::internal_slot::internal_slot
 {
 
 }
+
+template< typename Signature >
+iscool::signals::detail::signal< Signature >::internal_slot::~internal_slot() =
+    default;
 
 #endif

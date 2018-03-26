@@ -18,24 +18,27 @@
 
 #include "iscool/strings/detail/formatter_bridge.h"
 
-#include <memory>
-
 template< typename... Args >
 std::string iscool::strings::format( const char* pattern, Args... args )
 {
-    const std::unique_ptr
-        <
-            detail::formatter,
-            decltype( &detail::release_formatter )
-        >
-        formatter
-        ( detail::create_formatter( pattern ), &detail::release_formatter );
+    detail::formatter* formatter( detail::create_formatter( pattern ) );
+    
+    try
+    {
+        const int expanded[] =
+            { detail::append_to_formatter< Args >( *formatter, args )... };
+        (void)expanded;
+    }
+    catch( ... )
+    {
+        detail::release_formatter( formatter );
+        throw;
+    }
+    
+    const std::string result( detail::get_formatter_string( *formatter ) );
+    detail::release_formatter( formatter );
 
-    const int expanded[] =
-        { detail::append_to_formatter< Args >( *formatter, args )... };
-    (void)expanded;
-
-    return detail::get_formatter_string( *formatter );
+    return result;
 }
 
 #endif

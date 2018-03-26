@@ -30,6 +30,8 @@ TEST( iscool_containers_heterogeneous_map, string_int )
     map.set( "key", 24 );
     EXPECT_FALSE( map.empty() );
 
+    map.set( "key2", 42 );
+    
     iscool::optional< int > value( map.get< int >( "key" ) );
     EXPECT_TRUE( !!value );
     EXPECT_EQ( 24, *value );
@@ -37,8 +39,12 @@ TEST( iscool_containers_heterogeneous_map, string_int )
     EXPECT_FALSE( !!map.get< int >( "nope" ) );
 
     EXPECT_TRUE( map.has< int >( "key" ) );
+    EXPECT_TRUE( map.has< int >( "key2" ) );
     EXPECT_FALSE( map.has< int >( "nope" ) );
 
+    map.erase< int >( "key2" );
+    EXPECT_FALSE( map.has< int >( "key2" ) );
+    
     map.clear();
     EXPECT_TRUE( map.empty() );
 }
@@ -116,6 +122,7 @@ TEST( iscool_containers_heterogeneous_map, size_t_float )
 
     EXPECT_TRUE( map.empty() );
     map.set( 400, 24.f );
+    map.set( 800, 42.f );
     EXPECT_FALSE( map.empty() );
 
     iscool::optional< float > value( map.get< float >( 400 ) );
@@ -125,8 +132,12 @@ TEST( iscool_containers_heterogeneous_map, size_t_float )
     EXPECT_FALSE( !!map.get< float >( 900 ) );
 
     EXPECT_TRUE( map.has< float >( 400 ) );
+    EXPECT_TRUE( map.has< float >( 800 ) );
     EXPECT_FALSE( map.has< float >( 900 ) );
 
+    map.erase< float >( 800 );
+    EXPECT_FALSE( map.has< float >( 800 ) );
+    
     map.clear();
     EXPECT_TRUE( map.empty() );
 }
@@ -241,6 +252,9 @@ TEST( iscool_containers_heterogeneous_map, string_short_string_char )
     EXPECT_FALSE( map.has< short >( "string" ) );
     EXPECT_FALSE( map.has< short >( "char" ) );
 
+    map.erase< char >( "char" );
+    EXPECT_FALSE( map.has< char >( "char" ) );
+    
     map.clear();
     EXPECT_TRUE( map.empty() );
 }

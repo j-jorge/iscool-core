@@ -30,6 +30,9 @@ namespace iscool
             typedef std::vector< shared_connection > connection_collection;
 
         public:
+            shared_connection_set();
+            ~shared_connection_set();
+            
             void insert( shared_connection c );
             void insert( shared_connection_set that );
 
@@ -41,5 +44,7 @@ namespace iscool
         };
     }
 }
+
+extern template class std::vector< iscool::signals::shared_connection >;
 
 #endif

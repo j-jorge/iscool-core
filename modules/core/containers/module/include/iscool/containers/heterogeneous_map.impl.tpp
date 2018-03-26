@@ -55,6 +55,15 @@ iscool::containers::heterogeneous_map< Key, T... >::get( const Key& key ) const
 }
 
 template< typename Key, typename... T >
+template< typename U >
+void iscool::containers::heterogeneous_map< Key, T... >::erase( const Key& key )
+{
+    auto& map( std::get< meta::type_index< U, T... >::value >( _maps ) );
+
+    map.erase( key );
+}
+
+template< typename Key, typename... T >
 template< typename Visitor >
 void
 iscool::containers::heterogeneous_map< Key, T... >::visit

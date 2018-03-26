@@ -23,3 +23,4 @@ iscool::signals::statistics_data::statistics_data
     
 }
 
+iscool::signals::statistics_data::~statistics_data() = default;

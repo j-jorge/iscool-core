@@ -21,9 +21,9 @@
 
 iscool::preferences::string_property
 iscool::preferences::declare_global_string_property
-( const std::string& name, const std::string& fallback )
+( std::string&& name, std::string&& fallback )
 {
     detail::global_deserializer().add_string_property( name );
-    return string_property( name, fallback );
+    return string_property( std::move( name ), std::move( fallback ) );
 }
 

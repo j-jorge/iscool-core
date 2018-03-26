@@ -23,7 +23,7 @@ namespace iscool
     namespace preferences
     {
         bool_property declare_global_bool_property
-        ( const std::string& name, bool fallback );
+        ( std::string&& name, bool fallback );
     }
 }
 

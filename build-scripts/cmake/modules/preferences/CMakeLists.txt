@@ -9,6 +9,10 @@ declare_iscool_library( NAME preferences
   "declare_global_float_property.cpp"
   "declare_global_int_property.cpp"
   "declare_global_string_property.cpp"
+  "destroy_global_bool_property.cpp"
+  "destroy_global_float_property.cpp"
+  "destroy_global_int_property.cpp"
+  "destroy_global_string_property.cpp"
   "get_global_bool_property.cpp"
   "get_global_float_property.cpp"
   "get_global_int_property.cpp"
@@ -33,6 +37,7 @@ declare_iscool_library( NAME preferences
 
 declare_iscool_library_test( NAME preferences
   FILES
+  "global_properties.cpp"
   "property_deserializer.cpp"
   "store.cpp"
 

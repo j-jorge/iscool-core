@@ -18,7 +18,9 @@ package iscool.system;
 import android.content.Context;
 import android.content.Intent;
 
+import java.util.Calendar;
 import java.util.Locale;
+import java.util.TimeZone;
 
 public class SystemService
 {
@@ -37,6 +39,13 @@ public class SystemService
             return language;
         
         return language.substring( 0, separator );
+    }
+
+    static public long getDeviceTime() {
+
+        return
+            Calendar.getInstance().getTimeInMillis()
+            + TimeZone.getDefault().getRawOffset();
     }
 
     static public void sendToBackground() {
