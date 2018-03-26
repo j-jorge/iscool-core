@@ -27,4 +27,4 @@ install_dependency(
   )
 
 set( MO_FILE_READER_INCLUDE_DIR "${mofilereader_SOURCE_DIR}/include" )
-set( MO_FILE_READER_LIBRARIES "moFileReader.static" )
+set( MO_FILE_READER_LIBRARIES "moFileReader" )
