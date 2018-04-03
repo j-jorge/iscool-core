@@ -24,10 +24,10 @@ declare_iscool_library( NAME json
   "detail/cast_uint.cpp"
 
   INCLUDE
-  ${JSONCPP_INCLUDE_DIR}
+  ${jsoncpp_INCLUDE_DIRS}
   
   LINK
-  ${JSONCPP_LIBRARIES}
+  ${jsoncpp_LIBRARIES}
   iscool_files
   )
 

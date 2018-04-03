@@ -1,10 +1,3 @@
-if( Boost_INCLUDE_DIR )
-  message(
-    "Skipping build for Boost library. Boost_INCLUDE_DIR=${Boost_INCLUDE_DIR}"
-    )
-  return()
-endif()
-
 project( boost-android NONE )
 
 include( DownloadProject )
@@ -19,9 +12,10 @@ download_project(
 
 execute_process(
   COMMAND ${boost-android_SOURCE_DIR}/build-android.sh
-    --with-libraries=filesystem,thread,system,atomic
+    --with-libraries=filesystem,system
     --abi=${CMAKE_ANDROID_ARCH_ABI}
     --boost=${required_boost_version}
+    ${CMAKE_ANDROID_NDK}
   WORKING_DIRECTORY ${boost-android_BINARY_DIR}
 )
 

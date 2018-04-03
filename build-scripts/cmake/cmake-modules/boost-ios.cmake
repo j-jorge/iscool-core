@@ -1,10 +1,3 @@
-if( Boost_INCLUDE_DIR )
-  message(
-    "Skipping build for Boost library. Boost_INCLUDE_DIR=${Boost_INCLUDE_DIR}"
-    )
-  return()
-endif()
-
 project( boost-ios NONE )
 
 include( DownloadProject )
@@ -19,7 +12,7 @@ download_project(
 
 execute_process(
   COMMAND ${boost-ios_SOURCE_DIR}/boost.sh
-    --with-libraries=filesystem,thread,system
+    --with-libraries=filesystem,system
     --arch=${IOS_ARCH}
   WORKING_DIRECTORY ${boost-ios_BINARY_DIR}
 )

@@ -27,6 +27,12 @@ function( declare_iscool_library_test )
 
   add_executable( ${executable_name} ${unit} )
 
+  target_include_directories(
+    ${executable_name}
+    PUBLIC
+    ${google_test_INCLUDE_DIRS}
+    )
+
   iscool_module_test_include_argument( executable_include ${ARG_NAME} )
 
   if( EXISTS ${executable_include} )
@@ -40,8 +46,7 @@ function( declare_iscool_library_test )
   target_link_libraries( ${executable_name}
     iscool_${ARG_NAME}
     ${ARG_LINK}
-    gtest
-    gtest_main
+    ${google_test_LIBRARIES}
     )
 
   add_custom_command( TARGET ${executable_name}

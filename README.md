@@ -27,9 +27,9 @@ A library `modules/core/<library>/` has up to five sub directories:
 
 The build scripts are written in CMake and are available in the `build-scripts/cmake` directory. Shell scripts that launch CMake with the correct arguments for iOS and Android are also available in `build-scripts`.
 
-The libraries depends upon Boost, JsonCpp, and moFileReader. Each of which will be downloaded and compiled during the build unless the variables `Boost_INCLUDE_DIR`, `JSON_CPP_INCLUDE_DIR` or `MO_FILE_READER_INCLUDE DIR` are respectively defined when executing CMake, in which case the library will be searched according to these variables.
+The libraries depends upon Boost, JsonCpp, and moFileReader. Each of which will be downloaded and compiled during the build unless the variables `USE_DEFAULT_BOOST`, `USE_DEFAULT_JSONCPP` or `USE_DEFAULT_MO_FILE_READER` are respectively defined when executing CMake, in which case the library will be searched using CMake's `find_library()`.
 
-The unit tests require gettext to be installed (especially `msgfmt`) on the host. These tests are written using the Google Test framework which is downloaded and compiled during the build. The unit tests can be skipped by defining `ISCOOL_TEST_ENABLED=0` when executing CMake.
+The unit tests require gettext to be installed (especially `msgfmt`) on the host. These tests are written using the Google Test framework which is downloaded and compiled during the build unless `USE_DEFAULT_GOOGLE_TEST` is defined when executing CMake. The unit tests can be skipped by defining `ISCOOL_TEST_ENABLED=0` when executing CMake.
 
 ## License
 

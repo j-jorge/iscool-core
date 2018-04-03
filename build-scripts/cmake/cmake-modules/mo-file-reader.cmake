@@ -1,7 +1,6 @@
-if( MO_FILE_READER_INCLUDE_DIR )
-  message(
-    "Skipping build for MoFileReader library. MO_FILE_READER_INCLUDE_DIR=${MO_FILE_READER_INCLUDE_DIR}"
-    )
+if( USE_DEFAULT_MO_FILE_READER )
+  find_library( MO_FILE_READER_LIBRARIES moFileReader )
+  find_path( MO_FILE_READER_INCLUDE_DIR moFileReader/moFileReader.h )
   return()
 endif()
 

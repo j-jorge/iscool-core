@@ -7,12 +7,9 @@ set( CMAKE_MODULE_PATH "${CMAKE_CURRENT_SOURCE_DIR}/cmake-modules" )
 set( CMAKE_CXX_STANDARD 11 )
 
 include( platform )
+include( boost )
 
-if( TARGET_ANDROID )
-  include( boost-android )
-elseif( TARGET_IOS )
-  include( boost-ios )
-else()
+if( NOT TARGET_ANDROID AND NOT TARGET_IOS )
   set( ISCOOL_TEST_ENABLED 1 )
 endif()
 

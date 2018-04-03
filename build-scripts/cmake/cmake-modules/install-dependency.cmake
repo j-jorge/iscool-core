@@ -15,8 +15,6 @@ function( install_dependency )
     set( exclude ${exclude} PATTERN ${pattern} EXCLUDE )
   endforeach()
   
-  message( "exclude ${exclude}" )
-
   if( ARG_HEADERS )
     install(
       DIRECTORY "${ARG_HEADERS}"

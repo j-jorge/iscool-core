@@ -1,7 +1,6 @@
-if( JSONCPP_INCLUDE_DIR )
-  message(
-    "Skipping build for JsonCpp library. JSONCPP_INCLUDE_DIR=${JSONCPP_INCLUDE_DIR}"
-    )
+if( USE_DEFAULT_JSONCPP )
+  find_library( jsoncpp_LIBRARIES jsoncpp )
+  find_path( jsoncpp_INCLUDE_DIRS json/value.h )
   return()
 endif()
 
@@ -27,5 +26,5 @@ install_dependency(
   EXCLUDE "CMakeLists.txt"
   )
 
-set( JSONCPP_INCLUDE_DIR "${jsoncpp_SOURCE_DIR}/include" )
-set( JSONCPP_LIBRARIES "jsoncpp_lib_static" )
+set( jsoncpp_INCLUDE_DIRS "${jsoncpp_SOURCE_DIR}/include" )
+set( jsoncpp_LIBRARIES "jsoncpp_lib_static" )
