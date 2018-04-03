@@ -158,7 +158,7 @@ void iscool::net::detail::socket::bytes_received
 
 bool iscool::net::detail::socket::read_available_bytes()
 {
-    boost::mutex::scoped_lock lock( _receive_bytes );
+    std::unique_lock< std::mutex > lock( _receive_bytes );
 
     const std::size_t available( _socket->available() );
     const std::unique_ptr< std::uint8_t[] > buffer

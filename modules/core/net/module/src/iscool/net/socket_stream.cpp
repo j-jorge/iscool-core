@@ -27,7 +27,7 @@ iscool::net::socket_stream::socket_stream( const std::string& host )
         ( boost::bind( &socket_stream::queue_bytes, this, _1, _2 ) );
 
     _update_thread =
-        boost::thread( boost::bind( &detail::socket::run, &_socket ) );
+        std::thread( boost::bind( &detail::socket::run, &_socket ) );
 }
 
 iscool::net::socket_stream::~socket_stream()
@@ -51,7 +51,7 @@ void iscool::net::socket_stream::send
 void iscool::net::socket_stream::queue_bytes
 ( const iscool::net::endpoint& target, const byte_array& bytes )
 {
-    const boost::mutex::scoped_lock lock( _queue_access_mutex );
+    const std::unique_lock< std::mutex > lock( _queue_access_mutex );
     _bytes_queue.push_back( queued_bytes{ target, bytes } );
 
     if ( _dispatch_connection.connected() )
@@ -69,7 +69,7 @@ void iscool::net::socket_stream::dispatch_bytes()
     bytes_queue bytes;
     
     {
-        const boost::mutex::scoped_lock lock( _queue_access_mutex );
+        const std::unique_lock< std::mutex > lock( _queue_access_mutex );
 
         bytes.reserve( _bytes_queue.capacity() );
         bytes.swap( _bytes_queue );

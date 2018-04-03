@@ -23,8 +23,9 @@
 
 #include <jni.h>
 
-#include <boost/thread.hpp>
+#include <boost/function/function_fwd.hpp>
 
+#include <mutex>
 #include <vector>
 
 namespace iscool
@@ -42,7 +43,7 @@ namespace iscool
                 template< typename... Args >
                 jlong register_callback
                 ( native_callback_lifespan lifespan,
-                  boost::function< void( Args...) > callback );
+                  const boost::function< void( Args...) >& callback );
 
                 void release_callback( jlong id );
                 
@@ -69,7 +70,7 @@ namespace iscool
 
             private:
                 std::vector< native_callback* > _callbacks;
-                boost::mutex _queue_access_mutex;
+                std::mutex _queue_access_mutex;
                 std::vector< native_call_data > _queue;
                 iscool::signals::scoped_connection _trigger_connection;
             };

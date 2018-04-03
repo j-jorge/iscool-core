@@ -57,7 +57,7 @@ iscool::schedule::detail::delayed_call_manager::schedule_call
 
 void iscool::schedule::detail::delayed_call_manager::clear()
 {
-    boost::recursive_mutex::scoped_lock lock( _mutex );
+    std::unique_lock< std::recursive_mutex > lock( _mutex );
 
     _short_call_cumulated.disconnect_all_slots();
     _short_call_non_cumulated.disconnect_all_slots();
@@ -68,7 +68,7 @@ iscool::signals::connection
 iscool::schedule::detail::delayed_call_manager::schedule_cumulated
 ( iscool::signals::void_signal_function f )
 {
-    boost::recursive_mutex::scoped_lock lock( _mutex );
+    std::unique_lock< std::recursive_mutex > lock( _mutex );
 
     if ( !_in_cumulated_loop && _short_call_cumulated.empty() )
         schedule_client_cumulated();
@@ -80,7 +80,7 @@ iscool::signals::connection
 iscool::schedule::detail::delayed_call_manager::schedule_non_cumulated
 ( iscool::signals::void_signal_function f )
 {
-    boost::recursive_mutex::scoped_lock lock( _mutex );
+    std::unique_lock< std::recursive_mutex > lock( _mutex );
 
     if ( _short_call_non_cumulated.empty() )
         schedule_client_non_cumulated();
@@ -92,7 +92,7 @@ iscool::signals::connection
 iscool::schedule::detail::delayed_call_manager::schedule_delayed
 ( iscool::signals::void_signal_function f, duration delay )
 {
-    boost::recursive_mutex::scoped_lock lock( _mutex );
+    std::unique_lock< std::recursive_mutex > lock( _mutex );
 
     assert( delay.count() > 0 );
 
@@ -162,7 +162,7 @@ void iscool::schedule::detail::delayed_call_manager::trigger
         iscool::signals::void_signal calls;
 
         {
-            boost::recursive_mutex::scoped_lock lock( _mutex );
+            std::unique_lock< std::recursive_mutex > lock( _mutex );
             calls.swap( _pool.get( id ) );
             _pool.release( id );
         }
@@ -215,7 +215,7 @@ void iscool::schedule::detail::delayed_call_manager::trigger_non_cumulated()
     iscool::signals::void_signal calls;
 
     {
-        boost::recursive_mutex::scoped_lock lock( _mutex );
+        std::unique_lock< std::recursive_mutex > lock( _mutex );
         assert( !_client_guard );
         calls.swap( _short_call_non_cumulated );
     }

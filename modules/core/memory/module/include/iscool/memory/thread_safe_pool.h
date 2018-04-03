@@ -18,14 +18,14 @@
 
 #include "iscool/memory/pool.h"
 
-#include <boost/thread/mutex.hpp>
+#include <mutex>
 
 namespace iscool
 {
     namespace memory
     {
         template< typename T >
-        using thread_safe_pool = pool< T, boost::mutex >;
+        using thread_safe_pool = pool< T, std::mutex >;
     }
 }
 

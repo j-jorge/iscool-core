@@ -20,7 +20,8 @@
 #include "iscool/signals/declare_signal.h"
 
 #include <boost/asio/io_service.hpp>
-#include <boost/thread/mutex.hpp>
+
+#include <mutex>
 
 namespace iscool
 {
@@ -78,7 +79,7 @@ namespace iscool
                 endpoint _receive_endpoint;
                 socket_pointer _socket;
 
-                boost::mutex _receive_bytes;
+                std::mutex _receive_bytes;
             };
         }
     }

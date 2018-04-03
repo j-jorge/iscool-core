@@ -23,9 +23,8 @@
 #include "iscool/signals/signal.h"
 #include "iscool/signals/void_signal_function.h"
 
-#include <boost/thread/recursive_mutex.hpp>
-
 #include <chrono>
+#include <mutex>
 
 namespace iscool
 {
@@ -92,7 +91,7 @@ namespace iscool
                 bool _client_guard;
                 bool _in_cumulated_loop;
 
-                boost::recursive_mutex _mutex;
+                std::recursive_mutex _mutex;
             };
         }
     }

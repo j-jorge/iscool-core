@@ -18,7 +18,7 @@
 
 #include "iscool/memory/pool.h"
 
-#include <boost/thread/mutex.hpp>
+#include <mutex>
 
 template< typename T, typename Mutex >
 iscool::memory::pool< T, Mutex >::pool()
@@ -38,7 +38,7 @@ template< typename... Args >
 typename iscool::memory::pool< T, Mutex >::pointer
 iscool::memory::pool< T, Mutex >::construct( Args&&... args )
 {
-    const boost::unique_lock< Mutex > lock( _mutex );
+    const std::unique_lock< Mutex > lock( _mutex );
     
     ++_allocated_count;
     
@@ -51,7 +51,7 @@ iscool::memory::pool< T, Mutex >::construct( Args&&... args )
 template< typename T, typename Mutex >
 void iscool::memory::pool< T, Mutex >::destroy( pointer p )
 {
-    const boost::unique_lock< Mutex > lock( _mutex );
+    const std::unique_lock< Mutex > lock( _mutex );
 
     assert( _allocated_count != 0 );
     --_allocated_count;

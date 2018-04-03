@@ -4,7 +4,7 @@ include( declare-iscool-library )
 include( declare-iscool-library-test )
 
 find_package(
-  Boost ${required_boost_version} REQUIRED COMPONENTS thread system
+  Boost ${required_boost_version} REQUIRED COMPONENTS system
   )
 
 declare_iscool_library( NAME net

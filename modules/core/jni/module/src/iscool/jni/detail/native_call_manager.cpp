@@ -19,6 +19,10 @@
 #include "iscool/jni/detail/get_jni_env.h"
 #include "iscool/schedule/delayed_call.h"
 
+#include <boost/bind.hpp>
+
+#include <mutex>
+
 iscool::jni::detail::native_call_manager::native_call_manager()
 {
     
@@ -39,7 +43,7 @@ void iscool::jni::detail::native_call_manager::release_callback( jlong id )
 {
 #ifndef NDEBUG
     {
-        boost::mutex::scoped_lock lock( _queue_access_mutex );
+        std::unique_lock< std::mutex > lock( _queue_access_mutex );
         for ( const auto& call : _queue )
             assert( call.callback != id );
     }
@@ -57,7 +61,7 @@ void iscool::jni::detail::native_call_manager::release_callback( jlong id )
 void iscool::jni::detail::native_call_manager::call
 ( jlong callback, jobjectArray arguments )
 {
-    boost::mutex::scoped_lock lock( _queue_access_mutex );
+    std::unique_lock< std::mutex > lock( _queue_access_mutex );
     schedule_trigger();
     native_call_data data;
     data.callback = callback;
@@ -69,7 +73,7 @@ void iscool::jni::detail::native_call_manager::trigger_calls()
 {
     std::vector< native_call_data > queue;
     {
-        boost::mutex::scoped_lock lock( _queue_access_mutex );
+        std::unique_lock< std::mutex > lock( _queue_access_mutex );
         std::swap( queue, _queue );
         unschedule_trigger();
     }

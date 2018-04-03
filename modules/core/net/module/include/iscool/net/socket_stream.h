@@ -20,7 +20,8 @@
 #include "iscool/net/detail/socket.h"
 #include "iscool/signals/declare_signal.h"
 
-#include <boost/thread.hpp>
+#include <mutex>
+#include <thread>
 
 namespace iscool
 {
@@ -60,8 +61,8 @@ namespace iscool
             iscool::net::detail::socket _socket;
 
             bytes_queue _bytes_queue;
-            boost::mutex _queue_access_mutex;
-            boost::thread _update_thread;
+            std::mutex _queue_access_mutex;
+            std::thread _update_thread;
 
             iscool::signals::connection _dispatch_connection;
         };

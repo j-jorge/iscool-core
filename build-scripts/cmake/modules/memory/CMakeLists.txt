@@ -3,7 +3,7 @@ project( iscool-memory )
 include( declare-iscool-library )
 
 find_package(
-  Boost ${required_boost_version} REQUIRED COMPONENTS thread system
+  Boost ${required_boost_version} REQUIRED
   )
 
 declare_iscool_interface_library(
@@ -14,7 +14,6 @@ declare_iscool_interface_library(
   
   LINK
   iscool_contract
-  ${Boost_LIBRARIES}
   
   TEST
   "dynamic_pool.cpp"
