@@ -13,15 +13,22 @@
   See the License for the specific language governing permissions and
   limitations under the License.
 */
-#include "iscool/json/parse_stream.h"
+#ifndef ISCOOL_JSON_WRITE_TO_STREAM_H
+#define ISCOOL_JSON_WRITE_TO_STREAM_H
 
-#include "iscool/json/parse_string.h"
+#include <iosfwd>
 
-#include <sstream>
-
-Json::Value iscool::json::parse_stream( std::istream& stream )
+namespace Json
 {
-    std::ostringstream oss;
-    oss << stream.rdbuf();
-    return parse_string( oss.str() );
+    class Value;
 }
+
+namespace iscool
+{
+    namespace json
+    {
+        bool write_to_stream( std::ostream& output, const Json::Value& value );
+    }
+}
+
+#endif

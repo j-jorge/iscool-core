@@ -17,10 +17,9 @@
 
 #include "iscool/preferences/log_context.h"
 
+#include "iscool/json/write_to_stream.h"
 #include "iscool/log/causeless_log.h"
 #include "iscool/log/nature/error.h"
-
-#include "json/writer.h"
 
 #include <fstream>
 
@@ -91,12 +90,10 @@ void iscool::preferences::local_preferences::save( const property_map& dirty )
 {
     detail::copy_all_fields visitor( _values );
     dirty.visit( visitor );
-                
-    Json::FastWriter writer;
-    std::ofstream file( _file_path );
-    file << writer.write( _values );
 
-    if ( file )
+    std::ofstream file( _file_path );
+    
+    if ( iscool::json::write_to_stream( file, _values ) && file )
         _store.confirm_save();
     else
     {

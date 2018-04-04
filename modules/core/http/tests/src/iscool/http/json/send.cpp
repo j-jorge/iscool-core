@@ -20,10 +20,9 @@
 #include "iscool/none.h"
 #include "iscool/optional.h"
 #include "iscool/optional.impl.tpp"
+#include "iscool/json/parse_string.h"
 
-#include "gtest/gtest.h"
-
-#include <json/reader.h>
+#include <gtest/gtest.h>
 
 class json_send_mockup
 {
@@ -190,9 +189,8 @@ TEST( iscool_http_json_send_test, post_result )
     EXPECT_EQ( iscool::http::request::type::post, mockup._request->get_type() );
     EXPECT_EQ( url, mockup._request->get_url() );
 
-    Json::Value request_body;
-    Json::Reader reader;
-    EXPECT_TRUE( reader.parse( mockup._request->get_body(), request_body ) );
+    const Json::Value request_body
+        ( iscool::json::parse_string( mockup._request->get_body() ) );
     EXPECT_TRUE( request_body == body );
 
     const std::vector< std::string > headers( mockup._request->get_headers() );
@@ -218,7 +216,8 @@ TEST( iscool_http_json_send_test, post_result )
     EXPECT_TRUE( content_type_set );
     EXPECT_TRUE( accept_set );
     
-    const Json::Value response( 2.4 );
+    Json::Value response;
+    response[ "value" ] = 2.4;
     
     mockup.dispatch_response( 200, response.toStyledString() );
 

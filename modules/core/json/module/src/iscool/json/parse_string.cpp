@@ -22,16 +22,25 @@
 
 #include <json/reader.h>
 
+#include <memory>
+
 Json::Value iscool::json::parse_string( const std::string& string )
 {
-    Json::Reader reader;
+    Json::CharReaderBuilder builder;
+    builder.strictMode( &builder.settings_ );
+
+    const std::unique_ptr< Json::CharReader > reader( builder.newCharReader() );
+
+    const char* const begin( string.data() );
+    const char* const end( begin + string.size() );
+    
+    std::string errors;
     Json::Value result;
 
-    if ( !reader.parse( string, result ) )
+    if ( !reader->parse( begin, end, &result, &errors ) )
     {
         ic_causeless_log
-            ( iscool::log::nature::error(), log_context(), "%s",
-              reader.getFormattedErrorMessages() );
+            ( iscool::log::nature::error(), log_context(), "%s", errors );
         return Json::nullValue;
     }
 

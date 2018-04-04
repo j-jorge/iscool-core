@@ -13,15 +13,24 @@
   See the License for the specific language governing permissions and
   limitations under the License.
 */
-#include "iscool/json/parse_stream.h"
+#include "iscool/json/write_to_stream.h"
 
-#include "iscool/json/parse_string.h"
+#include <json/writer.h>
 
-#include <sstream>
+#include <memory>
 
-Json::Value iscool::json::parse_stream( std::istream& stream )
+bool iscool::json::write_to_stream
+( std::ostream& output, const Json::Value& value )
 {
-    std::ostringstream oss;
-    oss << stream.rdbuf();
-    return parse_string( oss.str() );
+    Json::StreamWriterBuilder builder;
+    builder[ "commentStyle" ] = "None";
+    builder[ "indentation" ] = "";
+    builder[ "enableYAMLCompatibility" ] = false;
+    builder[ "dropNullPlaceholders" ] = false;
+    builder[ "useSpecialFloats" ] = false;
+    
+    const std::unique_ptr< Json::StreamWriter > writer
+        ( builder.newStreamWriter() );
+
+    return writer->write( value, &output ) == 0;
 }
