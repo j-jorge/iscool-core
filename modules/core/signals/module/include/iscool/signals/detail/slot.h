@@ -45,9 +45,6 @@ extern template
 class std::shared_ptr< iscool::signals::detail::slot >;
 
 extern template
-class std::weak_ptr< iscool::signals::detail::slot >;
-
-extern template
 class std::vector< std::shared_ptr< iscool::signals::detail::slot > >;
 
 #endif

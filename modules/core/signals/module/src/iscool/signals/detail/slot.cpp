@@ -16,7 +16,6 @@
 #include "iscool/signals/detail/slot.h"
 
 template class std::shared_ptr< iscool::signals::detail::slot >;
-template class std::weak_ptr< iscool::signals::detail::slot >;
 template class std::vector< std::shared_ptr< iscool::signals::detail::slot > >;
 
 iscool::signals::detail::slot::slot()

@@ -16,17 +16,14 @@
 #ifndef ISCOOL_SIGNALS_CONNECTION_H
 #define ISCOOL_SIGNALS_CONNECTION_H
 
+#include "iscool/signals/detail/slot.h"
+
 #include <memory>
 
 namespace iscool
 {
     namespace signals
     {
-        namespace detail
-        {
-            class slot;
-        }
-        
         class connection
         {
         public:
