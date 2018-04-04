@@ -83,4 +83,6 @@ function( declare_iscool_interface_library )
     FILES ${ARG_TEST}
     LINK ${ARG_TEST_LINK}
     )
+
+  install( DIRECTORY ${lib_include}/iscool DESTINATION ${header_install_dir} )
 endfunction()
