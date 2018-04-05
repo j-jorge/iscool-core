@@ -22,7 +22,7 @@
 namespace detail
 {
     static const std::chrono::milliseconds lower_bound_per_100_ms( 90 );
-    static const std::chrono::milliseconds upper_bound_per_100_ms( 110 );
+    static const std::chrono::milliseconds upper_bound_per_100_ms( 140 );
 }
 
 TEST( iscool_schedule_scaled_timer, setter )

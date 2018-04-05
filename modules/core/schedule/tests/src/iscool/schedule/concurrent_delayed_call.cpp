@@ -272,7 +272,7 @@ TEST( iscool_schedule_delayed_call, recursive_schedule_from_two_threads )
     iscool::schedule::delayed_call
         ( join_first_thread, std::chrono::milliseconds( 50 ) );
 
-    std::this_thread::sleep_for( std::chrono::milliseconds( 200 ) );
+    std::this_thread::sleep_for( std::chrono::milliseconds( 500 ) );
 
     stop = true;
     scheduler_thread.join();

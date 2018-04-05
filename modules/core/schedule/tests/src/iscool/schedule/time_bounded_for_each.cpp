@@ -80,7 +80,7 @@ TEST_F( iscool_schedule_time_bounded_for_each_test, one_pass )
 
 TEST_F( iscool_schedule_time_bounded_for_each_test, two_passes )
 {
-    const std::vector< std::size_t > values = { 5, 6, 3 };
+    const std::vector< std::size_t > values = { 300, 400, 500 };
     auto f
         ( [ this ]( std::size_t value ) -> void
           {
@@ -88,11 +88,11 @@ TEST_F( iscool_schedule_time_bounded_for_each_test, two_passes )
           } );
     
     iscool::schedule::time_bounded_for_each loop;
-    loop( values.begin(), values.end(), f, std::chrono::milliseconds( 10 ) );
+    loop( values.begin(), values.end(), f, std::chrono::milliseconds( 500 ) );
     sleep( 50 );
     _scheduler.update_interval( std::chrono::milliseconds( 50 ) );
 
-    const std::vector< std::size_t > expected_first_pass = { 5, 6 };
+    const std::vector< std::size_t > expected_first_pass = { 300, 400 };
     EXPECT_EQ( expected_first_pass, _calls );
 
     sleep( 50 );
@@ -136,7 +136,7 @@ TEST_F( iscool_schedule_time_bounded_for_each_test, process_at_least_one )
 
 TEST_F( iscool_schedule_time_bounded_for_each_test, completion_signal )
 {
-    const std::vector< std::size_t > values = { 5, 6, 3 };
+    const std::vector< std::size_t > values = { 200, 400, 500 };
     auto f
         ( [ this ]( std::size_t value ) -> void
           {
@@ -152,7 +152,7 @@ TEST_F( iscool_schedule_time_bounded_for_each_test, completion_signal )
               completed = true;
           } );
 
-    loop( values.begin(), values.end(), f, std::chrono::milliseconds( 10 ) );
+    loop( values.begin(), values.end(), f, std::chrono::milliseconds( 500 ) );
     _scheduler.update_interval( std::chrono::milliseconds( 500 ) );
     EXPECT_FALSE( completed );
 

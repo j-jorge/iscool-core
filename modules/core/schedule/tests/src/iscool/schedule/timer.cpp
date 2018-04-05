@@ -30,8 +30,8 @@ TEST( iscool_schedule_timer, get_duration )
 
     const std::chrono::milliseconds date
         ( timer.get_duration< std::chrono::milliseconds >() );
-    EXPECT_GE( date, std::chrono::milliseconds( 193 ) );
-    EXPECT_LE( date, std::chrono::milliseconds( 207 ) );
+    EXPECT_GE( date, std::chrono::milliseconds( 190 ) );
+    EXPECT_LE( date, std::chrono::milliseconds( 210 ) );
 
     std::this_thread::sleep_for( std::chrono::milliseconds( 100 ) );
     const std::chrono::milliseconds date_in_pause
@@ -45,6 +45,6 @@ TEST( iscool_schedule_timer, get_duration )
 
     const std::chrono::milliseconds date_resumed
         ( timer.get_duration< std::chrono::milliseconds >() );
-    EXPECT_GE( date_resumed - date, std::chrono::milliseconds( 193 ) );
-    EXPECT_LE( date_resumed - date, std::chrono::milliseconds( 207 ) );
+    EXPECT_GE( date_resumed - date, std::chrono::milliseconds( 190 ) );
+    EXPECT_LE( date_resumed - date, std::chrono::milliseconds( 210 ) );
 }
