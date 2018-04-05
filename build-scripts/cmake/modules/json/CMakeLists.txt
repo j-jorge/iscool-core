@@ -4,6 +4,10 @@ include( jsoncpp )
 include( declare-iscool-library )
 include( declare-iscool-library-test )
 
+if( TARGET_ANDROID )
+  set( platform_arguments ANDROID )
+endif()
+
 declare_iscool_library( NAME json
   FILES
   "bad_cast.cpp"
@@ -30,6 +34,8 @@ declare_iscool_library( NAME json
   LINK
   ${jsoncpp_LIBRARIES}
   iscool_files
+
+  ${platform_arguments}
   )
 
 declare_iscool_library_test( NAME json
