@@ -25,7 +25,7 @@
 #include <boost/asio/io_service.hpp>
 #include <boost/asio/ip/udp.hpp>
 
-#include <unistd.h>
+#include <thread>
 
 #include <gtest/gtest.h>
 
@@ -87,10 +87,10 @@ void message_channel_test::server_receive()
 
 void message_channel_test::wait()
 {
-    static constexpr useconds_t milliseconds( 1000 );
-    usleep( 10 * milliseconds );
+    static constexpr std::chrono::milliseconds delay( 10 );
+    std::this_thread::sleep_for( delay );
     
-    _scheduler.update_interval( std::chrono::milliseconds( 10 ) );
+    _scheduler.update_interval( delay );
 }
 
 TEST_F( message_channel_test, constructor_sets_fields )

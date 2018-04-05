@@ -17,9 +17,9 @@
 #include "iscool/schedule/real_clock.h"
 #include "iscool/schedule/setup.h"
 
-#include "gtest/gtest.h"
+#include <thread>
 
-#include <unistd.h>
+#include <gtest/gtest.h>
 
 TEST( iscool_schedule_real_clock, tick )
 {
@@ -36,24 +36,23 @@ TEST( iscool_schedule_real_clock, tick )
               ++calls;
           } );
 
-    static constexpr useconds_t milliseconds( 1000 );
-    usleep( 49 * milliseconds );
+    std::this_thread::sleep_for( std::chrono::milliseconds( 49 ) );
     scheduler.update_interval( std::chrono::milliseconds( 49 ) );
     EXPECT_EQ( 0, calls );
     
-    usleep( 1 * milliseconds );
+    std::this_thread::sleep_for( std::chrono::milliseconds( 1 ) );
     scheduler.update_interval( std::chrono::milliseconds( 1 ) );
     EXPECT_EQ( 1, calls );
     
-    usleep( 50 * milliseconds );
+    std::this_thread::sleep_for( std::chrono::milliseconds( 50 ) );
     scheduler.update_interval( std::chrono::milliseconds( 50 ) );
     EXPECT_EQ( 2, calls );
     
-    usleep( 50 * milliseconds );
+    std::this_thread::sleep_for( std::chrono::milliseconds( 50 ) );
     scheduler.update_interval( std::chrono::milliseconds( 50 ) );
     EXPECT_EQ( 3, calls );
     
-    usleep( 50 * milliseconds );
+    std::this_thread::sleep_for( std::chrono::milliseconds( 50 ) );
     scheduler.update_interval( std::chrono::milliseconds( 50 ) );
     EXPECT_EQ( 4, calls );
 

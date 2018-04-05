@@ -18,9 +18,9 @@
 #include "iscool/schedule/manual_scheduler.h"
 #include "iscool/schedule/setup.h"
 
-#include <unistd.h>
+#include <thread>
 
-#include "gtest/gtest.h"
+#include <gtest/gtest.h>
 
 class iscool_preferences_store_test:
     public ::testing::Test
@@ -74,10 +74,7 @@ iscool_preferences_store_test::~iscool_preferences_store_test()
 void iscool_preferences_store_test::wait( std::chrono::milliseconds delay )
 {
     if ( delay != std::chrono::milliseconds::zero() )
-    {
-        static constexpr useconds_t milliseconds( 1000 );
-        usleep( delay.count() * milliseconds );
-    }
+        std::this_thread::sleep_for( delay );
     
     _scheduler.update_interval( delay );
 }

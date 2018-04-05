@@ -17,9 +17,9 @@
 #include "iscool/schedule/setup.h"
 #include "iscool/schedule/time_bounded_for_each.h"
 
-#include "gtest/gtest.h"
+#include <thread>
 
-#include <unistd.h>
+#include <gtest/gtest.h>
 
 class iscool_schedule_time_bounded_for_each_test:
     public ::testing::Test
@@ -59,8 +59,7 @@ iscool_schedule_time_bounded_for_each_test::process_item( std::size_t value )
 void
 iscool_schedule_time_bounded_for_each_test::sleep( std::size_t milliseconds )
 {
-    static useconds_t ms( 1000 );
-    usleep( milliseconds * ms );
+    std::this_thread::sleep_for( std::chrono::milliseconds( milliseconds ) );
 }
 
 TEST_F( iscool_schedule_time_bounded_for_each_test, one_pass )

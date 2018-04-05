@@ -18,9 +18,8 @@
 #include "iscool/schedule/setup.h"
 
 #include <thread>
-#include <unistd.h>
 
-#include "gtest/gtest.h"
+#include <gtest/gtest.h>
 
 TEST( iscool_schedule_delayed_call, concurrent_calls_delayed )
 {
@@ -36,7 +35,8 @@ TEST( iscool_schedule_delayed_call, concurrent_calls_delayed )
           {
               while ( !stop )
               {
-                  usleep( 10 * milliseconds );
+                  std::this_thread::sleep_for
+                      ( std::chrono::milliseconds( 10 ) );
                   scheduler.update_interval( std::chrono::milliseconds( 10 ) );
               }
           } );
@@ -53,7 +53,10 @@ TEST( iscool_schedule_delayed_call, concurrent_calls_delayed )
         ( [ &start, &test_func ]()
           -> void
           {
-              while ( !start ) usleep( 10 * milliseconds );
+              while ( !start )
+                  std::this_thread::sleep_for
+                      ( std::chrono::milliseconds( 10 ) );
+
               iscool::schedule::delayed_call
                   ( test_func,
                     std::chrono::milliseconds( 50 ) );
@@ -68,7 +71,7 @@ TEST( iscool_schedule_delayed_call, concurrent_calls_delayed )
     for ( std::thread& t : threads )
         t.join();
 
-    usleep( 200 * milliseconds );
+    std::this_thread::sleep_for( std::chrono::milliseconds( 200 ) );
 
     stop = true;
     scheduler_thread.join();
@@ -92,7 +95,9 @@ TEST( iscool_schedule_delayed_call, concurrent_calls_cumulated )
           {
               while ( !stop )
               {
-                  usleep( 10 * milliseconds );
+                  std::this_thread::sleep_for
+                      ( std::chrono::milliseconds( 10 ) );
+                  
                   scheduler.update_interval( std::chrono::milliseconds( 10 ) );
               }
           } );
@@ -117,7 +122,10 @@ TEST( iscool_schedule_delayed_call, concurrent_calls_cumulated )
         ( [ &start, &cumulated_test_func ]()
           -> void
           {
-              while ( !start ) usleep( 10 * milliseconds );
+              while ( !start )
+                  std::this_thread::sleep_for
+                      ( std::chrono::milliseconds( 10 ) );
+
               iscool::schedule::delayed_call
                   ( cumulated_test_func,
                     std::chrono::milliseconds( 50 ) );
@@ -132,7 +140,7 @@ TEST( iscool_schedule_delayed_call, concurrent_calls_cumulated )
     for ( std::thread& t : threads )
         t.join();
 
-    usleep( 200 * milliseconds );
+    std::this_thread::sleep_for( std::chrono::milliseconds( 200 ) );
 
     stop = true;
     scheduler_thread.join();
@@ -156,7 +164,9 @@ TEST( iscool_schedule_delayed_call, concurrent_calls_non_cumulated )
           {
               while ( !stop )
               {
-                  usleep( 10 * milliseconds );
+                  std::this_thread::sleep_for
+                      ( std::chrono::milliseconds( 10 ) );
+
                   scheduler.update_interval( std::chrono::milliseconds( 10 ) );
               }
           } );
@@ -181,7 +191,10 @@ TEST( iscool_schedule_delayed_call, concurrent_calls_non_cumulated )
         ( [ &start, &non_cumulated_test_func ]()
           -> void
           {
-              while ( !start ) usleep( 10 * milliseconds );
+              while ( !start )
+                  std::this_thread::sleep_for
+                      ( std::chrono::milliseconds( 10 ) );
+
               iscool::schedule::delayed_call
                   ( non_cumulated_test_func,
                     std::chrono::milliseconds( 50 ) );
@@ -196,7 +209,7 @@ TEST( iscool_schedule_delayed_call, concurrent_calls_non_cumulated )
     for ( std::thread& t : threads )
         t.join();
 
-    usleep( 200 * milliseconds );
+    std::this_thread::sleep_for( std::chrono::milliseconds( 200 ) );
 
     stop = true;
     scheduler_thread.join();
@@ -220,7 +233,9 @@ TEST( iscool_schedule_delayed_call, recursive_schedule_from_two_threads )
           {
               while ( !stop )
               {
-                  usleep( 10 * milliseconds );
+                  std::this_thread::sleep_for
+                      ( std::chrono::milliseconds( 10 ) );
+
                   scheduler.update_interval( std::chrono::milliseconds( 10 ) );
               }
           } );
@@ -238,7 +253,8 @@ TEST( iscool_schedule_delayed_call, recursive_schedule_from_two_threads )
         ( [ &schedule_in_first_thread, &test_func ]() -> void
           {
               while ( !schedule_in_first_thread )
-                  usleep( 10 * milliseconds );
+                  std::this_thread::sleep_for
+                      ( std::chrono::milliseconds( 10 ) );
 
               iscool::schedule::delayed_call
                   ( test_func,
@@ -256,7 +272,7 @@ TEST( iscool_schedule_delayed_call, recursive_schedule_from_two_threads )
     iscool::schedule::delayed_call
         ( join_first_thread, std::chrono::milliseconds( 50 ) );
 
-    usleep( 200 * milliseconds );
+    std::this_thread::sleep_for( std::chrono::milliseconds( 200 ) );
 
     stop = true;
     scheduler_thread.join();

@@ -15,9 +15,9 @@
 */
 #include "iscool/schedule/timer.h"
 
-#include "gtest/gtest.h"
+#include <thread>
 
-#include <unistd.h>
+#include <gtest/gtest.h>
 
 TEST( iscool_schedule_timer, get_duration )
 {
@@ -25,7 +25,7 @@ TEST( iscool_schedule_timer, get_duration )
     static constexpr useconds_t milliseconds( 1000 );
 
     timer.resume();
-    usleep( 200 * milliseconds );
+    std::this_thread::sleep_for( std::chrono::milliseconds( 200 ) );
     timer.pause();
 
     const std::chrono::milliseconds date
@@ -33,13 +33,13 @@ TEST( iscool_schedule_timer, get_duration )
     EXPECT_GE( date, std::chrono::milliseconds( 193 ) );
     EXPECT_LE( date, std::chrono::milliseconds( 207 ) );
 
-    usleep( 100 * milliseconds );
+    std::this_thread::sleep_for( std::chrono::milliseconds( 100 ) );
     const std::chrono::milliseconds date_in_pause
         ( timer.get_duration< std::chrono::milliseconds >() );
     EXPECT_EQ( date, date_in_pause );
 
     timer.resume();
-    usleep( 200 * milliseconds );
+    std::this_thread::sleep_for( std::chrono::milliseconds( 200 ) );
 
     timer.pause();
 

@@ -58,10 +58,7 @@ iscool_schedule_worker_test::~iscool_schedule_worker_test()
 void iscool_schedule_worker_test::wait( std::chrono::milliseconds delay )
 {
     if ( delay != std::chrono::milliseconds::zero() )
-    {
-        static constexpr useconds_t milliseconds( 1000 );
-        usleep( delay.count() * milliseconds );
-    }
+        std::this_thread::sleep_for( delay );
     
     _scheduler.update_interval( delay );
 }

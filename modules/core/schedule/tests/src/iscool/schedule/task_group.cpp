@@ -19,7 +19,7 @@
 #include "iscool/schedule/task_group.h"
 #include "iscool/schedule/task_group.impl.tpp"
 
-#include <unistd.h>
+#include <thread>
 
 #include "iscool/schedule/test/observable_task.h"
 #include "iscool/schedule/test/task_activity_report.h"
@@ -52,10 +52,7 @@ iscool_schedule_task_group_test::~iscool_schedule_task_group_test()
 void iscool_schedule_task_group_test::wait( std::chrono::milliseconds delay )
 {
     if ( delay != std::chrono::milliseconds::zero() )
-    {
-        static constexpr useconds_t milliseconds( 1000 );
-        usleep( delay.count() * milliseconds );
-    }
+        std::this_thread::sleep_for( delay );
     
     _scheduler.update_interval( delay );
 }

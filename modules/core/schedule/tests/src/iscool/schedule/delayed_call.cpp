@@ -397,8 +397,7 @@ TEST( iscool_schedule_delayed_call, cumulated_after_delay )
     iscool::schedule::delayed_call
         ( first_call, std::chrono::milliseconds( 10 ) );
     
-    static constexpr useconds_t milliseconds( 1000 );
-    usleep( 10 * milliseconds );
+    std::this_thread::sleep_for( std::chrono::milliseconds( 10 ) );
     
     EXPECT_FALSE( calls.empty() );
     calls[ 0 ]();

@@ -18,6 +18,8 @@
 
 #include "iscool/time/now.h"
 
+#include <thread>
+
 #include "iscool/test/equal_collections.h"
 #include "iscool/test/no_crash.h"
 
@@ -112,8 +114,7 @@ TEST( iscool_profile, scoped_profiler_duration )
         ( iscool::time::now<std::chrono::milliseconds>() );
     {
         iscool::profile::scoped_profiler profiler( "name" );
-        static constexpr useconds_t milliseconds( 1000 );
-        usleep( 20 * milliseconds );
+        std::this_thread::sleep_for( std::chrono::milliseconds( 20 ) );
     }
     const std::chrono::milliseconds end
         ( iscool::time::now<std::chrono::milliseconds>() );

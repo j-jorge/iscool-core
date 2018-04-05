@@ -15,14 +15,14 @@
 */
 #include "iscool/schedule/scaled_timer.h"
 
-#include "gtest/gtest.h"
+#include <thread>
 
-#include <unistd.h>
+#include <gtest/gtest.h>
 
 namespace detail
 {
-    static const std::chrono::milliseconds lower_bound_per_100_ms( 96 );
-    static const std::chrono::milliseconds upper_bound_per_100_ms( 104 );
+    static const std::chrono::milliseconds lower_bound_per_100_ms( 90 );
+    static const std::chrono::milliseconds upper_bound_per_100_ms( 110 );
 }
 
 TEST( iscool_schedule_scaled_timer, setter )
@@ -38,10 +38,9 @@ TEST( iscool_schedule_scaled_timer, setter )
 TEST( iscool_schedule_scaled_timer, get_duration_no_scale )
 {
     iscool::schedule::scaled_timer timer;
-    static constexpr useconds_t milliseconds( 1000 );
 
     timer.resume();
-    usleep( 200 * milliseconds );
+    std::this_thread::sleep_for( std::chrono::milliseconds( 200 ) );
     timer.pause();
 
     const std::chrono::milliseconds date
@@ -49,13 +48,13 @@ TEST( iscool_schedule_scaled_timer, get_duration_no_scale )
     EXPECT_GE( date, 2 * detail::lower_bound_per_100_ms );
     EXPECT_LE( date, 2 * detail::upper_bound_per_100_ms );
 
-    usleep( 100 * milliseconds );
+    std::this_thread::sleep_for( std::chrono::milliseconds( 100 ) );
     const std::chrono::milliseconds date_in_pause
         ( timer.get_duration< std::chrono::milliseconds >() );
     EXPECT_EQ( date, date_in_pause );
 
     timer.resume();
-    usleep( 200 * milliseconds );
+    std::this_thread::sleep_for( std::chrono::milliseconds( 200 ) );
 
     timer.pause();
 
@@ -68,11 +67,10 @@ TEST( iscool_schedule_scaled_timer, get_duration_no_scale )
 TEST( iscool_schedule_scaled_timer, get_duration_doubled )
 {
     iscool::schedule::scaled_timer timer;
-    static constexpr useconds_t milliseconds( 1000 );
 
     timer.set_scale( 2 );
     timer.resume();
-    usleep( 200 * milliseconds );
+    std::this_thread::sleep_for( std::chrono::milliseconds( 200 ) );
     timer.pause();
 
     const std::chrono::milliseconds date
@@ -80,13 +78,13 @@ TEST( iscool_schedule_scaled_timer, get_duration_doubled )
     EXPECT_GE( date, 4 * detail::lower_bound_per_100_ms );
     EXPECT_LE( date, 4 * detail::upper_bound_per_100_ms );
 
-    usleep( 100 * milliseconds );
+    std::this_thread::sleep_for( std::chrono::milliseconds( 100 ) );
     const std::chrono::milliseconds date_in_pause
         ( timer.get_duration< std::chrono::milliseconds >() );
     EXPECT_EQ( date, date_in_pause );
 
     timer.resume();
-    usleep( 200 * milliseconds );
+    std::this_thread::sleep_for( std::chrono::milliseconds( 200 ) );
 
     timer.pause();
 
@@ -99,10 +97,9 @@ TEST( iscool_schedule_scaled_timer, get_duration_doubled )
 TEST( iscool_schedule_scaled_timer, get_duration_multiple_scales )
 {
     iscool::schedule::scaled_timer timer;
-    static constexpr useconds_t milliseconds( 1000 );
 
     timer.resume();
-    usleep( 200 * milliseconds );
+    std::this_thread::sleep_for( std::chrono::milliseconds( 200 ) );
     timer.pause();
 
     const std::chrono::milliseconds date_step_1
@@ -113,7 +110,7 @@ TEST( iscool_schedule_scaled_timer, get_duration_multiple_scales )
     timer.set_scale( 0.5 );
 
     timer.resume();
-    usleep( 100 * milliseconds );
+    std::this_thread::sleep_for( std::chrono::milliseconds( 100 ) );
     timer.pause();
 
     const std::chrono::milliseconds date_step_2
@@ -124,7 +121,7 @@ TEST( iscool_schedule_scaled_timer, get_duration_multiple_scales )
     timer.set_scale( 2 );
 
     timer.resume();
-    usleep( 100 * milliseconds );
+    std::this_thread::sleep_for( std::chrono::milliseconds( 100 ) );
     timer.pause();
 
     const std::chrono::milliseconds date_step_3
