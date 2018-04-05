@@ -8,7 +8,8 @@ SOURCE_ROOT="$PWD/.."
 mkdir -p "${SOURCE_ROOT}/build/android"
 cd "${SOURCE_ROOT}/build/android"
 
-: ${ANDROID_VERSION:=21}
+: ${ANDROID_VERSION:=26}
+: ${ANDROID_BUILD_TOOLS_VERSION:=26.0.2}
 : ${ANDROID_ABI:=armeabi-v7a}
 : ${ANDROID_STL:=gnustl_static}
 : ${ANDROID_INSTALL_PREFIX:="${SOURCE_ROOT}/install/android"}

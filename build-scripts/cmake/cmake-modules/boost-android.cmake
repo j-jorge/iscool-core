@@ -6,7 +6,7 @@ include( install-dependency )
 download_project(
   PROJ boost-android
   GIT_REPOSITORY https://github.com/j-jorge/Boost-for-Android.git
-  GIT_TAG master
+  GIT_TAG "1.58.0-10e"
   UPDATE_DISCONNECTED 1
   )
 
