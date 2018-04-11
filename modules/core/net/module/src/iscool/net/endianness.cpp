@@ -36,6 +36,12 @@
 
 #else
   #include <endian.h>
+
+  #ifndef be16toh
+    #define be16toh(x) betoh16(x)
+    #define be32toh(x) betoh32(x)
+    #define be64toh(x) betoh64(x)
+  #endif
 #endif
 
 std::uint8_t iscool::net::to_host_endianness( std::uint8_t value )
