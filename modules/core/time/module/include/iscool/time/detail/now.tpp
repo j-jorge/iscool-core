@@ -22,7 +22,7 @@ template<typename Duration>
 Duration iscool::time::now()
 {
     return std::chrono::duration_cast< Duration >
-        ( std::chrono::steady_clock::now().time_since_epoch() );
+        ( std::chrono::system_clock::now().time_since_epoch() );
 }
 
 #endif
