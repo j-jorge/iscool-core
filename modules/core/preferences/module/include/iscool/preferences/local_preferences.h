@@ -18,19 +18,40 @@
 
 #include "iscool/preferences/store.h"
 
-#include "json/value.h"
+#include <json/value.h>
+
+#include <condition_variable>
+#include <mutex>
+#include <thread>
 
 namespace iscool
 {
     namespace preferences
     {
+        namespace detail
+        {
+            struct backup_state
+            {
+                std::condition_variable ready_condition;
+                std::mutex mutex;
+                bool quit;
+                bool available;
+            };
+        }
+        
         class local_preferences
         {
         public:
             local_preferences
             ( const std::chrono::milliseconds& flush_delay,
               const std::string& file_path );
-
+            local_preferences
+            ( const std::chrono::milliseconds& flush_delay,
+              const std::string& file_path,
+              const std::string& backup_extension_format,
+              std::size_t backup_count );
+            ~local_preferences();
+            
             void flush();
             
             int get_value( const std::string& key, int default_value ) const;
@@ -48,8 +69,13 @@ namespace iscool
 
         private:
             const std::string _file_path;
+            const std::string _backup_extension_format;
+            
             Json::Value _values;
             store _store;
+
+            detail::backup_state _backup_thread_state;
+            std::thread _backup_thread;
         };
     }
 }
