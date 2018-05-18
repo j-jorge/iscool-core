@@ -15,4 +15,5 @@
 */
 #include "iscool/files/detail/system_delegates.h"
 
-iscool::files::file_system_delegates iscool::files::detail::system_delegates;
+const iscool::files::file_system_delegates*
+iscool::files::detail::system_delegates( nullptr );

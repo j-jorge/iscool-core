@@ -24,7 +24,7 @@ namespace iscool
     {
         namespace detail
         {
-            extern file_system_delegates system_delegates;
+            extern const file_system_delegates* system_delegates;
         }
     }
 }

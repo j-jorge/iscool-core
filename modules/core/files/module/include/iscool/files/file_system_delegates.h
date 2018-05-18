@@ -16,9 +16,8 @@
 #ifndef ISCOOL_FILES_FILE_SYSTEM_DELEGATES_H
 #define ISCOOL_FILES_FILE_SYSTEM_DELEGATES_H
 
-#include <boost/function.hpp>
 #include <memory>
-#include <iostream>
+#include <iosfwd>
 
 namespace iscool
 {
@@ -27,19 +26,14 @@ namespace iscool
         class file_system_delegates
         {
         public:
-            bool is_valid() const;
-
-        public:
-            boost::function
-            <
-                std::unique_ptr< std::istream >( const std::string& )
-            > read_file;
+            virtual ~file_system_delegates() {}
             
-            boost::function< std::string() > get_writable_path;
+            virtual std::unique_ptr< std::istream > read_file
+            ( const std::string& ) const = 0;
             
-            boost::function< bool( const std::string& ) > create_directories;
-            boost::function< bool( const std::string& ) > file_exists;
-            boost::function< std::string( const std::string& ) > get_full_path;
+            virtual std::string get_writable_path() const = 0;
+            virtual bool file_exists( const std::string& ) const = 0;
+            virtual std::string get_full_path( const std::string& ) const = 0;
         };
     }
 }

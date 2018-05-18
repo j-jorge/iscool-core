@@ -19,6 +19,6 @@
 
 bool iscool::files::file_exists( const std::string& path )
 {
-    assert( detail::system_delegates.is_valid() );
-    return detail::system_delegates.file_exists( path );
+    assert( detail::system_delegates != nullptr );
+    return detail::system_delegates->file_exists( path );
 }

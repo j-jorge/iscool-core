@@ -20,6 +20,6 @@
 std::unique_ptr< std::istream >
 iscool::files::read_file( const std::string& path )
 {
-    assert( detail::system_delegates.is_valid() );
-    return detail::system_delegates.read_file( path );
+    assert( detail::system_delegates != nullptr );
+    return detail::system_delegates->read_file( path );
 }
