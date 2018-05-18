@@ -10,6 +10,7 @@ find_package(
 declare_iscool_library( NAME files
   FILES
   "boost_delegates.cpp"
+  "copy_file.cpp"
   "create_directories.cpp"
   "delete_directory.cpp"
   "delete_file.cpp"
@@ -20,6 +21,7 @@ declare_iscool_library( NAME files
   "get_writable_path.cpp"
   "log_context.cpp"
   "read_file.cpp"
+  "rename_file.cpp"
   "setup.cpp"
   "detail/system_delegates.cpp"
   
