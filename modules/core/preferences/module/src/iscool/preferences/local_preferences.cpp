@@ -15,11 +15,16 @@
 */
 #include "iscool/preferences/local_preferences.h"
 
-#include "iscool/preferences/log_context.h"
-
 #include "iscool/json/write_to_stream.h"
+#include "iscool/files/file_exists.h"
+#include "iscool/json/from_file.h"
 #include "iscool/log/causeless_log.h"
 #include "iscool/log/nature/error.h"
+#include "iscool/preferences/log_context.h"
+#include "iscool/preferences/store.impl.tpp"
+#include "iscool/preferences/detail/local_preferences_from_json.h"
+
+#include <boost/bind.hpp>
 
 #include <fstream>
 
@@ -42,6 +47,20 @@ namespace iscool
             };
         }
     }
+}
+
+iscool::preferences::local_preferences::local_preferences
+( const std::chrono::milliseconds& flush_delay, const std::string& file_path )
+    : _file_path( file_path ),
+      _values
+      ( iscool::files::file_exists( _file_path )
+        ? iscool::json::from_file( _file_path )
+        : Json::Value() ),
+      _store
+      ( flush_delay, detail::local_preferences_from_json( _values ),
+        boost::bind( &local_preferences::save, this, _1 ) )
+{
+    
 }
 
 void iscool::preferences::local_preferences::flush()

@@ -42,6 +42,17 @@ namespace iscool
     }
 }
 
+iscool::preferences::store::store
+( const std::chrono::milliseconds& flush_delay,
+  const property_map& initial_values,
+  const save_function& save_delegate )
+    : _flush_delay( flush_delay ),
+      _preferences( initial_values ),
+      _save_delegate( save_delegate )
+{
+
+}
+
 bool iscool::preferences::store::is_dirty() const
 {
     return !_pending_changes.empty() || !_dirty.empty();

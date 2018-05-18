@@ -18,18 +18,6 @@
 
 #include "iscool/preferences/property_map.impl.h"
 
-template< typename Rep, typename Period >
-iscool::preferences::store::store
-( const std::chrono::duration< Rep, Period >& flush_delay,
-  const property_map& initial_values,
-  const save_function& save_delegate )
-    : _flush_delay( flush_delay ),
-      _preferences( initial_values ),
-      _save_delegate( save_delegate )
-{
-
-}
-
 template< typename T >
 void
 iscool::preferences::store::set_value( const std::string& key, const T& value )

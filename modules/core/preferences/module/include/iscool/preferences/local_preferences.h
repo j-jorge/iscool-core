@@ -27,9 +27,8 @@ namespace iscool
         class local_preferences
         {
         public:
-            template< typename Rep, typename Period >
             local_preferences
-            ( const std::chrono::duration< Rep, Period >& flush_delay,
+            ( const std::chrono::milliseconds& flush_delay,
               const std::string& file_path );
 
             void flush();
@@ -54,7 +53,5 @@ namespace iscool
         };
     }
 }
-
-#include "iscool/preferences/detail/local_preferences.tpp"
 
 #endif

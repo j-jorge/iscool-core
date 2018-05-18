@@ -33,9 +33,8 @@ namespace iscool
             boost::function< void( const property_map& ) > save_function;
             
         public:
-            template< typename Rep, typename Period >
-            explicit store
-            ( const std::chrono::duration< Rep, Period >& flush_delay,
+            store
+            ( const std::chrono::milliseconds& flush_delay,
               const property_map& initial_values,
               const save_function& save_delegate );
 
@@ -68,7 +67,5 @@ namespace iscool
         };
     }
 }
-
-#include "iscool/preferences/detail/store.tpp"
 
 #endif
