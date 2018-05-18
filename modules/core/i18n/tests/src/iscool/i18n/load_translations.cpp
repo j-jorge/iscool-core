@@ -20,6 +20,8 @@
 #include "iscool/files/read_file.h"
 #include "iscool/files/setup.h"
 
+#include "iscool/files/test/file_system_delegates_mockup.h"
+
 #include <fstream>
 
 #include <gtest/gtest.h>
@@ -34,39 +36,8 @@ public:
 
 iscool_i18n_test::iscool_i18n_test()
 {
-    iscool::files::file_system_delegates delegates;
-
-    delegates.read_file =
-        []( const std::string& path ) -> std::unique_ptr< std::istream >
-        {
-            return std::unique_ptr< std::istream >( new std::ifstream( path ) );
-        };
-
-    delegates.get_writable_path =
-        []() -> std::string
-        {
-            return "/tmp/";
-        };
-
-    delegates.create_directories =
-        []( const std::string& path ) -> bool
-        {
-            return false;
-        };
-
-    delegates.file_exists =
-        []( const std::string& path ) -> bool
-        {
-            return false;
-        };
-
-    delegates.get_full_path =
-        []( const std::string& path ) -> std::string
-        {
-            return path;
-        };
-
-    iscool::files::initialize( delegates );
+    iscool::files::initialize
+        ( iscool::files::test::default_file_system_delegates_mockup() );
 }
 
 iscool_i18n_test::~iscool_i18n_test()

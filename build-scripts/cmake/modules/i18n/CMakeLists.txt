@@ -30,6 +30,9 @@ declare_iscool_library_test( NAME i18n
   "load_translations.cpp"
   "numeric.cpp"
   "relative_past_duration.cpp"
+
+  LINK
+  iscool_files_testing
   )
 
 if( TARGET iscool_i18n_test )

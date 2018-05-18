@@ -19,13 +19,12 @@
 
 void iscool::files::initialize( const file_system_delegates& delegates )
 {
-    assert( !detail::system_delegates.is_valid() );
-    assert( delegates.is_valid() );
+    assert( detail::system_delegates == nullptr );
     
-    detail::system_delegates = delegates;
+    detail::system_delegates = &delegates;
 }
 
 void iscool::files::finalize()
 {
-    detail::system_delegates = file_system_delegates();
+    detail::system_delegates = nullptr;
 }

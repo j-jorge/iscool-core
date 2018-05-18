@@ -21,7 +21,7 @@
 #include "iscool/files/setup.h"
 
 #include "iscool/audio/test/platform_mixer_mockup.h"
-#include "iscool/files/test/empty_file_delegates.h"
+#include "iscool/files/test/file_system_delegates_mockup.h"
 
 #include <gtest/gtest.h>
 
@@ -36,10 +36,11 @@ protected:
     static const std::string _resources_path;
     static const std::string _resources_extension;
 
+    iscool::files::test::file_system_delegates_mockup _delegates;
+    
     iscool::audio::tests::platform_mixer_mockup _implementation;
     iscool::audio::mixer _mixer;
 };
-
 
 const std::string
 iscool_audio_default_effect_player_test::_resources_path( "test" );
@@ -52,17 +53,14 @@ iscool_audio_default_effect_player_test::iscool_audio_default_effect_player_test
       ( iscool::resources::resolver( _resources_path, _resources_extension ), 3,
         _implementation )
 {
-    iscool::files::file_system_delegates delegates
-        ( iscool::files::test::create_empty_delegates() );
-
-    delegates.file_exists =
+    _delegates.file_exists_impl =
         []( const std::string& path ) -> bool
         {
             return path !=
                 _resources_path + "does-not-exist" + _resources_extension;
         };
     
-    iscool::files::initialize( delegates );
+    iscool::files::initialize( _delegates );
 
     iscool::audio::set_default_mixer( _mixer );
 }

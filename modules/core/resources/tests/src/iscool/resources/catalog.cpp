@@ -17,14 +17,15 @@
 
 #include "iscool/files/setup.h"
 
-#include "iscool/files/test/empty_file_delegates.h"
+#include "iscool/files/test/file_system_delegates_mockup.h"
 #include "iscool/test/equal_collections.h"
 
 #include "gtest/gtest.h"
 
 TEST( iscool_resources_catalog, texture )
 {
-    iscool::files::initialize( iscool::files::test::create_empty_delegates() );
+    iscool::files::initialize
+        ( iscool::files::test::file_system_delegates_mockup() );
 
     const std::vector< std::string > textures
         {
@@ -65,9 +66,9 @@ TEST( iscool_resources_catalog, texture )
 
 TEST( iscool_resources_catalog, skeleton )
 {
-    iscool::files::file_system_delegates delegates
-        ( iscool::files::test::create_empty_delegates() );
-    delegates.file_exists =
+    iscool::files::test::file_system_delegates_mockup delegates;
+
+    delegates.file_exists_impl =
         []( const std::string& s ) -> bool
     {
         return ( s == "texture.json" ) || ( s == "texture.atlas" );
@@ -94,9 +95,9 @@ TEST( iscool_resources_catalog, skeleton )
 
 TEST( iscool_resources_catalog, sprite_sheet )
 {
-    iscool::files::file_system_delegates delegates
-        ( iscool::files::test::create_empty_delegates() );
-    delegates.file_exists =
+    iscool::files::test::file_system_delegates_mockup delegates;
+
+    delegates.file_exists_impl =
         []( const std::string& s ) -> bool
     {
         return s == "texture.plist";
@@ -124,9 +125,9 @@ TEST( iscool_resources_catalog, sprite_sheet )
 
 TEST( iscool_resources_catalog, insert )
 {
-    iscool::files::file_system_delegates delegates
-        ( iscool::files::test::create_empty_delegates() );
-    delegates.file_exists =
+    iscool::files::test::file_system_delegates_mockup delegates;
+
+    delegates.file_exists_impl =
         []( const std::string& s ) -> bool
         {
             return

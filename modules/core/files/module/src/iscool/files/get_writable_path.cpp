@@ -19,6 +19,6 @@
 
 std::string iscool::files::get_writable_path()
 {
-    assert( detail::system_delegates.is_valid() );
-    return detail::system_delegates.get_writable_path();
+    assert( detail::system_delegates != nullptr );
+    return detail::system_delegates->get_writable_path();
 }

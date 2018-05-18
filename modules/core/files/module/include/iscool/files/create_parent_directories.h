@@ -13,8 +13,8 @@
   See the License for the specific language governing permissions and
   limitations under the License.
 */
-#ifndef ISCOOL_FILES_CREATE_DIRECTORIES_H
-#define ISCOOL_FILES_CREATE_DIRECTORIES_H
+#ifndef ISCOOL_FILES_CREATE_PARENT_DIRECTORIES_H
+#define ISCOOL_FILES_CREATE_PARENT_DIRECTORIES_H
 
 #include <string>
 
@@ -22,7 +22,7 @@ namespace iscool
 {
     namespace files
     {
-        bool create_directories( const std::string& path );
+        bool create_parent_directories( const std::string& path );
     }
 }
 

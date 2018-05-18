@@ -19,7 +19,7 @@
 #include "iscool/json/bad_cast.h"
 #include "iscool/json/parse_string.h"
 
-#include "iscool/files/test/empty_file_delegates.h"
+#include "iscool/files/test/file_system_delegates_mockup.h"
 #include "iscool/test/equal_collections.h"
 
 #include "gtest/gtest.h"
@@ -35,9 +35,9 @@ TEST( iscool_resources_catalog_json, to_catalog )
         "  \"styles\": [ \"style.json\", \"style-b.json\" ]"
         "}";
     
-    iscool::files::file_system_delegates delegates
-        ( iscool::files::test::create_empty_delegates() );
-    delegates.file_exists =
+    iscool::files::test::file_system_delegates_mockup delegates;
+    
+    delegates.file_exists_impl =
         []( const std::string& s ) -> bool
     {
         return
@@ -109,7 +109,8 @@ TEST( iscool_resources_catalog_json, to_catalog_empty )
         "  \"textures\": []"
         "}";
     
-    iscool::files::initialize( iscool::files::test::create_empty_delegates() );
+    iscool::files::initialize
+        ( iscool::files::test::default_file_system_delegates_mockup() );
 
     const iscool::resources::catalog catalog
         ( iscool::resources::json::to_catalog
@@ -135,7 +136,8 @@ TEST( iscool_resources_catalog_json, to_catalog_fail )
         "  \"styles\": [ \"style.json\", \"style-b.json\" ]"
         "}";
     
-    iscool::files::initialize( iscool::files::test::create_empty_delegates() );
+    iscool::files::initialize
+        ( iscool::files::test::default_file_system_delegates_mockup() );
 
     EXPECT_THROW
         ( iscool::resources::json::to_catalog
@@ -147,7 +149,8 @@ TEST( iscool_resources_catalog_json, to_catalog_fail )
 
 TEST( iscool_resources_catalog_json, to_catalog_fail_general )
 {
-    iscool::files::initialize( iscool::files::test::create_empty_delegates() );
+    iscool::files::initialize
+        ( iscool::files::test::default_file_system_delegates_mockup() );
 
     EXPECT_THROW
         ( iscool::resources::json::to_catalog( Json::Value() ),

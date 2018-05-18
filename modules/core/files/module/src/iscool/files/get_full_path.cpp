@@ -19,6 +19,6 @@
 
 std::string iscool::files::get_full_path( const std::string& path )
 {
-    assert( detail::system_delegates.is_valid() );
-    return detail::system_delegates.get_full_path( path );
+    assert( detail::system_delegates != nullptr );
+    return detail::system_delegates->get_full_path( path );
 }
