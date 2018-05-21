@@ -3,6 +3,10 @@ project( iscool-log )
 include( declare-iscool-library )
 include( declare-iscool-library-test )
 
+if( NOT TARGET_IOS AND NOT TARGET_ANDROID )
+  set( iscool_log_definitions ISCOOL_LOG_PRETTY_PRINT=1 )
+endif()
+
 declare_iscool_library( NAME log
   FILES
   "context.cpp"
@@ -23,6 +27,9 @@ declare_iscool_library( NAME log
   iscool_core
   iscool_error
   iscool_strings
+
+  DEFINITIONS
+  ${iscool_log_definitions}
   )
 
 declare_iscool_library_test( NAME log
