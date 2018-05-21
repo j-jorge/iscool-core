@@ -27,8 +27,8 @@ function( declare_iscool_library )
   target_include_directories(
     ${lib_name}
     PUBLIC
-    "${lib_include}"
-    ${ARG_INCLUDE}
+    $<BUILD_INTERFACE:${lib_include}>
+    $<BUILD_INTERFACE:${ARG_INCLUDE}>
     )
 
   if( ARG_LINK )
@@ -55,7 +55,12 @@ function( declare_iscool_library )
   endif()
   
   install( DIRECTORY ${lib_include}/iscool DESTINATION ${header_install_dir} )
-  install( TARGETS ${lib_name} DESTINATION ${library_install_dir} )
+
+  install(
+    TARGETS ${lib_name}
+    DESTINATION ${library_install_dir}
+    ${iscool_core_export}
+    )
 endfunction()
 
 function( declare_iscool_interface_library )
@@ -75,8 +80,8 @@ function( declare_iscool_interface_library )
   target_include_directories(
     ${lib_name}
     INTERFACE
-    ${lib_include}
-    ${ARG_INCLUDE}
+    $<BUILD_INTERFACE:${lib_include}>
+    $<BUILD_INTERFACE:${ARG_INCLUDE}>
     )
   
   if( ARG_LINK )
@@ -94,4 +99,9 @@ function( declare_iscool_interface_library )
     )
 
   install( DIRECTORY ${lib_include}/iscool DESTINATION ${header_install_dir} )
+
+  install(
+    TARGETS ${lib_name}
+    ${iscool_core_export}
+    )
 endfunction()
