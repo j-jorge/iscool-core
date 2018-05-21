@@ -1,7 +1,6 @@
 cmake_minimum_required( VERSION 3.1 )
 
 set( source_root "${CMAKE_CURRENT_SOURCE_DIR}/../.." )
-set( link_mode "STATIC" )
 set( required_boost_version 1.58.0 )
 set( CMAKE_MODULE_PATH "${CMAKE_CURRENT_SOURCE_DIR}/cmake-modules" )
 set( CMAKE_CXX_STANDARD 11 )
@@ -15,6 +14,15 @@ endif()
 
 if( ISCOOL_TEST_ENABLED )
   include( google-test )
+endif()
+
+option(
+  ISCOOL_CORE_WITH_CMAKE_PACKAGE
+  "Generate and install cmake package files" OFF
+  )
+
+if( ISCOOL_CORE_WITH_CMAKE_PACKAGE )
+  set( iscool_core_export EXPORT iscool-core )
 endif()
 
 add_subdirectory( "testing/test" )
@@ -60,3 +68,7 @@ endif()
 add_subdirectory( "modules/notification" )
 add_subdirectory( "modules/social" )
 add_subdirectory( "modules/system" )
+
+if( ISCOOL_CORE_WITH_CMAKE_PACKAGE )
+  add_subdirectory( "package" )
+endif()
