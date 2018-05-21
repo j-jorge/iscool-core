@@ -10,7 +10,7 @@ function( declare_iscool_library )
   cmake_parse_arguments( ARG
     "ANDROID"
     "NAME"
-    "FILES;INCLUDE;LINK"
+    "FILES;INCLUDE;LINK;DEFINITIONS"
     ${ARGN}
     )
 
@@ -34,11 +34,20 @@ function( declare_iscool_library )
   if( ARG_LINK )
     target_link_libraries(
       ${lib_name}
+      PUBLIC
       ${ARG_LINK}
       )
   endif()
 
-  if ( ARG_ANDROID )
+  if( ARG_DEFINITIONS )
+    target_compile_definitions(
+      ${lib_name}
+      PRIVATE
+      ${ARG_DEFINITIONS}
+      )
+  endif()
+      
+  if( ARG_ANDROID )
     iscool_module_android_root( android_root ${ARG_NAME} )
     install(
       DIRECTORY ${android_root}/
