@@ -31,11 +31,8 @@ declare_iscool_library( NAME net
   "message/message.cpp"
   "message/serialize_message.cpp"
 
-  INCLUDE
-  ${Boost_INCLUDE_DIRS}
-  
   LINK
-  ${Boost_LIBRARIES}
+  Boost::system
   iscool_iterators
   iscool_meta
   iscool_schedule

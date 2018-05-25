@@ -11,11 +11,8 @@ declare_iscool_library( NAME wish
   FILES
   "wishing_well.cpp"
 
-  INCLUDE
-  ${Boost_INCLUDE_DIRS}
-  
   LINK
-  ${Boost_LIBRARIES}
+  Boost::boost
   )
 
 declare_iscool_library_test( NAME wish

@@ -14,12 +14,9 @@ declare_iscool_library( NAME strings
   "detail/formatter.cpp"
   "detail/formatter_bridge.cpp"
 
-  INCLUDE
-  ${Boost_INCLUDE_DIRS}
-  
   LINK
   iscool_memory
-  ${Boost_LIBRARIES}
+  Boost::boost
   )
 
 declare_iscool_library_test( NAME strings

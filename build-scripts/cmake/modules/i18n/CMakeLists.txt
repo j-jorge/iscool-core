@@ -14,11 +14,8 @@ declare_iscool_library( NAME i18n
   "detail/localize.cpp"
   "detail/plural_index.cpp"
 
-  INCLUDE
-  ${MO_FILE_READER_INCLUDE_DIR}
-  
   LINK
-  ${MO_FILE_READER_LIBRARIES}
+  moFileReader
   iscool_files
   iscool_strings
   iscool_time

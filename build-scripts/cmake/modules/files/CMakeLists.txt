@@ -25,12 +25,10 @@ declare_iscool_library( NAME files
   "setup.cpp"
   "detail/system_delegates.cpp"
   
-  INCLUDE
-  ${Boost_INCLUDE_DIRS}
-  
   LINK
   iscool_log
-  ${Boost_LIBRARIES}
+  Boost::filesystem
+  Boost::system
   )
 
 iscool_module_directory( test_source_root files tests/src )

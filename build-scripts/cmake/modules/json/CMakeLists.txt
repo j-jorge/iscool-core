@@ -32,7 +32,7 @@ declare_iscool_library( NAME json
   ${jsoncpp_INCLUDE_DIRS}
   
   LINK
-  ${jsoncpp_LIBRARIES}
+  jsoncpp
   iscool_files
 
   ${platform_arguments}

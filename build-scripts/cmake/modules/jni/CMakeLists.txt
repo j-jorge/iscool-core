@@ -31,14 +31,11 @@ declare_iscool_library( NAME jni
   "detail/native_call_manager.cpp"
   "detail/static_method_base.cpp"
 
-  INCLUDE
-  ${Boost_INCLUDE_DIRS}
-  
   LINK
   iscool_log
   iscool_schedule
   iscool_signals
-  ${Boost_LIBRARIES}
+  Boost::boost
 
   ANDROID
   )

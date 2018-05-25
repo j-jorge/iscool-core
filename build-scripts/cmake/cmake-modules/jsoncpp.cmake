@@ -1,6 +1,5 @@
 if( USE_DEFAULT_JSONCPP )
-  find_library( jsoncpp_LIBRARIES jsoncpp )
-  find_path( jsoncpp_INCLUDE_DIRS json/value.h )
+  find_package( jsoncpp )
   return()
 endif()
 
@@ -26,5 +25,10 @@ install_dependency(
   EXCLUDE "CMakeLists.txt"
   )
 
-set( jsoncpp_INCLUDE_DIRS "${jsoncpp_SOURCE_DIR}/include" )
-set( jsoncpp_LIBRARIES "jsoncpp_lib_static" )
+add_library( jsoncpp INTERFACE IMPORTED )
+set_target_properties(
+  jsoncpp
+  PROPERTIES
+  INTERFACE_LINK_LIBRARIES "jsoncpp_lib_static"
+  INTERFACE_INCLUDE_DIRECTORIES ${jsoncpp_SOURCE_DIR}/include
+  )

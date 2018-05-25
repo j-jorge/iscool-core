@@ -10,9 +10,9 @@ function( make_compilation_unit unit_file name )
   endforeach()
 
   if( TARGET_IOS )
-    set( extension ".mm" )
+    set( extension "mm" )
   else()
-    set( extension ".cpp" )
+    set( extension "cpp" )
   endif()
 
   set( final_unit "${PROJECT_BINARY_DIR}/${name}.unit.${extension}" )

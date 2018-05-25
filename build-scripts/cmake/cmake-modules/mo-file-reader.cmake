@@ -1,6 +1,5 @@
 if( USE_DEFAULT_MO_FILE_READER )
-  find_library( MO_FILE_READER_LIBRARIES moFileReader )
-  find_path( MO_FILE_READER_INCLUDE_DIR moFileReader/moFileReader.h )
+  find_package( moFileReader )
   return()
 endif()
 
@@ -25,5 +24,8 @@ install_dependency(
   LIBRARIES "${mofilereader_BINARY_DIR}"
   )
 
-set( MO_FILE_READER_INCLUDE_DIR "${mofilereader_SOURCE_DIR}/include" )
-set( MO_FILE_READER_LIBRARIES "moFileReader" )
+set_target_properties(
+  moFileReader
+  PROPERTIES
+  INTERFACE_INCLUDE_DIRECTORIES "${mofilereader_SOURCE_DIR}/include"
+  )

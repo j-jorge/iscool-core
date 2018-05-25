@@ -12,11 +12,8 @@ declare_iscool_library( NAME random
   "distinct_random.cpp"
   "rand.cpp"
 
-  INCLUDE
-  ${Boost_INCLUDE_DIRS}
-  
   LINK
-  ${Boost_LIBRARIES}
+  Boost::boost
   )
 
 declare_iscool_library_test( NAME random

@@ -15,13 +15,10 @@ declare_iscool_library( NAME profile
   "setup.cpp"
   "detail/output_function.cpp"
 
-  INCLUDE
-  ${Boost_INCLUDE_DIRS}
-  
   LINK
   iscool_core
   iscool_time
-  ${Boost_LIBRARIES}
+  Boost::boost
   )
 
 declare_iscool_library_test( NAME profile

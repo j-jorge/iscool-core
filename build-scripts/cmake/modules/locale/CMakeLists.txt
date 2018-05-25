@@ -7,24 +7,25 @@ find_package(
   Boost ${required_boost_version} COMPONENTS locale
   )
 
+if ( Boost_FOUND )
+  set( LIBRARIES Boost::locale )
+else()
+  message(
+    WARNING
+    "Boost.Locale not found. iscool::locale will fail at run time."
+    )
+endif()
+
 declare_iscool_library( NAME locale
   FILES
   "character_range.cpp"
 
-  INCLUDE
-  ${Boost_INCLUDE_DIRS}
-  
   LINK
-  ${Boost_LIBRARIES}
+  ${LIBRARIES}
   )
 
 if ( Boost_FOUND )
   target_compile_definitions( iscool_locale PUBLIC ISCOOL_HAS_BOOST_LOCALE )
-else()
-    message(
-      WARNING
-      "Boost.Locale not found. iscool::locale will fail at run time."
-    )
 endif()
 
 declare_iscool_library_test( NAME locale

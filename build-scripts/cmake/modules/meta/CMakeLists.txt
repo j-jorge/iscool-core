@@ -10,8 +10,8 @@ declare_iscool_interface_library(
   NAME
   meta
 
-  INCLUDE
-  ${Boost_INCLUDE_DIRS}
+  LINK
+  Boost::boost
 
   TEST
   "constant_equality.cpp"

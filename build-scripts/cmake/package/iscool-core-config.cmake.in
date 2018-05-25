@@ -1,0 +1,16 @@
+set( _iscool_core_boost_libraries filesystem system )
+
+if( NOT @TARGET_IOS@ AND NOT @TARGET_ANDROID@ )
+  set( _iscool_core_boost_libraries ${_iscool_core_boost_libraries} locale )
+endif()
+
+find_package(
+  Boost @required_boost_version@ REQUIRED COMPONENTS
+  ${_iscool_core_boost_libraries}
+  )
+
+find_package( jsoncpp )
+find_package( moFileReader )
+
+get_filename_component( CURRENT_DIR "${CMAKE_CURRENT_LIST_FILE}" PATH )
+include( ${CURRENT_DIR}/iscool-core-config-generated.cmake )

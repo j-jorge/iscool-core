@@ -9,11 +9,9 @@ find_package(
 declare_iscool_interface_library(
   NAME memory
 
-  INCLUDE
-  ${Boost_INCLUDE_DIRS}
-  
   LINK
   iscool_contract
+  Boost::boost
   
   TEST
   "dynamic_pool.cpp"

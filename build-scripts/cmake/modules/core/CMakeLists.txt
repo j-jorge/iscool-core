@@ -13,8 +13,8 @@ declare_iscool_library( NAME core
   "none.cpp"
   "optional.cpp"
 
-  INCLUDE
-  ${Boost_INCLUDE_DIRS}
+  LINK
+  Boost::boost
   )
 
 declare_iscool_library_test( NAME core
