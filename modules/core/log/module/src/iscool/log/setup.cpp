@@ -18,7 +18,7 @@
 #include "iscool/log/detail/get_message_dispatcher.h"
 #include "iscool/log/detail/message_dispatcher.h"
 
-#ifdef ISCOOL_DEBUG
+#ifndef NDEBUG
 #include "iscool/error/synopsis.h"
 #include "iscool/log/detail/print_to_console.h"
 #include "iscool/log/nature/error.h"
@@ -27,7 +27,7 @@
 
 void iscool::log::initialize()
 {
-#ifdef ISCOOL_DEBUG
+#ifndef NDEBUG
     message_delegates delegates;
     delegates.print_message = &detail::print_to_console;
 

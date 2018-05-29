@@ -16,7 +16,7 @@
 #ifndef ISCOOL_CONSOLE_LOG_H
 #define ISCOOL_CONSOLE_LOG_H
 
-#ifdef ISCOOL_DEBUG
+#ifndef NDEBUG
 
 #include "iscool/log/context.h"
 #include "iscool/log/detail/print_to_console.h"
