@@ -25,6 +25,9 @@ if( ISCOOL_CORE_WITH_CMAKE_PACKAGE )
   set( iscool_core_export EXPORT iscool-core )
 endif()
 
+include_directories( ${CMAKE_PREFIX_PATH}/include )
+link_directories( ${CMAKE_PREFIX_PATH}/lib )
+
 add_subdirectory( "testing/test" )
 
 add_subdirectory( "modules/core" )
@@ -68,6 +71,15 @@ endif()
 add_subdirectory( "modules/notification" )
 add_subdirectory( "modules/social" )
 add_subdirectory( "modules/system" )
+
+option(
+  ISCOOL_CORE_WITH_APPS
+  "Generate and install the apps" OFF
+  )
+
+if( NOT TARGET_ANDROID AND NOT TARGET_IOS AND ISCOOL_CORE_WITH_APPS )
+  add_subdirectory( "apps/style-merger" )
+endif()
 
 if( ISCOOL_CORE_WITH_CMAKE_PACKAGE )
   add_subdirectory( "package" )
