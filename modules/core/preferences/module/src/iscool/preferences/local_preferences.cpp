@@ -291,6 +291,9 @@ void iscool::preferences::detail::backup_thread::roll_backups() const
             ( get_backup_file_path
               ( _original_file_path,_backup_extension_format, index ) );
 
+        if ( !iscool::files::file_exists( from ) )
+            break;
+        
         iscool::files::rename_file( from, to );
         to = std::move( from );
     }
