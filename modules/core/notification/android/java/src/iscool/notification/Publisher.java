@@ -36,7 +36,6 @@ public class Publisher extends BroadcastReceiver
             intent.getParcelableExtra( NOTIFICATION );
         final int id = intent.getIntExtra( NOTIFICATION_ID, 0 );
         
-        android.util.Log.e( "NOTIF", "notify id=" + id );
         notificationManager.notify( id, notification );
     }
 }

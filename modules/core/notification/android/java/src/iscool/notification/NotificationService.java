@@ -55,9 +55,6 @@ public final class NotificationService {
     public static void schedule
         ( int id, long delayInSeconds, String title, String body ) {
 
-        android.util.Log.e
-            ( "NOTIF", "schedule id=" + id + ", delay=" + delayInSeconds
-               + " s., title=" + title + ", body=" + body );
         _scheduler.schedule( id, delayInSeconds, title, body );
     }
     

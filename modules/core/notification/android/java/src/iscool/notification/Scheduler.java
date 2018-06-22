@@ -51,9 +51,6 @@ class Scheduler {
             ( AlarmManager ) _activity.getSystemService
             ( Context.ALARM_SERVICE );
         
-        android.util.Log.e
-            ( "NOTIF", "schedule id=" + intentId + " in " + displayDateMs
-              + " ms." );
         alarmManager.set
             ( AlarmManager.ELAPSED_REALTIME_WAKEUP, displayDateMs,
               pendingIntent );
