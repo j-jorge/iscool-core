@@ -18,10 +18,13 @@ package iscool.notification;
 import android.app.Activity;
 import android.app.AlarmManager;
 import android.app.Notification;
+import android.app.NotificationChannel;
+import android.app.NotificationManager;
 import android.app.PendingIntent;
 import android.content.Context;
 import android.content.Intent;
 import android.graphics.drawable.BitmapDrawable;
+import android.os.Build;
 import android.os.SystemClock;
 import android.support.v4.app.NotificationCompat;
 
@@ -30,12 +33,15 @@ class Scheduler {
     private final Activity _activity;
     private final int _smallIcon;
     private final int _largeIcon;
+    private final static String _defaultChannelId = "default";
     
     public Scheduler( Activity activity, int smallIcon, int largeIcon ) {
 
         _activity = activity;
         _smallIcon = smallIcon;
         _largeIcon = largeIcon;
+
+        registerDefaultChannel();
     }
 
     public void schedule
@@ -84,6 +90,7 @@ class Scheduler {
         final NotificationCompat.Builder builder =
             new NotificationCompat.Builder( _activity )
             .setStyle( textStyle )
+            .setChannelId( _defaultChannelId )
             .setContentTitle( title )
             .setContentText( message )
             .setContentIntent( createContentIntent() )
@@ -106,5 +113,27 @@ class Scheduler {
               | Intent.FLAG_ACTIVITY_SINGLE_TOP );
 
         return PendingIntent.getActivity( _activity, 0, intent, 0 );
+    }
+
+    private void registerDefaultChannel() {
+
+        if ( Build.VERSION.SDK_INT < Build.VERSION_CODES.O ) {
+            return;
+        }
+        
+        final CharSequence name =
+            _activity.getString( R.string.default_notification_channel_name );
+        final int importance = NotificationManager.IMPORTANCE_DEFAULT;
+        final NotificationChannel channel =
+            new NotificationChannel( _defaultChannelId, name, importance );
+        
+        final String description =
+            _activity.getString
+            ( R.string.default_notification_channel_description );
+        channel.setDescription( description );
+
+        final NotificationManager notificationManager =
+            _activity.getSystemService( NotificationManager.class );
+        notificationManager.createNotificationChannel( channel );
     }
 }
