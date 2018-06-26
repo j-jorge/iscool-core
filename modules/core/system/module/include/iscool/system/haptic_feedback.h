@@ -13,16 +13,17 @@
   See the License for the specific language governing permissions and
   limitations under the License.
 */
-#include "iscool/system/send_to_background.h"
+#ifndef ISCOOL_SYSTEM_HAPTIC_FEEDBACK_H
+#define ISCOOL_SYSTEM_HAPTIC_FEEDBACK_H
 
-#include "iscool/jni/get_static_method.h"
-#include "iscool/jni/static_method_void.h"
+#if defined __APPLE__
+#include "TargetConditionals.h"
+#endif
 
-void iscool::system::send_to_background()
-{
-    const auto method
-        ( iscool::jni::get_static_method< void >
-          ( "iscool/system/SystemService", "sendToBackground", "()V" ) );
+#if ( TARGET_OS_IPHONE == 1 )
+#include "iscool/system/ios/haptic_feedback.h"
+#else
+#include "iscool/system/detail/haptic_feedback_mockup.h"
+#endif
 
-    method();
-}
+#endif

@@ -21,6 +21,8 @@ if( TARGET_ANDROID )
     "android/send_to_background.cpp"
 
     "android/detail/device_time_milliseconds.cpp"
+
+    "detail/haptic_feedback_mockup.cpp"
     )
   set( libraries iscool_jni )
   set( platform_arguments ANDROID )
@@ -29,20 +31,28 @@ elseif( TARGET_IOS )
 
   set( files
     ${files}
+    "ios/haptic_feedback.mm"
     "ios/language_code.mm"
     "ios/send_to_background.mm"
 
     "ios/detail/device_time_milliseconds.mm"
+    )
+
+  set( libraries
+    iscool_ios
+    iscool_schedule
     )
   
 else()
 
   set( files
     ${files}
+
     "language_code.cpp"
     "send_to_background.cpp"
 
     "detail/device_time_milliseconds.cpp"
+    "detail/haptic_feedback_mockup.cpp"
     )    
 
 endif()

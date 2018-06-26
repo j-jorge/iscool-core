@@ -13,16 +13,20 @@
   See the License for the specific language governing permissions and
   limitations under the License.
 */
-#include "iscool/system/send_to_background.h"
+#ifndef ISCOOL_SYSTEM_HAPTIC_FEEDBACK_NOTIFICATION_H
+#define ISCOOL_SYSTEM_HAPTIC_FEEDBACK_NOTIFICATION_H
 
-#include "iscool/jni/get_static_method.h"
-#include "iscool/jni/static_method_void.h"
-
-void iscool::system::send_to_background()
+namespace iscool
 {
-    const auto method
-        ( iscool::jni::get_static_method< void >
-          ( "iscool/system/SystemService", "sendToBackground", "()V" ) );
-
-    method();
+    namespace system
+    {
+        enum class haptic_feedback_notification
+        {
+            success,
+            warning,
+            failure
+        };
+    }
 }
+
+#endif
