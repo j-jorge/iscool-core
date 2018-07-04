@@ -196,9 +196,6 @@ void iscool::system::haptic_feedback::emit_heavy_impact( bool keep_prepared )
 
 void iscool::system::haptic_feedback::ensure_notification_generator_exists()
 {
-    if( !is_enabled() )
-        return;
-
     if( _notification_generator == nullptr )
         _notification_generator =
             [ [ UINotificationFeedbackGenerator alloc ] init ];
@@ -210,9 +207,6 @@ void iscool::system::haptic_feedback::ensure_notification_generator_exists()
 
 void iscool::system::haptic_feedback::ensure_selection_generator_exists()
 {
-    if( !is_enabled() )
-        return;
-
     if( _selection_generator == nullptr )
         _selection_generator =
             [ [ UISelectionFeedbackGenerator alloc ] init ];
@@ -224,9 +218,6 @@ void iscool::system::haptic_feedback::ensure_selection_generator_exists()
 
 void iscool::system::haptic_feedback::ensure_low_impact_generator_exists()
 {
-    if( !is_enabled() )
-        return;
-
     if( _low_impact_generator == nullptr )
         _low_impact_generator =
             [ [ UIImpactFeedbackGenerator alloc ]
@@ -239,9 +230,6 @@ void iscool::system::haptic_feedback::ensure_low_impact_generator_exists()
 
 void iscool::system::haptic_feedback::ensure_medium_impact_generator_exists()
 {
-    if( !is_enabled() )
-        return;
-
     if( _medium_impact_generator == nullptr )
         _medium_impact_generator =
             [ [ UIImpactFeedbackGenerator alloc ]
@@ -254,9 +242,6 @@ void iscool::system::haptic_feedback::ensure_medium_impact_generator_exists()
 
 void iscool::system::haptic_feedback::ensure_heavy_impact_generator_exists()
 {
-    if( !is_enabled() )
-        return;
-
     if( _heavy_impact_generator == nullptr )
         _heavy_impact_generator =
             [ [ UIImpactFeedbackGenerator alloc ]
@@ -272,10 +257,10 @@ bool iscool::system::detail::is_haptic_feedback_available()
     if ( !iscool::ios::system_version_is_at_least( "10.0" ) )
         return false;
 
-    static const std::unordered_set< std::string > haptic_enabled_models
+    const std::unordered_set< std::string > haptic_enabled_models
         ( { "iPhone9,1",   // iPhone 7
             "iPhone9,3",   // iPhone 7
-            "iPhone9,2",   // iPhone 7 Plur
+            "iPhone9,2",   // iPhone 7 Plus
             "iPhone9,4",   // iPhone 7 Plus
             "iPhone10,1",  // iPhone 8
             "iPhone10,4",  // iPhone 8
