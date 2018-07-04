@@ -17,14 +17,15 @@
 
 #include <sys/sysctl.h>
 
+#include <vector>
+
 std::string iscool::ios::get_device_model()
 {
     std::size_t size;
     sysctlbyname( "hw.machine", nullptr, &size, nullptr, 0 );
-    char* const machine( new char[ size ] );
-    sysctlbyname( "hw.machine", machine, &size, NULL, 0 );
 
-    std::string result( machine, size - 1 );
-    delete[] machine;
-    return result;
+    std::vector< char > result( size );
+    sysctlbyname( "hw.machine", result.data(), &size, nullptr, 0 );
+
+    return std::string( result.begin(), result.end() );
 }
