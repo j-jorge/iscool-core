@@ -17,6 +17,7 @@
 
 #include <sys/sysctl.h>
 
+#include <cassert>
 #include <vector>
 
 std::string iscool::ios::get_device_model()
@@ -26,6 +27,7 @@ std::string iscool::ios::get_device_model()
 
     std::vector< char > result( size );
     sysctlbyname( "hw.machine", result.data(), &size, nullptr, 0 );
+    assert( result.begin() != result.end() );
 
-    return std::string( result.begin(), result.end() );
+    return std::string( result.begin(), result.end() - 1 );
 }
