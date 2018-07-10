@@ -25,6 +25,11 @@ namespace iscool
         class haptic_feedback
         {
         public:
+            bool is_available() const;
+            bool is_enabled() const;
+
+            void set_enabled( bool enabled );
+
             void prepare_notification();
             void emit_notification
             ( haptic_feedback_notification feedback,

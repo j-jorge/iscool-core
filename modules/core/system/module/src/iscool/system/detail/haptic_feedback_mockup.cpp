@@ -20,6 +20,23 @@
 
 #include <cassert>
 
+bool iscool::system::haptic_feedback::is_available() const
+{
+    return false;
+}
+
+bool iscool::system::haptic_feedback::is_enabled() const
+{
+    return false;
+}
+
+void iscool::system::haptic_feedback::set_enabled( bool enabled )
+{
+    ic_console_log
+        ( "iscool::system", "Set haptic feedback enabled: %1%.",
+          enabled ? "true" : "false" );
+}
+
 void iscool::system::haptic_feedback::prepare_notification()
 {
     ic_console_log( "iscool::system", "Prepare notification haptic feedback" );

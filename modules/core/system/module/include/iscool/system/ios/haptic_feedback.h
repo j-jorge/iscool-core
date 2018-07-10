@@ -36,6 +36,11 @@ namespace iscool
             haptic_feedback();
             ~haptic_feedback();
 
+            bool is_available() const;
+
+            bool is_enabled() const;
+            void set_enabled( bool enabled );
+
             void prepare_notification();
             void emit_notification
             ( haptic_feedback_notification feedback,
@@ -61,6 +66,9 @@ namespace iscool
             void ensure_heavy_impact_generator_exists();
 
         private:
+            const bool _available;
+            bool _enabled;
+
             UINotificationFeedbackGenerator* _notification_generator;
             iscool::signals::scoped_connection _notification_connection;
 
