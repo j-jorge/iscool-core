@@ -17,12 +17,14 @@
 
 #include "iscool/json/write_to_stream.h"
 #include "iscool/files/copy_file.h"
+#include "iscool/files/delete_file.h"
 #include "iscool/files/file_exists.h"
 #include "iscool/files/rename_file.h"
 #include "iscool/json/from_file.h"
 #include "iscool/log/causeless_log.h"
 #include "iscool/log/nature/error.h"
 #include "iscool/log/nature/info.h"
+#include "iscool/log/nature/warning.h"
 #include "iscool/memory/make_unique.h"
 #include "iscool/preferences/log_context.h"
 #include "iscool/preferences/store.impl.tpp"
@@ -62,6 +64,7 @@ namespace iscool
                 void operator()();
 
             private:
+                bool create_temporary_backup() const;
                 void validate_backup() const;
                 void roll_backups() const;
                 
@@ -249,15 +252,28 @@ void iscool::preferences::detail::backup_thread::operator()()
 
         _shared_state.available = false;
 
-        const bool copied
-            ( iscool::files::copy_file
-              ( _original_file_path, _temporary_file_path ) );
-        
+        const bool copied( create_temporary_backup() );
+
         lock.unlock();
 
         if ( copied )
             validate_backup();
     }
+}
+
+bool iscool::preferences::detail::backup_thread::create_temporary_backup() const
+{
+    if ( iscool::files::file_exists( _temporary_file_path ) )
+    {
+        ic_causeless_log
+            ( iscool::log::nature::warning(), log_context(),
+              "Deleting already present temporary backup file." );
+        iscool::files::delete_file( _temporary_file_path );
+    }
+
+    return
+        iscool::files::copy_file
+        ( _original_file_path, _temporary_file_path );
 }
 
 void iscool::preferences::detail::backup_thread::validate_backup() const
