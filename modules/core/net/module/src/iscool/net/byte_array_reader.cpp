@@ -18,8 +18,8 @@
 #include "iscool/net/byte_array.h"
 
 iscool::net::byte_array_reader::byte_array_reader
-( const byte_array& byte_array )
-    : _byte_array( byte_array ),
+( byte_array byte_array )
+    : _byte_array( std::move( byte_array ) ),
       _current_index( 0 )
 {
 

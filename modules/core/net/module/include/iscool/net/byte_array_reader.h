@@ -25,7 +25,7 @@ namespace iscool
         class byte_array_reader
         {
         public:
-            explicit byte_array_reader( const byte_array& byte_array );
+            explicit byte_array_reader( byte_array byte_array );
 
             template<typename t>
             t get();
