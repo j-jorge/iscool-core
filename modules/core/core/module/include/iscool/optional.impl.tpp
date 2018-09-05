@@ -28,6 +28,13 @@ iscool::optional< T >::optional()
 }
   
 template< typename T >
+iscool::optional< T >::optional( T&& that )
+    : _initialized( true )
+{
+    new( &_storage ) T( std::move( that ) );
+}
+
+template< typename T >
 iscool::optional< T >::optional( const T& that )
     : _initialized( true )
 {

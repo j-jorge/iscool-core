@@ -27,6 +27,7 @@ namespace iscool
     {
     public:
         optional();
+        optional( T&& that );
         optional( const T& that );
         optional( const optional< T >& that );
         
@@ -35,7 +36,7 @@ namespace iscool
 
         optional( optional< T >&& that );
         optional( const none_t& );
-        
+
         ~optional();
   
         explicit operator bool() const;
