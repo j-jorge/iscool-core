@@ -9,6 +9,7 @@ find_package(
 declare_iscool_library( NAME jni
   FILES
   "bad_cast.cpp"
+  "cast_jboolean.cpp"
   "cast_jint.cpp"
   "cast_std_string.cpp"
   "check_java_exception.cpp"
