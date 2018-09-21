@@ -180,6 +180,12 @@ void iscool::preferences::local_preferences::set_value
     _store.set_value( key, value );
 }
 
+std::vector< std::string >
+iscool::preferences::local_preferences::get_keys() const
+{
+    return std::move( _store.get_keys() );
+}
+
 void iscool::preferences::local_preferences::save( const property_map& dirty )
 {
     detail::copy_all_fields visitor( _values );

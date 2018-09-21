@@ -63,6 +63,8 @@ namespace iscool
             std::string get_value
             ( const std::string& key, const std::string& default_value ) const;
             void set_value( const std::string& key, const std::string& value );
+
+            std::vector< std::string > get_keys() const;
             
         private:
             void save( const property_map& dirty );

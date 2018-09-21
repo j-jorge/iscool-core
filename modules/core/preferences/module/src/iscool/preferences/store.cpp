@@ -19,6 +19,7 @@
 
 #include <boost/bind.hpp>
 
+#include <algorithm>
 #include <cassert>
 
 namespace iscool
@@ -37,6 +38,18 @@ namespace iscool
 
             private:
                 property_map& _target;
+            };
+            
+            class collect_keys
+            {
+            public:
+                explicit collect_keys( std::vector< std::string >& keys );
+                
+                template< typename T >
+                void operator()( std::string key, T&& );
+
+            private:
+                std::vector< std::string >& _keys;
             };
         }
     }
@@ -83,6 +96,18 @@ void iscool::preferences::store::save_error()
 
     abort_save();
     schedule_save();
+}
+
+std::vector< std::string > iscool::preferences::store::get_keys() const
+{
+    std::vector< std::string > result;
+    detail::collect_keys visitor( result );
+
+    _preferences.visit( visitor );
+    _pending_changes.visit( visitor );
+    _dirty.visit( visitor );
+    
+    return result;
 }
 
 void iscool::preferences::store::abort_save()
@@ -132,4 +157,22 @@ void iscool::preferences::detail::copy_new_fields::operator()
 {
     if ( !_target.has< T >( key ) )
         _target.set( key, value );
+}
+
+iscool::preferences::detail::collect_keys::collect_keys
+( std::vector< std::string >& keys )
+    : _keys( keys )
+{
+    
+}
+        
+template< typename T >
+void
+iscool::preferences::detail::collect_keys::operator()( std::string key, T&& )
+{
+    const auto begin( _keys.begin() );
+    const auto end( _keys.end() );
+
+    if ( std::find( begin, end, key ) == end )
+        _keys.emplace_back( std::move( key ) );
 }

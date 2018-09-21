@@ -15,6 +15,8 @@
 */
 #include "iscool/preferences/store.h"
 
+#include "iscool/preferences/store.impl.tpp"
+
 #include "iscool/schedule/manual_scheduler.h"
 #include "iscool/schedule/setup.h"
 
@@ -255,4 +257,41 @@ TEST_F( iscool_preferences_store_test, flush_in_save )
     
     EXPECT_TRUE( _values_to_save.has< bool >( "bool" ) );
     EXPECT_EQ( true, *_values_to_save.get< bool >( "bool" ) );
+}
+
+TEST_F( iscool_preferences_store_test, get_keys_empty )
+{
+    iscool::preferences::property_map initial_values;
+    iscool::preferences::store store
+        ( std::chrono::milliseconds( 5 ), initial_values,
+          _copy_values_save_function );
+
+    EXPECT_TRUE( store.get_keys().empty() );
+}
+
+TEST_F( iscool_preferences_store_test, get_keys )
+{
+    iscool::preferences::property_map initial_values;
+    initial_values.set< int >( "a", 1 );
+    initial_values.set< std::string >( "b", "" );
+    initial_values.set< std::uint64_t >( "c", 1 );
+    initial_values.set< bool >( "d", true );
+    initial_values.set< float >( "e", 1 );
+
+    iscool::preferences::store store
+        ( std::chrono::milliseconds( 5 ), initial_values,
+          _copy_values_save_function );
+
+    store.set_value< int >( "A", 1 );
+    store.set_value< std::string >( "B", "" );
+    store.set_value< std::uint64_t >( "C", 1 );
+    store.set_value< bool >( "D", true );
+    store.set_value< float >( "E", 1 );
+
+    const std::vector< std::string > expected
+        ( { "A", "B", "C", "D", "E", "a", "b", "c", "d", "e" } );
+    std::vector< std::string > keys( store.get_keys() );
+
+    std::sort( keys.begin(), keys.end() );
+    EXPECT_EQ( expected, keys );
 }

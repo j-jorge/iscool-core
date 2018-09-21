@@ -19,8 +19,10 @@
 #include "iscool/preferences/property_map.h"
 #include "iscool/signals/scoped_connection.h"
 
-#include <chrono>
 #include <boost/function.hpp>
+
+#include <chrono>
+#include <vector>
 
 namespace iscool
 {
@@ -51,6 +53,8 @@ namespace iscool
             void flush();
             void confirm_save();
             void save_error();
+
+            std::vector< std::string > get_keys() const;
 
         private:
             void abort_save();
