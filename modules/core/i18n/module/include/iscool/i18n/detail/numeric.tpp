@@ -16,7 +16,8 @@
 #ifndef ISCOOL_I18N_NUMERIC_TPP
 #define ISCOOL_I18N_NUMERIC_TPP
 
-#include "iscool/i18n/english_numeric_punctuation.h"
+#include "iscool/i18n/detail/default_language_code.h"
+#include "iscool/i18n/detail/get_locale_for_numeric_display.h"
 #include "iscool/i18n/detail/num_put_disambiguation.h"
 
 #include <sstream>
@@ -32,8 +33,8 @@ iscool::i18n::numeric::to_string( const T& value )
     std::ostringstream formatter;
     
     formatter.imbue
-        ( std::locale
-          ( formatter.getloc(), new english_numeric_punctuation() ) );
+        ( detail::get_locale_for_numeric_display
+          ( formatter.getloc(), iscool::i18n::detail::default_language_code ) );
 
     const std::num_put<char>& facet
         ( std::use_facet< std::num_put<char> >( formatter.getloc() ) );

@@ -7,10 +7,12 @@ include( mo-file-reader )
 declare_iscool_library( NAME i18n
   FILES
   "compact_number_string.cpp"
-  "english_numeric_punctuation.cpp"
   "load_translations.cpp"
+  "numeric_punctuation.cpp"
 
   "detail/assign_plural_index.cpp"
+  "detail/default_language_code.cpp"
+  "detail/get_locale_for_numeric_display.cpp"
   "detail/localize.cpp"
   "detail/plural_index.cpp"
 
@@ -46,6 +48,7 @@ if( TARGET iscool_i18n_test )
     it.po
     ja.po
     ko.po
+    nl.po
     pt_BR.po
     pt.po
     th.po

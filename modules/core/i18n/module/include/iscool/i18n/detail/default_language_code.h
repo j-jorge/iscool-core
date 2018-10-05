@@ -13,24 +13,19 @@
   See the License for the specific language governing permissions and
   limitations under the License.
 */
-#ifndef ISCOOL_I18N_ENGLISH_NUMERIC_PUNCTUATION_H
-#define ISCOOL_I18N_ENGLISH_NUMERIC_PUNCTUATION_H
+#ifndef ISCOOL_I18N_DETAIL_DEFAULT_LANGUAGE_CODE_H
+#define ISCOOL_I18N_DETAIL_DEFAULT_LANGUAGE_CODE_H
 
-#include <locale>
+#include <string>
 
 namespace iscool
 {
     namespace i18n
     {
-        class english_numeric_punctuation:
-            public std::numpunct<char>
+        namespace detail
         {
-        protected:
-            char do_decimal_point() const override;
-            char do_thousands_sep() const override;
-            std::string do_grouping() const override;
-
-        };
+            extern std::string default_language_code;
+        }
     }
 }
 

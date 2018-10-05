@@ -1,0 +1,45 @@
+# SOME DESCRIPTIVE TITLE.
+# Copyright (C) YEAR THE PACKAGE'S COPYRIGHT HOLDER
+# This file is distributed under the same license as the PACKAGE package.
+# FIRST AUTHOR <EMAIL@ADDRESS>, YEAR.
+#
+msgid ""
+msgstr ""
+"Project-Id-Version: \n"
+"Report-Msgid-Bugs-To: \n"
+"POT-Creation-Date: 2016-03-18 08:45+0100\n"
+"PO-Revision-Date: 2016-03-21 09:14+0100\n"
+"Language: it\n"
+"MIME-Version: 1.0\n"
+"Content-Type: text/plain; charset=UTF-8\n"
+"Content-Transfer-Encoding: 8bit\n"
+"Plural-Forms: nplurals=2; plural=(n != 1);\n"
+"Last-Translator: \n"
+"Language-Team: \n"
+"X-Generator: Poedit 1.8.4\n"
+
+#: modules/iscool/core/i18n/tests/src/iscool/i18n/load_translations.cpp:10
+#: modules/iscool/core/i18n/tests/src/iscool/i18n/load_translations.cpp:23
+#: modules/iscool/core/i18n/tests/src/iscool/i18n/load_translations.cpp:55
+msgid "test_fr"
+msgstr "French Test"
+
+#: modules/iscool/core/i18n/tests/src/iscool/i18n/load_translations.cpp:11
+#: modules/iscool/core/i18n/tests/src/iscool/i18n/load_translations.cpp:24
+#: modules/iscool/core/i18n/tests/src/iscool/i18n/load_translations.cpp:56
+msgid "test_en"
+msgstr "English Test"
+
+#: modules/iscool/core/i18n/tests/src/iscool/i18n/load_translations.cpp:12
+#: modules/iscool/core/i18n/tests/src/iscool/i18n/load_translations.cpp:25
+#: modules/iscool/core/i18n/tests/src/iscool/i18n/load_translations.cpp:57
+msgid "test_not_translated"
+msgstr ""
+
+#: modules/iscool/core/i18n/tests/src/iscool/i18n/load_translations.cpp:37
+#: modules/iscool/core/i18n/tests/src/iscool/i18n/load_translations.cpp:39
+#: modules/iscool/core/i18n/tests/src/iscool/i18n/load_translations.cpp:41
+msgid "singular"
+msgid_plural "plural"
+msgstr[0] "Singular"
+msgstr[1] "Plural"

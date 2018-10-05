@@ -13,20 +13,28 @@
   See the License for the specific language governing permissions and
   limitations under the License.
 */
-#include "iscool/i18n/english_numeric_punctuation.h"
+#include "iscool/i18n/numeric_punctuation.h"
 
-char iscool::i18n::english_numeric_punctuation::do_decimal_point() const
+iscool::i18n::numeric_punctuation::numeric_punctuation
+( char decimal_point, char thousands_separator, std::string grouping )
+    : _decimal_point( decimal_point ),
+      _thousands_separator( thousands_separator ),
+      _grouping( std::move( grouping ) )
 {
-    return '.';
+
 }
 
-char iscool::i18n::english_numeric_punctuation::do_thousands_sep() const
+char iscool::i18n::numeric_punctuation::do_decimal_point() const
 {
-    return ',';
+    return _decimal_point;
 }
 
-std::string iscool::i18n::english_numeric_punctuation::do_grouping() const
+char iscool::i18n::numeric_punctuation::do_thousands_sep() const
 {
-    // The first character is the number of digits in the rightmost group
-    return "\3";
+    return _thousands_separator;
+}
+
+std::string iscool::i18n::numeric_punctuation::do_grouping() const
+{
+    return _grouping;
 }
