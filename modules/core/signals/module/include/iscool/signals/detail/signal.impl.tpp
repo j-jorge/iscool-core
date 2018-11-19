@@ -25,9 +25,9 @@ iscool::signals::detail::signal< Signature >::~signal() = default;
 template< typename Signature >
 iscool::signals::connection
 iscool::signals::detail::signal< Signature >::connect
-( const boost::function< Signature >& f )
+( boost::function< Signature > f )
 {
-    _slots.emplace_back( std::make_shared< internal_slot >( f ) );
+    _slots.emplace_back( std::make_shared< internal_slot >( std::move( f ) ) );
     return connection( _slots.back() );
 }
 
@@ -40,7 +40,7 @@ iscool::signals::detail::signal< Signature >::operator()( Arg&&... arg ) const
 
     for( const auto& s : slots )
         if ( s->connected() )
-            std::dynamic_pointer_cast< internal_slot >( s )->callback
+            std::static_pointer_cast< internal_slot >( s )->callback
                 ( std::forward< Arg >( arg )... );
 }
 
@@ -81,8 +81,8 @@ void iscool::signals::detail::signal< Signature >::swap
     
 template< typename Signature >
 iscool::signals::detail::signal< Signature >::internal_slot::internal_slot
-( const boost::function< Signature >& f )
-    : callback( f )
+( boost::function< Signature > f )
+    : callback( std::move( f ) )
 {
 
 }

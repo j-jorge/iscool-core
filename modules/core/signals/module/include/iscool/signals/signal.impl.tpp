@@ -56,9 +56,9 @@ void iscool::signals::signal< Signature, void >::swap( signal& that )
 template< typename Signature >
 typename iscool::signals::connection
 iscool::signals::signal< Signature, void >::connect
-( const boost::function< Signature >& f )
+( boost::function< Signature > f )
 {
-    return _signal.connect( f );
+    return _signal.connect( std::move( f ) );
 }
 
 template< typename Signature >

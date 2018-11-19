@@ -29,7 +29,7 @@ namespace iscool
             {
             public:
                 slot();
-                virtual ~slot();
+                ~slot();
                 
                 bool connected() const;
                 void disconnect();

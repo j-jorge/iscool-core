@@ -49,7 +49,7 @@ namespace iscool
                 signal< Signature >& operator=( signal< Signature >&& ) =
                     delete;
 
-                connection connect( const boost::function< Signature >& f );
+                connection connect( boost::function< Signature > f );
     
                 template< typename... Arg >
                 void operator()( Arg&&... arg ) const;
@@ -63,8 +63,7 @@ namespace iscool
                 struct internal_slot:
                     public slot
                 {
-                    explicit internal_slot
-                    ( const boost::function< Signature >& f );
+                    explicit internal_slot( boost::function< Signature > f );
                     ~internal_slot();
                     
                     boost::function< Signature > callback;

@@ -44,7 +44,7 @@ namespace iscool
             
             void swap( signal& that );
 
-            connection connect( const boost::function< Signature >& f );
+            connection connect( boost::function< Signature > f );
             void disconnect_all_slots();
             bool empty() const;
 
