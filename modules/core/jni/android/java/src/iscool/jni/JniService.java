@@ -15,12 +15,20 @@
 */
 package iscool.jni;
 
+import android.app.Activity;
 import android.content.Context;
 
 public final class JniService {
+
+    private static Activity _activity;
     
-    public static void init( Context context ) {
-        configure( context );
+    public static void init( Activity mainActivity ) {
+        _activity = mainActivity;
+        configure( mainActivity );
+    }
+
+    public static Activity getMainActivity() {
+        return _activity;
     }
     
     private native static void configure( Context context );
