@@ -24,7 +24,9 @@
 
 template< typename Signature >
 iscool::signals::signal< Signature, void >::signal()
+#if ISCOOL_SIGNALS_ENABLE_STATISTICS
     : signal( detail::resolve_identifier< void >::name() )
+#endif
 {
 
 }
@@ -32,7 +34,9 @@ iscool::signals::signal< Signature, void >::signal()
 template< typename Signature >
 iscool::signals::signal< Signature, void >::signal
 ( const std::string& identifier )
+#if ISCOOL_SIGNALS_ENABLE_STATISTICS
     : _identifier( identifier )
+#endif
 {
 
 }
@@ -75,19 +79,23 @@ typename iscool::signals::signal< Signature, void >::result_type
 iscool::signals::signal< Signature, void >::operator()
     ( Arg&&... arg ) const
 {
+#if ISCOOL_SIGNALS_ENABLE_STATISTICS
     const iscool::profile::scoped_profiler profiler( _identifier );
 
     if ( !detail::statistics_function.empty() )
         detail::statistics_function
             ( statistics_data( _identifier, _signal.num_slots() ) );
+#endif
     
     return _signal( std::forward< Arg >( arg )... );
 }
 
 template< typename Signature, typename Identifier >
 iscool::signals::signal< Signature, Identifier >::signal()
+#if ISCOOL_SIGNALS_ENABLE_STATISTICS
     : signal< Signature, void >
     ( detail::resolve_identifier< Identifier >::name() )
+#endif
 {
 
 }

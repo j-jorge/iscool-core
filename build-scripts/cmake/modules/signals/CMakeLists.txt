@@ -19,6 +19,19 @@ declare_iscool_library( NAME signals
   iscool_profile
   )
 
+option(
+  ISCOOL_SIGNALS_ENABLE_STATISTICS
+  "Enable statistics on iscool::signals::signal calls." OFF
+  )
+
+if( ISCOOL_SIGNALS_ENABLE_STATISTICS )
+  target_compile_definitions(
+    iscool_signals
+    PUBLIC
+    ISCOOL_SIGNALS_ENABLE_STATISTICS=1
+    )
+endif()
+
 declare_iscool_library_test( NAME signals
   FILES
   "connection.cpp"
