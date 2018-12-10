@@ -27,7 +27,8 @@ iscool::audio::mixer::mixer
       _impl( implementation ),
       _effects_muting( 0 ),
       _music_muting( 0 ),
-      _date( 0 )
+      _date( 0 ),
+      _next_id( 0 )
 {
 
 }
