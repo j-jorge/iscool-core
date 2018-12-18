@@ -67,9 +67,10 @@ template< typename Key, typename... T >
 template< typename Visitor >
 void
 iscool::containers::heterogeneous_map< Key, T... >::visit
-( Visitor visitor ) const
+( Visitor&& visitor ) const
 {
-    detail::heterogeneous_map_visit< sizeof...(T) >::run( _maps, visitor );
+    detail::heterogeneous_map_visit< sizeof...(T) >::run
+        ( _maps, std::forward< Visitor >( visitor ) );
 }
 
 template< typename Key, typename... T >

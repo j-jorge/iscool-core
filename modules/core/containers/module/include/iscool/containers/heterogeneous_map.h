@@ -42,7 +42,7 @@ namespace iscool
             void erase( const Key& key );
             
             template< typename Visitor >
-            void visit( Visitor v ) const;
+            void visit( Visitor&& v ) const;
 
             bool empty() const;
 

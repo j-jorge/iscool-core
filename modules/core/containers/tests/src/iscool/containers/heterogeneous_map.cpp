@@ -292,7 +292,7 @@ TEST( iscool_containers_heterogeneous_map, string_short_string_char_visit )
     };
 
     visitor visited;
-    map.visit( std::ref( visited ) );
+    map.visit( visited );
 
     EXPECT_EQ( std::size_t( 1 ), visited.shorts.size() );
     EXPECT_EQ( 24, visited.shorts[ "short" ] );

@@ -25,7 +25,7 @@ void iscool::containers::detail::heterogeneous_map_visit< 0 >::run( T, U )
 template< std::size_t N >
 template< typename Key, typename Visitor, typename... T >
 void iscool::containers::detail::heterogeneous_map_visit< N >::run
-( const std::tuple< std::unordered_map< Key, T >... >& maps, Visitor visitor )
+( const std::tuple< std::unordered_map< Key, T >... >& maps, Visitor&& visitor )
 {
     for ( const auto& entry : std::get< N - 1 >( maps ) )
         visitor( entry.first, entry.second );
