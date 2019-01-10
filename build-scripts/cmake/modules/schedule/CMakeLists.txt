@@ -5,6 +5,7 @@ include( declare-iscool-library-test )
 
 declare_iscool_library( NAME schedule
   FILES
+  "command_queue.cpp"
   "delayed_call.cpp"
   "manual_scheduler.cpp"
   "scaled_timer.cpp"
@@ -28,6 +29,7 @@ declare_iscool_library_test( NAME schedule
   FILES
   "async_function.cpp"
   "async_signal.cpp"
+  "command_queue.cpp"
   "concurrent_delayed_call.cpp"
   "delayed_call.cpp"
   "manual_scheduler.cpp"
