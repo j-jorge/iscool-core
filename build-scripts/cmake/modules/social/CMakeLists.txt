@@ -15,7 +15,11 @@ if( TARGET_ANDROID )
     "android/link_service.cpp"
     "android/share_service.cpp"
     )
-  set( libraries iscool_jni )
+  set(
+    libraries
+    iscool_files
+    iscool_jni
+    )
   set( platform_arguments ANDROID )
   
 elseif( TARGET_IOS )

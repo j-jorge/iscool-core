@@ -17,6 +17,7 @@
 #define ISCOOL_SOCIAL_ANDROID_SHARE_SERVICE_H
 
 #include <string>
+#include <unordered_set>
 
 namespace iscool
 {
@@ -27,10 +28,14 @@ namespace iscool
             class share_service
             {
             public:
+                ~share_service();
+                
                 void share_message( const std::string& message );
                 void share_file
                 ( const std::string& file_path, const std::string& message );
 
+            private:
+                std::unordered_set< std::string > _temp_files;
             };
         }
     }
