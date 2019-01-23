@@ -17,6 +17,7 @@ package iscool.system;
 
 import android.content.Context;
 import android.content.Intent;
+import android.os.Build;
 
 import java.util.Calendar;
 import java.util.Locale;
@@ -54,4 +55,10 @@ public class SystemService
         intent.addCategory( Intent.CATEGORY_HOME );
         _context.startActivity( intent );
     }
+
+    static public String getOSVersion() {
+
+        return Build.VERSION.RELEASE;
+    }
+
 }

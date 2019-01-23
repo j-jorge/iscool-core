@@ -19,6 +19,7 @@ if( TARGET_ANDROID )
     ${files}
     "android/language_code.cpp"
     "android/os_name.cpp"
+    "android/os_version.cpp"
     "android/send_to_background.cpp"
 
     "android/detail/device_time_milliseconds.cpp"
@@ -35,6 +36,7 @@ elseif( TARGET_IOS )
     "ios/haptic_feedback.mm"
     "ios/language_code.mm"
     "ios/os_name.mm"
+    "ios/os_version.mm"
     "ios/send_to_background.mm"
 
     "ios/detail/device_time_milliseconds.mm"
@@ -52,6 +54,7 @@ else()
 
     "language_code.cpp"
     "os_name.cpp"
+    "os_version.cpp"
     "send_to_background.cpp"
 
     "detail/device_time_milliseconds.cpp"
