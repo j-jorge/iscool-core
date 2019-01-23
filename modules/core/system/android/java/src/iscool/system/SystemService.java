@@ -61,4 +61,8 @@ public class SystemService
         return Build.VERSION.RELEASE;
     }
 
+    static public String getDeviceModel() {
+
+        return Build.MODEL;
+    }
 }

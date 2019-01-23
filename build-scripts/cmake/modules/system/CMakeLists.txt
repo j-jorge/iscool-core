@@ -17,6 +17,7 @@ if( TARGET_ANDROID )
 
   set( files
     ${files}
+    "android/device_model.cpp"
     "android/language_code.cpp"
     "android/os_name.cpp"
     "android/os_version.cpp"
@@ -33,6 +34,7 @@ elseif( TARGET_IOS )
 
   set( files
     ${files}
+    "ios/device_model.mm"
     "ios/haptic_feedback.mm"
     "ios/language_code.mm"
     "ios/os_name.mm"
@@ -52,6 +54,7 @@ else()
   set( files
     ${files}
 
+    "device_model.cpp"
     "language_code.cpp"
     "os_name.cpp"
     "os_version.cpp"
