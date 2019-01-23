@@ -17,6 +17,9 @@ package iscool.system;
 
 import android.content.Context;
 import android.content.Intent;
+import android.content.pm.PackageInfo;
+import android.content.pm.PackageManager;
+import android.content.pm.PackageManager.NameNotFoundException;
 import android.os.Build;
 
 import java.util.Calendar;
@@ -54,6 +57,19 @@ public class SystemService
         final Intent intent = new Intent( Intent.ACTION_MAIN );
         intent.addCategory( Intent.CATEGORY_HOME );
         _context.startActivity( intent );
+    }
+
+    static public String getApplicationVersion() {
+
+        try {
+            final PackageInfo info =
+                _context.getPackageManager().getPackageInfo
+                ( _context.getPackageName(), 0 );
+        
+            return info.versionName;
+        } catch ( PackageManager.NameNotFoundException e ) {
+            return "n/a";
+        }
     }
 
     static public String getOSVersion() {
