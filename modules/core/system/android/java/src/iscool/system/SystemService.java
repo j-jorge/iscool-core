@@ -20,6 +20,7 @@ import android.content.Intent;
 import android.content.pm.PackageInfo;
 import android.content.pm.PackageManager;
 import android.content.pm.PackageManager.NameNotFoundException;
+import android.net.Uri;
 import android.os.Build;
 
 import java.util.Calendar;
@@ -81,4 +82,19 @@ public class SystemService
 
         return Build.MODEL;
     }
+
+    static public void sendMail( String address, String subject, String body ) {
+
+        final Intent intent = new Intent( Intent.ACTION_SENDTO );
+        intent.setType("text/plain");
+        intent.setData( Uri.parse( "mailto:" ) );
+        intent.putExtra( Intent.EXTRA_EMAIL, address );
+        intent.putExtra( Intent.EXTRA_SUBJECT, subject );
+        intent.putExtra( Intent.EXTRA_TEXT, body );
+
+        if ( intent.resolveActivity( _context.getPackageManager() ) != null ) {
+            _context.startActivity( intent );
+        }
+    }
+    
 }
