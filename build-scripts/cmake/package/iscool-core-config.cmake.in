@@ -1,7 +1,11 @@
 set( _iscool_core_boost_libraries filesystem system )
 
 if( NOT @TARGET_IOS@ AND NOT @TARGET_ANDROID@ )
-  set( _iscool_core_boost_libraries ${_iscool_core_boost_libraries} locale )
+  set(
+    _iscool_core_boost_libraries
+    ${_iscool_core_boost_libraries} locale thread
+    )
+  find_package( ICU REQUIRED data i18n io tu uc )
 endif()
 
 find_package(
@@ -25,6 +29,6 @@ if( avcodec_library
   find_package( ZLIB )
   find_package( Threads REQUIRED )
 endif()
-  
+
 get_filename_component( CURRENT_DIR "${CMAKE_CURRENT_LIST_FILE}" PATH )
 include( ${CURRENT_DIR}/iscool-core-config-generated.cmake )

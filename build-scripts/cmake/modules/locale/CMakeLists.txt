@@ -4,11 +4,17 @@ include( declare-iscool-library )
 include( declare-iscool-library-test )
 
 find_package(
-  Boost ${required_boost_version} COMPONENTS locale
+  Boost ${required_boost_version} COMPONENTS locale thread atomic date_time
   )
 
 if ( Boost_FOUND )
-  set( LIBRARIES Boost::locale )
+  find_package( ICU REQUIRED data i18n io tu uc )
+  set(
+    LIBRARIES
+    Boost::locale Boost::thread
+    ICU::i18n ICU::uc ICU::io ICU::tu ICU::data 
+    ${CMAKE_DL_LIBS}
+    )
 else()
   message(
     WARNING
