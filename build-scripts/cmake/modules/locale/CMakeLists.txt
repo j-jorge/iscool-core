@@ -12,7 +12,8 @@ if ( Boost_FOUND )
   set(
     LIBRARIES
     Boost::locale Boost::thread
-    ICU::data ICU::i18n ICU::io ICU::tu ICU::uc
+    ICU::i18n ICU::uc ICU::io ICU::tu ICU::data 
+    ${CMAKE_DL_LIBS}
     )
 else()
   message(
