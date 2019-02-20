@@ -29,6 +29,7 @@
 #include "iscool/preferences/log_context.h"
 #include "iscool/preferences/store.impl.tpp"
 #include "iscool/preferences/detail/local_preferences_from_json.h"
+#include "iscool/signals/implement_signal.h"
 
 #include <boost/bind.hpp>
 
@@ -91,6 +92,8 @@ namespace iscool
         }
     }
 }
+
+IMPLEMENT_SIGNAL( iscool::preferences::local_preferences, saving, _saving );
 
 iscool::preferences::local_preferences::local_preferences
 ( const std::chrono::milliseconds& flush_delay, const std::string& file_path )
@@ -186,7 +189,14 @@ iscool::preferences::local_preferences::get_keys() const
     return std::move( _store.get_keys() );
 }
 
-void iscool::preferences::local_preferences::save( const property_map& dirty )
+void iscool::preferences::local_preferences::save( property_map dirty )
+{
+    update_fields( dirty );
+    _saving( dirty );
+}
+
+void iscool::preferences::local_preferences::update_fields
+( const property_map& dirty )
 {
     detail::copy_all_fields visitor( _values );
     dirty.visit( visitor );

@@ -18,6 +18,8 @@
 
 #include "iscool/preferences/store.h"
 
+#include "iscool/signals/declare_signal.h"
+
 #include <json/value.h>
 
 #include <condition_variable>
@@ -41,6 +43,9 @@ namespace iscool
         
         class local_preferences
         {
+        public:
+            DECLARE_SIGNAL( void( const property_map& ), saving, _saving );
+            
         public:
             local_preferences
             ( const std::chrono::milliseconds& flush_delay,
@@ -67,7 +72,8 @@ namespace iscool
             std::vector< std::string > get_keys() const;
             
         private:
-            void save( const property_map& dirty );
+            void save( property_map dirty );
+            void update_fields( const property_map& dirty );
 
         private:
             const std::string _file_path;
