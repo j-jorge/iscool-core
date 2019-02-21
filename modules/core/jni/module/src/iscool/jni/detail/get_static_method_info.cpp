@@ -15,8 +15,8 @@
 */
 #include "iscool/jni/detail/get_static_method_info.h"
 
+#include "iscool/jni/get_class.h"
 #include "iscool/jni/method_not_found.h"
-#include "iscool/jni/detail/get_class.h"
 #include "iscool/jni/detail/get_jni_env.h"
 
 iscool::jni::detail::method_info iscool::jni::detail::get_static_method_info

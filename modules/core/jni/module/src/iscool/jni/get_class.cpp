@@ -13,7 +13,7 @@
   See the License for the specific language governing permissions and
   limitations under the License.
 */
-#include "iscool/jni/detail/get_class.h"
+#include "iscool/jni/get_class.h"
 
 #include "iscool/jni/class_not_found.h"
 #include "iscool/jni/method_jclass.h"
@@ -38,7 +38,7 @@ namespace iscool
 }
 
 iscool::jni::java_ptr< jclass >
-iscool::jni::detail::get_class( const char* class_name )
+iscool::jni::get_class( const char* class_name )
 {
     jclass result( detail::get_java_class( class_name ) );
 

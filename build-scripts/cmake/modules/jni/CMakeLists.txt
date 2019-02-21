@@ -13,6 +13,8 @@ declare_iscool_library( NAME jni
   "cast_jint.cpp"
   "cast_std_string.cpp"
   "check_java_exception.cpp"
+  "get_class.cpp"
+  "get_jni_env.cpp"
   "log_context.cpp"
   "new_java_long.cpp"
   "new_java_string.cpp"
@@ -22,7 +24,6 @@ declare_iscool_library( NAME jni
   "throw_java_exception.cpp"
   "to_string.cpp"
 
-  "detail/get_class.cpp"
   "detail/get_jni_env.cpp"
   "detail/get_method_info.cpp"
   "detail/get_static_method_info.cpp"

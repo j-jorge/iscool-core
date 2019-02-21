@@ -13,8 +13,8 @@
   See the License for the specific language governing permissions and
   limitations under the License.
 */
-#ifndef ISCOOL_JNI_DETAIL_GET_CLASS_H
-#define ISCOOL_JNI_DETAIL_GET_CLASS_H
+#ifndef ISCOOL_JNI_GET_CLASS_H
+#define ISCOOL_JNI_GET_CLASS_H
 
 #include "iscool/jni/java_ptr.h"
 
@@ -22,10 +22,7 @@ namespace iscool
 {
     namespace jni
     {
-        namespace detail
-        {
-            java_ptr< jclass > get_class( const char* class_name );
-        }
+        java_ptr< jclass > get_class( const char* class_name );
     }
 }
 
