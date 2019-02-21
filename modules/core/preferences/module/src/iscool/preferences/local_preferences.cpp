@@ -27,6 +27,7 @@
 #include "iscool/log/nature/warning.h"
 #include "iscool/memory/make_unique.h"
 #include "iscool/preferences/log_context.h"
+#include "iscool/preferences/property_map_to_json.h"
 #include "iscool/preferences/store.impl.tpp"
 #include "iscool/preferences/detail/local_preferences_from_json.h"
 #include "iscool/signals/implement_signal.h"
@@ -41,18 +42,6 @@ namespace iscool
     {
         namespace detail
         {
-            class copy_all_fields
-            {
-            public:
-                explicit copy_all_fields( Json::Value& target );
-
-                template< typename T >
-                void operator()( const std::string& key, const T& value );
-
-            private:
-                Json::Value& _target;
-            };
-
             class backup_thread
             {
             public:
@@ -198,7 +187,7 @@ void iscool::preferences::local_preferences::save( property_map dirty )
 void iscool::preferences::local_preferences::update_fields
 ( const property_map& dirty )
 {
-    detail::copy_all_fields visitor( _values );
+    property_map_to_json visitor( _values );
     dirty.visit( visitor );
 
     std::unique_lock< std::mutex > lock( _backup_thread_state.mutex );
@@ -220,20 +209,6 @@ void iscool::preferences::local_preferences::update_fields
               "Could not save the local preferences" );
         _store.save_error();
     }
-}
-
-iscool::preferences::detail::copy_all_fields::copy_all_fields
-( Json::Value& target )
-    : _target( target )
-{
-
-}
-
-template< typename T >
-void iscool::preferences::detail::copy_all_fields::operator()
-( const std::string& key, const T& value )
-{
-    _target[ key ] = value;
 }
 
 iscool::preferences::detail::backup_thread::backup_thread

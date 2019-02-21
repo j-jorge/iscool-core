@@ -20,6 +20,7 @@ declare_iscool_library( NAME preferences
   "local_preferences.cpp"
   "log_context.cpp"
   "property_deserializer.cpp"
+  "property_map_to_json.cpp"
   "set_global_properties.cpp"
   "store.cpp"
 
