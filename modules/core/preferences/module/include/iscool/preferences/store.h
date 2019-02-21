@@ -56,6 +56,9 @@ namespace iscool
 
             std::vector< std::string > get_keys() const;
 
+            const property_map& get_properties() const;
+            void reset( const property_map& values );
+            
         private:
             void abort_save();
             void schedule_save();

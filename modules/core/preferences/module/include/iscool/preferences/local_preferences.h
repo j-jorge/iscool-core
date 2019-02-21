@@ -47,14 +47,18 @@ namespace iscool
             DECLARE_SIGNAL( void( const property_map& ), saving, _saving );
             
         public:
+            explicit local_preferences( const property_map& values );
+
             local_preferences
             ( const std::chrono::milliseconds& flush_delay,
               const std::string& file_path );
+            
             local_preferences
             ( const std::chrono::milliseconds& flush_delay,
               const std::string& file_path,
               const std::string& backup_extension_format,
               std::size_t backup_count );
+            
             ~local_preferences();
             
             void flush();
@@ -70,11 +74,16 @@ namespace iscool
             void set_value( const std::string& key, const std::string& value );
 
             std::vector< std::string > get_keys() const;
+
+            const property_map& get_properties() const;
+            void reset( const property_map& values );
             
         private:
             void save( property_map dirty );
             void update_fields( const property_map& dirty );
 
+            bool save_to_file();
+            
         private:
             const std::string _file_path;
             const std::string _backup_extension_format;

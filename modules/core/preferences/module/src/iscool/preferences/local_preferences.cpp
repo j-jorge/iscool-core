@@ -85,6 +85,18 @@ namespace iscool
 IMPLEMENT_SIGNAL( iscool::preferences::local_preferences, saving, _saving );
 
 iscool::preferences::local_preferences::local_preferences
+( const property_map& values )
+    : _file_path( "" ),
+      _backup_extension_format( "" ),
+      _store
+      ( std::chrono::seconds::zero(), values,
+        boost::bind( &local_preferences::save, this, _1 ) )
+{
+    property_map_to_json visitor( _values );
+    values.visit( visitor );
+}
+
+iscool::preferences::local_preferences::local_preferences
 ( const std::chrono::milliseconds& flush_delay, const std::string& file_path )
     : local_preferences( flush_delay, file_path, "", 0 )
 {
@@ -178,6 +190,22 @@ iscool::preferences::local_preferences::get_keys() const
     return std::move( _store.get_keys() );
 }
 
+const iscool::preferences::property_map&
+iscool::preferences::local_preferences::get_properties() const
+{
+    return _store.get_properties();
+}
+
+void iscool::preferences::local_preferences::reset( const property_map& values )
+{
+    _store.reset( values );
+    _values = Json::Value();
+
+    values.visit( property_map_to_json( _values ) );
+
+    save_to_file();
+}
+
 void iscool::preferences::local_preferences::save( property_map dirty )
 {
     update_fields( dirty );
@@ -190,24 +218,36 @@ void iscool::preferences::local_preferences::update_fields
     property_map_to_json visitor( _values );
     dirty.visit( visitor );
 
+    if ( save_to_file() )
+        _store.confirm_save();
+    else
+        _store.save_error();
+}
+
+bool iscool::preferences::local_preferences::save_to_file()
+{
+    if ( _file_path.empty() )
+        return true;
+    
     std::unique_lock< std::mutex > lock( _backup_thread_state.mutex );
     std::ofstream file( _file_path );
     
     if ( iscool::json::write_to_stream( file, _values ) && file )
     {
         file.close();
-        _store.confirm_save();
         _backup_thread_state.available = true;
 
         lock.unlock();
         _backup_thread_state.ready_condition.notify_one();
+
+        return true;
     }
     else
     {
         ic_causeless_log
             ( iscool::log::nature::error(), log_context(),
               "Could not save the local preferences" );
-        _store.save_error();
+        return false;
     }
 }
 
@@ -325,7 +365,7 @@ Json::Value iscool::preferences::detail::load_preferences_file
 
     if ( !result.isNull() )
         return result;
-    
+
     ic_causeless_log
         ( iscool::log::nature::error(), log_context(),
           "Could not load local preferences from '%s'. Trying the backups",

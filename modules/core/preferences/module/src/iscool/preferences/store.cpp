@@ -110,6 +110,21 @@ std::vector< std::string > iscool::preferences::store::get_keys() const
     return result;
 }
 
+const iscool::preferences::property_map&
+iscool::preferences::store::get_properties() const
+{
+    return _preferences;
+}
+
+void iscool::preferences::store::reset( const property_map& values )
+{
+    _dirty.clear();
+    _pending_changes.clear();
+    _save_connection.disconnect();
+    
+    _preferences = values;
+}
+
 void iscool::preferences::store::abort_save()
 {
     assert( !_pending_changes.empty() );
@@ -117,6 +132,8 @@ void iscool::preferences::store::abort_save()
     detail::copy_new_fields visitor( _dirty );
     _pending_changes.visit( visitor );
     _pending_changes.clear();
+
+    _save_connection.disconnect();
 }
 
 void iscool::preferences::store::schedule_save()

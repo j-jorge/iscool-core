@@ -39,6 +39,7 @@ declare_iscool_library( NAME preferences
 declare_iscool_library_test( NAME preferences
   FILES
   "global_properties.cpp"
+  "local_preferences.cpp"
   "property_deserializer.cpp"
   "store.cpp"
 
