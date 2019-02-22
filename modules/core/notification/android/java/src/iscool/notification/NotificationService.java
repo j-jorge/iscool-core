@@ -24,7 +24,7 @@ public final class NotificationService {
     private static Scheduler _scheduler;
     
     public static void init
-        ( final Activity activity, int smallIcon, int largeIcon ) {
+        ( Activity activity, String smallIcon, String largeIcon ) {
 
         assert _activity == null;
         assert activity != null;

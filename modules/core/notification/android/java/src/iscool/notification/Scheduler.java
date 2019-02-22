@@ -17,25 +17,22 @@ package iscool.notification;
 
 import android.app.Activity;
 import android.app.AlarmManager;
-import android.app.Notification;
 import android.app.NotificationChannel;
 import android.app.NotificationManager;
 import android.app.PendingIntent;
 import android.content.Context;
 import android.content.Intent;
-import android.graphics.drawable.BitmapDrawable;
 import android.os.Build;
 import android.os.SystemClock;
-import android.support.v4.app.NotificationCompat;
 
 class Scheduler {
 
     private final Activity _activity;
-    private final int _smallIcon;
-    private final int _largeIcon;
+    private final String _smallIcon;
+    private final String _largeIcon;
     private final static String _defaultChannelId = "default";
     
-    public Scheduler( Activity activity, int smallIcon, int largeIcon ) {
+    public Scheduler( Activity activity, String smallIcon, String largeIcon ) {
 
         _activity = activity;
         _smallIcon = smallIcon;
@@ -65,43 +62,27 @@ class Scheduler {
     private PendingIntent buildIntent
         ( String title, String message, int intentId ) {
 
-        final Notification notification = buildNotification( title, message );
-
         final Intent notificationIntent =
             new Intent( _activity, Publisher.class );
         
         notificationIntent.putExtra
             ( Publisher.NOTIFICATION_ID, intentId );
-        notificationIntent.putExtra( Publisher.NOTIFICATION, notification );
+        notificationIntent.putExtra
+            ( Publisher.NOTIFICATION_TITLE, title );
+        notificationIntent.putExtra
+            ( Publisher.NOTIFICATION_MESSAGE, message );
+        notificationIntent.putExtra
+            ( Publisher.NOTIFICATION_CHANNEL, _defaultChannelId );
+        notificationIntent.putExtra
+            ( Publisher.NOTIFICATION_SMALL_ICON_NAME, _smallIcon );
+        notificationIntent.putExtra
+            ( Publisher.NOTIFICATION_LARGE_ICON_NAME, _largeIcon );
+        notificationIntent.putExtra
+            ( Publisher.NOTIFICATION_CONTENT_INTENT, createContentIntent() );
 
         return PendingIntent.getBroadcast
             ( _activity, intentId, notificationIntent,
               PendingIntent.FLAG_CANCEL_CURRENT );
-    }
-    
-    private Notification buildNotification( String title, String message ) {
-
-        NotificationCompat.BigTextStyle textStyle =
-            new NotificationCompat.BigTextStyle();
-
-        textStyle.setBigContentTitle( title );
-        textStyle.bigText( message );
-
-        final NotificationCompat.Builder builder =
-            new NotificationCompat.Builder( _activity )
-            .setStyle( textStyle )
-            .setChannelId( _defaultChannelId )
-            .setContentTitle( title )
-            .setContentText( message )
-            .setContentIntent( createContentIntent() )
-            .setAutoCancel( true )
-            .setSmallIcon( _smallIcon )
-            .setLargeIcon
-            ( ( ( BitmapDrawable )
-                _activity.getResources().getDrawable( _largeIcon ) )
-              .getBitmap() );
-
-        return builder.build();
     }
 
     private PendingIntent createContentIntent() {
