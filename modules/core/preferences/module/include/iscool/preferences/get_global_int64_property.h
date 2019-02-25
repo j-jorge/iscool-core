@@ -13,17 +13,17 @@
   See the License for the specific language governing permissions and
   limitations under the License.
 */
-#ifndef ISCOOL_PREFERENCES_DECLARE_GLOBAL_INT_PROPERTY_H
-#define ISCOOL_PREFERENCES_DECLARE_GLOBAL_INT_PROPERTY_H
+#ifndef ISCOOL_PREFERENCES_GET_GLOBAL_INT64_PROPERTY_H
+#define ISCOOL_PREFERENCES_GET_GLOBAL_INT64_PROPERTY_H
 
-#include "iscool/preferences/int_property.h"
+#include "iscool/preferences/int64_property.h"
 
 namespace iscool
 {
     namespace preferences
     {
-        int_property declare_global_int_property
-        ( std::string&& name, int fallback );
+        std::int64_t get_global_int64_property
+        ( const int64_property& property );
     }
 }
 

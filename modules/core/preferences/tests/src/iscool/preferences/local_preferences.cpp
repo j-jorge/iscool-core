@@ -63,15 +63,15 @@ void iscool_preferences_local_preferences_test::wait
 TEST_F( iscool_preferences_local_preferences_test, properties )
 {
     iscool::preferences::property_map properties;
-    properties.set< int >( "int", 24 );
+    properties.set< std::int64_t >( "int64", 24 );
     properties.set< std::string >( "string", "str" );
     
     iscool::preferences::local_preferences preferences( properties );
 
-    EXPECT_EQ( 24, preferences.get_value( "int", 0 ) );
+    EXPECT_EQ( 24, preferences.get_value( "int64", std::int64_t( 0 ) ) );
     EXPECT_EQ( "str", preferences.get_value( "string", std::string() ) );
 
-    preferences.set_value( "int", 42 );
+    preferences.set_value( "int64", std::int64_t( 42 ) );
     preferences.set_value( "string", std::string( "yep" ) );
     preferences.set_value( "bool", true );
     preferences.flush();
@@ -79,7 +79,7 @@ TEST_F( iscool_preferences_local_preferences_test, properties )
     const iscool::preferences::property_map stored_properties
         ( preferences.get_properties() );
 
-    EXPECT_EQ( 42, *stored_properties.get< int >( "int" ) );
+    EXPECT_EQ( 42, *stored_properties.get< std::int64_t >( "int64" ) );
     EXPECT_EQ( "yep", *stored_properties.get< std::string >( "string" ) );
     EXPECT_EQ( true, *stored_properties.get< bool >( "bool" ) );
 }
@@ -87,7 +87,7 @@ TEST_F( iscool_preferences_local_preferences_test, properties )
 TEST_F( iscool_preferences_local_preferences_test, saving_callback )
 {
     iscool::preferences::property_map properties;
-    properties.set< int >( "int", 24 );
+    properties.set< std::int64_t >( "int64", 24 );
     properties.set< std::string >( "string", "str" );
     
     iscool::preferences::local_preferences preferences( properties );
@@ -99,10 +99,10 @@ TEST_F( iscool_preferences_local_preferences_test, saving_callback )
           {
               called = true;
               EXPECT_EQ( "yep", *values.get< std::string >( "string" ) );
-              EXPECT_FALSE( !!values.get< int >( "int" ) );
+              EXPECT_FALSE( !!values.get< std::int64_t >( "int64" ) );
           } );
 
-    preferences.set_value( "int", 24 );
+    preferences.set_value( "int64", std::int64_t( 24 ) );
     preferences.set_value( "string", std::string( "yep" ) );
 
     wait( std::chrono::milliseconds( 10 ) );

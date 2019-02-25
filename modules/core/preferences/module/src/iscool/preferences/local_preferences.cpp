@@ -148,14 +148,14 @@ void iscool::preferences::local_preferences::flush()
         _store.flush();
 }
             
-int iscool::preferences::local_preferences::get_value
-( const std::string& key, int default_value ) const
+std::int64_t iscool::preferences::local_preferences::get_value
+( const std::string& key, std::int64_t default_value ) const
 {
     return _store.get_value( key, default_value );
 }
 
 void iscool::preferences::local_preferences::set_value
-( const std::string& key, int value )
+( const std::string& key, std::int64_t value )
 {
     _store.set_value( key, value );
 }
@@ -194,16 +194,6 @@ const iscool::preferences::property_map&
 iscool::preferences::local_preferences::get_properties() const
 {
     return _store.get_properties();
-}
-
-void iscool::preferences::local_preferences::reset( const property_map& values )
-{
-    _store.reset( values );
-    _values = Json::Value();
-
-    values.visit( property_map_to_json( _values ) );
-
-    save_to_file();
 }
 
 void iscool::preferences::local_preferences::save( property_map dirty )

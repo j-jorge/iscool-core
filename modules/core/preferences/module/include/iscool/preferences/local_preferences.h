@@ -63,8 +63,9 @@ namespace iscool
             
             void flush();
             
-            int get_value( const std::string& key, int default_value ) const;
-            void set_value( const std::string& key, int value );
+            std::int64_t get_value
+            ( const std::string& key, std::int64_t default_value ) const;
+            void set_value( const std::string& key, std::int64_t value );
 
             bool get_value( const std::string& key, bool default_value ) const;
             void set_value( const std::string& key, bool value );
@@ -76,7 +77,6 @@ namespace iscool
             std::vector< std::string > get_keys() const;
 
             const property_map& get_properties() const;
-            void reset( const property_map& values );
             
         private:
             void save( property_map dirty );

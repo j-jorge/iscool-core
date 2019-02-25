@@ -27,15 +27,15 @@
 TEST( iscool_preferences_local_preferences_from_json_test, values )
 {
     Json::Value json;
-    json[ "int" ] = 24;
+    json[ "int64" ] = 24;
     json[ "string" ] = "s";
     json[ "bool" ] = true;
     
     const iscool::preferences::property_map map
         ( iscool::preferences::detail::local_preferences_from_json( json ) );
 
-    EXPECT_TRUE( map.has< int >( "int" ) );
-    EXPECT_EQ( 24, *map.get< int >( "int" ) );
+    EXPECT_TRUE( map.has< std::int64_t >( "int64" ) );
+    EXPECT_EQ( 24, *map.get< std::int64_t >( "int64" ) );
     
     EXPECT_TRUE( map.has< std::string >( "string" ) );
     EXPECT_EQ( "s", *map.get< std::string >( "string" ) );
@@ -65,11 +65,11 @@ struct key_visitor
             double_key = true;
         else if ( key == "object" )
             object_key = true;
-        else if ( key == "int" )
-            int_key = true;
+        else if ( key == "int64" )
+            int64_key = true;
     }
 
-    bool int_key = false;
+    bool int64_key = false;
     bool array_key = false;
     bool double_key = false;
     bool object_key = false;
@@ -78,7 +78,7 @@ struct key_visitor
 TEST( iscool_preferences_local_preferences_from_json_test, skip_fields )
 {
     Json::Value json;
-    json[ "int" ] = 24;
+    json[ "int64" ] = 24;
 
     json[ "array" ][ 0 ] = 18;
     json[ "object" ][ "member" ] = 18;
@@ -90,7 +90,7 @@ TEST( iscool_preferences_local_preferences_from_json_test, skip_fields )
     key_visitor visitor;
     map.visit( std::ref( visitor ) );
     
-    EXPECT_TRUE( visitor.int_key );
+    EXPECT_TRUE( visitor.int64_key );
     EXPECT_FALSE( visitor.array_key );
     EXPECT_FALSE( visitor.object_key );
     EXPECT_FALSE( visitor.double_key );

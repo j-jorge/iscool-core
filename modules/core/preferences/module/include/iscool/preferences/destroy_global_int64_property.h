@@ -13,16 +13,16 @@
   See the License for the specific language governing permissions and
   limitations under the License.
 */
-#ifndef ISCOOL_PREFERENCES_GET_GLOBAL_INT_PROPERTY_H
-#define ISCOOL_PREFERENCES_GET_GLOBAL_INT_PROPERTY_H
+#ifndef ISCOOL_PREFERENCES_DESTROY_GLOBAL_INT64_PROPERTY_H
+#define ISCOOL_PREFERENCES_DESTROY_GLOBAL_INT64_PROPERTY_H
 
-#include "iscool/preferences/int_property.h"
+#include "iscool/preferences/int64_property.h"
 
 namespace iscool
 {
     namespace preferences
     {
-        int get_global_int_property( const int_property& property );
+        void destroy_global_int64_property( const int64_property& property );
     }
 }
 

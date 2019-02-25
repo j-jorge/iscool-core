@@ -17,11 +17,11 @@
 
 #include "iscool/preferences/log_context.h"
 
-#include "iscool/json/cast_int.h"
+#include "iscool/json/cast_int64.h"
 #include "iscool/json/cast_bool.h"
 #include "iscool/json/cast_string.h"
 #include "iscool/json/is_of_type_bool.h"
-#include "iscool/json/is_of_type_int.h"
+#include "iscool/json/is_of_type_int64.h"
 #include "iscool/json/is_of_type_string.h"
 #include "iscool/log/causeless_log.h"
 #include "iscool/log/nature/error.h"
@@ -48,8 +48,8 @@ iscool::preferences::detail::local_preferences_from_json
     {
         const Json::Value member( values[ m ] );
         
-        if ( iscool::json::is_of_type< int >( member ) )
-            result.set( m, iscool::json::cast< int >( member ) );
+        if ( iscool::json::is_of_type< std::int64_t >( member ) )
+            result.set( m, iscool::json::cast< std::int64_t >( member ) );
         else if ( iscool::json::is_of_type< bool >( member ) )
             result.set( m, iscool::json::cast< bool >( member ) );
         else if ( iscool::json::is_of_type< std::string >( member ) )
