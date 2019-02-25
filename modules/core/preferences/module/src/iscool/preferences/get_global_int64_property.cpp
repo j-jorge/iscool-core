@@ -13,28 +13,12 @@
   See the License for the specific language governing permissions and
   limitations under the License.
 */
-#ifndef ISCOOL_PREFERENCE_PROPERTY_MAP_H
-#define ISCOOL_PREFERENCE_PROPERTY_MAP_H
+#include "iscool/preferences/get_global_int64_property.h"
 
-#include "iscool/containers/heterogeneous_map.h"
+#include "iscool/preferences/detail/get_global_property.h"
 
-#include <cstdint>
-#include <string>
-
-namespace iscool
+std::int64_t iscool::preferences::get_global_int64_property
+( const int64_property& property )
 {
-    namespace preferences
-    {
-        typedef
-        iscool::containers::heterogeneous_map
-        <
-            std::string,
-            std::int64_t,
-            bool,
-            float,
-            std::string
-        > property_map;
-    }
+    return detail::get_global_property( property );
 }
-
-#endif

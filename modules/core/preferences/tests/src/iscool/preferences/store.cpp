@@ -53,7 +53,7 @@ iscool_preferences_store_test::iscool_preferences_store_test()
 {
     iscool::schedule::initialize( _scheduler.get_delayed_call_delegate() );
 
-    _initial_values.set< int >( "int", 24 );
+    _initial_values.set< std::int64_t >( "int64", 24 );
 
     _empty_save_function =
         []( iscool::preferences::property_map ) -> void
@@ -87,8 +87,8 @@ TEST_F( iscool_preferences_store_test, initial_values )
         ( std::chrono::milliseconds::zero(), _initial_values,
           _empty_save_function );
 
-    EXPECT_EQ( 24, store.get_value( "int", 0 ) );
-    EXPECT_EQ( 0, store.get_value( "nope", 0 ) );
+    EXPECT_EQ( 24, store.get_value< std::int64_t >( "int64", 0 ) );
+    EXPECT_EQ( 0, store.get_value< std::int64_t >( "nope", 0 ) );
     EXPECT_FALSE( store.is_dirty() );
 }
 
@@ -98,9 +98,9 @@ TEST_F( iscool_preferences_store_test, set_value )
         ( std::chrono::milliseconds::zero(), _initial_values,
           _empty_save_function );
 
-    EXPECT_EQ( 24, store.get_value( "int", 0 ) );
-    store.set_value( "int", 88 );
-    EXPECT_EQ( 88, store.get_value( "int", 0 ) );
+    EXPECT_EQ( 24, store.get_value< std::int64_t >( "int64", 0 ) );
+    store.set_value< std::int64_t >( "int64", 88 );
+    EXPECT_EQ( 88, store.get_value< std::int64_t >( "int64", 0 ) );
     EXPECT_TRUE( store.is_dirty() );
 
     store.set_value( "string", std::string( "some string" ) );
@@ -113,15 +113,15 @@ TEST_F( iscool_preferences_store_test, set_value_schedules_save )
         ( std::chrono::milliseconds::zero(), _initial_values,
           _copy_values_save_function );
 
-    store.set_value( "int", 83 );
+    store.set_value< std::int64_t >( "int64", 83 );
     EXPECT_TRUE( _values_to_save.empty() );
 
     wait( std::chrono::milliseconds::zero() );
     EXPECT_TRUE( store.is_dirty() );
     EXPECT_FALSE( _values_to_save.empty() );
     
-    EXPECT_TRUE( _values_to_save.has< int >( "int" ) );
-    EXPECT_EQ( 83, *_values_to_save.get< int >( "int" ) );
+    EXPECT_TRUE( _values_to_save.has< std::int64_t >( "int64" ) );
+    EXPECT_EQ( 83, *_values_to_save.get< std::int64_t >( "int64" ) );
 }
 
 TEST_F( iscool_preferences_store_test, save_with_delay )
@@ -130,7 +130,7 @@ TEST_F( iscool_preferences_store_test, save_with_delay )
         ( std::chrono::milliseconds( 10 ), _initial_values,
           _copy_values_save_function );
 
-    store.set_value( "int", 83 );
+    store.set_value< std::int64_t >( "int64", 83 );
     EXPECT_TRUE( _values_to_save.empty() );
 
     wait( std::chrono::milliseconds( 5 ) );
@@ -141,8 +141,8 @@ TEST_F( iscool_preferences_store_test, save_with_delay )
     EXPECT_TRUE( store.is_dirty() );
     EXPECT_FALSE( _values_to_save.empty() );
     
-    EXPECT_TRUE( _values_to_save.has< int >( "int" ) );
-    EXPECT_EQ( 83, *_values_to_save.get< int >( "int" ) );
+    EXPECT_TRUE( _values_to_save.has< std::int64_t >( "int64" ) );
+    EXPECT_EQ( 83, *_values_to_save.get< std::int64_t >( "int64" ) );
 }
 
 TEST_F( iscool_preferences_store_test, set_value_during_save )
@@ -151,19 +151,19 @@ TEST_F( iscool_preferences_store_test, set_value_during_save )
         ( std::chrono::milliseconds::zero(), _initial_values,
           _copy_values_save_function );
 
-    store.set_value( "int", 83 );
+    store.set_value< std::int64_t >( "int64", 83 );
     wait( std::chrono::milliseconds::zero() );
 
     EXPECT_TRUE( store.is_dirty() );
-    EXPECT_EQ( 83, store.get_value( "int", 0 ) );
+    EXPECT_EQ( 83, store.get_value< std::int64_t >( "int64", 0 ) );
     
-    store.set_value( "int", 24 );
-    EXPECT_EQ( 24, store.get_value( "int", 0 ) );
+    store.set_value< std::int64_t >( "int64", 24 );
+    EXPECT_EQ( 24, store.get_value< std::int64_t >( "int64", 0 ) );
     wait( std::chrono::milliseconds::zero() );
 
     EXPECT_TRUE( store.is_dirty() );
-    EXPECT_TRUE( _values_to_save.has< int >( "int" ) );
-    EXPECT_EQ( 83, *_values_to_save.get< int >( "int" ) );
+    EXPECT_TRUE( _values_to_save.has< std::int64_t >( "int64" ) );
+    EXPECT_EQ( 83, *_values_to_save.get< std::int64_t >( "int64" ) );
 }
 
 TEST_F( iscool_preferences_store_test, confirm_save )
@@ -172,14 +172,14 @@ TEST_F( iscool_preferences_store_test, confirm_save )
         ( std::chrono::milliseconds::zero(), _initial_values,
           _copy_values_save_function );
 
-    store.set_value( "int", 83 );
+    store.set_value< std::int64_t >( "int64", 83 );
     wait( std::chrono::milliseconds::zero() );
 
     EXPECT_TRUE( store.is_dirty() );
-    EXPECT_TRUE( _values_to_save.has< int >( "int" ) );
-    EXPECT_EQ( 83, *_values_to_save.get< int >( "int" ) );
+    EXPECT_TRUE( _values_to_save.has< std::int64_t >( "int64" ) );
+    EXPECT_EQ( 83, *_values_to_save.get< std::int64_t >( "int64" ) );
 
-    store.set_value( "int", 24 );
+    store.set_value< std::int64_t >( "int64", 24 );
 
     _values_to_save.clear();
     store.confirm_save();
@@ -187,8 +187,8 @@ TEST_F( iscool_preferences_store_test, confirm_save )
     
     wait( std::chrono::milliseconds::zero() );
 
-    EXPECT_TRUE( _values_to_save.has< int >( "int" ) );
-    EXPECT_EQ( 24, *_values_to_save.get< int >( "int" ) );
+    EXPECT_TRUE( _values_to_save.has< std::int64_t >( "int64" ) );
+    EXPECT_EQ( 24, *_values_to_save.get< std::int64_t >( "int64" ) );
 
     store.confirm_save();
     EXPECT_FALSE( store.is_dirty() );
@@ -200,11 +200,11 @@ TEST_F( iscool_preferences_store_test, save_error )
         ( std::chrono::milliseconds::zero(), _initial_values,
           _copy_values_save_function );
 
-    store.set_value( "int", 83 );
+    store.set_value< std::int64_t >( "int64", 83 );
     wait( std::chrono::milliseconds::zero() );
 
-    EXPECT_TRUE( _values_to_save.has< int >( "int" ) );
-    EXPECT_EQ( 83, *_values_to_save.get< int >( "int" ) );
+    EXPECT_TRUE( _values_to_save.has< std::int64_t >( "int64" ) );
+    EXPECT_EQ( 83, *_values_to_save.get< std::int64_t >( "int64" ) );
 
     store.set_value( "bool", true );
 
@@ -215,8 +215,8 @@ TEST_F( iscool_preferences_store_test, save_error )
 
     EXPECT_FALSE( _values_to_save.empty() );
 
-    EXPECT_TRUE( _values_to_save.has< int >( "int" ) );
-    EXPECT_EQ( 83, *_values_to_save.get< int >( "int" ) );
+    EXPECT_TRUE( _values_to_save.has< std::int64_t >( "int64" ) );
+    EXPECT_EQ( 83, *_values_to_save.get< std::int64_t >( "int64" ) );
 
     EXPECT_TRUE( store.is_dirty() );
     EXPECT_TRUE( _values_to_save.has< bool >( "bool" ) );
@@ -229,12 +229,12 @@ TEST_F( iscool_preferences_store_test, flush )
         ( std::chrono::milliseconds( 5 ), _initial_values,
           _copy_values_save_function );
 
-    store.set_value( "int", 83 );
+    store.set_value< std::int64_t >( "int64", 83 );
     store.flush();
     wait( std::chrono::milliseconds::zero() );
     
-    EXPECT_TRUE( _values_to_save.has< int >( "int" ) );
-    EXPECT_EQ( 83, *_values_to_save.get< int >( "int" ) );
+    EXPECT_TRUE( _values_to_save.has< std::int64_t >( "int64" ) );
+    EXPECT_EQ( 83, *_values_to_save.get< std::int64_t >( "int64" ) );
 }
 
 TEST_F( iscool_preferences_store_test, flush_in_save )
@@ -243,7 +243,7 @@ TEST_F( iscool_preferences_store_test, flush_in_save )
         ( std::chrono::milliseconds( 5 ), _initial_values,
           _copy_values_save_function );
 
-    store.set_value( "int", 83 );
+    store.set_value< std::int64_t >( "int64", 83 );
     wait( std::chrono::milliseconds( 5 ) );
 
     EXPECT_FALSE( _values_to_save.empty() );
@@ -252,8 +252,8 @@ TEST_F( iscool_preferences_store_test, flush_in_save )
     store.flush();
     wait( std::chrono::milliseconds::zero() );
     
-    EXPECT_TRUE( _values_to_save.has< int >( "int" ) );
-    EXPECT_EQ( 83, *_values_to_save.get< int >( "int" ) );
+    EXPECT_TRUE( _values_to_save.has< std::int64_t >( "int64" ) );
+    EXPECT_EQ( 83, *_values_to_save.get< std::int64_t >( "int64" ) );
     
     EXPECT_TRUE( _values_to_save.has< bool >( "bool" ) );
     EXPECT_EQ( true, *_values_to_save.get< bool >( "bool" ) );
@@ -272,24 +272,22 @@ TEST_F( iscool_preferences_store_test, get_keys_empty )
 TEST_F( iscool_preferences_store_test, get_keys )
 {
     iscool::preferences::property_map initial_values;
-    initial_values.set< int >( "a", 1 );
+    initial_values.set< std::int64_t >( "a", 1 );
     initial_values.set< std::string >( "b", "" );
-    initial_values.set< std::uint64_t >( "c", 1 );
-    initial_values.set< bool >( "d", true );
-    initial_values.set< float >( "e", 1 );
+    initial_values.set< bool >( "c", true );
+    initial_values.set< float >( "d", 1 );
 
     iscool::preferences::store store
         ( std::chrono::milliseconds( 5 ), initial_values,
           _copy_values_save_function );
 
-    store.set_value< int >( "A", 1 );
+    store.set_value< std::int64_t >( "A", 1 );
     store.set_value< std::string >( "B", "" );
-    store.set_value< std::uint64_t >( "C", 1 );
-    store.set_value< bool >( "D", true );
-    store.set_value< float >( "E", 1 );
+    store.set_value< bool >( "C", true );
+    store.set_value< float >( "D", 1 );
 
     const std::vector< std::string > expected
-        ( { "A", "B", "C", "D", "E", "a", "b", "c", "d", "e" } );
+        ( { "A", "B", "C", "D", "a", "b", "c", "d" } );
     std::vector< std::string > keys( store.get_keys() );
 
     std::sort( keys.begin(), keys.end() );

@@ -13,16 +13,18 @@
   See the License for the specific language governing permissions and
   limitations under the License.
 */
-#ifndef ISCOOL_PREFERENCES_INT_PROPERTY_H
-#define ISCOOL_PREFERENCES_INT_PROPERTY_H
+#ifndef ISCOOL_PREFERENCES_INT64_PROPERTY_H
+#define ISCOOL_PREFERENCES_INT64_PROPERTY_H
 
 #include "iscool/preferences/detail/property.h"
+
+#include <cstdint>
 
 namespace iscool
 {
     namespace preferences
     {
-        typedef detail::property< int > int_property;
+        typedef detail::property< std::int64_t > int64_property;
     }
 }
 

@@ -15,15 +15,15 @@
 */
 #include "iscool/preferences/declare_global_bool_property.h"
 #include "iscool/preferences/declare_global_float_property.h"
-#include "iscool/preferences/declare_global_int_property.h"
+#include "iscool/preferences/declare_global_int64_property.h"
 #include "iscool/preferences/declare_global_string_property.h"
 #include "iscool/preferences/destroy_global_bool_property.h"
 #include "iscool/preferences/destroy_global_float_property.h"
-#include "iscool/preferences/destroy_global_int_property.h"
+#include "iscool/preferences/destroy_global_int64_property.h"
 #include "iscool/preferences/destroy_global_string_property.h"
 #include "iscool/preferences/get_global_bool_property.h"
 #include "iscool/preferences/get_global_float_property.h"
-#include "iscool/preferences/get_global_int_property.h"
+#include "iscool/preferences/get_global_int64_property.h"
 #include "iscool/preferences/get_global_string_property.h"
 #include "iscool/preferences/set_global_properties.h"
 
@@ -35,8 +35,8 @@ TEST( iscool_preferences, global_properties )
         ( iscool::preferences::declare_global_bool_property( "bool", true ) );
     const iscool::preferences::float_property float_property
         ( iscool::preferences::declare_global_float_property( "float", 11 ) );
-    const iscool::preferences::int_property int_property
-        ( iscool::preferences::declare_global_int_property( "int", 111 ) );
+    const iscool::preferences::int64_property int64_property
+        ( iscool::preferences::declare_global_int64_property( "int64", 111 ) );
     const iscool::preferences::string_property string_property
         ( iscool::preferences::declare_global_string_property
           ( "string", "abc" ) );
@@ -47,7 +47,8 @@ TEST( iscool_preferences, global_properties )
         ( 11,
           iscool::preferences::get_global_float_property( float_property ) );
     EXPECT_EQ
-        ( 111, iscool::preferences::get_global_int_property( int_property ) );
+        ( 111,
+          iscool::preferences::get_global_int64_property( int64_property ) );
     EXPECT_EQ
         ( "abc",
           iscool::preferences::get_global_string_property( string_property ) );
@@ -56,7 +57,7 @@ TEST( iscool_preferences, global_properties )
         ( {
             { "bool", "0" },
             { "float", "2.2" },
-            { "int", "-222" },
+            { "int64", "-222" },
             { "string", "ABC" }
         } );
     
@@ -66,14 +67,15 @@ TEST( iscool_preferences, global_properties )
         ( 2.2,
           iscool::preferences::get_global_float_property( float_property ) );
     EXPECT_EQ
-        ( -222, iscool::preferences::get_global_int_property( int_property ) );
+        ( -222,
+          iscool::preferences::get_global_int64_property( int64_property ) );
     EXPECT_EQ
         ( "ABC",
           iscool::preferences::get_global_string_property( string_property ) );
 
     iscool::preferences::destroy_global_bool_property( bool_property );
     iscool::preferences::destroy_global_float_property( float_property );
-    iscool::preferences::destroy_global_int_property( int_property );
+    iscool::preferences::destroy_global_int64_property( int64_property );
     iscool::preferences::destroy_global_string_property( string_property );
 
     EXPECT_TRUE
@@ -82,7 +84,8 @@ TEST( iscool_preferences, global_properties )
         ( 11,
           iscool::preferences::get_global_float_property( float_property ) );
     EXPECT_EQ
-        ( 111, iscool::preferences::get_global_int_property( int_property ) );
+        ( 111,
+          iscool::preferences::get_global_int64_property( int64_property ) );
     EXPECT_EQ
         ( "abc",
           iscool::preferences::get_global_string_property( string_property ) );
@@ -91,7 +94,7 @@ TEST( iscool_preferences, global_properties )
         ( {
             { "bool", "0" },
             { "float", "2.2" },
-            { "int", "-222" },
+            { "int64", "-222" },
             { "string", "ABC" }
         } );
     
@@ -101,7 +104,8 @@ TEST( iscool_preferences, global_properties )
         ( 11,
           iscool::preferences::get_global_float_property( float_property ) );
     EXPECT_EQ
-        ( 111, iscool::preferences::get_global_int_property( int_property ) );
+        ( 111,
+          iscool::preferences::get_global_int64_property( int64_property ) );
     EXPECT_EQ
         ( "abc",
           iscool::preferences::get_global_string_property( string_property ) );

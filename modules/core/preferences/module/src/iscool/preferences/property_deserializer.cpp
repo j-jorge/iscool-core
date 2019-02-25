@@ -24,16 +24,10 @@
 
 #include <boost/lexical_cast.hpp>
 
-void iscool::preferences::property_deserializer::add_int_property
+void iscool::preferences::property_deserializer::add_int64_property
 ( const std::string& key )
 {
-    add_key( _int, key );
-}
-
-void iscool::preferences::property_deserializer::add_uint64_property
-( const std::string& key )
-{
-    add_key( _uint64, key );
+    add_key( _int64, key );
 }
 
 void iscool::preferences::property_deserializer::add_bool_property
@@ -54,16 +48,10 @@ void iscool::preferences::property_deserializer::add_string_property
     add_key( _string, key );
 }
 
-void iscool::preferences::property_deserializer::remove_int_property
+void iscool::preferences::property_deserializer::remove_int64_property
 ( const std::string& key )
 {
-    _int.erase( key );
-}
-
-void iscool::preferences::property_deserializer::remove_uint64_property
-( const std::string& key )
-{
-    _uint64.erase( key );
+    _int64.erase( key );
 }
 
 void iscool::preferences::property_deserializer::remove_bool_property
@@ -89,11 +77,9 @@ iscool::preferences::property_deserializer::get_all_keys() const
 {
     std::vector< std::string > result;
     result.reserve
-        ( _int.size() +  _uint64.size() + _bool.size() + _float.size()
-          + _string.size() );
+        ( _int64.size() +  _bool.size() + _float.size() + _string.size() );
 
-    result.insert( result.end(), _int.begin(), _int.end() );
-    result.insert( result.end(), _uint64.begin(), _uint64.end() );
+    result.insert( result.end(), _int64.begin(), _int64.end() );
     result.insert( result.end(), _bool.begin(), _bool.end() );
     result.insert( result.end(), _float.begin(), _float.end() );
     result.insert( result.end(), _string.begin(), _string.end() );
@@ -104,11 +90,8 @@ iscool::preferences::property_deserializer::get_all_keys() const
 void iscool::preferences::property_deserializer::merge
 ( const property_deserializer& that )
 {
-    for ( const std::string& k : that._int )
-        add_key( _int, k );
-
-    for ( const std::string& k : that._uint64 )
-        add_key( _uint64, k );
+    for ( const std::string& k : that._int64 )
+        add_key( _int64, k );
 
     for ( const std::string& k : that._bool )
         add_key( _bool, k );
@@ -125,10 +108,8 @@ void iscool::preferences::property_deserializer::operator()
   const std::unordered_map< std::string, std::string >& properties ) const
 {
     for( const auto& entry : properties )
-        if ( _int.find( entry.first ) != _int.end() )
-            set_int_value( entry.first, entry.second, result );
-        else if ( _uint64.find( entry.first ) != _uint64.end() )
-            set_uint64_value( entry.first, entry.second, result );
+        if ( _int64.find( entry.first ) != _int64.end() )
+            set_int64_value( entry.first, entry.second, result );
         else if ( _bool.find( entry.first ) != _bool.end() )
             set_bool_value( entry.first, entry.second, result );
         else if ( _float.find( entry.first ) != _float.end() )
@@ -145,8 +126,7 @@ void iscool::preferences::property_deserializer::operator()
 void iscool::preferences::property_deserializer::add_key
 ( std::unordered_set< std::string >& domain, const std::string& key )
 {
-    assert( _int.find( key ) == _int.end() );
-    assert( _uint64.find( key ) == _uint64.end() );
+    assert( _int64.find( key ) == _int64.end() );
     assert( _string.find( key ) == _string.end() );
     assert( _bool.find( key ) == _bool.end() );
     assert( _float.find( key ) == _float.end() );
@@ -154,34 +134,18 @@ void iscool::preferences::property_deserializer::add_key
     domain.insert( domain.end(), key );
 }
 
-void iscool::preferences::property_deserializer::set_int_value
+void iscool::preferences::property_deserializer::set_int64_value
 ( const std::string& key, const std::string& value, property_map& result ) const
 {
     try
     {
-        result.set( key, boost::lexical_cast< int >( value ) );
+        result.set( key, boost::lexical_cast< std::int64_t >( value ) );
     }
     catch( const boost::bad_lexical_cast& e )
     {
         ic_causeless_log
             ( iscool::log::nature::error(), log_context(),
-              "Failed to convert value to int '%s=%s': %s", key, value,
-              e.what() );
-    }
-}
-
-void iscool::preferences::property_deserializer::set_uint64_value
-( const std::string& key, const std::string& value, property_map& result ) const
-{
-    try
-    {
-        result.set( key, boost::lexical_cast< std::uint64_t >( value ) );
-    }
-    catch( const boost::bad_lexical_cast& e )
-    {
-        ic_causeless_log
-            ( iscool::log::nature::error(), log_context(),
-              "Failed to convert value to uint64 '%s=%s': %s", key, value,
+              "Failed to convert value to int64 '%s=%s': %s", key, value,
               e.what() );
     }
 }

@@ -13,17 +13,17 @@
   See the License for the specific language governing permissions and
   limitations under the License.
 */
-#include "iscool/preferences/destroy_global_int_property.h"
+#include "iscool/preferences/destroy_global_int64_property.h"
 
 #include "iscool/preferences/detail/erase_global_property.h"
 #include "iscool/preferences/detail/global_deserializer.h"
 
 #include "iscool/preferences/property_deserializer.h"
 
-void iscool::preferences::destroy_global_int_property
-( const int_property& property )
+void iscool::preferences::destroy_global_int64_property
+( const int64_property& property )
 {
-    detail::global_deserializer().remove_int_property( property.name );
+    detail::global_deserializer().remove_int64_property( property.name );
     detail::erase_global_property( property );
 }
 

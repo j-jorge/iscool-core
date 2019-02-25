@@ -13,17 +13,18 @@
   See the License for the specific language governing permissions and
   limitations under the License.
 */
-#include "iscool/preferences/declare_global_int_property.h"
+#ifndef ISCOOL_PREFERENCES_DECLARE_GLOBAL_INT64_PROPERTY_H
+#define ISCOOL_PREFERENCES_DECLARE_GLOBAL_INT64_PROPERTY_H
 
-#include "iscool/preferences/detail/global_deserializer.h"
+#include "iscool/preferences/int64_property.h"
 
-#include "iscool/preferences/property_deserializer.h"
-
-iscool::preferences::int_property
-iscool::preferences::declare_global_int_property
-( std::string&& name, int fallback )
+namespace iscool
 {
-    detail::global_deserializer().add_int_property( name );
-    return int_property( std::move( name ), fallback );
+    namespace preferences
+    {
+        int64_property declare_global_int64_property
+        ( std::string&& name, std::int64_t fallback );
+    }
 }
 
+#endif

@@ -23,13 +23,7 @@ iscool::preferences::property_map_to_json::property_map_to_json
 }
 
 void iscool::preferences::property_map_to_json::operator()
-( const std::string& key, int value )
-{
-    insert( key, value );
-}
-
-void iscool::preferences::property_map_to_json::operator()
-( const std::string& key, std::uint64_t value )
+( const std::string& key, std::int64_t value )
 {
     insert( key, value );
 }

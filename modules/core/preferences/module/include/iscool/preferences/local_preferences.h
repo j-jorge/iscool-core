@@ -63,8 +63,9 @@ namespace iscool
             
             void flush();
             
-            int get_value( const std::string& key, int default_value ) const;
-            void set_value( const std::string& key, int value );
+            std::int64_t get_value
+            ( const std::string& key, std::int64_t default_value ) const;
+            void set_value( const std::string& key, std::int64_t value );
 
             bool get_value( const std::string& key, bool default_value ) const;
             void set_value( const std::string& key, bool value );

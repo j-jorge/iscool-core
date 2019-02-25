@@ -29,8 +29,7 @@ namespace iscool
         public:
             explicit property_map_to_json( Json::Value& target );
 
-            void operator()( const std::string& key, int value );
-            void operator()( const std::string& key, std::uint64_t value );
+            void operator()( const std::string& key, std::int64_t value );
             void operator()( const std::string& key, bool value );
             void operator()( const std::string& key, float value );
             void operator()( const std::string& key, const std::string& value );

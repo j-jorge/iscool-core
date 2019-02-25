@@ -148,14 +148,14 @@ void iscool::preferences::local_preferences::flush()
         _store.flush();
 }
             
-int iscool::preferences::local_preferences::get_value
-( const std::string& key, int default_value ) const
+std::int64_t iscool::preferences::local_preferences::get_value
+( const std::string& key, std::int64_t default_value ) const
 {
     return _store.get_value( key, default_value );
 }
 
 void iscool::preferences::local_preferences::set_value
-( const std::string& key, int value )
+( const std::string& key, std::int64_t value )
 {
     _store.set_value( key, value );
 }
