@@ -9,6 +9,7 @@ endif()
 
 declare_iscool_library( NAME log
   FILES
+  "add_file_sink.cpp"
   "context.cpp"
   "message_delegates.cpp"
   "message_delegates_registry.cpp"
