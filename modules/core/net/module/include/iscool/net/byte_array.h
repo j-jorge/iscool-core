@@ -53,6 +53,7 @@ namespace iscool
             const_iterator begin() const;
             const_iterator end() const;
 
+            void reserve( std::size_t size );
             std::size_t size() const;
 
             void swap( byte_array& that );

@@ -51,6 +51,11 @@ iscool::net::byte_array::const_iterator iscool::net::byte_array::end() const
     return _content.end();
 }
 
+void iscool::net::byte_array::reserve( std::size_t size )
+{
+    _content.reserve( size );
+}
+
 std::size_t iscool::net::byte_array::size() const
 {
     return _content.size();
