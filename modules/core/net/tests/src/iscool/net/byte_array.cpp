@@ -15,7 +15,15 @@
 */
 #include "iscool/net/byte_array.h"
 
+#include <type_traits>
+
 #include <gtest/gtest.h>
+
+TEST( byte_array_test, movable )
+{
+    EXPECT_TRUE( std::is_move_constructible< iscool::net::byte_array >::value );
+    EXPECT_TRUE( std::is_move_assignable< iscool::net::byte_array >::value );
+}
 
 TEST( byte_array_test, default_is_empty )
 {
