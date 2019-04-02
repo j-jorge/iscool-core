@@ -19,11 +19,17 @@
 
 iscool::net::byte_array iscool::net::byte_array_from_stream( std::istream& in )
 {
-    static constexpr std::size_t buffer_size( 2048 );
+    const std::istream::pos_type start( in.tellg() );
+    in.seekg( 0, std::ios_base::end );
 
-    char buffer[ buffer_size ];
+    const std::istream::pos_type last( in.tellg() );
+    in.seekg( start, std::ios_base::beg );
+    
     byte_array result;
-
+    result.reserve( last - start );
+    
+    static constexpr std::size_t buffer_size( 2048 );
+    char buffer[ buffer_size ];
     std::uint8_t* begin( reinterpret_cast< std::uint8_t* >( buffer ) );
 
     while( in )
