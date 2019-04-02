@@ -18,13 +18,10 @@
 
 #include "iscool/optional.h"
 #include "iscool/style/detail/properties_handle.h"
-
-#include <json/value.h>
+#include "iscool/style/detail/declaration_ref.h"
 
 #include <boost/range/iterator_range.hpp>
 
-#include <map>
-#include <memory>
 #include <string>
 #include <unordered_map>
 
@@ -37,7 +34,10 @@ namespace iscool
         public:
             typedef std::unordered_map< std::string, float > numbers_map;
             typedef std::unordered_map< std::string, bool > booleans_map;
-            typedef std::map< std::string, declaration > declaration_map;
+
+            typedef std::unordered_map< std::string, detail::declaration_ref >
+            declaration_map;
+            
             typedef std::unordered_map< std::string, std::string > string_map;
 
             template< typename T >

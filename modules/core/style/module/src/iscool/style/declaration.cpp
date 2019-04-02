@@ -136,7 +136,7 @@ void iscool::style::declaration::set_declaration
 ( const std::string& key, const declaration& style )
 {
     ensure_owned_properties();
-    _properties->declarations[ key ] = style;
+    *_properties->declarations[ key ] = style;
 }
 
 iscool::optional< const iscool::style::declaration& >
@@ -151,7 +151,7 @@ iscool::style::declaration::get_declaration( const std::string& key ) const
     if ( it == _properties->declarations.end() )
         return iscool::none;
     else
-        return it->second;
+        return *it->second;
 }
 
 const iscool::style::declaration&
@@ -274,8 +274,8 @@ iscool::style::declaration::get_merged_declarations
 
     for ( const declaration_map::value_type& sub_style
               : style._properties->declarations )
-        result[ sub_style.first ] =
-            result[ sub_style.first ].merge( sub_style.second );
+        *result[ sub_style.first ] =
+            result[ sub_style.first ]->merge( sub_style.second );
 
     return result;
 }

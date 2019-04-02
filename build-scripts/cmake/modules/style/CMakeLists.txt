@@ -10,6 +10,7 @@ declare_iscool_library( NAME style
   "log_context.cpp"
   "setup.cpp"
 
+  "detail/declaration_ref.cpp"
   "detail/get_properties_pool.cpp"
   "detail/get_style_cache.cpp"
   "detail/loader_merge_path_list.cpp"

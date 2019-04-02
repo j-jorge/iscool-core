@@ -16,17 +16,15 @@
 #ifndef ISCOOL_STYLE_DETAIL_PROPERTIES_H
 #define ISCOOL_STYLE_DETAIL_PROPERTIES_H
 
-#include "iscool/style/declaration.h"
+#include "iscool/style/detail/declaration_ref.h"
 
 #include <unordered_map>
-#include <map>
+#include <string>
 
 namespace iscool
 {
     namespace style
     {
-        class declaration;
-        
         namespace detail
         {
             class properties
@@ -34,7 +32,11 @@ namespace iscool
             public:
                 typedef std::unordered_map< std::string, float > numbers_map;
                 typedef std::unordered_map< std::string, bool > booleans_map;
-                typedef std::map< std::string, declaration > declaration_map;
+
+                typedef
+                std::unordered_map< std::string, detail::declaration_ref >
+                declaration_map;
+                
                 typedef
                 std::unordered_map< std::string, std::string > string_map;
 
