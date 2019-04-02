@@ -106,7 +106,7 @@ void iscool::style::declaration::set_string
     _properties->strings[ key ] = value;
 }
 
-iscool::optional< std::string >
+iscool::optional< const std::string& >
 iscool::style::declaration::get_string( const std::string& key ) const
 {
     if ( !_properties )
@@ -124,7 +124,7 @@ std::string
 iscool::style::declaration::get_string
 ( const std::string& key, const std::string& default_value ) const
 {
-    const iscool::optional< std::string > result( get_string( key ) );
+    const iscool::optional< const std::string& > result( get_string( key ) );
 
     if ( !result )
         return default_value;

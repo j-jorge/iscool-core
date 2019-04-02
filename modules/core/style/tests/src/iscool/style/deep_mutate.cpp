@@ -15,6 +15,8 @@
 */
 #include "iscool/style/deep_mutate.h"
 
+#include "iscool/optional.impl.tpp"
+
 #include <gtest/gtest.h>
 
 TEST( iscool_style_deep_mutate, create_intermediate_styles )

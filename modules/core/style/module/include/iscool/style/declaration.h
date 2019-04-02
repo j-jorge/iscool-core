@@ -61,7 +61,7 @@ namespace iscool
             ( const std::string& key, bool default_value ) const;
             
             void set_string( const std::string& key, const std::string& value );
-            iscool::optional< std::string >
+            iscool::optional< const std::string& >
             get_string( const std::string& key ) const;
             std::string get_string
             ( const std::string& key, const std::string& default_value ) const;
