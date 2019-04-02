@@ -12,6 +12,7 @@ declare_iscool_interface_library(
   "binary_search.cpp"
   "has_duplicates.cpp"
   "insert_all.cpp"
+  "insert_or_assign_all.cpp"
   "make_array.cpp"
   "member_view.cpp"
   "sort_permutation.cpp"
