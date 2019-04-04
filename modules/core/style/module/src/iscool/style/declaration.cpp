@@ -255,6 +255,14 @@ iscool::style::declaration::get_declarations() const
         ( _properties->declarations.begin(), _properties->declarations.end() );
 }
 
+std::size_t iscool::style::declaration::get_declaration_count() const
+{
+    if ( !_properties )
+        return 0;
+
+    return _properties->declarations.size();
+}
+
 std::uint64_t iscool::style::declaration::get_id() const
 {
     if ( !_properties )

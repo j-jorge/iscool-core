@@ -82,6 +82,8 @@ namespace iscool
             strings_range get_strings() const;
             declarations_range get_declarations() const;
 
+            std::size_t get_declaration_count() const;
+            
             std::uint64_t get_id() const;
             
         private:
