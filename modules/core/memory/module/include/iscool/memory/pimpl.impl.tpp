@@ -20,14 +20,6 @@
 #include "iscool/memory/detail/pimpl_storage.impl.tpp"
 
 template< typename T, std::size_t N >
-template< typename... Args >
-iscool::memory::pimpl< T, N >::pimpl( Args... args )
-    : _storage( std::forward< Args >( args )... )
-{
-
-}
-
-template< typename T, std::size_t N >
 iscool::memory::pimpl< T, N >::pimpl( pimpl< T, N >&& that )
     : _storage( std::move( *that._storage.get() ) )
 {
@@ -41,6 +33,14 @@ iscool::memory::pimpl< T, N >::pimpl( const pimpl< T, N >& that )
 
 }
   
+template< typename T, std::size_t N >
+template< typename... Args >
+iscool::memory::pimpl< T, N >::pimpl( Args&&... args )
+    : _storage( std::forward< Args >( args )... )
+{
+
+}
+
 template< typename T, std::size_t N >
 iscool::memory::pimpl< T, N >::~pimpl()
 {

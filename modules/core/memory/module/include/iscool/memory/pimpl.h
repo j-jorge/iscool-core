@@ -26,11 +26,11 @@ namespace iscool
         class pimpl
         {
         public:
-            template< typename... Args >
-            pimpl( Args... args );
-  
             pimpl( pimpl< T, N >&& that );
             pimpl( const pimpl< T, N >& );
+  
+            template< typename... Args >
+            pimpl( Args&&... args );
   
             ~pimpl();
   
