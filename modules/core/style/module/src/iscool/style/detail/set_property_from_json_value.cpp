@@ -64,13 +64,19 @@ void iscool::style::detail::set_property_from_json_value
 ( declaration& style, const std::string& key, const Json::Value& property )
 {
     const std::vector< std::string > keys( split_key_path( key ) );
-    std::vector< declaration > declarations
-        ( follow_declarations( style, keys ) );
 
-    set_property_value( declarations.back(), keys.back(), property );
-    insert_declarations( declarations, keys );
+    if ( keys.size() == 1 )
+        set_property_value( style, key, property );
+    else
+    {
+        std::vector< declaration > declarations
+            ( follow_declarations( style, keys ) );
 
-    style = declarations[ 0 ];
+        set_property_value( declarations.back(), keys.back(), property );
+        insert_declarations( declarations, keys );
+
+        style = std::move( declarations[ 0 ] );
+    }
 }
 
 std::vector< std::string >

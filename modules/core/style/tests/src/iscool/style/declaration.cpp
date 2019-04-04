@@ -15,7 +15,17 @@
 */
 #include "iscool/style/declaration.h"
 
+#include <type_traits>
+
 #include <gtest/gtest.h>
+
+TEST( iscool_style_declaration, moveable )
+{
+    EXPECT_TRUE
+        ( std::is_move_constructible< iscool::style::declaration >::value );
+    EXPECT_TRUE
+        ( std::is_move_assignable< iscool::style::declaration >::value );
+}
 
 TEST( iscool_style_declaration, merge_empty_declaration )
 {
