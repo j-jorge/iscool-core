@@ -139,22 +139,28 @@ iscool::style::detail::get_merged_json_style_property
     const Json::ArrayIndex count( property.size() );
     std::vector< declaration > styles;
     styles.reserve( count );
+
+    int i( 0 );
     
-    for ( Json::ArrayIndex i( 0 ); i != count; ++i )
-        if( property[ i ].isObject() )
-            styles.emplace_back( json::to_declaration( property[ i ] ) );
-        else if ( iscool::json::is_of_type< std::string >( property[ i ] ) )
+    for ( const Json::Value& value : property )
+    {
+        if( value.isObject() )
+            styles.emplace_back( json::to_declaration( value ) );
+        else if ( iscool::json::is_of_type< std::string >( value ) )
             styles.emplace_back
               ( iscool::style::loader::load
-                  ( iscool::json::cast< std::string >( property[ i ] ) ) );
+                  ( iscool::json::cast< std::string >( value ) ) );
         else
         {
             ic_causeless_log
                 ( iscool::log::nature::info(), log_context(),
                   "invalid json value : [ %d ] %d",
-                  i, int( property.type() ) );
+                  i, int( value.type() ) );
             assert( false );
         }
+        
+        ++i;
+    }
 
     return merge_declarations( styles );
 }

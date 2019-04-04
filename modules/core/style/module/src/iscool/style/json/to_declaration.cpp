@@ -35,13 +35,19 @@ iscool::style::json::to_declaration( const Json::Value& value )
         return result;
     }
 
-    for( const std::string& name: value.getMemberNames() )
-        if( name.empty() )
+    const auto end( value.end() );
+    
+    for ( auto it( value.begin() ); it != end; ++it )
+    {
+        const std::string& key( it.key().asString() );
+        
+        if( key.empty() )
             ic_causeless_log
                 ( iscool::log::nature::error(), log_context(),
                   "the name cannot be emtpy." );
         else
-            detail::set_property_from_json_value( result, name, value[ name ] );
-
+            detail::set_property_from_json_value( result, key, *it );
+    }
+    
     return result;
 }
