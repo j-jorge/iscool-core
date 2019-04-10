@@ -18,6 +18,9 @@
 
 #include "iscool/memory/detail/pimpl_storage.h"
 
+#include <type_traits>
+#include <tuple>
+
 namespace iscool
 {
     namespace memory
@@ -26,11 +29,24 @@ namespace iscool
         class pimpl
         {
         public:
+            pimpl();
             pimpl( pimpl< T, N >&& that );
             pimpl( const pimpl< T, N >& );
   
-            template< typename... Args >
-            pimpl( Args&&... args );
+            template
+            < typename... Args,
+              typename OK =
+                typename std::enable_if
+                <
+                  !std::is_same
+                  <
+                      std::tuple< pimpl< T, N > >,
+                      std::tuple< typename std::decay< Args >::type... >
+                  >::value
+                >::type
+            >
+            pimpl
+            ( Args&&... args );
   
             ~pimpl();
   
