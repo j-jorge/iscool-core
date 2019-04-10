@@ -15,17 +15,10 @@
 */
 #include "iscool/preferences/set_global_properties.h"
 
-#include "iscool/preferences/detail/global_deserializer.h"
 #include "iscool/preferences/detail/global_properties.h"
-
-#include "iscool/preferences/property_deserializer.h"
-#include "iscool/preferences/property_map.impl.h"
 
 void iscool::preferences::set_global_properties
 ( const std::unordered_map< std::string, std::string >& properties )
 {
-    iscool::preferences::property_map& map( detail::global_properties() );
-    map.clear();
-    detail::global_deserializer()( map, properties );
+    detail::set_global_properties( properties );
 }
-

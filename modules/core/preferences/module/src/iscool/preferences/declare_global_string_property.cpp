@@ -15,15 +15,10 @@
 */
 #include "iscool/preferences/declare_global_string_property.h"
 
-#include "iscool/preferences/detail/global_deserializer.h"
-
-#include "iscool/preferences/property_deserializer.h"
-
 iscool::preferences::string_property
 iscool::preferences::declare_global_string_property
 ( std::string&& name, std::string&& fallback )
 {
-    detail::global_deserializer().add_string_property( name );
     return string_property( std::move( name ), std::move( fallback ) );
 }
 

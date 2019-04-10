@@ -15,15 +15,10 @@
 */
 #include "iscool/preferences/declare_global_float_property.h"
 
-#include "iscool/preferences/detail/global_deserializer.h"
-
-#include "iscool/preferences/property_deserializer.h"
-
 iscool::preferences::float_property
 iscool::preferences::declare_global_float_property
 ( std::string&& name, float fallback )
 {
-    detail::global_deserializer().add_float_property( name );
     return float_property( std::move( name ), fallback );
 }
 

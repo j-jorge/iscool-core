@@ -16,19 +16,55 @@
 #ifndef ISCOOL_PREFERENCES_DETAIL_GET_GLOBAL_PROPERTY_TPP
 #define ISCOOL_PREFERENCES_DETAIL_GET_GLOBAL_PROPERTY_TPP
 
+#include "iscool/preferences/log_context.h"
 #include "iscool/preferences/detail/global_properties.h"
 
-#include "iscool/preferences/property_map.impl.h"
+#include "iscool/log/causeless_log.h"
+#include "iscool/log/nature/error.h"
+
+#include <boost/lexical_cast.hpp>
 
 template< typename T >
 T iscool::preferences::detail::get_global_property
 ( const property< T >& property )
 {
-    const iscool::optional< T > result
-        ( detail::global_properties().get< T >( property.name ) );
+    static int version( 0 );
+    static std::unordered_map< std::string, T > cache;
 
-    if ( result )
-        return *result;
+    const int current_version( detail::get_global_properties_version() );
+    
+    if ( version != current_version )
+    {
+        cache.clear();
+        version = current_version;
+    }
+
+    const std::string& property_name( property.name );
+    const auto cache_it( cache.find( property_name ) );
+
+    if ( cache_it != cache.end() )
+        return cache_it->second;
+    
+    const std::unordered_map< std::string, std::string >& properties
+        ( detail::get_global_properties() );
+    const auto it( properties.find( property_name ) );
+
+    if ( it == properties.end() )
+        return property.fallback;
+
+    try
+    {
+        const T result( boost::lexical_cast< T >( it->second ) );
+        cache.emplace( property_name, result );
+        return result;
+    }
+    catch( const boost::bad_lexical_cast& e )
+    {
+        ic_causeless_log
+            ( iscool::log::nature::error(), log_context(),
+              "Failed to convert global property value '%s=%s': %s",
+              property_name, it->second, e.what() );
+    }
 
     return property.fallback;
 }

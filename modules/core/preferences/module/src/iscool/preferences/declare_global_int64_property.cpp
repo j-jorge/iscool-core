@@ -15,15 +15,10 @@
 */
 #include "iscool/preferences/declare_global_int64_property.h"
 
-#include "iscool/preferences/detail/global_deserializer.h"
-
-#include "iscool/preferences/property_deserializer.h"
-
 iscool::preferences::int64_property
 iscool::preferences::declare_global_int64_property
 ( std::string&& name, std::int64_t fallback )
 {
-    detail::global_deserializer().add_int64_property( name );
     return int64_property( std::move( name ), fallback );
 }
 

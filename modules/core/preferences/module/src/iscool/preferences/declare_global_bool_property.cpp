@@ -15,15 +15,10 @@
 */
 #include "iscool/preferences/declare_global_bool_property.h"
 
-#include "iscool/preferences/detail/global_deserializer.h"
-
-#include "iscool/preferences/property_deserializer.h"
-
 iscool::preferences::bool_property
 iscool::preferences::declare_global_bool_property
 ( std::string&& name, bool fallback )
 {
-    detail::global_deserializer().add_bool_property( name );
     return bool_property( std::move( name ), fallback );
 }
 

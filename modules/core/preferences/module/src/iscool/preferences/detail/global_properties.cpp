@@ -15,10 +15,33 @@
 */
 #include "iscool/preferences/detail/global_properties.h"
 
-iscool::preferences::property_map&
-iscool::preferences::detail::global_properties()
+namespace iscool
 {
-    static iscool::preferences::property_map result;
-    return result;
+    namespace preferences
+    {
+        namespace detail
+        {
+            static std::unordered_map< std::string, std::string >
+            global_properties;
+            static int global_properties_version( 0 );
+        }
+    }
 }
 
+const std::unordered_map< std::string, std::string >&
+iscool::preferences::detail::get_global_properties()
+{
+    return global_properties;
+}
+
+void iscool::preferences::detail::set_global_properties
+( const std::unordered_map< std::string, std::string >& properties )
+{
+    global_properties = properties;
+    ++global_properties_version;
+}
+
+int iscool::preferences::detail::get_global_properties_version()
+{
+    return global_properties_version;
+}

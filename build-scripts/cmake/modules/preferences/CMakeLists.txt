@@ -9,10 +9,6 @@ declare_iscool_library( NAME preferences
   "declare_global_float_property.cpp"
   "declare_global_int64_property.cpp"
   "declare_global_string_property.cpp"
-  "destroy_global_bool_property.cpp"
-  "destroy_global_float_property.cpp"
-  "destroy_global_int64_property.cpp"
-  "destroy_global_string_property.cpp"
   "get_global_bool_property.cpp"
   "get_global_float_property.cpp"
   "get_global_int64_property.cpp"
@@ -24,7 +20,6 @@ declare_iscool_library( NAME preferences
   "set_global_properties.cpp"
   "store.cpp"
 
-  "detail/global_deserializer.cpp"
   "detail/global_properties.cpp"
   "detail/local_preferences_from_json.cpp"
   "detail/property.cpp"

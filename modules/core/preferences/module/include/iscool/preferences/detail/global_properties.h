@@ -16,7 +16,8 @@
 #ifndef ISCOOL_PREFERENCES_DETAIL_GLOBAL_PROPERTIES_H
 #define ISCOOL_PREFERENCES_DETAIL_GLOBAL_PROPERTIES_H
 
-#include "iscool/preferences/property_map.h"
+#include <unordered_map>
+#include <string>
 
 namespace iscool
 {
@@ -24,7 +25,14 @@ namespace iscool
     {
         namespace detail
         {
-            iscool::preferences::property_map& global_properties();
+            const std::unordered_map< std::string, std::string >&
+            get_global_properties();
+            
+            void set_global_properties
+            ( const std::unordered_map< std::string, std::string >&
+              properties );
+            
+            int get_global_properties_version();
         }
     }
 }
