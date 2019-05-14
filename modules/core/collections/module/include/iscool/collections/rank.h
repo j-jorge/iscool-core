@@ -21,8 +21,7 @@ namespace iscool
     namespace collections
     {
         template< typename Iterator, typename Output >
-        void rank
-        ( Iterator&& value_first, Iterator&& value_last, Output&& output );
+        void rank( Iterator value_first, Iterator value_last, Output&& output );
         
         template
         <
@@ -31,8 +30,8 @@ namespace iscool
             typename Output
         >
         void rank
-        ( ValueIterator&& values, OrderIterator&& order_first,
-          OrderIterator&& order_last, Output&& output );
+        ( ValueIterator values, OrderIterator order_first,
+          OrderIterator order_last, Output&& output );
     }
 }
 

@@ -18,7 +18,7 @@
 
 template< typename Iterator, typename Output >
 void iscool::collections::rank
-( Iterator&& value_first, Iterator&& value_last, Output&& output )
+( Iterator value_first, Iterator value_last, Output&& output )
 {
     if ( value_first == value_last )
         return;
@@ -49,22 +49,23 @@ template
     typename Output
 >
 void iscool::collections::rank
-( ValueIterator&& values, OrderIterator&& order_first,
-  OrderIterator&& order_last, Output&& output )
+( ValueIterator values, OrderIterator order_first,
+  OrderIterator order_last, Output&& output )
 {
     if ( order_first == order_last )
         return;
 
-    auto it( order_first );
-    auto index( *it );
+    auto index( *order_first );
     ValueIterator reference_value( values + index );
     std::size_t rank( 1 );
     std::size_t count( 0 );
     output( rank );
 
-    for ( ++it, ++count; it != order_last; ++it, ++count )
+    for ( ++order_first, ++count;
+          order_first != order_last;
+          ++order_first, ++count )
     {
-        index = *it;
+        index = *order_first;
         ValueIterator value( values + index );
         
         if ( *value != *reference_value )
