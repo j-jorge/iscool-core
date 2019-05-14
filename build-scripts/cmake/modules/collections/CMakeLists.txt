@@ -15,6 +15,7 @@ declare_iscool_interface_library(
   "insert_or_assign_all.cpp"
   "make_array.cpp"
   "member_view.cpp"
+  "rank.cpp"
   "sort_permutation.cpp"
 
   TEST_LINK
