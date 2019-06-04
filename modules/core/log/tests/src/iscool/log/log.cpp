@@ -92,9 +92,10 @@ void iscool_log_test::print_error
 TEST_F( iscool_log_test, log )
 {
     const iscool::log::nature::nature nature( "nature" );
-    ic_log
-        ( nature, "reporter", "origin", "message %1%: %2%", 24,
-          42 ); const std::size_t line ( __LINE__ ); 
+    
+    const std::size_t line ( __LINE__ ); ic_log
+                                             ( nature, "reporter", "origin",
+                                               "message %1%: %2%", 24, 42 );
     
     EXPECT_EQ( nature, _nature );
     EXPECT_EQ( "reporter", _context.get_reporter() );
@@ -110,9 +111,9 @@ TEST_F( iscool_log_test, causeless_log )
 {
     const iscool::log::nature::nature nature( "log-nature" );
     
-    ic_causeless_log
-        ( nature, "log-reporter", "msg %1%",
-          94 ); const std::size_t line( __LINE__ ); 
+     const std::size_t line( __LINE__ ); ic_causeless_log
+                                             ( nature, "log-reporter",
+                                               "msg %1%", 94 );
     
     EXPECT_EQ( nature, _nature );
     EXPECT_EQ( "log-reporter", _context.get_reporter() );
@@ -127,9 +128,9 @@ TEST_F( iscool_log_test, causeless_log )
 TEST_F( iscool_log_test, log_error )
 {
     const iscool::error::synopsis error( 24, "category", "title", "msg" );
-    ic_log_error
-        ( "reporter", "origin",
-          error ); const std::size_t line( __LINE__ ); 
+
+    const std::size_t line( __LINE__ ); ic_log_error
+                                            ( "reporter", "origin", error );
     
     EXPECT_EQ( "reporter", _context.get_reporter() );
     EXPECT_EQ( "origin", _context.get_origin() );
