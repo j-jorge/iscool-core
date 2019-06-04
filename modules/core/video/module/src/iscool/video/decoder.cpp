@@ -43,7 +43,7 @@ namespace iscool
     {
         namespace detail
         {
-            static void close_format_context( AVFormatContext*& context );
+            static void close_format_context( AVFormatContext* context );
             static bool log_av_error( int result_code );
             static void log_hardware_device_types();
             static void log_codec_details
@@ -229,7 +229,7 @@ void iscool::video::decoder::terminate_thread()
         _thread.join();
 }
 
-void iscool::video::detail::close_format_context( AVFormatContext*& context )
+void iscool::video::detail::close_format_context( AVFormatContext* context )
 {
     avformat_close_input( &context );
 }
