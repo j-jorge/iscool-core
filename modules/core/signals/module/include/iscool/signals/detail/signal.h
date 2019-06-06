@@ -23,6 +23,7 @@
 
 #include <cassert>
 #include <memory>
+#include <type_traits>
 #include <vector>
 
 namespace iscool
@@ -57,7 +58,7 @@ namespace iscool
                 bool empty() const;
                 void disconnect_all_slots();
                 std::size_t num_slots() const;
-                void swap( signal< Signature >& that );
+                void swap( signal< Signature >& that ) noexcept;
     
             private:
                 struct internal_slot:
@@ -69,8 +70,39 @@ namespace iscool
                     boost::function< Signature > callback;
                 };
 
+                typedef std::shared_ptr< internal_slot > shared_slot_ptr;
+                typedef std::vector< shared_slot_ptr > shared_slot_ptr_vector;
+              
+                typedef
+                typename std::aligned_storage
+                <
+                  ( sizeof( shared_slot_ptr )
+                    > sizeof( shared_slot_ptr_vector ) )
+                    ? sizeof( shared_slot_ptr )
+                    : sizeof( shared_slot_ptr_vector )
+                >::type
+                slot_storage;
+
+                enum class storage_kind : char
+                {
+                    none,
+                    pointer,
+                    vector
+                };
+
             private:
-                std::vector< std::shared_ptr< slot > > _slots;
+                shared_slot_ptr& get_storage_as_pointer();
+                const shared_slot_ptr& get_storage_as_pointer() const;
+                shared_slot_ptr_vector& get_storage_as_vector();
+                const shared_slot_ptr_vector& get_storage_as_vector() const;
+
+                void swap_pointer_vector( signal< Signature >& that ) noexcept;
+                void swap_pointer_none( signal< Signature >& that ) noexcept;
+                void swap_vector_none( signal< Signature >& that ) noexcept;
+                  
+            private:
+                slot_storage _slot_storage;
+                storage_kind _storage_kind;
             };
         }
     }

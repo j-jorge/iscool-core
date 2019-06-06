@@ -133,7 +133,17 @@ TEST( iscool_signals_signal, disconnect_while_triggered )
     EXPECT_FALSE( called_2 );
 }
 
-TEST( iscool_signals_signal, swap )
+TEST( iscool_signals_signal, swap_0_0 )
+{
+    iscool::signals::signal< void() > signal;
+    iscool::signals::signal< void() > signal_alt;
+
+    signal.swap( signal_alt );
+    EXPECT_TRUE( signal.empty() );
+    EXPECT_TRUE( signal_alt.empty() );
+}
+
+TEST( iscool_signals_signal, swap_0_1 )
 {
     iscool::signals::signal< void() > signal;
 
@@ -152,6 +162,164 @@ TEST( iscool_signals_signal, swap )
 
     signal_alt();
     EXPECT_TRUE( called );
+}
+
+TEST( iscool_signals_signal, swap_0_n )
+{
+    iscool::signals::signal< void() > signal;
+
+    bool called_1( false );
+    signal.connect
+        ( [ &called_1 ]() -> void
+          {
+              called_1 = true;
+          } );
+
+    bool called_2( false );
+    signal.connect
+        ( [ &called_2 ]() -> void
+          {
+              called_2 = true;
+          } );
+
+    iscool::signals::signal< void() > signal_alt;
+    signal_alt.swap( signal );
+    
+    signal();
+    EXPECT_FALSE( called_1 );
+    EXPECT_FALSE( called_2 );
+
+    signal_alt();
+    EXPECT_TRUE( called_1 );
+    EXPECT_TRUE( called_2 );
+}
+
+TEST( iscool_signals_signal, swap_1_1 )
+{
+    iscool::signals::signal< void() > signal;
+
+    bool called( false );
+    signal.connect
+        ( [ &called ]() -> void
+          {
+              called = true;
+          } );
+
+    iscool::signals::signal< void() > signal_alt;
+
+    bool called_alt( false );
+    signal_alt.connect
+        ( [ &called_alt ]() -> void
+          {
+              called_alt = true;
+          } );
+
+    signal_alt.swap( signal );
+    
+    signal();
+    EXPECT_FALSE( called );
+    EXPECT_TRUE( called_alt );
+
+    called_alt = false;
+    signal_alt();
+    
+    EXPECT_TRUE( called );
+    EXPECT_FALSE( called_alt );
+}
+
+TEST( iscool_signals_signal, swap_1_n )
+{
+    iscool::signals::signal< void() > signal;
+
+    bool called( false );
+    signal.connect
+        ( [ &called ]() -> void
+          {
+              called = true;
+          } );
+
+    iscool::signals::signal< void() > signal_alt;
+
+    bool called_alt_1( false );
+    signal_alt.connect
+        ( [ &called_alt_1 ]() -> void
+          {
+              called_alt_1 = true;
+          } );
+
+    bool called_alt_2( false );
+    signal_alt.connect
+        ( [ &called_alt_2 ]() -> void
+          {
+              called_alt_2 = true;
+          } );
+
+    signal_alt.swap( signal );
+    
+    signal();
+    EXPECT_FALSE( called );
+    EXPECT_TRUE( called_alt_1 );
+    EXPECT_TRUE( called_alt_2 );
+
+    called_alt_1 = false;
+    called_alt_2 = false;
+    signal_alt();
+    
+    EXPECT_TRUE( called );
+    EXPECT_FALSE( called_alt_1 );
+    EXPECT_FALSE( called_alt_2 );
+}
+
+TEST( iscool_signals_signal, swap_n_n )
+{
+    iscool::signals::signal< void() > signal;
+
+    bool called_1( false );
+    signal.connect
+        ( [ &called_1 ]() -> void
+          {
+              called_1 = true;
+          } );
+
+    bool called_2( false );
+    signal.connect
+        ( [ &called_2 ]() -> void
+          {
+              called_2 = true;
+          } );
+
+    iscool::signals::signal< void() > signal_alt;
+
+    bool called_alt_1( false );
+    signal_alt.connect
+        ( [ &called_alt_1 ]() -> void
+          {
+              called_alt_1 = true;
+          } );
+
+    bool called_alt_2( false );
+    signal_alt.connect
+        ( [ &called_alt_2 ]() -> void
+          {
+              called_alt_2 = true;
+          } );
+
+    signal_alt.swap( signal );
+    
+    signal();
+    EXPECT_FALSE( called_1 );
+    EXPECT_FALSE( called_2 );
+    EXPECT_TRUE( called_alt_1 );
+    EXPECT_TRUE( called_alt_2 );
+
+    called_alt_1 = false;
+    called_alt_2 = false;
+    signal_alt();
+    
+    EXPECT_TRUE( called_1 );
+    EXPECT_TRUE( called_2 );
+    EXPECT_FALSE( called_alt_1 );
+    EXPECT_FALSE( called_alt_2 );
 }
 
 TEST( iscool_signals_signal, swap_while_triggered )
