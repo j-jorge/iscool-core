@@ -48,9 +48,12 @@ public class SystemService
 
     static public long getDeviceTime() {
 
+        final TimeZone timeZone = TimeZone.getDefault();
+        
         return
             Calendar.getInstance().getTimeInMillis()
-            + TimeZone.getDefault().getRawOffset();
+            + timeZone.getRawOffset()
+            + timeZone.getDSTSavings();
     }
 
     static public void sendToBackground() {
