@@ -49,7 +49,7 @@ iscool::jni::detail::get_native_call_manager()
 }
 
 extern "C" void Java_iscool_jni_NativeCall_call
-( JNIEnv* env, jlong callback, jobjectArray arguments )
+( JNIEnv* env, jobject obj, jlong callback, jobjectArray arguments )
 {
     iscool::jni::detail::get_native_call_manager().call( callback, arguments );
 }
