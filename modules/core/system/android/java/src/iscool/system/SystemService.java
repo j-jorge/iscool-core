@@ -76,6 +76,11 @@ public class SystemService
         }
     }
 
+    static public String getApplicationId() {
+
+        return _context.getPackageName();
+    }
+
     static public String getOSVersion() {
 
         return Build.VERSION.RELEASE;
