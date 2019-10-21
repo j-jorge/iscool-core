@@ -16,7 +16,7 @@
 package iscool.notification;
 
 import android.app.Activity;
-import android.support.v4.app.NotificationManagerCompat;
+import androidx.core.app.NotificationManagerCompat;
 
 public final class NotificationService {
 
