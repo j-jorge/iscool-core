@@ -20,6 +20,7 @@ declare_iscool_library( NAME json
   "write_to_stream.cpp"
 
   "detail/cast_bool.cpp"
+  "detail/cast_double.cpp"
   "detail/cast_float.cpp"
   "detail/cast_int64.cpp"
   "detail/cast_int.cpp"
@@ -42,6 +43,7 @@ declare_iscool_library_test( NAME json
   FILES
   "cast_array.cpp"
   "cast_bool.cpp"
+  "cast_double.cpp"
   "cast_float.cpp"
   "cast_int64.cpp"
   "cast_int.cpp"
