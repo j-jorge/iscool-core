@@ -29,6 +29,9 @@ namespace iscool
             
             std::uint8_t get( std::uint8_t bit_count );
 
+            template< typename T >
+            T get_large( std::uint8_t bit_count );
+
         private:
             void fill_buffer();
             
@@ -39,5 +42,7 @@ namespace iscool
         };
     }
 }
+
+#include "iscool/net/detail/byte_array_bit_reader.tpp"
 
 #endif

@@ -34,6 +34,9 @@ namespace iscool
 
             void append( std::uint8_t value, std::uint8_t bit_count );
 
+            template< typename T >
+            void append( T value, std::uint8_t bit_count );
+            
         private:
             byte_array& _array;
             std::uint8_t _buffer;
@@ -41,5 +44,7 @@ namespace iscool
         };
     }
 }
+
+#include "iscool/net/detail/byte_array_bit_inserter.tpp"
 
 #endif

@@ -32,3 +32,15 @@ TEST( iscool_net_byte_array_bit_reader, get )
     EXPECT_EQ( 5, bit_reader.get( 3 ) );
     EXPECT_EQ( 26, bit_reader.get( 5 ) );
 }
+
+TEST( iscool_net_byte_array_bit_reader, get_large )
+{
+    const std::vector< std::uint8_t > content( { 0xa6, 0x96, 0xab, 0x00 } );
+    const iscool::net::byte_array array( content.begin(), content.end() );
+    iscool::net::byte_array_reader reader( array );
+    iscool::net::byte_array_bit_reader bit_reader( reader );
+
+    EXPECT_EQ( 2, bit_reader.get( 2 ) );
+    EXPECT_EQ( 2469, bit_reader.get_large< std::uint16_t >( 12 ) );
+    EXPECT_EQ( 1366, bit_reader.get_large< std::uint16_t >( 11 ) );
+}
