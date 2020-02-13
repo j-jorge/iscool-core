@@ -96,7 +96,7 @@ public class SystemService
         final Intent intent = new Intent( Intent.ACTION_SENDTO );
         intent.setType("text/plain");
         intent.setData( Uri.parse( "mailto:" ) );
-        intent.putExtra( Intent.EXTRA_EMAIL, address );
+        intent.putExtra( Intent.EXTRA_EMAIL, new String[]{ address } );
         intent.putExtra( Intent.EXTRA_SUBJECT, subject );
         intent.putExtra( Intent.EXTRA_TEXT, body );
 
