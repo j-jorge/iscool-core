@@ -13,23 +13,19 @@
   See the License for the specific language governing permissions and
   limitations under the License.
 */
-#include "iscool/jni/setup.h"
+#ifndef ISCOOL_JNI_DETAIL_LOG_DELEGATES_H
+#define ISCOOL_JNI_DETAIL_LOG_DELEGATES_H
 
-#include "iscool/jni/detail/get_jni_env.h"
-
-#include <boost/bind.hpp>
-
-void iscool::jni::initialize( environment_delegate delegate )
+namespace iscool
 {
-    assert( detail::get_jni_env.empty() );
-    assert( !delegate.empty() );
-    
-    detail::get_jni_env = delegate;
-    detail::initialize_native_calls();
+    namespace jni
+    {
+        namespace detail
+        {
+            void setup_log_delegates();
+            void finalize_log_delegates();
+        }
+    }
 }
 
-void iscool::jni::finalize()
-{
-    detail::finalize_native_calls();
-    detail::get_jni_env = environment_delegate();
-}
+#endif

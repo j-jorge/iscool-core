@@ -19,6 +19,7 @@
 #include "iscool/jni/method_jclass.h"
 #include "iscool/jni/new_java_string.h"
 #include "iscool/jni/detail/get_jni_env.h"
+#include "iscool/jni/detail/log_delegates.h"
 
 namespace iscool
 {
@@ -101,4 +102,5 @@ extern "C" void Java_iscool_jni_JniService_configure
         ( env->CallObjectMethod( context, get_class_loader_method ) );
     
     iscool::jni::detail::set_class_loader( env, class_loader );
+    iscool::jni::detail::setup_log_delegates();
 }

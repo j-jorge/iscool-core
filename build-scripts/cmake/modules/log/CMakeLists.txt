@@ -31,6 +31,8 @@ declare_iscool_library( NAME log
 
   DEFINITIONS
   ${iscool_log_definitions}
+
+  ANDROID
   )
 
 declare_iscool_library_test( NAME log

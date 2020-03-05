@@ -30,6 +30,7 @@ declare_iscool_library( NAME jni
   "detail/get_jni_env.cpp"
   "detail/get_method_info.cpp"
   "detail/get_static_method_info.cpp"
+  "detail/log_delegates.cpp"
   "detail/method_base.cpp"
   "detail/native_callback.cpp"
   "detail/native_call.cpp"
