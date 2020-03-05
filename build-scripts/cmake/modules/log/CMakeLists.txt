@@ -7,6 +7,8 @@ if( NOT TARGET_IOS AND NOT TARGET_ANDROID )
   set( iscool_log_definitions ISCOOL_LOG_PRETTY_PRINT=1 )
 endif()
 
+find_package( Threads )
+
 declare_iscool_library( NAME log
   FILES
   "add_file_sink.cpp"
@@ -14,7 +16,9 @@ declare_iscool_library( NAME log
   "message_delegates.cpp"
   "message_delegates_registry.cpp"
   "setup.cpp"
+  
   "detail/get_message_dispatcher.cpp"
+  "detail/logger_thread.cpp"
   "detail/message_dispatcher.cpp"
   "detail/prettify.cpp"
   "detail/print_to_console.cpp"
@@ -28,7 +32,8 @@ declare_iscool_library( NAME log
   iscool_core
   iscool_error
   iscool_strings
-
+  Threads::Threads
+  
   DEFINITIONS
   ${iscool_log_definitions}
 

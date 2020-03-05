@@ -47,6 +47,7 @@ void iscool::log::initialize()
 
 void iscool::log::finalize()
 {
+    detail::stop_logger_thread();
     detail::get_message_dispatcher().clear();
 }
 

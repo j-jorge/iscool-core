@@ -20,6 +20,7 @@
 #include "iscool/log/nature/nature.h"
 #include "iscool/log/detail/get_message_dispatcher.h"
 #include "iscool/log/detail/message_dispatcher.h"
+#include "iscool/log/detail/logger_thread.h"
 
 #include "iscool/error/synopsis.h"
 #include "iscool/strings/format.h"
@@ -38,10 +39,14 @@ void iscool::log::add_file_sink( const std::string& path )
           ( const iscool::log::nature::nature& nature, const context& context,
             const std::string& message )
           {
-              *log_file << '[' << nature.string()
-                        << "][" << context.get_reporter()
-                        << "][" << context.get_origin() << "] "
-                        << message << std::endl;
+              detail::queue_in_logger_thread
+                  ( [ = ]() -> void
+                    {
+                        *log_file << '[' << nature.string()
+                                  << "][" << context.get_reporter()
+                                  << "][" << context.get_origin() << "] "
+                                  << message << std::endl;
+                    } );
           } );
 
     message_delegates delegates;
