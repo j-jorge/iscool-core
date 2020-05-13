@@ -17,6 +17,7 @@
 
 #include "iscool/json/cast_int.h"
 #include "iscool/json/cast_string.h"
+#include "iscool/json/parse_stream.h"
 
 #include <gtest/gtest.h>
 

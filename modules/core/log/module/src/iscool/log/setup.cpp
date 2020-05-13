@@ -16,6 +16,7 @@
 #include "iscool/log/setup.h"
 
 #include "iscool/log/detail/get_message_dispatcher.h"
+#include "iscool/log/detail/logger_thread.h"
 #include "iscool/log/detail/message_dispatcher.h"
 
 #ifndef NDEBUG

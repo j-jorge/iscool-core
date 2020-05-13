@@ -18,6 +18,8 @@
 
 #include "iscool/style/declaration.h"
 
+#include <vector>
+
 namespace iscool
 {
     namespace style

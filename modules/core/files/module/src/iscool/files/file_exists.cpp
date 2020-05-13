@@ -17,6 +17,8 @@
 
 #include "iscool/files/detail/system_delegates.h"
 
+#include <cassert>
+
 bool iscool::files::file_exists( const std::string& path )
 {
     assert( detail::system_delegates != nullptr );

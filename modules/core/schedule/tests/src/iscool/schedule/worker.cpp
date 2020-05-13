@@ -21,6 +21,7 @@
 
 #include "iscool/test/no_crash.h"
 
+#include <thread>
 #include <unistd.h>
 
 #include "iscool/schedule/test/observable_task.h"

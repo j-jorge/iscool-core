@@ -17,6 +17,8 @@
 
 #include "iscool/files/detail/system_delegates.h"
 
+#include <cassert>
+
 std::unique_ptr< std::istream >
 iscool::files::read_file( const std::string& path )
 {

@@ -16,6 +16,8 @@
 #ifndef ISCOOL_COLLECTIONS_RANK_TPP
 #define ISCOOL_COLLECTIONS_RANK_TPP
 
+#include <cstdlib>
+
 template< typename Iterator, typename Output >
 void iscool::collections::rank
 ( Iterator value_first, Iterator value_last, Output&& output )
