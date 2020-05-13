@@ -17,6 +17,8 @@
 
 #include "iscool/files/detail/system_delegates.h"
 
+#include <cassert>
+
 std::string iscool::files::get_full_path( const std::string& path )
 {
     assert( detail::system_delegates != nullptr );

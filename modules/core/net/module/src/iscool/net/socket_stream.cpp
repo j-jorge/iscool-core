@@ -18,6 +18,8 @@
 #include "iscool/schedule/delayed_call.h"
 #include "iscool/signals/implement_signal.h"
 
+#include <boost/bind.hpp>
+
 IMPLEMENT_SIGNAL( iscool::net::socket_stream, received, _received );
 
 iscool::net::socket_stream::socket_stream( const std::string& host )

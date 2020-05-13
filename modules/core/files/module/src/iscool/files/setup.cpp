@@ -17,6 +17,8 @@
 
 #include "iscool/files/detail/system_delegates.h"
 
+#include <cassert>
+
 void iscool::files::initialize( const file_system_delegates& delegates )
 {
     assert( detail::system_delegates == nullptr );

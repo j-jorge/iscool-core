@@ -31,6 +31,8 @@
 #include "iscool/log/causeless_log.h"
 #include "iscool/log/nature/info.h"
 
+#include <json/value.h>
+
 #include <boost/algorithm/string.hpp>
 
 namespace iscool

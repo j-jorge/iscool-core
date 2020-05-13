@@ -15,6 +15,7 @@
 */
 #include "iscool/preferences/store.h"
 
+#include "iscool/preferences/property_map.impl.h"
 #include "iscool/schedule/delayed_call.h"
 
 #include <boost/bind.hpp>
