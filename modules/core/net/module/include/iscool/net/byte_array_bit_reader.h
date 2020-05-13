@@ -16,6 +16,8 @@
 #ifndef ISCOOL_NET_BYTE_ARRAY_BIT_READER_H
 #define ISCOOL_NET_BYTE_ARRAY_BIT_READER_H
 
+#include <cstdint>
+
 namespace iscool
 {
     namespace net

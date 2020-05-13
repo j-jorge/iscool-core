@@ -15,6 +15,8 @@
 */
 #include "iscool/preferences/property_deserializer.h"
 
+#include "iscool/preferences/property_map.impl.h"
+
 #include "iscool/test/debug_crash.h"
 
 #include <algorithm>

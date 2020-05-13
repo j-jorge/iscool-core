@@ -15,6 +15,8 @@
 */
 #include "iscool/preferences/declare_global_int64_property.h"
 
+#include "iscool/preferences/detail/property.impl.tpp"
+
 iscool::preferences::int64_property
 iscool::preferences::declare_global_int64_property
 ( std::string&& name, std::int64_t fallback )
