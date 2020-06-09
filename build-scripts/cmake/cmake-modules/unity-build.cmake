@@ -1,7 +1,19 @@
 include( platform )
 
+option(
+  ENABLE_COMPILATION_UNITS
+  "Merge all source files together to reduce the number of times the compiler\
+ is invoked."
+  ON
+  )
+
 function( make_compilation_unit unit_file name )
 
+  if(NOT ENABLE_COMPILATION_UNITS)
+    set( ${unit_file} ${ARGN} PARENT_SCOPE )
+    return()
+  endif()
+  
   set( temporary_unit "${PROJECT_BINARY_DIR}/${name}.unit.tmp" )
   file( REMOVE "${temporary_unit}" )
 
