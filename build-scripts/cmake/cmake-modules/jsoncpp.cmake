@@ -9,7 +9,7 @@ include( install-dependency )
 download_project(
   PROJ jsoncpp
   GIT_REPOSITORY https://github.com/open-source-parsers/jsoncpp.git
-  GIT_TAG master
+  GIT_TAG 1.8.4
   UPDATE_DISCONNECTED 1
   )
 
