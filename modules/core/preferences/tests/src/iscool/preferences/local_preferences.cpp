@@ -15,6 +15,7 @@
 */
 #include "iscool/preferences/local_preferences.h"
 
+#include "iscool/preferences/property_map.impl.h"
 #include "iscool/schedule/manual_scheduler.h"
 #include "iscool/schedule/setup.h"
 

@@ -14,7 +14,9 @@
   limitations under the License.
 */
 #include "iscool/signals/signal.h"
+
 #include "iscool/signals/scoped_connection.h"
+#include "iscool/signals/signal.impl.tpp"
 
 #include <gtest/gtest.h>
 

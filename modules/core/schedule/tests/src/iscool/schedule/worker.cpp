@@ -18,6 +18,7 @@
 #include "iscool/schedule/delayed_call.h"
 #include "iscool/schedule/manual_scheduler.h"
 #include "iscool/schedule/setup.h"
+#include "iscool/signals/signal.impl.tpp"
 
 #include "iscool/test/no_crash.h"
 
