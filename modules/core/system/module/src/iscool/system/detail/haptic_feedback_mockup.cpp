@@ -19,6 +19,7 @@
 #include "iscool/system/haptic_feedback_notification.h"
 
 #include <cassert>
+#include <string>
 
 bool iscool::system::haptic_feedback::is_available() const
 {
