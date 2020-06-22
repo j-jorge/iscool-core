@@ -15,6 +15,8 @@
 */
 #include "iscool/signals/signal.h"
 
+#include "iscool/signals/signal.impl.tpp"
+
 #include <gtest/gtest.h>
 
 TEST( iscool_signals_connection, initially_disconnected )

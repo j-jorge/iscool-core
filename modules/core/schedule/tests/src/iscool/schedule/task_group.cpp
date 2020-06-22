@@ -18,6 +18,7 @@
 #include "iscool/schedule/setup.h"
 #include "iscool/schedule/task_group.h"
 #include "iscool/schedule/task_group.impl.tpp"
+#include "iscool/signals/signal.impl.tpp"
 
 #include <thread>
 
