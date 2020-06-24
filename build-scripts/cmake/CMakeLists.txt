@@ -20,6 +20,10 @@ option(
   ISCOOL_CORE_WITH_CMAKE_PACKAGE
   "Generate and install cmake package files" OFF
   )
+option(
+  ISCOOL_AUTO_RUN_TESTS
+  "Run the unit tests during the build." ON
+  )
 
 if( ISCOOL_CORE_WITH_CMAKE_PACKAGE )
   set( iscool_core_export EXPORT iscool-core )
