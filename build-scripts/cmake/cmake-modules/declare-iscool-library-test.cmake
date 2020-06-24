@@ -49,9 +49,11 @@ function( declare_iscool_library_test )
     ${google_test_LIBRARIES}
     )
 
-  add_custom_command( TARGET ${executable_name}
-    POST_BUILD
-    COMMAND ${executable_name}
-    WORKING_DIRECTORY ${CMAKE_CURRENT_BINARY_DIR}
-    )
+  if( ISCOOL_AUTO_RUN_TESTS )
+    add_custom_command( TARGET ${executable_name}
+      POST_BUILD
+      COMMAND ${executable_name}
+      WORKING_DIRECTORY ${CMAKE_CURRENT_BINARY_DIR}
+      )
+  endif()
 endfunction()
