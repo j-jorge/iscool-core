@@ -42,7 +42,6 @@ namespace iscool
             std::chrono::milliseconds get_update_interval() const;
 
         protected:
-            task() = default;
             void complete();
             void append_profile_tag( const std::string& tag );
 
@@ -52,7 +51,7 @@ namespace iscool
             virtual void implementation_abort();
             virtual std::chrono::milliseconds
             implementation_get_update_interval() const;
-            
+
             void end_profiler();
 
         private:
