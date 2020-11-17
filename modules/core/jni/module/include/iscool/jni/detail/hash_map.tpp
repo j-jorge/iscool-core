@@ -50,7 +50,7 @@ iscool::jni::hash_map< K, V >::put
 {
     const auto method
         ( get_method< jobject >
-          ( "java/util/HashMap", "put",
+          ( "java/util/Map", "put",
             "(Ljava/lang/Object;Ljava/lang/Object;)Ljava/lang/Object;" ) );
 
     jobject result( method( _map, key, value ) );
@@ -63,7 +63,7 @@ iscool::jni::hash_map< K, V >::get_entry_set() const
 {
     const auto method
         ( get_method< jobject >
-          ( "java/util/HashMap", "entrySet", "()Ljava/util/Set;" ) );
+          ( "java/util/Map", "entrySet", "()Ljava/util/Set;" ) );
 
     const collection< jobject > entry_set( method( _map ) );
     iterator< jobject > it( entry_set.get_iterator() );
