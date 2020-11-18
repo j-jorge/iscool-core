@@ -15,14 +15,13 @@
 */
 package iscool.notification;
 
-import android.app.Notification;
 import android.app.NotificationManager;
 import android.app.PendingIntent;
 import android.content.BroadcastReceiver;
 import android.content.Context;
 import android.content.Intent;
 import android.content.res.Resources;
-import android.graphics.drawable.BitmapDrawable;
+import android.graphics.BitmapFactory;
 import androidx.core.app.NotificationCompat;
 
 public class Publisher extends BroadcastReceiver
@@ -55,7 +54,7 @@ public class Publisher extends BroadcastReceiver
              || ( smallIconName == null ) || ( largeIconName == null )
              || ( contentIntent == null ) )
             return;
-        
+
         final NotificationCompat.BigTextStyle textStyle =
             new NotificationCompat.BigTextStyle();
 
@@ -68,20 +67,18 @@ public class Publisher extends BroadcastReceiver
             resources.getIdentifier( smallIconName, "drawable", packageName );
         final int largeIconId =
             resources.getIdentifier( largeIconName, "drawable", packageName );
-        
+
         final NotificationCompat.Builder builder =
-            new NotificationCompat.Builder( context )
+            new NotificationCompat.Builder( context, channel )
             .setStyle( textStyle )
-            .setChannelId( channel )
             .setContentTitle( title )
             .setContentText( message )
             .setContentIntent( contentIntent )
             .setAutoCancel( true )
             .setSmallIcon( smallIconId )
             .setLargeIcon
-            ( ( ( BitmapDrawable )resources.getDrawable( largeIconId ) )
-              .getBitmap() );
-        
+            ( BitmapFactory.decodeResource( resources, largeIconId ) );
+
         final NotificationManager notificationManager =
             ( NotificationManager ) context.getSystemService
             ( Context.NOTIFICATION_SERVICE );
