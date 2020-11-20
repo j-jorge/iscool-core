@@ -22,10 +22,14 @@ import android.content.Context;
 import android.content.Intent;
 import android.content.res.Resources;
 import android.graphics.BitmapFactory;
+import android.util.Log;
+
 import androidx.core.app.NotificationCompat;
 
-public class Publisher extends BroadcastReceiver
-{
+public class Publisher extends BroadcastReceiver {
+
+    private static final String TAG = Publisher.class.getSimpleName();
+
     public static String NOTIFICATION_ID = "notification-id";
     public static String NOTIFICATION_TITLE = "notification-title";
     public static String NOTIFICATION_MESSAGE = "notification-message";
@@ -55,18 +59,23 @@ public class Publisher extends BroadcastReceiver
              || ( contentIntent == null ) )
             return;
 
+        final Resources resources = context.getResources();
+        final String packageName = context.getPackageName();
+        final int smallIconId =
+            getResourceIdentifier
+            ( resources, smallIconName, "mipmap", packageName );
+        final int largeIconId =
+            getResourceIdentifier
+            ( resources, largeIconName, "mipmap", packageName );
+
+        if ( smallIconId == 0 )
+            return;
+
         final NotificationCompat.BigTextStyle textStyle =
             new NotificationCompat.BigTextStyle();
 
         textStyle.setBigContentTitle( title );
         textStyle.bigText( message );
-
-        final Resources resources = context.getResources();
-        final String packageName = context.getPackageName();
-        final int smallIconId =
-            resources.getIdentifier( smallIconName, "drawable", packageName );
-        final int largeIconId =
-            resources.getIdentifier( largeIconName, "drawable", packageName );
 
         final NotificationCompat.Builder builder =
             new NotificationCompat.Builder( context, channel )
@@ -75,8 +84,10 @@ public class Publisher extends BroadcastReceiver
             .setContentText( message )
             .setContentIntent( contentIntent )
             .setAutoCancel( true )
-            .setSmallIcon( smallIconId )
-            .setLargeIcon
+            .setSmallIcon( smallIconId );
+
+        if ( largeIconId != 0 )
+            builder.setLargeIcon
             ( BitmapFactory.decodeResource( resources, largeIconId ) );
 
         final NotificationManager notificationManager =
@@ -84,5 +95,22 @@ public class Publisher extends BroadcastReceiver
             ( Context.NOTIFICATION_SERVICE );
 
         notificationManager.notify( id, builder.build() );
+    }
+
+    private static int getResourceIdentifier
+        ( Resources resources, String name, String defType,
+          String packageName ) {
+
+        final int resourceId =
+            resources.getIdentifier( name, defType, packageName );
+
+        if ( resourceId == 0 )
+            Log.w
+                ( TAG, "Resource not found!",
+                  new Resources.NotFoundException
+                  ( "Resource name=" + name + " defType=" + defType
+                    + " packageName=" + packageName + " not found." ) );
+
+        return resourceId;
     }
 }
