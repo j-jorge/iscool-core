@@ -8,8 +8,8 @@ include( install-dependency )
 
 download_project(
   PROJ mofilereader
-  GIT_REPOSITORY https://github.com/IsCoolEntertainment/mofilereader
-  GIT_TAG master
+  GIT_REPOSITORY https://github.com/j-jorge/mofilereader
+  GIT_TAG v1
   UPDATE_DISCONNECTED 1
   )
 
@@ -22,10 +22,4 @@ add_subdirectory(
 install_dependency(
   HEADERS "${mofilereader_SOURCE_DIR}/include/"
   LIBRARIES "${mofilereader_BINARY_DIR}"
-  )
-
-set_target_properties(
-  moFileReader
-  PROPERTIES
-  INTERFACE_INCLUDE_DIRECTORIES "${mofilereader_SOURCE_DIR}/include"
   )
