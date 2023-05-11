@@ -12,7 +12,7 @@ download_project(
 
 execute_process(
   COMMAND ${boost-android_SOURCE_DIR}/build-android.sh
-    --with-libraries=filesystem,system
+    --with-libraries=system
     --abi=${CMAKE_ANDROID_ARCH_ABI}
     --boost=${required_boost_version}
     ${CMAKE_ANDROID_NDK}

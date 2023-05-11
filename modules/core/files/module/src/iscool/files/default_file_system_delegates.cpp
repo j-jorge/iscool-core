@@ -15,7 +15,7 @@
 */
 #include "iscool/files/default_file_system_delegates.h"
 
-#include <boost/filesystem/operations.hpp>
+#include <filesystem>
 
 #include <fstream>
 
@@ -35,7 +35,7 @@ iscool::files::default_file_system_delegates::read_file
         std::unique_ptr< std::istream >
         ( new std::ifstream( _root + "/" + path ) );
 }
-            
+
 std::string
 iscool::files::default_file_system_delegates::get_writable_path() const
 {
@@ -45,11 +45,16 @@ iscool::files::default_file_system_delegates::get_writable_path() const
 bool iscool::files::default_file_system_delegates::file_exists
 ( const std::string& path ) const
 {
-    return boost::filesystem::exists( path );
+    return std::filesystem::exists( path );
 }
 
 std::string iscool::files::default_file_system_delegates::get_full_path
 ( const std::string& path ) const
 {
-    return boost::filesystem::absolute( path, _root ).string();
+    std::filesystem::path p(path);
+
+    if (p.is_absolute())
+        return path;
+
+    return std::filesystem::absolute( _root / p ).string();
 }

@@ -15,7 +15,7 @@
 */
 #include "iscool/files/test/file_system_delegates_mockup.h"
 
-#include <boost/filesystem/operations.hpp>
+#include <filesystem>
 
 #include <fstream>
 
@@ -29,7 +29,7 @@ iscool::files::test::file_system_delegates_mockup::file_system_delegates_mockup
       get_writable_path_impl
       ( []() -> std::string
         {
-            return boost::filesystem::temp_directory_path().string();
+            return std::filesystem::temp_directory_path().string();
         } ),
       file_exists_impl
       ( []( const std::string& path ) -> bool

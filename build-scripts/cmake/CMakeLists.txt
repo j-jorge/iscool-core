@@ -1,9 +1,11 @@
 cmake_minimum_required( VERSION 3.1 )
 
+project( iscool-core VERSION 1.8.0 )
+
 set( source_root "${CMAKE_CURRENT_SOURCE_DIR}/../.." )
 set( required_boost_version 1.58.0 )
 set( CMAKE_MODULE_PATH "${CMAKE_CURRENT_SOURCE_DIR}/cmake-modules" )
-set( CMAKE_CXX_STANDARD 11 )
+set( CMAKE_CXX_STANDARD 17 )
 
 include( platform )
 include( boost )

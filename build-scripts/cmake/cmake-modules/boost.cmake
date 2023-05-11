@@ -1,7 +1,7 @@
 include( platform )
 
 if( USE_DEFAULT_BOOST OR NOT ( TARGET_ANDROID OR TARGET_IOS ) )
-  find_package( Boost 1.58 REQUIRED filesystem system )
+  find_package( Boost 1.58 REQUIRED system )
   return()
 endif()
 

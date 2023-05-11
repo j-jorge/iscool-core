@@ -20,13 +20,13 @@
 #include "iscool/log/causeless_log.h"
 #include "iscool/log/nature/error.h"
 
-#include <boost/filesystem/operations.hpp>
+#include <filesystem>
 
 bool iscool::files::rename_file
 ( const std::string& from, const std::string& to )
 {
-    boost::system::error_code error;
-    boost::filesystem::rename( from, to, error );
+    std::error_code error;
+    std::filesystem::rename( from, to, error );
 
     if ( !error )
         return true;

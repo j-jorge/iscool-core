@@ -20,15 +20,15 @@
 #include "iscool/log/causeless_log.h"
 #include "iscool/log/nature/error.h"
 
-#include <boost/filesystem/operations.hpp>
+#include <filesystem>
 
 bool iscool::files::create_parent_directories( const std::string& path )
 {
-    const boost::filesystem::path parent_path
-        ( boost::filesystem::path( path ).parent_path() );
-    boost::system::error_code error;
+    const std::filesystem::path parent_path
+        ( std::filesystem::path( path ).parent_path() );
+    std::error_code error;
     
-    boost::filesystem::create_directories( path );
+    std::filesystem::create_directories( path );
 
     if ( !error )
         return true;

@@ -20,12 +20,12 @@
 #include "iscool/log/causeless_log.h"
 #include "iscool/log/nature/error.h"
 
-#include <boost/filesystem/operations.hpp>
+#include <filesystem>
 
 void iscool::files::delete_directory( const std::string& path )
 {
-    boost::system::error_code error;
-    boost::filesystem::remove_all( path, error );
+    std::error_code error;
+    std::filesystem::remove_all( path, error );
 
     if ( error )
         ic_causeless_log

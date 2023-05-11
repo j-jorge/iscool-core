@@ -1,4 +1,4 @@
-set( _iscool_core_boost_libraries filesystem system )
+set( _iscool_core_boost_libraries system )
 
 if( NOT @TARGET_IOS@ AND NOT @TARGET_ANDROID@ )
   set(

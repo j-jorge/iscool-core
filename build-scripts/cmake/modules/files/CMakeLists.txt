@@ -5,7 +5,7 @@ include( declare-iscool-library-test )
 include( install )
 
 find_package(
-  Boost ${required_boost_version} REQUIRED filesystem system
+  Boost ${required_boost_version} REQUIRED system
   )
 
 declare_iscool_library( NAME files
@@ -24,10 +24,9 @@ declare_iscool_library( NAME files
   "rename_file.cpp"
   "setup.cpp"
   "detail/system_delegates.cpp"
-  
+
   LINK
   iscool_log
-  Boost::filesystem
   Boost::system
   )
 
