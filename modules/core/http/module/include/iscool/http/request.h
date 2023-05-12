@@ -18,7 +18,7 @@
 
 #include "iscool/http/response.h"
 
-#include <boost/function.hpp>
+#include <functional>
 #include <string>
 
 namespace iscool
@@ -34,8 +34,8 @@ namespace iscool
                 post
             };
 
-            typedef boost::function< void( const response& ) > response_handler;
-            
+            typedef std::function< void( const response& ) > response_handler;
+
         public:
             void set_type( type t );
             type get_type() const;
@@ -51,7 +51,7 @@ namespace iscool
 
             void set_response_handler( response_handler handler );
             response_handler get_response_handler() const;
-            
+
         private:
             type _type;
             std::string _url;

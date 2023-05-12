@@ -23,8 +23,7 @@
 
 #include <jni.h>
 
-#include <boost/function/function_fwd.hpp>
-
+#include <functional>
 #include <mutex>
 #include <vector>
 
@@ -39,27 +38,27 @@ namespace iscool
             public:
                 native_call_manager();
                 ~native_call_manager();
-            
+
                 template< typename... Args >
                 jlong register_callback
                 ( native_callback_lifespan lifespan,
-                  const boost::function< void( Args...) >& callback );
+                  const std::function< void( Args...) >& callback );
 
                 void release_callback( jlong id );
-                
+
                 void call( jlong callback, jobjectArray arguments );
 
                 native_call_manager( const native_call_manager& ) = delete;
                 native_call_manager&
                 operator=( const native_call_manager& ) = delete;
-                
+
             private:
                 struct native_call_data
                 {
                     jlong callback;
                     java_ptr<jobjectArray> arguments;
                 };
-                
+
             private:
                 void trigger_calls();
 

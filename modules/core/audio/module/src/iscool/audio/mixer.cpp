@@ -18,6 +18,8 @@
 #include "iscool/audio/platform_mixer.h"
 #include "iscool/files/file_exists.h"
 
+#include <cassert>
+
 iscool::audio::mixer::mixer
 ( const iscool::resources::resolver& resources,
   std::size_t min_frames_between_effects,
@@ -37,13 +39,13 @@ void iscool::audio::mixer::tick()
 {
     ++_date;
 
-    std::vector< boost::function< void() > > commands;
+    std::vector< std::function< void() > > commands;
     commands.swap( _commands );
 
     for ( const auto& command : commands )
         command();
 }
-            
+
 void iscool::audio::mixer::set_effects_muted( bool muted )
 {
     if ( _effects_muting == 0 )
@@ -63,7 +65,7 @@ void iscool::audio::mixer::set_effects_muted( bool muted )
         if ( _effects_muting == 0 )
         {
             assert( !muted );
-            
+
             _commands.push_back
                 ( [ this ]() -> void
                   {
@@ -77,7 +79,7 @@ bool iscool::audio::mixer::get_effects_muted() const
 {
     return _effects_muting != 0;
 }
-            
+
 void iscool::audio::mixer::set_music_muted( bool muted )
 {
     if ( _music_muting == 0 )
@@ -97,7 +99,7 @@ void iscool::audio::mixer::set_music_muted( bool muted )
         if ( _music_muting == 0 )
         {
             assert( !muted );
-            
+
             _commands.push_back
                 ( [ this ]() -> void
                   {
@@ -121,7 +123,7 @@ void iscool::audio::mixer::play_music( const std::string& name, loop_mode loop )
                   return;
 
               _impl.stop_music();
-              
+
               _current_music = name;
 
               const std::string path( _resources.get_file_path( name ) );
@@ -156,7 +158,7 @@ iscool::audio::mixer::play_effect( const std::string& name, loop_mode loop )
                   return;
 
               _last_play_date[ name ] = _date;
-              
+
               const std::string path( _resources.get_file_path( name ) );
               track_id id;
 
@@ -164,7 +166,7 @@ iscool::audio::mixer::play_effect( const std::string& name, loop_mode loop )
                   id = _impl.play_effect( path, loop );
               else
                   id = not_a_track_id;
-                      
+
               _id_to_impl_id[ result ] = id;
           } );
 
@@ -180,7 +182,7 @@ void iscool::audio::mixer::stop_effect( track_id id )
 
               if ( it == _id_to_impl_id.end() )
                   return;
-              
+
               _impl.stop_effect( it->second );
               _id_to_impl_id.erase( it );
           } );

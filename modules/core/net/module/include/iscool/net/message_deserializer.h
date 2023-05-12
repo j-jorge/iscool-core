@@ -20,8 +20,7 @@
 #include "iscool/net/message/message_type.h"
 #include "iscool/signals/connection.h"
 
-#include <boost/function.hpp>
-
+#include <functional>
 #include <unordered_map>
 
 namespace iscool
@@ -29,19 +28,19 @@ namespace iscool
     namespace net
     {
         class message;
-        
+
         class message_deserializer
         {
         public:
             message_deserializer();
             ~message_deserializer();
-            
+
             void interpret_received_message
             ( const endpoint& endpoint, const message& message ) const;
 
             template< typename M >
             iscool::signals::connection connect_signal
-            ( const boost::function< void ( const endpoint&, M ) >& f );
+            ( const std::function< void ( const endpoint&, M ) >& f );
 
         private:
             class deserializer_base;
@@ -68,7 +67,7 @@ namespace iscool
                 template< typename M >
                 iscool::signals::connection
                 connect
-                ( const boost::function
+                ( const std::function
                   <
                       void ( const endpoint&, const M& )
                   >& f );

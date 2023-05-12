@@ -107,7 +107,7 @@ iscool::schedule::detail::delayed_call_manager::schedule_delayed
 void iscool::schedule::detail::delayed_call_manager::schedule_client
 ( std::size_t id, duration delay )
 {
-    assert( !detail::call_later.empty() );
+    assert( detail::call_later );
 
     detail::call_later
         ( boost::bind
@@ -121,7 +121,7 @@ void iscool::schedule::detail::delayed_call_manager::schedule_client_cumulated()
     assert( !_client_guard );
     _client_guard = true;
 
-    assert( !detail::call_later.empty() );
+    assert( detail::call_later );
 
     detail::call_later
         ( boost::bind( &delayed_call_manager::trigger_cumulated, this ),
@@ -137,7 +137,7 @@ iscool::schedule::detail::delayed_call_manager::schedule_client_non_cumulated()
     assert( !_client_guard );
     _client_guard = true;
 
-    assert( !detail::call_later.empty() );
+    assert( detail::call_later );
 
     detail::call_later
         ( boost::bind
@@ -219,6 +219,6 @@ void iscool::schedule::detail::delayed_call_manager::trigger_non_cumulated()
         assert( !_client_guard );
         calls.swap( _short_call_non_cumulated );
     }
-    
+
     calls();
 }

@@ -17,18 +17,19 @@
 #define ISCOOL_JNI_REGISTER_NATIVE_CALLBACK_H
 
 #include <jni.h>
-#include <boost/function.hpp>
+
+#include <functional>
 
 namespace iscool
 {
     namespace jni
     {
         enum class native_callback_lifespan;
-        
+
         template< typename... Args >
         jlong register_native_callback
         ( native_callback_lifespan lifespan,
-          boost::function< void( Args... ) > callback );
+          std::function< void( Args... ) > callback );
     }
 }
 

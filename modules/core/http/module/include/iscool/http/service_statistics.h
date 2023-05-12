@@ -18,7 +18,7 @@
 
 #include "iscool/signals/connection.h"
 
-#include <boost/function.hpp>
+#include <functional>
 
 namespace iscool
 {
@@ -26,9 +26,9 @@ namespace iscool
     {
         void reset_service_quality();
         float get_service_quality();
-        
+
         signals::connection connect_to_service_quality_changed
-        ( const boost::function< void( float ) >& f );
+        ( const std::function< void( float ) >& f );
     }
 }
 

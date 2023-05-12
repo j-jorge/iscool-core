@@ -35,6 +35,7 @@ extern "C"
 
 #include <array>
 #include <chrono>
+#include <functional>
 #include <memory>
 
 namespace iscool
@@ -48,7 +49,7 @@ namespace iscool
             static void log_hardware_device_types();
             static void log_codec_details
             ( const AVCodecContext& context, const AVCodec& codec );
-            
+
             using format_context_pointer =
                 std::unique_ptr
                 < AVFormatContext, decltype( &close_format_context ) >;
@@ -60,13 +61,13 @@ namespace iscool
                 std::unique_ptr< AVFrame, decltype( &av_free ) >;
 
             static constexpr std::size_t frame_queue_capacity = 2;
-            
+
             class decoder_thread
             {
             public:
                 using frame_ready_function =
-                    boost::function< void( std::uint8_t* ) >;
-                
+                    std::function< void( std::uint8_t* ) >;
+
             public:
                 decoder_thread
                 ( decoder_state& shared_state,
@@ -79,36 +80,36 @@ namespace iscool
 
             private:
                 void initialize();
-                
+
                 void push_next_frame();
                 bool decode_frame( AVPacket& packet );
                 void pop_frame();
                 void dispatch_frame();
                 void reset_stream();
-                
+
             private:
                 format_context_pointer _format_context;
                 codec_context_pointer _codec_context;
                 int _video_stream_index;
                 frame_ready_function _frame_ready;
-                
+
                 decoder_state& _shared_state;
 
                 frame_pointer _current_frame;
 
                 std::vector< std::uint8_t >
                 _frame_buffer[ frame_queue_capacity ];
-                
+
                 frame_pointer _frame_dispatch_queue[ frame_queue_capacity ];
                 int _frame_dispatch_pop_index;
                 int _frame_dispatch_push_index;
                 int _frame_dispatch_queue_size;
-                
+
                 scale_context_pointer _scale_context;
 
                 std::chrono::time_point< std::chrono::steady_clock >
                 _last_frame_dispatch_date;
-                
+
                 std::chrono::nanoseconds _frame_duration;
             };
         }
@@ -134,9 +135,9 @@ iscool::video::decoder::decode( const std::string& path )
 
     _decoder_state.quit = false;
     _decoder_state.need_update = false;
-    
+
     AVFormatContext* raw_format_context( nullptr );
-    
+
     if ( detail::log_av_error
          ( avformat_open_input
            ( &raw_format_context, path.c_str(), nullptr, nullptr ) ) )
@@ -148,7 +149,7 @@ iscool::video::decoder::decode( const std::string& path )
     if ( detail::log_av_error
          ( avformat_find_stream_info( raw_format_context, nullptr ) ) )
         return iscool::none;
-  
+
     int video_stream_index( -1 );
 
     for ( int i( 0 ); i != raw_format_context->nb_streams; ++i )
@@ -170,9 +171,9 @@ iscool::video::decoder::decode( const std::string& path )
     detail::codec_context_pointer codec_context
         ( raw_format_context->streams[ video_stream_index ]->codec,
           &avcodec_close );
-  
+
     AVCodec* const codec( avcodec_find_decoder( codec_context->codec_id ) );
-    
+
     if ( codec == nullptr )
     {
         ic_causeless_log
@@ -183,7 +184,7 @@ iscool::video::decoder::decode( const std::string& path )
     }
 
     AVDictionary* options( nullptr );
-    
+
     if ( detail::log_av_error
          ( avcodec_open2( codec_context.get(), codec, &options ) ) )
         return iscool::none;
@@ -211,7 +212,7 @@ void iscool::video::decoder::consume_frame()
         std::unique_lock< std::mutex > lock( _decoder_state.mutex );
         _decoder_state.need_update = true;
     }
-    
+
     _decoder_state.update_condition.notify_one();
 }
 
@@ -272,7 +273,7 @@ void iscool::video::detail::log_codec_details
 
     int index( 0 );
     const AVCodecHWConfig* hw_config( avcodec_get_hw_config( &codec, index ) );
-    
+
     while( hw_config != nullptr )
     {
         ic_causeless_log
@@ -344,7 +345,7 @@ void iscool::video::detail::decoder_thread::operator()()
 
         if ( _frame_dispatch_queue_size != 0 )
             pop_frame();
-        
+
         if( _frame_dispatch_queue_size != frame_queue_capacity )
             push_next_frame();
 
@@ -358,7 +359,7 @@ void iscool::video::detail::decoder_thread::initialize()
     auto target_pixel_format( AV_PIX_FMT_RGB24 );
     const int width( _codec_context->width );
     const int height( _codec_context->height );
-    
+
     _current_frame = frame_pointer( av_frame_alloc(), &av_free );
 
     _frame_dispatch_queue[ 0 ] = frame_pointer( av_frame_alloc(), &av_free );
@@ -367,7 +368,7 @@ void iscool::video::detail::decoder_thread::initialize()
     _frame_dispatch_pop_index = 0;
     _frame_dispatch_push_index = 0;
     _frame_dispatch_queue_size = 0;
-    
+
     for( std::size_t i( 0 ); i != frame_queue_capacity; ++i )
     {
         _frame_buffer[ i ].resize
@@ -375,16 +376,16 @@ void iscool::video::detail::decoder_thread::initialize()
               ( target_pixel_format, width, height, 1 ) );
 
         const frame_pointer& frame( _frame_dispatch_queue[ i ] );
-        
+
         log_av_error
             ( av_image_fill_arrays
               ( frame->data, frame->linesize, _frame_buffer[ i ].data(),
                 target_pixel_format, width, height, 1 ) );
     }
-    
+
     assert( _frame_dispatch_queue[ 0 ]->linesize[ 0 ] == width * 3 );
     assert( _frame_dispatch_queue[ 1 ]->linesize[ 0 ] == width * 3 );
-    
+
     _scale_context =
         scale_context_pointer
         ( sws_getContext
@@ -406,16 +407,16 @@ void iscool::video::detail::decoder_thread::initialize()
 void iscool::video::detail::decoder_thread::push_next_frame()
 {
     assert( _frame_dispatch_queue_size != frame_queue_capacity );
-    
+
     AVPacket packet;
     bool stop( false );
-    
+
     do
     {
         const std::unique_ptr< AVPacket, decltype( &av_packet_unref ) >
             packet_releaser
             ( &packet, &av_packet_unref );
-        
+
         const int read_result
             ( av_read_frame( _format_context.get(), &packet ) );
 
@@ -430,7 +431,7 @@ void iscool::video::detail::decoder_thread::push_next_frame()
 
     ++_frame_dispatch_queue_size;
     ++_frame_dispatch_push_index;
-    
+
     if ( _frame_dispatch_push_index == frame_queue_capacity )
         _frame_dispatch_push_index = 0;
 }
@@ -444,7 +445,7 @@ bool iscool::video::detail::decoder_thread::decode_frame( AVPacket& packet )
            ( _codec_context.get(), _current_frame.get(), &frame_finished,
              &packet ) ) )
         return true;
-      
+
     if ( frame_finished == 0 )
         return false;
 
@@ -481,10 +482,10 @@ void iscool::video::detail::decoder_thread::dispatch_frame()
     const auto now( std::chrono::steady_clock::now() );
     const auto next_dispatch_date
         ( _last_frame_dispatch_date + _frame_duration );
-            
+
     if ( next_dispatch_date > now )
         std::this_thread::sleep_for( next_dispatch_date - now );
-    
+
     _last_frame_dispatch_date = std::chrono::steady_clock::now();
 
     std::uint8_t* const data

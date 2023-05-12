@@ -18,6 +18,7 @@
 
 #include "iscool/signals/detail/signal.h"
 
+#include <functional>
 #include <string>
 
 namespace iscool
@@ -26,7 +27,7 @@ namespace iscool
     {
         template< typename Signature, typename Identifier = void >
         class signal;
-        
+
         template< typename Signature >
         class signal< Signature, void >
         {
@@ -34,28 +35,28 @@ namespace iscool
             typedef detail::signal< Signature > implementation;
 
         public:
-            typedef boost::function< Signature > slot_function_type;
+            typedef std::function< Signature > slot_function_type;
             typedef typename implementation::result_type result_type;
-            
+
         public:
             signal();
             explicit signal( const std::string& identifier );
             ~signal();
-            
+
             void swap( signal& that );
 
-            connection connect( boost::function< Signature > f );
+            connection connect( std::function< Signature > f );
             void disconnect_all_slots();
             bool empty() const;
 
             template< typename... Arg >
             result_type operator()( Arg&&... arg ) const;
-            
+
         private:
             const std::string _identifier;
             implementation _signal;
         };
-            
+
         template< typename Signature, typename Identifier >
         class signal:
             public signal< Signature, void >
@@ -64,7 +65,7 @@ namespace iscool
             signal();
             ~signal();
         };
-        
+
         typedef signal< void() > void_signal;
 
         extern template class signal< void() >;

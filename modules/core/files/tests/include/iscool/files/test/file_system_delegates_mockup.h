@@ -18,14 +18,14 @@
 
 #include "iscool/files/file_system_delegates.h"
 
-#include <boost/function.hpp>
+#include <functional>
 
 namespace iscool
 {
     namespace files
     {
         class file_system_delegates;
-        
+
         namespace test
         {
             class file_system_delegates_mockup:
@@ -33,28 +33,28 @@ namespace iscool
             {
             public:
                 file_system_delegates_mockup();
-                
+
                 std::unique_ptr< std::istream > read_file
                 ( const std::string& path ) const override;
-            
+
                 std::string get_writable_path() const override;
                 bool file_exists( const std::string& path ) const override;
 
                 std::string get_full_path
                 ( const std::string& path ) const override;
-                    
+
             public:
-                boost::function
+                std::function
                 <
                     std::unique_ptr< std::istream >( const std::string& )
                 > read_file_impl;
-            
-                boost::function< std::string() > get_writable_path_impl;
-             
-                boost::function< bool( const std::string& ) >
+
+                std::function< std::string() > get_writable_path_impl;
+
+                std::function< bool( const std::string& ) >
                 file_exists_impl;
-                    
-                boost::function< std::string( const std::string& ) >
+
+                std::function< std::string( const std::string& ) >
                 get_full_path_impl;
             };
 

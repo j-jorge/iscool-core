@@ -22,12 +22,12 @@
 
 TEST( iscool_system_test, capture_screen )
 {
-    boost::function< void( std::string ) > captured_callback;
+    std::function< void( std::string ) > captured_callback;
     std::string captured_file_name;
     
     const auto capture_screen
         ( [ & ]( const std::string& file_name,
-               boost::function< void( std::string ) > on_capture ) -> void
+               std::function< void( std::string ) > on_capture ) -> void
           {
               captured_file_name = file_name;
               captured_callback = on_capture;
@@ -58,11 +58,11 @@ TEST( iscool_system_test, capture_screen )
 
 TEST( iscool_system_test, capture_screen_disconnected )
 {
-    boost::function< void( std::string ) > captured_callback;
+    std::function< void( std::string ) > captured_callback;
     
     const auto capture_screen
         ( [ & ]( const std::string& file_name,
-               boost::function< void( std::string ) > on_capture ) -> void
+               std::function< void( std::string ) > on_capture ) -> void
           {
               captured_callback = on_capture;
           } );
@@ -90,11 +90,11 @@ TEST( iscool_system_test, capture_screen_disconnected )
 
 TEST( iscool_system_test, capture_screen_in_capture )
 {
-    std::vector< boost::function< void( std::string ) > > captured_callback;
+    std::vector< std::function< void( std::string ) > > captured_callback;
     
     const auto capture_screen
         ( [ & ]( const std::string& file_name,
-               boost::function< void( std::string ) > on_capture ) -> void
+               std::function< void( std::string ) > on_capture ) -> void
           {
               captured_callback.push_back( on_capture );
           } );
@@ -127,7 +127,7 @@ TEST( iscool_system_test, capture_immediate_call )
 {
     const auto capture_screen
         ( []( const std::string& file_name,
-               boost::function< void( std::string ) > on_capture ) -> void
+               std::function< void( std::string ) > on_capture ) -> void
           {
               on_capture( "now" );
           } );

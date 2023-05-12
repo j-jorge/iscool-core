@@ -18,6 +18,7 @@
 
 #include "iscool/signals/signal.h"
 
+#include <functional>
 #include <cstdint>
 
 namespace iscool
@@ -32,24 +33,24 @@ namespace iscool
             progress_monitor( progress_monitor& master, std::uint32_t range );
 
             signals::connection
-            connect_to_updated( boost::function< void( float ) > f ) const;
+            connect_to_updated( std::function< void( float ) > f ) const;
 
             void begin_monitoring( std::uint32_t steps );
             void worked( std::uint32_t count );
             void done();
 
             bool is_started() const;
-            
+
         private:
             void internal_worked( float count );
             std::uint32_t get_remaining_range() const;
-            
+
         private:
             progress_monitor* const _master;
             const std::uint32_t _range;
             std::uint32_t _steps;
             float _progress;
-            
+
             mutable iscool::signals::signal< void( float ) > _updated;
         };
     }

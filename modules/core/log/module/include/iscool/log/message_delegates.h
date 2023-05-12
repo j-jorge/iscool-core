@@ -16,8 +16,7 @@
 #ifndef ISCOOL_LOG_MESSAGE_DELEGATES_H
 #define ISCOOL_LOG_MESSAGE_DELEGATES_H
 
-#include <boost/function.hpp>
-
+#include <functional>
 #include <string>
 
 namespace iscool
@@ -26,29 +25,29 @@ namespace iscool
     {
         class synopsis;
     }
-    
+
     namespace log
     {
         namespace nature
         {
             class nature;
         }
-        
+
         class context;
-        
+
         class message_delegates
         {
         public:
             bool is_valid() const;
 
         public:
-            boost::function
+            std::function
             <
                 void
                 ( const nature::nature&, const context&, const std::string&  )
             > print_message;
 
-            boost::function
+            std::function
             <
                 void( const context&, const error::synopsis&  )
             > print_error;

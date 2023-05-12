@@ -16,15 +16,15 @@
 #ifndef ISCOOL_HTTP_SEND_FUNCTION_H
 #define ISCOOL_HTTP_SEND_FUNCTION_H
 
-#include <boost/function.hpp>
+#include <functional>
 
 namespace iscool
 {
     namespace http
     {
         class request;
-        
-        typedef boost::function< void( const request& ) > send_function;
+
+        typedef std::function< void( const request& ) > send_function;
     }
 }
 

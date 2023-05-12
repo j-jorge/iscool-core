@@ -18,7 +18,7 @@
 
 #include "iscool/signals/connection.h"
 
-#include <boost/function.hpp>
+#include <functional>
 
 namespace iscool
 {
@@ -26,7 +26,7 @@ namespace iscool
     {
         iscool::signals::connection capture_screen
         ( const std::string& file_name,
-          boost::function< void( std::string ) > on_capture );
+          std::function< void( std::string ) > on_capture );
     }
 }
 

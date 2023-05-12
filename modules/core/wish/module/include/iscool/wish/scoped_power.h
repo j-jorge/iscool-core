@@ -27,7 +27,7 @@ namespace iscool
         {
         public:
             scoped_power
-            ( genie& main_genie, boost::function<void(const T&)> function );
+            ( genie& main_genie, std::function<void(const T&)> function );
 
             ~scoped_power();
 

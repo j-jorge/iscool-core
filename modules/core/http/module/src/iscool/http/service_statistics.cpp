@@ -30,7 +30,7 @@ float iscool::http::get_service_quality()
 
 iscool::signals::connection
 iscool::http::connect_to_service_quality_changed
-( const boost::function< void( float ) >& f )
+( const std::function< void( float ) >& f )
 {
     return detail::get_service_statistics().connect_to_quality_changed( f );
 }

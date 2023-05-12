@@ -16,6 +16,8 @@
 #ifndef ISCOOL_JNI_DETAIL_CALL_NATIVE_FUNCTION_H
 #define ISCOOL_JNI_DETAIL_CALL_NATIVE_FUNCTION_H
 
+#include <functional>
+
 namespace iscool
 {
     namespace jni
@@ -24,7 +26,7 @@ namespace iscool
         {
             template< typename... Arg >
             void call_native_function
-            ( const boost::function< void( Arg... ) >& f,
+            ( const std::function< void( Arg... ) >& f,
               const java_ptr< jobjectArray >& arguments );
         }
     }

@@ -19,6 +19,8 @@
 #include "iscool/log/causeless_log.h"
 #include "iscool/log/nature/error.h"
 
+#include <cassert>
+
 template< typename T, typename... A >
 void iscool::factory::dynamic_factory< T, A... >::register_typename
 ( const std::string& name, const dynamic_factory_function& creator )
@@ -41,7 +43,7 @@ T iscool::factory::dynamic_factory< T, A... >::create_by_typename
               "Type not found in factory: %s", name );
         assert( false );
     }
-    
+
     return it->second( arguments... );
 }
 

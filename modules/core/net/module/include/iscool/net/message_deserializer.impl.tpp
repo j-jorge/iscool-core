@@ -58,7 +58,7 @@ IMPLEMENT_SIGNAL
 template< typename M >
 iscool::signals::connection
 iscool::net::message_deserializer::deserializer_collection::connect
-( const boost::function< void ( const endpoint&, const M& ) >& f )
+( const std::function< void ( const endpoint&, const M& ) >& f )
 {
     typed_deserializer< M >* deserializer;
 
@@ -84,7 +84,7 @@ iscool::net::message_deserializer::deserializer_collection::connect
 template< typename M >
 iscool::signals::connection
 iscool::net::message_deserializer::connect_signal
-( const boost::function< void ( const endpoint&, M ) >& f )
+( const std::function< void ( const endpoint&, M ) >& f )
 {
     return _deserializers.connect< M >( f );
 }

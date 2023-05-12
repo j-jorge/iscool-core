@@ -16,15 +16,15 @@
 #ifndef ISCOOL_PROFILE_PRINT_DELEGATE_H
 #define ISCOOL_PROFILE_PRINT_DELEGATE_H
 
-#include <boost/function.hpp>
-
 #include "iscool/profile/profile_data.h"
+
+#include <functional>
 
 namespace iscool
 {
     namespace profile
     {
-        typedef boost::function< void( profile_data ) > output_delegate; 
+        typedef std::function< void( profile_data ) > output_delegate;
     }
 }
 

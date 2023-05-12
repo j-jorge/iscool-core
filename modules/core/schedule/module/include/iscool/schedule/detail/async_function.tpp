@@ -39,7 +39,7 @@ iscool::schedule::async_function< Signature >::async_function
 ( const async_function< Signature >& that )
     : _function( that._function )
 {
-    
+
 }
 
 template< typename Signature >
@@ -57,7 +57,7 @@ iscool::schedule::async_function< Signature >::operator=
     _function = that._function;
     return *this;
 }
-    
+
 template< typename Signature >
 template< typename... Args >
 void iscool::schedule::async_function< Signature >::operator()( Args... args )
@@ -72,7 +72,7 @@ void iscool::schedule::async_function< Signature >::operator()( Args... args )
 template< typename Signature >
 bool iscool::schedule::async_function< Signature >::empty() const
 {
-    return _function.empty();
+    return !_function;
 }
 
 template< typename Signature >

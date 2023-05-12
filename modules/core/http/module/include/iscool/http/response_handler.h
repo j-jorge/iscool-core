@@ -16,14 +16,14 @@
 #ifndef ISCOOL_HTTP_RESPONSE_HANDLER_H
 #define ISCOOL_HTTP_RESPONSE_HANDLER_H
 
-#include <boost/function.hpp>
+#include <functional>
 #include <vector>
 
 namespace iscool
 {
     namespace http
     {
-        typedef boost::function<void (std::vector<char>)> response_handler;
+        typedef std::function<void (std::vector<char>)> response_handler;
     }
 }
 

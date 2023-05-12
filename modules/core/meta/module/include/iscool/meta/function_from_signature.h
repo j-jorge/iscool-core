@@ -16,7 +16,7 @@
 #ifndef ISCOOL_META_FUNCTION_FROM_SIGNATURE_H
 #define ISCOOL_META_FUNCTION_FROM_SIGNATURE_H
 
-#include <boost/function.hpp>
+#include <functional>
 
 namespace iscool
 {
@@ -30,10 +30,10 @@ namespace iscool
             {
                 typedef Wrapper< R(Arg...) > type;
             };
-            
-            typedef typename in_functor< boost::function >::type type;
+
+            typedef typename in_functor< std::function >::type type;
         };
-        
+
         template< typename R >
         struct function_from_signature< R, void >
         {
@@ -42,8 +42,8 @@ namespace iscool
             {
                 typedef Wrapper< R() > type;
             };
-            
-            typedef typename in_functor< boost::function >::type type;
+
+            typedef typename in_functor< std::function >::type type;
         };
     }
 }

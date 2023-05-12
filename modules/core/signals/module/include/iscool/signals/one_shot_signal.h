@@ -18,6 +18,8 @@
 
 #include "iscool/signals/signal.h"
 
+#include <functional>
+
 namespace iscool
 {
     namespace signals
@@ -28,16 +30,16 @@ namespace iscool
         public:
             typedef signal< Signature > signal_type;
             typedef typename signal_type::result_type result_type;
-            
+
         public:
-            connection connect( const boost::function< Signature >& f );
+            connection connect( const std::function< Signature >& f );
 
             template< typename... Arg >
             result_type operator()( Arg... arg );
 
             void disconnect_all_slots();
             bool empty() const;
-            
+
         private:
             signal_type _impl;
         };

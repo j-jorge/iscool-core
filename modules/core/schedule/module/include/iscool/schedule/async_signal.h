@@ -18,6 +18,8 @@
 
 #include "iscool/signals/declare_signal.h"
 
+#include <functional>
+
 namespace iscool
 {
     namespace schedule
@@ -27,9 +29,9 @@ namespace iscool
         {
         public:
             ~async_signal();
-            
+
             iscool::signals::connection
-            connect( const boost::function< Signature >& f );
+            connect( const std::function< Signature >& f );
 
             template< typename... Arg >
             void operator()( Arg... args );
@@ -40,7 +42,7 @@ namespace iscool
 
         private:
             typedef iscool::signals::signal< Signature > signal_type;
-            
+
         private:
             signal_type _signal;
             std::vector< iscool::signals::connection > _trigger_connection;
@@ -50,7 +52,7 @@ namespace iscool
 
 #define DECLARE_ASYNC_SIGNAL( TYPE, NAME, MEMBER )                      \
     public:                                                             \
-        typedef boost::function< TYPE >                                 \
+        typedef std::function< TYPE >                                 \
         DETAIL_SIGNAL_FUNCTION_TYPE_NAME( NAME );                       \
                                                                         \
         ::iscool::signals::connection                                   \

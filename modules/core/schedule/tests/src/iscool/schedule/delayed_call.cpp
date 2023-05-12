@@ -86,10 +86,10 @@ TEST( iscool_schedule_delayed_call, call )
           } );
     iscool::schedule::delayed_call( f );
 
-    EXPECT_FALSE( callback.empty() );
+    EXPECT_TRUE( callback );
 
     callback();
-    
+
     EXPECT_TRUE( called );
 
     iscool::schedule::finalize();
@@ -116,7 +116,7 @@ TEST( iscool_schedule_delayed_call, connection )
           } );
     iscool::schedule::delayed_call( f ).disconnect();
     callback();
-    
+
     EXPECT_FALSE( called );
 
     iscool::schedule::finalize();
@@ -132,7 +132,7 @@ TEST( iscool_schedule_delayed_call, disconnect_in_callback )
           {
               calls.push_back( f );
           } );
-    
+
     iscool::schedule::initialize( delegate );
 
     bool second_call_called( false );
@@ -148,10 +148,10 @@ TEST( iscool_schedule_delayed_call, disconnect_in_callback )
           {
               second_call_connection.disconnect();
           } );
-    
+
     iscool::schedule::delayed_call( first_call );
     second_call_connection = iscool::schedule::delayed_call( second_call );
-    
+
     EXPECT_FALSE( calls.empty() );
     calls[ 0 ]();
     EXPECT_FALSE( second_call_called );
@@ -169,7 +169,7 @@ TEST( iscool_schedule_delayed_call, short_call_cumulated )
           {
               calls.push_back( f );
           } );
-    
+
     iscool::schedule::initialize( delegate );
 
     bool second_call_called( false );
@@ -186,9 +186,9 @@ TEST( iscool_schedule_delayed_call, short_call_cumulated )
                   ( second_call,
                     iscool::schedule::short_call_policy::cumulated );
           } );
-    
+
     iscool::schedule::delayed_call( first_call );
-    
+
     EXPECT_FALSE( calls.empty() );
     calls[ 0 ]();
     EXPECT_TRUE( second_call_called );
@@ -206,7 +206,7 @@ TEST( iscool_schedule_delayed_call, short_call_non_cumulated )
           {
               calls.push_back( f );
           } );
-    
+
     iscool::schedule::initialize( delegate );
 
     bool second_call_called( false );
@@ -223,13 +223,13 @@ TEST( iscool_schedule_delayed_call, short_call_non_cumulated )
                   ( second_call,
                     iscool::schedule::short_call_policy::non_cumulated );
           } );
-    
+
     iscool::schedule::delayed_call( first_call );
-    
+
     EXPECT_EQ( 1ull, calls.size() );
     calls[ 0 ]();
     EXPECT_FALSE( second_call_called );
-    
+
     EXPECT_EQ( 2ull, calls.size() );
     calls[ 1 ]();
     EXPECT_TRUE( second_call_called );
@@ -247,7 +247,7 @@ TEST( iscool_schedule_delayed_call, independent_connections )
           {
               calls.push_back( f );
           } );
-    
+
     iscool::schedule::initialize( delegate );
 
     bool first_call_called( false );
@@ -271,7 +271,7 @@ TEST( iscool_schedule_delayed_call, independent_connections )
 
     first_connection.disconnect();
     EXPECT_TRUE( second_connection.connected() );
-    
+
     EXPECT_EQ( 1ull, calls.size() );
     calls[ 0 ]();
     EXPECT_FALSE( first_call_called );
@@ -290,7 +290,7 @@ TEST( iscool_schedule_delayed_call, independent_immediate_calls )
           {
               calls.push_back( f );
           } );
-    
+
     iscool::schedule::initialize( delegate );
 
     bool first_call_called( false );
@@ -304,7 +304,7 @@ TEST( iscool_schedule_delayed_call, independent_immediate_calls )
     EXPECT_EQ( 1ull, calls.size() );
     calls[ 0 ]();
     EXPECT_TRUE( first_call_called );
-    
+
     bool second_call_called( false );
     auto second_call
         ( [ &second_call_called ]() -> void
@@ -329,10 +329,10 @@ TEST( iscool_schedule_delayed_call, cumulated_large )
                  std::chrono::milliseconds delay )
           -> void
           {
-              EXPECT_TRUE( client.empty() );
+              EXPECT_FALSE( client );
               client = f;
           } );
-    
+
     iscool::schedule::initialize( delegate );
 
     std::size_t calls( 0 );
@@ -353,8 +353,8 @@ TEST( iscool_schedule_delayed_call, cumulated_large )
     {
         const std::size_t calls_at_begin( calls );
 
-        EXPECT_FALSE( client.empty() );
-        
+        EXPECT_TRUE( client );
+
         const iscool::signals::void_signal_function client_call
             ( std::move( client ) );
         client_call();
@@ -376,7 +376,7 @@ TEST( iscool_schedule_delayed_call, cumulated_after_delay )
           {
               calls.push_back( f );
           } );
-    
+
     iscool::schedule::initialize( delegate );
 
     bool second_call_called( false );
@@ -393,12 +393,12 @@ TEST( iscool_schedule_delayed_call, cumulated_after_delay )
                   ( second_call,
                     iscool::schedule::short_call_policy::cumulated );
           } );
-    
+
     iscool::schedule::delayed_call
         ( first_call, std::chrono::milliseconds( 10 ) );
-    
+
     std::this_thread::sleep_for( std::chrono::milliseconds( 10 ) );
-    
+
     EXPECT_FALSE( calls.empty() );
     calls[ 0 ]();
     EXPECT_TRUE( second_call_called );

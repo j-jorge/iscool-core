@@ -37,13 +37,13 @@ namespace iscool
 
 iscool::signals::connection iscool::system::capture_screen
 ( const std::string& file_name,
-  boost::function< void ( std::string ) > on_done )
+  std::function< void ( std::string ) > on_done )
 {
-    assert( !detail::capture_screen_delegate.empty() );
+    assert( detail::capture_screen_delegate );
 
     const auto slot( detail::signal_pool.pick_available_signal() );
     const iscool::signals::connection result( slot.value.connect( on_done ) );
-    
+
     detail::capture_screen_delegate
         ( file_name,
           boost::bind
@@ -51,6 +51,6 @@ iscool::signals::connection iscool::system::capture_screen
             &detail::signal_pool, slot.id, _1 ) );
 
     assert( result.connected() );
-    
+
     return result;
 }

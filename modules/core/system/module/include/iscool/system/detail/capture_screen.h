@@ -16,13 +16,15 @@
 #ifndef ISCOOL_SYSTEM_CAPTURE_SCREEN_H
 #define ISCOOL_SYSTEM_CAPTURE_SCREEN_H
 
+#include <functional>
+
 namespace iscool
 {
     namespace system
     {
         Connection capture_screen
         ( const std::string& file_name,
-          boost::function< void ( const std::string ) > on_done );
+          std::function< void ( const std::string ) > on_done );
     }
 }
 

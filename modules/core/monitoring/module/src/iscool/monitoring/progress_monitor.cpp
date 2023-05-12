@@ -49,7 +49,7 @@ iscool::monitoring::progress_monitor::progress_monitor
 
 iscool::signals::connection
 iscool::monitoring::progress_monitor::connect_to_updated
-( boost::function< void( float ) > f ) const
+( std::function< void( float ) > f ) const
 {
     assert( _master == nullptr );
     return _updated.connect( f );

@@ -18,12 +18,12 @@
 
 #include "iscool/signals/connection.h"
 
-#include <boost/function.hpp>
+#include <functional>
 
 #define BOUNCE_SIGNAL( signature, name, bouncer )                       \
     public:                                                             \
     iscool::signals::connection connect_to_ ## name                     \
-    ( const boost::function< signature >& f ) const                     \
+    ( const std::function< signature >& f ) const                     \
     {                                                                   \
         return bouncer.connect_to_ ## name( f );                        \
     }
@@ -31,11 +31,11 @@
 #define DECLARE_BOUNCE_SIGNAL( signature, name )        \
     public:                                             \
     iscool::signals::connection connect_to_ ## name     \
-    ( const boost::function< signature >& f ) const;
+    ( const std::function< signature >& f ) const;
 
 #define IMPLEMENT_BOUNCE_SIGNAL_RENAMED( classname, signature, name, bouncer, original_name )              \
     iscool::signals::connection classname::connect_to_ ## name          \
-    ( const boost::function< signature >& f ) const                     \
+    ( const std::function< signature >& f ) const                     \
     {                                                                   \
         return bouncer.connect_to_ ## original_name( f );               \
     }

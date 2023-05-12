@@ -24,7 +24,7 @@
     }                                                                \
                                                                      \
     scope::type::type                                                \
-    ( const boost::function< void() >& on_completed )                \
+    ( const std::function< void() >& on_completed )                \
         : _notify_completed( on_completed ),                         \
           _done_steps( 0 )                                           \
     {                                                                \
@@ -49,7 +49,7 @@
     }                                                                \
                                                                      \
     void scope::type::reset                                          \
-    ( const boost::function< void() >& on_completed )                \
+    ( const std::function< void() >& on_completed )                \
     {                                                                \
         reset();                                                     \
         _notify_completed = on_completed;                            \

@@ -15,6 +15,8 @@
 */
 #include "iscool/log/detail/message_dispatcher.h"
 
+#include <cassert>
+
 iscool::log::detail::message_dispatcher::message_dispatcher()
     : _next_id( 0 )
 {
@@ -27,11 +29,11 @@ iscool::log::detail::message_dispatcher::register_delegates
 {
     assert( delegates.is_valid() );
     assert( _delegates.find( _next_id ) == _delegates.end() );
-    
+
     const std::size_t result( _next_id );
     ++_next_id;
     _delegates[ result ] = delegates;
-    
+
     return result;
 }
 

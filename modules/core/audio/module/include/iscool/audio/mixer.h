@@ -20,8 +20,7 @@
 
 #include "iscool/resources/resolver.h"
 
-#include <boost/function.hpp>
-
+#include <functional>
 #include <unordered_map>
 #include <vector>
 
@@ -31,7 +30,7 @@ namespace iscool
     {
         enum class loop_mode;
         class platform_mixer;
-        
+
         class mixer
         {
         public:
@@ -44,10 +43,10 @@ namespace iscool
             mixer& operator=( const mixer& ) = delete;
 
             void tick();
-            
+
             void set_effects_muted( bool muted );
             bool get_effects_muted() const;
-            
+
             void set_music_muted( bool muted );
             bool get_music_muted() const;
 
@@ -59,25 +58,25 @@ namespace iscool
 
         private:
             bool should_skip_effect( const std::string& name ) const;
-            
+
         private:
             const iscool::resources::resolver _resources;
             const std::size_t _min_frames_between_effects;
             platform_mixer& _impl;
 
-            std::vector< boost::function< void() > > _commands;
-            
+            std::vector< std::function< void() > > _commands;
+
             std::size_t _effects_muting;
             std::size_t _music_muting;
             std::size_t _date;
 
             std::string _current_music;
-            
+
             std::unordered_map< std::string, std::size_t > _last_play_date;
-            
+
             std::unordered_map< track_id, track_id > _id_to_impl_id;
             track_id _next_id;
-            
+
         };
     }
 }

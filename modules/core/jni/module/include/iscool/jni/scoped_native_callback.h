@@ -18,29 +18,29 @@
 
 #include <jni.h>
 
-#include <boost/function.hpp>
+#include <functional>
 
 namespace iscool
 {
     namespace jni
     {
         enum class native_callback_lifespan;
-        
+
         class scoped_native_callback
         {
         public:
             template< typename... Args >
             explicit scoped_native_callback
-            ( const boost::function< void( Args... ) >& f );
+            ( const std::function< void( Args... ) >& f );
 
             ~scoped_native_callback();
-            
+
             jlong get_id() const;
 
             scoped_native_callback( const scoped_native_callback& ) = delete;
             scoped_native_callback& operator=
             ( const scoped_native_callback& ) = delete;
-            
+
         private:
             const jlong _id;
         };

@@ -17,6 +17,8 @@
 
 #include "iscool/i18n/detail/plural_index.h"
 
+#include <cassert>
+
 #define assign_index_expression_and_return( expression )        \
     {                                                           \
         plural_index =                                          \
@@ -35,7 +37,7 @@ iscool::i18n::detail::assign_plural_index( const std::string& language_code )
       See the table on this page for updates:
       http://localization-guide.readthedocs.org/en/latest/l10n/pluralforms.html
     */
-    
+
     if ( ( language_code == "fr" )
          || ( language_code == "pt_BR" )
          || ( language_code == "tr" ) )
@@ -66,7 +68,7 @@ iscool::i18n::detail::assign_plural_index( const std::string& language_code )
                   && ( ( n % 100 < 10 ) || ( n % 100 >= 20 ) )
                   ? 1
                   : 2 ) );
-    
+
     if ( language_code == "ru" )
         assign_index_expression_and_return
             ( ( ( n % 10 == 1 ) && ( n % 100 != 11 ) )
@@ -75,7 +77,7 @@ iscool::i18n::detail::assign_plural_index( const std::string& language_code )
                   && ( ( n % 100 < 10 ) || ( n % 100 >= 20 ) )
                   ? 1
                   : 2 ) );
-    
+
     assert( false );
 }
 

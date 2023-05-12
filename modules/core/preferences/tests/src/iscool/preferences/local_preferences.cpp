@@ -30,7 +30,7 @@ public:
 
 protected:
     typedef
-    boost::function< void( const iscool::preferences::property_map& ) >
+    std::function< void( const iscool::preferences::property_map& ) >
     save_function;
     
 protected:

@@ -16,7 +16,7 @@
 #ifndef ISCOOL_LOG_DETAIL_LOGGER_THREAD_H
 #define ISCOOL_LOG_DETAIL_LOGGER_THREAD_H
 
-#include <boost/function.hpp>
+#include <functional>
 
 namespace iscool
 {
@@ -24,7 +24,7 @@ namespace iscool
     {
         namespace detail
         {
-            void queue_in_logger_thread( boost::function< void() > f );
+            void queue_in_logger_thread( std::function< void() > f );
             void stop_logger_thread();
         }
     }

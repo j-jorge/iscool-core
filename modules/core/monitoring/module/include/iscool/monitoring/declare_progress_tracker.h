@@ -16,7 +16,6 @@
 #ifndef ISCOOL_MONITORING_DECLARE_PROGRESS_TRACKER_H
 #define ISCOOL_MONITORING_DECLARE_PROGRESS_TRACKER_H
 
-#include <boost/function.hpp>
 #include <boost/preprocessor/stringize.hpp>
 #include <boost/preprocessor/punctuation/comma_if.hpp>
 #include <boost/preprocessor/seq/elem.hpp>
@@ -24,6 +23,7 @@
 #include <boost/preprocessor/seq/size.hpp>
 
 #include <climits>
+#include <functional>
 
 #define ic_monitoring_detail_enum_value( r, data, i, seq ) \
     BOOST_PP_COMMA_IF( i ) seq = ( bit_field( 1 ) << i )
@@ -57,21 +57,21 @@
     public:                                                      \
         type();                                                  \
         explicit type                                            \
-            ( const boost::function< void() >& on_completed );   \
+            ( const std::function< void() >& on_completed );   \
                                                                  \
         void done( step s );                                     \
                                                                  \
         void reset();                                            \
                                                                  \
         void reset                                               \
-            ( const boost::function< void() >& on_completed );   \
+            ( const std::function< void() >& on_completed );   \
                                                                  \
     private:                                                     \
         static constexpr bit_field all_mask =                    \
             ( bit_field( 1 ) << BOOST_PP_SEQ_SIZE( names ) )     \
             - 1;                                                 \
                                                                  \
-        boost::function< void() > _notify_completed;             \
+        std::function< void() > _notify_completed;             \
         bit_field _done_steps;                                   \
     }
 

@@ -17,7 +17,10 @@
 #define ISCOOL_SIGNALS_RELAY_TPP
 
 #include <boost/bind.hpp>
+#include <boost/preprocessor/arithmetic/inc.hpp>
 #include <boost/preprocessor/iteration/local.hpp>
+#include <boost/preprocessor/punctuation/comma_if.hpp>
+#include <boost/preprocessor/repetition/enum.hpp>
 
 #include <cassert>
 
@@ -36,14 +39,14 @@ namespace iscool
                 typedef iscool::signals::signal< R( T... ) > signal_type;
                 typedef
                 typename signal_type::slot_function_type slot_function_type;
-                
+
                 static slot_function_type bind( const signal_type& signal );
             };
-    
+
             template< std::size_t N, typename R, typename... T >
             struct signal_binder_n;
 
-            template< typename Signature > 
+            template< typename Signature >
             struct signal_invoker;
 
             template< typename R, typename... T >
@@ -72,7 +75,7 @@ iscool::signals::relay( const signal< Signature >& s )
 
 template< typename R, typename ...T >
 typename
-iscool::signals::detail::signal_binder< R( T... ) >::slot_function_type 
+iscool::signals::detail::signal_binder< R( T... ) >::slot_function_type
 iscool::signals::detail::signal_binder<R( T... )>::bind
 ( const signal_type& signal )
 {
@@ -81,7 +84,7 @@ iscool::signals::detail::signal_binder<R( T... )>::bind
 }
 
 #define SIGNAL_BINDER_PLACEHOLDER( UNUSED1, N, DATA )      \
-    BOOST_PP_CAT( DATA, BOOST_PP_INC( N ) )     
+    BOOST_PP_CAT( DATA, BOOST_PP_INC( N ) )
 
 #define SIGNAL_BINDER_BINDN( N ) \
     template< typename R, typename ...T > \
@@ -97,7 +100,7 @@ iscool::signals::detail::signal_binder<R( T... )>::bind
                   BOOST_PP_ENUM( N, SIGNAL_BINDER_PLACEHOLDER, _ ) \
             ); \
         } \
-    }; 
+    };
 
 #define BOOST_PP_LOCAL_MACRO( N )  SIGNAL_BINDER_BINDN( N )
 #define BOOST_PP_LOCAL_LIMITS     (0, 8)

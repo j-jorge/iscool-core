@@ -33,7 +33,7 @@ public:
 
 protected:
     typedef
-    boost::function< void( iscool::preferences::property_map ) > save_function;
+    std::function< void( iscool::preferences::property_map ) > save_function;
     
 protected:
     void wait( std::chrono::milliseconds delay );

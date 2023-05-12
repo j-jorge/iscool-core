@@ -30,7 +30,7 @@ iscool::schedule::async_signal< Signature >::~async_signal()
 template< typename Signature >
 iscool::signals::connection
 iscool::schedule::async_signal< Signature >::connect
-( const boost::function< Signature >& f )
+( const std::function< Signature >& f )
 {
     return _signal.connect( f );
 }

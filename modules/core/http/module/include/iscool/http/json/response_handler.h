@@ -26,7 +26,7 @@ namespace iscool
     {
         namespace json
         {
-            typedef boost::function<void(Json::Value)> response_handler;
+            typedef std::function<void(Json::Value)> response_handler;
         }
     }
 }

@@ -19,8 +19,8 @@
 #include "iscool/wish/wish.h"
 
 #include <boost/any.hpp>
-#include <boost/function.hpp>
 
+#include <functional>
 #include <map>
 
 namespace iscool
@@ -31,7 +31,7 @@ namespace iscool
         {
         public:
             template<typename T>
-            void empower( boost::function< void( const T& ) > function );
+            void empower( std::function< void( const T& ) > function );
 
             template<typename T>
             void deny();
@@ -44,7 +44,7 @@ namespace iscool
 
         private:
             typedef std::map< iscool::wish::kind, boost::any > power_list;
-        
+
         private:
             power_list _powers;
         };

@@ -32,13 +32,13 @@ namespace iscool
             static std::mutex logger_thread_state_mutex;
             static std::condition_variable queue_updated;
 
-            static std::vector< boost::function< void() > > logger_queue;
+            static std::vector< std::function< void() > > logger_queue;
             static bool exit_logger_thread;
         }
     }
 }
 
-void iscool::log::detail::queue_in_logger_thread( boost::function< void() > f )
+void iscool::log::detail::queue_in_logger_thread( std::function< void() > f )
 {
     if ( logger_thread.get_id() == std::thread::id() )
     {
@@ -78,7 +78,7 @@ void iscool::log::detail::logger_thread_loop()
         if ( exit_logger_thread )
             break;
 
-        for ( const boost::function< void() >& f : logger_queue )
+        for ( const std::function< void() >& f : logger_queue )
             f();
 
         logger_queue.clear();

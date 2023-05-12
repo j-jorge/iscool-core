@@ -16,8 +16,7 @@
 #ifndef ISCOOL_SYSTEM_CAPTURE_SCREEN_FUNCTION_H
 #define ISCOOL_SYSTEM_CAPTURE_SCREEN_FUNCTION_H
 
-#include <boost/function.hpp>
-
+#include <functional>
 #include <string>
 
 namespace iscool
@@ -25,11 +24,11 @@ namespace iscool
     namespace system
     {
         typedef
-        boost::function
+        std::function
         <
             void
             ( const std::string&,
-              boost::function< void( const std::string& ) > )
+              std::function< void( const std::string& ) > )
         > capture_screen_function;
     }
 }

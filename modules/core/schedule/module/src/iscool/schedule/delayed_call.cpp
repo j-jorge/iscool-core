@@ -23,15 +23,15 @@ iscool::signals::connection
 iscool::schedule::delayed_call
 ( iscool::signals::void_signal_function f, short_call_policy policy )
 {
-    assert( !f.empty() );
-    
+    assert( f );
+
     return detail::call_manager.schedule_call( f, policy );
 }
 
 iscool::signals::connection iscool::schedule::delayed_call
 ( iscool::signals::void_signal_function f, std::chrono::milliseconds delay )
 {
-    assert( !f.empty() );
+    assert( f );
     assert( delay.count() >= 0 );
 
     if ( delay == std::chrono::milliseconds::zero() )

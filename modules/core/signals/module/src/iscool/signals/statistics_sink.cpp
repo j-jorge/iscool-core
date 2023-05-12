@@ -18,7 +18,7 @@
 #include "iscool/signals/detail/statistics_function.h"
 
 void iscool::signals::set_statistics_sink
-( const boost::function< void( const statistics_data& ) >& sink )
+( const std::function< void( const statistics_data& ) >& sink )
 {
     assert( sink );
     detail::statistics_function = sink;
@@ -27,6 +27,6 @@ void iscool::signals::set_statistics_sink
 void iscool::signals::clear_statistics_sink()
 {
     detail::statistics_function =
-        boost::function< void( const statistics_data& ) >();
+        std::function< void( const statistics_data& ) >();
 }
 

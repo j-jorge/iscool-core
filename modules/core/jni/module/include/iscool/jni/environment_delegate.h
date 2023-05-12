@@ -18,13 +18,13 @@
 
 #include <jni.h>
 
-#include <boost/function.hpp>
+#include <functional>
 
 namespace iscool
 {
     namespace jni
     {
-        typedef boost::function< JNIEnv*() > environment_delegate;
+        typedef std::function< JNIEnv*() > environment_delegate;
     }
 }
 

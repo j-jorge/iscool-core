@@ -21,7 +21,7 @@
 template< typename Signature >
 iscool::signals::connection
 iscool::signals::one_shot_signal< Signature >::connect
-( const boost::function< Signature >& f )
+( const std::function< Signature >& f )
 {
     return _impl.connect( f );
 }

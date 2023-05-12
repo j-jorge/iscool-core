@@ -16,6 +16,8 @@
 #ifndef ISCOOL_SCHEDULE_SPARSE_FOR_EACH_H
 #define ISCOOL_SCHEDULE_SPARSE_FOR_EACH_H
 
+#include <functional>
+
 namespace iscool
 {
     namespace schedule
@@ -24,14 +26,14 @@ namespace iscool
         {
         private:
             typedef std::chrono::milliseconds duration_type;
-            
+
         public:
 
             template< typename Iterator, typename Function >
             void operator()( Iterator first, Iterator last, Function f )
             {
                 assert( !_looping );
-                
+
                 _calls.resize( 0 );
                 _calls.reserve( std::distance( first, last ) );
 
@@ -51,7 +53,7 @@ namespace iscool
             void loop()
             {
                 assert( _next_index <= _calls.size() );
-                
+
                 const duration_type start( time::now< duration_type >() );
                 duration_type now( start );
 
@@ -72,7 +74,7 @@ namespace iscool
         private:
             duration_type _time_limit;
             std::size_t _next_index;
-            std::vector< boost::function< void() > > _calls;
+            std::vector< std::function< void() > > _calls;
             bool _looping;
         };
     }

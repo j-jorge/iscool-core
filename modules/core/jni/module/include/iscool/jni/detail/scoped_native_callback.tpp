@@ -21,7 +21,7 @@
 
 template< typename... Args >
 iscool::jni::scoped_native_callback::scoped_native_callback
-( const boost::function< void( Args... ) >& f )
+( const std::function< void( Args... ) >& f )
     : _id( register_native_callback( native_callback_lifespan::persistent, f ) )
 {
 

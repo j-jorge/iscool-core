@@ -17,6 +17,8 @@
 
 #include "iscool/profile/detail/output_function.h"
 
+#include <cassert>
+
 void iscool::profile::initialize( output_delegate delegate )
 {
     assert( !detail::output_function );

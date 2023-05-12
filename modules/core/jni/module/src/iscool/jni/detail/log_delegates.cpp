@@ -47,7 +47,7 @@ void iscool::jni::detail::setup_log_delegates()
     java_to_native_log =
         register_native_callback
         ( native_callback_lifespan::persistent,
-          boost::function< void( int, const std::string&, const std::string& ) >
+          std::function< void( int, const std::string&, const std::string& ) >
           ( &java_log ) );
 
     static_method< void > method

@@ -16,13 +16,13 @@
 #ifndef ISCOOL_SIGNALS_VOID_SIGNAL_FUNCTION_H
 #define ISCOOL_SIGNALS_VOID_SIGNAL_FUNCTION_H
 
-#include <boost/function.hpp>
+#include <functional>
 
 namespace iscool
 {
     namespace signals
     {
-        typedef boost::function< void() > void_signal_function;
+        typedef std::function< void() > void_signal_function;
     }
 }
 

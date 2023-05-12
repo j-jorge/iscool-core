@@ -21,7 +21,7 @@
 template< typename... Args >
 jlong iscool::jni::detail::native_call_manager::register_callback
 ( native_callback_lifespan lifespan,
-  const boost::function< void( Args... ) >& callback )
+  const std::function< void( Args... ) >& callback )
 {
     auto* const pointer
         ( new variadic_native_callback< Args... >( lifespan, callback ) );

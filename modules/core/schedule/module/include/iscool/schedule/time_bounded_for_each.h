@@ -19,6 +19,7 @@
 #include "iscool/signals/declare_signal.h"
 #include "iscool/signals/scoped_connection.h"
 
+#include <functional>
 #include <chrono>
 
 namespace iscool
@@ -28,16 +29,16 @@ namespace iscool
         class time_bounded_for_each
         {
             DECLARE_VOID_SIGNAL( completed, _completed );
-            
+
         private:
             typedef std::chrono::milliseconds duration_type;
-            
+
         public:
             time_bounded_for_each();
             ~time_bounded_for_each();
-            
+
             void abort();
-            
+
             template
             <
                 typename Iterator,
@@ -56,7 +57,7 @@ namespace iscool
         private:
             duration_type _time_limit;
             std::size_t _next_index;
-            std::vector< boost::function< void() > > _calls;
+            std::vector< std::function< void() > > _calls;
             bool _looping;
             iscool::signals::scoped_connection _loop_connection;
         };

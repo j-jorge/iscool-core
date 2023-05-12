@@ -18,6 +18,8 @@
 
 #include "iscool/jni/detail/native_callback.h"
 
+#include <functional>
+
 namespace iscool
 {
     namespace jni
@@ -28,8 +30,8 @@ namespace iscool
             class variadic_native_callback:
                 public native_callback
             {
-                typedef boost::function< void( Args... ) > callback_type;
-                
+                typedef std::function< void( Args... ) > callback_type;
+
             public:
                 variadic_native_callback
                 ( native_callback_lifespan lifespan,
@@ -37,12 +39,12 @@ namespace iscool
 
                 void operator()
                 ( const java_ptr<jobjectArray>& arguments ) override;
-                
+
             private:
                 template< std::size_t... I, typename... Arg >
                 void execute_callback
                 ( const java_ptr<jobjectArray>& arguments ) const;
-                
+
             private:
                 callback_type _callback;
             };

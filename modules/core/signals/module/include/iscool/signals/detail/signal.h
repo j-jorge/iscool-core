@@ -19,9 +19,8 @@
 #include "iscool/signals/connection.h"
 #include "iscool/signals/detail/slot.h"
 
-#include <boost/function.hpp>
-
 #include <cassert>
+#include <functional>
 #include <memory>
 #include <type_traits>
 #include <vector>
@@ -37,21 +36,21 @@ namespace iscool
             {
             public:
                 typedef void result_type;
-                
+
             public:
                 signal();
                 signal( const signal< Signature >& ) = delete;
                 signal( signal< Signature >&& ) = delete;
                 ~signal();
-                
+
                 signal< Signature >& operator=( const signal< Signature >& ) =
                     delete;
 
                 signal< Signature >& operator=( signal< Signature >&& ) =
                     delete;
 
-                connection connect( boost::function< Signature > f );
-    
+                connection connect( std::function< Signature > f );
+
                 template< typename... Arg >
                 void operator()( Arg&&... arg ) const;
 
@@ -59,20 +58,20 @@ namespace iscool
                 void disconnect_all_slots();
                 std::size_t num_slots() const;
                 void swap( signal< Signature >& that ) noexcept;
-    
+
             private:
                 struct internal_slot:
                     public slot
                 {
-                    explicit internal_slot( boost::function< Signature > f );
+                    explicit internal_slot( std::function< Signature > f );
                     ~internal_slot();
-                    
-                    boost::function< Signature > callback;
+
+                    std::function< Signature > callback;
                 };
 
                 typedef std::shared_ptr< internal_slot > shared_slot_ptr;
                 typedef std::vector< shared_slot_ptr > shared_slot_ptr_vector;
-              
+
                 typedef
                 typename std::aligned_storage
                 <
@@ -99,7 +98,7 @@ namespace iscool
                 void swap_pointer_vector( signal< Signature >& that ) noexcept;
                 void swap_pointer_none( signal< Signature >& that ) noexcept;
                 void swap_vector_none( signal< Signature >& that ) noexcept;
-                  
+
             private:
                 slot_storage _slot_storage;
                 storage_kind _storage_kind;

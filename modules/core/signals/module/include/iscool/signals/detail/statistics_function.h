@@ -16,7 +16,7 @@
 #ifndef ISCOOL_SIGNALS_STATISTICS_FUNCTION_H
 #define ISCOOL_SIGNALS_STATISTICS_FUNCTION_H
 
-#include <boost/function.hpp>
+#include <functional>
 
 namespace iscool
 {
@@ -27,7 +27,7 @@ namespace iscool
         namespace detail
         {
             extern
-            boost::function< void( const statistics_data& ) >
+            std::function< void( const statistics_data& ) >
             statistics_function;
         }
     }

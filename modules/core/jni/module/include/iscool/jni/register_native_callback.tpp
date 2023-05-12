@@ -19,7 +19,7 @@
 template< typename... Args >
 jlong iscool::jni::register_native_callback
 ( native_callback_lifespan lifespan,
-  boost::function< void( Args... ) > callback )
+  std::function< void( Args... ) > callback )
 {
     return
         detail::get_native_call_manager().register_callback

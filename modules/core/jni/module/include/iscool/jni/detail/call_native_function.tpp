@@ -22,7 +22,7 @@
 
 template< typename... Arg >
 void iscool::jni::detail::call_native_function
-( const boost::function< void( Arg... ) >& f,
+( const std::function< void( Arg... ) >& f,
   const java_ptr< jobjectArray >& arguments )
 {
     native_call_helper

@@ -16,8 +16,10 @@
 #ifndef GENIE_TPP
 #define GENIE_TPP
 
+#include <cassert>
+
 template<typename T>
-void iscool::wish::genie::empower( boost::function<void( const T& )> function )
+void iscool::wish::genie::empower( std::function<void( const T& )> function )
 {
     const auto insertion
         ( _powers.insert
@@ -44,7 +46,7 @@ void iscool::wish::genie::grant( const T& wish ) const
     assert( iterator != _powers.end() );
 
     return boost::any_cast
-        <boost::function<void( const T& )>>( iterator->second )( wish );
+        <std::function<void( const T& )>>( iterator->second )( wish );
 }
 
 template< typename T >

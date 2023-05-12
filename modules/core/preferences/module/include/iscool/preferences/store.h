@@ -19,9 +19,8 @@
 #include "iscool/preferences/property_map.h"
 #include "iscool/signals/scoped_connection.h"
 
-#include <boost/function.hpp>
-
 #include <chrono>
+#include <functional>
 #include <vector>
 
 namespace iscool
@@ -32,8 +31,8 @@ namespace iscool
         {
         private:
             typedef
-            boost::function< void( const property_map& ) > save_function;
-            
+            std::function< void( const property_map& ) > save_function;
+
         public:
             store
             ( const std::chrono::milliseconds& flush_delay,
@@ -42,7 +41,7 @@ namespace iscool
 
             store( const store& ) = delete;
             store& operator=( const store& ) = delete;
-            
+
             template< typename T >
             void set_value( const std::string& key, const T& value );
 
@@ -58,7 +57,7 @@ namespace iscool
 
             const property_map& get_properties() const;
             void reset( const property_map& values );
-            
+
         private:
             void abort_save();
             void schedule_save();

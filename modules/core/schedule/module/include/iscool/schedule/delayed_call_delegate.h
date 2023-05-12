@@ -18,6 +18,7 @@
 
 #include "iscool/signals/void_signal_function.h"
 
+#include <functional>
 #include <chrono>
 
 namespace iscool
@@ -25,7 +26,7 @@ namespace iscool
     namespace schedule
     {
         typedef
-        boost::function
+        std::function
         <
             void
             ( iscool::signals::void_signal_function, std::chrono::milliseconds )

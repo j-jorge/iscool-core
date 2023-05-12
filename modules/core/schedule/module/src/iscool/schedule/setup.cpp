@@ -17,11 +17,13 @@
 
 #include "iscool/schedule/detail/call_later.h"
 
+#include <cassert>
+
 void iscool::schedule::initialize( delayed_call_delegate delegate )
 {
-    assert( detail::call_later.empty() );
-    assert( !delegate.empty() );
-    
+    assert( !detail::call_later );
+    assert( delegate );
+
     detail::call_later = delegate;
 }
 

@@ -18,6 +18,8 @@
 #include "iscool/time/now.h"
 #include "iscool/profile/detail/output_function.h"
 
+#include <cassert>
+
 iscool::profile::profiler::profiler
 ( const std::string& name )
     : _name( name )
@@ -52,6 +54,6 @@ void iscool::profile::profiler::end()
     const profile_data result( _name, *_start, end, _tags );
     _start.reset();
 
-    if( !detail::output_function.empty() )
+    if( detail::output_function )
         detail::output_function( result );
 }

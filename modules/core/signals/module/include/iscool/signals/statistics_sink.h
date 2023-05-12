@@ -16,7 +16,7 @@
 #ifndef ISCOOL_SIGNALS_STATISTICS_SINK_H
 #define ISCOOL_SIGNALS_STATISTICS_SINK_H
 
-#include <boost/function.hpp>
+#include <functional>
 
 namespace iscool
 {
@@ -25,7 +25,7 @@ namespace iscool
         class statistics_data;
 
         void set_statistics_sink
-        ( const boost::function< void( const statistics_data& ) >& sink );
+        ( const std::function< void( const statistics_data& ) >& sink );
         void clear_statistics_sink();
     }
 }

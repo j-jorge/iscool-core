@@ -16,7 +16,7 @@
 #ifndef ISCOOL_I18N_DETAIL_PLURAL_INDEX_FUNCTION_H
 #define ISCOOL_I18N_DETAIL_PLURAL_INDEX_FUNCTION_H
 
-#include <boost/function.hpp>
+#include <functional>
 
 namespace iscool
 {
@@ -24,7 +24,7 @@ namespace iscool
     {
         namespace detail
         {
-            typedef boost::function< std::uint8_t( std::uint64_t ) >
+            typedef std::function< std::uint8_t( std::uint64_t ) >
             plural_index_function;
         }
     }

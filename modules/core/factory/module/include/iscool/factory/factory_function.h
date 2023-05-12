@@ -16,14 +16,14 @@
 #ifndef ISCOOL_FACTORY_FACTORY_FUNCTION_H
 #define ISCOOL_FACTORY_FACTORY_FUNCTION_H
 
-#include <boost/function.hpp>
+#include <functional>
 
 namespace iscool
 {
     namespace factory
     {
         template< typename T, typename... A >
-        using factory_function = boost::function< T( A... ) >;
+        using factory_function = std::function< T( A... ) >;
     }
 }
 

@@ -18,9 +18,8 @@
 
 #include "iscool/signals/connection.h"
 
-#include <boost/function.hpp>
-
 #include <deque>
+#include <functional>
 
 namespace iscool
 {
@@ -31,27 +30,27 @@ namespace iscool
         {
         public:
             async_function();
-            
+
             template< typename F >
             async_function( const F& f );
             async_function( const async_function< Signature >& that );
             ~async_function();
-            
+
             async_function< Signature >&
             operator=( const async_function< Signature >& that );
-    
+
             template< typename... Args >
             void operator()( Args... args );
 
             bool empty() const;
-            
+
         private:
             template< typename... Args >
             void trigger( Args... args );
 
         private:
             std::deque< iscool::signals::connection > _connections;
-            boost::function< Signature > _function;
+            std::function< Signature > _function;
         };
     }
 }

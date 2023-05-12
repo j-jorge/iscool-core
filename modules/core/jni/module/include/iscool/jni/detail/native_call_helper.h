@@ -18,8 +18,7 @@
 
 #include "iscool/meta/indices.h"
 
-#include <boost/function.hpp>
-
+#include <functional>
 #include <tuple>
 
 namespace iscool
@@ -30,7 +29,7 @@ namespace iscool
         {
             template< typename T, typename U >
             struct native_call_helper;
-            
+
             template< typename... Arg, std::size_t... I >
             struct native_call_helper
             <
@@ -39,7 +38,7 @@ namespace iscool
             >
             {
                 static void call
-                ( const boost::function< void( Arg... ) >& f,
+                ( const std::function< void( Arg... ) >& f,
                   const java_ptr< jobjectArray >& arguments );
             };
         }

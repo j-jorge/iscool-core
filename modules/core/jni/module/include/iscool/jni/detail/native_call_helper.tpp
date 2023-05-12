@@ -27,7 +27,7 @@ iscool::jni::detail::native_call_helper
     iscool::meta::indices< I... >
 >
 ::call
-( const boost::function< void( Arg... ) >& f,
+( const std::function< void( Arg... ) >& f,
   const java_ptr< jobjectArray >& arguments )
 {
     JNIEnv* const env( detail::get_jni_env() );

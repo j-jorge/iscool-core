@@ -44,7 +44,7 @@ iscool::signals::detail::signal< Signature >::~signal()
 template< typename Signature >
 iscool::signals::connection
 iscool::signals::detail::signal< Signature >::connect
-( boost::function< Signature > f )
+( std::function< Signature > f )
 {
     if ( _storage_kind == storage_kind::none )
     {
@@ -276,7 +276,7 @@ void iscool::signals::detail::signal< Signature >::swap_vector_none
 
 template< typename Signature >
 iscool::signals::detail::signal< Signature >::internal_slot::internal_slot
-( boost::function< Signature > f )
+( std::function< Signature > f )
     : callback( std::move( f ) )
 {
 
