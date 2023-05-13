@@ -45,7 +45,7 @@ void iscool::wish::genie::grant( const T& wish ) const
         ( _powers.find( T::kind() ) );
     assert( iterator != _powers.end() );
 
-    return boost::any_cast
+    return std::any_cast
         <std::function<void( const T& )>>( iterator->second )( wish );
 }
 

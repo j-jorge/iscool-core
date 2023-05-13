@@ -18,8 +18,7 @@
 
 #include "iscool/wish/wish.h"
 
-#include <boost/any.hpp>
-
+#include <any>
 #include <functional>
 #include <map>
 
@@ -43,7 +42,7 @@ namespace iscool
             bool is_wish_valid() const;
 
         private:
-            typedef std::map< iscool::wish::kind, boost::any > power_list;
+            typedef std::map< iscool::wish::kind, std::any > power_list;
 
         private:
             power_list _powers;
