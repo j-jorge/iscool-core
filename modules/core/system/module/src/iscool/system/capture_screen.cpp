@@ -20,7 +20,6 @@
 
 #include "iscool/signals/signal.impl.tpp"
 
-#include <boost/bind.hpp>
 
 #include <cassert>
 
@@ -46,9 +45,9 @@ iscool::signals::connection iscool::system::capture_screen
 
     detail::capture_screen_delegate
         ( file_name,
-          boost::bind
+          std::bind
           ( &detail::capture_screen_signal_pool::process_capture,
-            &detail::signal_pool, slot.id, _1 ) );
+            &detail::signal_pool, slot.id, std::placeholders::_1 ) );
 
     assert( result.connected() );
 

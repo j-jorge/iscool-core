@@ -23,7 +23,6 @@
 #include "iscool/net/byte_array.h"
 #include "iscool/signals/implement_signal.h"
 
-#include <boost/bind.hpp>
 
 IMPLEMENT_SIGNAL( iscool::net::detail::socket, received, _received );
 
@@ -78,7 +77,7 @@ void iscool::net::detail::socket::send
 void iscool::net::detail::socket::allocate_socket()
 {
     assert( _socket == nullptr );
-    
+
     _socket.reset( new boost::asio::ip::udp::socket( _io_service ) );
     _socket->open( _send_endpoint.protocol() );
 }
@@ -118,7 +117,9 @@ iscool::net::detail::socket::send_bytes_no_error_check
 
     _socket->async_send_to
         ( boost::asio::buffer( buffer ), endpoint,
-          boost::bind( &socket::bytes_sent, this, raw, _1, _2 ) );
+          std::bind
+          ( &socket::bytes_sent, this, raw, std::placeholders::_1,
+            std::placeholders::_2 ) );
 }
 
 void iscool::net::detail::socket::bytes_sent
@@ -138,7 +139,7 @@ void iscool::net::detail::socket::receive()
 
     _socket->async_receive_from
         ( boost::asio::null_buffers(), _receive_endpoint,
-          boost::bind( &socket::bytes_received, this, _1 ) );
+          std::bind( &socket::bytes_received, this, std::placeholders::_1 ) );
 }
 
 void iscool::net::detail::socket::bytes_received
@@ -164,7 +165,7 @@ bool iscool::net::detail::socket::read_available_bytes()
     const std::unique_ptr< std::uint8_t[] > buffer
         ( new std::uint8_t[ available ] );
     std::size_t bytes_transferred( 0 );
-    
+
     try
     {
         bytes_transferred =

@@ -15,7 +15,6 @@
 */
 #include "iscool/schedule/manual_scheduler.h"
 
-#include <boost/bind.hpp>
 
 #include <vector>
 
@@ -28,7 +27,9 @@ iscool::schedule::manual_scheduler::manual_scheduler()
 iscool::schedule::delayed_call_delegate
 iscool::schedule::manual_scheduler::get_delayed_call_delegate()
 {
-    return boost::bind( &manual_scheduler::schedule_call, this, _1, _2 );
+    return std::bind
+        ( &manual_scheduler::schedule_call, this, std::placeholders::_1,
+          std::placeholders::_2 );
 }
 
 void iscool::schedule::manual_scheduler::update_interval
@@ -45,7 +46,7 @@ void iscool::schedule::manual_scheduler::update_interval
     std::size_t i( 0 );
     for ( auto it( bit ); it != eit; ++it, ++i )
         calls_to_do[i].swap( it->second );
-    
+
     _calls.erase( bit, eit );
 
     for ( auto& s : calls_to_do )

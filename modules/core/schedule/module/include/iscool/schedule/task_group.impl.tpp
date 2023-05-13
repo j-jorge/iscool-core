@@ -16,7 +16,6 @@
 #ifndef ISCOOL_SCHEDULE_TASK_GROUP_IMPL_TPP
 #define ISCOOL_SCHEDULE_TASK_GROUP_IMPL_TPP
 
-#include <boost/bind.hpp>
 
 template< typename TaskType, typename... Args >
 void iscool::schedule::task_group::run( Args&&... args )
@@ -25,7 +24,7 @@ void iscool::schedule::task_group::run( Args&&... args )
 
     worker::handle handle
         ( worker::run< TaskType >( std::forward< Args >( args )... ) );
-    handle->connect_to_complete( boost::bind( &task_group::pop, this, i ) );
+    handle->connect_to_complete( std::bind( &task_group::pop, this, i ) );
 
     _tasks[ i ] = std::move( handle );
 }

@@ -39,12 +39,12 @@ iscool::net::encode_base64_string( const byte_array& input )
         ( character.begin() );
     const std::array< std::uint8_t, 3 >::iterator character_end
         ( character.end() );
-    const byte_array::const_iterator input_end( input.end() ); 
+    const byte_array::const_iterator input_end( input.end() );
 
     auto cursor( character_begin );
     for( auto it( input.begin() ); it != input_end; ++it )
     {
-        ( *cursor ) = *it;  
+        ( *cursor ) = *it;
         ++cursor;
 
         if( cursor != character_end )
@@ -64,12 +64,13 @@ iscool::net::encode_base64_string( const byte_array& input )
 
         const std::size_t remaining_count( cursor - character_begin + 1 );
         for( std::size_t i( 0 ); i != remaining_count; ++i )
-            result.emplace_back( detail::base64_chars[ encoded_character[ i ] ] );
+            result.emplace_back
+                ( detail::base64_chars[ encoded_character[ i ] ] );
 
         for( ; cursor != character_end; ++cursor )
             result.emplace_back( '=' );
     }
-  
+
     return std::string( result.begin(), result.end() );
 }
 

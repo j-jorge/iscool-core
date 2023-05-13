@@ -22,7 +22,6 @@
 #include "iscool/schedule/detail/call_later.h"
 #include "iscool/signals/signal.impl.tpp"
 
-#include <boost/bind.hpp>
 
 iscool::schedule::detail::delayed_call_manager::delayed_call_manager
 ( std::size_t pool_size )
@@ -110,7 +109,7 @@ void iscool::schedule::detail::delayed_call_manager::schedule_client
     assert( detail::call_later );
 
     detail::call_later
-        ( boost::bind
+        ( std::bind
           ( &delayed_call_manager::trigger, this,
             id, time::now< duration >() + delay ),
           delay );
@@ -124,7 +123,7 @@ void iscool::schedule::detail::delayed_call_manager::schedule_client_cumulated()
     assert( detail::call_later );
 
     detail::call_later
-        ( boost::bind( &delayed_call_manager::trigger_cumulated, this ),
+        ( std::bind( &delayed_call_manager::trigger_cumulated, this ),
           duration::zero() );
 
     _client_guard = false;
@@ -140,7 +139,7 @@ iscool::schedule::detail::delayed_call_manager::schedule_client_non_cumulated()
     assert( detail::call_later );
 
     detail::call_later
-        ( boost::bind
+        ( std::bind
           ( &delayed_call_manager::trigger_non_cumulated, this ),
           duration::zero() );
 

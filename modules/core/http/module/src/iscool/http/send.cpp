@@ -23,7 +23,6 @@
 #include "iscool/http/detail/service_statistics.h"
 #include "iscool/schedule/delayed_call.h"
 
-#include <boost/bind.hpp>
 
 namespace iscool
 {
@@ -101,7 +100,7 @@ iscool::http::detail::create_predefined_response_connections
     iscool::signals::shared_connection_set result;
     result.insert
         ( iscool::schedule::delayed_call
-          ( boost::bind( on_result, response ) ) );
+          ( std::bind( on_result, response ) ) );
 
     return result;
 }
@@ -151,10 +150,10 @@ iscool::signals::shared_connection_set iscool::http::detail::configure_request
     const auto slot( detail::handler_pool.pick_available_handler() );
     
     const auto tag_success
-        ( boost::bind
+        ( std::bind
           ( &service_statistics::add_success, &get_service_statistics() ) );
     const auto tag_failure
-        ( boost::bind
+        ( std::bind
           ( &service_statistics::add_failure, &get_service_statistics() ) );
     
     slot.value.connect_to_result( tag_success );
@@ -167,9 +166,9 @@ iscool::signals::shared_connection_set iscool::http::detail::configure_request
     
     output.set_url( url );
     output.set_response_handler
-        ( boost::bind
+        ( std::bind
           ( &request_handler_pool::process_response, &detail::handler_pool,
-            slot.id, _1 ) );
+            slot.id, std::placeholders::_1 ) );
 
     return result;
 }

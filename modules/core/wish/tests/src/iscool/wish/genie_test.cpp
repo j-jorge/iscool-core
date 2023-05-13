@@ -17,7 +17,6 @@
 
 #include "iscool/test/debug_crash.h"
 
-#include <boost/bind.hpp>
 
 #include <gtest/gtest.h>
 
@@ -55,7 +54,7 @@ TEST_F( genie_fixture, empower_and_grant )
 {
     iscool::wish::genie genie;
     genie.empower<genie_test_wish>
-        ( boost::bind( &genie_fixture::grant_test_wish, this ) );
+        ( std::bind( &genie_fixture::grant_test_wish, this ) );
 
     EXPECT_FALSE( wish_granted() );
     genie.grant<genie_test_wish>( genie_test_wish() );
@@ -66,10 +65,10 @@ TEST_F( genie_fixture, double_empower )
 {
     iscool::wish::genie genie;
     genie.empower<genie_test_wish>
-        ( boost::bind( &genie_fixture::grant_test_wish, this ) );
+        ( std::bind( &genie_fixture::grant_test_wish, this ) );
     EXPECT_DEBUG_CRASH
         ( genie.empower<genie_test_wish>
-          ( boost::bind( &genie_fixture::grant_test_wish, this ) ) );
+          ( std::bind( &genie_fixture::grant_test_wish, this ) ) );
 }
 
 TEST( genie, grant_empty_wish )

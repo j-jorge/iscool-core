@@ -27,7 +27,7 @@ TEST( iscool_signals_relay, empty_relay )
           {
               called = true;
           } );
-    
+
     iscool::signals::signal< void() > second_signal;
 
     second_signal.connect( iscool::signals::relay( first_signal ) );
@@ -92,7 +92,7 @@ TEST( iscool_signals_relay, simple_signal_relay )
     iscool::signals::signal< void() > second_signal;
 
     generic_slot slot;
-    first_signal.connect( boost::bind( &generic_slot::void_slot, &slot ) );
+    first_signal.connect( std::bind( &generic_slot::void_slot, &slot ) );
     second_signal.connect( iscool::signals::relay( first_signal ) );
 
     EXPECT_EQ( 0ull, slot.get_call_count() );
@@ -109,15 +109,17 @@ TEST( iscool_signals_relay, simple_signal_relay )
 TEST( iscool_signals_relay, signal_with_one_argument )
 {
     iscool::signals::signal< void( int ) > first_signal, second_signal;
-    
+
     generic_slot slot;
     first_signal.connect
-        ( boost::bind( &generic_slot::void_slot_with_params<int>, &slot, _1 ) );
+        ( std::bind
+          ( &generic_slot::void_slot_with_params<int>, &slot,
+            std::placeholders::_1 ) );
     second_signal.connect( iscool::signals::relay( first_signal ) );
 
     second_signal( 0 );
     EXPECT_EQ( 1ull, slot.get_call_count() );
-    
+
     second_signal( 13 );
     EXPECT_EQ( 2ull, slot.get_call_count() );
 }
@@ -129,15 +131,16 @@ TEST( iscool_signals_relay, signal_with_multiple_arguments )
 
     generic_slot slot;
     first_signal.connect
-        ( boost::bind
+        ( std::bind
           ( &generic_slot::void_slot_with_params< int, float, char >, &slot,
-            _1, _2, _3 ) );
+            std::placeholders::_1, std::placeholders::_2,
+            std::placeholders::_3 ) );
 
     second_signal.connect( iscool::signals::relay( first_signal ) );
 
     second_signal( 0, 0.5f, 'a' );
     EXPECT_EQ( 1ull, slot.get_call_count() );
-    
+
     second_signal( 12, -12.0f, 'c' );
     EXPECT_EQ( 2ull, slot.get_call_count() );
 }
@@ -147,7 +150,7 @@ TEST( iscool_signals_relay, multiple_relay )
     iscool::signals::signal< void() > first_signal, second_signal;
 
     generic_slot slot;
-    first_signal.connect( boost::bind( &generic_slot::void_slot, &slot ) );
+    first_signal.connect( std::bind( &generic_slot::void_slot, &slot ) );
     second_signal.connect( iscool::signals::relay( first_signal ) );
     second_signal.connect( iscool::signals::relay( first_signal ) );
 
@@ -162,9 +165,9 @@ TEST( iscool_signals_relay, multiple_slot )
     iscool::signals::signal< void() > first_signal, second_signal;
 
     generic_slot slot;
-    first_signal.connect( boost::bind( &generic_slot::void_slot, &slot ) );
-    first_signal.connect( boost::bind( &generic_slot::void_slot, &slot ) );
-    first_signal.connect( boost::bind( &generic_slot::void_slot, &slot ) );
+    first_signal.connect( std::bind( &generic_slot::void_slot, &slot ) );
+    first_signal.connect( std::bind( &generic_slot::void_slot, &slot ) );
+    first_signal.connect( std::bind( &generic_slot::void_slot, &slot ) );
     second_signal.connect( iscool::signals::relay( first_signal ) );
 
     second_signal();
@@ -196,7 +199,9 @@ TEST( iscool_signals_relay, relay_parameters )
 
     store_parameters store;
     first_signal.connect
-        ( boost::bind( &store_parameters::slot, &store, _1, _2, _3 ) );
+        ( std::bind
+          ( &store_parameters::slot, &store, std::placeholders::_1,
+            std::placeholders::_2, std::placeholders::_3 ) );
     second_signal.connect( iscool::signals::relay( first_signal ) );
 
     store.slot( 1, 1.0f, '1' );
@@ -220,7 +225,7 @@ TEST( iscool_signals_relay, disconnect_relay )
     iscool::signals::signal< void() > first_signal, second_signal;
 
     generic_slot slot;
-    first_signal.connect( boost::bind( &generic_slot::void_slot, &slot ) );
+    first_signal.connect( std::bind( &generic_slot::void_slot, &slot ) );
     iscool::signals::connection relay_connection
         ( second_signal.connect( iscool::signals::relay( first_signal ) ) );
 
@@ -239,7 +244,9 @@ TEST( iscool_signals_relay, relay_parameters_preset )
 
     store_parameters store;
     first_signal.connect
-        ( boost::bind( &store_parameters::slot, &store, _1, 12.f, _3 ) );
+        ( std::bind
+          ( &store_parameters::slot, &store, std::placeholders::_1, 12.f,
+            std::placeholders::_3 ) );
     second_signal.connect( iscool::signals::relay( first_signal ) );
 
     second_signal( 1, 1.0f, '1' );
@@ -255,7 +262,9 @@ TEST( iscool_signals_relay, relay_placeholder_swap )
 
     store_parameters store;
     first_signal.connect
-        ( boost::bind( &store_parameters::slot, &store, _2, _1, _3 ) );
+        ( std::bind
+          ( &store_parameters::slot, &store, std::placeholders::_2,
+            std::placeholders::_1, std::placeholders::_3 ) );
     second_signal.connect( iscool::signals::relay( first_signal ) );
 
     second_signal( 12, 1.0f, '1' );

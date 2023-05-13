@@ -31,7 +31,6 @@ extern "C"
 #include <libswscale/swscale.h>
 }
 
-#include <boost/bind.hpp>
 
 #include <array>
 #include <chrono>
@@ -201,7 +200,9 @@ iscool::video::decoder::decode( const std::string& path )
         ( detail::decoder_thread
           ( _decoder_state, std::move( format_context ),
             std::move( codec_context ), video_stream_index,
-            boost::bind( iscool::signals::relay( _frame_ready ), _1 ) ) );
+            std::bind
+            ( iscool::signals::relay( _frame_ready ),
+              std::placeholders::_1 ) ) );
 
     return result;
 }

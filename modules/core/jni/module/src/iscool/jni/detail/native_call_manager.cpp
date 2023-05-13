@@ -19,7 +19,6 @@
 #include "iscool/jni/detail/get_jni_env.h"
 #include "iscool/schedule/delayed_call.h"
 
-#include <boost/bind.hpp>
 
 #include <mutex>
 
@@ -118,7 +117,7 @@ void iscool::jni::detail::native_call_manager::schedule_trigger()
 
     _trigger_connection =
         schedule::delayed_call
-        ( boost::bind( &native_call_manager::trigger_calls, this ) );
+        ( std::bind( &native_call_manager::trigger_calls, this ) );
 }
 
 void iscool::jni::detail::native_call_manager::unschedule_trigger()

@@ -32,7 +32,6 @@
 #include "iscool/preferences/detail/local_preferences_from_json.h"
 #include "iscool/signals/implement_signal.h"
 
-#include <boost/bind.hpp>
 
 #include <fstream>
 
@@ -90,7 +89,7 @@ iscool::preferences::local_preferences::local_preferences
       _backup_extension_format( "" ),
       _store
       ( std::chrono::seconds::zero(), values,
-        boost::bind( &local_preferences::save, this, _1 ) )
+        std::bind( &local_preferences::save, this, std::placeholders::_1 ) )
 {
     property_map_to_json visitor( _values );
     values.visit( visitor );
@@ -113,7 +112,7 @@ iscool::preferences::local_preferences::local_preferences
         ( file_path, backup_extension_format, backup_count ) ),
       _store
         ( flush_delay, detail::local_preferences_from_json( _values ),
-          boost::bind( &local_preferences::save, this, _1 ) )
+          std::bind( &local_preferences::save, this, std::placeholders::_1 ) )
 {
     if ( backup_count == 0 )
         return;

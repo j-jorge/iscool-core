@@ -16,7 +16,6 @@
 #ifndef ISCOOL_SCHEDULE_TIME_BOUNDED_FOR_EACH_TPP
 #define ISCOOL_SCHEDULE_TIME_BOUNDED_FOR_EACH_TPP
 
-#include <boost/bind.hpp>
 
 template
 <
@@ -35,7 +34,7 @@ void iscool::schedule::time_bounded_for_each::operator()
     _calls.reserve( std::distance( first, last ) );
 
     for( Iterator it( first ); it != last; ++it )
-        _calls.push_back( boost::bind< void >( f, *it ) );
+        _calls.push_back( std::bind< void >( f, *it ) );
 
     _next_index = 0;
     _time_limit = std::chrono::duration_cast< duration_type >( time_limit );

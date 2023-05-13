@@ -38,7 +38,7 @@ namespace iscool
                 _calls.reserve( std::distance( first, last ) );
 
                 for( Iterator it( first ); it != last; ++it )
-                    _calls.push_back( boost::bind( f, *it ) );
+                    _calls.push_back( std::bind( f, *it ) );
 
                 _next_index = 0;
                 schedule_loop();

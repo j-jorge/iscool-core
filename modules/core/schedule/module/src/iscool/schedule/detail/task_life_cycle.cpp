@@ -17,7 +17,6 @@
 
 #include "iscool/signals/implement_signal.h"
 
-#include <boost/bind.hpp>
 
 IMPLEMENT_SIGNAL
 ( iscool::schedule::detail::task_life_cycle, complete, _complete );
@@ -29,7 +28,7 @@ iscool::schedule::detail::task_life_cycle::task_life_cycle
 {
     assert( _implementation != nullptr );
     _implementation->connect_to_complete
-        ( boost::bind
+        ( std::bind
           ( &iscool::schedule::detail::task_life_cycle::complete, this ) );
 }
 

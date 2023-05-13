@@ -18,7 +18,6 @@
 
 #include "iscool/schedule/delayed_call.h"
 
-#include <boost/bind.hpp>
 
 template< typename Signature >
 iscool::schedule::async_function< Signature >::async_function()
@@ -64,7 +63,7 @@ void iscool::schedule::async_function< Signature >::operator()( Args... args )
 {
     _connections.push_back
         ( delayed_call
-          ( boost::bind
+          ( std::bind
             ( &async_function< Signature >::trigger< Args... >,
               this, std::forward< Args >( args )... ) ) );
 }

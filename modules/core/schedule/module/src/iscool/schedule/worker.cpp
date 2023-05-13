@@ -17,7 +17,6 @@
 
 #include "iscool/schedule/delayed_call.h"
 
-#include <boost/bind.hpp>
 
 iscool::schedule::worker::~worker()
 {
@@ -37,10 +36,10 @@ iscool::schedule::worker::worker( task_pointer task )
 {
     _update_connection =
         iscool::schedule::delayed_call
-        ( boost::bind( &iscool::schedule::worker::start_task, this ) );
+        ( std::bind( &iscool::schedule::worker::start_task, this ) );
     _complete_connection =
         _task->connect_to_complete
-        ( boost::bind( &iscool::schedule::worker::complete_task, this ) );
+        ( std::bind( &iscool::schedule::worker::complete_task, this ) );
 }
 
 void iscool::schedule::worker::start_task()
@@ -86,7 +85,7 @@ void iscool::schedule::worker::schedule_next_update()
 
     _update_connection =
         iscool::schedule::delayed_call
-        ( boost::bind( &iscool::schedule::worker::update_task, this ),
+        ( std::bind( &iscool::schedule::worker::update_task, this ),
           update_interval );
 }
 

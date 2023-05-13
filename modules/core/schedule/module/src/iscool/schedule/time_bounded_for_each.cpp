@@ -40,7 +40,7 @@ void iscool::schedule::time_bounded_for_each::schedule_loop()
 {
     _loop_connection =
         delayed_call
-        ( boost::bind( &time_bounded_for_each::loop, this ),
+        ( std::bind( &time_bounded_for_each::loop, this ),
           short_call_policy::non_cumulated );
 }
 

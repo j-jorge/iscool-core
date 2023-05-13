@@ -17,7 +17,6 @@
 
 #include "iscool/schedule/test/task_activity_report.h"
 
-#include <boost/bind.hpp>
 
 iscool::schedule::test::observable_task::observable_task
 ( const std::chrono::milliseconds& update_interval,
@@ -37,7 +36,7 @@ iscool::schedule::test::observable_task::observable_task
       _report( report ),
       _completion_connection
       ( complete.connect
-        ( boost::bind
+        ( std::bind
           ( &iscool::schedule::test::observable_task::complete, this ) ) )
 {
     

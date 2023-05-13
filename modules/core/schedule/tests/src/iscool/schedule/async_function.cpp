@@ -20,7 +20,6 @@
 #include "iscool/signals/signal.h"
 #include "iscool/signals/signal.impl.tpp"
 
-#include <boost/bind.hpp>
 
 #include "gtest/gtest.h"
 
@@ -224,7 +223,7 @@ TEST( iscool_schedule_async_function, bind )
               value = i;
           } );
 
-    auto g( boost::bind<void>( f, _1 ) );
+    auto g( std::bind<void>( f, std::placeholders::_1 ) );
     g( 72 );
 
     EXPECT_EQ( 0ull, value );

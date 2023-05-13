@@ -18,7 +18,6 @@
 #include "iscool/preferences/property_map.impl.h"
 #include "iscool/schedule/delayed_call.h"
 
-#include <boost/bind.hpp>
 
 #include <algorithm>
 #include <cassert>
@@ -145,11 +144,11 @@ void iscool::preferences::store::schedule_save()
 
     if ( _flush_delay == std::chrono::milliseconds::zero() )
         _save_connection =
-            iscool::schedule::delayed_call( boost::bind( &store::save, this ) );
+            iscool::schedule::delayed_call( std::bind( &store::save, this ) );
     else
         _save_connection =
             iscool::schedule::delayed_call
-            ( boost::bind( &store::save, this ), _flush_delay );
+            ( std::bind( &store::save, this ), _flush_delay );
 }
 
 void iscool::preferences::store::save()

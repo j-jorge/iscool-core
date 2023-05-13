@@ -18,7 +18,6 @@
 #include "iscool/schedule/delayed_call.h"
 #include "iscool/signals/implement_signal.h"
 
-#include <boost/bind.hpp>
 
 IMPLEMENT_SIGNAL( iscool::net::socket_stream, received, _received );
 
@@ -26,10 +25,12 @@ iscool::net::socket_stream::socket_stream( const std::string& host )
     : _socket( host )
 {
     _socket.connect_to_received
-        ( boost::bind( &socket_stream::queue_bytes, this, _1, _2 ) );
+        ( std::bind
+          ( &socket_stream::queue_bytes, this, std::placeholders::_1,
+            std::placeholders::_2 ) );
 
     _update_thread =
-        std::thread( boost::bind( &detail::socket::run, &_socket ) );
+        std::thread( std::bind( &detail::socket::run, &_socket ) );
 }
 
 iscool::net::socket_stream::~socket_stream()
@@ -60,16 +61,16 @@ void iscool::net::socket_stream::queue_bytes
         return;
 
     assert( !_dispatch_connection.connected() );
-    
+
     _dispatch_connection =
         iscool::schedule::delayed_call
-        ( boost::bind( &socket_stream::dispatch_bytes, this ) );
+        ( std::bind( &socket_stream::dispatch_bytes, this ) );
 }
 
 void iscool::net::socket_stream::dispatch_bytes()
 {
     bytes_queue bytes;
-    
+
     {
         const std::unique_lock< std::mutex > lock( _queue_access_mutex );
 

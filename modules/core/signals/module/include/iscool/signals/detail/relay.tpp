@@ -16,7 +16,6 @@
 #ifndef ISCOOL_SIGNALS_RELAY_TPP
 #define ISCOOL_SIGNALS_RELAY_TPP
 
-#include <boost/bind.hpp>
 #include <boost/preprocessor/arithmetic/inc.hpp>
 #include <boost/preprocessor/iteration/local.hpp>
 #include <boost/preprocessor/punctuation/comma_if.hpp>
@@ -94,10 +93,12 @@ iscool::signals::detail::signal_binder<R( T... )>::bind
         typedef typename signal_type::slot_function_type slot_function_type; \
         static slot_function_type bind( const signal_type& signal ) \
         { \
-            return boost::bind<R>                                    \
+            return std::bind<R>                                    \
                 ( &detail::signal_invoker<R( T... )>::invoke, &signal \
                   BOOST_PP_COMMA_IF( N ) \
-                  BOOST_PP_ENUM( N, SIGNAL_BINDER_PLACEHOLDER, _ ) \
+                  BOOST_PP_ENUM( N, \
+                                 SIGNAL_BINDER_PLACEHOLDER, \
+                                 std::placeholders::_ )     \
             ); \
         } \
     };

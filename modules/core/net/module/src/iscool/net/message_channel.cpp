@@ -23,7 +23,6 @@
 #include "iscool/net/socket_stream.h"
 #include "iscool/signals/implement_signal.h"
 
-#include <boost/bind.hpp>
 
 IMPLEMENT_SIGNAL( iscool::net::message_channel, message, _message );
 
@@ -93,8 +92,9 @@ iscool::signals::connection
 iscool::net::message_channel::create_signal_connection() const
 {
     return _socket.connect_to_received
-        ( boost::bind
-          ( &message_channel::process_incoming_bytes, this, _1, _2 ) );
+        ( std::bind
+          ( &message_channel::process_incoming_bytes, this,
+            std::placeholders::_1, std::placeholders::_2 ) );
 }
 
 void
@@ -106,6 +106,6 @@ iscool::net::message_channel::process_incoming_bytes
     if ( ( result.get_session_id() != _session_id )
          || ( result.get_channel_id() != _channel_id ) )
         return;
-    
+
     _message( endpoint, result );
 }

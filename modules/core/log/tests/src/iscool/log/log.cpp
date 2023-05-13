@@ -21,7 +21,6 @@
 #include "iscool/log/setup.h"
 #include "iscool/log/nature/nature.h"
 
-#include <boost/bind.hpp>
 
 #include <gtest/gtest.h>
 
@@ -52,16 +51,18 @@ private:
 private:
     std::size_t _delegates_id;
 };
-            
+
 iscool_log_test::iscool_log_test()
 {
     iscool::log::message_delegates delegates;
     delegates.print_message =
-        boost::bind
-        ( &iscool_log_test::print_message, this, _1, _2, _3 );
+        std::bind
+        ( &iscool_log_test::print_message, this, std::placeholders::_1,
+          std::placeholders::_2, std::placeholders::_3 );
     delegates.print_error =
-        boost::bind
-        ( &iscool_log_test::print_error, this, _1, _2 );
+        std::bind
+        ( &iscool_log_test::print_error, this, std::placeholders::_1,
+          std::placeholders::_2 );
 
     iscool::log::initialize();
     _delegates_id = iscool::log::register_delegates( delegates );
@@ -92,11 +93,11 @@ void iscool_log_test::print_error
 TEST_F( iscool_log_test, log )
 {
     const iscool::log::nature::nature nature( "nature" );
-    
+
     const std::size_t line ( __LINE__ ); ic_log
                                              ( nature, "reporter", "origin",
                                                "message %1%: %2%", 24, 42 );
-    
+
     EXPECT_EQ( nature, _nature );
     EXPECT_EQ( "reporter", _context.get_reporter() );
     EXPECT_EQ( "origin", _context.get_origin() );
@@ -110,11 +111,11 @@ TEST_F( iscool_log_test, log )
 TEST_F( iscool_log_test, causeless_log )
 {
     const iscool::log::nature::nature nature( "log-nature" );
-    
+
      const std::size_t line( __LINE__ ); ic_causeless_log
                                              ( nature, "log-reporter",
                                                "msg %1%", 94 );
-    
+
     EXPECT_EQ( nature, _nature );
     EXPECT_EQ( "log-reporter", _context.get_reporter() );
     EXPECT_FALSE( _context.get_origin().empty() );
@@ -131,7 +132,7 @@ TEST_F( iscool_log_test, log_error )
 
     const std::size_t line( __LINE__ ); ic_log_error
                                             ( "reporter", "origin", error );
-    
+
     EXPECT_EQ( "reporter", _context.get_reporter() );
     EXPECT_EQ( "origin", _context.get_origin() );
     EXPECT_EQ( __FILE__, _context.get_file() );

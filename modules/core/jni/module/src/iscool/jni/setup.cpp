@@ -17,7 +17,6 @@
 
 #include "iscool/jni/detail/get_jni_env.h"
 
-#include <boost/bind.hpp>
 
 void iscool::jni::initialize( environment_delegate delegate )
 {

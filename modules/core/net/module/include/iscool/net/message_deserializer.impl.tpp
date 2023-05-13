@@ -20,7 +20,6 @@
 #include "iscool/signals/declare_signal.h"
 #include "iscool/signals/implement_signal.h"
 
-#include <boost/bind.hpp>
 
 class iscool::net::message_deserializer::deserializer_base
 {
