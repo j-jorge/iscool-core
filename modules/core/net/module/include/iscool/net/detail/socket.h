@@ -17,6 +17,7 @@
 #define ISCOOL_NET_SOCKET_H
 
 #include "iscool/net/endpoint.h"
+#include "iscool/net/socket_mode.h"
 #include "iscool/signals/declare_signal.h"
 
 #include <boost/asio/io_service.hpp>
@@ -39,7 +40,23 @@ namespace iscool
                   _received );
 
             public:
-                explicit socket( const std::string& host );
+                /**
+                 * Open a socket with the given remote host. This kind of socket
+                 * can send with no explicit end point.
+                 */
+                socket( const std::string& host, socket_mode::client );
+
+                /**
+                 * Open a socket locally. The remote endpoint must be explicited
+                 * with every send.
+                 */
+                socket( const std::string& host, socket_mode::server );
+
+                /**
+                 * Open a socket in server mode, locally on the given port. The
+                 * remote endpoint must be explicited with every send.
+                 */
+                explicit socket( unsigned short port );
 
                 void run();
                 void close();
@@ -48,14 +65,16 @@ namespace iscool
                 void send( const endpoint& endpoint, const byte_array& bytes );
 
             private:
-                typedef
-                std::unique_ptr< boost::asio::ip::udp::socket > socket_pointer;
+                using socket_pointer =
+                    std::unique_ptr< boost::asio::ip::udp::socket >;
+                using socket_allocator = void (socket::*)();
 
             private:
-                void allocate_socket();
+                void allocate_client_socket();
+                void allocate_server_socket();
 
-                void initialize_remote_endpoint( const std::string& host );
-                void initialize_remote_endpoint
+                endpoint build_endpoint( const std::string& host );
+                endpoint build_endpoint
                 ( const std::string& address, const std::string& port );
 
                 void send_bytes_no_error_check
@@ -77,6 +96,7 @@ namespace iscool
                 boost::asio::io_service::work _work;
                 endpoint _send_endpoint;
                 endpoint _receive_endpoint;
+                const socket_allocator _allocate_socket;
                 socket_pointer _socket;
 
                 std::mutex _receive_bytes;

@@ -23,13 +23,31 @@
 #include "iscool/net/byte_array.h"
 #include "iscool/signals/implement_signal.h"
 
-
 IMPLEMENT_SIGNAL( iscool::net::detail::socket, received, _received );
 
-iscool::net::detail::socket::socket( const std::string& host )
-    : _work( _io_service )
+iscool::net::detail::socket::socket
+( const std::string& host, socket_mode::client )
+    : _work( _io_service ),
+      _send_endpoint(build_endpoint(host)),
+      _allocate_socket(&socket::allocate_client_socket)
 {
-    initialize_remote_endpoint( host );
+    receive();
+}
+
+iscool::net::detail::socket::socket
+( const std::string& host, socket_mode::server )
+    : _work( _io_service ),
+      _receive_endpoint(build_endpoint(host)),
+      _allocate_socket(&socket::allocate_server_socket)
+{
+    receive();
+}
+
+iscool::net::detail::socket::socket( unsigned short port )
+    : _work( _io_service ),
+      _receive_endpoint(boost::asio::ip::udp::v4(), port),
+      _allocate_socket(&socket::allocate_server_socket)
+{
     receive();
 }
 
@@ -55,7 +73,7 @@ void iscool::net::detail::socket::send
 
     if ( _socket == nullptr )
     {
-        allocate_socket();
+        (this->*_allocate_socket)();
         call_receive = true;
     }
 
@@ -74,15 +92,24 @@ void iscool::net::detail::socket::send
     }
 }
 
-void iscool::net::detail::socket::allocate_socket()
+void iscool::net::detail::socket::allocate_client_socket()
 {
     assert( _socket == nullptr );
 
-    _socket.reset( new boost::asio::ip::udp::socket( _io_service ) );
-    _socket->open( _send_endpoint.protocol() );
+    _socket.reset
+        ( new boost::asio::ip::udp::socket
+          ( _io_service, _send_endpoint.protocol() ) );
 }
 
-void iscool::net::detail::socket::initialize_remote_endpoint
+void iscool::net::detail::socket::allocate_server_socket()
+{
+    assert( _socket == nullptr );
+
+    _socket.reset
+        ( new boost::asio::ip::udp::socket( _io_service, _receive_endpoint ) );
+}
+
+iscool::net::endpoint iscool::net::detail::socket::build_endpoint
 ( const std::string& host )
 {
     ic_causeless_log
@@ -94,18 +121,16 @@ void iscool::net::detail::socket::initialize_remote_endpoint
     if ( colon == std::string::npos )
         throw std::runtime_error( "missing colon in host address." );
 
-    initialize_remote_endpoint
-        ( host.substr( 0, colon ), host.substr( colon + 1 ) );
+    return build_endpoint( host.substr( 0, colon ), host.substr( colon + 1 ) );
 }
 
-void
-iscool::net::detail::socket::initialize_remote_endpoint
+iscool::net::endpoint iscool::net::detail::socket::build_endpoint
 ( const std::string& address, const std::string& port )
 {
     boost::asio::ip::udp::resolver resolver( _io_service );
     boost::asio::ip::udp::resolver::query query
         ( address, port );
-    _send_endpoint = *resolver.resolve( query );
+    return *resolver.resolve( query );
 }
 
 void
@@ -135,7 +160,7 @@ void iscool::net::detail::socket::bytes_sent
 void iscool::net::detail::socket::receive()
 {
     if ( _socket == nullptr )
-        allocate_socket();
+        (this->*_allocate_socket)();
 
     _socket->async_receive_from
         ( boost::asio::null_buffers(), _receive_endpoint,

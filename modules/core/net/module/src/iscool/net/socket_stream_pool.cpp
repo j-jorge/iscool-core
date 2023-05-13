@@ -30,7 +30,7 @@ iscool::net::socket_stream_pool::~socket_stream_pool()
     for ( const auto& e : _sockets )
         delete e.second;
 }
-  
+
 iscool::net::socket_stream*
 iscool::net::socket_stream_pool::get_for_host( const std::string& host )
 {
@@ -43,7 +43,7 @@ iscool::net::socket_stream_pool::get_for_host( const std::string& host )
 
     try
     {
-        result = new socket_stream( host );
+        result = new socket_stream( host, socket_mode::client{} );
     }
     catch( const boost::system::system_error& e )
     {

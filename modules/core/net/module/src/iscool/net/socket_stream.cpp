@@ -18,19 +18,26 @@
 #include "iscool/schedule/delayed_call.h"
 #include "iscool/signals/implement_signal.h"
 
-
 IMPLEMENT_SIGNAL( iscool::net::socket_stream, received, _received );
 
-iscool::net::socket_stream::socket_stream( const std::string& host )
-    : _socket( host )
+iscool::net::socket_stream::socket_stream
+( const std::string& host, socket_mode::client )
+    : _socket(host, socket_mode::client{})
 {
-    _socket.connect_to_received
-        ( std::bind
-          ( &socket_stream::queue_bytes, this, std::placeholders::_1,
-            std::placeholders::_2 ) );
+    init();
+}
 
-    _update_thread =
-        std::thread( std::bind( &detail::socket::run, &_socket ) );
+iscool::net::socket_stream::socket_stream
+( const std::string& host, socket_mode::server )
+    : _socket(host, socket_mode::server{})
+{
+    init();
+}
+
+iscool::net::socket_stream::socket_stream( unsigned short port )
+    : _socket(port)
+{
+    init();
 }
 
 iscool::net::socket_stream::~socket_stream()
@@ -49,6 +56,17 @@ void iscool::net::socket_stream::send
 ( const endpoint& target, const iscool::net::byte_array& bytes )
 {
     _socket.send( target, bytes );
+}
+
+void iscool::net::socket_stream::init()
+{
+    _socket.connect_to_received
+        ( std::bind
+          ( &socket_stream::queue_bytes, this, std::placeholders::_1,
+            std::placeholders::_2 ) );
+
+    _update_thread =
+        std::thread( std::bind( &detail::socket::run, &_socket ) );
 }
 
 void iscool::net::socket_stream::queue_bytes

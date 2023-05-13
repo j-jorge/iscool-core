@@ -22,9 +22,6 @@
 #include "iscool/schedule/manual_scheduler.h"
 #include "iscool/schedule/setup.h"
 
-#include <boost/asio/io_service.hpp>
-#include <boost/asio/ip/udp.hpp>
-
 #include <thread>
 
 #include <gtest/gtest.h>
@@ -35,28 +32,33 @@ class message_channel_test:
 public:
     message_channel_test();
     ~message_channel_test();
-    
+
     void server_send( const iscool::net::byte_array& bytes );
     void server_receive();
 
     void wait();
-    
+
 protected:
     iscool::net::byte_array _server_received_bytes;
     iscool::schedule::manual_scheduler _scheduler;
-    
+
 private:
     boost::asio::io_service _io_service;
-    boost::asio::ip::udp::socket _socket;
-    iscool::optional< boost::asio::ip::udp::endpoint > _client_endpoint;
+    iscool::net::socket_stream _socket;
+    iscool::optional< iscool::net::endpoint > _client_endpoint;
 };
 
 message_channel_test::message_channel_test()
-    : _socket
-      ( _io_service,
-        boost::asio::ip::udp::endpoint
-        ( boost::asio::ip::address::from_string( "127.0.0.1" ), 32567 ) )
+    : _socket( "127.0.0.1:32567", iscool::net::socket_mode::server{} )
 {
+    _socket.connect_to_received
+        ([this](const iscool::net::endpoint& endpoint,
+                iscool::net::byte_array bytes) -> void
+            {
+                _client_endpoint.emplace(endpoint);
+                _server_received_bytes = std::move(bytes);
+            });
+
     iscool::schedule::initialize( _scheduler.get_delayed_call_delegate() );
 }
 
@@ -67,35 +69,29 @@ message_channel_test::~message_channel_test()
 
 void message_channel_test::server_send( const iscool::net::byte_array& bytes )
 {
-    const std::vector< std::uint8_t > buffer( bytes.begin(), bytes.end() );
-    _socket.send_to( boost::asio::buffer( buffer ), *_client_endpoint );
+    _socket.send( *_client_endpoint, bytes );
 }
 
 void message_channel_test::server_receive()
 {
-    std::vector< std::uint8_t > buffer( 256 );
+    for (int i = 0; (i != 10) && !_client_endpoint; ++i)
+        wait();
 
-    _client_endpoint.emplace();
-    
-    const std::size_t byte_count
-        ( _socket.receive_from
-          ( boost::asio::buffer( buffer ), *_client_endpoint ) );
-
-    _server_received_bytes =
-        iscool::net::byte_array( buffer.begin(), buffer.begin() + byte_count );
+    EXPECT_TRUE(!!_client_endpoint);
 }
 
 void message_channel_test::wait()
 {
     static constexpr std::chrono::milliseconds delay( 10 );
     std::this_thread::sleep_for( delay );
-    
+
     _scheduler.update_interval( delay );
 }
 
 TEST_F( message_channel_test, constructor_sets_fields )
 {
-    iscool::net::socket_stream socket( "127.0.0.1:32567" );
+    iscool::net::socket_stream socket
+        ( "127.0.0.1:32567", iscool::net::socket_mode::client{} );
     const iscool::net::xor_key key( { 0xa5, 0x5a } );
     const iscool::net::message_channel channel( socket, 1, 2, key );
 
@@ -107,7 +103,8 @@ TEST_F( message_channel_test, constructor_sets_fields )
 
 TEST_F( message_channel_test, copy_constructor )
 {
-    iscool::net::socket_stream socket( "127.0.0.1:32567" );
+    iscool::net::socket_stream socket
+        ( "127.0.0.1:32567", iscool::net::socket_mode::client{} );
     const iscool::net::xor_key key( { 0xa5, 0x5a } );
     const iscool::net::message_channel channel( socket, 2, 3, key );
     const iscool::net::message_channel copy( channel );
@@ -120,7 +117,8 @@ TEST_F( message_channel_test, copy_constructor )
 
 TEST_F( message_channel_test, set_session_and_channel_no_endpoint )
 {
-    iscool::net::socket_stream socket( "127.0.0.1:32567" );
+    iscool::net::socket_stream socket
+        ( "127.0.0.1:32567", iscool::net::socket_mode::client{} );
     const iscool::net::session_id session( 4 );
     const iscool::net::channel_id channel( 5 );
     const iscool::net::xor_key key( { 0xa5, 0x5a } );
@@ -131,7 +129,7 @@ TEST_F( message_channel_test, set_session_and_channel_no_endpoint )
         ( iscool::net::message( 12, iscool::net::byte_array() ) );
 
     server_receive();
-    
+
     const iscool::net::message message_sent
         ( iscool::net::deserialize_message( _server_received_bytes, key ) );
 
@@ -141,7 +139,8 @@ TEST_F( message_channel_test, set_session_and_channel_no_endpoint )
 
 TEST_F( message_channel_test, set_session_and_channel_with_endpoint )
 {
-    iscool::net::socket_stream socket( "127.0.0.1:32567" );
+    iscool::net::socket_stream socket
+        ( "127.0.0.1:32567", iscool::net::socket_mode::client{} );
     const iscool::net::session_id session( 6 );
     const iscool::net::channel_id channel( 7 );
     const iscool::net::xor_key key( { 0xa5, 0x5a } );
@@ -154,7 +153,7 @@ TEST_F( message_channel_test, set_session_and_channel_with_endpoint )
         ( endpoint, iscool::net::message( 24, iscool::net::byte_array() ) );
 
     server_receive();
-    
+
     const iscool::net::message message_sent
         ( iscool::net::deserialize_message( _server_received_bytes, key ) );
 
@@ -164,7 +163,8 @@ TEST_F( message_channel_test, set_session_and_channel_with_endpoint )
 
 TEST_F( message_channel_test, dispatch_message_matching_session_and_channel )
 {
-    iscool::net::socket_stream socket( "127.0.0.1:32567" );
+    iscool::net::socket_stream socket
+        ( "127.0.0.1:32567", iscool::net::socket_mode::client{} );
     const iscool::net::session_id session( 8 );
     const iscool::net::channel_id channel( 9 );
     const iscool::net::xor_key key( { 0xa5, 0x5a } );
@@ -174,7 +174,7 @@ TEST_F( message_channel_test, dispatch_message_matching_session_and_channel )
     message_channel.send
         ( iscool::net::message( 0, iscool::net::byte_array() ) );
     server_receive();
-    
+
     bool message_sent( false );
     const auto message_handler
         ( [ &message_sent, session, channel ]
@@ -200,7 +200,8 @@ TEST_F( message_channel_test, dispatch_message_matching_session_and_channel )
 
 TEST_F( message_channel_test, ignore_message_matching_non_matching_session )
 {
-    iscool::net::socket_stream socket( "127.0.0.1:32567" );
+    iscool::net::socket_stream socket
+        ( "127.0.0.1:32567", iscool::net::socket_mode::client{} );
     const iscool::net::session_id session( 8 );
     const iscool::net::channel_id channel( 9 );
     const iscool::net::xor_key key( { 0xa5, 0x5a } );
@@ -234,7 +235,8 @@ TEST_F( message_channel_test, ignore_message_matching_non_matching_session )
 
 TEST_F( message_channel_test, ignore_message_matching_non_matching_channel )
 {
-    iscool::net::socket_stream socket( "127.0.0.1:32567" );
+    iscool::net::socket_stream socket
+        ( "127.0.0.1:32567", iscool::net::socket_mode::client{} );
     const iscool::net::session_id session( 8 );
     const iscool::net::channel_id channel( 9 );
     const iscool::net::xor_key key( { 0xa5, 0x5a } );
@@ -268,7 +270,8 @@ TEST_F( message_channel_test, ignore_message_matching_non_matching_channel )
 
 TEST_F( message_channel_test, serialization_xor )
 {
-    iscool::net::socket_stream socket( "127.0.0.1:32567" );
+    iscool::net::socket_stream socket
+        ( "127.0.0.1:32567", iscool::net::socket_mode::client{} );
     const iscool::net::session_id session( 12 );
     const iscool::net::channel_id channel( 24 );
     const iscool::net::xor_key key( { 0xa5, 0x5a } );
@@ -294,7 +297,7 @@ TEST_F( message_channel_test, serialization_xor )
     EXPECT_EQ( session, message_sent.get_session_id() );
     EXPECT_EQ( channel, message_sent.get_channel_id() );
     EXPECT_EQ( type, message_sent.get_type() );
-    
+
     const iscool::net::byte_array crypted( message_sent.get_content() );
 
     ASSERT_EQ( content.size(), crypted.size() );
@@ -318,11 +321,11 @@ TEST_F( message_channel_test, serialization_xor )
 
     server_send( iscool::net::serialize_message( message_sent, { 0 } ) );
     wait();
-    
+
     EXPECT_EQ( session, message_received.get_session_id() );
     EXPECT_EQ( channel, message_received.get_channel_id() );
     EXPECT_EQ( type, message_received.get_type() );
-    
+
     const iscool::net::byte_array decrypted( message_received.get_content() );
 
     ASSERT_EQ( content.size(), decrypted.size() );

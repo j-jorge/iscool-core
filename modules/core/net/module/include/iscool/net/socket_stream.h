@@ -17,6 +17,7 @@
 #define ISCOOL_NET_SOCKET_STREAM_H
 
 #include "iscool/net/byte_array.h"
+#include "iscool/net/socket_mode.h"
 #include "iscool/net/detail/socket.h"
 #include "iscool/signals/declare_signal.h"
 
@@ -35,7 +36,24 @@ namespace iscool
               received, _received );
 
         public:
-            explicit socket_stream( const std::string& host);
+            /**
+             * Open a socket with the given remote host. This kind of socket can
+             * send with no explicit end point.
+             */
+            socket_stream( const std::string& host, socket_mode::client );
+
+            /**
+             * Open a socket locally. The remote endpoint must be explicited
+             * with every send.
+             */
+            socket_stream( const std::string& host, socket_mode::server );
+
+            /**
+             * Open a socket in server mode, locally on the given port. The
+             * remote endpoint must be explicited with every send.
+             */
+            explicit socket_stream( unsigned short port );
+
             ~socket_stream();
 
             void send( const iscool::net::byte_array& bytes );
@@ -53,6 +71,8 @@ namespace iscool
             typedef std::vector< queued_bytes > bytes_queue;
 
         private:
+            void init();
+
             void queue_bytes
             ( const endpoint& target, const byte_array& bytes );
             void dispatch_bytes();
