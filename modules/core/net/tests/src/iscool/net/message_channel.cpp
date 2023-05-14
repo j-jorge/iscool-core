@@ -26,12 +26,26 @@
 
 #include <gtest/gtest.h>
 
+class iscool_scheduler_initializer
+{
+public:
+    iscool_scheduler_initializer
+    (iscool::schedule::delayed_call_delegate delegate)
+    {
+        iscool::schedule::initialize(std::move(delegate));
+    }
+
+    ~iscool_scheduler_initializer()
+    {
+        iscool::schedule::finalize();
+    }
+};
+
 class message_channel_test:
     public ::testing::Test
 {
 public:
     message_channel_test();
-    ~message_channel_test();
 
     void server_send( const iscool::net::byte_array& bytes );
     void server_receive();
@@ -43,13 +57,15 @@ protected:
     iscool::schedule::manual_scheduler _scheduler;
 
 private:
+    iscool_scheduler_initializer _scheduler_initializer;
     boost::asio::io_service _io_service;
     iscool::net::socket_stream _socket;
     iscool::optional< iscool::net::endpoint > _client_endpoint;
 };
 
 message_channel_test::message_channel_test()
-    : _socket( "127.0.0.1:32567", iscool::net::socket_mode::server{} )
+    : _scheduler_initializer(_scheduler.get_delayed_call_delegate()),
+      _socket( "127.0.0.1:32567", iscool::net::socket_mode::server{} )
 {
     _socket.connect_to_received
         ([this](const iscool::net::endpoint& endpoint,
@@ -58,13 +74,6 @@ message_channel_test::message_channel_test()
                 _client_endpoint.emplace(endpoint);
                 _server_received_bytes = std::move(bytes);
             });
-
-    iscool::schedule::initialize( _scheduler.get_delayed_call_delegate() );
-}
-
-message_channel_test::~message_channel_test()
-{
-    iscool::schedule::finalize();
 }
 
 void message_channel_test::server_send( const iscool::net::byte_array& bytes )
