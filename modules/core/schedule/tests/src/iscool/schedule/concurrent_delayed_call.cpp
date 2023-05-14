@@ -17,6 +17,7 @@
 #include "iscool/schedule/manual_scheduler.h"
 #include "iscool/schedule/setup.h"
 
+#include <atomic>
 #include <thread>
 
 #include <gtest/gtest.h>
@@ -28,7 +29,7 @@ TEST( iscool_schedule_delayed_call, concurrent_calls_delayed )
     iscool::schedule::manual_scheduler scheduler;
     iscool::schedule::initialize( scheduler.get_delayed_call_delegate() );
 
-    bool stop( false );
+    std::atomic<bool> stop( false );
     std::thread scheduler_thread
         ( [ &stop, &scheduler ]()
           -> void
@@ -48,7 +49,7 @@ TEST( iscool_schedule_delayed_call, concurrent_calls_delayed )
               num_calls++;
           } );
 
-    bool start( false );
+    std::atomic<bool> start( false );
     auto thread_func
         ( [ &start, &test_func ]()
           -> void
@@ -88,7 +89,7 @@ TEST( iscool_schedule_delayed_call, concurrent_calls_cumulated )
     iscool::schedule::manual_scheduler scheduler;
     iscool::schedule::initialize( scheduler.get_delayed_call_delegate() );
 
-    bool stop( false );
+    std::atomic<bool> stop( false );
     std::thread scheduler_thread
         ( [ &stop, &scheduler ]()
           -> void
@@ -97,7 +98,7 @@ TEST( iscool_schedule_delayed_call, concurrent_calls_cumulated )
               {
                   std::this_thread::sleep_for
                       ( std::chrono::milliseconds( 10 ) );
-                  
+
                   scheduler.update_interval( std::chrono::milliseconds( 10 ) );
               }
           } );
@@ -117,7 +118,7 @@ TEST( iscool_schedule_delayed_call, concurrent_calls_cumulated )
                     iscool::schedule::short_call_policy::cumulated );
           } );
 
-    bool start( false );
+    std::atomic<bool> start( false );
     auto thread_func
         ( [ &start, &cumulated_test_func ]()
           -> void
@@ -157,7 +158,7 @@ TEST( iscool_schedule_delayed_call, concurrent_calls_non_cumulated )
     iscool::schedule::manual_scheduler scheduler;
     iscool::schedule::initialize( scheduler.get_delayed_call_delegate() );
 
-    bool stop( false );
+    std::atomic<bool> stop( false );
     std::thread scheduler_thread
         ( [ &stop, &scheduler ]()
           -> void
@@ -186,7 +187,7 @@ TEST( iscool_schedule_delayed_call, concurrent_calls_non_cumulated )
                     iscool::schedule::short_call_policy::non_cumulated );
           } );
 
-    bool start( false );
+    std::atomic<bool> start( false );
     auto thread_func
         ( [ &start, &non_cumulated_test_func ]()
           -> void
@@ -226,7 +227,7 @@ TEST( iscool_schedule_delayed_call, recursive_schedule_from_two_threads )
     iscool::schedule::manual_scheduler scheduler;
     iscool::schedule::initialize( scheduler.get_delayed_call_delegate() );
 
-    bool stop( false );
+    std::atomic<bool> stop( false );
     std::thread scheduler_thread
         ( [ &stop, &scheduler ]()
           -> void
@@ -247,8 +248,8 @@ TEST( iscool_schedule_delayed_call, recursive_schedule_from_two_threads )
               num_calls++;
           } );
 
-    bool schedule_in_first_thread( false );
-    
+    std::atomic<bool> schedule_in_first_thread( false );
+
     std::thread first_thread
         ( [ &schedule_in_first_thread, &test_func ]() -> void
           {
@@ -260,7 +261,7 @@ TEST( iscool_schedule_delayed_call, recursive_schedule_from_two_threads )
                   ( test_func,
                     std::chrono::milliseconds( 50 ) );
           } );
-    
+
 
     const auto join_first_thread
         ( [ &schedule_in_first_thread, &first_thread ]() -> void
@@ -268,7 +269,7 @@ TEST( iscool_schedule_delayed_call, recursive_schedule_from_two_threads )
               schedule_in_first_thread = true;
               first_thread.join();
           } );
-    
+
     iscool::schedule::delayed_call
         ( join_first_thread, std::chrono::milliseconds( 50 ) );
 

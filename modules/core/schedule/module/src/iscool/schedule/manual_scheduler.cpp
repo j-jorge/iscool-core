@@ -19,7 +19,7 @@
 #include <vector>
 
 iscool::schedule::manual_scheduler::manual_scheduler()
-    : _current_date( 0 )
+    : _current_date(0)
 {
 
 }
@@ -35,21 +35,28 @@ iscool::schedule::manual_scheduler::get_delayed_call_delegate()
 void iscool::schedule::manual_scheduler::update_interval
 ( std::chrono::milliseconds interval )
 {
-    _current_date += interval;
+    std::vector< iscool::signals::void_signal_function > calls_to_do;
 
-    auto bit( _calls.begin() );
-    auto eit( _calls.upper_bound( _current_date.count() ) );
+    {
+        const std::unique_lock<std::mutex> lock(_mutex);
+        _current_date += interval;
 
-    std::vector< iscool::signals::void_signal_function > calls_to_do
-        ( std::distance( bit, eit ) );
+        calls_to_do.reserve(_calls.size());
 
-    std::size_t i( 0 );
-    for ( auto it( bit ); it != eit; ++it, ++i )
-        calls_to_do[i].swap( it->second );
+        const std::vector<call>::iterator begin(_calls.begin());
+        const std::vector<call>::iterator end(_calls.end());
+        std::vector<call>::iterator split;
 
-    _calls.erase( bit, eit );
+        for (split = begin; split != end; ++split)
+            if (split->at_date <= _current_date)
+                calls_to_do.emplace_back(std::move(split->function));
+            else
+                break;
 
-    for ( auto& s : calls_to_do )
+        _calls.erase(begin, split);
+    }
+
+    for ( iscool::signals::void_signal_function& s : calls_to_do )
         s();
 }
 
@@ -58,6 +65,15 @@ iscool::schedule::manual_scheduler::schedule_call
 ( iscool::signals::void_signal_function f, std::chrono::milliseconds delay )
 {
     assert( delay.count() >= 0 );
-    _calls.insert
-        ( call_map::value_type( _current_date.count() + delay.count(), f ) );
+
+    const std::unique_lock<std::mutex> lock(_mutex);
+
+    const std::chrono::milliseconds at_date = _current_date + delay;
+    std::vector<call>::iterator it;
+
+    for (it = _calls.begin(); it != _calls.end(); ++it)
+        if (it->at_date > at_date)
+            break;
+
+    _calls.insert(it, call{at_date, std::move(f)});
 }
