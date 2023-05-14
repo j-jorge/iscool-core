@@ -27,37 +27,38 @@ TEST( iscool_locale, make_character_range_empty )
 
 TEST( iscool_locale, make_character_range )
 {
+    const std::string characters = "aïÏs Ößל$";
     const iscool::locale::character_range range
-        ( iscool::locale::make_character_range( "aïÏs Ößל$" ) );
+        ( iscool::locale::make_character_range( characters ) );
 
     ASSERT_EQ( 9, std::distance( range.begin(), range.end() ) );
 
     auto it( range.begin() );
-    
+
     EXPECT_EQ( "a", *it );
     ++it;
-    
+
     EXPECT_EQ( "ï", *it );
     ++it;
-    
+
     EXPECT_EQ( "Ï", *it );
     ++it;
-    
+
     EXPECT_EQ( "s", *it );
     ++it;
-    
+
     EXPECT_EQ( " ", *it );
     ++it;
-    
+
     EXPECT_EQ( "Ö", *it );
     ++it;
-    
+
     EXPECT_EQ( "ß", *it );
     ++it;
-    
+
     EXPECT_EQ( "ל", *it );
     ++it;
-    
+
     EXPECT_EQ( "$", *it );
     ++it;
 
