@@ -20,6 +20,7 @@ declare_iscool_library( NAME net
   "log_context.cpp"
   "message_channel.cpp"
   "message_deserializer.cpp"
+  "message_stream.cpp"
   "socket_stream.cpp"
   "socket_stream_pool.cpp"
 

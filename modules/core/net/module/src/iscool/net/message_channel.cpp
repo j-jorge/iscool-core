@@ -15,97 +15,47 @@
 */
 #include "iscool/net/message_channel.h"
 
-#include "iscool/net/byte_array.h"
-#include "iscool/net/byte_array_reader.h"
-#include "iscool/net/message/deserialize_message.h"
 #include "iscool/net/message/message.h"
-#include "iscool/net/message/serialize_message.h"
-#include "iscool/net/socket_stream.h"
+#include "iscool/net/message_stream.h"
 #include "iscool/signals/implement_signal.h"
 
 
 IMPLEMENT_SIGNAL( iscool::net::message_channel, message, _message );
 
 iscool::net::message_channel::message_channel
-( socket_stream& socket, session_id session_id, channel_id channel_id,
-  const xor_key& key )
+( const message_stream& stream, session_id session_id, channel_id channel_id )
     : _session_id( session_id ),
       _channel_id( channel_id ),
-      _xor_key( key ),
-      _socket( socket ),
-      _received_signal_connection( create_signal_connection() )
+      _stream( stream ),
+      _received_signal_connection
+      ( _stream.connect_to_message
+        ( std::bind
+          ( &message_channel::process_incoming_message, this,
+            std::placeholders::_1, std::placeholders::_2 ) ) )
 {
 
 }
 
-iscool::net::message_channel::message_channel( const message_channel& that )
-    : _session_id( that._session_id ),
-      _channel_id( that._channel_id ),
-      _xor_key( that._xor_key ),
-      _socket( that._socket ),
-      _received_signal_connection( create_signal_connection() )
-{
-
-}
-
-iscool::net::message_channel::~message_channel()
-{
-    _received_signal_connection.disconnect();
-}
-
-iscool::net::socket_stream& iscool::net::message_channel::get_socket() const
-{
-    return _socket;
-}
-
-iscool::net::session_id iscool::net::message_channel::get_session_id() const
-{
-    return _session_id;
-}
-
-iscool::net::channel_id iscool::net::message_channel::get_channel_id() const
-{
-    return _channel_id;
-}
-
-const iscool::net::xor_key&
-iscool::net::message_channel::get_obfuscation_key() const
-{
-    return _xor_key;
-}
+iscool::net::message_channel::~message_channel() = default;
 
 void iscool::net::message_channel::send( const message& message ) const
 {
-    _socket.send
-        ( serialize_message( message, _session_id, _channel_id, _xor_key ) );
+    _stream.send(message, _session_id, _channel_id );
 }
 
 void iscool::net::message_channel::send
 ( const endpoint& endpoint, const message& message ) const
 {
-    _socket.send
-        ( endpoint,
-          serialize_message( message, _session_id, _channel_id, _xor_key ) );
-}
-
-iscool::signals::connection
-iscool::net::message_channel::create_signal_connection() const
-{
-    return _socket.connect_to_received
-        ( std::bind
-          ( &message_channel::process_incoming_bytes, this,
-            std::placeholders::_1, std::placeholders::_2 ) );
+    _stream.send(endpoint, message, _session_id, _channel_id );
 }
 
 void
-iscool::net::message_channel::process_incoming_bytes
-( const endpoint& endpoint, const byte_array& bytes ) const
+iscool::net::message_channel::process_incoming_message
+( const endpoint& endpoint, const message& message ) const
 {
-    const message result( deserialize_message( bytes, _xor_key ) );
-
-    if ( ( result.get_session_id() != _session_id )
-         || ( result.get_channel_id() != _channel_id ) )
+    if ( ( message.get_session_id() != _session_id )
+         || ( message.get_channel_id() != _channel_id ) )
         return;
 
-    _message( endpoint, result );
+    _message( endpoint, message );
 }

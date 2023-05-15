@@ -16,6 +16,7 @@
 #include "iscool/optional.h"
 #include "iscool/optional.impl.tpp"
 #include "iscool/net/message_channel.h"
+#include "iscool/net/message_stream.h"
 #include "iscool/net/socket_stream.h"
 #include "iscool/net/message/deserialize_message.h"
 #include "iscool/net/message/serialize_message.h"
@@ -97,33 +98,6 @@ void message_channel_test::wait()
     _scheduler.update_interval( delay );
 }
 
-TEST_F( message_channel_test, constructor_sets_fields )
-{
-    iscool::net::socket_stream socket
-        ( "127.0.0.1:32567", iscool::net::socket_mode::client{} );
-    const iscool::net::xor_key key( { 0xa5, 0x5a } );
-    const iscool::net::message_channel channel( socket, 1, 2, key );
-
-    EXPECT_EQ( &socket, &channel.get_socket() );
-    EXPECT_EQ( iscool::net::session_id( 1 ), channel.get_session_id() );
-    EXPECT_EQ( iscool::net::channel_id( 2 ), channel.get_channel_id() );
-    EXPECT_EQ( key, channel.get_obfuscation_key() );
-}
-
-TEST_F( message_channel_test, copy_constructor )
-{
-    iscool::net::socket_stream socket
-        ( "127.0.0.1:32567", iscool::net::socket_mode::client{} );
-    const iscool::net::xor_key key( { 0xa5, 0x5a } );
-    const iscool::net::message_channel channel( socket, 2, 3, key );
-    const iscool::net::message_channel copy( channel );
-
-    EXPECT_EQ( &socket, &copy.get_socket() );
-    EXPECT_EQ( channel.get_session_id(), copy.get_session_id() );
-    EXPECT_EQ( channel.get_channel_id(), copy.get_channel_id() );
-    EXPECT_EQ( channel.get_obfuscation_key(), copy.get_obfuscation_key() );
-}
-
 TEST_F( message_channel_test, set_session_and_channel_no_endpoint )
 {
     iscool::net::socket_stream socket
@@ -131,8 +105,9 @@ TEST_F( message_channel_test, set_session_and_channel_no_endpoint )
     const iscool::net::session_id session( 4 );
     const iscool::net::channel_id channel( 5 );
     const iscool::net::xor_key key( { 0xa5, 0x5a } );
+    const iscool::net::message_stream stream( socket, key );
     const iscool::net::message_channel message_channel
-        ( socket, session, channel, key );
+        ( stream, session, channel );
 
     message_channel.send
         ( iscool::net::message( 12, iscool::net::byte_array() ) );
@@ -153,8 +128,9 @@ TEST_F( message_channel_test, set_session_and_channel_with_endpoint )
     const iscool::net::session_id session( 6 );
     const iscool::net::channel_id channel( 7 );
     const iscool::net::xor_key key( { 0xa5, 0x5a } );
+    const iscool::net::message_stream stream( socket, key );
     const iscool::net::message_channel message_channel
-        ( socket, session, channel, key );
+        ( stream, session, channel );
     const iscool::net::endpoint endpoint
         ( boost::asio::ip::address::from_string( "127.0.0.1" ), 32567 );
 
@@ -177,8 +153,9 @@ TEST_F( message_channel_test, dispatch_message_matching_session_and_channel )
     const iscool::net::session_id session( 8 );
     const iscool::net::channel_id channel( 9 );
     const iscool::net::xor_key key( { 0xa5, 0x5a } );
+    const iscool::net::message_stream stream( socket, key );
     const iscool::net::message_channel message_channel
-        ( socket, session, channel, key );
+        ( stream, session, channel );
 
     message_channel.send
         ( iscool::net::message( 0, iscool::net::byte_array() ) );
@@ -214,8 +191,9 @@ TEST_F( message_channel_test, ignore_message_matching_non_matching_session )
     const iscool::net::session_id session( 8 );
     const iscool::net::channel_id channel( 9 );
     const iscool::net::xor_key key( { 0xa5, 0x5a } );
+    const iscool::net::message_stream stream( socket, key );
     const iscool::net::message_channel message_channel
-        ( socket, session, channel, key );
+        ( stream, session, channel );
 
     message_channel.send
         ( iscool::net::message( 0, iscool::net::byte_array() ) );
@@ -249,8 +227,9 @@ TEST_F( message_channel_test, ignore_message_matching_non_matching_channel )
     const iscool::net::session_id session( 8 );
     const iscool::net::channel_id channel( 9 );
     const iscool::net::xor_key key( { 0xa5, 0x5a } );
+    const iscool::net::message_stream stream( socket, key );
     const iscool::net::message_channel message_channel
-        ( socket, session, channel, key );
+        ( stream, session, channel );
 
     message_channel.send
         ( iscool::net::message( 0, iscool::net::byte_array() ) );
@@ -284,8 +263,9 @@ TEST_F( message_channel_test, serialization_xor )
     const iscool::net::session_id session( 12 );
     const iscool::net::channel_id channel( 24 );
     const iscool::net::xor_key key( { 0xa5, 0x5a } );
+    const iscool::net::message_stream stream( socket, key );
     const iscool::net::message_channel message_channel
-        ( socket, session, channel, key );
+        ( stream, session, channel );
 
     iscool::net::byte_array content;
     content.append<std::uint8_t>( 0xf0 );

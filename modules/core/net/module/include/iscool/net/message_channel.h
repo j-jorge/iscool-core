@@ -17,11 +17,11 @@
 #define ISCOOL_NET_MESSAGE_CHANNEL_H
 
 #include "iscool/net/endpoint.h"
-#include "iscool/net/xor_key.h"
 #include "iscool/net/message/channel_id.h"
 #include "iscool/net/message/session_id.h"
 
 #include "iscool/signals/declare_signal.h"
+#include "iscool/signals/scoped_connection.h"
 
 namespace iscool
 {
@@ -29,43 +29,36 @@ namespace iscool
     {
         class byte_array;
         class message;
-        class socket_stream;
-                
+        class message_stream;
+
         class message_channel
         {
         public:
             DECLARE_SIGNAL
             ( void( const endpoint&, const message& ), message, _message );
-            
+
         public:
             message_channel
-            ( socket_stream& socket, session_id session_id,
-              channel_id channel_id, const xor_key& key );
-            message_channel( const message_channel& that );
+            ( const message_stream& stream, session_id session_id,
+              channel_id channel_id );
             ~message_channel();
-
-            socket_stream& get_socket() const;
-            session_id get_session_id() const;
-            channel_id get_channel_id() const;
-            const xor_key& get_obfuscation_key() const;
 
             void send( const message& message ) const;
             void send
             ( const endpoint& endpoint, const message& message ) const;
 
         private:
-            iscool::signals::connection create_signal_connection() const;
-
             void
-            process_incoming_bytes
-            ( const endpoint& endpoint, const byte_array& bytes ) const;
+            process_incoming_message
+            ( const endpoint& endpoint, const message& message ) const;
 
         private:
             const session_id _session_id;
             const channel_id _channel_id;
-            const xor_key _xor_key;
-            socket_stream& _socket;
-            const iscool::signals::connection _received_signal_connection;
+            const message_stream& _stream;
+
+            const iscool::signals::scoped_connection
+            _received_signal_connection;
         };
     }
 }
