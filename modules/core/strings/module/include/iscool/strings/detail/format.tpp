@@ -22,19 +22,17 @@ template< typename... Args >
 std::string iscool::strings::format( const char* pattern, Args... args )
 {
     detail::formatter* formatter( detail::create_formatter( pattern ) );
-    
+
     try
     {
-        const int expanded[] =
-            { detail::append_to_formatter< Args >( *formatter, args )... };
-        (void)expanded;
+        (detail::append_to_formatter< Args >( *formatter, args ), ...);
     }
     catch( ... )
     {
         detail::release_formatter( formatter );
         throw;
     }
-    
+
     const std::string result( detail::get_formatter_string( *formatter ) );
     detail::release_formatter( formatter );
 
