@@ -24,6 +24,18 @@ namespace iscool
     {
         void initialize( delayed_call_delegate delegate );
         void finalize();
+
+        class scoped_scheduler_delegate
+        {
+        public:
+            explicit scoped_scheduler_delegate(delayed_call_delegate delegate);
+            scoped_scheduler_delegate(const scoped_scheduler_delegate&) =
+                delete;
+            ~scoped_scheduler_delegate();
+
+            scoped_scheduler_delegate&
+            operator=(const scoped_scheduler_delegate&) = delete;
+        };
     }
 }
 

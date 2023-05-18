@@ -27,21 +27,6 @@
 
 #include <gtest/gtest.h>
 
-class iscool_scheduler_initializer
-{
-public:
-    iscool_scheduler_initializer
-    (iscool::schedule::delayed_call_delegate delegate)
-    {
-        iscool::schedule::initialize(std::move(delegate));
-    }
-
-    ~iscool_scheduler_initializer()
-    {
-        iscool::schedule::finalize();
-    }
-};
-
 class message_channel_test:
     public ::testing::Test
 {
@@ -58,7 +43,7 @@ protected:
     iscool::schedule::manual_scheduler _scheduler;
 
 private:
-    iscool_scheduler_initializer _scheduler_initializer;
+    iscool::schedule::scoped_scheduler_delegate _scheduler_initializer;
     boost::asio::io_service _io_service;
     iscool::net::socket_stream _socket;
     iscool::optional< iscool::net::endpoint > _client_endpoint;

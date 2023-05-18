@@ -32,3 +32,14 @@ void iscool::schedule::finalize()
     detail::call_later = delayed_call_delegate();
     detail::call_manager.clear();
 }
+
+iscool::schedule::scoped_scheduler_delegate::scoped_scheduler_delegate
+(delayed_call_delegate delegate)
+{
+    initialize(std::move(delegate));
+}
+
+iscool::schedule::scoped_scheduler_delegate::~scoped_scheduler_delegate()
+{
+    finalize();
+}
