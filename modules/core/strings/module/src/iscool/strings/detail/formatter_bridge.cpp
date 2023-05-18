@@ -54,6 +54,10 @@ template int iscool::strings::detail::append_to_formatter< int >
 ( formatter& f, int value );
 template int iscool::strings::detail::append_to_formatter< unsigned int >
 ( formatter& f, unsigned int value );
+template int iscool::strings::detail::append_to_formatter< short >
+( formatter& f, short value );
+template int iscool::strings::detail::append_to_formatter< unsigned short >
+( formatter& f, unsigned short value );
 template int iscool::strings::detail::append_to_formatter< long >
 ( formatter& f, long value );
 template int iscool::strings::detail::append_to_formatter< unsigned long >

@@ -40,6 +40,10 @@ namespace iscool
             ( formatter& f, const std::string& value );
             extern template int append_to_formatter< std::string >
             ( formatter& f, std::string value );
+            extern template int append_to_formatter< short >
+            ( formatter& f, short value );
+            extern template int append_to_formatter< unsigned short >
+            ( formatter& f, unsigned short value );
             extern template int append_to_formatter< int >
             ( formatter& f, int value );
             extern template int append_to_formatter< unsigned int >
@@ -59,5 +63,5 @@ namespace iscool
         }
     }
 }
-    
+
 #endif
