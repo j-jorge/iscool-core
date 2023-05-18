@@ -39,7 +39,8 @@ namespace iscool
               message, _message );
 
         public:
-            message_stream( socket_stream& socket, const xor_key& key );
+            explicit message_stream( socket_stream& socket );
+            message_stream( socket_stream& socket, xor_key key );
             ~message_stream();
 
             void send( const iscool::net::message& message ) const;
@@ -60,7 +61,7 @@ namespace iscool
 
         private:
             socket_stream& _socket;
-            const xor_key& _key;
+            const xor_key _key;
             iscool::signals::scoped_connection _socket_connection;
         };
     }

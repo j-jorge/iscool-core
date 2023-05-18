@@ -24,9 +24,14 @@
 IMPLEMENT_SIGNAL( iscool::net::message_stream, message, _message );
 
 iscool::net::message_stream::message_stream
-( iscool::net::socket_stream& socket, const xor_key& key )
+( iscool::net::socket_stream& socket )
+    : message_stream(socket, xor_key{})
+{}
+
+iscool::net::message_stream::message_stream
+( iscool::net::socket_stream& socket, xor_key key )
     : _socket(socket),
-      _key(key),
+      _key(std::move(key)),
       _socket_connection
       (socket.connect_to_received
        (std::bind
