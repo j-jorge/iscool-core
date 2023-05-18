@@ -13,29 +13,15 @@
   See the License for the specific language governing permissions and
   limitations under the License.
 */
-#include "iscool/log/setup.h"
+#ifndef ISCOOL_LOG_ENABLE_CONSOLE_LOG_H
+#define ISCOOL_LOG_ENABLE_CONSOLE_LOG_H
 
-#include "iscool/log/detail/get_message_dispatcher.h"
-#include "iscool/log/detail/logger_thread.h"
-#include "iscool/log/detail/message_dispatcher.h"
-
-void iscool::log::initialize()
+namespace iscool
 {
-    // Nothing to do.
+    namespace log
+    {
+        void enable_console_log();
+    }
 }
 
-void iscool::log::finalize()
-{
-    detail::stop_logger_thread();
-    detail::get_message_dispatcher().clear();
-}
-
-iscool::log::scoped_initializer::scoped_initializer()
-{
-    initialize();
-}
-
-iscool::log::scoped_initializer::~scoped_initializer()
-{
-    finalize();
-}
+#endif

@@ -13,10 +13,11 @@ declare_iscool_library( NAME log
   FILES
   "add_file_sink.cpp"
   "context.cpp"
+  "enable_console_log.cpp"
   "message_delegates.cpp"
   "message_delegates_registry.cpp"
   "setup.cpp"
-  
+
   "detail/get_message_dispatcher.cpp"
   "detail/logger_thread.cpp"
   "detail/message_dispatcher.cpp"
@@ -33,7 +34,7 @@ declare_iscool_library( NAME log
   iscool_error
   iscool_strings
   Threads::Threads
-  
+
   DEFINITIONS
   ${iscool_log_definitions}
 
