@@ -41,7 +41,7 @@ void iscool::log::initialize()
               ( "%1%-%2%: %3%", synopsis.get_category(), synopsis.get_code(),
                 synopsis.get_message() ) );
         };
-    
+
     detail::get_message_dispatcher().register_delegates( delegates );
 #endif
 }
@@ -52,3 +52,12 @@ void iscool::log::finalize()
     detail::get_message_dispatcher().clear();
 }
 
+iscool::log::scoped_initializer::scoped_initializer()
+{
+    initialize();
+}
+
+iscool::log::scoped_initializer::~scoped_initializer()
+{
+    finalize();
+}

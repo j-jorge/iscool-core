@@ -22,6 +22,16 @@ namespace iscool
     {
         void initialize();
         void finalize();
+
+        class scoped_initializer
+        {
+        public:
+            explicit scoped_initializer();
+            scoped_initializer(const scoped_initializer&) = delete;
+            ~scoped_initializer();
+
+            scoped_initializer& operator=(const scoped_initializer&) = delete;
+        };
     }
 }
 
