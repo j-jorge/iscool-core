@@ -13,16 +13,10 @@
   See the License for the specific language governing permissions and
   limitations under the License.
 */
-#ifndef ISCOOL_TIME_DETAIL_NOW_TPP
-#define ISCOOL_TIME_DETAIL_NOW_TPP
-
 #include "iscool/time/detail/time_source.h"
 
-template<typename Duration>
-Duration iscool::time::now()
-{
-    return std::chrono::duration_cast< Duration >
-        (iscool::time::detail::time_source());
-}
-
-#endif
+iscool::time::time_source_delegate iscool::time::detail::time_source =
+    []() -> std::chrono::nanoseconds
+        {
+            return std::chrono::system_clock::now().time_since_epoch();
+        };

@@ -13,33 +13,31 @@
   See the License for the specific language governing permissions and
   limitations under the License.
 */
-#include "iscool/schedule/setup.h"
+#include "iscool/time/setup.h"
 
-#include "iscool/schedule/detail/call_later.h"
+#include "iscool/time/detail/time_source.h"
 
 #include <cassert>
 
-void iscool::schedule::initialize( delayed_call_delegate delegate )
+void iscool::time::initialize( time_source_delegate delegate )
 {
-    assert( !detail::call_later );
     assert( delegate );
 
-    detail::call_later = std::move(delegate);
+    detail::time_source = std::move(delegate);
 }
 
-void iscool::schedule::finalize()
+void iscool::time::finalize()
 {
-    detail::call_later = delayed_call_delegate();
-    detail::call_manager.clear();
+    detail::time_source = time_source_delegate();
 }
 
-iscool::schedule::scoped_scheduler_delegate::scoped_scheduler_delegate
-(delayed_call_delegate delegate)
+iscool::time::scoped_time_source_delegate::scoped_time_source_delegate
+(time_source_delegate delegate)
 {
     initialize(std::move(delegate));
 }
 
-iscool::schedule::scoped_scheduler_delegate::~scoped_scheduler_delegate()
+iscool::time::scoped_time_source_delegate::~scoped_time_source_delegate()
 {
     finalize();
 }

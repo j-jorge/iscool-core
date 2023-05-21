@@ -13,16 +13,20 @@
   See the License for the specific language governing permissions and
   limitations under the License.
 */
-#ifndef ISCOOL_TIME_DETAIL_NOW_TPP
-#define ISCOOL_TIME_DETAIL_NOW_TPP
+#ifndef ISCOOL_TIME_DETAIL_TIME_SOURCE_H
+#define ISCOOL_TIME_DETAIL_TIME_SOURCE_H
 
-#include "iscool/time/detail/time_source.h"
+#include "iscool/time/time_source_delegate.h"
 
-template<typename Duration>
-Duration iscool::time::now()
+namespace iscool
 {
-    return std::chrono::duration_cast< Duration >
-        (iscool::time::detail::time_source());
+    namespace time
+    {
+        namespace detail
+        {
+            extern time_source_delegate time_source;
+        }
+    }
 }
 
 #endif

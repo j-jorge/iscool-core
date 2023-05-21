@@ -23,6 +23,7 @@ declare_iscool_library( NAME schedule
   LINK
   iscool_log
   iscool_signals
+  iscool_time
   )
 
 declare_iscool_library_test( NAME schedule
