@@ -18,6 +18,7 @@
 
 #include "iscool/signals/detail/signal.h"
 
+#include <cstdint>
 #include <functional>
 #include <string>
 

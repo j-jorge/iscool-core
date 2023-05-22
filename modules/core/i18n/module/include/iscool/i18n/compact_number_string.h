@@ -16,6 +16,7 @@
 #ifndef ISCOOL_I18N_COMPACT_NUMBER_STRING_H
 #define ISCOOL_I18N_COMPACT_NUMBER_STRING_H
 
+#include <cstdint>
 #include <string>
 
 namespace iscool
