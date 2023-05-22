@@ -9,7 +9,7 @@ include( install-dependency )
 download_project(
   PROJ mofilereader
   GIT_REPOSITORY https://github.com/j-jorge/mofilereader
-  GIT_TAG v1
+  GIT_TAG v1.1
   UPDATE_DISCONNECTED 1
   )
 
