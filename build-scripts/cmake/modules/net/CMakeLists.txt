@@ -53,6 +53,7 @@ declare_iscool_library_test( NAME net
   "message_channel.cpp"
   "message_test.cpp"
 
+  "byte_array_serialization/byte_array_array_serialization_test.cpp"
   "byte_array_serialization/byte_array_serialization_test.cpp"
   "byte_array_serialization/byte_array_tuple_serialization_test.cpp"
   "byte_array_serialization/byte_array_vector_serialization_test.cpp"
