@@ -45,7 +45,15 @@ namespace iscool
             explicit raw_message( fields_types... fields );
 
             template<std::size_t I>
-            typename std::tuple_element<I, fields_tuple>::type
+            std::conditional_t
+            <
+                std::is_fundamental_v
+                <
+                    typename std::tuple_element<I, fields_tuple>::type
+                >,
+                typename std::tuple_element<I, fields_tuple>::type,
+                const typename std::tuple_element<I, fields_tuple>::type&
+            >
             get_field() const;
 
         private:
@@ -79,7 +87,12 @@ namespace iscool
                            seq )                                        \
 
 #define DETAIL_RAW_MESSAGE_IMPLEMENT_GETTER( r, data, i, seq )          \
-    BOOST_PP_SEQ_ELEM( 0, seq )                                         \
+    std::conditional_t                                                  \
+    <                                                                   \
+        std::is_fundamental_v<BOOST_PP_SEQ_ELEM( 0, seq )>,             \
+        BOOST_PP_SEQ_ELEM( 0, seq ),                                    \
+        const BOOST_PP_SEQ_ELEM( 0, seq )&                              \
+    >                                                                   \
     BOOST_PP_CAT( get_, BOOST_PP_SEQ_ELEM( 1, seq ) )() const           \
     {                                                                   \
         return get_field<i>();                                          \

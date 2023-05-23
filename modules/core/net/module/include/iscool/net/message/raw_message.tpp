@@ -45,16 +45,41 @@ iscool::net::raw_message<type_code, fields_types...>::raw_message
 ( fields_types... fields )
     : _fields{ fields... }
 {
-            
+
 }
 
 template<iscool::net::message_type type_code, typename... fields_types>
 template<std::size_t I>
-typename std::tuple_element
+std::conditional_t
 <
-    I,
-    typename iscool::net::raw_message<type_code, fields_types...>::fields_tuple
->::type
+    std::is_fundamental_v
+    <
+        typename std::tuple_element
+        <
+            I,
+            typename iscool::net::raw_message
+            <
+                type_code, fields_types...
+            >::fields_tuple
+        >::type
+    >,
+    typename std::tuple_element
+    <
+        I,
+        typename iscool::net::raw_message
+        <
+            type_code, fields_types...
+        >::fields_tuple
+    >::type,
+    const typename std::tuple_element
+    <
+        I,
+        typename iscool::net::raw_message
+        <
+            type_code, fields_types...
+        >::fields_tuple
+    >::type&
+>
 iscool::net::raw_message<type_code, fields_types...>::get_field() const
 {
     return std::get<I>( _fields );
