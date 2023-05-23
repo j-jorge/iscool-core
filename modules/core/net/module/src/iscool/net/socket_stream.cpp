@@ -43,7 +43,12 @@ iscool::net::socket_stream::socket_stream( unsigned short port )
 iscool::net::socket_stream::~socket_stream()
 {
     _socket.close();
-    _dispatch_connection.disconnect();
+
+    {
+        const std::unique_lock< std::mutex > lock( _queue_access_mutex );
+        _dispatch_connection.disconnect();
+    }
+
     _update_thread.join();
 }
 
