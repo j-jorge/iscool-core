@@ -20,7 +20,7 @@
 #include "iscool/net/byte_array_reader.h"
 
 template<typename T>
-iscool::net::byte_array&
+std::enable_if_t<!std::is_enum_v<T>, iscool::net::byte_array&>
 iscool::net::operator<<( byte_array& output, const T& value )
 {
     output.append( value );
@@ -28,11 +28,25 @@ iscool::net::operator<<( byte_array& output, const T& value )
 }
 
 template<typename T>
-iscool::net::byte_array_reader&
+std::enable_if_t<!std::is_enum_v<T>, iscool::net::byte_array_reader&>
 iscool::net::operator>>( byte_array_reader& input, T& value )
 {
     value = input.get< T >();
     return input;
+}
+
+template<typename T>
+std::enable_if_t<std::is_enum_v<T>, iscool::net::byte_array&>
+iscool::net::operator<<( byte_array& output, T value )
+{
+    return output << (std::underlying_type_t<T>)value;
+}
+
+template<typename T>
+std::enable_if_t<std::is_enum_v<T>, iscool::net::byte_array_reader&>
+iscool::net::operator>>( byte_array_reader& input, T& value )
+{
+    return input >> (std::underlying_type_t<T>&)value;
 }
 
 #endif

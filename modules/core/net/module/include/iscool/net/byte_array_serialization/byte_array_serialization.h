@@ -16,6 +16,8 @@
 #ifndef ISCOOL_NET_BYTE_ARRAY_SERIALIZATION_H
 #define ISCOOL_NET_BYTE_ARRAY_SERIALIZATION_H
 
+#include <type_traits>
+
 namespace iscool
 {
     namespace net
@@ -24,10 +26,20 @@ namespace iscool
         class byte_array_reader;
 
         template<typename T>
-        byte_array& operator<<( byte_array& output, const T& value );
-        
+        std::enable_if_t<!std::is_enum_v<T>, byte_array&>
+        operator<<( byte_array& output, const T& value );
+
         template<typename T>
-        byte_array_reader& operator>>( byte_array_reader& input, T& value );
+        std::enable_if_t<!std::is_enum_v<T>, byte_array_reader&>
+        operator>>( byte_array_reader& input, T& value );
+
+        template<typename T>
+        std::enable_if_t<std::is_enum_v<T>, byte_array&>
+        operator<<( byte_array& output, T value );
+
+        template<typename T>
+        std::enable_if_t<std::is_enum_v<T>, byte_array_reader&>
+        operator>>( byte_array_reader& input, T& value );
     }
 }
 
