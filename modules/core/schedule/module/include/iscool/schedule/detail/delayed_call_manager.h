@@ -35,7 +35,7 @@ namespace iscool
             class delayed_call_manager
             {
             public:
-                typedef std::chrono::milliseconds duration;
+                typedef std::chrono::nanoseconds duration;
 
             public:
                 explicit delayed_call_manager( std::size_t pool_size );

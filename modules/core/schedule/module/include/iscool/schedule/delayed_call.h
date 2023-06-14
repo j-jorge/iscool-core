@@ -29,10 +29,10 @@ namespace iscool
         iscool::signals::connection delayed_call
         ( iscool::signals::void_signal_function f,
           short_call_policy policy = short_call_policy::cumulated );
-        
+
         iscool::signals::connection delayed_call
         ( iscool::signals::void_signal_function f,
-          std::chrono::milliseconds delay );
+          std::chrono::nanoseconds delay );
 
         template< typename Rep, typename Period >
         iscool::signals::connection delayed_call

@@ -29,7 +29,7 @@ namespace iscool
         std::function
         <
             void
-            ( iscool::signals::void_signal_function, std::chrono::milliseconds )
+            ( iscool::signals::void_signal_function, std::chrono::nanoseconds )
         >
         delayed_call_delegate;
     }

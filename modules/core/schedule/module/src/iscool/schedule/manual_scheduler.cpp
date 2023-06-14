@@ -33,7 +33,7 @@ iscool::schedule::manual_scheduler::get_delayed_call_delegate()
 }
 
 void iscool::schedule::manual_scheduler::update_interval
-( std::chrono::milliseconds interval )
+( std::chrono::nanoseconds interval )
 {
     std::vector< iscool::signals::void_signal_function > calls_to_do;
 
@@ -62,13 +62,13 @@ void iscool::schedule::manual_scheduler::update_interval
 
 void
 iscool::schedule::manual_scheduler::schedule_call
-( iscool::signals::void_signal_function f, std::chrono::milliseconds delay )
+( iscool::signals::void_signal_function f, std::chrono::nanoseconds delay )
 {
     assert( delay.count() >= 0 );
 
     const std::unique_lock<std::mutex> lock(_mutex);
 
-    const std::chrono::milliseconds at_date = _current_date + delay;
+    const std::chrono::nanoseconds at_date = _current_date + delay;
     std::vector<call>::iterator it;
 
     for (it = _calls.begin(); it != _calls.end(); ++it)

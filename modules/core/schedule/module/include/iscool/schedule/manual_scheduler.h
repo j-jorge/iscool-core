@@ -32,24 +32,22 @@ namespace iscool
 
             delayed_call_delegate get_delayed_call_delegate();
 
-            void update_interval( std::chrono::milliseconds interval );
+            void update_interval( std::chrono::nanoseconds interval );
 
         private:
-            using milliseconds_uint = std::uint64_t;
-
             struct call
             {
-                std::chrono::milliseconds at_date;
+                std::chrono::nanoseconds at_date;
                 iscool::signals::void_signal_function function;
             };
 
         private:
             void schedule_call
             ( iscool::signals::void_signal_function f,
-              std::chrono::milliseconds delay );
+              std::chrono::nanoseconds delay );
 
         private:
-            std::chrono::milliseconds _current_date;
+            std::chrono::nanoseconds _current_date;
             std::vector<call> _calls;
             std::mutex _mutex;
         };

@@ -22,7 +22,7 @@ iscool::signals::connection iscool::schedule::delayed_call
   std::chrono::duration< Rep, Period > delay )
 {
     return delayed_call
-        ( f, std::chrono::duration_cast< std::chrono::milliseconds >( delay ) );
+        ( f, std::chrono::duration_cast< std::chrono::nanoseconds >( delay ) );
 }
 
 #endif

@@ -29,12 +29,12 @@ iscool::schedule::delayed_call
 }
 
 iscool::signals::connection iscool::schedule::delayed_call
-( iscool::signals::void_signal_function f, std::chrono::milliseconds delay )
+( iscool::signals::void_signal_function f, std::chrono::nanoseconds delay )
 {
     assert( f );
     assert( delay.count() >= 0 );
 
-    if ( delay == std::chrono::milliseconds::zero() )
+    if ( delay == std::chrono::nanoseconds::zero() )
         return delayed_call( f, short_call_policy::non_cumulated );
 
     return detail::call_manager.schedule_call( f, delay );
