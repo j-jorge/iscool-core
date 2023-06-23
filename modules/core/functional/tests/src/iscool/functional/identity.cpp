@@ -13,7 +13,7 @@
   See the License for the specific language governing permissions and
   limitations under the License.
 */
-#include "iscool/functional/identity.h"
+#include <iscool/functional/identity.hpp>
 
 #include <gtest/gtest.h>
 

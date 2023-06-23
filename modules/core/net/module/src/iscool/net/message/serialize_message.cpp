@@ -13,10 +13,10 @@
   See the License for the specific language governing permissions and
   limitations under the License.
 */
-#include "iscool/net/message/serialize_message.h"
+#include <iscool/net/message/serialize_message.hpp>
 
-#include "iscool/net/detail/apply_xor.h"
-#include "iscool/net/message/message.h"
+#include <iscool/net/detail/apply_xor.hpp>
+#include <iscool/net/message/message.hpp>
 
 iscool::net::byte_array iscool::net::serialize_message(const message& m)
 {

@@ -13,19 +13,19 @@
   See the License for the specific language governing permissions and
   limitations under the License.
 */
-#include "iscool/preferences/detail/local_preferences_from_json.h"
+#include <iscool/preferences/detail/local_preferences_from_json.hpp>
 
-#include "iscool/preferences/log_context.h"
+#include <iscool/preferences/log_context.hpp>
 
-#include "iscool/json/cast_bool.h"
-#include "iscool/json/cast_int64.h"
-#include "iscool/json/cast_string.h"
-#include "iscool/json/is_of_type_bool.h"
-#include "iscool/json/is_of_type_int64.h"
-#include "iscool/json/is_of_type_string.h"
-#include "iscool/log/causeless_log.h"
-#include "iscool/log/nature/error.h"
-#include "iscool/preferences/property_map.impl.h"
+#include <iscool/json/cast_bool.hpp>
+#include <iscool/json/cast_int64.hpp>
+#include <iscool/json/cast_string.hpp>
+#include <iscool/json/is_of_type_bool.hpp>
+#include <iscool/json/is_of_type_int64.hpp>
+#include <iscool/json/is_of_type_string.hpp>
+#include <iscool/log/causeless_log.hpp>
+#include <iscool/log/nature/error.hpp>
+#include <iscool/preferences/property_map.impl.hpp>
 
 #include <json/value.h>
 

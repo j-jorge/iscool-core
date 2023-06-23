@@ -13,7 +13,7 @@
   See the License for the specific language governing permissions and
   limitations under the License.
 */
-#include "iscool/signals/detail/statistics_function.h"
+#include <iscool/signals/detail/statistics_function.hpp>
 
 std::function<void(const iscool::signals::statistics_data&)>
     iscool::signals::detail::statistics_function;

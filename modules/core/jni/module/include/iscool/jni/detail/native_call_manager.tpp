@@ -16,7 +16,7 @@
 #ifndef ISCOOL_JNI_DETAIL_NATIVE_CALL_MANAGER_TPP
 #define ISCOOL_JNI_DETAIL_NATIVE_CALL_MANAGER_TPP
 
-#include "iscool/jni/detail/variadic_native_callback.h"
+#include <iscool/jni/detail/variadic_native_callback.hpp>
 
 template <typename... Args>
 jlong iscool::jni::detail::native_call_manager::register_callback(

@@ -13,7 +13,7 @@
   See the License for the specific language governing permissions and
   limitations under the License.
 */
-#include "iscool/iterators/back_emplace_iterator.h"
+#include <iscool/iterators/back_emplace_iterator.hpp>
 
 #include <deque>
 #include <list>

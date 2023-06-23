@@ -13,7 +13,7 @@
   See the License for the specific language governing permissions and
   limitations under the License.
 */
-#include "iscool/strings/detail/formatter.h"
+#include <iscool/strings/detail/formatter.hpp>
 
 iscool::strings::detail::formatter::formatter(const std::string& pattern)
   : _format(pattern)

@@ -13,7 +13,7 @@
   See the License for the specific language governing permissions and
   limitations under the License.
 */
-#include "iscool/meta/type_index.h"
+#include <iscool/meta/type_index.hpp>
 
 #include "gtest/gtest.h"
 

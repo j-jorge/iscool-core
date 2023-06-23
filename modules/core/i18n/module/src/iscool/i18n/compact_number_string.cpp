@@ -13,10 +13,10 @@
   See the License for the specific language governing permissions and
   limitations under the License.
 */
-#include "iscool/i18n/compact_number_string.h"
+#include <iscool/i18n/compact_number_string.hpp>
 
-#include "iscool/i18n/numeric.h"
-#include "iscool/strings/format.h"
+#include <iscool/i18n/numeric.hpp>
+#include <iscool/strings/format.hpp>
 
 std::string iscool::i18n::compact_number_string(std::uint64_t value)
 {

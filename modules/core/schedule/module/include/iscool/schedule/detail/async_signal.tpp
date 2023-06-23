@@ -16,7 +16,7 @@
 #ifndef ISCOOL_SCHEDULE_ASYNC_SIGNAL_TPP
 #define ISCOOL_SCHEDULE_ASYNC_SIGNAL_TPP
 
-#include "iscool/schedule/delayed_call.h"
+#include <iscool/schedule/delayed_call.hpp>
 
 template <typename Signature>
 iscool::schedule::async_signal<Signature>::~async_signal()

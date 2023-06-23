@@ -13,7 +13,7 @@
   See the License for the specific language governing permissions and
   limitations under the License.
 */
-#include "iscool/jni/scoped_native_callback.h"
+#include <iscool/jni/scoped_native_callback.hpp>
 
 iscool::jni::scoped_native_callback::~scoped_native_callback()
 {

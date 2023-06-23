@@ -16,8 +16,8 @@
 #ifndef ISCOOL_NET_BYTE_ARRAY_SERIALIZATION_TPP
 #define ISCOOL_NET_BYTE_ARRAY_SERIALIZATION_TPP
 
-#include "iscool/net/byte_array.h"
-#include "iscool/net/byte_array_reader.h"
+#include <iscool/net/byte_array.hpp>
+#include <iscool/net/byte_array_reader.hpp>
 
 template <typename T>
 std::enable_if_t<!std::is_enum_v<T>, iscool::net::byte_array&>

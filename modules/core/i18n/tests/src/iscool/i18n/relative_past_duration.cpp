@@ -13,9 +13,9 @@
   See the License for the specific language governing permissions and
   limitations under the License.
 */
-#include "iscool/i18n/relative_past_duration.h"
+#include <iscool/i18n/relative_past_duration.hpp>
 
-#include "iscool/time/days.h"
+#include <iscool/time/days.hpp>
 
 #include "gtest/gtest.h"
 

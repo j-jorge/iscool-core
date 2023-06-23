@@ -13,7 +13,7 @@
   See the License for the specific language governing permissions and
   limitations under the License.
 */
-#include "iscool/error/synopsis.h"
+#include <iscool/error/synopsis.hpp>
 
 iscool::error::synopsis::synopsis(std::size_t code,
                                   const std::string& category,

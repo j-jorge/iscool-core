@@ -1,4 +1,4 @@
-#include "iscool/schedule/command_queue.h"
+#include <iscool/schedule/command_queue.hpp>
 
 #include <cassert>
 

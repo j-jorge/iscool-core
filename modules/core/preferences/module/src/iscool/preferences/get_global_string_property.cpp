@@ -13,9 +13,9 @@
   See the License for the specific language governing permissions and
   limitations under the License.
 */
-#include "iscool/preferences/get_global_string_property.h"
+#include <iscool/preferences/get_global_string_property.hpp>
 
-#include "iscool/preferences/detail/get_global_property.h"
+#include <iscool/preferences/detail/get_global_property.hpp>
 
 std::string iscool::preferences::get_global_string_property(
     const string_property& property)

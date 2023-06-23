@@ -16,8 +16,8 @@
 #ifndef ISCOOL_JNI_DETAIL_EXTRACT_ARGUMENT_TPP
 #define ISCOOL_JNI_DETAIL_EXTRACT_ARGUMENT_TPP
 
-#include "iscool/jni/cast.h"
-#include "iscool/jni/detail/extract_argument.h"
+#include <iscool/jni/cast.hpp>
+#include <iscool/jni/detail/extract_argument.hpp>
 
 template <std::size_t I, typename Tuple>
 typename std::decay<typename std::tuple_element<I, Tuple>::type>::type

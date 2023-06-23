@@ -13,9 +13,9 @@
   See the License for the specific language governing permissions and
   limitations under the License.
 */
-#include "iscool/jni/to_string.h"
+#include <iscool/jni/to_string.hpp>
 
-#include "iscool/jni/detail/get_jni_env.h"
+#include <iscool/jni/detail/get_jni_env.hpp>
 
 std::string iscool::jni::to_string(const java_ptr<jstring>& java_string)
 {

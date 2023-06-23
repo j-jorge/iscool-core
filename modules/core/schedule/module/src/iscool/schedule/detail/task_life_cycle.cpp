@@ -13,9 +13,9 @@
   See the License for the specific language governing permissions and
   limitations under the License.
 */
-#include "iscool/schedule/detail/task_life_cycle.h"
+#include <iscool/schedule/detail/task_life_cycle.hpp>
 
-#include "iscool/signals/implement_signal.h"
+#include <iscool/signals/implement_signal.hpp>
 
 IMPLEMENT_SIGNAL(iscool::schedule::detail::task_life_cycle, complete,
                  _complete);

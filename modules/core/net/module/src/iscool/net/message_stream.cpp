@@ -13,13 +13,13 @@
   See the License for the specific language governing permissions and
   limitations under the License.
 */
-#include "iscool/net/message_stream.h"
+#include <iscool/net/message_stream.hpp>
 
-#include "iscool/net/message/deserialize_message.h"
-#include "iscool/net/message/message.h"
-#include "iscool/net/message/serialize_message.h"
-#include "iscool/net/socket_stream.h"
-#include "iscool/signals/implement_signal.h"
+#include <iscool/net/message/deserialize_message.hpp>
+#include <iscool/net/message/message.hpp>
+#include <iscool/net/message/serialize_message.hpp>
+#include <iscool/net/socket_stream.hpp>
+#include <iscool/signals/implement_signal.hpp>
 
 IMPLEMENT_SIGNAL(iscool::net::message_stream, message, _message);
 

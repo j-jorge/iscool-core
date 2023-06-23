@@ -16,11 +16,11 @@
 #ifndef ISCOOL_CONTAINERS_HETEROGENEOUS_MAP_TPP
 #define ISCOOL_CONTAINERS_HETEROGENEOUS_MAP_TPP
 
-#include "iscool/containers/detail/heterogeneous_map_clear.h"
-#include "iscool/containers/detail/heterogeneous_map_empty.h"
-#include "iscool/containers/detail/heterogeneous_map_visit.h"
-#include "iscool/meta/type_index.h"
-#include "iscool/none.h"
+#include <iscool/containers/detail/heterogeneous_map_clear.hpp>
+#include <iscool/containers/detail/heterogeneous_map_empty.hpp>
+#include <iscool/containers/detail/heterogeneous_map_visit.hpp>
+#include <iscool/meta/type_index.hpp>
+#include <iscool/none.hpp>
 
 template <typename Key, typename... T>
 template <typename U>

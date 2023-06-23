@@ -13,13 +13,13 @@
   See the License for the specific language governing permissions and
   limitations under the License.
 */
-#include "iscool/audio/mixer.h"
-#include "iscool/audio/loop_mode.h"
+#include <iscool/audio/loop_mode.hpp>
+#include <iscool/audio/mixer.hpp>
 
-#include "iscool/files/setup.h"
+#include <iscool/files/setup.hpp>
 
-#include "iscool/audio/test/platform_mixer_mockup.h"
-#include "iscool/files/test/file_system_delegates_mockup.h"
+#include <iscool/audio/test/platform_mixer_mockup.hpp>
+#include <iscool/files/test/file_system_delegates_mockup.hpp>
 
 #include <gtest/gtest.h>
 

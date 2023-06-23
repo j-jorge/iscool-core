@@ -13,9 +13,9 @@
   See the License for the specific language governing permissions and
   limitations under the License.
 */
-#include "iscool/strings/dynamic_hash.h"
+#include <iscool/strings/dynamic_hash.hpp>
 
-#include "iscool/strings/detail/hash_parameters.h"
+#include <iscool/strings/detail/hash_parameters.hpp>
 
 iscool::strings::hash_type iscool::strings::dynamic_hash(const char* s)
 {

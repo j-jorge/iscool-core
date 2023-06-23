@@ -13,7 +13,7 @@
   See the License for the specific language governing permissions and
   limitations under the License.
 */
-#include "iscool/profile/scoped_profiler.h"
+#include <iscool/profile/scoped_profiler.hpp>
 
 iscool::profile::scoped_profiler::scoped_profiler(const std::string& name)
   : _profiler(name)

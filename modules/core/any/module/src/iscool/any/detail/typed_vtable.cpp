@@ -13,9 +13,9 @@
   See the License for the specific language governing permissions and
   limitations under the License.
 */
-#include "iscool/any/detail/typed_vtable.h"
+#include <iscool/any/detail/typed_vtable.hpp>
 
-#include "iscool/any/any.h"
+#include <iscool/any/any.hpp>
 
 void iscool::any::detail::typed_vtable<void>::clear(any& that)
 {}

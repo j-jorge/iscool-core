@@ -13,10 +13,10 @@
   See the License for the specific language governing permissions and
   limitations under the License.
 */
-#include "iscool/log/detail/prettify.h"
-#include "iscool/log/nature/error.h"
-#include "iscool/log/nature/nature.h"
-#include "iscool/log/nature/warning.h"
+#include <iscool/log/detail/prettify.hpp>
+#include <iscool/log/nature/error.hpp>
+#include <iscool/log/nature/nature.hpp>
+#include <iscool/log/nature/warning.hpp>
 
 #include <regex>
 

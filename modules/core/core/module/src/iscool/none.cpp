@@ -13,6 +13,6 @@
   See the License for the specific language governing permissions and
   limitations under the License.
 */
-#include "iscool/none.h"
+#include <iscool/none.hpp>
 
 const iscool::none_t iscool::none((iscool::none_t::init_tag()));

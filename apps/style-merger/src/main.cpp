@@ -13,11 +13,11 @@
   See the License for the specific language governing permissions and
   limitations under the License.
 */
-#include "iscool/files/default_file_system_delegates.h"
-#include "iscool/files/setup.h"
-#include "iscool/style/json/from_declaration.h"
-#include "iscool/style/loader.h"
-#include "iscool/style/setup.h"
+#include <iscool/files/default_file_system_delegates.hpp>
+#include <iscool/files/setup.hpp>
+#include <iscool/style/json/from_declaration.hpp>
+#include <iscool/style/loader.hpp>
+#include <iscool/style/setup.hpp>
 
 #include <json/writer.h>
 

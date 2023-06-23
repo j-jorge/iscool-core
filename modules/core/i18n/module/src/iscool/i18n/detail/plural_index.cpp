@@ -13,6 +13,6 @@
   See the License for the specific language governing permissions and
   limitations under the License.
 */
-#include "iscool/i18n/detail/plural_index.h"
+#include <iscool/i18n/detail/plural_index.hpp>
 
 iscool::i18n::detail::plural_index_function iscool::i18n::detail::plural_index;

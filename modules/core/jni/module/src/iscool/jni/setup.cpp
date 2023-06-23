@@ -13,9 +13,9 @@
   See the License for the specific language governing permissions and
   limitations under the License.
 */
-#include "iscool/jni/setup.h"
+#include <iscool/jni/setup.hpp>
 
-#include "iscool/jni/detail/get_jni_env.h"
+#include <iscool/jni/detail/get_jni_env.hpp>
 
 void iscool::jni::initialize(environment_delegate delegate)
 {

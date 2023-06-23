@@ -13,7 +13,7 @@
   See the License for the specific language governing permissions and
   limitations under the License.
 */
-#include "iscool/meta/member_constant_equality.h"
+#include <iscool/meta/member_constant_equality.hpp>
 
 #include "gtest/gtest.h"
 

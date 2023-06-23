@@ -13,7 +13,7 @@
   See the License for the specific language governing permissions and
   limitations under the License.
 */
-#include "iscool/collections/binary_search.h"
+#include <iscool/collections/binary_search.hpp>
 
 #include <gtest/gtest.h>
 

@@ -13,20 +13,20 @@
   See the License for the specific language governing permissions and
   limitations under the License.
 */
-#include "iscool/jni/detail/log_delegates.h"
+#include <iscool/jni/detail/log_delegates.hpp>
 
-#include "iscool/jni/detail/native_call.h"
-#include "iscool/jni/get_static_method.h"
-#include "iscool/jni/native_callback_lifespan.h"
-#include "iscool/jni/register_native_callback.h"
-#include "iscool/jni/static_method_void.h"
+#include <iscool/jni/detail/native_call.hpp>
+#include <iscool/jni/get_static_method.hpp>
+#include <iscool/jni/native_callback_lifespan.hpp>
+#include <iscool/jni/register_native_callback.hpp>
+#include <iscool/jni/static_method_void.hpp>
 
-#include "iscool/log/log.h"
-#include "iscool/log/nature/debug.h"
-#include "iscool/log/nature/error.h"
-#include "iscool/log/nature/info.h"
-#include "iscool/log/nature/nature.h"
-#include "iscool/log/nature/warning.h"
+#include <iscool/log/log.hpp>
+#include <iscool/log/nature/debug.hpp>
+#include <iscool/log/nature/error.hpp>
+#include <iscool/log/nature/info.hpp>
+#include <iscool/log/nature/nature.hpp>
+#include <iscool/log/nature/warning.hpp>
 
 namespace iscool
 {

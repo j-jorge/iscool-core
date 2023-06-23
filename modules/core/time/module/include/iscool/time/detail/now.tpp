@@ -16,7 +16,7 @@
 #ifndef ISCOOL_TIME_DETAIL_NOW_TPP
 #define ISCOOL_TIME_DETAIL_NOW_TPP
 
-#include "iscool/time/detail/time_source.h"
+#include <iscool/time/detail/time_source.hpp>
 
 template <typename Duration>
 Duration iscool::time::now()

@@ -13,8 +13,8 @@
   See the License for the specific language governing permissions and
   limitations under the License.
 */
-#include "iscool/net/byte_array_serialization/byte_array_serialization.h"
-#include "iscool/net/byte_array_serialization/byte_array_tuple_serialization.h"
+#include <iscool/net/byte_array_serialization/byte_array_serialization.hpp>
+#include <iscool/net/byte_array_serialization/byte_array_tuple_serialization.hpp>
 
 template <iscool::net::message_type type_code, typename... fields_types>
 iscool::net::message_type

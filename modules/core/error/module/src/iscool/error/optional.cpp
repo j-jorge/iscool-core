@@ -13,9 +13,9 @@
   See the License for the specific language governing permissions and
   limitations under the License.
 */
-#include "iscool/error/synopsis.h"
+#include <iscool/error/synopsis.hpp>
 
-#include "iscool/optional.h"
-#include "iscool/optional.impl.tpp"
+#include <iscool/optional.hpp>
+#include <iscool/optional.impl.tpp>
 
 template class iscool::optional<iscool::error::synopsis>;

@@ -13,9 +13,9 @@
   See the License for the specific language governing permissions and
   limitations under the License.
 */
-#include "iscool/time/setup.h"
+#include <iscool/time/setup.hpp>
 
-#include "iscool/time/detail/time_source.h"
+#include <iscool/time/detail/time_source.hpp>
 
 #include <cassert>
 

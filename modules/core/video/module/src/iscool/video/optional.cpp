@@ -13,9 +13,9 @@
   See the License for the specific language governing permissions and
   limitations under the License.
 */
-#include "iscool/video/video_info.h"
+#include <iscool/video/video_info.hpp>
 
-#include "iscool/optional.h"
-#include "iscool/optional.impl.tpp"
+#include <iscool/optional.hpp>
+#include <iscool/optional.impl.tpp>
 
 template class iscool::optional<iscool::video::video_info>;

@@ -13,7 +13,7 @@
   See the License for the specific language governing permissions and
   limitations under the License.
 */
-#include "iscool/meta/contains.h"
+#include <iscool/meta/contains.hpp>
 
 #include "gtest/gtest.h"
 

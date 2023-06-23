@@ -13,10 +13,10 @@
   See the License for the specific language governing permissions and
   limitations under the License.
 */
-#include "iscool/signals/signal.h"
+#include <iscool/signals/signal.hpp>
 
-#include "iscool/signals/scoped_connection.h"
-#include "iscool/signals/signal.impl.tpp"
+#include <iscool/signals/scoped_connection.hpp>
+#include <iscool/signals/signal.impl.tpp>
 
 #include <gtest/gtest.h>
 

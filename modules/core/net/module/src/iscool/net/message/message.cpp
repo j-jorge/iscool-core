@@ -13,7 +13,7 @@
   See the License for the specific language governing permissions and
   limitations under the License.
 */
-#include "iscool/net/message/message.h"
+#include <iscool/net/message/message.hpp>
 
 iscool::net::message::message() = default;
 

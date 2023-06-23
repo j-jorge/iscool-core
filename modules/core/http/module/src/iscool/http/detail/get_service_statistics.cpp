@@ -13,9 +13,9 @@
   See the License for the specific language governing permissions and
   limitations under the License.
 */
-#include "iscool/http/detail/get_service_statistics.h"
+#include <iscool/http/detail/get_service_statistics.hpp>
 
-#include "iscool/http/detail/service_statistics.h"
+#include <iscool/http/detail/service_statistics.hpp>
 
 iscool::http::detail::service_statistics&
 iscool::http::detail::get_service_statistics()

@@ -16,11 +16,11 @@
 #ifndef ISCOOL_PREFERENCES_DETAIL_GET_GLOBAL_PROPERTY_TPP
 #define ISCOOL_PREFERENCES_DETAIL_GET_GLOBAL_PROPERTY_TPP
 
-#include "iscool/preferences/detail/global_properties.h"
-#include "iscool/preferences/log_context.h"
+#include <iscool/preferences/detail/global_properties.hpp>
+#include <iscool/preferences/log_context.hpp>
 
-#include "iscool/log/causeless_log.h"
-#include "iscool/log/nature/error.h"
+#include <iscool/log/causeless_log.hpp>
+#include <iscool/log/nature/error.hpp>
 
 #include <boost/lexical_cast.hpp>
 

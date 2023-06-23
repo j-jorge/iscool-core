@@ -13,17 +13,17 @@
   See the License for the specific language governing permissions and
   limitations under the License.
 */
-#include "iscool/log/add_file_sink.h"
+#include <iscool/log/add_file_sink.hpp>
 
-#include "iscool/log/context.h"
-#include "iscool/log/detail/get_message_dispatcher.h"
-#include "iscool/log/detail/logger_thread.h"
-#include "iscool/log/detail/message_dispatcher.h"
-#include "iscool/log/nature/error.h"
-#include "iscool/log/nature/nature.h"
+#include <iscool/log/context.hpp>
+#include <iscool/log/detail/get_message_dispatcher.hpp>
+#include <iscool/log/detail/logger_thread.hpp>
+#include <iscool/log/detail/message_dispatcher.hpp>
+#include <iscool/log/nature/error.hpp>
+#include <iscool/log/nature/nature.hpp>
 
-#include "iscool/error/synopsis.h"
-#include "iscool/strings/format.h"
+#include <iscool/error/synopsis.hpp>
+#include <iscool/strings/format.hpp>
 
 #include <fstream>
 #include <memory>

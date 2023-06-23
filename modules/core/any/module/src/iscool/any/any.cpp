@@ -13,10 +13,10 @@
   See the License for the specific language governing permissions and
   limitations under the License.
 */
-#include "iscool/any/any.h"
+#include <iscool/any/any.hpp>
 
-#include "iscool/any/detail/get_vtable.h"
-#include "iscool/any/detail/vtable.h"
+#include <iscool/any/detail/get_vtable.hpp>
+#include <iscool/any/detail/vtable.hpp>
 
 iscool::any::any::any()
   : _value(nullptr)

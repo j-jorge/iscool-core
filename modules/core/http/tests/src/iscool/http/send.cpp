@@ -13,12 +13,12 @@
   See the License for the specific language governing permissions and
   limitations under the License.
 */
-#include "iscool/http/send.h"
-#include "iscool/http/request.h"
-#include "iscool/http/setup.h"
+#include <iscool/http/request.hpp>
+#include <iscool/http/send.hpp>
+#include <iscool/http/setup.hpp>
 
-#include "iscool/none.h"
-#include "iscool/optional.h"
+#include <iscool/none.hpp>
+#include <iscool/optional.hpp>
 
 #include "gtest/gtest.h"
 

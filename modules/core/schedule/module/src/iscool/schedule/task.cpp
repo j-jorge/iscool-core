@@ -13,10 +13,10 @@
   See the License for the specific language governing permissions and
   limitations under the License.
 */
-#include "iscool/schedule/task.h"
+#include <iscool/schedule/task.hpp>
 
-#include "iscool/signals/implement_signal.h"
-#include "iscool/strings/format.h"
+#include <iscool/signals/implement_signal.hpp>
+#include <iscool/strings/format.hpp>
 
 #include <cassert>
 

@@ -13,13 +13,13 @@
   See the License for the specific language governing permissions and
   limitations under the License.
 */
-#include "iscool/http/mockup.h"
+#include <iscool/http/mockup.hpp>
 
-#include "iscool/files/get_full_path.h"
-#include "iscool/files/read_file.h"
-#include "iscool/json/from_file.h"
-#include "iscool/json/is_member.h"
-#include "iscool/none.h"
+#include <iscool/files/get_full_path.hpp>
+#include <iscool/files/read_file.hpp>
+#include <iscool/json/from_file.hpp>
+#include <iscool/json/is_member.hpp>
+#include <iscool/none.hpp>
 
 #include <boost/algorithm/string/classification.hpp>
 #include <boost/algorithm/string/split.hpp>

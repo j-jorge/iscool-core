@@ -16,7 +16,7 @@
 #ifndef ISCOOL_JSON_IS_OF_TYPE_TPP
 #define ISCOOL_JSON_IS_OF_TYPE_TPP
 
-#include "iscool/json/detail/cast_fwd.h"
+#include <iscool/json/detail/cast_fwd.hpp>
 
 template <typename T>
 bool iscool::json::is_of_type(const Json::Value& value)

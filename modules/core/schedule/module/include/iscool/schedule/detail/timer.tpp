@@ -16,7 +16,7 @@
 #ifndef ISCOOL_SCHEDULE_TIMER_TPP
 #define ISCOOL_SCHEDULE_TIMER_TPP
 
-#include "iscool/time/now.h"
+#include <iscool/time/now.hpp>
 
 template <typename Duration>
 Duration iscool::schedule::timer::get_duration() const

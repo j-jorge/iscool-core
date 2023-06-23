@@ -14,7 +14,7 @@
   See the License for the specific language governing permissions and
   limitations under the License.
 */
-#include "iscool/ios/std_to_nsstring.h"
+#include <iscool/ios/std_to_nsstring.hpp>
 
 NSString* iscool::ios::std_to_nsstring( const std::string& s )
 {

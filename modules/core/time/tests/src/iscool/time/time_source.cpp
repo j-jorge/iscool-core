@@ -13,8 +13,8 @@
   See the License for the specific language governing permissions and
   limitations under the License.
 */
-#include "iscool/time/now.h"
-#include "iscool/time/setup.h"
+#include <iscool/time/now.hpp>
+#include <iscool/time/setup.hpp>
 
 #include <gtest/gtest.h>
 

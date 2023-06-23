@@ -16,8 +16,8 @@
 #ifndef ISCOOL_JNI_DETAIL_ALLOC_H
 #define ISCOOL_JNI_DETAIL_ALLOC_H
 
-#include "iscool/jni/detail/get_method_argument.h"
-#include "iscool/jni/detail/get_method_info.h"
+#include <iscool/jni/detail/get_method_argument.hpp>
+#include <iscool/jni/detail/get_method_info.hpp>
 
 template <typename... Arg>
 iscool::jni::java_ptr<jobject> iscool::jni::alloc(const char* class_name,

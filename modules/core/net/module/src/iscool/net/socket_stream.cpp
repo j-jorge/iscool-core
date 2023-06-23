@@ -13,10 +13,10 @@
   See the License for the specific language governing permissions and
   limitations under the License.
 */
-#include "iscool/net/socket_stream.h"
+#include <iscool/net/socket_stream.hpp>
 
-#include "iscool/schedule/delayed_call.h"
-#include "iscool/signals/implement_signal.h"
+#include <iscool/schedule/delayed_call.hpp>
+#include <iscool/signals/implement_signal.hpp>
 
 IMPLEMENT_SIGNAL(iscool::net::socket_stream, received, _received);
 

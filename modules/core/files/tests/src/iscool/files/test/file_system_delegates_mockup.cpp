@@ -13,7 +13,7 @@
   See the License for the specific language governing permissions and
   limitations under the License.
 */
-#include "iscool/files/test/file_system_delegates_mockup.h"
+#include <iscool/files/test/file_system_delegates_mockup.hpp>
 
 #include <filesystem>
 

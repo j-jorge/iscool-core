@@ -13,11 +13,11 @@
   See the License for the specific language governing permissions and
   limitations under the License.
 */
-#include "iscool/schedule/delayed_call.h"
-#include "iscool/schedule/manual_scheduler.h"
-#include "iscool/schedule/setup.h"
+#include <iscool/schedule/delayed_call.hpp>
+#include <iscool/schedule/manual_scheduler.hpp>
+#include <iscool/schedule/setup.hpp>
 
-#include "iscool/optional.h"
+#include <iscool/optional.hpp>
 
 #include <thread>
 #include <unistd.h>

@@ -13,8 +13,8 @@
   See the License for the specific language governing permissions and
   limitations under the License.
 */
-#include "iscool/jni/detail/native_call.h"
-#include "iscool/jni/detail/native_call_manager.h"
+#include <iscool/jni/detail/native_call.hpp>
+#include <iscool/jni/detail/native_call_manager.hpp>
 
 template <typename... Args>
 jlong iscool::jni::register_native_callback(

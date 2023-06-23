@@ -16,7 +16,7 @@
 #ifndef ISCOOL_MEMORY_DYNAMIC_POOL_TPP
 #define ISCOOL_MEMORY_DYNAMIC_POOL_TPP
 
-#include "iscool/contract/verify.h"
+#include <iscool/contract/verify.hpp>
 
 #include <algorithm>
 #include <vector>

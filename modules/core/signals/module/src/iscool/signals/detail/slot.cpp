@@ -13,7 +13,7 @@
   See the License for the specific language governing permissions and
   limitations under the License.
 */
-#include "iscool/signals/detail/slot.h"
+#include <iscool/signals/detail/slot.hpp>
 
 template class std::shared_ptr<iscool::signals::detail::slot>;
 template class std::vector<std::shared_ptr<iscool::signals::detail::slot>>;

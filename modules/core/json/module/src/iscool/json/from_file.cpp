@@ -13,14 +13,14 @@
   See the License for the specific language governing permissions and
   limitations under the License.
 */
-#include "iscool/json/from_file.h"
+#include <iscool/json/from_file.hpp>
 
-#include "iscool/json/log_context.h"
+#include <iscool/json/log_context.hpp>
 
-#include "iscool/files/read_file.h"
-#include "iscool/json/parse_stream.h"
-#include "iscool/log/causeless_log.h"
-#include "iscool/log/nature/error.h"
+#include <iscool/files/read_file.hpp>
+#include <iscool/json/parse_stream.hpp>
+#include <iscool/log/causeless_log.hpp>
+#include <iscool/log/nature/error.hpp>
 
 Json::Value iscool::json::from_file(const std::string& path)
 {

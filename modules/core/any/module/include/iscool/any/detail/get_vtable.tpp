@@ -16,8 +16,8 @@
 #ifndef ISCOOL_ANY_DETAIL_GET_VTABLE_TPP
 #define ISCOOL_ANY_DETAIL_GET_VTABLE_TPP
 
-#include "iscool/any/detail/typed_vtable.h"
-#include "iscool/any/detail/vtable.h"
+#include <iscool/any/detail/typed_vtable.hpp>
+#include <iscool/any/detail/vtable.hpp>
 
 #include <typeinfo>
 

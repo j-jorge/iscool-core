@@ -13,7 +13,7 @@
   See the License for the specific language governing permissions and
   limitations under the License.
 */
-#include "iscool/http/compose_url.h"
+#include <iscool/http/compose_url.hpp>
 
 #include <gtest/gtest.h>
 

@@ -13,9 +13,9 @@
   See the License for the specific language governing permissions and
   limitations under the License.
 */
-#include "iscool/json/parse_stream.h"
+#include <iscool/json/parse_stream.hpp>
 
-#include "iscool/json/parse_string.h"
+#include <iscool/json/parse_string.hpp>
 
 #include <sstream>
 

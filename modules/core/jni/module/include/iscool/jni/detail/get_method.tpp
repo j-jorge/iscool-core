@@ -16,7 +16,7 @@
 #ifndef ISCOOL_JNI_GET_METHOD_TPP
 #define ISCOOL_JNI_GET_METHOD_TPP
 
-#include "iscool/jni/detail/get_method_info.h"
+#include <iscool/jni/detail/get_method_info.hpp>
 
 template <typename R>
 iscool::jni::method<R> iscool::jni::get_method(const char* class_name,

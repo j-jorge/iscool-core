@@ -13,12 +13,12 @@
   See the License for the specific language governing permissions and
   limitations under the License.
 */
-#include "iscool/system/capture_screen.h"
+#include <iscool/system/capture_screen.hpp>
 
-#include "iscool/system/detail/capture_screen_delegate.h"
-#include "iscool/system/detail/capture_screen_signal_pool.h"
+#include <iscool/system/detail/capture_screen_delegate.hpp>
+#include <iscool/system/detail/capture_screen_signal_pool.hpp>
 
-#include "iscool/signals/signal.impl.tpp"
+#include <iscool/signals/signal.impl.tpp>
 
 #include <cassert>
 

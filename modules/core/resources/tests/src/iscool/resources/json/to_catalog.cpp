@@ -13,14 +13,14 @@
   See the License for the specific language governing permissions and
   limitations under the License.
 */
-#include "iscool/resources/json/to_catalog.h"
+#include <iscool/resources/json/to_catalog.hpp>
 
-#include "iscool/files/setup.h"
-#include "iscool/json/bad_cast.h"
-#include "iscool/json/parse_string.h"
+#include <iscool/files/setup.hpp>
+#include <iscool/json/bad_cast.hpp>
+#include <iscool/json/parse_string.hpp>
 
-#include "iscool/files/test/file_system_delegates_mockup.h"
-#include "iscool/test/equal_collections.h"
+#include <iscool/files/test/file_system_delegates_mockup.hpp>
+#include <iscool/test/equal_collections.hpp>
 
 #include "gtest/gtest.h"
 

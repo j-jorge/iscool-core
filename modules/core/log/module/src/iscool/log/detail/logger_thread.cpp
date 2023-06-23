@@ -13,7 +13,7 @@
   See the License for the specific language governing permissions and
   limitations under the License.
 */
-#include "iscool/log/detail/logger_thread.h"
+#include <iscool/log/detail/logger_thread.hpp>
 
 #include <condition_variable>
 #include <mutex>

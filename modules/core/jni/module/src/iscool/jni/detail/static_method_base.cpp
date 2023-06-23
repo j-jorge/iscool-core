@@ -13,7 +13,7 @@
   See the License for the specific language governing permissions and
   limitations under the License.
 */
-#include "iscool/jni/detail/static_method_base.h"
+#include <iscool/jni/detail/static_method_base.hpp>
 
 iscool::jni::detail::static_method_base::static_method_base(
     JNIEnv* env, const java_ptr<jclass>& class_id, jmethodID method_id)

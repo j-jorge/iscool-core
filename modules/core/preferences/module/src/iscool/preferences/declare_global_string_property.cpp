@@ -13,7 +13,7 @@
   See the License for the specific language governing permissions and
   limitations under the License.
 */
-#include "iscool/preferences/declare_global_string_property.h"
+#include <iscool/preferences/declare_global_string_property.hpp>
 
 iscool::preferences::string_property
 iscool::preferences::declare_global_string_property(std::string&& name,

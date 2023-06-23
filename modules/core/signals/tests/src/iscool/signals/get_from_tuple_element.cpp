@@ -13,8 +13,8 @@
   See the License for the specific language governing permissions and
   limitations under the License.
 */
-#include "iscool/signals/get_from_tuple_element.h"
-#include "iscool/signals/signal.impl.tpp"
+#include <iscool/signals/get_from_tuple_element.hpp>
+#include <iscool/signals/signal.impl.tpp>
 
 #include <string>
 

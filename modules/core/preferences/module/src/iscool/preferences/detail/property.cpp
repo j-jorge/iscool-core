@@ -13,9 +13,9 @@
   See the License for the specific language governing permissions and
   limitations under the License.
 */
-#include "iscool/preferences/detail/property.h"
+#include <iscool/preferences/detail/property.hpp>
 
-#include "iscool/preferences/detail/property.impl.tpp"
+#include <iscool/preferences/detail/property.impl.tpp>
 
 template class iscool::preferences::detail::property<bool>;
 template class iscool::preferences::detail::property<float>;

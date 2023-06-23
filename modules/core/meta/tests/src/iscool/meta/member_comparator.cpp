@@ -13,7 +13,7 @@
   See the License for the specific language governing permissions and
   limitations under the License.
 */
-#include "iscool/meta/member_comparator.h"
+#include <iscool/meta/member_comparator.hpp>
 
 #include "gtest/gtest.h"
 

@@ -13,14 +13,14 @@
   See the License for the specific language governing permissions and
   limitations under the License.
 */
-#include "iscool/jni/cast_std_string.h"
+#include <iscool/jni/cast_std_string.hpp>
 
-#include "iscool/jni/bad_cast.h"
-#include "iscool/jni/cast.impl.tpp"
-#include "iscool/jni/get_method.h"
-#include "iscool/jni/implement_cast.h"
-#include "iscool/jni/method_jstring.h"
-#include "iscool/jni/to_string.h"
+#include <iscool/jni/bad_cast.hpp>
+#include <iscool/jni/cast.impl.tpp>
+#include <iscool/jni/get_method.hpp>
+#include <iscool/jni/implement_cast.hpp>
+#include <iscool/jni/method_jstring.hpp>
+#include <iscool/jni/to_string.hpp>
 
 IMPLEMENT_JNI_CAST(std::string);
 

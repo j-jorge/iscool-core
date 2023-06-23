@@ -13,10 +13,10 @@
   See the License for the specific language governing permissions and
   limitations under the License.
 */
-#include "iscool/log/detail/print_to_console.h"
+#include <iscool/log/detail/print_to_console.hpp>
 
-#include "iscool/log/context.h"
-#include "iscool/log/nature/nature.h"
+#include <iscool/log/context.hpp>
+#include <iscool/log/nature/nature.hpp>
 
 #if defined __APPLE__
   #include "TargetConditionals.h"
@@ -24,10 +24,10 @@
 
 #if defined __ANDROID__
 
-  #include "iscool/log/nature/debug.h"
-  #include "iscool/log/nature/error.h"
-  #include "iscool/log/nature/info.h"
-  #include "iscool/log/nature/warning.h"
+  #include <iscool/log/nature/debug.hpp>
+  #include <iscool/log/nature/error.hpp>
+  #include <iscool/log/nature/info.hpp>
+  #include <iscool/log/nature/warning.hpp>
 
   #include <android/log.h>
 
@@ -79,7 +79,7 @@ void iscool::log::detail::print_to_console(const nature::nature& nature,
 
 #elif ISCOOL_LOG_PRETTY_PRINT != 0
 
-  #include "iscool/log/detail/prettify.h"
+  #include <iscool/log/detail/prettify.hpp>
 
   #include <iostream>
 

@@ -13,13 +13,13 @@
   See the License for the specific language governing permissions and
   limitations under the License.
 */
-#include "iscool/style/declaration.h"
+#include <iscool/style/declaration.hpp>
 
-#include "iscool/style/detail/get_properties_pool.h"
-#include "iscool/style/detail/shared_properties.h"
+#include <iscool/style/detail/get_properties_pool.hpp>
+#include <iscool/style/detail/shared_properties.hpp>
 
-#include "iscool/none.h"
-#include "iscool/optional.impl.tpp"
+#include <iscool/none.hpp>
+#include <iscool/optional.impl.tpp>
 
 namespace iscool
 {

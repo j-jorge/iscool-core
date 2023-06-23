@@ -13,7 +13,7 @@
   See the License for the specific language governing permissions and
   limitations under the License.
 */
-#include "iscool/meta/function_from_signature.h"
+#include <iscool/meta/function_from_signature.hpp>
 
 #include "gtest/gtest.h"
 

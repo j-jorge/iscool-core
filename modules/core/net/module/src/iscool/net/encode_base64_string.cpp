@@ -13,9 +13,9 @@
   See the License for the specific language governing permissions and
   limitations under the License.
 */
-#include "iscool/net/encode_base64_string.h"
+#include <iscool/net/encode_base64_string.hpp>
 
-#include "iscool/net/detail/base64_chars.h"
+#include <iscool/net/detail/base64_chars.hpp>
 
 namespace iscool
 {

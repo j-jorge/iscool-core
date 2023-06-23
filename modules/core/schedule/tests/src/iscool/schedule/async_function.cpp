@@ -13,12 +13,12 @@
   See the License for the specific language governing permissions and
   limitations under the License.
 */
-#include "iscool/schedule/async_function.h"
-#include "iscool/schedule/manual_scheduler.h"
-#include "iscool/schedule/setup.h"
+#include <iscool/schedule/async_function.hpp>
+#include <iscool/schedule/manual_scheduler.hpp>
+#include <iscool/schedule/setup.hpp>
 
-#include "iscool/signals/signal.h"
-#include "iscool/signals/signal.impl.tpp"
+#include <iscool/signals/signal.hpp>
+#include <iscool/signals/signal.impl.tpp>
 
 #include "gtest/gtest.h"
 

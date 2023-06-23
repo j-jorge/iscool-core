@@ -13,7 +13,7 @@
   See the License for the specific language governing permissions and
   limitations under the License.
 */
-#include "iscool/random/rand.h"
+#include <iscool/random/rand.hpp>
 
 #include <chrono>
 

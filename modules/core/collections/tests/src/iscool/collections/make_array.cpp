@@ -13,7 +13,7 @@
   See the License for the specific language governing permissions and
   limitations under the License.
 */
-#include "iscool/collections/make_array.h"
+#include <iscool/collections/make_array.hpp>
 
 #include <gtest/gtest.h>
 

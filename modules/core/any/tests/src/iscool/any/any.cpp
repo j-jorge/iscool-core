@@ -13,10 +13,10 @@
   See the License for the specific language governing permissions and
   limitations under the License.
 */
-#include "iscool/any/any.h"
-#include "iscool/any/any.impl.tpp"
-#include "iscool/any/declare_visitor_interface.h"
-#include "iscool/any/implement_visitor_interface.h"
+#include <iscool/any/any.hpp>
+#include <iscool/any/any.impl.tpp>
+#include <iscool/any/declare_visitor_interface.hpp>
+#include <iscool/any/implement_visitor_interface.hpp>
 
 #include <gtest/gtest.h>
 

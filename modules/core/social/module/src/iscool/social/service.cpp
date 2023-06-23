@@ -13,7 +13,7 @@
   See the License for the specific language governing permissions and
   limitations under the License.
 */
-#include "iscool/social/service.h"
+#include <iscool/social/service.hpp>
 
 void iscool::social::service::share_message(const std::string& message)
 {

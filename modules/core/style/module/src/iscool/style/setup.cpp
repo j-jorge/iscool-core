@@ -13,12 +13,12 @@
   See the License for the specific language governing permissions and
   limitations under the License.
 */
-#include "iscool/style/setup.h"
+#include <iscool/style/setup.hpp>
 
-#include "iscool/style/detail/get_properties_pool.h"
-#include "iscool/style/detail/get_style_cache.h"
-#include "iscool/style/detail/loader_merge_path_list.h"
-#include "iscool/style/detail/shared_properties.h"
+#include <iscool/style/detail/get_properties_pool.hpp>
+#include <iscool/style/detail/get_style_cache.hpp>
+#include <iscool/style/detail/loader_merge_path_list.hpp>
+#include <iscool/style/detail/shared_properties.hpp>
 
 #include <cassert>
 

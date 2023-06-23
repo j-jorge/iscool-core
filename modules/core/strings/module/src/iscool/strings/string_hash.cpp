@@ -13,9 +13,9 @@
   See the License for the specific language governing permissions and
   limitations under the License.
 */
-#include "iscool/strings/string_hash.h"
+#include <iscool/strings/string_hash.hpp>
 
-#include "iscool/strings/dynamic_hash.h"
+#include <iscool/strings/dynamic_hash.hpp>
 
 #ifdef ISCOOL_ENABLE_DEBUG_STRING_HASH
   #include <cassert>

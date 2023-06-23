@@ -13,7 +13,7 @@
   See the License for the specific language governing permissions and
   limitations under the License.
 */
-#include "iscool/net/detail/base64_chars.h"
+#include <iscool/net/detail/base64_chars.hpp>
 
 namespace iscool
 {

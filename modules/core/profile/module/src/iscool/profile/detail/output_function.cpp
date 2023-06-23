@@ -13,6 +13,6 @@
   See the License for the specific language governing permissions and
   limitations under the License.
 */
-#include "iscool/profile/detail/output_function.h"
+#include <iscool/profile/detail/output_function.hpp>
 
 iscool::profile::output_delegate iscool::profile::detail::output_function;

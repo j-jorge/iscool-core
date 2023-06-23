@@ -13,7 +13,7 @@
   See the License for the specific language governing permissions and
   limitations under the License.
 */
-#include "iscool/i18n/compact_number_string.h"
+#include <iscool/i18n/compact_number_string.hpp>
 
 #include "gtest/gtest.h"
 

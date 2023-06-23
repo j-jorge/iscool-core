@@ -13,10 +13,10 @@
   See the License for the specific language governing permissions and
   limitations under the License.
 */
-#include "iscool/net/decode_base64_string.h"
+#include <iscool/net/decode_base64_string.hpp>
 
-#include "iscool/net/byte_array_test_helper.h"
 #include "gtest/gtest.h"
+#include <iscool/net/byte_array_test_helper.hpp>
 
 TEST(decode_base64_string, empty)
 {

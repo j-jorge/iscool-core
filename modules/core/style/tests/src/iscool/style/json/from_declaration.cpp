@@ -15,16 +15,16 @@
 */
 #include "gtest/gtest.h"
 
-#include "iscool/style/declaration.h"
-#include "iscool/style/json/from_declaration.h"
+#include <iscool/style/declaration.hpp>
+#include <iscool/style/json/from_declaration.hpp>
 
-#include "iscool/json/cast_bool.h"
-#include "iscool/json/cast_float.h"
-#include "iscool/json/cast_string.h"
-#include "iscool/json/is_member.h"
-#include "iscool/json/is_of_type_bool.h"
-#include "iscool/json/is_of_type_float.h"
-#include "iscool/json/is_of_type_string.h"
+#include <iscool/json/cast_bool.hpp>
+#include <iscool/json/cast_float.hpp>
+#include <iscool/json/cast_string.hpp>
+#include <iscool/json/is_member.hpp>
+#include <iscool/json/is_of_type_bool.hpp>
+#include <iscool/json/is_of_type_float.hpp>
+#include <iscool/json/is_of_type_string.hpp>
 
 class iscool_style_from_declaration_json_test : public ::testing::Test
 {

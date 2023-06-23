@@ -13,7 +13,7 @@
   See the License for the specific language governing permissions and
   limitations under the License.
 */
-#include "iscool/schedule/detail/call_later.h"
+#include <iscool/schedule/detail/call_later.hpp>
 
 iscool::schedule::delayed_call_delegate iscool::schedule::detail::call_later;
 

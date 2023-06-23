@@ -13,7 +13,7 @@
   See the License for the specific language governing permissions and
   limitations under the License.
 */
-#include "iscool/style/detail/merge_declarations.h"
+#include <iscool/style/detail/merge_declarations.hpp>
 
 iscool::style::declaration iscool::style::detail::merge_declarations(
     const std::vector<declaration>& declarations)

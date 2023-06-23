@@ -13,10 +13,10 @@
   See the License for the specific language governing permissions and
   limitations under the License.
 */
-#include "iscool/signals/shared_connection_set.h"
-#include "iscool/signals/signal.h"
+#include <iscool/signals/shared_connection_set.hpp>
+#include <iscool/signals/signal.hpp>
 
-#include "iscool/test/debug_crash.h"
+#include <iscool/test/debug_crash.hpp>
 
 #include <gtest/gtest.h>
 

@@ -13,7 +13,7 @@
   See the License for the specific language governing permissions and
   limitations under the License.
 */
-#include "iscool/log/detail/message_dispatcher.h"
+#include <iscool/log/detail/message_dispatcher.hpp>
 
 #include <cassert>
 

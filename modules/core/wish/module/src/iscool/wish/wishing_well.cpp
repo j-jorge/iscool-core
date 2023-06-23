@@ -13,7 +13,7 @@
   See the License for the specific language governing permissions and
   limitations under the License.
 */
-#include "iscool/wish/wishing_well.h"
+#include <iscool/wish/wishing_well.hpp>
 
 iscool::wish::wishing_well::wishing_well(genie& genie)
   : _genie(genie)

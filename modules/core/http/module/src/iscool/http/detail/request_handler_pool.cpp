@@ -13,7 +13,7 @@
   See the License for the specific language governing permissions and
   limitations under the License.
 */
-#include "iscool/http/detail/request_handler_pool.h"
+#include <iscool/http/detail/request_handler_pool.hpp>
 
 namespace iscool
 {

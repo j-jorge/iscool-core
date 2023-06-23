@@ -16,7 +16,7 @@
 #ifndef ISCOOL_SIGNALS_ONE_SHOT_SIGNAL_IMPL_TPP
 #define ISCOOL_SIGNALS_ONE_SHOT_SIGNAL_IMPL_TPP
 
-#include "iscool/signals/signal.impl.tpp"
+#include <iscool/signals/signal.impl.tpp>
 
 template <typename Signature>
 iscool::signals::connection

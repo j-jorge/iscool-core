@@ -13,13 +13,13 @@
   See the License for the specific language governing permissions and
   limitations under the License.
 */
-#include "iscool/error/synopsis.h"
-#include "iscool/log/causeless_log.h"
-#include "iscool/log/log_error.h"
-#include "iscool/log/message_delegates_registry.h"
-#include "iscool/log/nature/nature.h"
-#include "iscool/log/setup.h"
-#include "iscool/optional.h"
+#include <iscool/error/synopsis.hpp>
+#include <iscool/log/causeless_log.hpp>
+#include <iscool/log/log_error.hpp>
+#include <iscool/log/message_delegates_registry.hpp>
+#include <iscool/log/nature/nature.hpp>
+#include <iscool/log/setup.hpp>
+#include <iscool/optional.hpp>
 
 #include <gtest/gtest.h>
 

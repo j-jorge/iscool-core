@@ -16,9 +16,9 @@
 #ifndef ISCOOL_JNI_COLLECTION_TPP
 #define ISCOOL_JNI_COLLECTION_TPP
 
-#include "iscool/jni/get_method.h"
-#include "iscool/jni/method_jint.h"
-#include "iscool/jni/method_jobject.h"
+#include <iscool/jni/get_method.hpp>
+#include <iscool/jni/method_jint.hpp>
+#include <iscool/jni/method_jobject.hpp>
 
 template <typename T>
 iscool::jni::collection<T>::collection(jobject impl)

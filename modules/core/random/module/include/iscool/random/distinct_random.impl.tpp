@@ -16,7 +16,7 @@
 #ifndef ISCOOL_RANDOM_DETAIL_DISTINCT_RANDOM_IMPL_TPP
 #define ISCOOL_RANDOM_DETAIL_DISTINCT_RANDOM_IMPL_TPP
 
-#include "iscool/random/rand.h"
+#include <iscool/random/rand.hpp>
 
 template <typename T>
 std::vector<T> iscool::random::distinct_random(std::size_t count, T min, T max)

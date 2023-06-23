@@ -16,9 +16,9 @@
 #ifndef ISCOOL_JNI_ARRAY_LIST_TPP
 #define ISCOOL_JNI_ARRAY_LIST_TPP
 
-#include "iscool/jni/alloc.h"
-#include "iscool/jni/get_method.h"
-#include "iscool/jni/method_jboolean.h"
+#include <iscool/jni/alloc.hpp>
+#include <iscool/jni/get_method.hpp>
+#include <iscool/jni/method_jboolean.hpp>
 
 template <typename T>
 iscool::jni::array_list<T>::array_list()

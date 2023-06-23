@@ -13,7 +13,7 @@
   See the License for the specific language governing permissions and
   limitations under the License.
 */
-#include "iscool/jni/detail/native_callback.h"
+#include <iscool/jni/detail/native_callback.hpp>
 
 iscool::jni::detail::native_callback::native_callback(
     native_callback_lifespan lifespan)

@@ -16,9 +16,9 @@
 #ifndef ISCOOL_I18N_RELATIVE_PAST_DURATION_TPP
 #define ISCOOL_I18N_RELATIVE_PAST_DURATION_TPP
 
-#include "iscool/i18n/gettext.h"
-#include "iscool/time/days.h"
-#include "iscool/time/round.h"
+#include <iscool/i18n/gettext.hpp>
+#include <iscool/time/days.hpp>
+#include <iscool/time/round.hpp>
 
 #include <boost/format.hpp>
 

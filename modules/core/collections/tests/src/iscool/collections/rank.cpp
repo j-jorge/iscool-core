@@ -13,7 +13,7 @@
   See the License for the specific language governing permissions and
   limitations under the License.
 */
-#include "iscool/collections/rank.h"
+#include <iscool/collections/rank.hpp>
 
 #include <gtest/gtest.h>
 

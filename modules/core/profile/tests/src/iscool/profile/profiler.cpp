@@ -13,15 +13,15 @@
   See the License for the specific language governing permissions and
   limitations under the License.
 */
-#include "iscool/profile/profiler.h"
-#include "iscool/profile/setup.h"
+#include <iscool/profile/profiler.hpp>
+#include <iscool/profile/setup.hpp>
 
-#include "iscool/time/now.h"
+#include <iscool/time/now.hpp>
 
 #include <thread>
 
-#include "iscool/test/equal_collections.h"
-#include "iscool/test/no_crash.h"
+#include <iscool/test/equal_collections.hpp>
+#include <iscool/test/no_crash.hpp>
 
 TEST(iscool_profile, profiler_not_initialized)
 {

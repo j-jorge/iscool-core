@@ -13,8 +13,8 @@
   See the License for the specific language governing permissions and
   limitations under the License.
 */
-#include "iscool/signals/one_shot_signal.h"
-#include "iscool/signals/one_shot_signal.impl.tpp"
+#include <iscool/signals/one_shot_signal.hpp>
+#include <iscool/signals/one_shot_signal.impl.tpp>
 
 #include <gtest/gtest.h>
 

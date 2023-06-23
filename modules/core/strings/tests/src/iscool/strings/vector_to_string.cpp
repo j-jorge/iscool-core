@@ -13,7 +13,7 @@
   See the License for the specific language governing permissions and
   limitations under the License.
 */
-#include "iscool/strings/vector_to_string.h"
+#include <iscool/strings/vector_to_string.hpp>
 
 #include "gtest/gtest.h"
 

@@ -13,6 +13,6 @@
   See the License for the specific language governing permissions and
   limitations under the License.
 */
-#include "iscool/jni/detail/get_jni_env.h"
+#include <iscool/jni/detail/get_jni_env.hpp>
 
 iscool::jni::environment_delegate iscool::jni::detail::get_jni_env;

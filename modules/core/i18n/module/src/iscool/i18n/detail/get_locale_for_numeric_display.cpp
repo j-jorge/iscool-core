@@ -13,12 +13,12 @@
   See the License for the specific language governing permissions and
   limitations under the License.
 */
-#include "iscool/i18n/detail/get_locale_for_numeric_display.h"
+#include <iscool/i18n/detail/get_locale_for_numeric_display.hpp>
 
-#include "iscool/i18n/numeric_punctuation.h"
+#include <iscool/i18n/numeric_punctuation.hpp>
 
-#include "iscool/optional.h"
-#include "iscool/optional.impl.tpp"
+#include <iscool/optional.hpp>
+#include <iscool/optional.impl.tpp>
 
 namespace iscool
 {

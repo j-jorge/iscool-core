@@ -16,7 +16,7 @@
 #ifndef ISCOOL_STRINGS_STR_CONST_TPP
 #define ISCOOL_STRINGS_STR_CONST_TPP
 
-#include "iscool/strings/detail/hash_parameters.h"
+#include <iscool/strings/detail/hash_parameters.hpp>
 
 template <std::size_t N>
 constexpr iscool::strings::str_const::str_const(const char (&s)[N])

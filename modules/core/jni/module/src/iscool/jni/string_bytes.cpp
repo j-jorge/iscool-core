@@ -13,9 +13,9 @@
   See the License for the specific language governing permissions and
   limitations under the License.
 */
-#include "iscool/jni/string_bytes.h"
+#include <iscool/jni/string_bytes.hpp>
 
-#include "iscool/jni/detail/get_jni_env.h"
+#include <iscool/jni/detail/get_jni_env.hpp>
 
 iscool::jni::java_ptr<jbyteArray>
 iscool::jni::string_bytes(const std::string& str)

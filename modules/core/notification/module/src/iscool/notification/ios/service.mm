@@ -14,11 +14,11 @@
   See the License for the specific language governing permissions and
   limitations under the License.
 */
-#include "iscool/notification/ios/service.h"
+#include <iscool/notification/ios/service.hpp>
 
-#include "iscool/ios/std_to_nsstring.h"
-#include "iscool/log/log.h"
-#include "iscool/log/nature/error.h"
+#include <iscool/ios/std_to_nsstring.hpp>
+#include <iscool/log/log.hpp>
+#include <iscool/log/nature/error.hpp>
 
 #import <UIKit/UIApplication.h>
 #import <UIKit/UIUserNotificationSettings.h>

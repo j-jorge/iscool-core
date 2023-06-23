@@ -13,7 +13,7 @@
   See the License for the specific language governing permissions and
   limitations under the License.
 */
-#include "iscool/signals/shared_connection.h"
+#include <iscool/signals/shared_connection.hpp>
 
 iscool::signals::shared_connection::shared_connection()
   : _connection(nullptr)

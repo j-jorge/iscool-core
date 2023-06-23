@@ -14,9 +14,9 @@
   See the License for the specific language governing permissions and
   limitations under the License.
 */
-#include "iscool/system/application_id.h"
+#include <iscool/system/application_id.hpp>
 
-#include "iscool/ios/get_bundle_id.h"
+#include <iscool/ios/get_bundle_id.hpp>
 
 std::string iscool::system::get_application_id()
 {

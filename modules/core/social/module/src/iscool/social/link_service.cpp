@@ -13,7 +13,7 @@
   See the License for the specific language governing permissions and
   limitations under the License.
 */
-#include "iscool/social/link_service.h"
+#include <iscool/social/link_service.hpp>
 
 void iscool::social::link_service::open_in_facebook(const std::string& page)
 {

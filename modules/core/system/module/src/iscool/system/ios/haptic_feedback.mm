@@ -13,12 +13,12 @@
   See the License for the specific language governing permissions and
   limitations under the License.
 */
-#include "iscool/system/haptic_feedback.h"
+#include <iscool/system/haptic_feedback.hpp>
 
-#include "iscool/ios/get_device_model.h"
-#include "iscool/ios/system_version.h"
-#include "iscool/schedule/delayed_call.h"
-#include "iscool/system/haptic_feedback_notification.h"
+#include <iscool/ios/get_device_model.hpp>
+#include <iscool/ios/system_version.hpp>
+#include <iscool/schedule/delayed_call.hpp>
+#include <iscool/system/haptic_feedback_notification.hpp>
 
 #include <UIKit/UIKit.h>
 

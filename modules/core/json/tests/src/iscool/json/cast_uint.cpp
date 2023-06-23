@@ -13,9 +13,9 @@
   See the License for the specific language governing permissions and
   limitations under the License.
 */
-#include "iscool/json/cast_uint.h"
-#include "iscool/json/bad_cast.h"
-#include "iscool/json/is_of_type_uint.h"
+#include <iscool/json/bad_cast.hpp>
+#include <iscool/json/cast_uint.hpp>
+#include <iscool/json/is_of_type_uint.hpp>
 
 #include <json/value.h>
 

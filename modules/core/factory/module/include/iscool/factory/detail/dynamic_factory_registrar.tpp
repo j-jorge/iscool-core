@@ -16,7 +16,7 @@
 #ifndef ISCOOL_CORE_FACTORY_DYNAMIC_FACTORY_REGISTRAR_TPP
 #define ISCOOL_CORE_FACTORY_DYNAMIC_FACTORY_REGISTRAR_TPP
 
-#include "iscool/factory/dynamic_factory.h"
+#include <iscool/factory/dynamic_factory.hpp>
 
 #include <cassert>
 

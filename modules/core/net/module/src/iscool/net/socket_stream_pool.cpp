@@ -13,13 +13,13 @@
   See the License for the specific language governing permissions and
   limitations under the License.
 */
-#include "iscool/net/socket_stream_pool.h"
+#include <iscool/net/socket_stream_pool.hpp>
 
-#include "iscool/net/log_context.h"
+#include <iscool/net/log_context.hpp>
 
-#include "iscool/log/causeless_log.h"
-#include "iscool/log/nature/error.h"
-#include "iscool/net/socket_stream.h"
+#include <iscool/log/causeless_log.hpp>
+#include <iscool/log/nature/error.hpp>
+#include <iscool/net/socket_stream.hpp>
 
 #include <cassert>
 

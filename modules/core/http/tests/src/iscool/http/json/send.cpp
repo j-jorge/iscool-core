@@ -13,14 +13,14 @@
   See the License for the specific language governing permissions and
   limitations under the License.
 */
-#include "iscool/http/json/send.h"
-#include "iscool/http/request.h"
-#include "iscool/http/setup.h"
+#include <iscool/http/json/send.hpp>
+#include <iscool/http/request.hpp>
+#include <iscool/http/setup.hpp>
 
-#include "iscool/json/parse_string.h"
-#include "iscool/none.h"
-#include "iscool/optional.h"
-#include "iscool/optional.impl.tpp"
+#include <iscool/json/parse_string.hpp>
+#include <iscool/none.hpp>
+#include <iscool/optional.hpp>
+#include <iscool/optional.impl.tpp>
 
 #include <gtest/gtest.h>
 

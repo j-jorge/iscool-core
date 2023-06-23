@@ -13,9 +13,9 @@
   See the License for the specific language governing permissions and
   limitations under the License.
 */
-#include "iscool/social/detail/mockup_link_service.h"
+#include <iscool/social/detail/mockup_link_service.hpp>
 
-#include "iscool/log/console_log.h"
+#include <iscool/log/console_log.hpp>
 
 void iscool::social::detail::mockup_link_service::open_in_facebook(
     const std::string& page)

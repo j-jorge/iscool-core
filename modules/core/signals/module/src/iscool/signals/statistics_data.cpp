@@ -13,7 +13,7 @@
   See the License for the specific language governing permissions and
   limitations under the License.
 */
-#include "iscool/signals/statistics_data.h"
+#include <iscool/signals/statistics_data.hpp>
 
 iscool::signals::statistics_data::statistics_data(
     const std::string& signal_identifier, std::size_t slot_count)

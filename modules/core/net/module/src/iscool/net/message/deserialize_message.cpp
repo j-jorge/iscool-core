@@ -13,10 +13,10 @@
   See the License for the specific language governing permissions and
   limitations under the License.
 */
-#include "iscool/net/message/deserialize_message.h"
+#include <iscool/net/message/deserialize_message.hpp>
 
-#include "iscool/net/byte_array_reader.h"
-#include "iscool/net/detail/apply_xor.h"
+#include <iscool/net/byte_array_reader.hpp>
+#include <iscool/net/detail/apply_xor.hpp>
 
 #include <cassert>
 

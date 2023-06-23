@@ -16,9 +16,9 @@
 #ifndef ISCOOL_JNI_ITERATOR_TPP
 #define ISCOOL_JNI_ITERATOR_TPP
 
-#include "iscool/jni/get_method.h"
-#include "iscool/jni/method_java_ptr.h"
-#include "iscool/jni/method_jboolean.h"
+#include <iscool/jni/get_method.hpp>
+#include <iscool/jni/method_java_ptr.hpp>
+#include <iscool/jni/method_jboolean.hpp>
 
 template <typename T>
 iscool::jni::iterator<T>::iterator(jobject impl)

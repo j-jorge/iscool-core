@@ -13,13 +13,13 @@
   See the License for the specific language governing permissions and
   limitations under the License.
 */
-#include "iscool/jni/cast_jboolean.h"
+#include <iscool/jni/cast_jboolean.hpp>
 
-#include "iscool/jni/bad_cast.h"
-#include "iscool/jni/cast.impl.tpp"
-#include "iscool/jni/get_method.h"
-#include "iscool/jni/implement_cast.h"
-#include "iscool/jni/method_jboolean.h"
+#include <iscool/jni/bad_cast.hpp>
+#include <iscool/jni/cast.impl.tpp>
+#include <iscool/jni/get_method.hpp>
+#include <iscool/jni/implement_cast.hpp>
+#include <iscool/jni/method_jboolean.hpp>
 
 IMPLEMENT_JNI_CAST(jboolean);
 

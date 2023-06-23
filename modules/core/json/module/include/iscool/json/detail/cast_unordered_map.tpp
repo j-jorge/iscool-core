@@ -16,7 +16,7 @@
 #ifndef ISCOOL_JSON_DETAIL_CAST_UNORDERED_MAP_TPP
 #define ISCOOL_JSON_DETAIL_CAST_UNORDERED_MAP_TPP
 
-#include "iscool/json/bad_cast.h"
+#include <iscool/json/bad_cast.hpp>
 
 #include "json/value.h"
 

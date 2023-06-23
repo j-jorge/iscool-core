@@ -13,8 +13,8 @@
   See the License for the specific language governing permissions and
   limitations under the License.
 */
-#include "iscool/random/distinct_random.h"
-#include "iscool/random/distinct_random.impl.tpp"
+#include <iscool/random/distinct_random.hpp>
+#include <iscool/random/distinct_random.impl.tpp>
 
 #include <gtest/gtest.h>
 

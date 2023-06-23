@@ -15,9 +15,9 @@
 */
 #include <stdexcept>
 
-#include "iscool/net/endianness.h"
+#include <iscool/net/endianness.hpp>
 
-#include "iscool/meta/underlying_type.h"
+#include <iscool/meta/underlying_type.hpp>
 
 #include <algorithm>
 

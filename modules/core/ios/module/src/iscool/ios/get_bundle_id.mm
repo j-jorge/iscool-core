@@ -13,7 +13,7 @@
   See the License for the specific language governing permissions and
   limitations under the License.
 */
-#include "iscool/ios/get_bundle_id.h"
+#include <iscool/ios/get_bundle_id.hpp>
 
 #import <Foundation/NSBundle.h>
 

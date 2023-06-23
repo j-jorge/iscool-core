@@ -13,19 +13,19 @@
   See the License for the specific language governing permissions and
   limitations under the License.
 */
-#include "iscool/social/android/share_service.h"
+#include <iscool/social/android/share_service.hpp>
 
-#include "iscool/files/delete_file.h"
-#include "iscool/files/file_exists.h"
-#include "iscool/files/get_writable_path.h"
-#include "iscool/files/read_file.h"
-#include "iscool/jni/get_static_method.h"
-#include "iscool/jni/new_java_string.h"
-#include "iscool/jni/static_method_void.h"
-#include "iscool/jni/string_bytes.h"
+#include <iscool/files/delete_file.hpp>
+#include <iscool/files/file_exists.hpp>
+#include <iscool/files/get_writable_path.hpp>
+#include <iscool/files/read_file.hpp>
+#include <iscool/jni/get_static_method.hpp>
+#include <iscool/jni/new_java_string.hpp>
+#include <iscool/jni/static_method_void.hpp>
+#include <iscool/jni/string_bytes.hpp>
 
-#include "iscool/log/causeless_log.h"
-#include "iscool/log/nature/error.h"
+#include <iscool/log/causeless_log.hpp>
+#include <iscool/log/nature/error.hpp>
 
 #include <fstream>
 

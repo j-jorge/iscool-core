@@ -13,7 +13,7 @@
   See the License for the specific language governing permissions and
   limitations under the License.
 */
-#include "iscool/files/detail/system_delegates.h"
+#include <iscool/files/detail/system_delegates.hpp>
 
 const iscool::files::file_system_delegates*
     iscool::files::detail::system_delegates(nullptr);

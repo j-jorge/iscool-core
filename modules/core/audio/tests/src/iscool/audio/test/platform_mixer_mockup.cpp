@@ -13,7 +13,7 @@
   See the License for the specific language governing permissions and
   limitations under the License.
 */
-#include "iscool/audio/test/platform_mixer_mockup.h"
+#include <iscool/audio/test/platform_mixer_mockup.hpp>
 
 void iscool::audio::tests::platform_mixer_mockup::set_effects_muted(bool muted)
 {

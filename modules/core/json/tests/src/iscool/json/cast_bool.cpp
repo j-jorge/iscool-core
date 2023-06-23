@@ -13,9 +13,9 @@
   See the License for the specific language governing permissions and
   limitations under the License.
 */
-#include "iscool/json/cast_bool.h"
-#include "iscool/json/bad_cast.h"
-#include "iscool/json/is_of_type_bool.h"
+#include <iscool/json/bad_cast.hpp>
+#include <iscool/json/cast_bool.hpp>
+#include <iscool/json/is_of_type_bool.hpp>
 
 #include <json/value.h>
 

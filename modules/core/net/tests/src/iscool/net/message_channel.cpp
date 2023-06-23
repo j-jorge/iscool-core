@@ -13,15 +13,15 @@
   See the License for the specific language governing permissions and
   limitations under the License.
 */
-#include "iscool/net/message_channel.h"
-#include "iscool/net/message/deserialize_message.h"
-#include "iscool/net/message/serialize_message.h"
-#include "iscool/net/message_stream.h"
-#include "iscool/net/socket_stream.h"
-#include "iscool/optional.h"
-#include "iscool/optional.impl.tpp"
-#include "iscool/schedule/manual_scheduler.h"
-#include "iscool/schedule/setup.h"
+#include <iscool/net/message/deserialize_message.hpp>
+#include <iscool/net/message/serialize_message.hpp>
+#include <iscool/net/message_channel.hpp>
+#include <iscool/net/message_stream.hpp>
+#include <iscool/net/socket_stream.hpp>
+#include <iscool/optional.hpp>
+#include <iscool/optional.impl.tpp>
+#include <iscool/schedule/manual_scheduler.hpp>
+#include <iscool/schedule/setup.hpp>
 
 #include <thread>
 

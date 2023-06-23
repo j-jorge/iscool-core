@@ -13,11 +13,11 @@
   See the License for the specific language governing permissions and
   limitations under the License.
 */
-#include "iscool/jni/bad_cast.h"
+#include <iscool/jni/bad_cast.hpp>
 
-#include "iscool/jni/get_method.h"
-#include "iscool/jni/method_jobject.h"
-#include "iscool/jni/to_string.h"
+#include <iscool/jni/get_method.hpp>
+#include <iscool/jni/method_jobject.hpp>
+#include <iscool/jni/to_string.hpp>
 
 iscool::jni::bad_cast::bad_cast(jobject value, const std::string& expected)
 {

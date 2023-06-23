@@ -13,7 +13,7 @@
   See the License for the specific language governing permissions and
   limitations under the License.
 */
-#include "iscool/strings/format.h"
+#include <iscool/strings/format.hpp>
 
 #include <thread>
 

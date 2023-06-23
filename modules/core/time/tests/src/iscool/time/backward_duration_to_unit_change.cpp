@@ -13,8 +13,8 @@
   See the License for the specific language governing permissions and
   limitations under the License.
 */
-#include "iscool/time/backward_duration_to_unit_change.h"
-#include "iscool/time/days.h"
+#include <iscool/time/backward_duration_to_unit_change.hpp>
+#include <iscool/time/days.hpp>
 
 #include "gtest/gtest.h"
 

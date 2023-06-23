@@ -13,9 +13,9 @@
   See the License for the specific language governing permissions and
   limitations under the License.
 */
-#include "iscool/audio/default_mixer.h"
+#include <iscool/audio/default_mixer.hpp>
 
-#include "iscool/audio/detail/default_mixer.h"
+#include <iscool/audio/detail/default_mixer.hpp>
 
 void iscool::audio::set_default_mixer(mixer& instance)
 {

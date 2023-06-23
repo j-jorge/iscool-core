@@ -13,7 +13,7 @@
   See the License for the specific language governing permissions and
   limitations under the License.
 */
-#include "iscool/random/random_generator.h"
+#include <iscool/random/random_generator.hpp>
 
 #include <gtest/gtest.h>
 

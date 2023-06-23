@@ -13,7 +13,7 @@
   See the License for the specific language governing permissions and
   limitations under the License.
 */
-#include "iscool/ios/get_device_model.h"
+#include <iscool/ios/get_device_model.hpp>
 
 #include <sys/sysctl.h>
 

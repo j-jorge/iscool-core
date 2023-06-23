@@ -13,8 +13,8 @@
   See the License for the specific language governing permissions and
   limitations under the License.
 */
-#include "iscool/signals/signal_from_tuple_arguments.h"
-#include "iscool/signals/signal.impl.tpp"
+#include <iscool/signals/signal.impl.tpp>
+#include <iscool/signals/signal_from_tuple_arguments.hpp>
 
 #include <string>
 

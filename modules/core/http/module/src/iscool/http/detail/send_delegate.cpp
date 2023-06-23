@@ -13,6 +13,6 @@
   See the License for the specific language governing permissions and
   limitations under the License.
 */
-#include "iscool/http/detail/send_delegate.h"
+#include <iscool/http/detail/send_delegate.hpp>
 
 iscool::http::send_function iscool::http::detail::send_delegate;

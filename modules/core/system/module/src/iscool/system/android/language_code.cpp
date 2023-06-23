@@ -13,11 +13,11 @@
   See the License for the specific language governing permissions and
   limitations under the License.
 */
-#include "iscool/system/language_code.h"
+#include <iscool/system/language_code.hpp>
 
-#include "iscool/jni/get_static_method.h"
-#include "iscool/jni/static_method_java_ptr.h"
-#include "iscool/jni/to_string.h"
+#include <iscool/jni/get_static_method.hpp>
+#include <iscool/jni/static_method_java_ptr.hpp>
+#include <iscool/jni/to_string.hpp>
 
 std::string iscool::system::get_language_code()
 {

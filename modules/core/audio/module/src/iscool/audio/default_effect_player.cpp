@@ -13,10 +13,10 @@
   See the License for the specific language governing permissions and
   limitations under the License.
 */
-#include "iscool/audio/default_effect_player.h"
+#include <iscool/audio/default_effect_player.hpp>
 
-#include "iscool/audio/detail/default_mixer.h"
-#include "iscool/audio/mixer.h"
+#include <iscool/audio/detail/default_mixer.hpp>
+#include <iscool/audio/mixer.hpp>
 
 iscool::audio::track_id iscool::audio::play_effect(const std::string& name,
                                                    loop_mode loop)

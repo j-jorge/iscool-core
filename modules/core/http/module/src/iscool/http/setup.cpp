@@ -13,11 +13,11 @@
   See the License for the specific language governing permissions and
   limitations under the License.
 */
-#include "iscool/http/setup.h"
+#include <iscool/http/setup.hpp>
 
-#include "iscool/http/detail/get_service_statistics.h"
-#include "iscool/http/detail/send_delegate.h"
-#include "iscool/http/detail/service_statistics.h"
+#include <iscool/http/detail/get_service_statistics.hpp>
+#include <iscool/http/detail/send_delegate.hpp>
+#include <iscool/http/detail/service_statistics.hpp>
 
 void iscool::http::initialize(send_function delegate)
 {

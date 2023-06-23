@@ -14,7 +14,7 @@
   See the License for the specific language governing permissions and
   limitations under the License.
 */
-#include "iscool/system/application_version.h"
+#include <iscool/system/application_version.hpp>
 
 #import <Foundation/Foundation.h>
 

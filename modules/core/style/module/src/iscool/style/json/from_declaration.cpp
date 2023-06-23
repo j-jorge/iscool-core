@@ -13,10 +13,10 @@
   See the License for the specific language governing permissions and
   limitations under the License.
 */
-#include "iscool/style/json/from_declaration.h"
+#include <iscool/style/json/from_declaration.hpp>
 
-#include "iscool/style/declaration.h"
-#include "iscool/style/detail/merge_declarations.h"
+#include <iscool/style/declaration.hpp>
+#include <iscool/style/detail/merge_declarations.hpp>
 
 Json::Value
 iscool::style::json::from_declaration(const iscool::style::declaration& style)

@@ -13,11 +13,11 @@
   See the License for the specific language governing permissions and
   limitations under the License.
 */
-#include "iscool/social/android/link_service.h"
+#include <iscool/social/android/link_service.hpp>
 
-#include "iscool/jni/get_static_method.h"
-#include "iscool/jni/static_method_void.h"
-#include "iscool/jni/string_bytes.h"
+#include <iscool/jni/get_static_method.hpp>
+#include <iscool/jni/static_method_void.hpp>
+#include <iscool/jni/string_bytes.hpp>
 
 void iscool::social::android::link_service::open_in_facebook(
     const std::string& page)

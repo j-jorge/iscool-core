@@ -13,7 +13,7 @@
   See the License for the specific language governing permissions and
   limitations under the License.
 */
-#include "iscool/strings/str_const.h"
+#include <iscool/strings/str_const.hpp>
 
 #include <gtest/gtest.h>
 

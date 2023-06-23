@@ -13,10 +13,10 @@
   See the License for the specific language governing permissions and
   limitations under the License.
 */
-#include "iscool/style/detail/properties_handle.h"
+#include <iscool/style/detail/properties_handle.hpp>
 
-#include "iscool/style/detail/get_properties_pool.h"
-#include "iscool/style/detail/shared_properties.h"
+#include <iscool/style/detail/get_properties_pool.hpp>
+#include <iscool/style/detail/shared_properties.hpp>
 
 iscool::style::detail::properties_handle::properties_handle()
   : _properties(nullptr)

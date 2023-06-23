@@ -13,7 +13,7 @@
   See the License for the specific language governing permissions and
   limitations under the License.
 */
-#include "iscool/net/byte_array_from_stream.h"
+#include <iscool/net/byte_array_from_stream.hpp>
 
 #include <iostream>
 

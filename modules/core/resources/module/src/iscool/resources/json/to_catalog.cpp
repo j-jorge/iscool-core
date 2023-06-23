@@ -13,12 +13,12 @@
   See the License for the specific language governing permissions and
   limitations under the License.
 */
-#include "iscool/resources/json/to_catalog.h"
+#include <iscool/resources/json/to_catalog.hpp>
 
-#include "iscool/json/bad_cast.h"
-#include "iscool/json/cast_string.h"
-#include "iscool/json/cast_vector.h"
-#include "iscool/log/log.h"
+#include <iscool/json/bad_cast.hpp>
+#include <iscool/json/cast_string.hpp>
+#include <iscool/json/cast_vector.hpp>
+#include <iscool/log/log.hpp>
 
 namespace iscool
 {

@@ -13,9 +13,9 @@
   See the License for the specific language governing permissions and
   limitations under the License.
 */
-#include "iscool/system/detail/capture_screen_signal_pool.h"
+#include <iscool/system/detail/capture_screen_signal_pool.hpp>
 
-#include "iscool/signals/signal.impl.tpp"
+#include <iscool/signals/signal.impl.tpp>
 
 iscool::system::detail::capture_screen_signal_pool::capture_screen_signal_pool(
     std::size_t size)

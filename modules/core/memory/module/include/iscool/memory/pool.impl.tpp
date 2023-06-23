@@ -16,7 +16,7 @@
 #ifndef ISCOOL_MEMORY_POOL_IMPL_TPP
 #define ISCOOL_MEMORY_POOL_IMPL_TPP
 
-#include "iscool/memory/pool.h"
+#include <iscool/memory/pool.hpp>
 
 #include <mutex>
 

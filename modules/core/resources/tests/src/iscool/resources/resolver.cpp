@@ -13,7 +13,7 @@
   See the License for the specific language governing permissions and
   limitations under the License.
 */
-#include "iscool/resources/resolver.h"
+#include <iscool/resources/resolver.hpp>
 
 #include <gtest/gtest.h>
 

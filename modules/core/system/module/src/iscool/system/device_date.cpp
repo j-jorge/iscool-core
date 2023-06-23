@@ -13,7 +13,7 @@
   See the License for the specific language governing permissions and
   limitations under the License.
 */
-#include "iscool/system/device_date.h"
+#include <iscool/system/device_date.hpp>
 
 #include <chrono>
 

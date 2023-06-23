@@ -13,9 +13,9 @@
   See the License for the specific language governing permissions and
   limitations under the License.
 */
-#include "iscool/preferences/set_global_properties.h"
+#include <iscool/preferences/set_global_properties.hpp>
 
-#include "iscool/preferences/detail/global_properties.h"
+#include <iscool/preferences/detail/global_properties.hpp>
 
 void iscool::preferences::set_global_properties(
     const std::unordered_map<std::string, std::string>& properties)

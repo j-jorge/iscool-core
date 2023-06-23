@@ -13,10 +13,10 @@
   See the License for the specific language governing permissions and
   limitations under the License.
 */
-#include "iscool/http/detail/request_handler.h"
+#include <iscool/http/detail/request_handler.hpp>
 
-#include "iscool/http/response.h"
-#include "iscool/signals/implement_signal.h"
+#include <iscool/http/response.hpp>
+#include <iscool/signals/implement_signal.hpp>
 
 IMPLEMENT_SIGNAL(iscool::http::detail::request_handler, result, _on_result);
 IMPLEMENT_SIGNAL(iscool::http::detail::request_handler, error, _on_error);

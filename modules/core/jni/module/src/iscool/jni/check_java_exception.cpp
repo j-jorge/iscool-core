@@ -13,14 +13,14 @@
   See the License for the specific language governing permissions and
   limitations under the License.
 */
-#include "iscool/jni/check_java_exception.h"
+#include <iscool/jni/check_java_exception.hpp>
 
-#include "iscool/jni/get_method.h"
-#include "iscool/jni/log_context.h"
-#include "iscool/jni/method_jstring.h"
-#include "iscool/jni/to_string.h"
-#include "iscool/log/causeless_log.h"
-#include "iscool/log/nature/error.h"
+#include <iscool/jni/get_method.hpp>
+#include <iscool/jni/log_context.hpp>
+#include <iscool/jni/method_jstring.hpp>
+#include <iscool/jni/to_string.hpp>
+#include <iscool/log/causeless_log.hpp>
+#include <iscool/log/nature/error.hpp>
 
 bool iscool::jni::check_java_exception()
 {

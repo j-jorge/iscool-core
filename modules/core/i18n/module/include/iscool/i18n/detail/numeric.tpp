@@ -16,9 +16,9 @@
 #ifndef ISCOOL_I18N_NUMERIC_TPP
 #define ISCOOL_I18N_NUMERIC_TPP
 
-#include "iscool/i18n/detail/default_language_code.h"
-#include "iscool/i18n/detail/get_locale_for_numeric_display.h"
-#include "iscool/i18n/detail/num_put_disambiguation.h"
+#include <iscool/i18n/detail/default_language_code.hpp>
+#include <iscool/i18n/detail/get_locale_for_numeric_display.hpp>
+#include <iscool/i18n/detail/num_put_disambiguation.hpp>
 
 #include <sstream>
 

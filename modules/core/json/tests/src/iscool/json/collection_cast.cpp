@@ -13,12 +13,12 @@
   See the License for the specific language governing permissions and
   limitations under the License.
 */
-#include "iscool/json/collection_cast.h"
-#include "iscool/json/bad_cast.h"
-#include "iscool/json/cast_array.h"
-#include "iscool/json/cast_int.h"
-#include "iscool/json/cast_string.h"
-#include "iscool/json/cast_vector.h"
+#include <iscool/json/bad_cast.hpp>
+#include <iscool/json/cast_array.hpp>
+#include <iscool/json/cast_int.hpp>
+#include <iscool/json/cast_string.hpp>
+#include <iscool/json/cast_vector.hpp>
+#include <iscool/json/collection_cast.hpp>
 
 #include "gtest/gtest.h"
 

@@ -13,11 +13,11 @@
   See the License for the specific language governing permissions and
   limitations under the License.
 */
-#include "iscool/preferences/local_preferences.h"
+#include <iscool/preferences/local_preferences.hpp>
 
-#include "iscool/preferences/property_map.impl.h"
-#include "iscool/schedule/manual_scheduler.h"
-#include "iscool/schedule/setup.h"
+#include <iscool/preferences/property_map.impl.hpp>
+#include <iscool/schedule/manual_scheduler.hpp>
+#include <iscool/schedule/setup.hpp>
 
 #include <gtest/gtest.h>
 

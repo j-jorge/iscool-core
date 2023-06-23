@@ -16,8 +16,8 @@
 #ifndef ISCOOL_MEMORY_GLOBAL_POOL_IMPL_TPP
 #define ISCOOL_MEMORY_GLOBAL_POOL_IMPL_TPP
 
-#include "iscool/memory/global_pool.h"
-#include "iscool/memory/pool.impl.tpp"
+#include <iscool/memory/global_pool.hpp>
+#include <iscool/memory/pool.impl.tpp>
 
 template <typename T>
 iscool::memory::pool<T>& iscool::memory::get_global_pool()

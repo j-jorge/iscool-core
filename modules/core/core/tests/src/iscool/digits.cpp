@@ -13,7 +13,7 @@
   See the License for the specific language governing permissions and
   limitations under the License.
 */
-#include "iscool/digits.h"
+#include <iscool/digits.hpp>
 
 #include <cmath>
 #include <limits>

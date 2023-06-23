@@ -13,9 +13,9 @@
   See the License for the specific language governing permissions and
   limitations under the License.
 */
-#include "iscool/preferences/get_global_int_property.h"
+#include <iscool/preferences/get_global_int_property.hpp>
 
-#include "iscool/preferences/detail/get_global_property.h"
+#include <iscool/preferences/detail/get_global_property.hpp>
 
 int iscool::preferences::get_global_int_property(const int_property& property)
 {

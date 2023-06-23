@@ -13,9 +13,9 @@
   See the License for the specific language governing permissions and
   limitations under the License.
 */
-#include "iscool/net/byte_array_bit_inserter.h"
+#include <iscool/net/byte_array_bit_inserter.hpp>
 
-#include "iscool/net/byte_array.h"
+#include <iscool/net/byte_array.hpp>
 
 #include <gtest/gtest.h>
 

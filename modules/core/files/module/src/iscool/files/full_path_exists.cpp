@@ -13,10 +13,10 @@
   See the License for the specific language governing permissions and
   limitations under the License.
 */
-#include "iscool/files/full_path_exists.h"
+#include <iscool/files/full_path_exists.hpp>
 
-#include "iscool/files/file_exists.h"
-#include "iscool/files/get_full_path.h"
+#include <iscool/files/file_exists.hpp>
+#include <iscool/files/get_full_path.hpp>
 
 bool iscool::files::full_path_exists(const std::string& path)
 {

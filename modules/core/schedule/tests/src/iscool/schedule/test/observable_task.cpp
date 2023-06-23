@@ -13,9 +13,9 @@
   See the License for the specific language governing permissions and
   limitations under the License.
 */
-#include "iscool/schedule/test/observable_task.h"
+#include <iscool/schedule/test/observable_task.hpp>
 
-#include "iscool/schedule/test/task_activity_report.h"
+#include <iscool/schedule/test/task_activity_report.hpp>
 
 iscool::schedule::test::observable_task::observable_task(
     const std::chrono::milliseconds& update_interval,

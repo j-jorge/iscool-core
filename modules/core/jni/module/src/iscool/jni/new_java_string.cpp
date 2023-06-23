@@ -13,9 +13,9 @@
   See the License for the specific language governing permissions and
   limitations under the License.
 */
-#include "iscool/jni/new_java_string.h"
+#include <iscool/jni/new_java_string.hpp>
 
-#include "iscool/jni/detail/get_jni_env.h"
+#include <iscool/jni/detail/get_jni_env.hpp>
 
 iscool::jni::java_ptr<jstring> iscool::jni::new_java_string(const char* str)
 {

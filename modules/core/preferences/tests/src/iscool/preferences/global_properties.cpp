@@ -13,15 +13,15 @@
   See the License for the specific language governing permissions and
   limitations under the License.
 */
-#include "iscool/preferences/declare_global_bool_property.h"
-#include "iscool/preferences/declare_global_float_property.h"
-#include "iscool/preferences/declare_global_int64_property.h"
-#include "iscool/preferences/declare_global_string_property.h"
-#include "iscool/preferences/get_global_bool_property.h"
-#include "iscool/preferences/get_global_float_property.h"
-#include "iscool/preferences/get_global_int64_property.h"
-#include "iscool/preferences/get_global_string_property.h"
-#include "iscool/preferences/set_global_properties.h"
+#include <iscool/preferences/declare_global_bool_property.hpp>
+#include <iscool/preferences/declare_global_float_property.hpp>
+#include <iscool/preferences/declare_global_int64_property.hpp>
+#include <iscool/preferences/declare_global_string_property.hpp>
+#include <iscool/preferences/get_global_bool_property.hpp>
+#include <iscool/preferences/get_global_float_property.hpp>
+#include <iscool/preferences/get_global_int64_property.hpp>
+#include <iscool/preferences/get_global_string_property.hpp>
+#include <iscool/preferences/set_global_properties.hpp>
 
 #include <gtest/gtest.h>
 

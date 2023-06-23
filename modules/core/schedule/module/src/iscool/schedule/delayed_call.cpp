@@ -13,9 +13,9 @@
   See the License for the specific language governing permissions and
   limitations under the License.
 */
-#include "iscool/schedule/delayed_call.h"
+#include <iscool/schedule/delayed_call.hpp>
 
-#include "iscool/schedule/detail/call_later.h"
+#include <iscool/schedule/detail/call_later.hpp>
 
 #include <cassert>
 

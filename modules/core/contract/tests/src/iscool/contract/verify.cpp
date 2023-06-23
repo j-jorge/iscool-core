@@ -13,7 +13,7 @@
   See the License for the specific language governing permissions and
   limitations under the License.
 */
-#include "iscool/contract/verify.h"
+#include <iscool/contract/verify.hpp>
 
 #include <gtest/gtest.h>
 

@@ -13,9 +13,9 @@
   See the License for the specific language governing permissions and
   limitations under the License.
 */
-#include "iscool/system/application_event_source.h"
+#include <iscool/system/application_event_source.hpp>
 
-#include "iscool/signals/implement_signal.h"
+#include <iscool/signals/implement_signal.hpp>
 
 IMPLEMENT_SIGNAL(iscool::system::application_event_source, enter_background,
                  _enter_background);

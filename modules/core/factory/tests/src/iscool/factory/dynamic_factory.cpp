@@ -13,10 +13,10 @@
   See the License for the specific language governing permissions and
   limitations under the License.
 */
-#include "iscool/factory/dynamic_factory.h"
-#include "iscool/factory/dynamic_factory.impl.tpp"
+#include <iscool/factory/dynamic_factory.hpp>
+#include <iscool/factory/dynamic_factory.impl.tpp>
 
-#include "iscool/test/debug_crash.h"
+#include <iscool/test/debug_crash.hpp>
 
 #include <gtest/gtest.h>
 

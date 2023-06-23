@@ -13,9 +13,9 @@
   See the License for the specific language governing permissions and
   limitations under the License.
 */
-#include "iscool/preferences/get_global_int64_property.h"
+#include <iscool/preferences/get_global_int64_property.hpp>
 
-#include "iscool/preferences/detail/get_global_property.h"
+#include <iscool/preferences/detail/get_global_property.hpp>
 
 std::int64_t
 iscool::preferences::get_global_int64_property(const int64_property& property)

@@ -13,7 +13,7 @@
   See the License for the specific language governing permissions and
   limitations under the License.
 */
-#include "iscool/preferences/declare_global_bool_property.h"
+#include <iscool/preferences/declare_global_bool_property.hpp>
 
 iscool::preferences::bool_property
 iscool::preferences::declare_global_bool_property(std::string&& name,

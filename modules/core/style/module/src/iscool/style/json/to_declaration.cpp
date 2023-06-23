@@ -13,13 +13,13 @@
   See the License for the specific language governing permissions and
   limitations under the License.
 */
-#include "iscool/style/json/to_declaration.h"
+#include <iscool/style/json/to_declaration.hpp>
 
-#include "iscool/style/log_context.h"
+#include <iscool/style/log_context.hpp>
 
-#include "iscool/log/causeless_log.h"
-#include "iscool/log/nature/error.h"
-#include "iscool/style/detail/set_property_from_json_value.h"
+#include <iscool/log/causeless_log.hpp>
+#include <iscool/log/nature/error.hpp>
+#include <iscool/style/detail/set_property_from_json_value.hpp>
 
 #include "json/value.h"
 

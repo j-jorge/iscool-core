@@ -13,9 +13,9 @@
   See the License for the specific language governing permissions and
   limitations under the License.
 */
-#include "iscool/style/detail/shared_properties_pool_traits.h"
+#include <iscool/style/detail/shared_properties_pool_traits.hpp>
 
-#include "iscool/style/detail/shared_properties.h"
+#include <iscool/style/detail/shared_properties.hpp>
 
 bool iscool::style::detail::shared_properties_pool_traits::clear(
     shared_properties& self)

@@ -13,10 +13,10 @@
   See the License for the specific language governing permissions and
   limitations under the License.
 */
-#include "iscool/net/byte_array_bit_reader.h"
+#include <iscool/net/byte_array_bit_reader.hpp>
 
-#include "iscool/net/byte_array.h"
-#include "iscool/net/byte_array_reader.h"
+#include <iscool/net/byte_array.hpp>
+#include <iscool/net/byte_array_reader.hpp>
 
 #include <gtest/gtest.h>
 

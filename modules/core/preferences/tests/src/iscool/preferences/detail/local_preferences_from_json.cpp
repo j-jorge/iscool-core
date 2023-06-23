@@ -13,9 +13,9 @@
   See the License for the specific language governing permissions and
   limitations under the License.
 */
-#include "iscool/preferences/detail/local_preferences_from_json.h"
+#include <iscool/preferences/detail/local_preferences_from_json.hpp>
 
-#include "iscool/preferences/property_map.impl.h"
+#include <iscool/preferences/property_map.impl.hpp>
 
 #include "json/value.h"
 

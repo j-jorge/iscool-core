@@ -16,8 +16,8 @@
 #ifndef ISCOOL_FACTORY_DYNAMIC_FACTORY_IMPL_TPP
 #define ISCOOL_FACTORY_DYNAMIC_FACTORY_IMPL_TPP
 
-#include "iscool/log/causeless_log.h"
-#include "iscool/log/nature/error.h"
+#include <iscool/log/causeless_log.hpp>
+#include <iscool/log/nature/error.hpp>
 
 #include <cassert>
 

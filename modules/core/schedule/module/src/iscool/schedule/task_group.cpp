@@ -13,7 +13,7 @@
   See the License for the specific language governing permissions and
   limitations under the License.
 */
-#include "iscool/schedule/task_group.h"
+#include <iscool/schedule/task_group.hpp>
 
 iscool::schedule::task_group::task_group() = default;
 iscool::schedule::task_group::~task_group() = default;

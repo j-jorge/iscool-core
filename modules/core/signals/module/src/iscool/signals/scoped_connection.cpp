@@ -13,7 +13,7 @@
   See the License for the specific language governing permissions and
   limitations under the License.
 */
-#include "iscool/signals/scoped_connection.h"
+#include <iscool/signals/scoped_connection.hpp>
 
 iscool::signals::scoped_connection::scoped_connection() = default;
 

@@ -13,20 +13,20 @@
   See the License for the specific language governing permissions and
   limitations under the License.
 */
-#include "iscool/style/loader.h"
+#include <iscool/style/loader.hpp>
 
-#include "iscool/style/log_context.h"
+#include <iscool/style/log_context.hpp>
 
-#include "iscool/files/full_path_exists.h"
-#include "iscool/json/bad_cast.h"
-#include "iscool/json/cast_string.h"
-#include "iscool/json/from_file.h"
-#include "iscool/json/is_member.h"
-#include "iscool/log/causeless_log.h"
-#include "iscool/log/nature/error.h"
-#include "iscool/style/detail/get_style_cache.h"
-#include "iscool/style/detail/loader_merge_path_list.h"
-#include "iscool/style/json/to_declaration.h"
+#include <iscool/files/full_path_exists.hpp>
+#include <iscool/json/bad_cast.hpp>
+#include <iscool/json/cast_string.hpp>
+#include <iscool/json/from_file.hpp>
+#include <iscool/json/is_member.hpp>
+#include <iscool/log/causeless_log.hpp>
+#include <iscool/log/nature/error.hpp>
+#include <iscool/style/detail/get_style_cache.hpp>
+#include <iscool/style/detail/loader_merge_path_list.hpp>
+#include <iscool/style/json/to_declaration.hpp>
 
 #include <unordered_set>
 

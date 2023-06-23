@@ -13,7 +13,7 @@
   See the License for the specific language governing permissions and
   limitations under the License.
 */
-#include "iscool/system/detail/device_time_milliseconds.h"
+#include <iscool/system/detail/device_time_milliseconds.hpp>
 
 std::chrono::milliseconds iscool::system::detail::device_time_milliseconds()
 {

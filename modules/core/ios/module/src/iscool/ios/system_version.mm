@@ -14,9 +14,9 @@
   See the License for the specific language governing permissions and
   limitations under the License.
 */
-#include "iscool/ios/system_version.h"
+#include <iscool/ios/system_version.hpp>
 
-#include "iscool/ios/std_to_nsstring.h"
+#include <iscool/ios/std_to_nsstring.hpp>
 
 #import <UIKit/UIKit.h>
 

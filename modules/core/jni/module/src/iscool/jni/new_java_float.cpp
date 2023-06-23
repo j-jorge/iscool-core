@@ -13,9 +13,9 @@
   See the License for the specific language governing permissions and
   limitations under the License.
 */
-#include "iscool/jni/new_java_float.h"
+#include <iscool/jni/new_java_float.hpp>
 
-#include "iscool/jni/alloc.h"
+#include <iscool/jni/alloc.hpp>
 
 iscool::jni::java_ptr<jobject> iscool::jni::new_java_float(float value)
 {

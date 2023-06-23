@@ -13,10 +13,10 @@
   See the License for the specific language governing permissions and
   limitations under the License.
 */
-#include "iscool/system/detail/haptic_feedback_mockup.h"
+#include <iscool/system/detail/haptic_feedback_mockup.hpp>
 
-#include "iscool/log/console_log.h"
-#include "iscool/system/haptic_feedback_notification.h"
+#include <iscool/log/console_log.hpp>
+#include <iscool/system/haptic_feedback_notification.hpp>
 
 #include <cassert>
 #include <string>

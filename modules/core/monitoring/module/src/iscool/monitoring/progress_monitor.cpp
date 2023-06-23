@@ -13,9 +13,9 @@
   See the License for the specific language governing permissions and
   limitations under the License.
 */
-#include "iscool/monitoring/progress_monitor.h"
+#include <iscool/monitoring/progress_monitor.hpp>
 
-#include "iscool/signals/signal.impl.tpp"
+#include <iscool/signals/signal.impl.tpp>
 
 iscool::monitoring::progress_monitor::progress_monitor()
   : _master(nullptr)

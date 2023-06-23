@@ -16,7 +16,7 @@
 #ifndef ISCOOL_LOG_DETAIL_MESSAGE_DISPATCHER_IMPL_TPP
 #define ISCOOL_LOG_DETAIL_MESSAGE_DISPATCHER_IMPL_TPP
 
-#include "iscool/strings/format.h"
+#include <iscool/strings/format.hpp>
 
 template <typename... Args>
 void iscool::log::detail::message_dispatcher::dispatch(

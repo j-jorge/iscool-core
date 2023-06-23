@@ -13,7 +13,7 @@
   See the License for the specific language governing permissions and
   limitations under the License.
 */
-#include "iscool/i18n/numeric_punctuation.h"
+#include <iscool/i18n/numeric_punctuation.hpp>
 
 iscool::i18n::numeric_punctuation::numeric_punctuation(
     char decimal_point, char thousands_separator, std::string grouping)

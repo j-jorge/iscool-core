@@ -13,9 +13,9 @@
   See the License for the specific language governing permissions and
   limitations under the License.
 */
-#include "iscool/log/nature/info.h"
+#include <iscool/log/nature/info.hpp>
 
-#include "iscool/log/nature/nature.h"
+#include <iscool/log/nature/nature.hpp>
 
 const iscool::log::nature::nature& iscool::log::nature::info()
 {

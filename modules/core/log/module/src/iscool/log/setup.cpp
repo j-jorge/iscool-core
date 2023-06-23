@@ -13,11 +13,11 @@
   See the License for the specific language governing permissions and
   limitations under the License.
 */
-#include "iscool/log/setup.h"
+#include <iscool/log/setup.hpp>
 
-#include "iscool/log/detail/get_message_dispatcher.h"
-#include "iscool/log/detail/logger_thread.h"
-#include "iscool/log/detail/message_dispatcher.h"
+#include <iscool/log/detail/get_message_dispatcher.hpp>
+#include <iscool/log/detail/logger_thread.hpp>
+#include <iscool/log/detail/message_dispatcher.hpp>
 
 void iscool::log::initialize()
 {

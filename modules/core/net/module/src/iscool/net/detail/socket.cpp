@@ -13,15 +13,15 @@
   See the License for the specific language governing permissions and
   limitations under the License.
 */
-#include "iscool/net/detail/socket.h"
+#include <iscool/net/detail/socket.hpp>
 
-#include "iscool/net/log_context.h"
+#include <iscool/net/log_context.hpp>
 
-#include "iscool/log/causeless_log.h"
-#include "iscool/log/nature/error.h"
-#include "iscool/log/nature/info.h"
-#include "iscool/net/byte_array.h"
-#include "iscool/signals/implement_signal.h"
+#include <iscool/log/causeless_log.hpp>
+#include <iscool/log/nature/error.hpp>
+#include <iscool/log/nature/info.hpp>
+#include <iscool/net/byte_array.hpp>
+#include <iscool/signals/implement_signal.hpp>
 
 IMPLEMENT_SIGNAL(iscool::net::detail::socket, received, _received);
 

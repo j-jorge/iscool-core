@@ -13,13 +13,13 @@
   See the License for the specific language governing permissions and
   limitations under the License.
 */
-#include "iscool/jni/get_class.h"
+#include <iscool/jni/get_class.hpp>
 
-#include "iscool/jni/class_not_found.h"
-#include "iscool/jni/detail/get_jni_env.h"
-#include "iscool/jni/detail/log_delegates.h"
-#include "iscool/jni/method_jclass.h"
-#include "iscool/jni/new_java_string.h"
+#include <iscool/jni/class_not_found.hpp>
+#include <iscool/jni/detail/get_jni_env.hpp>
+#include <iscool/jni/detail/log_delegates.hpp>
+#include <iscool/jni/method_jclass.hpp>
+#include <iscool/jni/new_java_string.hpp>
 
 namespace iscool
 {

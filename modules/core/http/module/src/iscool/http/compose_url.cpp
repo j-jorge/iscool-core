@@ -13,9 +13,9 @@
   See the License for the specific language governing permissions and
   limitations under the License.
 */
-#include "iscool/http/compose_url.h"
+#include <iscool/http/compose_url.hpp>
 
-#include "iscool/http/url_encode.h"
+#include <iscool/http/url_encode.hpp>
 
 std::string
 iscool::http::compose_url(const std::string& root,

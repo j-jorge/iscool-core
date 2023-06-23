@@ -16,8 +16,8 @@
 #ifndef ISCOOL_MEMORY_GLOBAL_THREAD_SAFE_POOL_IMPL_TPP
 #define ISCOOL_MEMORY_GLOBAL_THREAD_SAFE_POOL_IMPL_TPP
 
-#include "iscool/memory/global_thread_safe_pool.h"
-#include "iscool/memory/pool.impl.tpp"
+#include <iscool/memory/global_thread_safe_pool.hpp>
+#include <iscool/memory/pool.impl.tpp>
 
 template <typename T>
 iscool::memory::thread_safe_pool<T>&

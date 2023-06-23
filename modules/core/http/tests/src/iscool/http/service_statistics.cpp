@@ -13,11 +13,11 @@
   See the License for the specific language governing permissions and
   limitations under the License.
 */
-#include "iscool/http/service_statistics.h"
-#include "iscool/http/request.h"
-#include "iscool/http/send.h"
-#include "iscool/http/setup.h"
-#include "iscool/optional.h"
+#include <iscool/http/request.hpp>
+#include <iscool/http/send.hpp>
+#include <iscool/http/service_statistics.hpp>
+#include <iscool/http/setup.hpp>
+#include <iscool/optional.hpp>
 
 #include <boost/lexical_cast.hpp>
 

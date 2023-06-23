@@ -13,12 +13,12 @@
   See the License for the specific language governing permissions and
   limitations under the License.
 */
-#include "iscool/net/detail/apply_xor.h"
+#include <iscool/net/detail/apply_xor.hpp>
 
-#include "iscool/net/byte_array.h"
+#include <iscool/net/byte_array.hpp>
 
-#include "iscool/iterators/cycle_iterator.h"
-#include "iscool/iterators/cycle_iterator.impl.tpp"
+#include <iscool/iterators/cycle_iterator.hpp>
+#include <iscool/iterators/cycle_iterator.impl.tpp>
 
 #include <algorithm>
 #include <functional>

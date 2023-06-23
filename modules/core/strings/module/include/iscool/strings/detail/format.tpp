@@ -16,7 +16,7 @@
 #ifndef ISCOOL_STRINGS_FORMAT_TPP
 #define ISCOOL_STRINGS_FORMAT_TPP
 
-#include "iscool/strings/detail/formatter_bridge.h"
+#include <iscool/strings/detail/formatter_bridge.hpp>
 
 template <typename... Args>
 std::string iscool::strings::format(const char* pattern, Args... args)

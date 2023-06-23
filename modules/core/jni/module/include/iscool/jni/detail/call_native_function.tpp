@@ -16,9 +16,9 @@
 #ifndef ISCOOL_JNI_DETAIL_CALL_NATIVE_FUNCTION_TPP
 #define ISCOOL_JNI_DETAIL_CALL_NATIVE_FUNCTION_TPP
 
-#include "iscool/jni/detail/native_call_helper.h"
+#include <iscool/jni/detail/native_call_helper.hpp>
 
-#include "iscool/meta/make_indices.h"
+#include <iscool/meta/make_indices.hpp>
 
 template <typename... Arg>
 void iscool::jni::detail::call_native_function(

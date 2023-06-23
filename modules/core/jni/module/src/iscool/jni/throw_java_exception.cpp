@@ -13,12 +13,12 @@
   See the License for the specific language governing permissions and
   limitations under the License.
 */
-#include "iscool/jni/throw_java_exception.h"
+#include <iscool/jni/throw_java_exception.hpp>
 
-#include "iscool/jni/detail/get_jni_env.h"
-#include "iscool/jni/get_class.h"
-#include "iscool/jni/new_java_string.h"
-#include "iscool/strings/format.h"
+#include <iscool/jni/detail/get_jni_env.hpp>
+#include <iscool/jni/get_class.hpp>
+#include <iscool/jni/new_java_string.hpp>
+#include <iscool/strings/format.hpp>
 
 void iscool::jni::throw_java_exception(const std::string& type,
                                        const std::string& what)

@@ -13,10 +13,10 @@
   See the License for the specific language governing permissions and
   limitations under the License.
 */
-#include "iscool/preferences/store.h"
+#include <iscool/preferences/store.hpp>
 
-#include "iscool/preferences/property_map.impl.h"
-#include "iscool/schedule/delayed_call.h"
+#include <iscool/preferences/property_map.impl.hpp>
+#include <iscool/schedule/delayed_call.hpp>
 
 #include <algorithm>
 #include <cassert>

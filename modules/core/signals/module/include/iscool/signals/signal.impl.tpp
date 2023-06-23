@@ -16,11 +16,11 @@
 #ifndef ISCOOL_SIGNALS_SIGNAL_TPP
 #define ISCOOL_SIGNALS_SIGNAL_TPP
 
-#include "iscool/profile/scoped_profiler.h"
-#include "iscool/signals/detail/resolve_identifier.h"
-#include "iscool/signals/detail/signal.impl.tpp"
-#include "iscool/signals/detail/statistics_function.h"
-#include "iscool/signals/statistics_data.h"
+#include <iscool/profile/scoped_profiler.hpp>
+#include <iscool/signals/detail/resolve_identifier.hpp>
+#include <iscool/signals/detail/signal.impl.tpp>
+#include <iscool/signals/detail/statistics_function.hpp>
+#include <iscool/signals/statistics_data.hpp>
 
 template <typename Signature>
 iscool::signals::signal<Signature, void>::signal()

@@ -13,9 +13,9 @@
   See the License for the specific language governing permissions and
   limitations under the License.
 */
-#include "iscool/preferences/get_global_float_property.h"
+#include <iscool/preferences/get_global_float_property.hpp>
 
-#include "iscool/preferences/detail/get_global_property.h"
+#include <iscool/preferences/detail/get_global_property.hpp>
 
 float iscool::preferences::get_global_float_property(
     const float_property& property)

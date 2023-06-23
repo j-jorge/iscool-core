@@ -13,7 +13,7 @@
   See the License for the specific language governing permissions and
   limitations under the License.
 */
-#include "iscool/json/is_member.h"
+#include <iscool/json/is_member.hpp>
 
 #include <algorithm>
 

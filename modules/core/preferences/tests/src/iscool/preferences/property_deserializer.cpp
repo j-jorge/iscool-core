@@ -13,11 +13,11 @@
   See the License for the specific language governing permissions and
   limitations under the License.
 */
-#include "iscool/preferences/property_deserializer.h"
+#include <iscool/preferences/property_deserializer.hpp>
 
-#include "iscool/preferences/property_map.impl.h"
+#include <iscool/preferences/property_map.impl.hpp>
 
-#include "iscool/test/debug_crash.h"
+#include <iscool/test/debug_crash.hpp>
 
 #include <algorithm>
 #include <unistd.h>

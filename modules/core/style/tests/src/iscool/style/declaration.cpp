@@ -13,7 +13,7 @@
   See the License for the specific language governing permissions and
   limitations under the License.
 */
-#include "iscool/style/declaration.h"
+#include <iscool/style/declaration.hpp>
 
 #include <type_traits>
 

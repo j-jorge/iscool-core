@@ -16,7 +16,7 @@
 #ifndef ISCOOL_META_NEW_FROM_TUPLE_TPP
 #define ISCOOL_META_NEW_FROM_TUPLE_TPP
 
-#include "iscool/meta/make_indices.h"
+#include <iscool/meta/make_indices.hpp>
 
 #include <tuple>
 

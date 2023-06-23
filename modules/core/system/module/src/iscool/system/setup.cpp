@@ -13,9 +13,9 @@
   See the License for the specific language governing permissions and
   limitations under the License.
 */
-#include "iscool/system/setup.h"
+#include <iscool/system/setup.hpp>
 
-#include "iscool/system/detail/capture_screen_delegate.h"
+#include <iscool/system/detail/capture_screen_delegate.hpp>
 
 void iscool::system::initialize(capture_screen_function delegate)
 {

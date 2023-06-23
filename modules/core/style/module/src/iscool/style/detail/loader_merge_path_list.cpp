@@ -13,6 +13,6 @@
   See the License for the specific language governing permissions and
   limitations under the License.
 */
-#include "iscool/style/detail/loader_merge_path_list.h"
+#include <iscool/style/detail/loader_merge_path_list.hpp>
 
 iscool::style::merge_path_list iscool::style::detail::loader_merge_path_list;

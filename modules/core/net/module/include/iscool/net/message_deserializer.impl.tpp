@@ -16,9 +16,9 @@
 #ifndef ISCOOL_NET_MESSAGE_DESERIALIZER_IMPL_TPP
 #define ISCOOL_NET_MESSAGE_DESERIALIZER_IMPL_TPP
 
-#include "iscool/net/message/message.h"
-#include "iscool/signals/declare_signal.h"
-#include "iscool/signals/implement_signal.h"
+#include <iscool/net/message/message.hpp>
+#include <iscool/signals/declare_signal.hpp>
+#include <iscool/signals/implement_signal.hpp>
 
 class iscool::net::message_deserializer::deserializer_base
 {

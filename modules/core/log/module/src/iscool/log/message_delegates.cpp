@@ -13,7 +13,7 @@
   See the License for the specific language governing permissions and
   limitations under the License.
 */
-#include "iscool/log/message_delegates.h"
+#include <iscool/log/message_delegates.hpp>
 
 bool iscool::log::message_delegates::is_valid() const
 {

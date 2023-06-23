@@ -13,7 +13,7 @@
   See the License for the specific language governing permissions and
   limitations under the License.
 */
-#include "iscool/collections/has_duplicates.h"
+#include <iscool/collections/has_duplicates.hpp>
 
 #include "gtest/gtest.h"
 

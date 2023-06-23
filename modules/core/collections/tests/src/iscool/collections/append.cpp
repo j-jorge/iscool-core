@@ -13,9 +13,9 @@
   See the License for the specific language governing permissions and
   limitations under the License.
 */
-#include "iscool/collections/append.h"
+#include <iscool/collections/append.hpp>
 
-#include "iscool/test/equal_collections.h"
+#include <iscool/test/equal_collections.hpp>
 
 #include "gtest/gtest.h"
 

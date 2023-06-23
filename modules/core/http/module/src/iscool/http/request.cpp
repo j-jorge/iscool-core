@@ -13,7 +13,7 @@
   See the License for the specific language governing permissions and
   limitations under the License.
 */
-#include "iscool/http/request.h"
+#include <iscool/http/request.hpp>
 
 void iscool::http::request::set_type(type t)
 {

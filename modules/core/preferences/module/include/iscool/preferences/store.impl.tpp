@@ -16,7 +16,7 @@
 #ifndef ISCOOL_PREFERENCES_STORE_TPP
 #define ISCOOL_PREFERENCES_STORE_TPP
 
-#include "iscool/preferences/property_map.impl.h"
+#include <iscool/preferences/property_map.impl.hpp>
 
 template <typename T>
 void iscool::preferences::store::set_value(const std::string& key,

@@ -13,7 +13,7 @@
   See the License for the specific language governing permissions and
   limitations under the License.
 */
-#include "iscool/memory/make_unique.h"
+#include <iscool/memory/make_unique.hpp>
 
 #include "gtest/gtest.h"
 

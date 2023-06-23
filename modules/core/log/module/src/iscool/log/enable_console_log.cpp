@@ -13,15 +13,15 @@
   See the License for the specific language governing permissions and
   limitations under the License.
 */
-#include "iscool/log/enable_console_log.h"
+#include <iscool/log/enable_console_log.hpp>
 
-#include "iscool/log/detail/get_message_dispatcher.h"
-#include "iscool/log/detail/message_dispatcher.h"
+#include <iscool/log/detail/get_message_dispatcher.hpp>
+#include <iscool/log/detail/message_dispatcher.hpp>
 
-#include "iscool/error/synopsis.h"
-#include "iscool/log/detail/print_to_console.h"
-#include "iscool/log/nature/error.h"
-#include "iscool/strings/format.h"
+#include <iscool/error/synopsis.hpp>
+#include <iscool/log/detail/print_to_console.hpp>
+#include <iscool/log/nature/error.hpp>
+#include <iscool/strings/format.hpp>
 
 void iscool::log::enable_console_log()
 {

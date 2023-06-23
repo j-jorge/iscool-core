@@ -13,11 +13,11 @@
   See the License for the specific language governing permissions and
   limitations under the License.
 */
-#include "iscool/strings/detail/formatter_bridge.h"
+#include <iscool/strings/detail/formatter_bridge.hpp>
 
-#include "iscool/memory/global_thread_safe_pool.h"
-#include "iscool/memory/global_thread_safe_pool.impl.tpp"
-#include "iscool/strings/detail/formatter.h"
+#include <iscool/memory/global_thread_safe_pool.hpp>
+#include <iscool/memory/global_thread_safe_pool.impl.tpp>
+#include <iscool/strings/detail/formatter.hpp>
 
 iscool::strings::detail::formatter*
 iscool::strings::detail::create_formatter(const std::string& pattern)

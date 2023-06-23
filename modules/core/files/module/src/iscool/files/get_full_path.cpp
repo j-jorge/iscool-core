@@ -13,9 +13,9 @@
   See the License for the specific language governing permissions and
   limitations under the License.
 */
-#include "iscool/files/get_full_path.h"
+#include <iscool/files/get_full_path.hpp>
 
-#include "iscool/files/detail/system_delegates.h"
+#include <iscool/files/detail/system_delegates.hpp>
 
 #include <cassert>
 

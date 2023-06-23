@@ -16,8 +16,8 @@
 #ifndef ISCOOL_JNI_STATIC_METHOD_JAVA_PTR_TPP
 #define ISCOOL_JNI_STATIC_METHOD_JAVA_PTR_TPP
 
-#include "iscool/jni/check_java_exception.h"
-#include "iscool/jni/detail/get_method_argument.h"
+#include <iscool/jni/check_java_exception.hpp>
+#include <iscool/jni/detail/get_method_argument.hpp>
 
 template <typename T>
 template <typename... Arg>

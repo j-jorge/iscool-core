@@ -13,11 +13,11 @@
   See the License for the specific language governing permissions and
   limitations under the License.
 */
-#include "iscool/resources/catalog.h"
+#include <iscool/resources/catalog.hpp>
 
-#include "iscool/collections/has_duplicates.h"
-#include "iscool/files/file_exists.h"
-#include "iscool/resources/detail/check_extension.h"
+#include <iscool/collections/has_duplicates.hpp>
+#include <iscool/files/file_exists.hpp>
+#include <iscool/resources/detail/check_extension.hpp>
 
 #include <cassert>
 

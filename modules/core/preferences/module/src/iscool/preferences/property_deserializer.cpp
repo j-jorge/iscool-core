@@ -13,14 +13,14 @@
   See the License for the specific language governing permissions and
   limitations under the License.
 */
-#include "iscool/preferences/property_deserializer.h"
+#include <iscool/preferences/property_deserializer.hpp>
 
-#include "iscool/preferences/log_context.h"
+#include <iscool/preferences/log_context.hpp>
 
-#include "iscool/log/causeless_log.h"
-#include "iscool/log/nature/error.h"
-#include "iscool/log/nature/info.h"
-#include "iscool/preferences/property_map.impl.h"
+#include <iscool/log/causeless_log.hpp>
+#include <iscool/log/nature/error.hpp>
+#include <iscool/log/nature/info.hpp>
+#include <iscool/preferences/property_map.impl.hpp>
 
 #include <boost/lexical_cast.hpp>
 

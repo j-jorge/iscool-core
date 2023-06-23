@@ -13,7 +13,7 @@
   See the License for the specific language governing permissions and
   limitations under the License.
 */
-#include "iscool/audio/detail/default_mixer.h"
+#include <iscool/audio/detail/default_mixer.hpp>
 
 #include <cassert>
 

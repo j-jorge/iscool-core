@@ -13,10 +13,10 @@
   See the License for the specific language governing permissions and
   limitations under the License.
 */
-#include "iscool/audio/mixer.h"
+#include <iscool/audio/mixer.hpp>
 
-#include "iscool/audio/platform_mixer.h"
-#include "iscool/files/file_exists.h"
+#include <iscool/audio/platform_mixer.hpp>
+#include <iscool/files/file_exists.hpp>
 
 #include <cassert>
 

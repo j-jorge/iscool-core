@@ -13,10 +13,10 @@
   See the License for the specific language governing permissions and
   limitations under the License.
 */
-#include "iscool/system/send_to_background.h"
+#include <iscool/system/send_to_background.hpp>
 
-#include "iscool/jni/get_static_method.h"
-#include "iscool/jni/static_method_void.h"
+#include <iscool/jni/get_static_method.hpp>
+#include <iscool/jni/static_method_void.hpp>
 
 void iscool::system::send_to_background()
 {

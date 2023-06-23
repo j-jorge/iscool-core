@@ -16,8 +16,8 @@
 #ifndef ISCOOL_JNI_MAP_ENTRY_TPP
 #define ISCOOL_JNI_MAP_ENTRY_TPP
 
-#include "iscool/jni/get_method.h"
-#include "iscool/jni/method_jobject.h"
+#include <iscool/jni/get_method.hpp>
+#include <iscool/jni/method_jobject.hpp>
 
 template <typename K, typename V>
 iscool::jni::map_entry<K, V>::map_entry(const java_ptr<jobject>& impl)

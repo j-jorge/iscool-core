@@ -13,6 +13,6 @@
   See the License for the specific language governing permissions and
   limitations under the License.
 */
-#include "iscool/i18n/detail/default_language_code.h"
+#include <iscool/i18n/detail/default_language_code.hpp>
 
 std::string iscool::i18n::detail::default_language_code;

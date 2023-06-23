@@ -13,11 +13,11 @@
   See the License for the specific language governing permissions and
   limitations under the License.
 */
-#include "iscool/system/send_mail.h"
+#include <iscool/system/send_mail.hpp>
 
-#include "iscool/jni/get_static_method.h"
-#include "iscool/jni/new_java_string.h"
-#include "iscool/jni/static_method_void.h"
+#include <iscool/jni/get_static_method.hpp>
+#include <iscool/jni/new_java_string.hpp>
+#include <iscool/jni/static_method_void.hpp>
 
 void iscool::system::send_mail(const std::string& address,
                                const std::string& subject,

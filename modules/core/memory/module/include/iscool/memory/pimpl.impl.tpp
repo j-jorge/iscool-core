@@ -16,8 +16,8 @@
 #ifndef ISCOOL_MEMORY_PIMPL_IMPL_TPP
 #define ISCOOL_MEMORY_PIMPL_IMPL_TPP
 
-#include "iscool/memory/detail/pimpl_storage.impl.tpp"
-#include "iscool/memory/pimpl.h"
+#include <iscool/memory/detail/pimpl_storage.impl.tpp>
+#include <iscool/memory/pimpl.hpp>
 
 template <typename T, std::size_t N>
 iscool::memory::pimpl<T, N>::pimpl() = default;

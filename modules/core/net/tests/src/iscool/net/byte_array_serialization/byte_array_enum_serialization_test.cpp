@@ -15,8 +15,8 @@
 */
 #include <gtest/gtest.h>
 
-#include "iscool/net/byte_array.h"
-#include "iscool/net/byte_array_reader.h"
+#include <iscool/net/byte_array.hpp>
+#include <iscool/net/byte_array_reader.hpp>
 
 TEST(byte_array_enum_serialization_test, enum)
 {

@@ -13,7 +13,7 @@
   See the License for the specific language governing permissions and
   limitations under the License.
 */
-#include "iscool/system/os_version.h"
+#include <iscool/system/os_version.hpp>
 
 std::string iscool::system::get_os_version()
 {

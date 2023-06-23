@@ -13,14 +13,14 @@
   See the License for the specific language governing permissions and
   limitations under the License.
 */
-#include "iscool/schedule/detail/delayed_call_manager.h"
+#include <iscool/schedule/detail/delayed_call_manager.hpp>
 
-#include "iscool/time/now.h"
+#include <iscool/time/now.hpp>
 
-#include "iscool/log/causeless_log.h"
-#include "iscool/log/nature/warning.h"
-#include "iscool/schedule/detail/call_later.h"
-#include "iscool/signals/signal.impl.tpp"
+#include <iscool/log/causeless_log.hpp>
+#include <iscool/log/nature/warning.hpp>
+#include <iscool/schedule/detail/call_later.hpp>
+#include <iscool/signals/signal.impl.tpp>
 
 iscool::schedule::detail::delayed_call_manager::delayed_call_manager(
     std::size_t pool_size)

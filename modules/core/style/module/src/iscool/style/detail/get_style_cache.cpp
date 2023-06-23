@@ -13,7 +13,7 @@
   See the License for the specific language governing permissions and
   limitations under the License.
 */
-#include "iscool/style/detail/get_style_cache.h"
+#include <iscool/style/detail/get_style_cache.hpp>
 
 std::unordered_map<std::string, iscool::style::declaration>&
 iscool::style::detail::get_style_cache()

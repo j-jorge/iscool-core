@@ -13,10 +13,10 @@
   See the License for the specific language governing permissions and
   limitations under the License.
 */
-#include "iscool/system/detail/device_time_milliseconds.h"
+#include <iscool/system/detail/device_time_milliseconds.hpp>
 
-#include "iscool/jni/get_static_method.h"
-#include "iscool/jni/static_method_jlong.h"
+#include <iscool/jni/get_static_method.hpp>
+#include <iscool/jni/static_method_jlong.hpp>
 
 std::chrono::milliseconds iscool::system::detail::device_time_milliseconds()
 {

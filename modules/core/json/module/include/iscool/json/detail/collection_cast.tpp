@@ -16,7 +16,7 @@
 #ifndef ISCOOL_JSON_COLLECTION_CAST_TPP
 #define ISCOOL_JSON_COLLECTION_CAST_TPP
 
-#include "iscool/json/detail/cast_fwd.h"
+#include <iscool/json/detail/cast_fwd.hpp>
 
 template <typename Collection>
 Collection iscool::json::collection_cast(const Json::Value& value)

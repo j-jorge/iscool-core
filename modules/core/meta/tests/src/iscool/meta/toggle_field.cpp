@@ -13,8 +13,8 @@
   See the License for the specific language governing permissions and
   limitations under the License.
 */
-#include "iscool/meta/declare_toggle_field.h"
-#include "iscool/meta/implement_toggle_field.h"
+#include <iscool/meta/declare_toggle_field.hpp>
+#include <iscool/meta/implement_toggle_field.hpp>
 
 #include <gtest/gtest.h>
 

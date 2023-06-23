@@ -16,7 +16,7 @@
 #ifndef ISCOOL_MEMORY_DETAIL_PIMPL_STORAGE_IMPL_TPP
 #define ISCOOL_MEMORY_DETAIL_PIMPL_STORAGE_IMPL_TPP
 
-#include "iscool/memory/detail/pimpl_storage.h"
+#include <iscool/memory/detail/pimpl_storage.hpp>
 
 #include <cassert>
 

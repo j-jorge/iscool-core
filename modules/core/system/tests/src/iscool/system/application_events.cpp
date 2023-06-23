@@ -13,8 +13,8 @@
   See the License for the specific language governing permissions and
   limitations under the License.
 */
-#include "iscool/system/application_events.h"
-#include "iscool/system/application_event_source.h"
+#include <iscool/system/application_event_source.hpp>
+#include <iscool/system/application_events.hpp>
 
 #include "gtest/gtest.h"
 

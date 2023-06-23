@@ -16,11 +16,11 @@
 #ifndef ISCOOL_ANY_ANY_IMPL_TPP
 #define ISCOOL_ANY_ANY_IMPL_TPP
 
-#include "iscool/any/detail/get_vtable.h"
-#include "iscool/any/detail/vtable.h"
+#include <iscool/any/detail/get_vtable.hpp>
+#include <iscool/any/detail/vtable.hpp>
 
-#include "iscool/memory/global_pool.h"
-#include "iscool/memory/global_pool.impl.tpp"
+#include <iscool/memory/global_pool.hpp>
+#include <iscool/memory/global_pool.impl.tpp>
 
 template <typename T>
 iscool::any::any::any(const T& value)

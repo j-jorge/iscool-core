@@ -16,7 +16,7 @@
 #ifndef ISCOOL_STYLE_DEEP_MUTATE_TPP
 #define ISCOOL_STYLE_DEEP_MUTATE_TPP
 
-#include "iscool/style/declaration.h"
+#include <iscool/style/declaration.hpp>
 
 template <typename Mutation, std::size_t N>
 void iscool::style::deep_mutate(declaration& style,

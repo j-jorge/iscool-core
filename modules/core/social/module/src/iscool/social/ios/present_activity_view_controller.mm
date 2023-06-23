@@ -14,9 +14,9 @@
   See the License for the specific language governing permissions and
   limitations under the License.
 */
-#include "iscool/social/ios/present_activity_view_controller.h"
+#include <iscool/social/ios/present_activity_view_controller.hpp>
 
-#include "iscool/ios/present_view_controller.h"
+#include <iscool/ios/present_view_controller.hpp>
 
 #import <UIKit/UIActivityViewController.h>
 

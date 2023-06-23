@@ -13,14 +13,14 @@
   See the License for the specific language governing permissions and
   limitations under the License.
 */
-#include "iscool/net/message/raw_message.h"
+#include <iscool/net/message/raw_message.hpp>
 
-// #include "iscool/net/byte_array_reader.h"
-// #include "iscool/net/message/deserialize_message.h"
+// #include <iscool/net/byte_array_reader.hpp>
+// #include <iscool/net/message/deserialize_message.hpp>
 
 // #include
-// "iscool/net/byte_array_serialization/byte_array_array_serialization.h"
-// #include "iscool/net/message/serialize_message.h"
+// <iscool/net/byte_array_serialization/byte_array_array_serialization.hpp>
+// #include <iscool/net/message/serialize_message.hpp>
 
 #include <gtest/gtest.h>
 

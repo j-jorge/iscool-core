@@ -13,8 +13,8 @@
   See the License for the specific language governing permissions and
   limitations under the License.
 */
-#include "iscool/signals/relay.h"
-#include "iscool/signals/signal.impl.tpp"
+#include <iscool/signals/relay.hpp>
+#include <iscool/signals/signal.impl.tpp>
 
 #include "gtest/gtest.h"
 

@@ -13,12 +13,12 @@
   See the License for the specific language governing permissions and
   limitations under the License.
 */
-#include "iscool/resources/catalog.h"
+#include <iscool/resources/catalog.hpp>
 
-#include "iscool/files/setup.h"
+#include <iscool/files/setup.hpp>
 
-#include "iscool/files/test/file_system_delegates_mockup.h"
-#include "iscool/test/equal_collections.h"
+#include <iscool/files/test/file_system_delegates_mockup.hpp>
+#include <iscool/test/equal_collections.hpp>
 
 #include "gtest/gtest.h"
 

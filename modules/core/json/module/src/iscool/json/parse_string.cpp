@@ -13,12 +13,12 @@
   See the License for the specific language governing permissions and
   limitations under the License.
 */
-#include "iscool/json/parse_string.h"
+#include <iscool/json/parse_string.hpp>
 
-#include "iscool/json/log_context.h"
+#include <iscool/json/log_context.hpp>
 
-#include "iscool/log/causeless_log.h"
-#include "iscool/log/nature/error.h"
+#include <iscool/log/causeless_log.hpp>
+#include <iscool/log/nature/error.hpp>
 
 #include <json/reader.h>
 

@@ -13,7 +13,7 @@
   See the License for the specific language governing permissions and
   limitations under the License.
 */
-#include "iscool/http/response.h"
+#include <iscool/http/response.hpp>
 
 iscool::http::response::response(int code, const std::vector<char>& body)
   : _code(code)

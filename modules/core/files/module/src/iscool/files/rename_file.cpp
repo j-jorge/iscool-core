@@ -13,12 +13,12 @@
   See the License for the specific language governing permissions and
   limitations under the License.
 */
-#include "iscool/files/rename_file.h"
+#include <iscool/files/rename_file.hpp>
 
-#include "iscool/files/log_context.h"
+#include <iscool/files/log_context.hpp>
 
-#include "iscool/log/causeless_log.h"
-#include "iscool/log/nature/error.h"
+#include <iscool/log/causeless_log.hpp>
+#include <iscool/log/nature/error.hpp>
 
 #include <filesystem>
 

@@ -16,11 +16,11 @@
 #ifndef ISCOOL_ANY_DETAIL_TYPED_VTABLE_TPP
 #define ISCOOL_ANY_DETAIL_TYPED_VTABLE_TPP
 
-#include "iscool/any/any.h"
-#include "iscool/any/detail/get_vtable.h"
+#include <iscool/any/any.hpp>
+#include <iscool/any/detail/get_vtable.hpp>
 
-#include "iscool/memory/global_pool.h"
-#include "iscool/memory/global_pool.impl.tpp"
+#include <iscool/memory/global_pool.hpp>
+#include <iscool/memory/global_pool.impl.tpp>
 
 template <typename T>
 void iscool::any::detail::typed_vtable<T>::clear(any& that)

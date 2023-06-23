@@ -14,11 +14,11 @@
   See the License for the specific language governing permissions and
   limitations under the License.
 */
-#include "iscool/social/ios/share_service.h"
+#include <iscool/social/ios/share_service.hpp>
 
-#include "iscool/social/ios/present_activity_view_controller.h"
+#include <iscool/social/ios/present_activity_view_controller.hpp>
 
-#include "iscool/ios/std_to_nsstring.h"
+#include <iscool/ios/std_to_nsstring.hpp>
 
 void
 iscool::social::ios::share_service::share_message( const std::string& message )

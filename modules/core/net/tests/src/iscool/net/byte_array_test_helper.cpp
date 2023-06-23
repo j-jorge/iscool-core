@@ -13,7 +13,7 @@
   See the License for the specific language governing permissions and
   limitations under the License.
 */
-#include "iscool/net/byte_array_test_helper.h"
+#include <iscool/net/byte_array_test_helper.hpp>
 
 #include "gtest/gtest.h"
 

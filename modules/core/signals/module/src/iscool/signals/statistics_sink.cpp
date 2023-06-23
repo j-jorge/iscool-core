@@ -13,9 +13,9 @@
   See the License for the specific language governing permissions and
   limitations under the License.
 */
-#include "iscool/signals/statistics_sink.h"
+#include <iscool/signals/statistics_sink.hpp>
 
-#include "iscool/signals/detail/statistics_function.h"
+#include <iscool/signals/detail/statistics_function.hpp>
 
 void iscool::signals::set_statistics_sink(
     const std::function<void(const statistics_data&)>& sink)

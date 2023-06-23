@@ -13,9 +13,9 @@
   See the License for the specific language governing permissions and
   limitations under the License.
 */
-#include "iscool/net/byte_array_reader.h"
+#include <iscool/net/byte_array_reader.hpp>
 
-#include "iscool/net/byte_array.h"
+#include <iscool/net/byte_array.hpp>
 
 iscool::net::byte_array_reader::byte_array_reader(byte_array byte_array)
   : _byte_array(std::move(byte_array))

@@ -13,7 +13,7 @@
   See the License for the specific language governing permissions and
   limitations under the License.
 */
-#include "iscool/profile/profile_data.h"
+#include <iscool/profile/profile_data.hpp>
 
 iscool::profile::profile_data::profile_data()
   : start(std::chrono::milliseconds(0))

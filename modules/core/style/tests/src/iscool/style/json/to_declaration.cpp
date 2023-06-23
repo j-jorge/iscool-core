@@ -13,10 +13,10 @@
   See the License for the specific language governing permissions and
   limitations under the License.
 */
-#include "iscool/style/json/to_declaration.h"
+#include <iscool/style/json/to_declaration.hpp>
 
-#include "iscool/json/parse_string.h"
-#include "iscool/optional.impl.tpp"
+#include <iscool/json/parse_string.hpp>
+#include <iscool/optional.impl.tpp>
 
 #include "gtest/gtest.h"
 

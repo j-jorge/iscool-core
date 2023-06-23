@@ -13,7 +13,7 @@
   See the License for the specific language governing permissions and
   limitations under the License.
 */
-#include "iscool/collections/sort_permutation.h"
+#include <iscool/collections/sort_permutation.hpp>
 
 #include <gtest/gtest.h>
 

@@ -13,8 +13,8 @@
   See the License for the specific language governing permissions and
   limitations under the License.
 */
-#include "iscool/json/to_array.h"
-#include "iscool/json/cast_int.h"
+#include <iscool/json/cast_int.hpp>
+#include <iscool/json/to_array.hpp>
 
 #include <list>
 

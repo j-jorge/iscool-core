@@ -13,11 +13,11 @@
   See the License for the specific language governing permissions and
   limitations under the License.
 */
-#include "iscool/jni/detail/native_call_manager.h"
+#include <iscool/jni/detail/native_call_manager.hpp>
 
-#include "iscool/jni/detail/get_jni_env.h"
-#include "iscool/jni/native_callback_lifespan.h"
-#include "iscool/schedule/delayed_call.h"
+#include <iscool/jni/detail/get_jni_env.hpp>
+#include <iscool/jni/native_callback_lifespan.hpp>
+#include <iscool/schedule/delayed_call.hpp>
 
 #include <mutex>
 

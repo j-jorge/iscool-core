@@ -13,15 +13,15 @@
   See the License for the specific language governing permissions and
   limitations under the License.
 */
-#include "iscool/i18n/load_translations.h"
+#include <iscool/i18n/load_translations.hpp>
 
-#include "iscool/files/file_system_delegates.h"
-#include "iscool/files/read_file.h"
-#include "iscool/files/setup.h"
-#include "iscool/i18n/gettext.h"
-#include "iscool/i18n/numeric.h"
+#include <iscool/files/file_system_delegates.hpp>
+#include <iscool/files/read_file.hpp>
+#include <iscool/files/setup.hpp>
+#include <iscool/i18n/gettext.hpp>
+#include <iscool/i18n/numeric.hpp>
 
-#include "iscool/files/test/file_system_delegates_mockup.h"
+#include <iscool/files/test/file_system_delegates_mockup.hpp>
 
 #include <fstream>
 

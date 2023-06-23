@@ -16,8 +16,8 @@
 #ifndef ISCOOL_JNI_STATIC_METHOD_JBOOLEAN_TPP
 #define ISCOOL_JNI_STATIC_METHOD_JBOOLEAN_TPP
 
-#include "iscool/jni/check_java_exception.h"
-#include "iscool/jni/detail/get_method_argument.h"
+#include <iscool/jni/check_java_exception.hpp>
+#include <iscool/jni/detail/get_method_argument.hpp>
 
 template <typename... Arg>
 jboolean iscool::jni::static_method<jboolean>::operator()(Arg&&... args) const

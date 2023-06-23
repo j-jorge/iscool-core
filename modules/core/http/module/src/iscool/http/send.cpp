@@ -13,15 +13,15 @@
   See the License for the specific language governing permissions and
   limitations under the License.
 */
-#include "iscool/http/send.h"
+#include <iscool/http/send.hpp>
 
-#include "iscool/http/detail/get_service_statistics.h"
-#include "iscool/http/detail/request_handler_pool.h"
-#include "iscool/http/detail/send_delegate.h"
-#include "iscool/http/detail/service_statistics.h"
-#include "iscool/http/get_global_mockup.h"
-#include "iscool/http/request.h"
-#include "iscool/schedule/delayed_call.h"
+#include <iscool/http/detail/get_service_statistics.hpp>
+#include <iscool/http/detail/request_handler_pool.hpp>
+#include <iscool/http/detail/send_delegate.hpp>
+#include <iscool/http/detail/service_statistics.hpp>
+#include <iscool/http/get_global_mockup.hpp>
+#include <iscool/http/request.hpp>
+#include <iscool/schedule/delayed_call.hpp>
 
 namespace iscool
 {

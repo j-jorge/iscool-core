@@ -15,9 +15,9 @@
 */
 #include <gtest/gtest.h>
 
-#include "iscool/net/byte_array.h"
-#include "iscool/net/byte_array_reader.h"
-#include "iscool/net/byte_array_serialization/byte_array_array_serialization.h"
+#include <iscool/net/byte_array.hpp>
+#include <iscool/net/byte_array_reader.hpp>
+#include <iscool/net/byte_array_serialization/byte_array_array_serialization.hpp>
 
 TEST(byte_array_array_serialization_test, empty_array)
 {

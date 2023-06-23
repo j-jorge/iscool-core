@@ -16,8 +16,8 @@
 #ifndef ISCOOL_JNI_DETAIL_SCOPED_NATIVE_CALLBACK_TPP
 #define ISCOOL_JNI_DETAIL_SCOPED_NATIVE_CALLBACK_TPP
 
-#include "iscool/jni/native_callback_lifespan.h"
-#include "iscool/jni/register_native_callback.h"
+#include <iscool/jni/native_callback_lifespan.hpp>
+#include <iscool/jni/register_native_callback.hpp>
 
 template <typename... Args>
 iscool::jni::scoped_native_callback::scoped_native_callback(

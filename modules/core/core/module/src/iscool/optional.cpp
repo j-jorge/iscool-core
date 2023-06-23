@@ -13,9 +13,9 @@
   See the License for the specific language governing permissions and
   limitations under the License.
 */
-#include "iscool/optional.h"
+#include <iscool/optional.hpp>
 
-#include "iscool/optional.impl.tpp"
+#include <iscool/optional.impl.tpp>
 
 #include <chrono>
 #include <string>

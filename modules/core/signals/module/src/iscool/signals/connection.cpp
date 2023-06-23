@@ -13,9 +13,9 @@
   See the License for the specific language governing permissions and
   limitations under the License.
 */
-#include "iscool/signals/connection.h"
+#include <iscool/signals/connection.hpp>
 
-#include "iscool/signals/detail/slot.h"
+#include <iscool/signals/detail/slot.hpp>
 
 iscool::signals::connection::connection() = default;
 

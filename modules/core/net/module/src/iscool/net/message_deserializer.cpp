@@ -13,9 +13,9 @@
   See the License for the specific language governing permissions and
   limitations under the License.
 */
-#include "iscool/net/message_deserializer.h"
+#include <iscool/net/message_deserializer.hpp>
 
-#include "iscool/net/message_deserializer.impl.tpp"
+#include <iscool/net/message_deserializer.impl.tpp>
 
 iscool::net::message_deserializer::deserializer_collection::
     ~deserializer_collection()

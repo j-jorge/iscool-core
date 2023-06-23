@@ -16,8 +16,8 @@
 #ifndef ISCOOL_JNI_CAST_IMPL_TPP
 #define ISCOOL_JNI_CAST_IMPL_TPP
 
-#include "iscool/jni/cast.h"
-#include "iscool/jni/detail/cast_fwd.h"
+#include <iscool/jni/cast.hpp>
+#include <iscool/jni/detail/cast_fwd.hpp>
 
 template <typename T>
 T iscool::jni::cast(jobject value)

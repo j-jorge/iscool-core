@@ -13,9 +13,9 @@
   See the License for the specific language governing permissions and
   limitations under the License.
 */
-#include "iscool/schedule/worker.h"
+#include <iscool/schedule/worker.hpp>
 
-#include "iscool/schedule/delayed_call.h"
+#include <iscool/schedule/delayed_call.hpp>
 
 iscool::schedule::worker::~worker()
 {

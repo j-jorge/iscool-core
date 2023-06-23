@@ -13,9 +13,9 @@
   See the License for the specific language governing permissions and
   limitations under the License.
 */
-#include "iscool/context.h"
+#include <iscool/context.hpp>
 
-#include "iscool/test/debug_crash.h"
+#include <iscool/test/debug_crash.hpp>
 
 #include <gtest/gtest.h>
 

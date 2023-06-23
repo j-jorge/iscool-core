@@ -13,10 +13,10 @@
   See the License for the specific language governing permissions and
   limitations under the License.
 */
-#include "iscool/iterators/cycle_iterator.h"
-#include "iscool/iterators/cycle_iterator.impl.tpp"
+#include <iscool/iterators/cycle_iterator.hpp>
+#include <iscool/iterators/cycle_iterator.impl.tpp>
 
-#include "iscool/test/debug_crash.h"
+#include <iscool/test/debug_crash.hpp>
 
 #include <vector>
 

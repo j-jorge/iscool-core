@@ -16,8 +16,8 @@
 #ifndef ISCOOL_JNI_DETAIL_NATIVE_CALL_HELPER_TPP
 #define ISCOOL_JNI_DETAIL_NATIVE_CALL_HELPER_TPP
 
-#include "iscool/jni/detail/extract_argument.h"
-#include "iscool/jni/detail/get_jni_env.h"
+#include <iscool/jni/detail/extract_argument.hpp>
+#include <iscool/jni/detail/get_jni_env.hpp>
 
 template <typename... Arg, std::size_t... I>
 void iscool::jni::detail::native_call_helper<

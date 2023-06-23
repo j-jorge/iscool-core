@@ -16,7 +16,7 @@
 #ifndef ISCOOL_SYSTEM_DEVICE_TIME_TPP
 #define ISCOOL_SYSTEM_DEVICE_TIME_TPP
 
-#include "iscool/system/detail/device_time_milliseconds.h"
+#include <iscool/system/detail/device_time_milliseconds.hpp>
 
 #include <chrono>
 

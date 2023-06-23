@@ -16,7 +16,7 @@
 #ifndef ISCOOL_JNI_CAST_VECTOR_TPP
 #define ISCOOL_JNI_CAST_VECTOR_TPP
 
-#include "iscool/jni/collection.h"
+#include <iscool/jni/collection.hpp>
 
 template <typename T>
 std::vector<T> iscool::jni::detail::cast<std::vector<T>>::value(jobject value)

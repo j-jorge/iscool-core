@@ -13,11 +13,11 @@
   See the License for the specific language governing permissions and
   limitations under the License.
 */
-#include "iscool/http/json/send.h"
+#include <iscool/http/json/send.hpp>
 
-#include "iscool/http/send.h"
+#include <iscool/http/send.hpp>
 
-#include "iscool/json/parse_string.h"
+#include <iscool/json/parse_string.hpp>
 
 namespace iscool
 {

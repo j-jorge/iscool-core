@@ -13,7 +13,7 @@
   See the License for the specific language governing permissions and
   limitations under the License.
 */
-#include "iscool/preferences/detail/global_properties.h"
+#include <iscool/preferences/detail/global_properties.hpp>
 
 namespace iscool
 {

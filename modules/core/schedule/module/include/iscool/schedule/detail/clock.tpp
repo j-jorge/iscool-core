@@ -16,7 +16,7 @@
 #ifndef ISCOOL_SCHEDULE_CLOCK_TPP
 #define ISCOOL_SCHEDULE_CLOCK_TPP
 
-#include "iscool/signals/signal.impl.tpp"
+#include <iscool/signals/signal.impl.tpp>
 
 template <typename Tick>
 iscool::signals::connection iscool::schedule::clock<Tick>::connect_to_tick(

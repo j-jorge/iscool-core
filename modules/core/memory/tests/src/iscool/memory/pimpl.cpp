@@ -13,7 +13,7 @@
   See the License for the specific language governing permissions and
   limitations under the License.
 */
-#include "iscool/memory/pimpl.impl.tpp"
+#include <iscool/memory/pimpl.impl.tpp>
 
 #include "gtest/gtest.h"
 

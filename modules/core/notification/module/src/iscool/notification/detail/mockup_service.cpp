@@ -13,9 +13,9 @@
   See the License for the specific language governing permissions and
   limitations under the License.
 */
-#include "iscool/notification/detail/mockup_service.h"
+#include <iscool/notification/detail/mockup_service.hpp>
 
-#include "iscool/log/console_log.h"
+#include <iscool/log/console_log.hpp>
 
 void iscool::notification::detail::mockup_service::enable_notifications()
 {

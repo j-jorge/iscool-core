@@ -13,23 +13,23 @@
   See the License for the specific language governing permissions and
   limitations under the License.
 */
-#include "iscool/style/detail/set_property_from_json_value.h"
+#include <iscool/style/detail/set_property_from_json_value.hpp>
 
-#include "iscool/style/loader.h"
-#include "iscool/style/log_context.h"
+#include <iscool/style/loader.hpp>
+#include <iscool/style/log_context.hpp>
 
-#include "iscool/style/detail/merge_declarations.h"
+#include <iscool/style/detail/merge_declarations.hpp>
 
-#include "iscool/style/json/to_declaration.h"
+#include <iscool/style/json/to_declaration.hpp>
 
-#include "iscool/json/cast_bool.h"
-#include "iscool/json/cast_float.h"
-#include "iscool/json/cast_string.h"
-#include "iscool/json/is_of_type_bool.h"
-#include "iscool/json/is_of_type_float.h"
-#include "iscool/json/is_of_type_string.h"
-#include "iscool/log/causeless_log.h"
-#include "iscool/log/nature/info.h"
+#include <iscool/json/cast_bool.hpp>
+#include <iscool/json/cast_float.hpp>
+#include <iscool/json/cast_string.hpp>
+#include <iscool/json/is_of_type_bool.hpp>
+#include <iscool/json/is_of_type_float.hpp>
+#include <iscool/json/is_of_type_string.hpp>
+#include <iscool/log/causeless_log.hpp>
+#include <iscool/log/nature/info.hpp>
 
 #include <json/value.h>
 

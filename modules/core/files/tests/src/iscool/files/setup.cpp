@@ -13,13 +13,13 @@
   See the License for the specific language governing permissions and
   limitations under the License.
 */
-#include "iscool/files/setup.h"
-#include "iscool/files/file_exists.h"
-#include "iscool/files/get_full_path.h"
-#include "iscool/files/get_writable_path.h"
-#include "iscool/files/read_file.h"
+#include <iscool/files/file_exists.hpp>
+#include <iscool/files/get_full_path.hpp>
+#include <iscool/files/get_writable_path.hpp>
+#include <iscool/files/read_file.hpp>
+#include <iscool/files/setup.hpp>
 
-#include "iscool/files/test/file_system_delegates_mockup.h"
+#include <iscool/files/test/file_system_delegates_mockup.hpp>
 
 #include <gtest/gtest.h>
 

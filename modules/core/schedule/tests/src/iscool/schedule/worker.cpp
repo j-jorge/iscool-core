@@ -13,20 +13,20 @@
   See the License for the specific language governing permissions and
   limitations under the License.
 */
-#include "iscool/schedule/worker.h"
+#include <iscool/schedule/worker.hpp>
 
-#include "iscool/schedule/delayed_call.h"
-#include "iscool/schedule/manual_scheduler.h"
-#include "iscool/schedule/setup.h"
-#include "iscool/signals/signal.impl.tpp"
+#include <iscool/schedule/delayed_call.hpp>
+#include <iscool/schedule/manual_scheduler.hpp>
+#include <iscool/schedule/setup.hpp>
+#include <iscool/signals/signal.impl.tpp>
 
-#include "iscool/test/no_crash.h"
+#include <iscool/test/no_crash.hpp>
 
 #include <thread>
 #include <unistd.h>
 
-#include "iscool/schedule/test/observable_task.h"
-#include "iscool/schedule/test/task_activity_report.h"
+#include <iscool/schedule/test/observable_task.hpp>
+#include <iscool/schedule/test/task_activity_report.hpp>
 
 #include <gtest/gtest.h>
 

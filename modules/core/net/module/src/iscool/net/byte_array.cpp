@@ -13,7 +13,7 @@
   See the License for the specific language governing permissions and
   limitations under the License.
 */
-#include "iscool/net/byte_array.h"
+#include <iscool/net/byte_array.hpp>
 
 void iscool::net::byte_array::append(const byte_array& array)
 {

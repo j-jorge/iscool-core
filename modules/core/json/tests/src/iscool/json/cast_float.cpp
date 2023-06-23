@@ -13,9 +13,9 @@
   See the License for the specific language governing permissions and
   limitations under the License.
 */
-#include "iscool/json/cast_float.h"
-#include "iscool/json/bad_cast.h"
-#include "iscool/json/is_of_type_float.h"
+#include <iscool/json/bad_cast.hpp>
+#include <iscool/json/cast_float.hpp>
+#include <iscool/json/is_of_type_float.hpp>
 
 #include <json/value.h>
 

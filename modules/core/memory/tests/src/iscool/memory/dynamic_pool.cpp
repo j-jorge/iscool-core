@@ -13,7 +13,7 @@
   See the License for the specific language governing permissions and
   limitations under the License.
 */
-#include "iscool/memory/dynamic_pool.h"
+#include <iscool/memory/dynamic_pool.hpp>
 
 #include <algorithm>
 #include <array>

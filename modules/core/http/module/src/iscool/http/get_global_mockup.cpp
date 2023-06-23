@@ -13,7 +13,7 @@
   See the License for the specific language governing permissions and
   limitations under the License.
 */
-#include "iscool/http/get_global_mockup.h"
+#include <iscool/http/get_global_mockup.hpp>
 
 iscool::http::mockup& iscool::http::get_global_mockup()
 {

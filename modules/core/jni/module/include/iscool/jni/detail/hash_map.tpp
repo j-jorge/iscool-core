@@ -16,11 +16,11 @@
 #ifndef ISCOOL_JNI_HASH_MAP_TPP
 #define ISCOOL_JNI_HASH_MAP_TPP
 
-#include "iscool/jni/alloc.h"
-#include "iscool/jni/collection.h"
-#include "iscool/jni/get_method.h"
-#include "iscool/jni/iterator.h"
-#include "iscool/jni/method_jobject.h"
+#include <iscool/jni/alloc.hpp>
+#include <iscool/jni/collection.hpp>
+#include <iscool/jni/get_method.hpp>
+#include <iscool/jni/iterator.hpp>
+#include <iscool/jni/method_jobject.hpp>
 
 template <typename K, typename V>
 iscool::jni::hash_map<K, V>::hash_map()

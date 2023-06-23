@@ -13,9 +13,9 @@
   See the License for the specific language governing permissions and
   limitations under the License.
 */
-#include "iscool/monitoring/implement_state_monitor.h"
+#include <iscool/monitoring/implement_state_monitor.hpp>
 
-#include "iscool/test/debug_crash.h"
+#include <iscool/test/debug_crash.hpp>
 
 #include <gtest/gtest.h>
 

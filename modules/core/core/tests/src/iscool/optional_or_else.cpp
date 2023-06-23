@@ -13,7 +13,7 @@
   See the License for the specific language governing permissions and
   limitations under the License.
 */
-#include "iscool/optional_or_else.h"
+#include <iscool/optional_or_else.hpp>
 
 #include <gtest/gtest.h>
 

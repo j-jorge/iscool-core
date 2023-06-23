@@ -15,9 +15,9 @@
 */
 #include "gtest/gtest.h"
 
-#include "iscool/wish/genie.h"
-#include "iscool/wish/wish.h"
-#include "iscool/wish/wishing_well.h"
+#include <iscool/wish/genie.hpp>
+#include <iscool/wish/wish.hpp>
+#include <iscool/wish/wishing_well.hpp>
 
 DECLARE_SIMPLE_WISH(simple_test_wish);
 

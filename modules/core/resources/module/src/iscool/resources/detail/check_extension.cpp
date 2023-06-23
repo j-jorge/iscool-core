@@ -13,7 +13,7 @@
   See the License for the specific language governing permissions and
   limitations under the License.
 */
-#include "iscool/resources/detail/check_extension.h"
+#include <iscool/resources/detail/check_extension.hpp>
 
 std::string::size_type
 iscool::resources::detail::check_extension(const std::string& extension,

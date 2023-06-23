@@ -16,8 +16,8 @@
 #ifndef ISCOOL_SCHEDULE_REAL_CLOCK_TPP
 #define ISCOOL_SCHEDULE_REAL_CLOCK_TPP
 
-#include "iscool/schedule/delayed_call.h"
-#include "iscool/time/now.h"
+#include <iscool/schedule/delayed_call.hpp>
+#include <iscool/time/now.hpp>
 
 template <typename Tick>
 template <typename Rep, typename Period>

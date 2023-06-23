@@ -16,7 +16,7 @@
 #ifndef ISCOOL_JNI_JAVA_PTR_TPP
 #define ISCOOL_JNI_JAVA_PTR_TPP
 
-#include "iscool/jni/detail/get_jni_env.h"
+#include <iscool/jni/detail/get_jni_env.hpp>
 
 #include <algorithm>
 #include <cassert>

@@ -13,10 +13,10 @@
   See the License for the specific language governing permissions and
   limitations under the License.
 */
-#include "iscool/i18n/load_translations.h"
+#include <iscool/i18n/load_translations.hpp>
 
-#include "iscool/i18n/detail/assign_plural_index.h"
-#include "iscool/i18n/detail/default_language_code.h"
+#include <iscool/i18n/detail/assign_plural_index.hpp>
+#include <iscool/i18n/detail/default_language_code.hpp>
 
 #include "moFileReader/moFileReader.h"
 

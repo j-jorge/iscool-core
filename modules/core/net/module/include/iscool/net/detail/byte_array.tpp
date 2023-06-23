@@ -13,9 +13,9 @@
   See the License for the specific language governing permissions and
   limitations under the License.
 */
-#include "iscool/net/endianness.h"
+#include <iscool/net/endianness.hpp>
 
-#include "iscool/meta/underlying_type.h"
+#include <iscool/meta/underlying_type.hpp>
 
 template <typename Iterator>
 iscool::net::byte_array::byte_array(const Iterator& first,

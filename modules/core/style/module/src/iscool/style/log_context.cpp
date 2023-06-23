@@ -13,7 +13,7 @@
   See the License for the specific language governing permissions and
   limitations under the License.
 */
-#include "iscool/style/log_context.h"
+#include <iscool/style/log_context.hpp>
 
 const std::string& iscool::style::log_context()
 {

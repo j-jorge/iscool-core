@@ -13,11 +13,11 @@
   See the License for the specific language governing permissions and
   limitations under the License.
 */
-#include "iscool/jni/detail/get_method_info.h"
+#include <iscool/jni/detail/get_method_info.hpp>
 
-#include "iscool/jni/detail/get_jni_env.h"
-#include "iscool/jni/get_class.h"
-#include "iscool/jni/method_not_found.h"
+#include <iscool/jni/detail/get_jni_env.hpp>
+#include <iscool/jni/get_class.hpp>
+#include <iscool/jni/method_not_found.hpp>
 
 iscool::jni::detail::method_info iscool::jni::detail::get_method_info(
     const char* class_name, const char* method_name, const char* signature)

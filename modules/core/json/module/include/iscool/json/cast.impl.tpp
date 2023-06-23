@@ -16,8 +16,8 @@
 #ifndef ISCOOL_JSON_CAST_IMPL_TPP
 #define ISCOOL_JSON_CAST_IMPL_TPP
 
-#include "iscool/json/cast.h"
-#include "iscool/json/detail/cast_fwd.h"
+#include <iscool/json/cast.hpp>
+#include <iscool/json/detail/cast_fwd.hpp>
 
 #include <json/value.h>
 

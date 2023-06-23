@@ -13,7 +13,7 @@
   See the License for the specific language governing permissions and
   limitations under the License.
 */
-#include "iscool/time/detail/time_source.h"
+#include <iscool/time/detail/time_source.hpp>
 
 iscool::time::time_source_delegate iscool::time::detail::time_source =
     []() -> std::chrono::nanoseconds

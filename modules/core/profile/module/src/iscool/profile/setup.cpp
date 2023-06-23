@@ -13,9 +13,9 @@
   See the License for the specific language governing permissions and
   limitations under the License.
 */
-#include "iscool/profile/setup.h"
+#include <iscool/profile/setup.hpp>
 
-#include "iscool/profile/detail/output_function.h"
+#include <iscool/profile/detail/output_function.hpp>
 
 #include <cassert>
 

@@ -13,24 +13,24 @@
   See the License for the specific language governing permissions and
   limitations under the License.
 */
-#include "iscool/preferences/local_preferences.h"
+#include <iscool/preferences/local_preferences.hpp>
 
-#include "iscool/files/copy_file.h"
-#include "iscool/files/delete_file.h"
-#include "iscool/files/file_exists.h"
-#include "iscool/files/rename_file.h"
-#include "iscool/json/from_file.h"
-#include "iscool/json/write_to_stream.h"
-#include "iscool/log/causeless_log.h"
-#include "iscool/log/nature/error.h"
-#include "iscool/log/nature/info.h"
-#include "iscool/log/nature/warning.h"
-#include "iscool/memory/make_unique.h"
-#include "iscool/preferences/detail/local_preferences_from_json.h"
-#include "iscool/preferences/log_context.h"
-#include "iscool/preferences/property_map_to_json.h"
-#include "iscool/preferences/store.impl.tpp"
-#include "iscool/signals/implement_signal.h"
+#include <iscool/files/copy_file.hpp>
+#include <iscool/files/delete_file.hpp>
+#include <iscool/files/file_exists.hpp>
+#include <iscool/files/rename_file.hpp>
+#include <iscool/json/from_file.hpp>
+#include <iscool/json/write_to_stream.hpp>
+#include <iscool/log/causeless_log.hpp>
+#include <iscool/log/nature/error.hpp>
+#include <iscool/log/nature/info.hpp>
+#include <iscool/log/nature/warning.hpp>
+#include <iscool/memory/make_unique.hpp>
+#include <iscool/preferences/detail/local_preferences_from_json.hpp>
+#include <iscool/preferences/log_context.hpp>
+#include <iscool/preferences/property_map_to_json.hpp>
+#include <iscool/preferences/store.impl.tpp>
+#include <iscool/signals/implement_signal.hpp>
 
 #include <fstream>
 

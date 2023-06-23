@@ -13,7 +13,7 @@
   See the License for the specific language governing permissions and
   limitations under the License.
 */
-#include "iscool/system/send_to_background.h"
+#include <iscool/system/send_to_background.hpp>
 
 #include <cassert>
 

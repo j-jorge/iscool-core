@@ -13,9 +13,9 @@
   See the License for the specific language governing permissions and
   limitations under the License.
 */
-#include "iscool/system/device_date.h"
+#include <iscool/system/device_date.hpp>
 
-#include "iscool/system/detail/device_time_milliseconds.h"
+#include <iscool/system/detail/device_time_milliseconds.hpp>
 
 std::tm iscool::system::device_date()
 {

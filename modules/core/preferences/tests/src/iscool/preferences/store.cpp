@@ -13,12 +13,12 @@
   See the License for the specific language governing permissions and
   limitations under the License.
 */
-#include "iscool/preferences/store.h"
+#include <iscool/preferences/store.hpp>
 
-#include "iscool/preferences/store.impl.tpp"
+#include <iscool/preferences/store.impl.tpp>
 
-#include "iscool/schedule/manual_scheduler.h"
-#include "iscool/schedule/setup.h"
+#include <iscool/schedule/manual_scheduler.hpp>
+#include <iscool/schedule/setup.hpp>
 
 #include <thread>
 

@@ -16,13 +16,13 @@
 #ifndef ISCOOL_JNI_DETAIL_VARIADIC_NATIVE_CALLBACK_TPP
 #define ISCOOL_JNI_DETAIL_VARIADIC_NATIVE_CALLBACK_TPP
 
-#include "iscool/jni/bad_cast.h"
-#include "iscool/jni/detail/call_native_function.h"
-#include "iscool/jni/log_context.h"
-#include "iscool/jni/throw_java_exception.h"
+#include <iscool/jni/bad_cast.hpp>
+#include <iscool/jni/detail/call_native_function.hpp>
+#include <iscool/jni/log_context.hpp>
+#include <iscool/jni/throw_java_exception.hpp>
 
-#include "iscool/log/causeless_log.h"
-#include "iscool/log/nature/error.h"
+#include <iscool/log/causeless_log.hpp>
+#include <iscool/log/nature/error.hpp>
 
 template <typename... Args>
 iscool::jni::detail::variadic_native_callback<

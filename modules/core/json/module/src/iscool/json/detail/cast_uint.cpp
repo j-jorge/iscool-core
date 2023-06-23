@@ -13,14 +13,14 @@
   See the License for the specific language governing permissions and
   limitations under the License.
 */
-#include "iscool/json/detail/cast_uint.h"
+#include <iscool/json/detail/cast_uint.hpp>
 
-#include "iscool/json/bad_cast.h"
-#include "iscool/json/cast.impl.tpp"
-#include "iscool/json/implement_cast.h"
-#include "iscool/json/implement_is_of_type.h"
-#include "iscool/json/is_of_type.h"
-#include "iscool/json/is_of_type.impl.tpp"
+#include <iscool/json/bad_cast.hpp>
+#include <iscool/json/cast.impl.tpp>
+#include <iscool/json/implement_cast.hpp>
+#include <iscool/json/implement_is_of_type.hpp>
+#include <iscool/json/is_of_type.hpp>
+#include <iscool/json/is_of_type.impl.tpp>
 
 #include <json/value.h>
 

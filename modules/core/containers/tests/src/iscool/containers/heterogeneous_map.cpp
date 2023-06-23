@@ -13,10 +13,10 @@
   See the License for the specific language governing permissions and
   limitations under the License.
 */
-#include "iscool/containers/heterogeneous_map.h"
-#include "iscool/containers/heterogeneous_map.impl.tpp"
+#include <iscool/containers/heterogeneous_map.hpp>
+#include <iscool/containers/heterogeneous_map.impl.tpp>
 
-#include "iscool/optional.impl.tpp"
+#include <iscool/optional.impl.tpp>
 
 #include <functional>
 

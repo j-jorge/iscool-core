@@ -13,7 +13,7 @@
   See the License for the specific language governing permissions and
   limitations under the License.
 */
-#include "iscool/system/language_code.h"
+#include <iscool/system/language_code.hpp>
 
 #import <Foundation/Foundation.h>
 

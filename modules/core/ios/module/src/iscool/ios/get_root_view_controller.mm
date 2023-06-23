@@ -13,7 +13,7 @@
   See the License for the specific language governing permissions and
   limitations under the License.
 */
-#include "iscool/ios/get_root_view_controller.h"
+#include <iscool/ios/get_root_view_controller.hpp>
 
 #import <UIKit/UIWindow.h>
 

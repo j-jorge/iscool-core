@@ -13,9 +13,9 @@
   See the License for the specific language governing permissions and
   limitations under the License.
 */
-#include "iscool/social/detail/mockup_share_service.h"
+#include <iscool/social/detail/mockup_share_service.hpp>
 
-#include "iscool/log/console_log.h"
+#include <iscool/log/console_log.hpp>
 
 void iscool::social::detail::mockup_share_service::share_message(
     const std::string& message)

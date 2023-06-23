@@ -13,15 +13,15 @@
   See the License for the specific language governing permissions and
   limitations under the License.
 */
-#include "iscool/video/decoder.h"
+#include <iscool/video/decoder.hpp>
 
-#include "iscool/log/causeless_log.h"
-#include "iscool/log/nature/error.h"
-#include "iscool/log/nature/info.h"
-#include "iscool/none.h"
-#include "iscool/signals/implement_signal.h"
-#include "iscool/signals/relay.h"
-#include "iscool/signals/scoped_connection.h"
+#include <iscool/log/causeless_log.hpp>
+#include <iscool/log/nature/error.hpp>
+#include <iscool/log/nature/info.hpp>
+#include <iscool/none.hpp>
+#include <iscool/signals/implement_signal.hpp>
+#include <iscool/signals/relay.hpp>
+#include <iscool/signals/scoped_connection.hpp>
 
 extern "C"
 {

@@ -16,7 +16,7 @@
 #ifndef ISCOOL_JNI_GET_STATIC_METHOD_TPP
 #define ISCOOL_JNI_GET_STATIC_METHOD_TPP
 
-#include "iscool/jni/detail/get_static_method_info.h"
+#include <iscool/jni/detail/get_static_method_info.hpp>
 
 template <typename R>
 iscool::jni::static_method<R>

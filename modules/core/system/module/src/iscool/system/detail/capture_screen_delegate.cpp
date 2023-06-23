@@ -13,7 +13,7 @@
   See the License for the specific language governing permissions and
   limitations under the License.
 */
-#include "iscool/system/detail/capture_screen_delegate.h"
+#include <iscool/system/detail/capture_screen_delegate.hpp>
 
 iscool::system::capture_screen_function
     iscool::system::detail::capture_screen_delegate;

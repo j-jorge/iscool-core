@@ -13,7 +13,7 @@
   See the License for the specific language governing permissions and
   limitations under the License.
 */
-#include "iscool/log/nature/nature.h"
+#include <iscool/log/nature/nature.hpp>
 
 #include <gtest/gtest.h>
 

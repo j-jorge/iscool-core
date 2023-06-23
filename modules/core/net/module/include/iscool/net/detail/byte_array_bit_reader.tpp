@@ -13,7 +13,7 @@
   See the License for the specific language governing permissions and
   limitations under the License.
 */
-#include "iscool/meta/underlying_type.h"
+#include <iscool/meta/underlying_type.hpp>
 
 #include <cassert>
 #include <climits>
