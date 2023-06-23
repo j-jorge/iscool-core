@@ -21,10 +21,10 @@
 
 namespace iscool
 {
-    namespace time
-    {
-        using time_source_delegate = std::function<std::chrono::nanoseconds()>;
-    }
+  namespace time
+  {
+    using time_source_delegate = std::function<std::chrono::nanoseconds()>;
+  }
 }
 
 #endif

@@ -20,19 +20,18 @@
 
 namespace iscool
 {
-    namespace social
+  namespace social
+  {
+    namespace detail
     {
-        namespace detail
-        {
-            class mockup_link_service
-            {
-            public:
-                void open_in_facebook( const std::string& path );
-                void open_in_twitter( const std::string& path );
-
-            };
-        }
+      class mockup_link_service
+      {
+      public:
+        void open_in_facebook(const std::string& path);
+        void open_in_twitter(const std::string& path);
+      };
     }
+  }
 }
 
 #endif

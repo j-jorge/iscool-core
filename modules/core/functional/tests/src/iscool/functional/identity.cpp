@@ -17,11 +17,10 @@
 
 #include <gtest/gtest.h>
 
-TEST( iscool_functional_identity, call )
+TEST(iscool_functional_identity, call)
 {
-    EXPECT_EQ( 23, iscool::functional::identity< int >()( 23 ) );
-    EXPECT_EQ( "abc", iscool::functional::identity< const char* >()( "abc" ) );
-    EXPECT_EQ
-        ( std::string( "def" ),
-          iscool::functional::identity< std::string >()( "def" ) );
+  EXPECT_EQ(23, iscool::functional::identity<int>()(23));
+  EXPECT_EQ("abc", iscool::functional::identity<const char*>()("abc"));
+  EXPECT_EQ(std::string("def"),
+            iscool::functional::identity<std::string>()("def"));
 }

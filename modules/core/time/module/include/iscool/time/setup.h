@@ -20,23 +20,22 @@
 
 namespace iscool
 {
-    namespace time
+  namespace time
+  {
+    void initialize(time_source_delegate delegate);
+    void finalize();
+
+    class scoped_time_source_delegate
     {
-        void initialize(time_source_delegate delegate);
-        void finalize();
+    public:
+      explicit scoped_time_source_delegate(time_source_delegate delegate);
+      scoped_time_source_delegate(const scoped_time_source_delegate&) = delete;
+      ~scoped_time_source_delegate();
 
-        class scoped_time_source_delegate
-        {
-        public:
-            explicit scoped_time_source_delegate(time_source_delegate delegate);
-            scoped_time_source_delegate(const scoped_time_source_delegate&) =
-                delete;
-            ~scoped_time_source_delegate();
-
-            scoped_time_source_delegate&
-            operator=(const scoped_time_source_delegate&) = delete;
-        };
-    }
+      scoped_time_source_delegate&
+      operator=(const scoped_time_source_delegate&) = delete;
+    };
+  }
 }
 
 #endif

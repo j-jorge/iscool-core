@@ -20,351 +20,330 @@
 #include <new>
 #include <utility>
 
-template< typename T >
-iscool::optional< T >::optional()
-    : _initialized( false )
-{
+template <typename T>
+iscool::optional<T>::optional()
+  : _initialized(false)
+{}
 
-}
-  
-template< typename T >
-iscool::optional< T >::optional( T&& that )
-    : _initialized( true )
+template <typename T>
+iscool::optional<T>::optional(T&& that)
+  : _initialized(true)
 {
-    new( &_storage ) T( std::move( that ) );
+  new (&_storage) T(std::move(that));
 }
 
-template< typename T >
-iscool::optional< T >::optional( const T& that )
-    : _initialized( true )
+template <typename T>
+iscool::optional<T>::optional(const T& that)
+  : _initialized(true)
 {
-    new( &_storage ) T( that );
+  new (&_storage) T(that);
 }
 
-template< typename T >
-iscool::optional< T >::optional( const optional< T >& that )
-    : _initialized( that._initialized )
+template <typename T>
+iscool::optional<T>::optional(const optional<T>& that)
+  : _initialized(that._initialized)
 {
-    if ( _initialized )
-        new ( &_storage ) T( *that );
+  if (_initialized)
+    new (&_storage) T(*that);
 }
 
-template< typename T >
-template< typename U >
-iscool::optional< T >::optional( const optional< U >& that )
-    : _initialized( that )
+template <typename T>
+template <typename U>
+iscool::optional<T>::optional(const optional<U>& that)
+  : _initialized(that)
 {
-    if ( _initialized )
-        new ( &_storage ) T( *that );
+  if (_initialized)
+    new (&_storage) T(*that);
 }
 
-template< typename T >
-iscool::optional< T >::optional( optional< T >&& that )
-    : _initialized( that._initialized )
+template <typename T>
+iscool::optional<T>::optional(optional<T>&& that)
+  : _initialized(that._initialized)
 {
-    if ( _initialized )
-        new ( &_storage ) T( std::move( *that ) );
+  if (_initialized)
+    new (&_storage) T(std::move(*that));
 }
 
-template< typename T >
-iscool::optional< T >::optional( const none_t& )
-    : optional()
-{
+template <typename T>
+iscool::optional<T>::optional(const none_t&)
+  : optional()
+{}
 
+template <typename T>
+iscool::optional<T>::~optional()
+{
+  reset();
 }
 
-template< typename T >
-iscool::optional< T >::~optional()
+template <typename T>
+iscool::optional<T>::operator bool() const
 {
-    reset();
-}
-  
-template< typename T >
-iscool::optional< T >::operator bool() const
-{
-    return _initialized;
+  return _initialized;
 }
 
-template< typename T >
-T& iscool::optional< T >::operator*()
+template <typename T>
+T& iscool::optional<T>::operator*()
 {
-    return *get();
-}
-  
-template< typename T >
-const T& iscool::optional< T >::operator*() const
-{
-    return *get();
+  return *get();
 }
 
-template< typename T >
-T* iscool::optional< T >::operator->()
+template <typename T>
+const T& iscool::optional<T>::operator*() const
 {
-    return get();
+  return *get();
 }
 
-template< typename T >
-const T* iscool::optional< T >::operator->() const
+template <typename T>
+T* iscool::optional<T>::operator->()
 {
-    return get();
+  return get();
 }
 
-template< typename T >
-iscool::optional< T >& iscool::optional< T >::operator=( const T& that )
+template <typename T>
+const T* iscool::optional<T>::operator->() const
 {
-    if ( _initialized && ( get() == &that ) )
-        return *this;
+  return get();
+}
 
-    emplace( that );
-
+template <typename T>
+iscool::optional<T>& iscool::optional<T>::operator=(const T& that)
+{
+  if (_initialized && (get() == &that))
     return *this;
+
+  emplace(that);
+
+  return *this;
 }
-  
-template< typename T >
-iscool::optional< T >&
-iscool::optional< T >::operator=( const optional< T >& that )
+
+template <typename T>
+iscool::optional<T>& iscool::optional<T>::operator=(const optional<T>& that)
 {
-    if ( this == &that )
-        return *this;
-
-    if ( that )
-        emplace( *that );
-    else
-        reset();
-
+  if (this == &that)
     return *this;
-}
 
-template< typename T >
-iscool::optional< T >& iscool::optional< T >::operator=( optional< T >&& that )
-{
-    if ( this == &that )
-        return *this;
-
-    if ( that )
-        emplace( std::move( *that ) );
-    else
-        reset();
-
-    return *this;
-}
-
-template< typename T >
-iscool::optional< T >& iscool::optional< T >::operator=( const none_t& )
-{
-    reset();
-    return *this;
-}
-
-template< typename T >
-bool iscool::optional< T >::operator==( const none_t& ) const
-{
-    return !_initialized;
-}
-
-template< typename T >
-bool iscool::optional< T >::operator!=( const none_t& ) const
-{
-    return _initialized;
-}
-
-template< typename T >
-template< typename... Args >
-void iscool::optional< T >::emplace( Args&&... args )
-{
+  if (that)
+    emplace(*that);
+  else
     reset();
 
-    new ( &_storage ) T( std::forward< Args >( args )... );
-    _initialized = true;
+  return *this;
 }
-   
-template< typename T >
-void iscool::optional< T >::reset()
+
+template <typename T>
+iscool::optional<T>& iscool::optional<T>::operator=(optional<T>&& that)
 {
-    if ( _initialized )
+  if (this == &that)
+    return *this;
+
+  if (that)
+    emplace(std::move(*that));
+  else
+    reset();
+
+  return *this;
+}
+
+template <typename T>
+iscool::optional<T>& iscool::optional<T>::operator=(const none_t&)
+{
+  reset();
+  return *this;
+}
+
+template <typename T>
+bool iscool::optional<T>::operator==(const none_t&) const
+{
+  return !_initialized;
+}
+
+template <typename T>
+bool iscool::optional<T>::operator!=(const none_t&) const
+{
+  return _initialized;
+}
+
+template <typename T>
+template <typename... Args>
+void iscool::optional<T>::emplace(Args&&... args)
+{
+  reset();
+
+  new (&_storage) T(std::forward<Args>(args)...);
+  _initialized = true;
+}
+
+template <typename T>
+void iscool::optional<T>::reset()
+{
+  if (_initialized)
     {
-        get()->~T();
-        _initialized = false;
+      get()->~T();
+      _initialized = false;
     }
 }
 
-template< typename T >
-void iscool::optional< T >::swap( optional< T >& that )
+template <typename T>
+void iscool::optional<T>::swap(optional<T>& that)
 {
-    std::swap( *this, that );
+  std::swap(*this, that);
 }
 
-template< typename T >
-T* iscool::optional< T >::get()
+template <typename T>
+T* iscool::optional<T>::get()
 {
-    assert( _initialized );
-    return reinterpret_cast< T* >( &_storage );
+  assert(_initialized);
+  return reinterpret_cast<T*>(&_storage);
 }
 
-template< typename T >
-const T* iscool::optional< T >::get() const
+template <typename T>
+const T* iscool::optional<T>::get() const
 {
-    assert( _initialized );
-    return reinterpret_cast< const T* >( &_storage );
+  assert(_initialized);
+  return reinterpret_cast<const T*>(&_storage);
 }
 
-template< typename T >
-iscool::optional< T& >::optional()
-    : _value( nullptr )
+template <typename T>
+iscool::optional<T&>::optional()
+  : _value(nullptr)
+{}
+
+template <typename T>
+iscool::optional<T&>::optional(T& that)
+  : _value(&that)
+{}
+
+template <typename T>
+iscool::optional<T&>::optional(const optional<T&>& that)
+  : _value(that._value)
+{}
+
+template <typename T>
+template <typename U>
+iscool::optional<T&>::optional(const optional<U&>& that)
+  : _value(that._value)
+{}
+
+template <typename T>
+iscool::optional<T&>::optional(optional<T&>&& that)
+  : _value(that._value)
+{}
+
+template <typename T>
+iscool::optional<T&>::optional(const none_t&)
+  : optional()
+{}
+
+template <typename T>
+iscool::optional<T&>::~optional()
+{}
+
+template <typename T>
+iscool::optional<T&>::operator bool() const
 {
-
-}
-  
-template< typename T >
-iscool::optional< T& >::optional( T& that )
-    : _value( &that )
-{
-
-}
-
-template< typename T >
-iscool::optional< T& >::optional( const optional< T& >& that )
-    : _value( that._value )
-{
-
-}
-
-template< typename T >
-template< typename U >
-iscool::optional< T& >::optional( const optional< U& >& that )
-    : _value( that._value )
-{
-
-}
-
-template< typename T >
-iscool::optional< T& >::optional( optional< T& >&& that )
-    : _value( that._value )
-{
-
-}
-
-template< typename T >
-iscool::optional< T& >::optional( const none_t& )
-    : optional()
-{
-
+  return _value != nullptr;
 }
 
-template< typename T >
-iscool::optional< T& >::~optional()
+template <typename T>
+T& iscool::optional<T&>::operator*()
 {
-
-}
-  
-template< typename T >
-iscool::optional< T& >::operator bool() const
-{
-    return _value != nullptr;
+  return *operator->();
 }
 
-template< typename T >
-T& iscool::optional< T& >::operator*()
+template <typename T>
+const T& iscool::optional<T&>::operator*() const
 {
-    return *operator->();
-}
-  
-template< typename T >
-const T& iscool::optional< T& >::operator*() const
-{
-    return *operator->();
+  return *operator->();
 }
 
-template< typename T >
-T* iscool::optional< T& >::operator->()
+template <typename T>
+T* iscool::optional<T&>::operator->()
 {
-    assert( _value != nullptr );
-    return _value;
+  assert(_value != nullptr);
+  return _value;
 }
 
-template< typename T >
-const T* iscool::optional< T& >::operator->() const
+template <typename T>
+const T* iscool::optional<T&>::operator->() const
 {
-    assert( _value != nullptr );
-    return _value;
+  assert(_value != nullptr);
+  return _value;
 }
 
-template< typename T >
-iscool::optional< T& >& iscool::optional< T& >::operator=( T& that )
+template <typename T>
+iscool::optional<T&>& iscool::optional<T&>::operator=(T& that)
 {
-    emplace( that );
-    return *this;
-}
-  
-template< typename T >
-iscool::optional< T& >&
-iscool::optional< T& >::operator=( const optional< T& >& that )
-{
-    _value = that._value;
-    return *this;
+  emplace(that);
+  return *this;
 }
 
-template< typename T >
-iscool::optional< T& >&
-iscool::optional< T& >::operator=( optional< T& >&& that )
+template <typename T>
+iscool::optional<T&>& iscool::optional<T&>::operator=(const optional<T&>& that)
 {
-    _value = that._value;
-    return *this;
+  _value = that._value;
+  return *this;
 }
 
-template< typename T >
-iscool::optional< T& >& iscool::optional< T& >::operator=( const none_t& )
+template <typename T>
+iscool::optional<T&>& iscool::optional<T&>::operator=(optional<T&>&& that)
 {
-    reset();
-    return *this;
+  _value = that._value;
+  return *this;
 }
 
-template< typename T >
-bool iscool::optional< T& >::operator==( const none_t& ) const
+template <typename T>
+iscool::optional<T&>& iscool::optional<T&>::operator=(const none_t&)
 {
-    return _value == nullptr;
+  reset();
+  return *this;
 }
 
-template< typename T >
-bool iscool::optional< T& >::operator!=( const none_t& ) const
+template <typename T>
+bool iscool::optional<T&>::operator==(const none_t&) const
 {
-    return _value != nullptr;
+  return _value == nullptr;
 }
 
-template< typename T >
-void iscool::optional< T& >::emplace( T& that )
+template <typename T>
+bool iscool::optional<T&>::operator!=(const none_t&) const
 {
-    _value = &that;
+  return _value != nullptr;
 }
 
-template< typename T >
-void iscool::optional< T& >::reset()
+template <typename T>
+void iscool::optional<T&>::emplace(T& that)
 {
-    _value = nullptr;
+  _value = &that;
 }
 
-template< typename T >
-void iscool::optional< T& >::swap( optional< T& >& that )
+template <typename T>
+void iscool::optional<T&>::reset()
 {
-    std::swap( _value, that._value );
+  _value = nullptr;
 }
 
-template< typename T >
-bool iscool::operator==( const none_t&, const optional< T >& value )
+template <typename T>
+void iscool::optional<T&>::swap(optional<T&>& that)
 {
-    return !value;
+  std::swap(_value, that._value);
 }
 
-template< typename T >
-bool iscool::operator!=( const none_t&, const optional< T >& value )
+template <typename T>
+bool iscool::operator==(const none_t&, const optional<T>& value)
 {
-    return !!value;
+  return !value;
 }
 
-template< typename T >
-iscool::optional< T > iscool::make_optional( T value )
+template <typename T>
+bool iscool::operator!=(const none_t&, const optional<T>& value)
 {
-    return iscool::optional< T >( value );
+  return !!value;
+}
+
+template <typename T>
+iscool::optional<T> iscool::make_optional(T value)
+{
+  return iscool::optional<T>(value);
 }
 
 #endif

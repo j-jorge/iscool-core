@@ -17,12 +17,12 @@
 
 #include "iscool/strings/detail/hash_parameters.h"
 
-iscool::strings::hash_type iscool::strings::dynamic_hash( const char* s )
+iscool::strings::hash_type iscool::strings::dynamic_hash(const char* s)
 {
-    hash_type result( detail::hash_seed );
-      
-    for( ; *s != 0; ++s )
-        result = result * detail::hash_factor + *s;
-      
-    return result;
+  hash_type result(detail::hash_seed);
+
+  for (; *s != 0; ++s)
+    result = result * detail::hash_factor + *s;
+
+  return result;
 }

@@ -20,26 +20,25 @@
 
 namespace iscool
 {
-    namespace jni
+  namespace jni
+  {
+    namespace detail
     {
-        namespace detail
-        {
-            class static_method_base
-            {
-            public:
-                static_method_base
-                ( JNIEnv* env, const java_ptr< jclass >& class_id,
-                  jmethodID method_id );
+      class static_method_base
+      {
+      public:
+        static_method_base(JNIEnv* env, const java_ptr<jclass>& class_id,
+                           jmethodID method_id);
 
-                JNIEnv* get_env() const;
-        
-            protected:
-                JNIEnv* _env;
-                java_ptr< jclass > _class;
-                jmethodID _method;
-            };
-        }
+        JNIEnv* get_env() const;
+
+      protected:
+        JNIEnv* _env;
+        java_ptr<jclass> _class;
+        jmethodID _method;
+      };
     }
+  }
 }
 
 #endif

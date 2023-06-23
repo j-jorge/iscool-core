@@ -19,5 +19,5 @@
 
 void iscool::system::send_to_background()
 {
-    ic_console_log( "iscool::system", "Send to background." );
+  ic_console_log("iscool::system", "Send to background.");
 }

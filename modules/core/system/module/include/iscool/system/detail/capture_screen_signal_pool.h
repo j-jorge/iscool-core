@@ -24,35 +24,34 @@
 
 namespace iscool
 {
-    namespace system
+  namespace system
+  {
+    namespace detail
     {
-        namespace detail
-        {
-            class capture_screen_signal_pool
-            {
-            private:
-                typedef iscool::memory::dynamic_pool
-                <
-                    capture_screen_signal,
-                    iscool::memory::pool_signal_traits< capture_screen_signal >
-                > pool_type;
+      class capture_screen_signal_pool
+      {
+      private:
+        typedef iscool::memory::dynamic_pool<
+            capture_screen_signal,
+            iscool::memory::pool_signal_traits<capture_screen_signal>>
+            pool_type;
 
-            public:
-                typedef pool_type::slot slot;
-                
-            public:
-                explicit capture_screen_signal_pool( std::size_t size );
-                
-                slot pick_available_signal();
+      public:
+        typedef pool_type::slot slot;
 
-                void process_capture
-                ( std::size_t signal_index, const std::string& path );
+      public:
+        explicit capture_screen_signal_pool(std::size_t size);
 
-            private:
-                pool_type _pool;
-            };
-        }
+        slot pick_available_signal();
+
+        void process_capture(std::size_t signal_index,
+                             const std::string& path);
+
+      private:
+        pool_type _pool;
+      };
     }
+  }
 }
 
 #endif

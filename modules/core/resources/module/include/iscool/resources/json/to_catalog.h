@@ -20,18 +20,18 @@
 
 namespace Json
 {
-    class Value;
+  class Value;
 }
 
 namespace iscool
 {
-    namespace resources
+  namespace resources
+  {
+    namespace json
     {
-        namespace json
-        {
-            catalog to_catalog( const Json::Value& value );
-        }
+      catalog to_catalog(const Json::Value& value);
     }
+  }
 }
 
 #endif

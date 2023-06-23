@@ -20,14 +20,13 @@
 
 namespace iscool
 {
-    namespace i18n
+  namespace i18n
+  {
+    namespace detail
     {
-        namespace detail
-        {
-            typedef std::function< std::uint8_t( std::uint64_t ) >
-            plural_index_function;
-        }
+      typedef std::function<std::uint8_t(std::uint64_t)> plural_index_function;
     }
+  }
 }
 
 #endif

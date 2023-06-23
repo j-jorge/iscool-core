@@ -21,31 +21,16 @@
 
 #include <map>
 
-TEST( iscool_collections_insert_or_assign_all, map )
+TEST(iscool_collections_insert_or_assign_all, map)
 {
-    std::map< int, double > output =
-        {
-            { 1, 1.0 },
-            { 3, 3.0 },
-            { 5, 5.0 }
-        };
-    const std::map< int, double > input =
-        {
-            { 2, 2.0 },
-            { 3, 3.5 },
-            { 4, 4.0 }
-        };
+  std::map<int, double> output = { { 1, 1.0 }, { 3, 3.0 }, { 5, 5.0 } };
+  const std::map<int, double> input = { { 2, 2.0 }, { 3, 3.5 }, { 4, 4.0 } };
 
-    const std::map< int, double > expected_result =
-        {
-            { 1, 1.0 },
-            { 2, 2.0 },
-            { 3, 3.5 },
-            { 4, 4.0 },
-            { 5, 5.0 }
-        };
+  const std::map<int, double> expected_result = {
+    { 1, 1.0 }, { 2, 2.0 }, { 3, 3.5 }, { 4, 4.0 }, { 5, 5.0 }
+  };
 
-    iscool::collections::insert_or_assign_all( output, input );
+  iscool::collections::insert_or_assign_all(output, input);
 
-    iscool::test::assert_equal_collections( output, expected_result );
+  iscool::test::assert_equal_collections(output, expected_result);
 }

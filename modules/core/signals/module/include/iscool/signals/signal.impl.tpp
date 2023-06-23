@@ -17,94 +17,79 @@
 #define ISCOOL_SIGNALS_SIGNAL_TPP
 
 #include "iscool/profile/scoped_profiler.h"
-#include "iscool/signals/statistics_data.h"
 #include "iscool/signals/detail/resolve_identifier.h"
 #include "iscool/signals/detail/signal.impl.tpp"
 #include "iscool/signals/detail/statistics_function.h"
+#include "iscool/signals/statistics_data.h"
 
-template< typename Signature >
-iscool::signals::signal< Signature, void >::signal()
+template <typename Signature>
+iscool::signals::signal<Signature, void>::signal()
 #if ISCOOL_SIGNALS_ENABLE_STATISTICS
-    : signal( detail::resolve_identifier< void >::name() )
+  : signal(detail::resolve_identifier<void>::name())
 #endif
-{
+{}
 
-}
-
-template< typename Signature >
-iscool::signals::signal< Signature, void >::signal
-( const std::string& identifier )
+template <typename Signature>
+iscool::signals::signal<Signature, void>::signal(const std::string& identifier)
 #if ISCOOL_SIGNALS_ENABLE_STATISTICS
-    : _identifier( identifier )
+  : _identifier(identifier)
 #endif
-{
+{}
 
+template <typename Signature>
+iscool::signals::signal<Signature, void>::~signal()
+{}
+
+template <typename Signature>
+void iscool::signals::signal<Signature, void>::swap(signal& that)
+{
+  _signal.swap(that._signal);
 }
 
-template< typename Signature >
-iscool::signals::signal< Signature, void >::~signal()
-{
-
-}
-
-template< typename Signature >
-void iscool::signals::signal< Signature, void >::swap( signal& that )
-{
-    _signal.swap( that._signal );
-}
-
-template< typename Signature >
+template <typename Signature>
 typename iscool::signals::connection
-iscool::signals::signal< Signature, void >::connect
-( std::function< Signature > f )
+iscool::signals::signal<Signature, void>::connect(std::function<Signature> f)
 {
-    return _signal.connect( std::move( f ) );
+  return _signal.connect(std::move(f));
 }
 
-template< typename Signature >
-void iscool::signals::signal< Signature, void >::disconnect_all_slots()
+template <typename Signature>
+void iscool::signals::signal<Signature, void>::disconnect_all_slots()
 {
-    _signal.disconnect_all_slots();
+  _signal.disconnect_all_slots();
 }
 
-template< typename Signature >
-bool iscool::signals::signal< Signature, void >::empty() const
+template <typename Signature>
+bool iscool::signals::signal<Signature, void>::empty() const
 {
-    return _signal.empty();
+  return _signal.empty();
 }
 
-template< typename Signature >
-template< typename... Arg >
-typename iscool::signals::signal< Signature, void >::result_type
-iscool::signals::signal< Signature, void >::operator()
-    ( Arg&&... arg ) const
+template <typename Signature>
+template <typename... Arg>
+typename iscool::signals::signal<Signature, void>::result_type
+iscool::signals::signal<Signature, void>::operator()(Arg&&... arg) const
 {
 #if ISCOOL_SIGNALS_ENABLE_STATISTICS
-    const iscool::profile::scoped_profiler profiler( _identifier );
+  const iscool::profile::scoped_profiler profiler(_identifier);
 
-    if ( !detail::statistics_function.empty() )
-        detail::statistics_function
-            ( statistics_data( _identifier, _signal.num_slots() ) );
+  if (!detail::statistics_function.empty())
+    detail::statistics_function(
+        statistics_data(_identifier, _signal.num_slots()));
 #endif
-    
-    return _signal( std::forward< Arg >( arg )... );
+
+  return _signal(std::forward<Arg>(arg)...);
 }
 
-template< typename Signature, typename Identifier >
-iscool::signals::signal< Signature, Identifier >::signal()
+template <typename Signature, typename Identifier>
+iscool::signals::signal<Signature, Identifier>::signal()
 #if ISCOOL_SIGNALS_ENABLE_STATISTICS
-    : signal< Signature, void >
-    ( detail::resolve_identifier< Identifier >::name() )
+  : signal<Signature, void>(detail::resolve_identifier<Identifier>::name())
 #endif
-{
+{}
 
-}
-
-template< typename Signature, typename Identifier >
-iscool::signals::signal< Signature, Identifier >::~signal()
-{
-
-}
+template <typename Signature, typename Identifier>
+iscool::signals::signal<Signature, Identifier>::~signal()
+{}
 
 #endif
-

@@ -15,16 +15,16 @@
 */
 #include "iscool/jni/detail/static_method_base.h"
 
-iscool::jni::detail::static_method_base::static_method_base
-( JNIEnv* env, const java_ptr< jclass >& class_id, jmethodID method_id )
-    : _env( env ),
-      _class( class_id ),
-      _method( method_id )
+iscool::jni::detail::static_method_base::static_method_base(
+    JNIEnv* env, const java_ptr<jclass>& class_id, jmethodID method_id)
+  : _env(env)
+  , _class(class_id)
+  , _method(method_id)
 {
-    assert( _env != nullptr );
+  assert(_env != nullptr);
 }
 
 JNIEnv* iscool::jni::detail::static_method_base::get_env() const
 {
-    return _env;
+  return _env;
 }

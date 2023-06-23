@@ -21,19 +21,18 @@
 
 #include <boost/preprocessor/punctuation/remove_parens.hpp>
 
-#define DETAIL_IMPLEMENT_SIGNAL( SCOPE, NAME, MEMBER, TYPENAME )         \
-    ::iscool::signals::connection                                        \
-    BOOST_PP_REMOVE_PARENS( SCOPE )::DETAIL_SIGNAL_CONNECT_FUNCTION_NAME \
-    ( NAME )                                                             \
-    ( const DETAIL_SIGNAL_FUNCTION_TYPE_NAME( NAME )& function ) const   \
-    {                                                                    \
-        return MEMBER.connect( function );                               \
-    }
-    
-#define IMPLEMENT_SIGNAL( SCOPE, NAME, MEMBER )         \
-    DETAIL_IMPLEMENT_SIGNAL( SCOPE, NAME, MEMBER, )
+#define DETAIL_IMPLEMENT_SIGNAL(SCOPE, NAME, MEMBER, TYPENAME)                \
+  ::iscool::signals::connection                                               \
+  BOOST_PP_REMOVE_PARENS(SCOPE)::DETAIL_SIGNAL_CONNECT_FUNCTION_NAME(NAME)(   \
+      const DETAIL_SIGNAL_FUNCTION_TYPE_NAME(NAME) & function) const          \
+  {                                                                           \
+    return MEMBER.connect(function);                                          \
+  }
 
-#define IMPLEMENT_SIGNAL_IN_TEMPLATE( SCOPE, NAME, MEMBER )     \
-    DETAIL_IMPLEMENT_SIGNAL( SCOPE, NAME, MEMBER, typename )
+#define IMPLEMENT_SIGNAL(SCOPE, NAME, MEMBER)                                 \
+  DETAIL_IMPLEMENT_SIGNAL(SCOPE, NAME, MEMBER, )
+
+#define IMPLEMENT_SIGNAL_IN_TEMPLATE(SCOPE, NAME, MEMBER)                     \
+  DETAIL_IMPLEMENT_SIGNAL(SCOPE, NAME, MEMBER, typename)
 
 #endif

@@ -22,13 +22,13 @@
 
 namespace iscool
 {
-    namespace audio
-    {
-        enum class loop_mode;
-        
-        track_id play_effect( const std::string& name, loop_mode loop );
-        void stop_effect( track_id id );
-    }
+  namespace audio
+  {
+    enum class loop_mode;
+
+    track_id play_effect(const std::string& name, loop_mode loop);
+    void stop_effect(track_id id);
+  }
 }
 
 #endif

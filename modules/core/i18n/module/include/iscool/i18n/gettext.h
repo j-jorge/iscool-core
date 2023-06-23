@@ -18,10 +18,9 @@
 
 #include "iscool/i18n/detail/localize.h"
 
-#define ic_gettext( message )                   \
-    ::iscool::i18n::detail::localize( message )
+#define ic_gettext(message) ::iscool::i18n::detail::localize(message)
 
-#define ic_ngettext( message, plural, count )           \
-    ::iscool::i18n::detail::localize( message, count )
+#define ic_ngettext(message, plural, count)                                   \
+  ::iscool::i18n::detail::localize(message, count)
 
 #endif

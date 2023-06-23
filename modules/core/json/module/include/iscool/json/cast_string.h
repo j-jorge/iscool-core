@@ -20,6 +20,6 @@
 #include "iscool/json/declare_cast.h"
 #include "iscool/json/detail/cast_string.h"
 
-DECLARE_JSON_CAST( std::string );
+DECLARE_JSON_CAST(std::string);
 
 #endif

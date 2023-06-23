@@ -20,18 +20,16 @@
 
 void iscool::http::reset_service_quality()
 {
-    detail::get_service_statistics().reset();
+  detail::get_service_statistics().reset();
 }
 
 float iscool::http::get_service_quality()
 {
-    return detail::get_service_statistics().get_last_measure();
+  return detail::get_service_statistics().get_last_measure();
 }
 
-iscool::signals::connection
-iscool::http::connect_to_service_quality_changed
-( const std::function< void( float ) >& f )
+iscool::signals::connection iscool::http::connect_to_service_quality_changed(
+    const std::function<void(float)>& f)
 {
-    return detail::get_service_statistics().connect_to_quality_changed( f );
+  return detail::get_service_statistics().connect_to_quality_changed(f);
 }
-

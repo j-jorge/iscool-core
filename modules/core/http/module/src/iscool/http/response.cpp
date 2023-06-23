@@ -15,19 +15,17 @@
 */
 #include "iscool/http/response.h"
 
-iscool::http::response::response( int code, const std::vector< char >& body )
-    : _code( code ),
-      _body( body )
-{
+iscool::http::response::response(int code, const std::vector<char>& body)
+  : _code(code)
+  , _body(body)
+{}
 
-}
-            
 int iscool::http::response::get_code() const
 {
-    return _code;
+  return _code;
 }
 
-const std::vector< char >& iscool::http::response::get_body() const
+const std::vector<char>& iscool::http::response::get_body() const
 {
-    return _body;
+  return _body;
 }

@@ -17,11 +17,11 @@
 
 #include "gtest/gtest.h"
 
-TEST( iscool_http_request, constructor )
+TEST(iscool_http_request, constructor)
 {
-    const std::vector< char > body( { 'a', 'c', 'd' } );
-    iscool::http::response response( 24, body ) ;
-    
-    EXPECT_EQ( 24, response.get_code() );
-    EXPECT_EQ( body, response.get_body() );
+  const std::vector<char> body({ 'a', 'c', 'd' });
+  iscool::http::response response(24, body);
+
+  EXPECT_EQ(24, response.get_code());
+  EXPECT_EQ(body, response.get_body());
 }

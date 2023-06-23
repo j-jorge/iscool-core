@@ -20,28 +20,26 @@
 
 namespace iscool
 {
-    namespace error
+  namespace error
+  {
+    class synopsis
     {
-        class synopsis
-        {
-        public:
-            synopsis
-            ( std::size_t code, const std::string& category,
-              const std::string& title, const std::string& message );
-            
-            std::size_t get_code() const;
-            const std::string& get_category() const;
-            const std::string& get_title() const;
-            const std::string& get_message() const;
+    public:
+      synopsis(std::size_t code, const std::string& category,
+               const std::string& title, const std::string& message);
 
-        private:
-            std::size_t m_code;
-            std::string m_category;
-            std::string m_title;
-            std::string m_message;
-        };
-    }
+      std::size_t get_code() const;
+      const std::string& get_category() const;
+      const std::string& get_title() const;
+      const std::string& get_message() const;
+
+    private:
+      std::size_t m_code;
+      std::string m_category;
+      std::string m_title;
+      std::string m_message;
+    };
+  }
 }
 
 #endif
-

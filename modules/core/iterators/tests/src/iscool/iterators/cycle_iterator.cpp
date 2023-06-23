@@ -22,109 +22,102 @@
 
 #include <gtest/gtest.h>
 
-TEST( iscool_iterators_cycle_iterator, fail_if_empty )
+TEST(iscool_iterators_cycle_iterator, fail_if_empty)
 {
-    static const char* p = "";
-    (void)p;
-    
-    EXPECT_DEBUG_CRASH
-        ( iscool::iterators::cycle_iterator< const char* >( p, p ) );
+  static const char* p = "";
+  (void)p;
+
+  EXPECT_DEBUG_CRASH(iscool::iterators::cycle_iterator<const char*>(p, p));
 }
 
-TEST( iscool_iterators_cycle_iterator, pre_increment )
+TEST(iscool_iterators_cycle_iterator, pre_increment)
 {
-    static const std::vector< int > range( { 0, 1, 2 } );
+  static const std::vector<int> range({ 0, 1, 2 });
 
-    typedef std::vector< int >::const_iterator iterator;
-    
-    iscool::iterators::cycle_iterator< iterator > it
-        ( range.begin(), range.end() );
+  typedef std::vector<int>::const_iterator iterator;
 
-    iscool::iterators::cycle_iterator< iterator > pre( ++it );
-    
-    EXPECT_EQ( 1, *pre );
-    EXPECT_EQ( 1, *it );
+  iscool::iterators::cycle_iterator<iterator> it(range.begin(), range.end());
+
+  iscool::iterators::cycle_iterator<iterator> pre(++it);
+
+  EXPECT_EQ(1, *pre);
+  EXPECT_EQ(1, *it);
 }
 
-TEST( iscool_iterators_cycle_iterator, post_increment )
+TEST(iscool_iterators_cycle_iterator, post_increment)
 {
-    static const std::vector< int > range( { 0, 1, 2 } );
+  static const std::vector<int> range({ 0, 1, 2 });
 
-    typedef std::vector< int >::const_iterator iterator;
-    
-    iscool::iterators::cycle_iterator< iterator > it
-        ( range.begin(), range.end() );
+  typedef std::vector<int>::const_iterator iterator;
 
-    iscool::iterators::cycle_iterator< iterator > post( it++ );
-    
-    EXPECT_EQ( 0, *post );
-    EXPECT_EQ( 1, *it );
+  iscool::iterators::cycle_iterator<iterator> it(range.begin(), range.end());
+
+  iscool::iterators::cycle_iterator<iterator> post(it++);
+
+  EXPECT_EQ(0, *post);
+  EXPECT_EQ(1, *it);
 }
 
-TEST( iscool_iterators_cycle_iterator, single )
+TEST(iscool_iterators_cycle_iterator, single)
 {
-    static const char* p = "abc";
-    
-    iscool::iterators::cycle_iterator< const char* > it( p, p + 1 );
+  static const char* p = "abc";
 
-    EXPECT_EQ( 'a', *it );
-    ++it;
-    
-    EXPECT_EQ( 'a', *it );
-    ++it;
-    
-    EXPECT_EQ( 'a', *it );
+  iscool::iterators::cycle_iterator<const char*> it(p, p + 1);
+
+  EXPECT_EQ('a', *it);
+  ++it;
+
+  EXPECT_EQ('a', *it);
+  ++it;
+
+  EXPECT_EQ('a', *it);
 }
 
-TEST( iscool_iterators_cycle_iterator, loop )
+TEST(iscool_iterators_cycle_iterator, loop)
 {
-    static std::vector< int > range( 3, 0 );
+  static std::vector<int> range(3, 0);
 
-    typedef std::vector< int >::iterator iterator;
-    
-    iscool::iterators::cycle_iterator< iterator > it
-        ( range.begin(), range.end() );
+  typedef std::vector<int>::iterator iterator;
 
-    *it = 1;
-    ++it;
-    
-    *it = 2;
-    ++it;
-    
-    *it = 3;
-    ++it;
-    
-    EXPECT_EQ( 1, range[ 0 ] );
-    EXPECT_EQ( 2, range[ 1 ] );
-    EXPECT_EQ( 3, range[ 2 ] );
-    
-    *it = 2;
-    ++it;
-    
-    *it = 4;
-    ++it;
-    
-    *it = 6;
-    ++it;
-    
-    EXPECT_EQ( 2, range[ 0 ] );
-    EXPECT_EQ( 4, range[ 1 ] );
-    EXPECT_EQ( 6, range[ 2 ] );
+  iscool::iterators::cycle_iterator<iterator> it(range.begin(), range.end());
+
+  *it = 1;
+  ++it;
+
+  *it = 2;
+  ++it;
+
+  *it = 3;
+  ++it;
+
+  EXPECT_EQ(1, range[0]);
+  EXPECT_EQ(2, range[1]);
+  EXPECT_EQ(3, range[2]);
+
+  *it = 2;
+  ++it;
+
+  *it = 4;
+  ++it;
+
+  *it = 6;
+  ++it;
+
+  EXPECT_EQ(2, range[0]);
+  EXPECT_EQ(4, range[1]);
+  EXPECT_EQ(6, range[2]);
 }
 
-TEST( iscool_iterators_cycle_iterator, member_of_pointer )
+TEST(iscool_iterators_cycle_iterator, member_of_pointer)
 {
-    static std::vector< std::pair< int, int > > range( { { 3, 6 } } );
+  static std::vector<std::pair<int, int>> range({ { 3, 6 } });
 
-    typedef std::vector< std::pair< int, int > >::iterator iterator;
-    
-    iscool::iterators::cycle_iterator< iterator > it
-        ( range.begin(), range.end() );
+  typedef std::vector<std::pair<int, int>>::iterator iterator;
 
-    
-    EXPECT_EQ( 3, it->first );
-    it->second = 43;
-    
-    EXPECT_EQ( 43, it->second );
+  iscool::iterators::cycle_iterator<iterator> it(range.begin(), range.end());
+
+  EXPECT_EQ(3, it->first);
+  it->second = 43;
+
+  EXPECT_EQ(43, it->second);
 }
-

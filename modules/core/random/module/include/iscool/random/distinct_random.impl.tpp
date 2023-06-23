@@ -14,33 +14,32 @@
   limitations under the License.
 */
 #ifndef ISCOOL_RANDOM_DETAIL_DISTINCT_RANDOM_IMPL_TPP
-#define	ISCOOL_RANDOM_DETAIL_DISTINCT_RANDOM_IMPL_TPP
+#define ISCOOL_RANDOM_DETAIL_DISTINCT_RANDOM_IMPL_TPP
 
 #include "iscool/random/rand.h"
 
-template< typename T >
-std::vector< T >
-iscool::random::distinct_random( std::size_t count, T min, T max )
+template <typename T>
+std::vector<T> iscool::random::distinct_random(std::size_t count, T min, T max)
 {
-    assert( min <= max );
-    assert( static_cast< int >( count ) <= max - min + 1 );
-    
-    static rand& rand( iscool::random::rand::get_default() );
+  assert(min <= max);
+  assert(static_cast<int>(count) <= max - min + 1);
 
-    std::vector< T > result( count );
-    std::size_t available( max - min + 1 );
-    std::size_t needed( count );
-    std::size_t j( 0 );
-    
-    for ( T v( min ); needed != 0; ++v, --available )
-        if ( rand.random< std::size_t >( 1, available ) <= needed )
-        {
-            result[ j ] = v;
-            --needed;
-            ++j;
-        }
-    
-    return result;
+  static rand& rand(iscool::random::rand::get_default());
+
+  std::vector<T> result(count);
+  std::size_t available(max - min + 1);
+  std::size_t needed(count);
+  std::size_t j(0);
+
+  for (T v(min); needed != 0; ++v, --available)
+    if (rand.random<std::size_t>(1, available) <= needed)
+      {
+        result[j] = v;
+        --needed;
+        ++j;
+      }
+
+  return result;
 }
 
 #endif

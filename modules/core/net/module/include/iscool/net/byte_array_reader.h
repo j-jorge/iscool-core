@@ -20,28 +20,28 @@
 
 namespace iscool
 {
-    namespace net
+  namespace net
+  {
+    class byte_array_reader
     {
-        class byte_array_reader
-        {
-        public:
-            explicit byte_array_reader( byte_array byte_array );
+    public:
+      explicit byte_array_reader(byte_array byte_array);
 
-            template<typename t>
-            t get();
+      template <typename t>
+      t get();
 
-            byte_array get_raw( std::size_t size );
+      byte_array get_raw(std::size_t size);
 
-            byte_array slice() const;
-            byte_array slice( std::size_t size ) const;
+      byte_array slice() const;
+      byte_array slice(std::size_t size) const;
 
-            bool has_next() const;
+      bool has_next() const;
 
-        private:
-            byte_array _byte_array;
-            std::size_t _current_index;
-        };
-    }
+    private:
+      byte_array _byte_array;
+      std::size_t _current_index;
+    };
+  }
 }
 
 #include "iscool/net/byte_array_reader.tpp"

@@ -22,15 +22,14 @@
 
 namespace iscool
 {
-    namespace jni
-    {
-        enum class native_callback_lifespan;
+  namespace jni
+  {
+    enum class native_callback_lifespan;
 
-        template< typename... Args >
-        jlong register_native_callback
-        ( native_callback_lifespan lifespan,
-          std::function< void( Args... ) > callback );
-    }
+    template <typename... Args>
+    jlong register_native_callback(native_callback_lifespan lifespan,
+                                   std::function<void(Args...)> callback);
+  }
 }
 
 #include "iscool/jni/register_native_callback.tpp"

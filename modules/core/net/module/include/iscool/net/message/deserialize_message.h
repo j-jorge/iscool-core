@@ -16,18 +16,17 @@
 #ifndef ISCOOL_NET_DESERIALIZE_MESSAGE_H
 #define ISCOOL_NET_DESERIALIZE_MESSAGE_H
 
-#include "iscool/net/xor_key.h"
 #include "iscool/net/message/message.h"
+#include "iscool/net/xor_key.h"
 
 namespace iscool
 {
-    namespace net
-    {
-        message deserialize_message( const byte_array& bytes );
+  namespace net
+  {
+    message deserialize_message(const byte_array& bytes);
 
-        message deserialize_message
-        ( const byte_array& bytes, const xor_key& key );
-    }
+    message deserialize_message(const byte_array& bytes, const xor_key& key);
+  }
 }
 
 #endif

@@ -18,7 +18,7 @@
 
 #include "iscool/log/log.h"
 
-#define ic_causeless_log( nature, context, ... )        \
-    ic_log( nature, context, "Unknown", __VA_ARGS__ )
-    
+#define ic_causeless_log(nature, context, ...)                                \
+  ic_log(nature, context, "Unknown", __VA_ARGS__)
+
 #endif

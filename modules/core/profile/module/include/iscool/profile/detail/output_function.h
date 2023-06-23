@@ -20,14 +20,13 @@
 
 namespace iscool
 {
-    namespace profile
+  namespace profile
+  {
+    namespace detail
     {
-        namespace detail
-        {
-            extern output_delegate output_function;
-        }
+      extern output_delegate output_function;
     }
+  }
 }
-
 
 #endif

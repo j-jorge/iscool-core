@@ -19,21 +19,19 @@
 #include "iscool/jni/check_java_exception.h"
 #include "iscool/jni/detail/get_method_argument.h"
 
-template< typename... Arg >
-jlong iscool::jni::method< jlong >::operator()
-( const java_ptr< jobject >& self, Arg&&... args ) const
+template <typename... Arg>
+jlong iscool::jni::method<jlong>::operator()(const java_ptr<jobject>& self,
+                                             Arg&&... args) const
 {
-    assert( check_java_exception() );
-    
-    const jlong result
-        ( _env->CallLongMethod
-          ( self.get(), _method,
-            detail::get_method_argument< Arg >::get
-            ( std::forward< Arg >( args ) )... ) );
+  assert(check_java_exception());
 
-    assert( check_java_exception() );
+  const jlong result(_env->CallLongMethod(
+      self.get(), _method,
+      detail::get_method_argument<Arg>::get(std::forward<Arg>(args))...));
 
-    return result;
+  assert(check_java_exception());
+
+  return result;
 }
 
 #endif

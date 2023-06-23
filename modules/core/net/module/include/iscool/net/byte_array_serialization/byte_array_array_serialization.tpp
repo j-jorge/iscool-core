@@ -15,22 +15,22 @@
 */
 #include "iscool/net/byte_array_serialization/byte_array_serialization.h"
 
-template<typename T, size_t N>
-iscool::net::byte_array&
-iscool::net::operator<<( byte_array& output, const std::array<T, N>& value )
+template <typename T, size_t N>
+iscool::net::byte_array& iscool::net::operator<<(byte_array& output,
+                                                 const std::array<T, N>& value)
 {
-    for ( const T& item : value )
-        output << item;
+  for (const T& item : value)
+    output << item;
 
-    return output;
+  return output;
 }
 
-template<typename T, size_t N>
+template <typename T, size_t N>
 iscool::net::byte_array_reader&
-iscool::net::operator>>( byte_array_reader& input, std::array<T, N>& value )
+iscool::net::operator>>(byte_array_reader& input, std::array<T, N>& value)
 {
-    for ( T& item : value )
-        input >> item;
+  for (T& item : value)
+    input >> item;
 
-    return input;
+  return input;
 }

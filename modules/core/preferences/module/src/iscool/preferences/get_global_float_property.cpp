@@ -17,7 +17,8 @@
 
 #include "iscool/preferences/detail/get_global_property.h"
 
-float iscool::preferences::get_global_float_property( const float_property& property )
+float iscool::preferences::get_global_float_property(
+    const float_property& property)
 {
-    return detail::get_global_property( property );
+  return detail::get_global_property(property);
 }

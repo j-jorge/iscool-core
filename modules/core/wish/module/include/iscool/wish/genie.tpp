@@ -18,41 +18,36 @@
 
 #include <cassert>
 
-template<typename T>
-void iscool::wish::genie::empower( std::function<void( const T& )> function )
+template <typename T>
+void iscool::wish::genie::empower(std::function<void(const T&)> function)
 {
-    const auto insertion
-        ( _powers.insert
-          ( std::make_pair( T::kind(), function ) ) );
-    (void) insertion;
-    assert( insertion.second );
+  const auto insertion(_powers.insert(std::make_pair(T::kind(), function)));
+  (void)insertion;
+  assert(insertion.second);
 }
 
-template< typename T>
+template <typename T>
 void iscool::wish::genie::deny()
 {
-    const power_list::const_iterator iterator
-        ( _powers.find( T::kind() ) );
-    assert( iterator != _powers.end() );
+  const power_list::const_iterator iterator(_powers.find(T::kind()));
+  assert(iterator != _powers.end());
 
-    _powers.erase( iterator );
+  _powers.erase(iterator);
 }
 
-template< typename T >
-void iscool::wish::genie::grant( const T& wish ) const
+template <typename T>
+void iscool::wish::genie::grant(const T& wish) const
 {
-    const power_list::const_iterator iterator
-        ( _powers.find( T::kind() ) );
-    assert( iterator != _powers.end() );
+  const power_list::const_iterator iterator(_powers.find(T::kind()));
+  assert(iterator != _powers.end());
 
-    return std::any_cast
-        <std::function<void( const T& )>>( iterator->second )( wish );
+  return std::any_cast<std::function<void(const T&)>>(iterator->second)(wish);
 }
 
-template< typename T >
+template <typename T>
 bool iscool::wish::genie::is_wish_valid() const
 {
-    return _powers.find( T::kind() ) != _powers.end();
+  return _powers.find(T::kind()) != _powers.end();
 }
 
 #endif

@@ -22,11 +22,10 @@
 
 namespace iscool
 {
-    namespace preferences
-    {
-        typedef detail::property< std::int64_t > int64_property;
-    }
+  namespace preferences
+  {
+    typedef detail::property<std::int64_t> int64_property;
+  }
 }
-
 
 #endif

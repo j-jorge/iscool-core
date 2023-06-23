@@ -21,23 +21,23 @@
 
 namespace iscool
 {
-    namespace social
+  namespace social
+  {
+    class service
     {
-        class service
-        {
-        public:
-            void share_message( const std::string& message );
-            void share_file
-            ( const std::string& file_path, const std::string& message );
+    public:
+      void share_message(const std::string& message);
+      void share_file(const std::string& file_path,
+                      const std::string& message);
 
-            void open_in_facebook( const std::string& page );
-            void open_in_twitter( const std::string& page );
+      void open_in_facebook(const std::string& page);
+      void open_in_twitter(const std::string& page);
 
-        private:
-            share_service _share;
-            link_service _link;
-        };
-    }
+    private:
+      share_service _share;
+      link_service _link;
+    };
+  }
 }
 
 #endif

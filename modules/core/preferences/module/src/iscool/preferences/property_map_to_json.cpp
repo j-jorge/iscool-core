@@ -15,40 +15,38 @@
 */
 #include "iscool/preferences/property_map_to_json.h"
 
-iscool::preferences::property_map_to_json::property_map_to_json
-( Json::Value& target )
-    : _target( target )
-{
+iscool::preferences::property_map_to_json::property_map_to_json(
+    Json::Value& target)
+  : _target(target)
+{}
 
+void iscool::preferences::property_map_to_json::operator()(
+    const std::string& key, std::int64_t value)
+{
+  insert(key, value);
 }
 
-void iscool::preferences::property_map_to_json::operator()
-( const std::string& key, std::int64_t value )
+void iscool::preferences::property_map_to_json::operator()(
+    const std::string& key, bool value)
 {
-    insert( key, value );
+  insert(key, value);
 }
 
-void iscool::preferences::property_map_to_json::operator()
-( const std::string& key, bool value )
+void iscool::preferences::property_map_to_json::operator()(
+    const std::string& key, float value)
 {
-    insert( key, value );
+  insert(key, value);
 }
 
-void iscool::preferences::property_map_to_json::operator()
-( const std::string& key, float value )
+void iscool::preferences::property_map_to_json::operator()(
+    const std::string& key, const std::string& value)
 {
-    insert( key, value );
+  insert(key, value);
 }
 
-void iscool::preferences::property_map_to_json::operator()
-( const std::string& key, const std::string& value )
+template <typename T>
+void iscool::preferences::property_map_to_json::insert(const std::string& key,
+                                                       const T& value)
 {
-    insert( key, value );
-}
-
-template< typename T >
-void iscool::preferences::property_map_to_json::insert
-( const std::string& key, const T& value )
-{
-    _target[ key ] = value;
+  _target[key] = value;
 }

@@ -21,91 +21,89 @@
 
 #include <gtest/gtest.h>
 
-class iscool_preferences_local_preferences_test:
-    public ::testing::Test
+class iscool_preferences_local_preferences_test : public ::testing::Test
 {
 public:
-    iscool_preferences_local_preferences_test();
-    ~iscool_preferences_local_preferences_test();
+  iscool_preferences_local_preferences_test();
+  ~iscool_preferences_local_preferences_test();
 
 protected:
-    typedef
-    std::function< void( const iscool::preferences::property_map& ) >
-    save_function;
-    
+  typedef std::function<void(const iscool::preferences::property_map&)>
+      save_function;
+
 protected:
-    void wait( std::chrono::milliseconds delay );
+  void wait(std::chrono::milliseconds delay);
 
 private:
-    iscool::schedule::manual_scheduler _scheduler;
+  iscool::schedule::manual_scheduler _scheduler;
 };
 
-iscool_preferences_local_preferences_test
-::iscool_preferences_local_preferences_test()
+iscool_preferences_local_preferences_test ::
+    iscool_preferences_local_preferences_test()
 {
-    iscool::schedule::initialize( _scheduler.get_delayed_call_delegate() );
+  iscool::schedule::initialize(_scheduler.get_delayed_call_delegate());
 }
 
-iscool_preferences_local_preferences_test
-::~iscool_preferences_local_preferences_test()
+iscool_preferences_local_preferences_test ::
+    ~iscool_preferences_local_preferences_test()
 {
-    iscool::schedule::finalize();
+  iscool::schedule::finalize();
 }
 
-void iscool_preferences_local_preferences_test::wait
-( std::chrono::milliseconds delay )
+void iscool_preferences_local_preferences_test::wait(
+    std::chrono::milliseconds delay)
 {
-    if ( delay != std::chrono::milliseconds::zero() )
-        std::this_thread::sleep_for( delay );
-    
-    _scheduler.update_interval( delay );
+  if (delay != std::chrono::milliseconds::zero())
+    std::this_thread::sleep_for(delay);
+
+  _scheduler.update_interval(delay);
 }
 
-TEST_F( iscool_preferences_local_preferences_test, properties )
+TEST_F(iscool_preferences_local_preferences_test, properties)
 {
-    iscool::preferences::property_map properties;
-    properties.set< std::int64_t >( "int64", 24 );
-    properties.set< std::string >( "string", "str" );
-    
-    iscool::preferences::local_preferences preferences( properties );
+  iscool::preferences::property_map properties;
+  properties.set<std::int64_t>("int64", 24);
+  properties.set<std::string>("string", "str");
 
-    EXPECT_EQ( 24, preferences.get_value( "int64", std::int64_t( 0 ) ) );
-    EXPECT_EQ( "str", preferences.get_value( "string", std::string() ) );
+  iscool::preferences::local_preferences preferences(properties);
 
-    preferences.set_value( "int64", std::int64_t( 42 ) );
-    preferences.set_value( "string", std::string( "yep" ) );
-    preferences.set_value( "bool", true );
-    preferences.flush();
-        
-    const iscool::preferences::property_map stored_properties
-        ( preferences.get_properties() );
+  EXPECT_EQ(24, preferences.get_value("int64", std::int64_t(0)));
+  EXPECT_EQ("str", preferences.get_value("string", std::string()));
 
-    EXPECT_EQ( 42, *stored_properties.get< std::int64_t >( "int64" ) );
-    EXPECT_EQ( "yep", *stored_properties.get< std::string >( "string" ) );
-    EXPECT_EQ( true, *stored_properties.get< bool >( "bool" ) );
+  preferences.set_value("int64", std::int64_t(42));
+  preferences.set_value("string", std::string("yep"));
+  preferences.set_value("bool", true);
+  preferences.flush();
+
+  const iscool::preferences::property_map stored_properties(
+      preferences.get_properties());
+
+  EXPECT_EQ(42, *stored_properties.get<std::int64_t>("int64"));
+  EXPECT_EQ("yep", *stored_properties.get<std::string>("string"));
+  EXPECT_EQ(true, *stored_properties.get<bool>("bool"));
 }
 
-TEST_F( iscool_preferences_local_preferences_test, saving_callback )
+TEST_F(iscool_preferences_local_preferences_test, saving_callback)
 {
-    iscool::preferences::property_map properties;
-    properties.set< std::int64_t >( "int64", 24 );
-    properties.set< std::string >( "string", "str" );
-    
-    iscool::preferences::local_preferences preferences( properties );
+  iscool::preferences::property_map properties;
+  properties.set<std::int64_t>("int64", 24);
+  properties.set<std::string>("string", "str");
 
-    bool called( false );
-        
-    preferences.connect_to_saving
-        ( [ & ]( const iscool::preferences::property_map& values ) -> void
-          {
-              called = true;
-              EXPECT_EQ( "yep", *values.get< std::string >( "string" ) );
-              EXPECT_FALSE( !!values.get< std::int64_t >( "int64" ) );
-          } );
+  iscool::preferences::local_preferences preferences(properties);
 
-    preferences.set_value( "int64", std::int64_t( 24 ) );
-    preferences.set_value( "string", std::string( "yep" ) );
+  bool called(false);
 
-    wait( std::chrono::milliseconds( 10 ) );
-    EXPECT_TRUE( called );
+  preferences.connect_to_saving(
+      [&](const iscool::preferences::property_map& values) -> void
+      {
+        called = true;
+        EXPECT_EQ("yep", *values.get<std::string>("string"));
+        EXPECT_FALSE(!!values.get<std::int64_t>("int64"));
+      });
+
+  preferences.set_value("int64", std::int64_t(24));
+  preferences.set_value("string", std::string("yep"));
+
+  wait(std::chrono::milliseconds(10));
+  EXPECT_TRUE(called);
 }

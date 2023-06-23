@@ -20,16 +20,15 @@
 
 namespace iscool
 {
-    namespace any
+  namespace any
+  {
+    namespace detail
     {
-        namespace detail
-        {
-            template< typename Visitor, typename Types >
-            const
-            std::unordered_map< std::size_t, void(*)( void*, Visitor ) >&
-            get_visitors();
-        }
+      template <typename Visitor, typename Types>
+      const std::unordered_map<std::size_t, void (*)(void*, Visitor)>&
+      get_visitors();
     }
+  }
 }
 
 #include "iscool/any/detail/get_visitors.tpp"

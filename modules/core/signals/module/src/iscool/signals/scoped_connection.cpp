@@ -17,115 +17,106 @@
 
 iscool::signals::scoped_connection::scoped_connection() = default;
 
-iscool::signals::scoped_connection::scoped_connection( const connection& that )
-    : _connection( that )
-{
+iscool::signals::scoped_connection::scoped_connection(const connection& that)
+  : _connection(that)
+{}
 
-}
+iscool::signals::scoped_connection::scoped_connection(connection&& that)
+  : _connection(std::move(that))
+{}
 
-iscool::signals::scoped_connection::scoped_connection( connection&& that )
-    : _connection( std::move( that ) )
-{
+iscool::signals::scoped_connection::scoped_connection(
+    const scoped_connection& that)
+  : _connection(that._connection)
+{}
 
-}
-
-iscool::signals::scoped_connection::scoped_connection
-( const scoped_connection& that )
-    : _connection( that._connection )
-{
-
-}
-
-iscool::signals::scoped_connection::scoped_connection
-( scoped_connection&& that )
-    : _connection( std::move( that._connection ) )
-{
-
-}
+iscool::signals::scoped_connection::scoped_connection(scoped_connection&& that)
+  : _connection(std::move(that._connection))
+{}
 
 iscool::signals::scoped_connection::~scoped_connection()
 {
-    _connection.disconnect();
+  _connection.disconnect();
 }
 
-bool iscool::signals::scoped_connection::operator==
-( const scoped_connection& that ) const
+bool iscool::signals::scoped_connection::operator==(
+    const scoped_connection& that) const
 {
-    return that._connection == _connection;
+  return that._connection == _connection;
 }
 
-bool iscool::signals::scoped_connection::operator!=
-( const scoped_connection& that ) const
+bool iscool::signals::scoped_connection::operator!=(
+    const scoped_connection& that) const
 {
-    return !( *this == that );
+  return !(*this == that);
 }
 
-bool iscool::signals::scoped_connection::operator==
-( const connection& that ) const
+bool iscool::signals::scoped_connection::operator==(
+    const connection& that) const
 {
-    return that == _connection;
+  return that == _connection;
 }
-            
-bool iscool::signals::scoped_connection::operator!=
-( const connection& that ) const
-{
-    return !( *this == that );
-}
-            
-iscool::signals::scoped_connection&
-iscool::signals::scoped_connection::operator=( const connection& that )
-{
-    if ( _connection == that )
-        return *this;
 
-    disconnect();
-    _connection = that;
-
-    return *this;
+bool iscool::signals::scoped_connection::operator!=(
+    const connection& that) const
+{
+  return !(*this == that);
 }
 
 iscool::signals::scoped_connection&
-iscool::signals::scoped_connection::operator=( connection&& that )
+iscool::signals::scoped_connection::operator=(const connection& that)
 {
-    if ( _connection == that )
-        return *this;
-
-    disconnect();
-    _connection = std::move( that );
-
+  if (_connection == that)
     return *this;
+
+  disconnect();
+  _connection = that;
+
+  return *this;
 }
 
 iscool::signals::scoped_connection&
-iscool::signals::scoped_connection::operator=( const scoped_connection& that )
+iscool::signals::scoped_connection::operator=(connection&& that)
 {
-    if ( this == &that )
-        return *this;
-
-    disconnect();
-    _connection = that._connection;
-
+  if (_connection == that)
     return *this;
+
+  disconnect();
+  _connection = std::move(that);
+
+  return *this;
 }
 
 iscool::signals::scoped_connection&
-iscool::signals::scoped_connection::operator=( scoped_connection&& that )
+iscool::signals::scoped_connection::operator=(const scoped_connection& that)
 {
-    if ( this == &that )
-        return *this;
-
-    disconnect();
-    _connection = std::move( that._connection );
-
+  if (this == &that)
     return *this;
+
+  disconnect();
+  _connection = that._connection;
+
+  return *this;
+}
+
+iscool::signals::scoped_connection&
+iscool::signals::scoped_connection::operator=(scoped_connection&& that)
+{
+  if (this == &that)
+    return *this;
+
+  disconnect();
+  _connection = std::move(that._connection);
+
+  return *this;
 }
 
 void iscool::signals::scoped_connection::disconnect() const
 {
-    _connection.disconnect();
+  _connection.disconnect();
 }
 
 bool iscool::signals::scoped_connection::connected() const
 {
-    return _connection.connected();
+  return _connection.connected();
 }

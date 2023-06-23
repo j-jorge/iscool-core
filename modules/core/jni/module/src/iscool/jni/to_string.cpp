@@ -17,18 +17,17 @@
 
 #include "iscool/jni/detail/get_jni_env.h"
 
-std::string iscool::jni::to_string( const java_ptr< jstring >& java_string )
+std::string iscool::jni::to_string(const java_ptr<jstring>& java_string)
 {
-    if ( java_string.get() == nullptr )
-        return std::string();
-        
-    JNIEnv* const env( detail::get_jni_env() );
+  if (java_string.get() == nullptr)
+    return std::string();
 
-    const char* const chars
-        ( env->GetStringUTFChars( java_string.get(), nullptr ) );
-    const std::string result( chars );
-    
-    env->ReleaseStringUTFChars( java_string.get(), chars );
+  JNIEnv* const env(detail::get_jni_env());
 
-    return result;
+  const char* const chars(env->GetStringUTFChars(java_string.get(), nullptr));
+  const std::string result(chars);
+
+  env->ReleaseStringUTFChars(java_string.get(), chars);
+
+  return result;
 }

@@ -24,25 +24,25 @@
 
 #include <memory>
 
-Json::Value iscool::json::parse_string( const std::string& string )
+Json::Value iscool::json::parse_string(const std::string& string)
 {
-    Json::CharReaderBuilder builder;
-    builder.strictMode( &builder.settings_ );
+  Json::CharReaderBuilder builder;
+  builder.strictMode(&builder.settings_);
 
-    const std::unique_ptr< Json::CharReader > reader( builder.newCharReader() );
+  const std::unique_ptr<Json::CharReader> reader(builder.newCharReader());
 
-    const char* const begin( string.data() );
-    const char* const end( begin + string.size() );
-    
-    std::string errors;
-    Json::Value result;
+  const char* const begin(string.data());
+  const char* const end(begin + string.size());
 
-    if ( !reader->parse( begin, end, &result, &errors ) )
+  std::string errors;
+  Json::Value result;
+
+  if (!reader->parse(begin, end, &result, &errors))
     {
-        ic_causeless_log
-            ( iscool::log::nature::error(), log_context(), "%s", errors );
-        return Json::nullValue;
+      ic_causeless_log(iscool::log::nature::error(), log_context(), "%s",
+                       errors);
+      return Json::nullValue;
     }
 
-    return result;
+  return result;
 }

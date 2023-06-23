@@ -15,26 +15,25 @@
 */
 #include "iscool/i18n/load_translations.h"
 
-#include "iscool/i18n/detail/default_language_code.h"
 #include "iscool/i18n/detail/assign_plural_index.h"
+#include "iscool/i18n/detail/default_language_code.h"
 
 #include "moFileReader/moFileReader.h"
 
-bool iscool::i18n::load_translations
-( const std::string& language_code, std::istream& stream )
+bool iscool::i18n::load_translations(const std::string& language_code,
+                                     std::istream& stream)
 {
-    const std::string data( std::istreambuf_iterator<char>( stream ), {} );
-    moFileLib::moFileReader& reader
-        ( moFileLib::moFileReaderSingleton::GetInstance() );
-    reader.ClearTable();
-    const moFileLib::moFileReader::eErrorCode error
-        ( reader.ParseData( data ) );
+  const std::string data(std::istreambuf_iterator<char>(stream), {});
+  moFileLib::moFileReader& reader(
+      moFileLib::moFileReaderSingleton::GetInstance());
+  reader.ClearTable();
+  const moFileLib::moFileReader::eErrorCode error(reader.ParseData(data));
 
-    detail::assign_plural_index( language_code );
-    detail::default_language_code = language_code;
-    
-    if ( error == moFileLib::moFileReader::EC_SUCCESS )
-        return true;
-    
-    return false;
+  detail::assign_plural_index(language_code);
+  detail::default_language_code = language_code;
+
+  if (error == moFileLib::moFileReader::EC_SUCCESS)
+    return true;
+
+  return false;
 }

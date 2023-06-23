@@ -16,45 +16,44 @@
 #ifndef ISCOOL_RESOURCES_CATALOG_H
 #define ISCOOL_RESOURCES_CATALOG_H
 
-#include <vector>
 #include <string>
+#include <vector>
 
 namespace iscool
 {
-    namespace resources
+  namespace resources
+  {
+    class catalog
     {
-        class catalog
-        {
-        public:
-            catalog();
-            catalog
-            ( const std::vector< std::string >& textures,
-              const std::vector< std::string >& particles,
-              const std::vector< std::string >& sounds,
-              const std::vector< std::string >& styles );
-              
-            const std::vector< std::string >& get_textures() const;
-            const std::vector< std::string >& get_particles() const;
-            const std::vector< std::string >& get_sounds() const;
-            const std::vector< std::string >& get_styles() const;
-            const std::vector< std::string >& get_skeletons() const;
-            const std::vector< std::string >& get_sprite_sheets() const;
+    public:
+      catalog();
+      catalog(const std::vector<std::string>& textures,
+              const std::vector<std::string>& particles,
+              const std::vector<std::string>& sounds,
+              const std::vector<std::string>& styles);
 
-            void insert( const catalog& that );
-            
-        private:
-            void add_sprite_sheet_from_texture( const std::string& filename );
-            void add_skeleton_from_texture( const std::string& filename );
-            
-        private:
-            std::vector< std::string > _textures;
-            std::vector< std::string > _skeletons;
-            std::vector< std::string > _particles;
-            std::vector< std::string > _sprite_sheets;
-            std::vector< std::string > _sounds;
-            std::vector< std::string > _styles;
-        };
-    }
+      const std::vector<std::string>& get_textures() const;
+      const std::vector<std::string>& get_particles() const;
+      const std::vector<std::string>& get_sounds() const;
+      const std::vector<std::string>& get_styles() const;
+      const std::vector<std::string>& get_skeletons() const;
+      const std::vector<std::string>& get_sprite_sheets() const;
+
+      void insert(const catalog& that);
+
+    private:
+      void add_sprite_sheet_from_texture(const std::string& filename);
+      void add_skeleton_from_texture(const std::string& filename);
+
+    private:
+      std::vector<std::string> _textures;
+      std::vector<std::string> _skeletons;
+      std::vector<std::string> _particles;
+      std::vector<std::string> _sprite_sheets;
+      std::vector<std::string> _sounds;
+      std::vector<std::string> _styles;
+    };
+  }
 }
-            
+
 #endif

@@ -20,35 +20,35 @@
 
 namespace iscool
 {
-    namespace jni
+  namespace jni
+  {
+    template <typename T>
+    class iterator
     {
-        template< typename T >
-        class iterator
-        {
-        public:
-            typedef java_ptr< T > value_type;
-        
-        public:
-            explicit iterator( jobject impl );
-        
-            java_ptr< jobject > get_java_object() const;
+    public:
+      typedef java_ptr<T> value_type;
 
-            bool has_next() const;
-            value_type next() const;
-        
-        private:
-            java_ptr< jobject > _impl;
-        };
+    public:
+      explicit iterator(jobject impl);
 
-        namespace detail
-        {
-            template< typename T >
-            struct get_method_argument_impl< iterator< T > >
-            {
-                static jobject get( const iterator< T >& i );
-            };
-        }
+      java_ptr<jobject> get_java_object() const;
+
+      bool has_next() const;
+      value_type next() const;
+
+    private:
+      java_ptr<jobject> _impl;
+    };
+
+    namespace detail
+    {
+      template <typename T>
+      struct get_method_argument_impl<iterator<T>>
+      {
+        static jobject get(const iterator<T>& i);
+      };
     }
+  }
 }
 
 #include "iscool/jni/detail/iterator.tpp"

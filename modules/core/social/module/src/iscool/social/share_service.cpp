@@ -15,13 +15,13 @@
 */
 #include "iscool/social/share_service.h"
 
-void iscool::social::share_service::share_message( const std::string& message )
+void iscool::social::share_service::share_message(const std::string& message)
 {
-    _impl.share_message( message );
+  _impl.share_message(message);
 }
 
-void iscool::social::share_service::share_file
-( const std::string& file_path, const std::string& message )
+void iscool::social::share_service::share_file(const std::string& file_path,
+                                               const std::string& message)
 {
-    _impl.share_file( file_path, message );
+  _impl.share_file(file_path, message);
 }

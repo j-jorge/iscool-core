@@ -22,13 +22,13 @@
 
 namespace iscool
 {
-    namespace http
+  namespace http
+  {
+    namespace json
     {
-        namespace json
-        {
-            typedef std::function<void(Json::Value)> response_handler;
-        }
+      typedef std::function<void(Json::Value)> response_handler;
     }
+  }
 }
 
 #endif

@@ -16,58 +16,56 @@
 #ifndef ISCOOL_ITERATORS_BACK_EMPLACE_ITERATOR_TPP
 #define ISCOOL_ITERATORS_BACK_EMPLACE_ITERATOR_TPP
 
-template< typename Container >
-iscool::iterators::back_emplace_iterator< Container >::back_emplace_iterator
-( Container& container )
-    : _container( &container )
-{
+template <typename Container>
+iscool::iterators::back_emplace_iterator<Container>::back_emplace_iterator(
+    Container& container)
+  : _container(&container)
+{}
 
+template <typename Container>
+iscool::iterators::back_emplace_iterator<Container>&
+iscool::iterators::back_emplace_iterator<Container>::operator=(
+    const typename Container::value_type& value)
+{
+  _container->emplace_back(value);
+  return *this;
 }
 
-template< typename Container >
-iscool::iterators::back_emplace_iterator< Container >&
-iscool::iterators::back_emplace_iterator< Container >::operator=
-( const typename Container::value_type& value )
+template <typename Container>
+iscool::iterators::back_emplace_iterator<Container>&
+iscool::iterators::back_emplace_iterator<Container>::operator=(
+    typename Container::value_type&& value)
 {
-    _container->emplace_back( value );
-    return *this;
+  _container->emplace_back(std::move(value));
+  return *this;
 }
 
-template< typename Container >
-iscool::iterators::back_emplace_iterator< Container >&
-iscool::iterators::back_emplace_iterator< Container >::operator=
-( typename Container::value_type&& value )
+template <typename Container>
+iscool::iterators::back_emplace_iterator<Container>&
+iscool::iterators::back_emplace_iterator<Container>::operator++()
 {
-    _container->emplace_back( std::move( value ) );
-    return *this;
+  return *this;
 }
 
-template< typename Container >
-iscool::iterators::back_emplace_iterator< Container >&
-iscool::iterators::back_emplace_iterator< Container >::operator++()
+template <typename Container>
+iscool::iterators::back_emplace_iterator<Container>
+iscool::iterators::back_emplace_iterator<Container>::operator++(int)
 {
-    return *this;
+  return *this;
 }
 
-template< typename Container >
-iscool::iterators::back_emplace_iterator< Container >
-iscool::iterators::back_emplace_iterator< Container >::operator++( int )
+template <typename Container>
+iscool::iterators::back_emplace_iterator<Container>&
+iscool::iterators::back_emplace_iterator<Container>::operator*()
 {
-    return *this;
+  return *this;
 }
 
-template< typename Container >
-iscool::iterators::back_emplace_iterator< Container >&
-iscool::iterators::back_emplace_iterator< Container >::operator*()
+template <typename Container>
+iscool::iterators::back_emplace_iterator<Container>
+iscool::iterators::back_emplacer(Container& container)
 {
-    return *this;
-}
-
-template< typename Container >
-iscool::iterators::back_emplace_iterator< Container >
-iscool::iterators::back_emplacer( Container& container )
-{
-    return back_emplace_iterator< Container >( container );
+  return back_emplace_iterator<Container>(container);
 }
 
 #endif

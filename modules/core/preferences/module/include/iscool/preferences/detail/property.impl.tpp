@@ -16,26 +16,21 @@
 #ifndef ISCOOL_PREFERENCES_DETAIL_PROPERTY_IMPL_TPP
 #define ISCOOL_PREFERENCES_DETAIL_PROPERTY_IMPL_TPP
 
-template< typename T >
-iscool::preferences::detail::property< T >::property() = default;
+template <typename T>
+iscool::preferences::detail::property<T>::property() = default;
 
-template< typename T >
-iscool::preferences::detail::property< T >::property
-( std::string&& name, T&& fallback )
-    : name( std::forward< std::string >( name ) ),
-      fallback( std::forward< T >( fallback ) )
-{
+template <typename T>
+iscool::preferences::detail::property<T>::property(std::string&& name,
+                                                   T&& fallback)
+  : name(std::forward<std::string>(name))
+  , fallback(std::forward<T>(fallback))
+{}
 
-}
-
-template< typename T >
-iscool::preferences::detail::property< T >::property
-( std::string&& name, const T& fallback )
-    : name( std::forward< std::string >( name ) ),
-      fallback( fallback )
-{
-
-}
+template <typename T>
+iscool::preferences::detail::property<T>::property(std::string&& name,
+                                                   const T& fallback)
+  : name(std::forward<std::string>(name))
+  , fallback(fallback)
+{}
 
 #endif
-                

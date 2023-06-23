@@ -15,128 +15,123 @@
 */
 #include <algorithm>
 
-template<typename Value>
+template <typename Value>
 iscool::random::random_generator<Value>::random_generator()
-    : random_generator<Value>( rand() )
-{
+  : random_generator<Value>(rand())
+{}
 
+template <typename Value>
+iscool::random::random_generator<Value>::random_generator(rand random)
+  : _weight_sum{ 0 }
+  , _random{ random }
+
+{}
+
+template <typename Value>
+void iscool::random::random_generator<Value>::set_random_source(rand random)
+{
+  _random = random;
 }
 
-template<typename Value>
-iscool::random::random_generator<Value>::random_generator( rand random )
-    : _weight_sum{ 0 },
-      _random{ random }
-      
+template <typename Value>
+void iscool::random::random_generator<Value>::set_value_weight(
+    Value value, weight_type weight)
 {
-
+  if (weight == weight_type(0))
+    remove_value_if_any(value);
+  else
+    set_or_replace_value_weight(value, weight);
 }
 
-template<typename Value>
-void iscool::random::random_generator<Value>::set_random_source( rand random )
-{
-    _random = random;
-}
-
-template<typename Value>
-void iscool::random::random_generator<Value>::set_value_weight
-( Value value, weight_type weight )
-{
-    if ( weight == weight_type( 0 ) )
-        remove_value_if_any( value );
-    else
-        set_or_replace_value_weight( value, weight );
-}
-
-template<typename Value>
+template <typename Value>
 std::size_t iscool::random::random_generator<Value>::get_cardinality() const
 {
-    return _weights.size();
+  return _weights.size();
 }
 
-template<typename Value>
+template <typename Value>
 Value iscool::random::random_generator<Value>::get_random()
 {
-    if ( _weights.empty() )
-        throw std::out_of_range( "There is no value among which to select." );
+  if (_weights.empty())
+    throw std::out_of_range("There is no value among which to select.");
 
-    const weight_type selected_weight
-        ( _random.random< weight_type >( 1, _weight_sum ) );
+  const weight_type selected_weight(
+      _random.random<weight_type>(1, _weight_sum));
 
-    return get_value_cut_at_weight_sum( selected_weight );
+  return get_value_cut_at_weight_sum(selected_weight);
 }
 
-template<typename Value>
+template <typename Value>
 std::vector<Value>
 iscool::random::random_generator<Value>::get_all_possible_values() const
 {
-    std::vector<Value> result;
-    result.reserve( _weights.size() );
+  std::vector<Value> result;
+  result.reserve(_weights.size());
 
-    for( auto entry : _weights )
-        result.push_back( entry.value );
+  for (auto entry : _weights)
+    result.push_back(entry.value);
 
-    return result;
+  return result;
 }
 
-template<typename Value>
-Value iscool::random::random_generator<Value>::get_value_cut_at_weight_sum
-( weight_type weight_cut ) const
+template <typename Value>
+Value iscool::random::random_generator<Value>::get_value_cut_at_weight_sum(
+    weight_type weight_cut) const
 {
-    weight_type weight_sum(0);
+  weight_type weight_sum(0);
 
-    for ( auto entry : _weights )
+  for (auto entry : _weights)
     {
-        weight_sum += entry.weight;
+      weight_sum += entry.weight;
 
-        if ( weight_sum >= weight_cut )
-            return entry.value;
+      if (weight_sum >= weight_cut)
+        return entry.value;
     }
 
-    throw std::out_of_range( "Weight is outside acceptable range." );
+  throw std::out_of_range("Weight is outside acceptable range.");
 }
 
-template<typename Value>
-void iscool::random::random_generator<Value>::remove_value_if_any( Value value )
+template <typename Value>
+void iscool::random::random_generator<Value>::remove_value_if_any(Value value)
 {
-    const typename value_weight_container::iterator it
-        { find_entry_by_value( value ) };
+  const typename value_weight_container::iterator it{ find_entry_by_value(
+      value) };
 
-    if ( it == _weights.end() )
-        return;
+  if (it == _weights.end())
+    return;
 
-    _weight_sum -= it->weight;
-    _weights.erase( it );
+  _weight_sum -= it->weight;
+  _weights.erase(it);
 }
 
-template<typename Value>
-void
-iscool::random::random_generator<Value>::set_or_replace_value_weight
-( Value value, weight_type weight )
+template <typename Value>
+void iscool::random::random_generator<Value>::set_or_replace_value_weight(
+    Value value, weight_type weight)
 {
-    const typename value_weight_container::iterator it
-        { find_entry_by_value( value ) };
+  const typename value_weight_container::iterator it{ find_entry_by_value(
+      value) };
 
-    if ( it == _weights.end() )
-        _weights.insert( it, entry{ value, weight } );
-    else
+  if (it == _weights.end())
+    _weights.insert(it, entry{ value, weight });
+  else
     {
-        _weight_sum -= it->weight;
-        it->weight = weight;
+      _weight_sum -= it->weight;
+      it->weight = weight;
     }
 
-    _weight_sum += weight;
+  _weight_sum += weight;
 }
 
-template<typename Value>
-typename
-iscool::random::random_generator<Value>::value_weight_container::iterator
-iscool::random::random_generator<Value>::find_entry_by_value( Value value )
+template <typename Value>
+typename iscool::random::random_generator<
+    Value>::value_weight_container::iterator
+iscool::random::random_generator<Value>::find_entry_by_value(Value value)
 {
-    auto is_searched_value
-        ( [value] ( entry entry ) -> bool
-          {
-              return entry.value == value;
-          } );
+  auto is_searched_value(
+      [value](entry entry) -> bool
+      {
+        return entry.value == value;
+      });
 
-    return std::find_if( _weights.begin(), _weights.end(), is_searched_value );
+  return std::find_if(_weights.begin(), _weights.end(), is_searched_value);
 }

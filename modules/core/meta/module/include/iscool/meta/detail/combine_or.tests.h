@@ -20,120 +20,87 @@
 
 namespace iscool
 {
-    namespace meta
+  namespace meta
+  {
+    namespace combine_or_tests
     {
-        namespace combine_or_tests
-        {
-            namespace single
-            {
-                typedef iscool::meta::combine_or< true > true_type;
+      namespace single
+      {
+        typedef iscool::meta::combine_or<true> true_type;
 
-                static_assert
-                ( true_type::value,
-                  "Incorrect value of combine_or< true >." );
+        static_assert(true_type::value,
+                      "Incorrect value of combine_or< true >.");
 
-                static_assert
-                ( std::is_convertible
-                  <
-                      decltype( true_type::value ),
-                      bool
-                  >::value,
-                  "combine_or< true >::value is not a boolean." );
+        static_assert(
+            std::is_convertible<decltype(true_type::value), bool>::value,
+            "combine_or< true >::value is not a boolean.");
 
-                typedef iscool::meta::combine_or< false > false_type;
-                
-                static_assert
-                ( !false_type::value,
-                  "Incorrect value of combine_or< false >." );
+        typedef iscool::meta::combine_or<false> false_type;
 
-                static_assert
-                ( std::is_convertible
-                  <
-                      decltype( false_type::value ),
-                      bool
-                  >::value,
-                  "combine_or< false >::value is not a boolean." );
-            }
+        static_assert(!false_type::value,
+                      "Incorrect value of combine_or< false >.");
 
-            namespace begins_with_true
-            {
-                typedef
-                iscool::meta::combine_or< true, false, true, true, false >
-                result_type;
+        static_assert(
+            std::is_convertible<decltype(false_type::value), bool>::value,
+            "combine_or< false >::value is not a boolean.");
+      }
 
-                static_assert
-                ( result_type::value,
-                  "Incorrect value of combine_or<> beginning with true." );
+      namespace begins_with_true
+      {
+        typedef iscool::meta::combine_or<true, false, true, true, false>
+            result_type;
 
-                static_assert
-                ( std::is_convertible
-                  <
-                      decltype( result_type::value ),
-                      bool
-                  >::value,
-                  "combine_or<> beginning with true is not a boolean." );
-            }
+        static_assert(result_type::value,
+                      "Incorrect value of combine_or<> beginning with true.");
 
-            namespace begins_with_false
-            {
-                typedef
-                iscool::meta::combine_or< false, false, true, false, true >
-                result_type;
+        static_assert(
+            std::is_convertible<decltype(result_type::value), bool>::value,
+            "combine_or<> beginning with true is not a boolean.");
+      }
 
-                static_assert
-                ( result_type::value,
-                  "Incorrect value of combine_or<> beginning with false." );
+      namespace begins_with_false
+      {
+        typedef iscool::meta::combine_or<false, false, true, false, true>
+            result_type;
 
-                static_assert
-                ( std::is_convertible
-                  <
-                      decltype( result_type::value ),
-                      bool
-                  >::value,
-                  "combine_or<> beginning with false is not a boolean." );
-            }
+        static_assert(result_type::value,
+                      "Incorrect value of combine_or<> beginning with false.");
 
-            namespace true_at_end
-            {
-                typedef
-                iscool::meta::combine_or< false, false, false, false, true >
-                result_type;
+        static_assert(
+            std::is_convertible<decltype(result_type::value), bool>::value,
+            "combine_or<> beginning with false is not a boolean.");
+      }
 
-                static_assert
-                ( result_type::value,
-                  "Incorrect value of combine_or with a single true at end." );
+      namespace true_at_end
+      {
+        typedef iscool::meta::combine_or<false, false, false, false, true>
+            result_type;
 
-                static_assert
-                ( std::is_convertible
-                  <
-                      decltype( result_type::value ),
-                      bool
-                  >::value,
-                  "combine_or<> with a single true at end is not a boolean." );
-            }
+        static_assert(
+            result_type::value,
+            "Incorrect value of combine_or with a single true at end.");
 
-            namespace true_at_start
-            {
-                typedef
-                iscool::meta::combine_or< true, false, false, false, false >
-                result_type;
+        static_assert(
+            std::is_convertible<decltype(result_type::value), bool>::value,
+            "combine_or<> with a single true at end is not a boolean.");
+      }
 
-                static_assert
-                ( result_type::value,
-                  "Incorrect value of combine_or with a single true at"
-                  " start." );
+      namespace true_at_start
+      {
+        typedef iscool::meta::combine_or<true, false, false, false, false>
+            result_type;
 
-                static_assert
-                ( std::is_convertible
-                  <
-                      decltype( result_type::value ),
-                      bool
-                  >::value,
-                  "combine_or<> with a single true at start is not a"
-                  " boolean." );
-            }
-        }
+        static_assert(result_type::value,
+                      "Incorrect value of combine_or with a single true at"
+                      " start.");
+
+        static_assert(
+            std::is_convertible<decltype(result_type::value), bool>::value,
+            "combine_or<> with a single true at start is not a"
+            " boolean.");
+      }
     }
+  }
 }
 
 #endif

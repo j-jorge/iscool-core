@@ -20,10 +20,10 @@
 
 namespace iscool
 {
-    namespace ios
-    {
-        bool system_version_is_at_least( const std::string& version );
-    }
+  namespace ios
+  {
+    bool system_version_is_at_least(const std::string& version);
+  }
 }
 
 #endif

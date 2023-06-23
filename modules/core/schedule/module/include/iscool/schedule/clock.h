@@ -20,29 +20,29 @@
 
 namespace iscool
 {
-    namespace schedule
+  namespace schedule
+  {
+    template <typename Tick>
+    class clock
     {
-        template< typename Tick >
-        class clock
-        {
-        public:
-            virtual ~clock() = default;
+    public:
+      virtual ~clock() = default;
 
-            iscool::signals::connection
-            connect_to_tick( iscool::signals::void_signal_function f );
+      iscool::signals::connection
+      connect_to_tick(iscool::signals::void_signal_function f);
 
-            Tick get_date() const;
+      Tick get_date() const;
 
-        protected:
-            void trigger_tick_signal() const;
+    protected:
+      void trigger_tick_signal() const;
 
-        private:
-            virtual Tick implementation_get_date() const = 0;
+    private:
+      virtual Tick implementation_get_date() const = 0;
 
-        private:
-            iscool::signals::void_signal _tick;
-        };
-    }
+    private:
+      iscool::signals::void_signal _tick;
+    };
+  }
 }
 
 #include "iscool/schedule/detail/clock.tpp"

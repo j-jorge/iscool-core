@@ -18,15 +18,15 @@
 
 namespace iscool
 {
-    namespace log
+  namespace log
+  {
+    namespace detail
     {
-        namespace detail
-        {
-            class message_dispatcher;
+      class message_dispatcher;
 
-            message_dispatcher& get_message_dispatcher();
-        }
+      message_dispatcher& get_message_dispatcher();
     }
+  }
 }
 
 #endif

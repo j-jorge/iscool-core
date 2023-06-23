@@ -20,27 +20,24 @@
 
 #include <gtest/gtest.h>
 
-TEST( iscool_signals_signal_from_tuple_arguments, arguments )
+TEST(iscool_signals_signal_from_tuple_arguments, arguments)
 {
-    iscool::signals::signal_from_tuple_arguments
-    <
-        std::tuple< int&, const std::string&, float >
-    >::type signal;
+  iscool::signals::signal_from_tuple_arguments<
+      std::tuple<int&, const std::string&, float>>::type signal;
 
-    int original_i( 24 );
-    const std::string original_s( "str" );
-    
-    signal.connect
-        ( [ &original_i, &original_s ]
-          ( int& i, const std::string& s, float f ) -> void
-          {
-              EXPECT_EQ( &original_i, &i );
-              EXPECT_EQ( &original_s, &s );
-              EXPECT_FLOAT_EQ( 0.2, f );
+  int original_i(24);
+  const std::string original_s("str");
 
-              i = 42;
-          } );
-    
-    signal( original_i, original_s, 0.2 );
-    EXPECT_EQ( 42, original_i );
+  signal.connect(
+      [&original_i, &original_s](int& i, const std::string& s, float f) -> void
+      {
+        EXPECT_EQ(&original_i, &i);
+        EXPECT_EQ(&original_s, &s);
+        EXPECT_FLOAT_EQ(0.2, f);
+
+        i = 42;
+      });
+
+  signal(original_i, original_s, 0.2);
+  EXPECT_EQ(42, original_i);
 }

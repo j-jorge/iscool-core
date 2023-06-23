@@ -17,18 +17,17 @@
 
 #include "iscool/jni/detail/get_jni_env.h"
 
-
-void iscool::jni::initialize( environment_delegate delegate )
+void iscool::jni::initialize(environment_delegate delegate)
 {
-    assert( detail::get_jni_env.empty() );
-    assert( !delegate.empty() );
-    
-    detail::get_jni_env = delegate;
-    detail::initialize_native_calls();
+  assert(detail::get_jni_env.empty());
+  assert(!delegate.empty());
+
+  detail::get_jni_env = delegate;
+  detail::initialize_native_calls();
 }
 
 void iscool::jni::finalize()
 {
-    detail::finalize_native_calls();
-    detail::get_jni_env = environment_delegate();
+  detail::finalize_native_calls();
+  detail::get_jni_env = environment_delegate();
 }

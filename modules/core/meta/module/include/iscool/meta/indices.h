@@ -20,14 +20,12 @@
 
 namespace iscool
 {
-    namespace meta
-    {
-        template< std::size_t... I >
-        struct indices
-        {
-
-        };
-    }
+  namespace meta
+  {
+    template <std::size_t... I>
+    struct indices
+    {};
+  }
 }
 
 #endif

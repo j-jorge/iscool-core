@@ -18,10 +18,10 @@
 
 namespace iscool
 {
-    namespace jni
-    {
-        bool check_java_exception();
-    }
+  namespace jni
+  {
+    bool check_java_exception();
+  }
 }
 
 #endif

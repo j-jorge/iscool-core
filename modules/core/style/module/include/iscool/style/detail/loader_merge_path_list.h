@@ -20,13 +20,13 @@
 
 namespace iscool
 {
-    namespace style
+  namespace style
+  {
+    namespace detail
     {
-        namespace detail
-        {
-            extern merge_path_list loader_merge_path_list;
-        }
+      extern merge_path_list loader_merge_path_list;
     }
+  }
 }
 
 #endif

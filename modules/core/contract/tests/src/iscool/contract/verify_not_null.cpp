@@ -18,32 +18,32 @@
 
 #include <gtest/gtest.h>
 
-TEST( iscool_contract_verify_not_null, pointer_ok )
+TEST(iscool_contract_verify_not_null, pointer_ok)
 {
-    int value;
+  int value;
 
-    int* const result( ic_verify_not_null( &value ) );
-    EXPECT_EQ( &value, result );
+  int* const result(ic_verify_not_null(&value));
+  EXPECT_EQ(&value, result);
 }
 
-TEST( iscool_contract_verify_not_null, pointer_null )
+TEST(iscool_contract_verify_not_null, pointer_null)
 {
-    EXPECT_DEBUG_CRASH( ic_verify_not_null( nullptr ) );
+  EXPECT_DEBUG_CRASH(ic_verify_not_null(nullptr));
 }
 
-TEST( iscool_contract_verify_not_null, executed_once )
+TEST(iscool_contract_verify_not_null, executed_once)
 {
-    int calls( 0 );
-    const int value( 111 );
-    
-    const auto predicate
-        ( [ &calls, &value ]() -> const int*
-          {
-              ++calls;
-              return &value;
-          } );
+  int calls(0);
+  const int value(111);
 
-    const int* const result( ic_verify_not_null( predicate() ) );
-    EXPECT_EQ( &value, result );
-    EXPECT_EQ( 1, calls );
+  const auto predicate(
+      [&calls, &value]() -> const int*
+      {
+        ++calls;
+        return &value;
+      });
+
+  const int* const result(ic_verify_not_null(predicate()));
+  EXPECT_EQ(&value, result);
+  EXPECT_EQ(1, calls);
 }

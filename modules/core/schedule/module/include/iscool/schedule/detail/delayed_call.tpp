@@ -16,13 +16,13 @@
 #ifndef ISCOOL_SCHEDULE_DELAYED_CALL_TPP
 #define ISCOOL_SCHEDULE_DELAYED_CALL_TPP
 
-template< typename Rep, typename Period >
-iscool::signals::connection iscool::schedule::delayed_call
-( iscool::signals::void_signal_function f,
-  std::chrono::duration< Rep, Period > delay )
+template <typename Rep, typename Period>
+iscool::signals::connection
+iscool::schedule::delayed_call(iscool::signals::void_signal_function f,
+                               std::chrono::duration<Rep, Period> delay)
 {
-    return delayed_call
-        ( f, std::chrono::duration_cast< std::chrono::nanoseconds >( delay ) );
+  return delayed_call(
+      f, std::chrono::duration_cast<std::chrono::nanoseconds>(delay));
 }
 
 #endif

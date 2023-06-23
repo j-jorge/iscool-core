@@ -21,59 +21,55 @@
 
 namespace iscool
 {
-    namespace memory
+  namespace memory
+  {
+    namespace detail
     {
-        namespace detail
-        {
-            template< typename T, std::size_t N >
-            class pimpl_storage
-            {
-            public:
-                template< typename... Args >
-                pimpl_storage( Args&&... args );
-  
-                pimpl_storage( pimpl_storage< T, N >&& ) = delete;
-                pimpl_storage( const pimpl_storage< T, N >& ) = delete;
-  
-                ~pimpl_storage();
-  
-                pimpl_storage<T, N>&
-                operator=( pimpl_storage< T, N >&& ) = delete;
+      template <typename T, std::size_t N>
+      class pimpl_storage
+      {
+      public:
+        template <typename... Args>
+        pimpl_storage(Args&&... args);
 
-                pimpl_storage<T, N>&
-                operator=( const pimpl_storage< T, N >& ) = delete;
+        pimpl_storage(pimpl_storage<T, N>&&) = delete;
+        pimpl_storage(const pimpl_storage<T, N>&) = delete;
 
-                T* get() const;
-  
-            private:
-                typename std::aligned_storage< N >::type _storage;
-            };
+        ~pimpl_storage();
 
-            template< typename T >
-            class pimpl_storage< T, 0 >
-            {
-            public:
-                template< typename... Args >
-                pimpl_storage( Args&&... args );
-  
-                pimpl_storage( pimpl_storage< T, 0 >&& ) = delete;
-                pimpl_storage( const pimpl_storage< T, 0 >& ) = delete;
-  
-                ~pimpl_storage();
-  
-                pimpl_storage<T, 0>&
-                operator=( pimpl_storage< T, 0 >&& ) = delete;
+        pimpl_storage<T, N>& operator=(pimpl_storage<T, N>&&) = delete;
 
-                pimpl_storage<T, 0>&
-                operator=( const pimpl_storage< T, 0 >& ) = delete;
+        pimpl_storage<T, N>& operator=(const pimpl_storage<T, N>&) = delete;
 
-                T* get() const;
-  
-            private:
-                std::unique_ptr< T > _pointer;
-            };
-        }
+        T* get() const;
+
+      private:
+        typename std::aligned_storage<N>::type _storage;
+      };
+
+      template <typename T>
+      class pimpl_storage<T, 0>
+      {
+      public:
+        template <typename... Args>
+        pimpl_storage(Args&&... args);
+
+        pimpl_storage(pimpl_storage<T, 0>&&) = delete;
+        pimpl_storage(const pimpl_storage<T, 0>&) = delete;
+
+        ~pimpl_storage();
+
+        pimpl_storage<T, 0>& operator=(pimpl_storage<T, 0>&&) = delete;
+
+        pimpl_storage<T, 0>& operator=(const pimpl_storage<T, 0>&) = delete;
+
+        T* get() const;
+
+      private:
+        std::unique_ptr<T> _pointer;
+      };
     }
+  }
 }
-    
+
 #endif

@@ -16,37 +16,35 @@
 #ifndef ISCOOL_SIGNALS_SIGNAL_POOL_IMPL_TPP
 #define ISCOOL_SIGNALS_SIGNAL_POOL_IMPL_TPP
 
-template< typename T >
-iscool::signals::one_shot_signal_pool< T >::one_shot_signal_pool
-( std::size_t pool_size )
-    : _pool( pool_size )
+template <typename T>
+iscool::signals::one_shot_signal_pool<T>::one_shot_signal_pool(
+    std::size_t pool_size)
+  : _pool(pool_size)
+{}
+
+template <typename T>
+iscool::signals::one_shot_signal_pool<T>::~one_shot_signal_pool() = default;
+
+template <typename T>
+typename iscool::signals::one_shot_signal_pool<T>::pool_type::slot
+iscool::signals::one_shot_signal_pool<T>::pick_available()
 {
-    
+  return _pool.pick_available();
 }
 
-template< typename T >
-iscool::signals::one_shot_signal_pool< T >::~one_shot_signal_pool() = default;
-
-template< typename T >
-typename iscool::signals::one_shot_signal_pool< T >::pool_type::slot
-iscool::signals::one_shot_signal_pool< T >::pick_available()
+template <typename T>
+template <typename... Args>
+void iscool::signals::one_shot_signal_pool<T>::trigger(std::size_t id,
+                                                       Args&&... args)
 {
-    return _pool.pick_available();
+  _pool.get(id)(std::forward<Args>(args)...);
+  _pool.release(id);
 }
 
-template< typename T >
-template< typename... Args >
-void iscool::signals::one_shot_signal_pool< T >::trigger
-( std::size_t id, Args&&... args )
+template <typename T>
+void iscool::signals::one_shot_signal_pool<T>::clear()
 {
-    _pool.get( id )( std::forward< Args >( args )... );
-    _pool.release( id );
-}
-
-template< typename T >
-void iscool::signals::one_shot_signal_pool< T >::clear()
-{
-    _pool.clear();
+  _pool.clear();
 }
 
 #endif

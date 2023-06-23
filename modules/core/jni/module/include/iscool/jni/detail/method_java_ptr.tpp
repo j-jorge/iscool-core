@@ -19,23 +19,21 @@
 #include "iscool/jni/check_java_exception.h"
 #include "iscool/jni/detail/get_method_argument.h"
 
-template< typename T >
-template< typename... Arg >
-iscool::jni::java_ptr< T >
-iscool::jni::method< iscool::jni::java_ptr< T > >::operator()
-( const java_ptr< jobject >& self, Arg&&... args ) const
+template <typename T>
+template <typename... Arg>
+iscool::jni::java_ptr<T>
+iscool::jni::method<iscool::jni::java_ptr<T>>::operator()(
+    const java_ptr<jobject>& self, Arg&&... args) const
 {
-    assert( check_java_exception() );
-    
-    const jobject result
-        ( _env->CallObjectMethod
-          ( self.get(), _method,
-            detail::get_method_argument< Arg >::get
-            ( std::forward< Arg >( args ) )... ) );
+  assert(check_java_exception());
 
-    assert( check_java_exception() );
+  const jobject result(_env->CallObjectMethod(
+      self.get(), _method,
+      detail::get_method_argument<Arg>::get(std::forward<Arg>(args))...));
 
-    return java_ptr< T >( static_cast< T >( result ) );
+  assert(check_java_exception());
+
+  return java_ptr<T>(static_cast<T>(result));
 }
 
 #endif

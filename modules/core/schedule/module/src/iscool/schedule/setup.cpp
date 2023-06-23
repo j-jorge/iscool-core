@@ -19,27 +19,27 @@
 
 #include <cassert>
 
-void iscool::schedule::initialize( delayed_call_delegate delegate )
+void iscool::schedule::initialize(delayed_call_delegate delegate)
 {
-    assert( !detail::call_later );
-    assert( delegate );
+  assert(!detail::call_later);
+  assert(delegate);
 
-    detail::call_later = std::move(delegate);
+  detail::call_later = std::move(delegate);
 }
 
 void iscool::schedule::finalize()
 {
-    detail::call_later = delayed_call_delegate();
-    detail::call_manager.clear();
+  detail::call_later = delayed_call_delegate();
+  detail::call_manager.clear();
 }
 
-iscool::schedule::scoped_scheduler_delegate::scoped_scheduler_delegate
-(delayed_call_delegate delegate)
+iscool::schedule::scoped_scheduler_delegate::scoped_scheduler_delegate(
+    delayed_call_delegate delegate)
 {
-    initialize(std::move(delegate));
+  initialize(std::move(delegate));
 }
 
 iscool::schedule::scoped_scheduler_delegate::~scoped_scheduler_delegate()
 {
-    finalize();
+  finalize();
 }

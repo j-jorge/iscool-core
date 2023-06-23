@@ -22,17 +22,17 @@
 
 namespace iscool
 {
-    namespace http
-    {
-        iscool::signals::shared_connection_set get
-        ( const std::string& url,
-          response_handler on_result, response_handler on_error );
+  namespace http
+  {
+    iscool::signals::shared_connection_set get(const std::string& url,
+                                               response_handler on_result,
+                                               response_handler on_error);
 
-        iscool::signals::shared_connection_set post
-        ( const std::string& url, const std::vector<std::string>& headers,
-          const std::string& body,
-          response_handler on_result, response_handler on_error );
-    }
+    iscool::signals::shared_connection_set
+    post(const std::string& url, const std::vector<std::string>& headers,
+         const std::string& body, response_handler on_result,
+         response_handler on_error);
+  }
 }
 
 #endif

@@ -17,31 +17,30 @@
 
 namespace iscool
 {
-    namespace preferences
+  namespace preferences
+  {
+    namespace detail
     {
-        namespace detail
-        {
-            static std::unordered_map< std::string, std::string >
-            global_properties;
-            static int global_properties_version( 0 );
-        }
+      static std::unordered_map<std::string, std::string> global_properties;
+      static int global_properties_version(0);
     }
+  }
 }
 
-const std::unordered_map< std::string, std::string >&
+const std::unordered_map<std::string, std::string>&
 iscool::preferences::detail::get_global_properties()
 {
-    return global_properties;
+  return global_properties;
 }
 
-void iscool::preferences::detail::set_global_properties
-( const std::unordered_map< std::string, std::string >& properties )
+void iscool::preferences::detail::set_global_properties(
+    const std::unordered_map<std::string, std::string>& properties)
 {
-    global_properties = properties;
-    ++global_properties_version;
+  global_properties = properties;
+  ++global_properties_version;
 }
 
 int iscool::preferences::detail::get_global_properties_version()
 {
-    return global_properties_version;
+  return global_properties_version;
 }

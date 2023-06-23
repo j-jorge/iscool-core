@@ -20,27 +20,22 @@
 
 namespace iscool
 {
-    namespace jni
+  namespace jni
+  {
+    namespace detail
     {
-        namespace detail
-        {
-            template< typename T >
-            struct get_method_argument_impl
-            {
-                static T get( const T& arg );
-            };
+      template <typename T>
+      struct get_method_argument_impl
+      {
+        static T get(const T& arg);
+      };
 
-            template< typename T >
-            struct get_method_argument:
-                public get_method_argument_impl
-                <
-                    typename std::decay< T >::type
-                >
-            {
-
-            };
-        }
+      template <typename T>
+      struct get_method_argument
+        : public get_method_argument_impl<typename std::decay<T>::type>
+      {};
     }
+  }
 }
 
 #include "iscool/jni/detail/get_method_argument.tpp"

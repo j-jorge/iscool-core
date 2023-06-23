@@ -18,4 +18,4 @@
 iscool::schedule::delayed_call_delegate iscool::schedule::detail::call_later;
 
 iscool::schedule::detail::delayed_call_manager
-iscool::schedule::detail::call_manager( 10 );
+    iscool::schedule::detail::call_manager(10);

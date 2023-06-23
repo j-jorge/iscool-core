@@ -24,20 +24,20 @@
 
 #include <json/value.h>
 
-IMPLEMENT_JSON_CAST( unsigned int )
-IMPLEMENT_JSON_IS_OF_TYPE( unsigned int )
+IMPLEMENT_JSON_CAST(unsigned int)
+IMPLEMENT_JSON_IS_OF_TYPE(unsigned int)
 
-bool
-iscool::json::detail::cast< unsigned int >::is_valid( const Json::Value& value )
+bool iscool::json::detail::cast<unsigned int>::is_valid(
+    const Json::Value& value)
 {
-    return value.isUInt() || ( value.isInt() && ( value.asInt() >= 0 ) );
+  return value.isUInt() || (value.isInt() && (value.asInt() >= 0));
 }
 
 unsigned int
-iscool::json::detail::cast< unsigned int >::value( const Json::Value& value )
+iscool::json::detail::cast<unsigned int>::value(const Json::Value& value)
 {
-    if ( !is_valid( value ) )
-        throw bad_cast( value, "unsigned int" );
+  if (!is_valid(value))
+    throw bad_cast(value, "unsigned int");
 
-    return value.asUInt();
+  return value.asUInt();
 }

@@ -18,11 +18,12 @@
 
 namespace iscool
 {
-    struct none_t
-    {
-        struct init_tag{};
-        explicit none_t( init_tag ) { };
-    };
+  struct none_t
+  {
+    struct init_tag
+    {};
+    explicit none_t(init_tag){};
+  };
 }
 
 #endif

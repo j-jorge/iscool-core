@@ -17,19 +17,19 @@
 
 #include <gtest/gtest.h>
 
-TEST( iscool_resources_resolver, get_file_path )
+TEST(iscool_resources_resolver, get_file_path)
 {
-    {
-        const iscool::resources::resolver resolver( "path/", ".ext" );
+  {
+    const iscool::resources::resolver resolver("path/", ".ext");
 
-        EXPECT_EQ( "path/abc.ext", resolver.get_file_path( "abc" ) );
-        EXPECT_EQ( "path/ABC.ext", resolver.get_file_path( "ABC" ) );
-    }
+    EXPECT_EQ("path/abc.ext", resolver.get_file_path("abc"));
+    EXPECT_EQ("path/ABC.ext", resolver.get_file_path("ABC"));
+  }
 
-    {
-        const iscool::resources::resolver resolver( "some/path/", ".tmp" );
+  {
+    const iscool::resources::resolver resolver("some/path/", ".tmp");
 
-        EXPECT_EQ( "some/path/123456.tmp", resolver.get_file_path( "123456" ) );
-        EXPECT_EQ( "some/path/987654.tmp", resolver.get_file_path( "987654" ) );
-    }
+    EXPECT_EQ("some/path/123456.tmp", resolver.get_file_path("123456"));
+    EXPECT_EQ("some/path/987654.tmp", resolver.get_file_path("987654"));
+  }
 }

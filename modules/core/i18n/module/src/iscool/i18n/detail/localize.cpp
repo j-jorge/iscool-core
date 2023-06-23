@@ -19,17 +19,17 @@
 
 #include "moFileReader/moFileReader.h"
 
-const char* iscool::i18n::detail::localize( const char* message )
+const char* iscool::i18n::detail::localize(const char* message)
 {
-    moFileLib::moFileReader& reader
-        ( moFileLib::moFileReaderSingleton::GetInstance() );
-    return reader.Lookup( message );
+  moFileLib::moFileReader& reader(
+      moFileLib::moFileReaderSingleton::GetInstance());
+  return reader.Lookup(message);
 }
 
-const char* iscool::i18n::detail::localize
-( const char* message, std::uint64_t count )
+const char* iscool::i18n::detail::localize(const char* message,
+                                           std::uint64_t count)
 {
-    moFileLib::moFileReader& reader
-        ( moFileLib::moFileReaderSingleton::GetInstance() );
-    return reader.Lookup( message, plural_index( count ) );
+  moFileLib::moFileReader& reader(
+      moFileLib::moFileReaderSingleton::GetInstance());
+  return reader.Lookup(message, plural_index(count));
 }

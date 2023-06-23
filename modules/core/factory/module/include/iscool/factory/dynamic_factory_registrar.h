@@ -22,19 +22,20 @@
 
 namespace iscool
 {
-    namespace factory
-    {
-        template< typename T, typename... A > class dynamic_factory;
+  namespace factory
+  {
+    template <typename T, typename... A>
+    class dynamic_factory;
 
-        template< typename T, typename... A >
-        class dynamic_factory_registrar
-        {
-        public:
-            dynamic_factory_registrar
-            ( dynamic_factory< T, A... >& factory, const std::string& name,
-              const factory_function< T, A... >& creator );
-        };
-    }
+    template <typename T, typename... A>
+    class dynamic_factory_registrar
+    {
+    public:
+      dynamic_factory_registrar(dynamic_factory<T, A...>& factory,
+                                const std::string& name,
+                                const factory_function<T, A...>& creator);
+    };
+  }
 }
 
 #include "iscool/factory/detail/dynamic_factory_registrar.tpp"

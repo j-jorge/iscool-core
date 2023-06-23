@@ -16,16 +16,15 @@
 #ifndef ISCOOL_SCHEDULE_WORKER_TPP
 #define ISCOOL_SCHEDULE_WORKER_TPP
 
-template< typename TaskType, typename ...Args >
+template <typename TaskType, typename... Args>
 typename iscool::schedule::worker::handle
-iscool::schedule::worker::run( Args... arguments )
+iscool::schedule::worker::run(Args... arguments)
 {
-    detail::task_life_cycle* const task
-        ( new detail::task_life_cycle
-          ( detail::task_life_cycle::task_pointer
-            ( new TaskType( std::forward<Args>( arguments )... ) ) ) );
+  detail::task_life_cycle* const task(
+      new detail::task_life_cycle(detail::task_life_cycle::task_pointer(
+          new TaskType(std::forward<Args>(arguments)...))));
 
-    return worker::handle( new worker( task_pointer( task ) ) );
+  return worker::handle(new worker(task_pointer(task)));
 }
 
 #endif

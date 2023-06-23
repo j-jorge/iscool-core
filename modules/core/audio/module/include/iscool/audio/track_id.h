@@ -20,13 +20,13 @@
 
 namespace iscool
 {
-    namespace audio
-    {
-        typedef unsigned int track_id;
+  namespace audio
+  {
+    typedef unsigned int track_id;
 
-        static constexpr track_id not_a_track_id
-        ( std::numeric_limits< track_id >::max() );
-    }
+    static constexpr track_id
+        not_a_track_id(std::numeric_limits<track_id>::max());
+  }
 }
 
 #endif

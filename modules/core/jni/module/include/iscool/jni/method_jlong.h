@@ -16,26 +16,24 @@
 #ifndef ISCOOL_JNI_METHOD_JLONG_H
 #define ISCOOL_JNI_METHOD_JLONG_H
 
+#include "iscool/jni/detail/method_base.h"
 #include "iscool/jni/java_ptr.h"
 #include "iscool/jni/method.h"
-#include "iscool/jni/detail/method_base.h"
 
 namespace iscool
 {
-    namespace jni
+  namespace jni
+  {
+    template <>
+    class method<jlong> : public detail::method_base
     {
-        template<>
-        class method< jlong >:
-            public detail::method_base
-        {
-        public:
-            using detail::method_base::method_base;
-            
-            template< typename... Arg >
-            jlong operator()
-            ( const java_ptr< jobject >& self, Arg&&... args ) const;
-        };
-    }
+    public:
+      using detail::method_base::method_base;
+
+      template <typename... Arg>
+      jlong operator()(const java_ptr<jobject>& self, Arg&&... args) const;
+    };
+  }
 }
 
 #include "iscool/jni/detail/method_jlong.tpp"

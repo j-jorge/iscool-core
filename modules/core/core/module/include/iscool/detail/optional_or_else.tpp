@@ -16,11 +16,10 @@
 #ifndef ISCOOL_OPTIONAL_OR_ELSE_TPP
 #define ISCOOL_OPTIONAL_OR_ELSE_TPP
 
-template< typename T >
-T iscool::optional_or_else
-( const optional< T >& optional, const T& fallback )
+template <typename T>
+T iscool::optional_or_else(const optional<T>& optional, const T& fallback)
 {
-    return optional ? *optional : fallback;
+  return optional ? *optional : fallback;
 }
 
 #endif

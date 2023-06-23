@@ -17,6 +17,6 @@
 
 iscool::time::time_source_delegate iscool::time::detail::time_source =
     []() -> std::chrono::nanoseconds
-        {
-            return std::chrono::system_clock::now().time_since_epoch();
-        };
+{
+  return std::chrono::system_clock::now().time_since_epoch();
+};

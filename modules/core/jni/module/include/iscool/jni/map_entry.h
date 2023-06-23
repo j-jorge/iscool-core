@@ -20,33 +20,33 @@
 
 namespace iscool
 {
-    namespace jni
+  namespace jni
+  {
+    template <typename K, typename V>
+    class map_entry
     {
-        template< typename K, typename V >
-        class map_entry
-        {
-        public:
-            explicit map_entry( const java_ptr< jobject >& impl );
-            explicit map_entry( jobject impl );
-        
-            java_ptr< jobject > get_java_object() const;
+    public:
+      explicit map_entry(const java_ptr<jobject>& impl);
+      explicit map_entry(jobject impl);
 
-            K get_key() const;
-            V get_value() const;
-        
-        private:
-            java_ptr< jobject > _impl;
-        };
+      java_ptr<jobject> get_java_object() const;
 
-        namespace detail
-        {
-            template< typename K, typename V >
-            struct get_method_argument_impl< map_entry< K, V > >
-            {
-                static jobject get( const map_entry< K, V >& c );
-            };
-        }
+      K get_key() const;
+      V get_value() const;
+
+    private:
+      java_ptr<jobject> _impl;
+    };
+
+    namespace detail
+    {
+      template <typename K, typename V>
+      struct get_method_argument_impl<map_entry<K, V>>
+      {
+        static jobject get(const map_entry<K, V>& c);
+      };
     }
+  }
 }
 
 #include "iscool/jni/detail/map_entry.tpp"

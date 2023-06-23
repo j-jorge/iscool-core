@@ -17,6 +17,6 @@
 
 const std::string& iscool::style::log_context()
 {
-    static const std::string result( "Style" );
-    return result;
+  static const std::string result("Style");
+  return result;
 }

@@ -21,25 +21,24 @@
 
 namespace Json
 {
-    class Value;
+  class Value;
 }
-    
+
 namespace iscool
 {
-    namespace json
+  namespace json
+  {
+    class bad_cast : public std::bad_cast
     {
-        class bad_cast:
-            public std::bad_cast
-        {
-        public:
-            bad_cast( const Json::Value& value, const std::string& expected );
-            
-            const char* what() const noexcept override;
-            
-        private:
-            const std::string _message;
-        };
-    }
+    public:
+      bad_cast(const Json::Value& value, const std::string& expected);
+
+      const char* what() const noexcept override;
+
+    private:
+      const std::string _message;
+    };
+  }
 }
 
 #endif

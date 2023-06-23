@@ -16,12 +16,11 @@
 #ifndef ISCOOL_JNI_CAST_HASH_MAP_TPP
 #define ISCOOL_JNI_CAST_HASH_MAP_TPP
 
-template< typename K, typename V >
-iscool::jni::hash_map< K, V >
-iscool::jni::detail::cast< iscool::jni::hash_map< K, V > >::value
-( jobject value )
+template <typename K, typename V>
+iscool::jni::hash_map<K, V>
+iscool::jni::detail::cast<iscool::jni::hash_map<K, V>>::value(jobject value)
 {
-    return hash_map< K, V >( value );
+  return hash_map<K, V>(value);
 }
 
 #endif

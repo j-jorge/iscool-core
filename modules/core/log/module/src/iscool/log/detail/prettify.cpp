@@ -20,72 +20,68 @@
 
 #include <regex>
 
-std::string iscool::log::detail::prettify( const std::string& message )
+std::string iscool::log::detail::prettify(const std::string& message)
 {
-    static const std::string reset( "\33[0m" );
-    static const std::string bold( "\33[1m" );
-    static const std::string red( "\33[31m" );
-    static const std::string yellow( "\33[33m" );
-    static const std::string blue( "\33[34m" );
-    static const std::string magenta( "\33[35m" );
+  static const std::string reset("\33[0m");
+  static const std::string bold("\33[1m");
+  static const std::string red("\33[31m");
+  static const std::string yellow("\33[33m");
+  static const std::string blue("\33[34m");
+  static const std::string magenta("\33[35m");
 
-    static const std::regex prefix
-        ( "^(\\[[^\\]]+\\])(\\[[^\\]]+\\])(\\[[^\\]]+\\]) " );
+  static const std::regex prefix(
+      "^(\\[[^\\]]+\\])(\\[[^\\]]+\\])(\\[[^\\]]+\\]) ");
 
-    std::string result;
-    std::string remaining;
-    
-    std::smatch match;
+  std::string result;
+  std::string remaining;
 
-    if ( std::regex_search( message, match, prefix ) )
+  std::smatch match;
+
+  if (std::regex_search(message, match, prefix))
     {
-        const std::string nature( match[ 1 ].str() );
-        
-        if ( nature == "[" + iscool::log::nature::error().string() + "]" )
-            result += bold + red;
-        else if
-            ( nature == "[" + iscool::log::nature::warning().string() + "]" )
-            result += bold + yellow;
-        else
-            result += bold;
-        
-        result += nature + reset; 
+      const std::string nature(match[1].str());
 
-        result += blue + match[ 2 ].str() + match[ 3 ].str() + reset + ' ';
-        remaining = match.suffix().str();
+      if (nature == "[" + iscool::log::nature::error().string() + "]")
+        result += bold + red;
+      else if (nature == "[" + iscool::log::nature::warning().string() + "]")
+        result += bold + yellow;
+      else
+        result += bold;
+
+      result += nature + reset;
+
+      result += blue + match[2].str() + match[3].str() + reset + ' ';
+      remaining = match.suffix().str();
     }
-    else
-        remaining = message;
-    
-    static const std::regex type_name( "^[^:]*::[^: ]+" );
+  else
+    remaining = message;
 
-    if ( std::regex_search( remaining, match, type_name ) )
+  static const std::regex type_name("^[^:]*::[^: ]+");
+
+  if (std::regex_search(remaining, match, type_name))
     {
-        result +=
-            match.prefix().str() + magenta + bold + match[ 0 ].str() + reset;
-        remaining =  match.suffix().str();
+      result += match.prefix().str() + magenta + bold + match[0].str() + reset;
+      remaining = match.suffix().str();
     }
 
-    static const std::regex key_value( "([^= ]+)=([^ ]+)" );
+  static const std::regex key_value("([^= ]+)=([^ ]+)");
 
-    while( std::regex_search( remaining, match, key_value ) )
+  while (std::regex_search(remaining, match, key_value))
     {
-        result +=
-            match.prefix().str() + bold + match[ 1 ].str()
-            + reset + '=' + blue + bold + match[ 2 ].str() + reset;
-        remaining = match.suffix();
+      result += match.prefix().str() + bold + match[1].str() + reset + '='
+                + blue + bold + match[2].str() + reset;
+      remaining = match.suffix();
     }
 
-    static const std::regex string( "'[^']+'" );
+  static const std::regex string("'[^']+'");
 
-    while( std::regex_search( remaining, match, string ) )
+  while (std::regex_search(remaining, match, string))
     {
-        result +=
-            match.prefix().str() + red + match[ 0 ].str() + reset;
-        remaining = match.suffix();
+      result += match.prefix().str() + red + match[0].str() + reset;
+      remaining = match.suffix();
     }
-    
-    result += remaining;
-    
-    return result;
+
+  result += remaining;
+
+  return result;
 }

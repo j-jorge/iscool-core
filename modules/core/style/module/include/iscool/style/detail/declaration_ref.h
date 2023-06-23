@@ -22,39 +22,37 @@
 
 namespace iscool
 {
-    namespace style
+  namespace style
+  {
+    class declaration;
+
+    namespace detail
     {
-        class declaration;
+      class declaration_ref
+      {
+      public:
+        declaration_ref();
+        declaration_ref(const declaration_ref& that);
+        declaration_ref(declaration_ref&& that);
+        ~declaration_ref();
 
-        namespace detail
-        {
-            class declaration_ref
-            {
-            public:
-                declaration_ref();
-                declaration_ref( const declaration_ref& that );
-                declaration_ref( declaration_ref&& that );
-                ~declaration_ref();
-                
-                declaration_ref& operator=( const declaration_ref& that );
-                declaration_ref& operator=( declaration_ref&& that );
+        declaration_ref& operator=(const declaration_ref& that);
+        declaration_ref& operator=(declaration_ref&& that);
 
-                declaration& operator*();
-                const declaration& operator*() const;
-                
-                declaration* operator->();
-                const declaration* operator->() const;
+        declaration& operator*();
+        const declaration& operator*() const;
 
-                operator declaration& ();
-                operator const declaration& () const;
-                
-            private:
-                std::aligned_storage< sizeof( properties_handle ) >::type
-                _storage;
-            };
-        }
+        declaration* operator->();
+        const declaration* operator->() const;
+
+        operator declaration&();
+        operator const declaration&() const;
+
+      private:
+        std::aligned_storage<sizeof(properties_handle)>::type _storage;
+      };
     }
+  }
 }
 
 #endif
-

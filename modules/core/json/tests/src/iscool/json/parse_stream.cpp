@@ -19,54 +19,51 @@
 
 #include "gtest/gtest.h"
 
-TEST( iscool_json_parse_stream, parse_stream_valid )
+TEST(iscool_json_parse_stream, parse_stream_valid)
 {
-    std::istringstream iss
-        ( "{"
-          "  \"int\": 24,"
-          "  \"object\": { \"property\": \"value\" },"
-          "  \"array\": [ 10, 2, { \"id\": 72 }, 1.8 ]"
-          "}" );
+  std::istringstream iss("{"
+                         "  \"int\": 24,"
+                         "  \"object\": { \"property\": \"value\" },"
+                         "  \"array\": [ 10, 2, { \"id\": 72 }, 1.8 ]"
+                         "}");
 
-    Json::Value value( iscool::json::parse_stream( iss ) );
+  Json::Value value(iscool::json::parse_stream(iss));
 
-    EXPECT_EQ( 24, iscool::json::cast< int >( value[ "int" ] ) );
-    EXPECT_EQ( "value",
-               iscool::json::cast< std::string >
-               ( value[ "object" ][ "property" ] ) );
+  EXPECT_EQ(24, iscool::json::cast<int>(value["int"]));
+  EXPECT_EQ("value",
+            iscool::json::cast<std::string>(value["object"]["property"]));
 
-    ASSERT_EQ( Json::ArrayIndex( 4 ), value[ "array" ].size() );
-    EXPECT_EQ( 10, iscool::json::cast< int >( value[ "array" ][0] ) );
-    EXPECT_EQ( 2, iscool::json::cast< int >( value[ "array" ][1] ) );
-    EXPECT_EQ( 72,
-                iscool::json::cast< int >( value[ "array" ][2][ "id" ] ) );
-    EXPECT_EQ( 1.8f, value[ "array" ][3].asFloat() );
+  ASSERT_EQ(Json::ArrayIndex(4), value["array"].size());
+  EXPECT_EQ(10, iscool::json::cast<int>(value["array"][0]));
+  EXPECT_EQ(2, iscool::json::cast<int>(value["array"][1]));
+  EXPECT_EQ(72, iscool::json::cast<int>(value["array"][2]["id"]));
+  EXPECT_EQ(1.8f, value["array"][3].asFloat());
 }
 
-TEST( iscool_json_parse_stream, parse_stream_invalid )
+TEST(iscool_json_parse_stream, parse_stream_invalid)
 {
-    std::istringstream iss( "Not a valid Json." );
-    Json::Value value( iscool::json::parse_stream( iss ) );
+  std::istringstream iss("Not a valid Json.");
+  Json::Value value(iscool::json::parse_stream(iss));
 
-    EXPECT_TRUE( value.isNull() );
+  EXPECT_TRUE(value.isNull());
 }
 
-TEST( iscool_json_parse_stream, parse_stream_empty )
+TEST(iscool_json_parse_stream, parse_stream_empty)
 {
-    std::istringstream iss( "" );
-    Json::Value value( iscool::json::parse_stream( iss ) );
+  std::istringstream iss("");
+  Json::Value value(iscool::json::parse_stream(iss));
 
-    EXPECT_TRUE( value.isNull() );
+  EXPECT_TRUE(value.isNull());
 }
 
-TEST( iscool_json_parse_stream, parse_stream_array )
+TEST(iscool_json_parse_stream, parse_stream_array)
 {
-    std::istringstream iss( "[ 1, 2, 3 ]" );
-    Json::Value value( iscool::json::parse_stream( iss ) );
+  std::istringstream iss("[ 1, 2, 3 ]");
+  Json::Value value(iscool::json::parse_stream(iss));
 
-    EXPECT_EQ( Json::arrayValue, value.type() );
-    ASSERT_EQ( Json::ArrayIndex( 3 ), value.size() );
-    EXPECT_EQ( 1, iscool::json::cast< int >( value[ 0 ] ) );
-    EXPECT_EQ( 2, iscool::json::cast< int >( value[ 1 ] ) );
-    EXPECT_EQ( 3, iscool::json::cast< int >( value[ 2 ] ) );
+  EXPECT_EQ(Json::arrayValue, value.type());
+  ASSERT_EQ(Json::ArrayIndex(3), value.size());
+  EXPECT_EQ(1, iscool::json::cast<int>(value[0]));
+  EXPECT_EQ(2, iscool::json::cast<int>(value[1]));
+  EXPECT_EQ(3, iscool::json::cast<int>(value[2]));
 }

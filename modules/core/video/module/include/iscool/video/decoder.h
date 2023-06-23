@@ -28,45 +28,44 @@
 
 namespace iscool
 {
-    namespace video
+  namespace video
+  {
+    namespace detail
     {
-        namespace detail
-        {
-            struct decoder_state
-            {
-                std::condition_variable update_condition;
-                std::mutex mutex;
-                bool quit;
-                bool need_update;
-            };
-        }
-        
-        class decoder
-        {
-        public:
-            using rgb24_data_pointer = std::uint8_t*;
-
-            DECLARE_SIGNAL
-            ( void( rgb24_data_pointer ), frame_ready, _frame_ready );
-            
-        public:
-            decoder();
-            ~decoder();
-            
-            decoder( const decoder& ) = delete;
-            decoder& operator=( const decoder& ) = delete;
-
-            iscool::optional< video_info > decode( const std::string& path );
-            void consume_frame();
-
-        private:
-            void terminate_thread();
-            
-        private:
-            detail::decoder_state _decoder_state;
-            std::thread _thread;
-        };
+      struct decoder_state
+      {
+        std::condition_variable update_condition;
+        std::mutex mutex;
+        bool quit;
+        bool need_update;
+      };
     }
+
+    class decoder
+    {
+    public:
+      using rgb24_data_pointer = std::uint8_t*;
+
+      DECLARE_SIGNAL(void(rgb24_data_pointer), frame_ready, _frame_ready);
+
+    public:
+      decoder();
+      ~decoder();
+
+      decoder(const decoder&) = delete;
+      decoder& operator=(const decoder&) = delete;
+
+      iscool::optional<video_info> decode(const std::string& path);
+      void consume_frame();
+
+    private:
+      void terminate_thread();
+
+    private:
+      detail::decoder_state _decoder_state;
+      std::thread _thread;
+    };
+  }
 }
 
 #endif

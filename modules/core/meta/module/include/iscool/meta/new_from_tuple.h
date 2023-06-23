@@ -18,11 +18,11 @@
 
 namespace iscool
 {
-    namespace meta
-    {
-        template< typename T, typename Tuple >
-        T* new_from_tuple( Tuple&& tuple );
-    }
+  namespace meta
+  {
+    template <typename T, typename Tuple>
+    T* new_from_tuple(Tuple&& tuple);
+  }
 }
 
 #include "iscool/meta/detail/new_from_tuple.tpp"

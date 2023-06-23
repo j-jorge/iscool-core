@@ -20,23 +20,23 @@
 
 namespace iscool
 {
-    namespace any
-    {
-        class any;
+  namespace any
+  {
+    class any;
 
-        namespace detail
-        {
-            class vtable
-            {
-            public:
-                std::size_t type_id;
-            
-                void ( *clear )( any& that );
-                void ( *copy )( any& self, const any& that );
-                void ( *move )( any& self, any&& that );
-            };
-        }
+    namespace detail
+    {
+      class vtable
+      {
+      public:
+        std::size_t type_id;
+
+        void (*clear)(any& that);
+        void (*copy)(any& self, const any& that);
+        void (*move)(any& self, any&& that);
+      };
     }
+  }
 }
 
 #endif

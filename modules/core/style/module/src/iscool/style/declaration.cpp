@@ -23,284 +23,272 @@
 
 namespace iscool
 {
-    namespace style
+  namespace style
+  {
+    namespace detail
     {
-        namespace detail
-        {
-            static const shared_properties empty_properties;
-        }
+      static const shared_properties empty_properties;
     }
+  }
 }
 
-template class iscool::optional< const iscool::style::declaration& >;
-template class iscool::optional< iscool::style::declaration >;
+template class iscool::optional<const iscool::style::declaration&>;
+template class iscool::optional<iscool::style::declaration>;
 
-void
-iscool::style::declaration::set_number( const std::string& key, float value )
+void iscool::style::declaration::set_number(const std::string& key,
+                                            float value)
 {
-    ensure_owned_properties();
-    _properties->numbers[ key ] = value;
+  ensure_owned_properties();
+  _properties->numbers[key] = value;
 }
 
-iscool::optional< float >
-iscool::style::declaration::get_number( const std::string& key ) const
+iscool::optional<float>
+iscool::style::declaration::get_number(const std::string& key) const
 {
-    if ( !_properties )
-        return iscool::none;
+  if (!_properties)
+    return iscool::none;
 
-    const auto result( _properties->numbers.find( key ) );
+  const auto result(_properties->numbers.find(key));
 
-    if ( result == _properties->numbers.end() )
-        return iscool::none;
+  if (result == _properties->numbers.end())
+    return iscool::none;
 
-    return result->second;
+  return result->second;
 }
 
-float iscool::style::declaration::get_number
-( const std::string& key, float default_value ) const
+float iscool::style::declaration::get_number(const std::string& key,
+                                             float default_value) const
 {
-    const iscool::optional< float > result( get_number( key ) );
+  const iscool::optional<float> result(get_number(key));
 
-    if ( !result )
-        return default_value;
+  if (!result)
+    return default_value;
 
-    return *result;
+  return *result;
 }
 
-void
-iscool::style::declaration::set_boolean( const std::string& key, bool value )
+void iscool::style::declaration::set_boolean(const std::string& key,
+                                             bool value)
 {
-    ensure_owned_properties();
-    _properties->booleans[ key ] = value;
+  ensure_owned_properties();
+  _properties->booleans[key] = value;
 }
 
-iscool::optional< bool >
-iscool::style::declaration::get_boolean( const std::string& key ) const
+iscool::optional<bool>
+iscool::style::declaration::get_boolean(const std::string& key) const
 {
-    if ( !_properties )
-        return iscool::none;
-    
-    const auto result( _properties->booleans.find( key ) );
+  if (!_properties)
+    return iscool::none;
 
-    if ( result == _properties->booleans.end() )
-        return iscool::none;
+  const auto result(_properties->booleans.find(key));
 
-    return result->second;
+  if (result == _properties->booleans.end())
+    return iscool::none;
+
+  return result->second;
 }
 
-bool iscool::style::declaration::get_boolean
-( const std::string& key, bool default_value ) const
+bool iscool::style::declaration::get_boolean(const std::string& key,
+                                             bool default_value) const
 {
-    const iscool::optional< bool > result( get_boolean( key ) );
+  const iscool::optional<bool> result(get_boolean(key));
 
-    if ( !result )
-        return default_value;
+  if (!result)
+    return default_value;
 
-    return *result;
+  return *result;
 }
 
-void iscool::style::declaration::set_string
-( const std::string& key, const std::string& value)
+void iscool::style::declaration::set_string(const std::string& key,
+                                            const std::string& value)
 {
-    ensure_owned_properties();
-    _properties->strings[ key ] = value;
+  ensure_owned_properties();
+  _properties->strings[key] = value;
 }
 
-iscool::optional< const std::string& >
-iscool::style::declaration::get_string( const std::string& key ) const
+iscool::optional<const std::string&>
+iscool::style::declaration::get_string(const std::string& key) const
 {
-    if ( !_properties )
-        return iscool::none;
-    
-    const auto result( _properties->strings.find( key ) );
+  if (!_properties)
+    return iscool::none;
 
-    if ( result == _properties->strings.end() )
-        return iscool::none;
+  const auto result(_properties->strings.find(key));
 
-    return result->second;
+  if (result == _properties->strings.end())
+    return iscool::none;
+
+  return result->second;
 }
 
 std::string
-iscool::style::declaration::get_string
-( const std::string& key, const std::string& default_value ) const
+iscool::style::declaration::get_string(const std::string& key,
+                                       const std::string& default_value) const
 {
-    const iscool::optional< const std::string& > result( get_string( key ) );
+  const iscool::optional<const std::string&> result(get_string(key));
 
-    if ( !result )
-        return default_value;
+  if (!result)
+    return default_value;
 
-    return *result;
+  return *result;
 }
 
-void iscool::style::declaration::set_declaration
-( const std::string& key, const declaration& style )
+void iscool::style::declaration::set_declaration(const std::string& key,
+                                                 const declaration& style)
 {
-    ensure_owned_properties();
-    *_properties->declarations[ key ] = style;
+  ensure_owned_properties();
+  *_properties->declarations[key] = style;
 }
 
-iscool::optional< const iscool::style::declaration& >
-iscool::style::declaration::get_declaration( const std::string& key ) const
+iscool::optional<const iscool::style::declaration&>
+iscool::style::declaration::get_declaration(const std::string& key) const
 {
-    if ( !_properties )
-        return iscool::none;
-    
-    const declaration_map::const_iterator it
-        ( _properties->declarations.find( key ) );
+  if (!_properties)
+    return iscool::none;
 
-    if ( it == _properties->declarations.end() )
-        return iscool::none;
-    else
-        return *it->second;
+  const declaration_map::const_iterator it(
+      _properties->declarations.find(key));
+
+  if (it == _properties->declarations.end())
+    return iscool::none;
+  else
+    return *it->second;
 }
 
 const iscool::style::declaration&
-iscool::style::declaration::get_declaration_or_empty
-( const std::string& key ) const
+iscool::style::declaration::get_declaration_or_empty(
+    const std::string& key) const
 {
-    const iscool::optional< const declaration& > result
-        ( get_declaration( key ) );
+  const iscool::optional<const declaration&> result(get_declaration(key));
 
-    if ( result )
-        return *result;
-    
-    static declaration empty;
-    return empty;
+  if (result)
+    return *result;
+
+  static declaration empty;
+  return empty;
 }
 
 iscool::style::declaration
-iscool::style::declaration::merge( declaration style ) const
+iscool::style::declaration::merge(declaration style) const
 {
-    if ( !_properties )
-        return style;
+  if (!_properties)
+    return style;
 
-    if ( !style._properties )
+  if (!style._properties)
     {
-        style._properties = _properties;
-        return style;
+      style._properties = _properties;
+      return style;
     }
 
-    style.ensure_owned_properties();
+  style.ensure_owned_properties();
 
-    style._properties->numbers.insert
-        ( _properties->numbers.begin(), _properties->numbers.end() );
-    style._properties->booleans.insert
-        ( _properties->booleans.begin(), _properties->booleans.end() );
-    style._properties->strings.insert
-        ( _properties->strings.begin(), _properties->strings.end() );
+  style._properties->numbers.insert(_properties->numbers.begin(),
+                                    _properties->numbers.end());
+  style._properties->booleans.insert(_properties->booleans.begin(),
+                                     _properties->booleans.end());
+  style._properties->strings.insert(_properties->strings.begin(),
+                                    _properties->strings.end());
 
-    style._properties->declarations = get_merged_declarations( style );
+  style._properties->declarations = get_merged_declarations(style);
 
-    return style;
+  return style;
 }
 
 bool iscool::style::declaration::is_empty() const
 {
-    return !_properties;
+  return !_properties;
 }
 
 iscool::style::declaration::numbers_range
 iscool::style::declaration::get_numbers() const
 {
-    if ( !_properties )
-        return
-            numbers_range
-            ( detail::empty_properties.values.numbers.begin(),
-              detail::empty_properties.values.numbers.end() );
-    
-    return
-        numbers_range
-        ( _properties->numbers.begin(), _properties->numbers.end() );
+  if (!_properties)
+    return numbers_range(detail::empty_properties.values.numbers.begin(),
+                         detail::empty_properties.values.numbers.end());
+
+  return numbers_range(_properties->numbers.begin(),
+                       _properties->numbers.end());
 }
 
 iscool::style::declaration::booleans_range
 iscool::style::declaration::get_booleans() const
 {
-    if ( !_properties )
-        return
-            booleans_range
-            ( detail::empty_properties.values.booleans.begin(),
-              detail::empty_properties.values.booleans.end() );
-    
-    return
-        booleans_range
-        ( _properties->booleans.begin(), _properties->booleans.end() );
+  if (!_properties)
+    return booleans_range(detail::empty_properties.values.booleans.begin(),
+                          detail::empty_properties.values.booleans.end());
+
+  return booleans_range(_properties->booleans.begin(),
+                        _properties->booleans.end());
 }
 
 iscool::style::declaration::strings_range
 iscool::style::declaration::get_strings() const
 {
-    if ( !_properties )
-        return
-            strings_range
-            ( detail::empty_properties.values.strings.begin(),
-              detail::empty_properties.values.strings.end() );
-    
-    return
-        strings_range
-        ( _properties->strings.begin(), _properties->strings.end() );
+  if (!_properties)
+    return strings_range(detail::empty_properties.values.strings.begin(),
+                         detail::empty_properties.values.strings.end());
+
+  return strings_range(_properties->strings.begin(),
+                       _properties->strings.end());
 }
 
 iscool::style::declaration::declarations_range
 iscool::style::declaration::get_declarations() const
 {
-    if ( !_properties )
-        return
-            declarations_range
-            ( detail::empty_properties.values.declarations.begin(),
-              detail::empty_properties.values.declarations.end() );
-    
-    return
-        declarations_range
-        ( _properties->declarations.begin(), _properties->declarations.end() );
+  if (!_properties)
+    return declarations_range(
+        detail::empty_properties.values.declarations.begin(),
+        detail::empty_properties.values.declarations.end());
+
+  return declarations_range(_properties->declarations.begin(),
+                            _properties->declarations.end());
 }
 
 std::size_t iscool::style::declaration::get_declaration_count() const
 {
-    if ( !_properties )
-        return 0;
+  if (!_properties)
+    return 0;
 
-    return _properties->declarations.size();
+  return _properties->declarations.size();
 }
 
 std::uint64_t iscool::style::declaration::get_id() const
 {
-    if ( !_properties )
-        return detail::empty_properties.get_id();
-    
-    return _properties.get_id();
+  if (!_properties)
+    return detail::empty_properties.get_id();
+
+  return _properties.get_id();
 }
 
 iscool::style::declaration::declaration_map
-iscool::style::declaration::get_merged_declarations
-( const declaration& style ) const
+iscool::style::declaration::get_merged_declarations(
+    const declaration& style) const
 {
-    assert ( style._properties );
-    assert ( _properties );
-    
-    declaration_map result( _properties->declarations );
+  assert(style._properties);
+  assert(_properties);
 
-    for ( const declaration_map::value_type& sub_style
-              : style._properties->declarations )
-        *result[ sub_style.first ] =
-            result[ sub_style.first ]->merge( sub_style.second );
+  declaration_map result(_properties->declarations);
 
-    return result;
+  for (const declaration_map::value_type& sub_style :
+       style._properties->declarations)
+    *result[sub_style.first] =
+        result[sub_style.first]->merge(sub_style.second);
+
+  return result;
 }
 
 void iscool::style::declaration::ensure_owned_properties()
 {
-    if ( !_properties )
+  if (!_properties)
     {
-        _properties.alloc();
-        return;
+      _properties.alloc();
+      return;
     }
 
-    if ( _properties.is_unique() )
-        return;
+  if (_properties.is_unique())
+    return;
 
-    detail::properties_handle new_properties;
-    new_properties.alloc();
-    *new_properties = *_properties;
-    _properties = new_properties;
+  detail::properties_handle new_properties;
+  new_properties.alloc();
+  *new_properties = *_properties;
+  _properties = new_properties;
 }

@@ -20,10 +20,10 @@
 
 namespace iscool
 {
-    namespace system
-    {
-        std::string get_language_code();
-    }
+  namespace system
+  {
+    std::string get_language_code();
+  }
 }
 
 #endif

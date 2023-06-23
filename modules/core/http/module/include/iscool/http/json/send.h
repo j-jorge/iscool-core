@@ -22,19 +22,19 @@
 
 namespace iscool
 {
-    namespace http
+  namespace http
+  {
+    namespace json
     {
-        namespace json
-        {
-            iscool::signals::shared_connection_set get
-            ( const std::string& url, response_handler on_result, 
-              http::response_handler on_error );
+      iscool::signals::shared_connection_set
+      get(const std::string& url, response_handler on_result,
+          http::response_handler on_error);
 
-            iscool::signals::shared_connection_set post
-            ( const std::string& url, Json::Value body,
-              response_handler on_result, http::response_handler on_error );
-        }
+      iscool::signals::shared_connection_set
+      post(const std::string& url, Json::Value body,
+           response_handler on_result, http::response_handler on_error);
     }
+  }
 }
 
 #endif

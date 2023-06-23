@@ -18,45 +18,31 @@
 
 namespace iscool
 {
-    namespace meta
+  namespace meta
+  {
+    namespace tests
     {
-        namespace tests
-        {
-            static_assert
-            ( std::is_same
-              <
-                  int,
-                  iscool::meta::remove_const_reference< int >::type
-              >::value,
-              "Incorrect type returned by remove_const_reference on type"
-              " int." );
+      static_assert(
+          std::is_same<int,
+                       iscool::meta::remove_const_reference<int>::type>::value,
+          "Incorrect type returned by remove_const_reference on type"
+          " int.");
 
-            static_assert
-            ( std::is_same
-              <
-                  int,
-                  iscool::meta::remove_const_reference< int& >::type
-              >::value,
-              "Failed to remove the reference of int&." );
+      static_assert(
+          std::is_same<
+              int, iscool::meta::remove_const_reference<int&>::type>::value,
+          "Failed to remove the reference of int&.");
 
-            static_assert
-            ( std::is_same
-              <
-                  int,
-                  iscool::meta::remove_const_reference< const int >::type
-              >::value,
-              "Failed to remove the constness of const int." );
+      static_assert(std::is_same<int, iscool::meta::remove_const_reference<
+                                          const int>::type>::value,
+                    "Failed to remove the constness of const int.");
 
-            static_assert
-            ( std::is_same
-              <
-                  int,
-                  iscool::meta::remove_const_reference< const int& >::type
-              >::value,
-              "Failed to remove the reference and the constness of"
-              " const int&." );
-        }
+      static_assert(std::is_same<int, iscool::meta::remove_const_reference<
+                                          const int&>::type>::value,
+                    "Failed to remove the reference and the constness of"
+                    " const int&.");
     }
+  }
 }
 
 #endif

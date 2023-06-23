@@ -16,12 +16,12 @@
 #ifndef ISCOOL_META_DECLARE_TOGGLE_FIELD_H
 #define ISCOOL_META_DECLARE_TOGGLE_FIELD_H
 
-#define ic_declare_toggle_field( name )         \
-    private:                                    \
-        bool _ ## name ## _toggle_state = false;\
-                                                \
-    public:                                     \
-        bool is_ ## name () const;              \
-        void set_ ## name( bool );
+#define ic_declare_toggle_field(name)                                         \
+private:                                                                      \
+  bool _##name##_toggle_state = false;                                        \
+                                                                              \
+public:                                                                       \
+  bool is_##name() const;                                                     \
+  void set_##name(bool);
 
 #endif

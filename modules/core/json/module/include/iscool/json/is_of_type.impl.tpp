@@ -18,10 +18,10 @@
 
 #include "iscool/json/detail/cast_fwd.h"
 
-template< typename T >
-bool iscool::json::is_of_type( const Json::Value& value )
+template <typename T>
+bool iscool::json::is_of_type(const Json::Value& value)
 {
-    return detail::cast< T >::is_valid( value );
+  return detail::cast<T>::is_valid(value);
 }
 
 #endif

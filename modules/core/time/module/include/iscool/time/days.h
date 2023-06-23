@@ -20,19 +20,13 @@
 
 namespace iscool
 {
-    namespace time
-    {
-        typedef std::chrono::duration
-        < 
-            int,
-            std::ratio_multiply
-            <
-                std::chrono::hours::period,
-                std::ratio< 24 >
-            >::type
-        >
+  namespace time
+  {
+    typedef std::chrono::duration<
+        int,
+        std::ratio_multiply<std::chrono::hours::period, std::ratio<24>>::type>
         days;
-    }
+  }
 }
 
 #endif

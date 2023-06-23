@@ -21,45 +21,38 @@
 
 namespace iscool
 {
-    namespace memory
+  namespace memory
+  {
+    template <typename T, typename Mutex = boost::signals2::dummy_mutex>
+    class pool
     {
-        template
-        <
-            typename T,
-            typename Mutex = boost::signals2::dummy_mutex
-        >
-        class pool
-        {
-        public:
-            typedef T* pointer;
-            
-        public:
-            pool();
-            ~pool();
+    public:
+      typedef T* pointer;
 
-            pool( const pool< T, Mutex >& ) = delete;
-            pool< T >& operator=( const pool< T, Mutex >& ) = delete;
-            
-            template< typename... Args >
-            pointer construct( Args&&... args );
-            
-            void destroy( pointer p );
-            
-        private:
-            typedef
-            boost::fast_pool_allocator
-            <
-                T,
-                boost::default_user_allocator_malloc_free,
-                boost::signals2::dummy_mutex
-            > allocator_type;
-            
-        private:
-            Mutex _mutex;
-            allocator_type _allocator;
-            std::size_t _allocated_count;
-        };
-    }
+    public:
+      pool();
+      ~pool();
+
+      pool(const pool<T, Mutex>&) = delete;
+      pool<T>& operator=(const pool<T, Mutex>&) = delete;
+
+      template <typename... Args>
+      pointer construct(Args&&... args);
+
+      void destroy(pointer p);
+
+    private:
+      typedef boost::fast_pool_allocator<
+          T, boost::default_user_allocator_malloc_free,
+          boost::signals2::dummy_mutex>
+          allocator_type;
+
+    private:
+      Mutex _mutex;
+      allocator_type _allocator;
+      std::size_t _allocated_count;
+    };
+  }
 }
 
 #endif

@@ -26,21 +26,20 @@
 
 #include <limits>
 
-IMPLEMENT_JSON_CAST( int )
-IMPLEMENT_JSON_IS_OF_TYPE( int )
+IMPLEMENT_JSON_CAST(int)
+IMPLEMENT_JSON_IS_OF_TYPE(int)
 
-bool iscool::json::detail::cast< int >::is_valid( const Json::Value& value )
+bool iscool::json::detail::cast<int>::is_valid(const Json::Value& value)
 {
-    return value.isInt()
-        || ( value.isUInt()
-             && ( value.asUInt() <= std::numeric_limits<int>::max() ) );
+  return value.isInt()
+         || (value.isUInt()
+             && (value.asUInt() <= std::numeric_limits<int>::max()));
 }
 
-int
-iscool::json::detail::cast< int >::value( const Json::Value& value )
+int iscool::json::detail::cast<int>::value(const Json::Value& value)
 {
-    if ( !is_valid( value ) )
-        throw bad_cast( value, "int" );
+  if (!is_valid(value))
+    throw bad_cast(value, "int");
 
-    return value.asInt();
+  return value.asInt();
 }

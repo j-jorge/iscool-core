@@ -18,14 +18,14 @@
 
 namespace iscool
 {
-    namespace schedule
+  namespace schedule
+  {
+    enum class short_call_policy
     {
-        enum class short_call_policy
-        {
-            cumulated,
-            non_cumulated
-        };
-    }
+      cumulated,
+      non_cumulated
+    };
+  }
 }
 
 #endif

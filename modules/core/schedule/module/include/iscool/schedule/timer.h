@@ -20,29 +20,29 @@
 
 namespace iscool
 {
-    namespace schedule
+  namespace schedule
+  {
+    class timer
     {
-        class timer
-        {
-        public:
-            timer();
+    public:
+      timer();
 
-            void reset();
-            void pause();
-            void resume();
+      void reset();
+      void pause();
+      void resume();
 
-            template< typename Duration >
-            Duration get_duration() const;
+      template <typename Duration>
+      Duration get_duration() const;
 
-        private:
-            typedef std::chrono::milliseconds reference_duration;
+    private:
+      typedef std::chrono::milliseconds reference_duration;
 
-        private:
-            bool _paused; 
-            reference_duration _duration_reference_date;
-            reference_duration _pause_date;
-        };
-    }
+    private:
+      bool _paused;
+      reference_duration _duration_reference_date;
+      reference_duration _pause_date;
+    };
+  }
 }
 
 #include "iscool/schedule/detail/timer.tpp"

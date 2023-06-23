@@ -23,110 +23,108 @@
 
 namespace iscool
 {
-    namespace iterators
+  namespace iterators
+  {
+    namespace test
     {
-        namespace test
-        {
-            template< template< typename... > class Container >
-            void back_emplace_iterator_assignment();
-            template< template< typename... > class Container >
-            void back_emplace_iterator_copy();
-            template< template< typename... > class Container >
-            void back_emplace_iterator_operators();
-        }
+      template <template <typename...> class Container>
+      void back_emplace_iterator_assignment();
+      template <template <typename...> class Container>
+      void back_emplace_iterator_copy();
+      template <template <typename...> class Container>
+      void back_emplace_iterator_operators();
     }
+  }
 }
 
-template< template< typename... > class Container >
+template <template <typename...> class Container>
 void iscool::iterators::test::back_emplace_iterator_assignment()
 {
-    Container< int > result;
+  Container<int> result;
 
-    iscool::iterators::back_emplace_iterator< Container< int > > it( result );
+  iscool::iterators::back_emplace_iterator<Container<int>> it(result);
 
-    *it = 3;
-    *it = 2;
-    *it = 1;
+  *it = 3;
+  *it = 2;
+  *it = 1;
 
-    const Container< int > expected( { 3, 2, 1 } );
-    EXPECT_EQ( expected, result );
-    
+  const Container<int> expected({ 3, 2, 1 });
+  EXPECT_EQ(expected, result);
 }
-    
-template< template< typename... > class Container >
+
+template <template <typename...> class Container>
 void iscool::iterators::test::back_emplace_iterator_copy()
 {
-    Container< int > result;
-    const Container< int > source( { 2, 1, 3 } );
+  Container<int> result;
+  const Container<int> source({ 2, 1, 3 });
 
-    std::copy
-        ( source.begin(), source.end(),
-          iscool::iterators::back_emplacer( result ) );
+  std::copy(source.begin(), source.end(),
+            iscool::iterators::back_emplacer(result));
 
-    EXPECT_EQ( source, result );
+  EXPECT_EQ(source, result);
 }
 
-template< template< typename... > class Container >
+template <template <typename...> class Container>
 void iscool::iterators::test::back_emplace_iterator_operators()
 {
-    Container< std::string > result;
+  Container<std::string> result;
 
-    auto it( iscool::iterators::back_emplacer( result ) );
-    auto copy( it++ );
+  auto it(iscool::iterators::back_emplacer(result));
+  auto copy(it++);
 
-    *it = "a";
-    *copy = "b";
+  *it = "a";
+  *copy = "b";
 
-    std::string moved( "c" );
-    *it = std::move( moved );
+  std::string moved("c");
+  *it = std::move(moved);
 
-    const Container< std::string > expected( { "a", "b", "c" } );
-    
-    EXPECT_EQ( expected, result );
-    EXPECT_TRUE( moved.empty() );
+  const Container<std::string> expected({ "a", "b", "c" });
+
+  EXPECT_EQ(expected, result);
+  EXPECT_TRUE(moved.empty());
 }
 
-TEST( iscool_iterators_back_emplace_iterator_test, assignment_vector )
+TEST(iscool_iterators_back_emplace_iterator_test, assignment_vector)
 {
-    iscool::iterators::test::back_emplace_iterator_assignment< std::vector >();
+  iscool::iterators::test::back_emplace_iterator_assignment<std::vector>();
 }
 
-TEST( iscool_iterators_back_emplace_iterator_test, assignment_deque )
+TEST(iscool_iterators_back_emplace_iterator_test, assignment_deque)
 {
-    iscool::iterators::test::back_emplace_iterator_assignment< std::deque >();
+  iscool::iterators::test::back_emplace_iterator_assignment<std::deque>();
 }
 
-TEST( iscool_iterators_back_emplace_iterator_test, assignment_list )
+TEST(iscool_iterators_back_emplace_iterator_test, assignment_list)
 {
-    iscool::iterators::test::back_emplace_iterator_assignment< std::list >();
+  iscool::iterators::test::back_emplace_iterator_assignment<std::list>();
 }
 
-TEST( iscool_iterators_back_emplace_iterator_test, copy_vector )
+TEST(iscool_iterators_back_emplace_iterator_test, copy_vector)
 {
-    iscool::iterators::test::back_emplace_iterator_copy< std::vector >();
+  iscool::iterators::test::back_emplace_iterator_copy<std::vector>();
 }
 
-TEST( iscool_iterators_back_emplace_iterator_test, copy_deque )
+TEST(iscool_iterators_back_emplace_iterator_test, copy_deque)
 {
-    iscool::iterators::test::back_emplace_iterator_copy< std::deque >();
+  iscool::iterators::test::back_emplace_iterator_copy<std::deque>();
 }
 
-TEST( iscool_iterators_back_emplace_iterator_test, copy_list )
+TEST(iscool_iterators_back_emplace_iterator_test, copy_list)
 {
-    iscool::iterators::test::back_emplace_iterator_copy< std::list >();
+  iscool::iterators::test::back_emplace_iterator_copy<std::list>();
 }
 
-TEST( iscool_iterators_back_emplace_iterator_test, operators_vector )
+TEST(iscool_iterators_back_emplace_iterator_test, operators_vector)
 {
-    iscool::iterators::test::back_emplace_iterator_operators< std::vector >();
+  iscool::iterators::test::back_emplace_iterator_operators<std::vector>();
 }
 
-TEST( iscool_iterators_back_emplace_iterator_test, operators_deque )
+TEST(iscool_iterators_back_emplace_iterator_test, operators_deque)
 {
-    iscool::iterators::test::back_emplace_iterator_operators< std::deque >();
+  iscool::iterators::test::back_emplace_iterator_operators<std::deque>();
 }
 
-TEST( iscool_iterators_back_emplace_iterator_test, operators_list )
+TEST(iscool_iterators_back_emplace_iterator_test, operators_list)
 {
-    iscool::iterators::test::back_emplace_iterator_operators< std::list >();
+  iscool::iterators::test::back_emplace_iterator_operators<std::list>();
 }

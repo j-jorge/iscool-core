@@ -20,16 +20,16 @@
 
 namespace iscool
 {
-    namespace signals
-    {
-        template< typename SearchedType, typename... SignalArgument >
-        signal< void ( SearchedType ) >&
-        get( signal_collection< SignalArgument... >& collection );
-        
-        template< typename SearchedType, typename... SignalArgument >
-        const signal< void ( SearchedType ) >&
-        get( const signal_collection< SignalArgument... >& collection );
-    }
+  namespace signals
+  {
+    template <typename SearchedType, typename... SignalArgument>
+    signal<void(SearchedType)>&
+    get(signal_collection<SignalArgument...>& collection);
+
+    template <typename SearchedType, typename... SignalArgument>
+    const signal<void(SearchedType)>&
+    get(const signal_collection<SignalArgument...>& collection);
+  }
 }
 
 #include "iscool/signals/detail/get.tpp"

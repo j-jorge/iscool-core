@@ -22,58 +22,58 @@
 
 namespace iscool
 {
-    namespace jni
+  namespace jni
+  {
+    template <typename T>
+    class java_ptr
     {
-        template< typename T >
-        class java_ptr
-        {
-            template< typename U > friend class java_ptr;
-            
-        public:
-            java_ptr();
-            java_ptr( T value );
-            java_ptr( const java_ptr<T>& that );
-            java_ptr( java_ptr<T>&& that );
-            
-            template< typename U >
-            java_ptr( const java_ptr<U>& that );
-            
-            ~java_ptr();
+      template <typename U>
+      friend class java_ptr;
 
-            void swap( java_ptr<T>& that );
-        
-            java_ptr<T>& operator=( const java_ptr<T>& that );
-            java_ptr<T>& operator=( java_ptr<T>&& that );
-            
-            bool operator==( std::nullptr_t ) const;
-            bool operator!=( std::nullptr_t ) const;
+    public:
+      java_ptr();
+      java_ptr(T value);
+      java_ptr(const java_ptr<T>& that);
+      java_ptr(java_ptr<T>&& that);
 
-            T get() const;
-            T release();
+      template <typename U>
+      java_ptr(const java_ptr<U>& that);
 
-            T operator*() const;
+      ~java_ptr();
 
-        private:
-            template< typename U >
-            java_ptr( const java_ptr<U>& that, T value );
+      void swap(java_ptr<T>& that);
 
-            void delete_java_ref();
+      java_ptr<T>& operator=(const java_ptr<T>& that);
+      java_ptr<T>& operator=(java_ptr<T>&& that);
 
-        
-        private:
-            T _value;
-            std::size_t* _counter;
-        };
+      bool operator==(std::nullptr_t) const;
+      bool operator!=(std::nullptr_t) const;
 
-        namespace detail
-        {
-            template< typename T >
-            struct get_method_argument_impl< java_ptr< T > >
-            {
-                static T get( const java_ptr< T >& arg );
-            };
-        }
+      T get() const;
+      T release();
+
+      T operator*() const;
+
+    private:
+      template <typename U>
+      java_ptr(const java_ptr<U>& that, T value);
+
+      void delete_java_ref();
+
+    private:
+      T _value;
+      std::size_t* _counter;
+    };
+
+    namespace detail
+    {
+      template <typename T>
+      struct get_method_argument_impl<java_ptr<T>>
+      {
+        static T get(const java_ptr<T>& arg);
+      };
     }
+  }
 }
 
 #include "iscool/jni/detail/java_ptr.tpp"

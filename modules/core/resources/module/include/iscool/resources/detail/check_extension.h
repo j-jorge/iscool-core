@@ -20,14 +20,14 @@
 
 namespace iscool
 {
-    namespace resources
+  namespace resources
+  {
+    namespace detail
     {
-        namespace detail
-        {
-            std::string::size_type check_extension
-            ( const std::string& extension, const std::string& filename );
-        }
+      std::string::size_type check_extension(const std::string& extension,
+                                             const std::string& filename);
     }
+  }
 }
 
 #endif

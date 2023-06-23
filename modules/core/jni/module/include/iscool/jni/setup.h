@@ -20,11 +20,11 @@
 
 namespace iscool
 {
-    namespace jni
-    {
-        void initialize( environment_delegate delegate );
-        void finalize();
-    }
+  namespace jni
+  {
+    void initialize(environment_delegate delegate);
+    void finalize();
+  }
 }
 
 #endif

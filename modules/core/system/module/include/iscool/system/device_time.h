@@ -18,11 +18,11 @@
 
 namespace iscool
 {
-    namespace system
-    {
-        template< typename Duration >
-        Duration device_time();
-    }
+  namespace system
+  {
+    template <typename Duration>
+    Duration device_time();
+  }
 }
 
 #include "iscool/system/detail/device_time.tpp"

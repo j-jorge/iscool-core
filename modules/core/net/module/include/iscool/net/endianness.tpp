@@ -18,23 +18,22 @@
 
 #include <algorithm>
 
-template<typename T, std::size_t S>
-std::array<T, S> iscool::net::to_network_endianness( std::array<T, S> value )
+template <typename T, std::size_t S>
+std::array<T, S> iscool::net::to_network_endianness(std::array<T, S> value)
 {
-    typedef typename std::array<T, S>::iterator iterator;
-    std::transform<iterator, iterator, T(*)(T)>
-        ( value.begin(), value.end(), value.begin(), to_network_endianness );
-    return value;
+  typedef typename std::array<T, S>::iterator iterator;
+  std::transform<iterator, iterator, T (*)(T)>(
+      value.begin(), value.end(), value.begin(), to_network_endianness);
+  return value;
 }
 
-template<typename T, std::size_t S>
-std::array<T, S> iscool::net::to_host_endianness( std::array<T, S> value )
+template <typename T, std::size_t S>
+std::array<T, S> iscool::net::to_host_endianness(std::array<T, S> value)
 {
-    typedef typename std::array<T, S>::iterator iterator;
-    std::transform<iterator, iterator, T(*)(T)>
-        ( value.begin(), value.end(), value.begin(), to_host_endianness );
-    return value;
+  typedef typename std::array<T, S>::iterator iterator;
+  std::transform<iterator, iterator, T (*)(T)>(
+      value.begin(), value.end(), value.begin(), to_host_endianness);
+  return value;
 }
-
 
 #endif

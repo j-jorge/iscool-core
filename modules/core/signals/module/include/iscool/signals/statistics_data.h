@@ -20,20 +20,20 @@
 
 namespace iscool
 {
-    namespace signals
+  namespace signals
+  {
+    class statistics_data
     {
-        class statistics_data
-        {
-        public:
-            statistics_data
-            ( const std::string& signal_identifier, std::size_t slot_count );
-            ~statistics_data();
-            
-        public:
-            std::string signal_identifier;
-            std::size_t slot_count;
-        };
-    }
+    public:
+      statistics_data(const std::string& signal_identifier,
+                      std::size_t slot_count);
+      ~statistics_data();
+
+    public:
+      std::string signal_identifier;
+      std::size_t slot_count;
+    };
+  }
 }
 
 #endif

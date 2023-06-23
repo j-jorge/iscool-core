@@ -26,59 +26,57 @@
 
 namespace iscool
 {
-    namespace audio
+  namespace audio
+  {
+    enum class loop_mode;
+    class platform_mixer;
+
+    class mixer
     {
-        enum class loop_mode;
-        class platform_mixer;
+    public:
+      mixer(const iscool::resources::resolver& resources,
+            std::size_t min_frames_between_effects,
+            platform_mixer& implementation);
 
-        class mixer
-        {
-        public:
-            mixer
-            ( const iscool::resources::resolver& resources,
-              std::size_t min_frames_between_effects,
-              platform_mixer& implementation );
+      mixer(const mixer&) = delete;
+      mixer& operator=(const mixer&) = delete;
 
-            mixer( const mixer& ) = delete;
-            mixer& operator=( const mixer& ) = delete;
+      void tick();
 
-            void tick();
+      void set_effects_muted(bool muted);
+      bool get_effects_muted() const;
 
-            void set_effects_muted( bool muted );
-            bool get_effects_muted() const;
+      void set_music_muted(bool muted);
+      bool get_music_muted() const;
 
-            void set_music_muted( bool muted );
-            bool get_music_muted() const;
+      void play_music(const std::string& name, loop_mode loop);
 
-            void play_music( const std::string& name, loop_mode loop );
+      void preload_effect(const std::string& name);
+      track_id play_effect(const std::string& name, loop_mode loop);
+      void stop_effect(track_id id);
 
-            void preload_effect( const std::string& name );
-            track_id play_effect( const std::string& name, loop_mode loop );
-            void stop_effect( track_id id );
+    private:
+      bool should_skip_effect(const std::string& name) const;
 
-        private:
-            bool should_skip_effect( const std::string& name ) const;
+    private:
+      const iscool::resources::resolver _resources;
+      const std::size_t _min_frames_between_effects;
+      platform_mixer& _impl;
 
-        private:
-            const iscool::resources::resolver _resources;
-            const std::size_t _min_frames_between_effects;
-            platform_mixer& _impl;
+      std::vector<std::function<void()>> _commands;
 
-            std::vector< std::function< void() > > _commands;
+      std::size_t _effects_muting;
+      std::size_t _music_muting;
+      std::size_t _date;
 
-            std::size_t _effects_muting;
-            std::size_t _music_muting;
-            std::size_t _date;
+      std::string _current_music;
 
-            std::string _current_music;
+      std::unordered_map<std::string, std::size_t> _last_play_date;
 
-            std::unordered_map< std::string, std::size_t > _last_play_date;
-
-            std::unordered_map< track_id, track_id > _id_to_impl_id;
-            track_id _next_id;
-
-        };
-    }
+      std::unordered_map<track_id, track_id> _id_to_impl_id;
+      track_id _next_id;
+    };
+  }
 }
 
 #endif

@@ -16,41 +16,41 @@
 #include "iscool/schedule/scaled_timer.h"
 
 iscool::schedule::scaled_timer::scaled_timer()
-    : _scale( 1 )
+  : _scale(1)
 {
-    reset();
+  reset();
 }
 
-void iscool::schedule::scaled_timer::set_scale( float scale )
+void iscool::schedule::scaled_timer::set_scale(float scale)
 {
-    const duration now( _timer.get_duration< duration >() );
-    
-    _scaled_reference +=
-        duration( duration::rep( ( now - _real_reference ).count() * _scale ) );
-    _real_reference = now;
+  const duration now(_timer.get_duration<duration>());
 
-    _scale = scale;
+  _scaled_reference +=
+      duration(duration::rep((now - _real_reference).count() * _scale));
+  _real_reference = now;
+
+  _scale = scale;
 }
 
 float iscool::schedule::scaled_timer::get_scale() const
 {
-    return _scale;
+  return _scale;
 }
 
 void iscool::schedule::scaled_timer::reset()
 {
-    _timer.reset();
+  _timer.reset();
 
-    _real_reference = _timer.get_duration< duration >();
-    _scaled_reference = duration::zero();
+  _real_reference = _timer.get_duration<duration>();
+  _scaled_reference = duration::zero();
 }
 
 void iscool::schedule::scaled_timer::pause()
 {
-    _timer.pause();
+  _timer.pause();
 }
 
 void iscool::schedule::scaled_timer::resume()
 {
-    _timer.resume();
+  _timer.resume();
 }

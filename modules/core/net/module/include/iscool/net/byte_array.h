@@ -16,52 +16,52 @@
 #ifndef ISCOOL_NET_BYTE_ARRAY_H
 #define ISCOOL_NET_BYTE_ARRAY_H
 
-#include <vector>
 #include <cstdint>
+#include <vector>
 
 namespace iscool
 {
-    namespace net
+  namespace net
+  {
+    class byte_array
     {
-        class byte_array
-        {
-        private:
-            typedef std::vector<std::uint8_t> container;
+    private:
+      typedef std::vector<std::uint8_t> container;
 
-        public:
-            typedef container::iterator iterator;
-            typedef container::const_iterator const_iterator;
+    public:
+      typedef container::iterator iterator;
+      typedef container::const_iterator const_iterator;
 
-        public:
-            byte_array() = default;
-    
-            template< typename Iterator >
-            byte_array( const Iterator& first, const Iterator& last );
+    public:
+      byte_array() = default;
 
-            template< typename T >
-            void append( T value );
-            void append( const byte_array& array );
-            template< typename Iterator >
-            void append( const Iterator& first, const Iterator& last );
+      template <typename Iterator>
+      byte_array(const Iterator& first, const Iterator& last);
 
-            std::uint8_t& operator[]( std::size_t index );
-            const std::uint8_t& operator[]( std::size_t index ) const;
+      template <typename T>
+      void append(T value);
+      void append(const byte_array& array);
+      template <typename Iterator>
+      void append(const Iterator& first, const Iterator& last);
 
-            iterator begin();
-            iterator end();
-            
-            const_iterator begin() const;
-            const_iterator end() const;
+      std::uint8_t& operator[](std::size_t index);
+      const std::uint8_t& operator[](std::size_t index) const;
 
-            void reserve( std::size_t size );
-            std::size_t size() const;
+      iterator begin();
+      iterator end();
 
-            void swap( byte_array& that );
-            
-        private:
-            container _content;
-        };
-    }
+      const_iterator begin() const;
+      const_iterator end() const;
+
+      void reserve(std::size_t size);
+      std::size_t size() const;
+
+      void swap(byte_array& that);
+
+    private:
+      container _content;
+    };
+  }
 }
 
 #include "iscool/net/detail/byte_array.tpp"

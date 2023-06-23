@@ -17,6 +17,6 @@
 
 iscool::http::mockup& iscool::http::get_global_mockup()
 {
-    static mockup result;
-    return result;
+  static mockup result;
+  return result;
 }

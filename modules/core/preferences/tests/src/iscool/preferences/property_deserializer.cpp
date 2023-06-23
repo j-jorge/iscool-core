@@ -24,265 +24,263 @@
 
 #include "gtest/gtest.h"
 
-TEST( iscool_preferences_property_deserializer_test, values )
+TEST(iscool_preferences_property_deserializer_test, values)
 {
-    std::unordered_map< std::string, std::string > properties;
-    properties[ "int64" ] = "24";
-    properties[ "string" ] = "s";
-    properties[ "bool" ] = "1";
-    properties[ "float" ] = "2.6";
-    properties[ "bool_unused" ] = "0";
+  std::unordered_map<std::string, std::string> properties;
+  properties["int64"] = "24";
+  properties["string"] = "s";
+  properties["bool"] = "1";
+  properties["float"] = "2.6";
+  properties["bool_unused"] = "0";
 
-    iscool::preferences::property_deserializer deserializer;
-    deserializer.add_int64_property( "int64" );
-    deserializer.add_string_property( "string" );
-    deserializer.add_bool_property( "bool" );
-    deserializer.add_float_property( "float" );
+  iscool::preferences::property_deserializer deserializer;
+  deserializer.add_int64_property("int64");
+  deserializer.add_string_property("string");
+  deserializer.add_bool_property("bool");
+  deserializer.add_float_property("float");
 
-    EXPECT_DEBUG_CRASH( deserializer.add_int64_property( "int64" ) );
-    EXPECT_DEBUG_CRASH( deserializer.add_int64_property( "string" ) );
-    EXPECT_DEBUG_CRASH( deserializer.add_int64_property( "bool" ) );
-    EXPECT_DEBUG_CRASH( deserializer.add_int64_property( "float" ) );
-    EXPECT_DEBUG_CRASH( deserializer.add_string_property( "int64" ) );
-    EXPECT_DEBUG_CRASH( deserializer.add_string_property( "string" ) );
-    EXPECT_DEBUG_CRASH( deserializer.add_string_property( "bool" ) );
-    EXPECT_DEBUG_CRASH( deserializer.add_string_property( "float" ) );
-    EXPECT_DEBUG_CRASH( deserializer.add_bool_property( "int64" ) );
-    EXPECT_DEBUG_CRASH( deserializer.add_bool_property( "string" ) );
-    EXPECT_DEBUG_CRASH( deserializer.add_bool_property( "bool" ) );
-    EXPECT_DEBUG_CRASH( deserializer.add_bool_property( "float" ) );
-    EXPECT_DEBUG_CRASH( deserializer.add_float_property( "int64" ) );
-    EXPECT_DEBUG_CRASH( deserializer.add_float_property( "string" ) );
-    EXPECT_DEBUG_CRASH( deserializer.add_float_property( "bool" ) );
-    EXPECT_DEBUG_CRASH( deserializer.add_float_property( "float" ) );
-    
-    iscool::preferences::property_map map;
-    deserializer( map, properties );
-    
-    EXPECT_TRUE( map.has< std::int64_t >( "int64" ) );
-    EXPECT_EQ( 24, *map.get< std::int64_t >( "int64" ) );
-    
-    EXPECT_TRUE( map.has< std::string >( "string" ) );
-    EXPECT_EQ( "s", *map.get< std::string >( "string" ) );
+  EXPECT_DEBUG_CRASH(deserializer.add_int64_property("int64"));
+  EXPECT_DEBUG_CRASH(deserializer.add_int64_property("string"));
+  EXPECT_DEBUG_CRASH(deserializer.add_int64_property("bool"));
+  EXPECT_DEBUG_CRASH(deserializer.add_int64_property("float"));
+  EXPECT_DEBUG_CRASH(deserializer.add_string_property("int64"));
+  EXPECT_DEBUG_CRASH(deserializer.add_string_property("string"));
+  EXPECT_DEBUG_CRASH(deserializer.add_string_property("bool"));
+  EXPECT_DEBUG_CRASH(deserializer.add_string_property("float"));
+  EXPECT_DEBUG_CRASH(deserializer.add_bool_property("int64"));
+  EXPECT_DEBUG_CRASH(deserializer.add_bool_property("string"));
+  EXPECT_DEBUG_CRASH(deserializer.add_bool_property("bool"));
+  EXPECT_DEBUG_CRASH(deserializer.add_bool_property("float"));
+  EXPECT_DEBUG_CRASH(deserializer.add_float_property("int64"));
+  EXPECT_DEBUG_CRASH(deserializer.add_float_property("string"));
+  EXPECT_DEBUG_CRASH(deserializer.add_float_property("bool"));
+  EXPECT_DEBUG_CRASH(deserializer.add_float_property("float"));
 
-    EXPECT_TRUE( map.has< bool >( "bool" ) );
-    EXPECT_EQ( true, *map.get< bool >( "bool" ) );
+  iscool::preferences::property_map map;
+  deserializer(map, properties);
 
-    EXPECT_TRUE( map.has< float >( "float" ) );
-    EXPECT_FLOAT_EQ( 2.6, *map.get< float >( "float" ) );
+  EXPECT_TRUE(map.has<std::int64_t>("int64"));
+  EXPECT_EQ(24, *map.get<std::int64_t>("int64"));
 
-    EXPECT_FALSE( map.has< bool >( "bool_unused" ) );
-    EXPECT_FALSE( map.has< std::int64_t >( "bool_unused" ) );
-    EXPECT_FALSE( map.has< std::string >( "bool_unused" ) );
+  EXPECT_TRUE(map.has<std::string>("string"));
+  EXPECT_EQ("s", *map.get<std::string>("string"));
+
+  EXPECT_TRUE(map.has<bool>("bool"));
+  EXPECT_EQ(true, *map.get<bool>("bool"));
+
+  EXPECT_TRUE(map.has<float>("float"));
+  EXPECT_FLOAT_EQ(2.6, *map.get<float>("float"));
+
+  EXPECT_FALSE(map.has<bool>("bool_unused"));
+  EXPECT_FALSE(map.has<std::int64_t>("bool_unused"));
+  EXPECT_FALSE(map.has<std::string>("bool_unused"));
 }
 
-TEST( iscool_preferences_property_deserializer_test, bad_int64 )
+TEST(iscool_preferences_property_deserializer_test, bad_int64)
 {
-    std::unordered_map< std::string, std::string > properties;
-    properties[ "int64" ] = "iste";
+  std::unordered_map<std::string, std::string> properties;
+  properties["int64"] = "iste";
 
-    iscool::preferences::property_deserializer deserializer;
-    deserializer.add_int64_property( "int64" );
+  iscool::preferences::property_deserializer deserializer;
+  deserializer.add_int64_property("int64");
 
-    iscool::preferences::property_map map;
-    deserializer( map, properties );
-    
-    EXPECT_FALSE( map.has< std::int64_t >( "int64" ) );
+  iscool::preferences::property_map map;
+  deserializer(map, properties);
+
+  EXPECT_FALSE(map.has<std::int64_t>("int64"));
 }
 
-TEST( iscool_preferences_property_deserializer_test, bad_bool )
+TEST(iscool_preferences_property_deserializer_test, bad_bool)
 {
-    std::unordered_map< std::string, std::string > properties;
-    properties[ "bool" ] = "iste";
+  std::unordered_map<std::string, std::string> properties;
+  properties["bool"] = "iste";
 
-    iscool::preferences::property_deserializer deserializer;
-    deserializer.add_bool_property( "bool" );
+  iscool::preferences::property_deserializer deserializer;
+  deserializer.add_bool_property("bool");
 
-    iscool::preferences::property_map map;
-    deserializer( map, properties );
-    
-    EXPECT_FALSE( map.has< bool >( "bool" ) );
+  iscool::preferences::property_map map;
+  deserializer(map, properties);
+
+  EXPECT_FALSE(map.has<bool>("bool"));
 }
 
-TEST( iscool_preferences_property_deserializer_test, bad_float )
+TEST(iscool_preferences_property_deserializer_test, bad_float)
 {
-    std::unordered_map< std::string, std::string > properties;
-    properties[ "float" ] = "9..2";
+  std::unordered_map<std::string, std::string> properties;
+  properties["float"] = "9..2";
 
-    iscool::preferences::property_deserializer deserializer;
-    deserializer.add_float_property( "float" );
+  iscool::preferences::property_deserializer deserializer;
+  deserializer.add_float_property("float");
 
-    iscool::preferences::property_map map;
-    deserializer( map, properties );
-    
-    EXPECT_FALSE( map.has< float >( "float" ) );
+  iscool::preferences::property_map map;
+  deserializer(map, properties);
+
+  EXPECT_FALSE(map.has<float>("float"));
 }
 
-TEST( iscool_preferences_property_deserializer_test, remove )
+TEST(iscool_preferences_property_deserializer_test, remove)
 {
-    iscool::preferences::property_deserializer deserializer;
-    deserializer.add_int64_property( "int64" );
-    deserializer.add_int64_property( "int64_2" );
-    deserializer.add_string_property( "string" );
-    deserializer.add_string_property( "string2" );
-    deserializer.add_bool_property( "bool" );
-    deserializer.add_bool_property( "bool2" );
-    deserializer.add_float_property( "float" );
-    deserializer.add_float_property( "float2" );
+  iscool::preferences::property_deserializer deserializer;
+  deserializer.add_int64_property("int64");
+  deserializer.add_int64_property("int64_2");
+  deserializer.add_string_property("string");
+  deserializer.add_string_property("string2");
+  deserializer.add_bool_property("bool");
+  deserializer.add_bool_property("bool2");
+  deserializer.add_float_property("float");
+  deserializer.add_float_property("float2");
 
-    {
-        const std::vector< std::string > keys( deserializer.get_all_keys() );
+  {
+    const std::vector<std::string> keys(deserializer.get_all_keys());
 
-        const auto bit( keys.begin() );
-        const auto eit( keys.end() );
-    
-        EXPECT_NE( eit, std::find( bit, eit, "int64" ) );
-        EXPECT_NE( eit, std::find( bit, eit, "int64_2" ) );
-        EXPECT_NE( eit, std::find( bit, eit, "string" ) );
-        EXPECT_NE( eit, std::find( bit, eit, "string2" ) );
-        EXPECT_NE( eit, std::find( bit, eit, "bool" ) );
-        EXPECT_NE( eit, std::find( bit, eit, "bool2" ) );
-        EXPECT_NE( eit, std::find( bit, eit, "float" ) );
-        EXPECT_NE( eit, std::find( bit, eit, "float2" ) );
-    }
+    const auto bit(keys.begin());
+    const auto eit(keys.end());
 
-    deserializer.remove_int64_property( "int64_2" );
-    deserializer.remove_string_property( "string2" );
-    deserializer.remove_bool_property( "bool2" );
-    deserializer.remove_float_property( "float2" );
+    EXPECT_NE(eit, std::find(bit, eit, "int64"));
+    EXPECT_NE(eit, std::find(bit, eit, "int64_2"));
+    EXPECT_NE(eit, std::find(bit, eit, "string"));
+    EXPECT_NE(eit, std::find(bit, eit, "string2"));
+    EXPECT_NE(eit, std::find(bit, eit, "bool"));
+    EXPECT_NE(eit, std::find(bit, eit, "bool2"));
+    EXPECT_NE(eit, std::find(bit, eit, "float"));
+    EXPECT_NE(eit, std::find(bit, eit, "float2"));
+  }
 
-    {
-        const std::vector< std::string > keys( deserializer.get_all_keys() );
+  deserializer.remove_int64_property("int64_2");
+  deserializer.remove_string_property("string2");
+  deserializer.remove_bool_property("bool2");
+  deserializer.remove_float_property("float2");
 
-        const auto bit( keys.begin() );
-        const auto eit( keys.end() );
-    
-        EXPECT_NE( eit, std::find( bit, eit, "int64" ) );
-        EXPECT_EQ( eit, std::find( bit, eit, "int64_2" ) );
-        EXPECT_NE( eit, std::find( bit, eit, "string" ) );
-        EXPECT_EQ( eit, std::find( bit, eit, "string2" ) );
-        EXPECT_NE( eit, std::find( bit, eit, "bool" ) );
-        EXPECT_EQ( eit, std::find( bit, eit, "bool2" ) );
-        EXPECT_NE( eit, std::find( bit, eit, "float" ) );
-        EXPECT_EQ( eit, std::find( bit, eit, "float2" ) );
-    }
+  {
+    const std::vector<std::string> keys(deserializer.get_all_keys());
+
+    const auto bit(keys.begin());
+    const auto eit(keys.end());
+
+    EXPECT_NE(eit, std::find(bit, eit, "int64"));
+    EXPECT_EQ(eit, std::find(bit, eit, "int64_2"));
+    EXPECT_NE(eit, std::find(bit, eit, "string"));
+    EXPECT_EQ(eit, std::find(bit, eit, "string2"));
+    EXPECT_NE(eit, std::find(bit, eit, "bool"));
+    EXPECT_EQ(eit, std::find(bit, eit, "bool2"));
+    EXPECT_NE(eit, std::find(bit, eit, "float"));
+    EXPECT_EQ(eit, std::find(bit, eit, "float2"));
+  }
 }
 
-TEST( iscool_preferences_property_deserializer_test, get_all_keys )
+TEST(iscool_preferences_property_deserializer_test, get_all_keys)
 {
-    iscool::preferences::property_deserializer deserializer;
-    deserializer.add_int64_property( "int64" );
-    deserializer.add_int64_property( "int64_2" );
-    deserializer.add_string_property( "string" );
-    deserializer.add_bool_property( "bool" );
-    deserializer.add_float_property( "float" );
+  iscool::preferences::property_deserializer deserializer;
+  deserializer.add_int64_property("int64");
+  deserializer.add_int64_property("int64_2");
+  deserializer.add_string_property("string");
+  deserializer.add_bool_property("bool");
+  deserializer.add_float_property("float");
 
-    const std::vector< std::string > keys( deserializer.get_all_keys() );
+  const std::vector<std::string> keys(deserializer.get_all_keys());
 
-    const auto bit( keys.begin() );
-    const auto eit( keys.end() );
-    
-    EXPECT_NE( eit, std::find( bit, eit, "int64" ) );
-    EXPECT_NE( eit, std::find( bit, eit, "int64_2" ) );
-    EXPECT_NE( eit, std::find( bit, eit, "string" ) );
-    EXPECT_NE( eit, std::find( bit, eit, "bool" ) );
-    EXPECT_NE( eit, std::find( bit, eit, "float" ) );
+  const auto bit(keys.begin());
+  const auto eit(keys.end());
+
+  EXPECT_NE(eit, std::find(bit, eit, "int64"));
+  EXPECT_NE(eit, std::find(bit, eit, "int64_2"));
+  EXPECT_NE(eit, std::find(bit, eit, "string"));
+  EXPECT_NE(eit, std::find(bit, eit, "bool"));
+  EXPECT_NE(eit, std::find(bit, eit, "float"));
 }
 
-TEST( iscool_preferences_property_deserializer_test, merge )
+TEST(iscool_preferences_property_deserializer_test, merge)
 {
-    iscool::preferences::property_deserializer deserializer_1;
-    deserializer_1.add_int64_property( "int64" );
-    deserializer_1.add_string_property( "string" );
-    deserializer_1.add_bool_property( "bool" );
-    deserializer_1.add_float_property( "float" );
+  iscool::preferences::property_deserializer deserializer_1;
+  deserializer_1.add_int64_property("int64");
+  deserializer_1.add_string_property("string");
+  deserializer_1.add_bool_property("bool");
+  deserializer_1.add_float_property("float");
 
-    iscool::preferences::property_deserializer deserializer_2;
-    deserializer_2.add_int64_property( "int64_2" );
-    deserializer_2.add_string_property( "string2" );
-    deserializer_2.add_bool_property( "bool2" );
-    deserializer_2.add_float_property( "float2" );
+  iscool::preferences::property_deserializer deserializer_2;
+  deserializer_2.add_int64_property("int64_2");
+  deserializer_2.add_string_property("string2");
+  deserializer_2.add_bool_property("bool2");
+  deserializer_2.add_float_property("float2");
 
-    deserializer_1.merge( deserializer_2 );
+  deserializer_1.merge(deserializer_2);
 
-    EXPECT_DEBUG_CRASH( deserializer_1.merge( deserializer_2 ) );
-    
-    std::unordered_map< std::string, std::string > properties;
-    properties[ "int64" ] = "24";
-    properties[ "int64_2" ] = "42";
-    properties[ "string" ] = "s";
-    properties[ "string2" ] = "S";
-    properties[ "bool" ] = "1";
-    properties[ "bool2" ] = "0";
-    properties[ "float" ] = "10.5";
-    properties[ "float2" ] = "-0.9";
+  EXPECT_DEBUG_CRASH(deserializer_1.merge(deserializer_2));
 
-    iscool::preferences::property_map map;
-    deserializer_1( map, properties );
-    
-    EXPECT_TRUE( map.has< std::int64_t >( "int64" ) );
-    EXPECT_EQ( 24, *map.get< std::int64_t >( "int64" ) );
-    
-    EXPECT_TRUE( map.has< std::int64_t >( "int64_2" ) );
-    EXPECT_EQ( 42, *map.get< std::int64_t >( "int64_2" ) );
+  std::unordered_map<std::string, std::string> properties;
+  properties["int64"] = "24";
+  properties["int64_2"] = "42";
+  properties["string"] = "s";
+  properties["string2"] = "S";
+  properties["bool"] = "1";
+  properties["bool2"] = "0";
+  properties["float"] = "10.5";
+  properties["float2"] = "-0.9";
 
-    EXPECT_TRUE( map.has< std::string >( "string" ) );
-    EXPECT_EQ( "s", *map.get< std::string >( "string" ) );
+  iscool::preferences::property_map map;
+  deserializer_1(map, properties);
 
-    EXPECT_TRUE( map.has< std::string >( "string2" ) );
-    EXPECT_EQ( "S", *map.get< std::string >( "string2" ) );
+  EXPECT_TRUE(map.has<std::int64_t>("int64"));
+  EXPECT_EQ(24, *map.get<std::int64_t>("int64"));
 
-    EXPECT_TRUE( map.has< bool >( "bool" ) );
-    EXPECT_TRUE( *map.get< bool >( "bool" ) );
+  EXPECT_TRUE(map.has<std::int64_t>("int64_2"));
+  EXPECT_EQ(42, *map.get<std::int64_t>("int64_2"));
 
-    EXPECT_TRUE( map.has< bool >( "bool2" ) );
-    EXPECT_FALSE( *map.get< bool >( "bool2" ) );
+  EXPECT_TRUE(map.has<std::string>("string"));
+  EXPECT_EQ("s", *map.get<std::string>("string"));
 
-    EXPECT_TRUE( map.has< float >( "float" ) );
-    EXPECT_FLOAT_EQ( 10.5, *map.get< float >( "float" ) );
+  EXPECT_TRUE(map.has<std::string>("string2"));
+  EXPECT_EQ("S", *map.get<std::string>("string2"));
 
-    EXPECT_TRUE( map.has< float >( "float2" ) );
-    EXPECT_FLOAT_EQ( -0.9, *map.get< float >( "float2" ) );
+  EXPECT_TRUE(map.has<bool>("bool"));
+  EXPECT_TRUE(*map.get<bool>("bool"));
 
-    iscool::preferences::property_deserializer deserializer_3;
-    deserializer_3.add_int64_property( "string" );
-    deserializer_3.add_string_property( "bool" );
-    deserializer_3.add_bool_property( "int64" );
-    deserializer_3.add_bool_property( "float" );
-    
-    EXPECT_DEBUG_CRASH( deserializer_1.merge( deserializer_3 ) );
+  EXPECT_TRUE(map.has<bool>("bool2"));
+  EXPECT_FALSE(*map.get<bool>("bool2"));
+
+  EXPECT_TRUE(map.has<float>("float"));
+  EXPECT_FLOAT_EQ(10.5, *map.get<float>("float"));
+
+  EXPECT_TRUE(map.has<float>("float2"));
+  EXPECT_FLOAT_EQ(-0.9, *map.get<float>("float2"));
+
+  iscool::preferences::property_deserializer deserializer_3;
+  deserializer_3.add_int64_property("string");
+  deserializer_3.add_string_property("bool");
+  deserializer_3.add_bool_property("int64");
+  deserializer_3.add_bool_property("float");
+
+  EXPECT_DEBUG_CRASH(deserializer_1.merge(deserializer_3));
 }
 
-TEST( iscool_preferences_property_deserializer_test, copy )
+TEST(iscool_preferences_property_deserializer_test, copy)
 {
-    std::unordered_map< std::string, std::string > properties;
-    properties[ "int64" ] = "24";
-    properties[ "string" ] = "s";
-    properties[ "bool" ] = "1";
-    properties[ "float" ] = "8.7";
+  std::unordered_map<std::string, std::string> properties;
+  properties["int64"] = "24";
+  properties["string"] = "s";
+  properties["bool"] = "1";
+  properties["float"] = "8.7";
 
-    iscool::preferences::property_deserializer deserializer;
-    deserializer.add_int64_property( "int64" );
-    deserializer.add_string_property( "string" );
-    deserializer.add_bool_property( "bool" );
-    deserializer.add_float_property( "float" );
+  iscool::preferences::property_deserializer deserializer;
+  deserializer.add_int64_property("int64");
+  deserializer.add_string_property("string");
+  deserializer.add_bool_property("bool");
+  deserializer.add_float_property("float");
 
-    const iscool::preferences::property_deserializer copy( deserializer );
+  const iscool::preferences::property_deserializer copy(deserializer);
 
-    iscool::preferences::property_map map;
-    copy( map, properties );
-    
-    EXPECT_TRUE( map.has< std::int64_t >( "int64" ) );
-    EXPECT_EQ( 24, *map.get< std::int64_t >( "int64" ) );
-    
-    EXPECT_TRUE( map.has< std::string >( "string" ) );
-    EXPECT_EQ( "s", *map.get< std::string >( "string" ) );
+  iscool::preferences::property_map map;
+  copy(map, properties);
 
-    EXPECT_TRUE( map.has< bool >( "bool" ) );
-    EXPECT_EQ( true, *map.get< bool >( "bool" ) );
+  EXPECT_TRUE(map.has<std::int64_t>("int64"));
+  EXPECT_EQ(24, *map.get<std::int64_t>("int64"));
 
-    EXPECT_TRUE( map.has< float >( "float" ) );
-    EXPECT_FLOAT_EQ( 8.7, *map.get< float >( "float" ) );
+  EXPECT_TRUE(map.has<std::string>("string"));
+  EXPECT_EQ("s", *map.get<std::string>("string"));
 
+  EXPECT_TRUE(map.has<bool>("bool"));
+  EXPECT_EQ(true, *map.get<bool>("bool"));
+
+  EXPECT_TRUE(map.has<float>("float"));
+  EXPECT_FLOAT_EQ(8.7, *map.get<float>("float"));
 }
-

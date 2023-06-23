@@ -17,6 +17,6 @@
 
 const std::string& iscool::jni::log_context()
 {
-    static const std::string result( "JNI" );
-    return result;
+  static const std::string result("JNI");
+  return result;
 }

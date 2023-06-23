@@ -15,45 +15,43 @@
 */
 #include "iscool/profile/profiler.h"
 
-#include "iscool/time/now.h"
 #include "iscool/profile/detail/output_function.h"
+#include "iscool/time/now.h"
 
 #include <cassert>
 
-iscool::profile::profiler::profiler
-( const std::string& name )
-    : _name( name )
-{
-}
+iscool::profile::profiler::profiler(const std::string& name)
+  : _name(name)
+{}
 
-void iscool::profile::profiler::append_tag( const std::string& tag )
+void iscool::profile::profiler::append_tag(const std::string& tag)
 {
-    _tags.push_back( tag );
+  _tags.push_back(tag);
 }
 
 void iscool::profile::profiler::clear_tags()
 {
-    _tags.clear();
+  _tags.clear();
 }
 
 bool iscool::profile::profiler::started() const
 {
-    return !!_start;
+  return !!_start;
 }
 
 void iscool::profile::profiler::start()
 {
-    _start = iscool::time::now< std::chrono::milliseconds >();
+  _start = iscool::time::now<std::chrono::milliseconds>();
 }
 
 void iscool::profile::profiler::end()
 {
-    assert( _start );
-    const std::chrono::milliseconds end
-        ( iscool::time::now< std::chrono::milliseconds >() );
-    const profile_data result( _name, *_start, end, _tags );
-    _start.reset();
+  assert(_start);
+  const std::chrono::milliseconds end(
+      iscool::time::now<std::chrono::milliseconds>());
+  const profile_data result(_name, *_start, end, _tags);
+  _start.reset();
 
-    if( detail::output_function )
-        detail::output_function( result );
+  if (detail::output_function)
+    detail::output_function(result);
 }

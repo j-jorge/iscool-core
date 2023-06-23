@@ -20,22 +20,22 @@
 
 namespace iscool
 {
-    namespace log
+  namespace log
+  {
+    namespace nature
     {
-        namespace nature
-        {
-            class nature;
-        }
-        
-        class context;
-
-        namespace detail
-        {
-            void print_to_console
-            ( const nature::nature& nature, const context& context,
-              const std::string& message );
-        }
+      class nature;
     }
+
+    class context;
+
+    namespace detail
+    {
+      void print_to_console(const nature::nature& nature,
+                            const context& context,
+                            const std::string& message);
+    }
+  }
 }
 
 #endif

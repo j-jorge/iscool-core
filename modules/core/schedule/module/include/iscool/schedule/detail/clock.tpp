@@ -18,24 +18,23 @@
 
 #include "iscool/signals/signal.impl.tpp"
 
-template<typename Tick>
-iscool::signals::connection
-iscool::schedule::clock< Tick >::connect_to_tick
-( iscool::signals::void_signal_function f )
+template <typename Tick>
+iscool::signals::connection iscool::schedule::clock<Tick>::connect_to_tick(
+    iscool::signals::void_signal_function f)
 {
-    return _tick.connect( f );
+  return _tick.connect(f);
 }
 
-template<typename Tick>
+template <typename Tick>
 Tick iscool::schedule::clock<Tick>::get_date() const
 {
-    return implementation_get_date();
+  return implementation_get_date();
 }
 
-template<typename Tick>
+template <typename Tick>
 void iscool::schedule::clock<Tick>::trigger_tick_signal() const
 {
-    _tick();
+  _tick();
 }
 
 #endif

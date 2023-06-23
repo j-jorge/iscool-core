@@ -16,15 +16,15 @@
 #ifndef ISCOOL_NET_XOR_KEY_H
 #define ISCOOL_NET_XOR_KEY_H
 
-#include <vector>
 #include <cstdint>
+#include <vector>
 
 namespace iscool
 {
-    namespace net
-    {
-        typedef std::vector< std::uint8_t > xor_key;
-    }
+  namespace net
+  {
+    typedef std::vector<std::uint8_t> xor_key;
+  }
 }
 
 #endif

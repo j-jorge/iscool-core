@@ -20,13 +20,12 @@
 
 namespace iscool
 {
-    namespace collections
-    {
-        template< typename Iterator >
-        void apply_permutation
-        ( const Iterator& first, const Iterator& last,
-          const std::vector< std::size_t >& permutation );
-    }
+  namespace collections
+  {
+    template <typename Iterator>
+    void apply_permutation(const Iterator& first, const Iterator& last,
+                           const std::vector<std::size_t>& permutation);
+  }
 }
 
 #include "iscool/collections/detail/apply_permutation.tpp"

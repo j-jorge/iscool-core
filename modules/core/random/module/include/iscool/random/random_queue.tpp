@@ -17,40 +17,39 @@
 
 #include <algorithm>
 
-template<typename T>
-void iscool::random::random_queue<T>::insert( const value_type& value )
+template <typename T>
+void iscool::random::random_queue<T>::insert(const value_type& value)
 {
-    const typename std::vector< value_type >::const_iterator eit
-        ( _domain.end() );
+  const typename std::vector<value_type>::const_iterator eit(_domain.end());
 
-    if ( std::find( _domain.cbegin(), eit, value ) == eit )
+  if (std::find(_domain.cbegin(), eit, value) == eit)
     {
-        _domain.push_back( value );
-        _next.push_back( value );
-        shuffle_next();
+      _domain.push_back(value);
+      _next.push_back(value);
+      shuffle_next();
     }
 }
 
-template<typename T>
+template <typename T>
 typename iscool::random::random_queue<T>::value_type
 iscool::random::random_queue<T>::next()
 {
-    if ( _domain.empty() )
-        throw std::out_of_range( "There is no value among which to select." );
+  if (_domain.empty())
+    throw std::out_of_range("There is no value among which to select.");
 
-    if ( _next.empty() )
+  if (_next.empty())
     {
-        _next.insert( _next.end(), _domain.begin(), _domain.end() );
-        shuffle_next();
+      _next.insert(_next.end(), _domain.begin(), _domain.end());
+      shuffle_next();
     }
 
-    const value_type result( _next.front() );
-    _next.pop_front();
-    return result;
+  const value_type result(_next.front());
+  _next.pop_front();
+  return result;
 }
 
-template<typename T>
+template <typename T>
 void iscool::random::random_queue<T>::shuffle_next()
 {
-    rand::get_default().random_shuffle( _next.begin(), _next.end() );
+  rand::get_default().random_shuffle(_next.begin(), _next.end());
 }

@@ -20,39 +20,29 @@
 
 namespace iscool
 {
-    namespace meta
+  namespace meta
+  {
+    namespace detail
     {
-        namespace detail
-        {
-            template< std::size_t I, typename T, typename... U >
-            struct type_index;
+      template <std::size_t I, typename T, typename... U>
+      struct type_index;
 
-            template< std::size_t I, typename T, typename... U >
-            struct type_index_final
-                : public std::integral_constant< std::size_t, I >
-            {
-                static_assert
-                ( !meta::contains< T, U... >::value,
-                  "Can't get the index of duplicated type in parameter pack." );
-            };
+      template <std::size_t I, typename T, typename... U>
+      struct type_index_final : public std::integral_constant<std::size_t, I>
+      {
+        static_assert(
+            !meta::contains<T, U...>::value,
+            "Can't get the index of duplicated type in parameter pack.");
+      };
 
-            template
-            <
-                std::size_t I,
-                typename T,
-                typename Head,
-                typename... Tail
-            >
-            struct type_index< I, T, Head, Tail... >
-                : public std::conditional
-                  <
-                      std::is_same< T, Head >::value,
-                      type_index_final< I, T, Tail... >,
-                      type_index< I + 1, T, Tail... >
-                  >::type
-            {};
-        }
+      template <std::size_t I, typename T, typename Head, typename... Tail>
+      struct type_index<I, T, Head, Tail...>
+        : public std::conditional<std::is_same<T, Head>::value,
+                                  type_index_final<I, T, Tail...>,
+                                  type_index<I + 1, T, Tail...>>::type
+      {};
     }
+  }
 }
 
 #endif

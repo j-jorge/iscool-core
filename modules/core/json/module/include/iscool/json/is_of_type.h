@@ -18,16 +18,16 @@
 
 namespace Json
 {
-    class Value;
+  class Value;
 }
 
 namespace iscool
 {
-    namespace json
-    {
-        template< typename T >
-        bool is_of_type( const Json::Value& value );
-    }
+  namespace json
+  {
+    template <typename T>
+    bool is_of_type(const Json::Value& value);
+  }
 }
 
 #endif

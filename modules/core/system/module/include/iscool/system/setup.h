@@ -20,11 +20,11 @@
 
 namespace iscool
 {
-    namespace system
-    {
-        void initialize( capture_screen_function capture_delegate );
-        void finalize();
-    }
+  namespace system
+  {
+    void initialize(capture_screen_function capture_delegate);
+    void finalize();
+  }
 }
 
 #endif

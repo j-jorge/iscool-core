@@ -17,22 +17,23 @@
 
 #include "iscool/signals/implement_signal.h"
 
-IMPLEMENT_SIGNAL
-( iscool::system::application_event_source, enter_background,
-  _enter_background );
-IMPLEMENT_SIGNAL
-( iscool::system::application_event_source, enter_foreground,
-  _enter_foreground );
+IMPLEMENT_SIGNAL(iscool::system::application_event_source, enter_background,
+                 _enter_background);
+IMPLEMENT_SIGNAL(iscool::system::application_event_source, enter_foreground,
+                 _enter_foreground);
 
 iscool::system::application_event_source::application_event_source() = default;
-iscool::system::application_event_source::~application_event_source() = default;
+iscool::system::application_event_source::~application_event_source() =
+    default;
 
-void iscool::system::application_event_source::dispatch_enter_background() const
+void iscool::system::application_event_source::dispatch_enter_background()
+    const
 {
-    _enter_background();
+  _enter_background();
 }
 
-void iscool::system::application_event_source::dispatch_enter_foreground() const
+void iscool::system::application_event_source::dispatch_enter_foreground()
+    const
 {
-    _enter_foreground();
+  _enter_foreground();
 }

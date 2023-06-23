@@ -17,13 +17,13 @@
 #define ISCOOL_SYSTEM_HAPTIC_FEEDBACK_H
 
 #if defined __APPLE__
-#include "TargetConditionals.h"
+  #include "TargetConditionals.h"
 #endif
 
-#if ( TARGET_OS_IPHONE == 1 )
-#include "iscool/system/ios/haptic_feedback.h"
+#if (TARGET_OS_IPHONE == 1)
+  #include "iscool/system/ios/haptic_feedback.h"
 #else
-#include "iscool/system/detail/haptic_feedback_mockup.h"
+  #include "iscool/system/detail/haptic_feedback_mockup.h"
 #endif
 
 #endif

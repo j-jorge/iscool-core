@@ -17,50 +17,50 @@
 
 #include "gtest/gtest.h"
 
-TEST( iscool_http_request, type )
+TEST(iscool_http_request, type)
 {
-    iscool::http::request request;
-    request.set_type( iscool::http::request::type::get );
-    EXPECT_EQ( iscool::http::request::type::get, request.get_type() );
+  iscool::http::request request;
+  request.set_type(iscool::http::request::type::get);
+  EXPECT_EQ(iscool::http::request::type::get, request.get_type());
 
-    request.set_type( iscool::http::request::type::post );
-    EXPECT_EQ( iscool::http::request::type::post, request.get_type() );
+  request.set_type(iscool::http::request::type::post);
+  EXPECT_EQ(iscool::http::request::type::post, request.get_type());
 }
 
-TEST( iscool_http_request, url )
+TEST(iscool_http_request, url)
 {
-    iscool::http::request request;
-    request.set_url( "http://example.com" );
-    EXPECT_EQ( "http://example.com", request.get_url() );
+  iscool::http::request request;
+  request.set_url("http://example.com");
+  EXPECT_EQ("http://example.com", request.get_url());
 }
 
-TEST( iscool_http_request, body )
+TEST(iscool_http_request, body)
 {
-    iscool::http::request request;
-    request.set_body( "abc" );
-    EXPECT_EQ( "abc", request.get_body() );
+  iscool::http::request request;
+  request.set_body("abc");
+  EXPECT_EQ("abc", request.get_body());
 }
 
-TEST( iscool_http_request, headers )
+TEST(iscool_http_request, headers)
 {
-    iscool::http::request request;
-    const std::vector< std::string > headers( { "abc", "def" } );
-    request.set_headers( headers );
-    EXPECT_EQ( headers, request.get_headers() );
+  iscool::http::request request;
+  const std::vector<std::string> headers({ "abc", "def" });
+  request.set_headers(headers);
+  EXPECT_EQ(headers, request.get_headers());
 }
 
-TEST( iscool_http_request, response_handler )
+TEST(iscool_http_request, response_handler)
 {
-    iscool::http::request request;
-    bool called( false );
+  iscool::http::request request;
+  bool called(false);
 
-    request.set_response_handler
-        ( [ &called ]( const iscool::http::response& ) -> void
-          {
-              called = true;
-          } );
-    
-    request.get_response_handler()
-        ( iscool::http::response( 200, std::vector<char>() ) );
-    EXPECT_TRUE( called );
+  request.set_response_handler(
+      [&called](const iscool::http::response&) -> void
+      {
+        called = true;
+      });
+
+  request.get_response_handler()(
+      iscool::http::response(200, std::vector<char>()));
+  EXPECT_TRUE(called);
 }

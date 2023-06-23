@@ -17,111 +17,106 @@
 
 namespace iscool
 {
-    namespace net
+  namespace net
+  {
+    namespace detail
     {
-        namespace detail
-        {
-            template<typename tuple>
-            class tuple_reader_helper;
+      template <typename tuple>
+      class tuple_reader_helper;
 
-            template<std::size_t I, typename tuple>
-            class tuple_reader_helper_base;
+      template <std::size_t I, typename tuple>
+      class tuple_reader_helper_base;
 
-            template<std::size_t I>
-            class tuple_reader_helper_base< I, std::tuple<> >
-            {
-            public:
-                void read_values
-                ( byte_array_reader& reader, std::tuple<>& tuple ) const {}
-                void write_values
-                ( byte_array& output, const std::tuple<>& tuple ) const {}
-            };
+      template <std::size_t I>
+      class tuple_reader_helper_base<I, std::tuple<>>
+      {
+      public:
+        void read_values(byte_array_reader& reader, std::tuple<>& tuple) const
+        {}
+        void write_values(byte_array& output, const std::tuple<>& tuple) const
+        {}
+      };
 
-            template<typename... T>
-            class tuple_reader_helper_base< 0, std::tuple<T...> >
-            {
-            public:
-                void read_values
-                ( byte_array_reader& reader, std::tuple<T...>& tuple ) const;
-                void write_values
-                ( byte_array& output, const std::tuple<T...>& tuple ) const;
-            };
+      template <typename... T>
+      class tuple_reader_helper_base<0, std::tuple<T...>>
+      {
+      public:
+        void read_values(byte_array_reader& reader,
+                         std::tuple<T...>& tuple) const;
+        void write_values(byte_array& output,
+                          const std::tuple<T...>& tuple) const;
+      };
 
-            template<std::size_t I, typename... T>
-            class tuple_reader_helper_base< I, std::tuple<T...> >
-            {
-            public:
-                void read_values
-                ( byte_array_reader& reader, std::tuple<T...>& tuple ) const;
-                void write_values
-                ( byte_array& output, const std::tuple<T...>& tuple ) const;
-            };
+      template <std::size_t I, typename... T>
+      class tuple_reader_helper_base<I, std::tuple<T...>>
+      {
+      public:
+        void read_values(byte_array_reader& reader,
+                         std::tuple<T...>& tuple) const;
+        void write_values(byte_array& output,
+                          const std::tuple<T...>& tuple) const;
+      };
 
-            template<typename... T>
-            class tuple_reader_helper< std::tuple<T...> >:
-                public tuple_reader_helper_base
-                       < sizeof...(T) - 1, std::tuple<T...> >
-            { };
-        }
+      template <typename... T>
+      class tuple_reader_helper<std::tuple<T...>>
+        : public tuple_reader_helper_base<sizeof...(T) - 1, std::tuple<T...>>
+      {};
     }
+  }
 }
 
-template<typename... T>
-iscool::net::byte_array&
-iscool::net::operator<<( byte_array& output, const std::tuple<T...>& value )
+template <typename... T>
+iscool::net::byte_array& iscool::net::operator<<(byte_array& output,
+                                                 const std::tuple<T...>& value)
 {
-    detail::tuple_reader_helper< std::tuple<T...> > helper;
-    helper.write_values( output, value );
-    return output;
-
+  detail::tuple_reader_helper<std::tuple<T...>> helper;
+  helper.write_values(output, value);
+  return output;
 }
 
-template<typename... T>
+template <typename... T>
 iscool::net::byte_array_reader&
-iscool::net::operator>>( byte_array_reader& input, std::tuple<T...>& value )
+iscool::net::operator>>(byte_array_reader& input, std::tuple<T...>& value)
 {
-    detail::tuple_reader_helper< std::tuple<T...> > helper;
-    helper.read_values( input, value );
-    return input;
+  detail::tuple_reader_helper<std::tuple<T...>> helper;
+  helper.read_values(input, value);
+  return input;
 }
 
-template<typename... T>
-void
-iscool::net::detail::tuple_reader_helper_base<0, std::tuple<T...> >::read_values
-( byte_array_reader& reader, std::tuple<T...>& tuple ) const
+template <typename... T>
+void iscool::net::detail::tuple_reader_helper_base<
+    0, std::tuple<T...>>::read_values(byte_array_reader& reader,
+                                      std::tuple<T...>& tuple) const
 {
-    reader >> std::get<0>( tuple );
+  reader >> std::get<0>(tuple);
 }
 
-template<typename... T>
-void
-iscool::net::detail::
-tuple_reader_helper_base<0, std::tuple<T...> >::write_values
-( byte_array& output, const std::tuple<T...>& tuple ) const
+template <typename... T>
+void iscool::net::detail::tuple_reader_helper_base<
+    0, std::tuple<T...>>::write_values(byte_array& output,
+                                       const std::tuple<T...>& tuple) const
 {
-    output << std::get<0>( tuple );
+  output << std::get<0>(tuple);
 }
 
-template<std::size_t I, typename... T>
-void
-iscool::net::detail::
-tuple_reader_helper_base< I, std::tuple<T...> >::read_values
-( byte_array_reader& reader, std::tuple<T...>& tuple ) const
+template <std::size_t I, typename... T>
+void iscool::net::detail::tuple_reader_helper_base<
+    I, std::tuple<T...>>::read_values(byte_array_reader& reader,
+                                      std::tuple<T...>& tuple) const
 {
-    tuple_reader_helper_base< I-1, std::tuple<T...> > helper;
-    helper.read_values( reader, tuple );
+  tuple_reader_helper_base<I - 1, std::tuple<T...>> helper;
+  helper.read_values(reader, tuple);
 
-    reader >> std::get<I>( tuple );
+  reader >> std::get<I>(tuple);
 }
- 
-template<std::size_t I, typename... T>
-void
-iscool::net::detail::
-tuple_reader_helper_base< I, std::tuple<T...> >::write_values
-( byte_array& output, const std::tuple<T...>& tuple ) const
+
+template <std::size_t I, typename... T>
+void iscool::net::detail::tuple_reader_helper_base<
+    I, std::tuple<T...>>::write_values(byte_array& output,
+                                       const std::tuple<T...>& tuple) const
 {
-    tuple_reader_helper_base< I-1, std::tuple<T...> > helper;
-    helper.write_values( output, tuple );
-                
-    output << std::get<I, T...>( tuple );
+  tuple_reader_helper_base<I - 1, std::tuple<T...>> helper;
+  helper.write_values(output, tuple);
+
+  output << std::get<I, T...>(tuple);
 }

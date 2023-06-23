@@ -21,26 +21,25 @@
 
 namespace iscool
 {
-    namespace net
+  namespace net
+  {
+    class socket_stream;
+
+    class socket_stream_pool
     {
-        class socket_stream;
-        
-        class socket_stream_pool
-        {
-        public:
-            socket_stream_pool();
-            ~socket_stream_pool();
+    public:
+      socket_stream_pool();
+      ~socket_stream_pool();
 
-            socket_stream_pool( const socket_stream_pool& ) = delete;
-            socket_stream_pool& operator=( const socket_stream_pool& ) = delete;
-            
-            socket_stream* get_for_host( const std::string& host );
-            
-        private:
-            std::unordered_map< std::string, socket_stream* > _sockets;
+      socket_stream_pool(const socket_stream_pool&) = delete;
+      socket_stream_pool& operator=(const socket_stream_pool&) = delete;
 
-        };
-    }
+      socket_stream* get_for_host(const std::string& host);
+
+    private:
+      std::unordered_map<std::string, socket_stream*> _sockets;
+    };
+  }
 }
-    
+
 #endif

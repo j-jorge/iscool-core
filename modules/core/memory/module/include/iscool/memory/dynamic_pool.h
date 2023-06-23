@@ -20,40 +20,36 @@
 
 namespace iscool
 {
-    namespace memory
+  namespace memory
+  {
+    template <typename T, typename TypeTraits>
+    class dynamic_pool
     {
-        template
-        <
-            typename T,
-            typename TypeTraits
-        >
-        class dynamic_pool
-        {
-        public:
-            struct slot
-            {
-                std::size_t id;
-                T& value;
-            };
-            
-        public:
-            explicit dynamic_pool( std::size_t size );
-            ~dynamic_pool();
-            
-            slot pick_available();
-            T& get( std::size_t id );
-            void release( std::size_t id );
+    public:
+      struct slot
+      {
+        std::size_t id;
+        T& value;
+      };
 
-            void clear();
-            
-        private:
-            bool release_checked( std::size_t id );
-            
-        private:
-            std::deque< std::size_t > _available;
-            std::deque< T > _pool;
-        };
-    }
+    public:
+      explicit dynamic_pool(std::size_t size);
+      ~dynamic_pool();
+
+      slot pick_available();
+      T& get(std::size_t id);
+      void release(std::size_t id);
+
+      void clear();
+
+    private:
+      bool release_checked(std::size_t id);
+
+    private:
+      std::deque<std::size_t> _available;
+      std::deque<T> _pool;
+    };
+  }
 }
 
 #include "iscool/memory/detail/dynamic_pool.tpp"

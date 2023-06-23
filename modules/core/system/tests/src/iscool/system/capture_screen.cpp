@@ -20,129 +20,129 @@
 
 #include <gtest/gtest.h>
 
-TEST( iscool_system_test, capture_screen )
+TEST(iscool_system_test, capture_screen)
 {
-    std::function< void( std::string ) > captured_callback;
-    std::string captured_file_name;
-    
-    const auto capture_screen
-        ( [ & ]( const std::string& file_name,
-               std::function< void( std::string ) > on_capture ) -> void
-          {
-              captured_file_name = file_name;
-              captured_callback = on_capture;
-          } );
-    
-    iscool::system::initialize( capture_screen );
+  std::function<void(std::string)> captured_callback;
+  std::string captured_file_name;
 
-    std::string captured_full_path;
-    
-    const auto callback
-        ( [ &captured_full_path ]( std::string full_path ) -> void
-          {
-              captured_full_path = full_path;
-          } );
-    
-    iscool::signals::connection connection
-        ( iscool::system::capture_screen( "test", callback ) );
+  const auto capture_screen(
+      [&](const std::string& file_name,
+          std::function<void(std::string)> on_capture) -> void
+      {
+        captured_file_name = file_name;
+        captured_callback = on_capture;
+      });
 
-    EXPECT_TRUE( connection.connected() );
-    EXPECT_EQ( "test", captured_file_name );
-    
-    captured_callback( "full/path" );
+  iscool::system::initialize(capture_screen);
 
-    EXPECT_EQ( "full/path", captured_full_path );
+  std::string captured_full_path;
 
-    iscool::system::finalize();
+  const auto callback(
+      [&captured_full_path](std::string full_path) -> void
+      {
+        captured_full_path = full_path;
+      });
+
+  iscool::signals::connection connection(
+      iscool::system::capture_screen("test", callback));
+
+  EXPECT_TRUE(connection.connected());
+  EXPECT_EQ("test", captured_file_name);
+
+  captured_callback("full/path");
+
+  EXPECT_EQ("full/path", captured_full_path);
+
+  iscool::system::finalize();
 }
 
-TEST( iscool_system_test, capture_screen_disconnected )
+TEST(iscool_system_test, capture_screen_disconnected)
 {
-    std::function< void( std::string ) > captured_callback;
-    
-    const auto capture_screen
-        ( [ & ]( const std::string& file_name,
-               std::function< void( std::string ) > on_capture ) -> void
-          {
-              captured_callback = on_capture;
-          } );
-    
-    iscool::system::initialize( capture_screen );
+  std::function<void(std::string)> captured_callback;
 
-    bool called( false );
-    
-    const auto callback
-        ( [ &called ]( std::string full_path ) -> void
-          {
-              called = true;
-          } );
-    
-    iscool::signals::connection connection
-        ( iscool::system::capture_screen( "test", callback ) );
-    connection.disconnect();
-    
-    captured_callback( "full/path" );
+  const auto capture_screen(
+      [&](const std::string& file_name,
+          std::function<void(std::string)> on_capture) -> void
+      {
+        captured_callback = on_capture;
+      });
 
-    EXPECT_FALSE( called );
+  iscool::system::initialize(capture_screen);
 
-    iscool::system::finalize();
+  bool called(false);
+
+  const auto callback(
+      [&called](std::string full_path) -> void
+      {
+        called = true;
+      });
+
+  iscool::signals::connection connection(
+      iscool::system::capture_screen("test", callback));
+  connection.disconnect();
+
+  captured_callback("full/path");
+
+  EXPECT_FALSE(called);
+
+  iscool::system::finalize();
 }
 
-TEST( iscool_system_test, capture_screen_in_capture )
+TEST(iscool_system_test, capture_screen_in_capture)
 {
-    std::vector< std::function< void( std::string ) > > captured_callback;
-    
-    const auto capture_screen
-        ( [ & ]( const std::string& file_name,
-               std::function< void( std::string ) > on_capture ) -> void
-          {
-              captured_callback.push_back( on_capture );
-          } );
-    
-    iscool::system::initialize( capture_screen );
+  std::vector<std::function<void(std::string)>> captured_callback;
 
-    std::string second_capture_full_path;
-    const auto second_capture
-        ( [ &second_capture_full_path ]( std::string full_path ) -> void
-          {
-              second_capture_full_path = full_path;
-          } );
-    const auto callback
-        ( [ second_capture ]( std::string full_path ) -> void
-          {
-              iscool::system::capture_screen( "test2", second_capture );
-          } );
-    
-    iscool::system::capture_screen( "test", callback );
+  const auto capture_screen(
+      [&](const std::string& file_name,
+          std::function<void(std::string)> on_capture) -> void
+      {
+        captured_callback.push_back(on_capture);
+      });
 
-    captured_callback.front()( "" );
-    captured_callback.back()( "second/full/path" );
+  iscool::system::initialize(capture_screen);
 
-    EXPECT_EQ( "second/full/path", second_capture_full_path );
+  std::string second_capture_full_path;
+  const auto second_capture(
+      [&second_capture_full_path](std::string full_path) -> void
+      {
+        second_capture_full_path = full_path;
+      });
+  const auto callback(
+      [second_capture](std::string full_path) -> void
+      {
+        iscool::system::capture_screen("test2", second_capture);
+      });
 
-    iscool::system::finalize();
+  iscool::system::capture_screen("test", callback);
+
+  captured_callback.front()("");
+  captured_callback.back()("second/full/path");
+
+  EXPECT_EQ("second/full/path", second_capture_full_path);
+
+  iscool::system::finalize();
 }
 
-TEST( iscool_system_test, capture_immediate_call )
+TEST(iscool_system_test, capture_immediate_call)
 {
-    const auto capture_screen
-        ( []( const std::string& file_name,
-               std::function< void( std::string ) > on_capture ) -> void
-          {
-              on_capture( "now" );
-          } );
-    
-    iscool::system::initialize( capture_screen );
+  const auto capture_screen(
+      [](const std::string& file_name,
+         std::function<void(std::string)> on_capture) -> void
+      {
+        on_capture("now");
+      });
 
-    bool called( false );
-    
-    const auto callback
-        ( [ &called ]( std::string ) -> void
-          {
-              called = true;
-          } );
-    
-    EXPECT_DEBUG_CRASH( iscool::system::capture_screen( "test", callback ) );
+  iscool::system::initialize(capture_screen);
 
-    iscool::system::finalize();
+  bool called(false);
+
+  const auto callback(
+      [&called](std::string) -> void
+      {
+        called = true;
+      });
+
+  EXPECT_DEBUG_CRASH(iscool::system::capture_screen("test", callback));
+
+  iscool::system::finalize();
 }

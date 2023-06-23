@@ -16,26 +16,25 @@
 #ifndef ISCOOL_JNI_METHOD_JAVA_PTR_H
 #define ISCOOL_JNI_METHOD_JAVA_PTR_H
 
+#include "iscool/jni/detail/method_base.h"
 #include "iscool/jni/java_ptr.h"
 #include "iscool/jni/method.h"
-#include "iscool/jni/detail/method_base.h"
 
 namespace iscool
 {
-    namespace jni
+  namespace jni
+  {
+    template <typename T>
+    class method<java_ptr<T>> : public detail::method_base
     {
-        template<typename T>
-        class method< java_ptr< T > >:
-            public detail::method_base
-        {
-        public:
-            using detail::method_base::method_base;
-            
-            template< typename... Arg >
-            java_ptr< T > operator()
-            ( const java_ptr< jobject >& self, Arg&&... args ) const;
-        };
-    }
+    public:
+      using detail::method_base::method_base;
+
+      template <typename... Arg>
+      java_ptr<T> operator()(const java_ptr<jobject>& self,
+                             Arg&&... args) const;
+    };
+  }
 }
 
 #include "iscool/jni/detail/method_java_ptr.tpp"

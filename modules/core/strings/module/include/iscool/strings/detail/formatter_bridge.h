@@ -20,48 +20,48 @@
 
 namespace iscool
 {
-    namespace strings
+  namespace strings
+  {
+    namespace detail
     {
-        namespace detail
-        {
-            class formatter;
+      class formatter;
 
-            formatter* create_formatter( const std::string& pattern );
-            void release_formatter( formatter* f );
+      formatter* create_formatter(const std::string& pattern);
+      void release_formatter(formatter* f);
 
-            std::string get_formatter_string( const formatter& f );
+      std::string get_formatter_string(const formatter& f);
 
-            template< typename T >
-            int append_to_formatter( formatter& f, T value );
+      template <typename T>
+      int append_to_formatter(formatter& f, T value);
 
-            extern template int append_to_formatter< const char* >
-            ( formatter& f, const char* value );
-            extern template int append_to_formatter< const std::string& >
-            ( formatter& f, const std::string& value );
-            extern template int append_to_formatter< std::string >
-            ( formatter& f, std::string value );
-            extern template int append_to_formatter< short >
-            ( formatter& f, short value );
-            extern template int append_to_formatter< unsigned short >
-            ( formatter& f, unsigned short value );
-            extern template int append_to_formatter< int >
-            ( formatter& f, int value );
-            extern template int append_to_formatter< unsigned int >
-            ( formatter& f, unsigned int value );
-            extern template int append_to_formatter< long >
-            ( formatter& f, long value );
-            extern template int append_to_formatter< unsigned long >
-            ( formatter& f, unsigned long value );
-            extern template int append_to_formatter< long long >
-            ( formatter& f, long long value );
-            extern template int append_to_formatter< unsigned long long >
-            ( formatter& f, unsigned long long value );
-            extern template int append_to_formatter< float >
-            ( formatter& f, float value );
-            extern template int append_to_formatter< double >
-            ( formatter& f, double value );
-        }
+      extern template int append_to_formatter<const char*>(formatter& f,
+                                                           const char* value);
+      extern template int
+      append_to_formatter<const std::string&>(formatter& f,
+                                              const std::string& value);
+      extern template int append_to_formatter<std::string>(formatter& f,
+                                                           std::string value);
+      extern template int append_to_formatter<short>(formatter& f,
+                                                     short value);
+      extern template int
+      append_to_formatter<unsigned short>(formatter& f, unsigned short value);
+      extern template int append_to_formatter<int>(formatter& f, int value);
+      extern template int
+      append_to_formatter<unsigned int>(formatter& f, unsigned int value);
+      extern template int append_to_formatter<long>(formatter& f, long value);
+      extern template int
+      append_to_formatter<unsigned long>(formatter& f, unsigned long value);
+      extern template int append_to_formatter<long long>(formatter& f,
+                                                         long long value);
+      extern template int
+      append_to_formatter<unsigned long long>(formatter& f,
+                                              unsigned long long value);
+      extern template int append_to_formatter<float>(formatter& f,
+                                                     float value);
+      extern template int append_to_formatter<double>(formatter& f,
+                                                      double value);
     }
+  }
 }
 
 #endif

@@ -17,8 +17,8 @@
 
 #include "iscool/preferences/detail/global_properties.h"
 
-void iscool::preferences::set_global_properties
-( const std::unordered_map< std::string, std::string >& properties )
+void iscool::preferences::set_global_properties(
+    const std::unordered_map<std::string, std::string>& properties)
 {
-    detail::set_global_properties( properties );
+  detail::set_global_properties(properties);
 }

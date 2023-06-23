@@ -18,31 +18,23 @@
 
 namespace iscool
 {
-    namespace signals
+  namespace signals
+  {
+    namespace detail
     {
-        namespace detail
-        {
-            static_assert
-            ( no_tuple_is_masked
-              <
-                  std::tuple< int, float, bool >,
-                  std::tuple< float, bool, double >,
-                  std::tuple< int, float, int >,
-                  std::tuple< bool, int, double >
-              >::value,
-              "Failed to see that no tuple is masked." );
+      static_assert(no_tuple_is_masked<std::tuple<int, float, bool>,
+                                       std::tuple<float, bool, double>,
+                                       std::tuple<int, float, int>,
+                                       std::tuple<bool, int, double>>::value,
+                    "Failed to see that no tuple is masked.");
 
-            static_assert
-            ( !no_tuple_is_masked
-              <
-                  std::tuple< int, float, bool >,
-                  std::tuple< float, bool, double >,
-                  std::tuple< int, float, double >,
-                  std::tuple< bool, int, double >
-              >::value,
-              "Failed to find a masked tuple." );
-        }
+      static_assert(!no_tuple_is_masked<std::tuple<int, float, bool>,
+                                        std::tuple<float, bool, double>,
+                                        std::tuple<int, float, double>,
+                                        std::tuple<bool, int, double>>::value,
+                    "Failed to find a masked tuple.");
     }
+  }
 }
 
 #endif

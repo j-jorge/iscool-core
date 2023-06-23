@@ -20,7 +20,7 @@
 
 namespace iscool
 {
-    extern const none_t none;
+  extern const none_t none;
 }
 
 #endif

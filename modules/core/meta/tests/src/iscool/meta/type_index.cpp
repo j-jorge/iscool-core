@@ -17,15 +17,15 @@
 
 #include "gtest/gtest.h"
 
-TEST( iscool_meta_type_index, index )
+TEST(iscool_meta_type_index, index)
 {
-    const std::size_t first
-        ( iscool::meta::type_index< int, int, std::string, float >::value );
+  const std::size_t first(
+      iscool::meta::type_index<int, int, std::string, float>::value);
 
-    EXPECT_EQ( std::size_t( 0 ), first );
+  EXPECT_EQ(std::size_t(0), first);
 
-    const std::size_t anywhere
-        ( iscool::meta::type_index< int, float, double, int, char >::value );
-    
-    EXPECT_EQ( std::size_t( 2 ), anywhere );
+  const std::size_t anywhere(
+      iscool::meta::type_index<int, float, double, int, char>::value);
+
+  EXPECT_EQ(std::size_t(2), anywhere);
 }

@@ -20,11 +20,10 @@
 
 namespace iscool
 {
-    namespace preferences
-    {
-        std::int64_t get_global_int64_property
-        ( const int64_property& property );
-    }
+  namespace preferences
+  {
+    std::int64_t get_global_int64_property(const int64_property& property);
+  }
 }
 
 #endif

@@ -18,12 +18,12 @@
 
 namespace iscool
 {
-    namespace collections
-    {
-        template< typename OutputContainer, typename InputContainer >
-        void insert_or_assign_all
-        ( OutputContainer& output, const InputContainer& input );
-    }
+  namespace collections
+  {
+    template <typename OutputContainer, typename InputContainer>
+    void insert_or_assign_all(OutputContainer& output,
+                              const InputContainer& input);
+  }
 }
 
 #include "iscool/collections/detail/insert_or_assign_all.tpp"

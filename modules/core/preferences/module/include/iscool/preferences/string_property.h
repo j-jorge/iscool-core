@@ -22,11 +22,10 @@
 
 namespace iscool
 {
-    namespace preferences
-    {
-        typedef detail::property< std::string > string_property;
-    }
+  namespace preferences
+  {
+    typedef detail::property<std::string> string_property;
+  }
 }
-
 
 #endif

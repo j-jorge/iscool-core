@@ -18,11 +18,11 @@
 
 #include "iscool/time/detail/time_source.h"
 
-template<typename Duration>
+template <typename Duration>
 Duration iscool::time::now()
 {
-    return std::chrono::duration_cast< Duration >
-        (iscool::time::detail::time_source());
+  return std::chrono::duration_cast<Duration>(
+      iscool::time::detail::time_source());
 }
 
 #endif

@@ -18,16 +18,16 @@
 
 namespace iscool
 {
-    namespace any
+  namespace any
+  {
+    namespace detail
     {
-        namespace detail
-        {
-            class vtable;
-            
-            template< typename T >
-            vtable* get_vtable();
-        }
+      class vtable;
+
+      template <typename T>
+      vtable* get_vtable();
     }
+  }
 }
 
 #include "iscool/any/detail/get_vtable.tpp"

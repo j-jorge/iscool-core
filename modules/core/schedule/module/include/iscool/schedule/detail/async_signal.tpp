@@ -18,40 +18,36 @@
 
 #include "iscool/schedule/delayed_call.h"
 
-
-template< typename Signature >
-iscool::schedule::async_signal< Signature >::~async_signal()
+template <typename Signature>
+iscool::schedule::async_signal<Signature>::~async_signal()
 {
-    for ( iscool::signals::connection& c : _trigger_connection )
-        c.disconnect();
+  for (iscool::signals::connection& c : _trigger_connection)
+    c.disconnect();
 }
 
-template< typename Signature >
-iscool::signals::connection
-iscool::schedule::async_signal< Signature >::connect
-( const std::function< Signature >& f )
+template <typename Signature>
+iscool::signals::connection iscool::schedule::async_signal<Signature>::connect(
+    const std::function<Signature>& f)
 {
-    return _signal.connect( f );
+  return _signal.connect(f);
 }
 
-template< typename Signature >
-template< typename... Arg >
-void iscool::schedule::async_signal< Signature >::operator()( Arg... args )
+template <typename Signature>
+template <typename... Arg>
+void iscool::schedule::async_signal<Signature>::operator()(Arg... args)
 {
-    _trigger_connection.push_back
-        ( delayed_call
-          ( std::bind
-            ( &async_signal< Signature >::trigger_signal< Arg... >, this,
-              std::forward< Arg >( args )... ) ) );
+  _trigger_connection.push_back(
+      delayed_call(std::bind(&async_signal<Signature>::trigger_signal<Arg...>,
+                             this, std::forward<Arg>(args)...)));
 }
 
-template< typename Signature >
-template< typename... Arg >
-void iscool::schedule::async_signal< Signature >::trigger_signal( Arg... args )
+template <typename Signature>
+template <typename... Arg>
+void iscool::schedule::async_signal<Signature>::trigger_signal(Arg... args)
 {
-    assert( !_trigger_connection.empty() );
-    _trigger_connection.erase( _trigger_connection.begin() );
-    _signal( std::forward< Arg >( args )... );
+  assert(!_trigger_connection.empty());
+  _trigger_connection.erase(_trigger_connection.begin());
+  _signal(std::forward<Arg>(args)...);
 }
 
 #endif

@@ -18,29 +18,29 @@
 
 namespace iscool
 {
-    namespace meta
+  namespace meta
+  {
+    template <bool... Value>
+    struct combine_and;
+
+    template <bool Value>
+    struct combine_and<Value>
     {
-        template< bool... Value >
-        struct combine_and;
+      enum
+      {
+        value = Value
+      };
+    };
 
-        template< bool Value >
-        struct combine_and< Value >
-        {
-            enum
-            {
-                value = Value
-            };
-        };
-
-        template< bool V1, bool... Values >
-        struct combine_and< V1, Values... >
-        {
-            enum
-            {
-                value = V1 && combine_and< Values... >::value
-            };
-        };
-    }
+    template <bool V1, bool... Values>
+    struct combine_and<V1, Values...>
+    {
+      enum
+      {
+        value = V1 && combine_and<Values...>::value
+      };
+    };
+  }
 }
 
 #include "iscool/meta/detail/combine_and.tests.h"

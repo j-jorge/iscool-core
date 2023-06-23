@@ -20,30 +20,19 @@
 
 namespace iscool
 {
-    namespace signals
-    {
-        template< typename SearchedType, std::size_t I, typename... Tuple >
-        typename
-        find_signal_type_from_tuple_element
-        <
-            SearchedType,
-            I,
-            signal_collection_from_tuple< Tuple... >
-        >::type&
-        get_from_tuple_element
-        ( signal_collection_from_tuple< Tuple... >& collection );
-        
-        template< typename SearchedType, std::size_t I, typename... Tuple >
-        const typename
-        find_signal_type_from_tuple_element
-        <
-            SearchedType,
-            I,
-            signal_collection_from_tuple< Tuple... >
-        >::type&
-        get_from_tuple_element
-        ( const signal_collection_from_tuple< Tuple... >& collection );
-    }
+  namespace signals
+  {
+    template <typename SearchedType, std::size_t I, typename... Tuple>
+    typename find_signal_type_from_tuple_element<
+        SearchedType, I, signal_collection_from_tuple<Tuple...>>::type&
+    get_from_tuple_element(signal_collection_from_tuple<Tuple...>& collection);
+
+    template <typename SearchedType, std::size_t I, typename... Tuple>
+    const typename find_signal_type_from_tuple_element<
+        SearchedType, I, signal_collection_from_tuple<Tuple...>>::type&
+    get_from_tuple_element(
+        const signal_collection_from_tuple<Tuple...>& collection);
+  }
 }
 
 #include "iscool/signals/detail/get_from_tuple_element.tpp"

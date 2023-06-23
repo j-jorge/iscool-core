@@ -20,32 +20,32 @@
 
 namespace iscool
 {
-    namespace meta
+  namespace meta
+  {
+    template <typename R, typename... Arg>
+    struct function_from_signature
     {
-        template< typename R, typename... Arg >
-        struct function_from_signature
-        {
-            template< template<class> class Wrapper >
-            struct in_functor
-            {
-                typedef Wrapper< R(Arg...) > type;
-            };
+      template <template <class> class Wrapper>
+      struct in_functor
+      {
+        typedef Wrapper<R(Arg...)> type;
+      };
 
-            typedef typename in_functor< std::function >::type type;
-        };
+      typedef typename in_functor<std::function>::type type;
+    };
 
-        template< typename R >
-        struct function_from_signature< R, void >
-        {
-            template< template<class> class Wrapper >
-            struct in_functor
-            {
-                typedef Wrapper< R() > type;
-            };
+    template <typename R>
+    struct function_from_signature<R, void>
+    {
+      template <template <class> class Wrapper>
+      struct in_functor
+      {
+        typedef Wrapper<R()> type;
+      };
 
-            typedef typename in_functor< std::function >::type type;
-        };
-    }
+      typedef typename in_functor<std::function>::type type;
+    };
+  }
 }
 
 #endif

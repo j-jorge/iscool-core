@@ -17,16 +17,14 @@
 
 #include "iscool/signals/detail/statistics_function.h"
 
-void iscool::signals::set_statistics_sink
-( const std::function< void( const statistics_data& ) >& sink )
+void iscool::signals::set_statistics_sink(
+    const std::function<void(const statistics_data&)>& sink)
 {
-    assert( sink );
-    detail::statistics_function = sink;
+  assert(sink);
+  detail::statistics_function = sink;
 }
 
 void iscool::signals::clear_statistics_sink()
 {
-    detail::statistics_function =
-        std::function< void( const statistics_data& ) >();
+  detail::statistics_function = std::function<void(const statistics_data&)>();
 }
-

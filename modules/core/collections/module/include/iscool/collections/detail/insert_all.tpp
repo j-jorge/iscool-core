@@ -16,11 +16,11 @@
 #ifndef ISCOOL_COLLECTIONS_INSERT_ALL_TPP
 #define ISCOOL_COLLECTIONS_INSERT_ALL_TPP
 
-template< typename OutputContainer, typename InputContainer >
-void iscool::collections::insert_all
-( OutputContainer& output, const InputContainer& input )
+template <typename OutputContainer, typename InputContainer>
+void iscool::collections::insert_all(OutputContainer& output,
+                                     const InputContainer& input)
 {
-    output.insert( input.begin(), input.end() );
+  output.insert(input.begin(), input.end());
 }
 
 #endif

@@ -20,11 +20,10 @@
 
 namespace iscool
 {
-    namespace strings
-    {
-        hash_type dynamic_hash( const char* s );
-    }
+  namespace strings
+  {
+    hash_type dynamic_hash(const char* s);
+  }
 }
 
 #endif
-

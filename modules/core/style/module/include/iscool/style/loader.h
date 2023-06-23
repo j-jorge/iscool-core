@@ -20,14 +20,14 @@
 
 namespace iscool
 {
-    namespace style
+  namespace style
+  {
+    namespace loader
     {
-        namespace loader
-        {
-            void set_global_cache_enabled( bool enabled );
-            declaration load( const std::string& style_name );
-        }
+      void set_global_cache_enabled(bool enabled);
+      declaration load(const std::string& style_name);
     }
+  }
 }
 
 #endif

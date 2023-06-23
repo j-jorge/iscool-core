@@ -19,25 +19,25 @@
 
 #include <cassert>
 
-void iscool::time::initialize( time_source_delegate delegate )
+void iscool::time::initialize(time_source_delegate delegate)
 {
-    assert( delegate );
+  assert(delegate);
 
-    detail::time_source = std::move(delegate);
+  detail::time_source = std::move(delegate);
 }
 
 void iscool::time::finalize()
 {
-    detail::time_source = time_source_delegate();
+  detail::time_source = time_source_delegate();
 }
 
-iscool::time::scoped_time_source_delegate::scoped_time_source_delegate
-(time_source_delegate delegate)
+iscool::time::scoped_time_source_delegate::scoped_time_source_delegate(
+    time_source_delegate delegate)
 {
-    initialize(std::move(delegate));
+  initialize(std::move(delegate));
 }
 
 iscool::time::scoped_time_source_delegate::~scoped_time_source_delegate()
 {
-    finalize();
+  finalize();
 }

@@ -19,27 +19,21 @@
 
 iscool::random::rand& iscool::random::rand::get_default()
 {
-    static rand defaultInstance;
-    return defaultInstance;
+  static rand defaultInstance;
+  return defaultInstance;
 }
 
 iscool::random::rand::rand()
-    : rand
-      ( static_cast< std::size_t >
-        ( std::chrono::high_resolution_clock::now().
-          time_since_epoch().count() ) )
-{
+  : rand(static_cast<std::size_t>(
+      std::chrono::high_resolution_clock::now().time_since_epoch().count()))
+{}
 
-}
-
-iscool::random::rand::rand( std::size_t seed )
-    : _generator( seed )
-{
-
-}
+iscool::random::rand::rand(std::size_t seed)
+  : _generator(seed)
+{}
 
 int iscool::random::rand::random()
 {
-    return random
-        ( std::numeric_limits<int>::min(), std::numeric_limits<int>::max() );
+  return random(std::numeric_limits<int>::min(),
+                std::numeric_limits<int>::max());
 }

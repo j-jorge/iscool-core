@@ -17,15 +17,15 @@
 
 #include "iscool/jni/detail/get_jni_env.h"
 
-iscool::jni::java_ptr< jbyteArray >
-iscool::jni::string_bytes( const std::string& str )
+iscool::jni::java_ptr<jbyteArray>
+iscool::jni::string_bytes(const std::string& str)
 {
-    JNIEnv* const env( detail::get_jni_env() );
+  JNIEnv* const env(detail::get_jni_env());
 
-    const std::size_t size( str.size() );
-    const jbyteArray bytes( env->NewByteArray( size ) );
-    env->SetByteArrayRegion
-        ( bytes, 0, size, reinterpret_cast< const jbyte* >( str.c_str() ) );
-    
-    return java_ptr< jbyteArray >( bytes );
+  const std::size_t size(str.size());
+  const jbyteArray bytes(env->NewByteArray(size));
+  env->SetByteArrayRegion(bytes, 0, size,
+                          reinterpret_cast<const jbyte*>(str.c_str()));
+
+  return java_ptr<jbyteArray>(bytes);
 }

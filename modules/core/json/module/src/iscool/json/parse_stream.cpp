@@ -19,9 +19,9 @@
 
 #include <sstream>
 
-Json::Value iscool::json::parse_stream( std::istream& stream )
+Json::Value iscool::json::parse_stream(std::istream& stream)
 {
-    std::ostringstream oss;
-    oss << stream.rdbuf();
-    return parse_string( oss.str() );
+  std::ostringstream oss;
+  oss << stream.rdbuf();
+  return parse_string(oss.str());
 }

@@ -22,21 +22,21 @@
 
 #include <string>
 
-DECLARE_JNI_CAST( std::string )
+DECLARE_JNI_CAST(std::string)
 
 namespace iscool
 {
-    namespace jni
+  namespace jni
+  {
+    namespace detail
     {
-        namespace detail
-        {
-            template<>
-            struct cast< std::string >
-            {
-                static std::string value( jobject value );
-            };
-        }
+      template <>
+      struct cast<std::string>
+      {
+        static std::string value(jobject value);
+      };
     }
+  }
 }
 
 #endif

@@ -20,75 +20,77 @@
 
 #include <gtest/gtest.h>
 
-TEST( iscool_signals_scoped_connection, initially_disconnected )
+TEST(iscool_signals_scoped_connection, initially_disconnected)
 {
-    iscool::signals::scoped_connection connection;
-    EXPECT_FALSE( connection.connected() );
+  iscool::signals::scoped_connection connection;
+  EXPECT_FALSE(connection.connected());
 }
 
-TEST( iscool_signals_scoped_connection, connected )
+TEST(iscool_signals_scoped_connection, connected)
 {
-    iscool::signals::signal< void() > signal;
+  iscool::signals::signal<void()> signal;
 
-    iscool::signals::scoped_connection connection
-        ( signal.connect( []() -> void {} ) );
-          
-    EXPECT_TRUE( connection.connected() );
+  iscool::signals::scoped_connection connection(signal.connect(
+      []() -> void
+      {
+      }));
+
+  EXPECT_TRUE(connection.connected());
 }
 
-TEST( iscool_signals_scoped_connection, disconnect )
+TEST(iscool_signals_scoped_connection, disconnect)
 {
-    iscool::signals::signal< void() > signal;
+  iscool::signals::signal<void()> signal;
 
-    bool called( false );
-    
-    iscool::signals::scoped_connection connection
-        ( signal.connect
-          ( [ &called ]() -> void
-            {
-                called = true;
-            } ) );
+  bool called(false);
 
-    connection.disconnect();
-    EXPECT_FALSE( connection.connected() );
-    
-    signal();
-    EXPECT_FALSE( called );
+  iscool::signals::scoped_connection connection(signal.connect(
+      [&called]() -> void
+      {
+        called = true;
+      }));
+
+  connection.disconnect();
+  EXPECT_FALSE(connection.connected());
+
+  signal();
+  EXPECT_FALSE(called);
 }
 
-TEST( iscool_signals_scoped_connection, disconnect_when_leave_scope )
+TEST(iscool_signals_scoped_connection, disconnect_when_leave_scope)
 {
-    iscool::signals::signal< void() > signal;
+  iscool::signals::signal<void()> signal;
 
-    iscool::signals::connection connection
-        ( signal.connect( []() -> void {} ) );
+  iscool::signals::connection connection(signal.connect(
+      []() -> void
+      {
+      }));
 
-    {
-        iscool::signals::scoped_connection scoped( connection );
-    }
-    
-    EXPECT_FALSE( connection.connected() );
+  {
+    iscool::signals::scoped_connection scoped(connection);
+  }
+
+  EXPECT_FALSE(connection.connected());
 }
 
-TEST( iscool_signals_scoped_connection, no_disconnect_if_moved )
+TEST(iscool_signals_scoped_connection, no_disconnect_if_moved)
 {
-    iscool::signals::signal< void() > signal;
+  iscool::signals::signal<void()> signal;
 
-    bool called( false );
+  bool called(false);
 
-    iscool::signals::scoped_connection connection;
+  iscool::signals::scoped_connection connection;
 
-    {
-        iscool::signals::scoped_connection c
-            ( signal.connect
-              ( [ &called ]() -> void
-                {
-                    called = true;
-                } ) );
+  {
+    iscool::signals::scoped_connection c(signal.connect(
+        [&called]() -> void
+        {
+          called = true;
+        }));
 
-        connection = std::move( c );
-    }
-    
-    signal();
-    EXPECT_TRUE( called );
+    connection = std::move(c);
+  }
+
+  signal();
+  EXPECT_TRUE(called);
 }

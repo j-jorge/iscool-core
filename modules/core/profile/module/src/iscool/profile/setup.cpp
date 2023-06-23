@@ -19,15 +19,15 @@
 
 #include <cassert>
 
-void iscool::profile::initialize( output_delegate delegate )
+void iscool::profile::initialize(output_delegate delegate)
 {
-    assert( !detail::output_function );
-    assert( delegate );
+  assert(!detail::output_function);
+  assert(delegate);
 
-    detail::output_function = delegate;
+  detail::output_function = delegate;
 }
 
 void iscool::profile::finalize()
 {
-    detail::output_function = output_delegate();
+  detail::output_function = output_delegate();
 }

@@ -18,14 +18,14 @@
 
 namespace iscool
 {
-    namespace jni
+  namespace jni
+  {
+    namespace detail
     {
-        namespace detail
-        {
-            void setup_log_delegates();
-            void finalize_log_delegates();
-        }
+      void setup_log_delegates();
+      void finalize_log_delegates();
     }
+  }
 }
 
 #endif

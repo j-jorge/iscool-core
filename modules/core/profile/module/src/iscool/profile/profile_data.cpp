@@ -16,18 +16,16 @@
 #include "iscool/profile/profile_data.h"
 
 iscool::profile::profile_data::profile_data()
-    : start( std::chrono::milliseconds( 0 ) ),
-      end( std::chrono::milliseconds( 0 ) )
+  : start(std::chrono::milliseconds(0))
+  , end(std::chrono::milliseconds(0))
 {}
 
-iscool::profile::profile_data::profile_data
-( const std::string& new_name, const std::chrono::milliseconds& new_start,
-  const std::chrono::milliseconds& new_end,
-  const std::vector< std::string >& new_tags )
-    : name( new_name ),
-      start( new_start ),
-      end( new_end ),
-      tags( new_tags )
-{
-}
-      
+iscool::profile::profile_data::profile_data(
+    const std::string& new_name, const std::chrono::milliseconds& new_start,
+    const std::chrono::milliseconds& new_end,
+    const std::vector<std::string>& new_tags)
+  : name(new_name)
+  , start(new_start)
+  , end(new_end)
+  , tags(new_tags)
+{}

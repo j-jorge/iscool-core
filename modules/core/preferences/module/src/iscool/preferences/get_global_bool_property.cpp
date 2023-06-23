@@ -17,7 +17,8 @@
 
 #include "iscool/preferences/detail/get_global_property.h"
 
-bool iscool::preferences::get_global_bool_property( const bool_property& property )
+bool iscool::preferences::get_global_bool_property(
+    const bool_property& property)
 {
-    return detail::get_global_property( property );
+  return detail::get_global_property(property);
 }

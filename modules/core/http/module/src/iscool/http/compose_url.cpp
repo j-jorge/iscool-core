@@ -17,21 +17,22 @@
 
 #include "iscool/http/url_encode.h"
 
-std::string iscool::http::compose_url
-( const std::string& root, const std::vector< query_parameter >& parameters )
+std::string
+iscool::http::compose_url(const std::string& root,
+                          const std::vector<query_parameter>& parameters)
 {
-    if( parameters.empty() )
-        return root;
+  if (parameters.empty())
+    return root;
 
-    std::string result( root + "?" );
+  std::string result(root + "?");
 
-    const auto eit( parameters.end() );
-    auto query( parameters.begin() );
+  const auto eit(parameters.end());
+  auto query(parameters.begin());
 
-    result += query->key + "=" + url_encode( query->value );
+  result += query->key + "=" + url_encode(query->value);
 
-    for( ++query; query != eit; ++query )
-        result += "&" + query->key + "=" + url_encode( query->value );
+  for (++query; query != eit; ++query)
+    result += "&" + query->key + "=" + url_encode(query->value);
 
-    return result;
+  return result;
 }

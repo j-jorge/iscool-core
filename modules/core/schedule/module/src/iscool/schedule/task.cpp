@@ -20,84 +20,77 @@
 
 #include <cassert>
 
-IMPLEMENT_SIGNAL( iscool::schedule::task, complete, _complete );
+IMPLEMENT_SIGNAL(iscool::schedule::task, complete, _complete);
 
 constexpr std::chrono::milliseconds iscool::schedule::task::no_update_interval;
 
-iscool::schedule::task::task( const std::string& name )
-    : _profiler( name ),
-      _update_count( 0 )
-{
-}
+iscool::schedule::task::task(const std::string& name)
+  : _profiler(name)
+  , _update_count(0)
+{}
 
 iscool::schedule::task::~task()
 {
-    if( _profiler.started() )
-        end_profiler();
+  if (_profiler.started())
+    end_profiler();
 }
 
 void iscool::schedule::task::complete()
 {
-    _profiler.append_tag( "completed" );
-    end_profiler();
-    _complete();
+  _profiler.append_tag("completed");
+  end_profiler();
+  _complete();
 }
 
-void iscool::schedule::task::append_profile_tag( const std::string& tag )
+void iscool::schedule::task::append_profile_tag(const std::string& tag)
 {
-    _profiler.append_tag( tag );
+  _profiler.append_tag(tag);
 }
 
 void iscool::schedule::task::start()
 {
-    _profiler.start();
-    implementation_start();
+  _profiler.start();
+  implementation_start();
 }
 
 void iscool::schedule::task::update()
 {
-    ++_update_count;
-    implementation_update();
+  ++_update_count;
+  implementation_update();
 }
 
 void iscool::schedule::task::abort()
 {
-    _profiler.append_tag( "aborted" );
-    implementation_abort();
-    end_profiler();
+  _profiler.append_tag("aborted");
+  implementation_abort();
+  end_profiler();
 }
 
 std::chrono::milliseconds iscool::schedule::task::get_update_interval() const
 {
-    return implementation_get_update_interval();
+  return implementation_get_update_interval();
 }
 
 void iscool::schedule::task::implementation_start()
-{
-
-}
+{}
 
 void iscool::schedule::task::implementation_update()
-{
-
-}
+{}
 
 void iscool::schedule::task::implementation_abort()
-{
-
-}
+{}
 
 std::chrono::milliseconds
 iscool::schedule::task::implementation_get_update_interval() const
 {
-    return no_update_interval;
+  return no_update_interval;
 }
 
 void iscool::schedule::task::end_profiler()
 {
-    assert( _profiler.started() );
-    if( _update_count != 0 )
-        _profiler.append_tag
-            ( iscool::strings::format( "update-count=%u", _update_count ) );
-    _profiler.end();
+  assert(_profiler.started());
+  if (_update_count != 0)
+    _profiler.append_tag(
+        iscool::strings::format("update-count=%u", _update_count));
+  _profiler.end();
 }

@@ -22,14 +22,14 @@
 
 namespace iscool
 {
-    namespace style
+  namespace style
+  {
+    namespace detail
     {
-        namespace detail
-        {
-            declaration merge_declarations
-            ( const std::vector< declaration >& declarations );
-        }
+      declaration
+      merge_declarations(const std::vector<declaration>& declarations);
     }
+  }
 }
 
 #endif

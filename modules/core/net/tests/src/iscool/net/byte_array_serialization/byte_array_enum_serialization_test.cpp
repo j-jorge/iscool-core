@@ -18,53 +18,52 @@
 #include "iscool/net/byte_array.h"
 #include "iscool/net/byte_array_reader.h"
 
-TEST( byte_array_enum_serialization_test, enum )
+TEST(byte_array_enum_serialization_test, enum)
 {
-    // Serialization in a byte array only supports signed types.
-    enum enum_type : std::uint8_t
-    {
-        a,
-        b = 12,
-        c
-    };
+  // Serialization in a byte array only supports signed types.
+  enum enum_type : std::uint8_t
+  {
+    a,
+    b = 12,
+    c
+  };
 
-    iscool::net::byte_array output;
-    output << enum_type::c << enum_type::a << enum_type::b;
+  iscool::net::byte_array output;
+  output << enum_type::c << enum_type::a << enum_type::b;
 
-    iscool::net::byte_array_reader input( output );
-    enum_type v;
-    input >> v;
-    EXPECT_EQ(enum_type::c, v);
+  iscool::net::byte_array_reader input(output);
+  enum_type v;
+  input >> v;
+  EXPECT_EQ(enum_type::c, v);
 
-    input >> v;
-    EXPECT_EQ(enum_type::a, v);
+  input >> v;
+  EXPECT_EQ(enum_type::a, v);
 
-    input >> v;
-    EXPECT_EQ(enum_type::b, v);
+  input >> v;
+  EXPECT_EQ(enum_type::b, v);
 }
 
-TEST( byte_array_enum_serialization_test, enum_class )
+TEST(byte_array_enum_serialization_test, enum_class)
 {
-    // Serialization in a byte array only supports signed types.
-    enum class enum_type : std::uint16_t
-    {
-        a,
-        b = 12,
-        c
-    };
+  // Serialization in a byte array only supports signed types.
+  enum class enum_type : std::uint16_t
+  {
+    a,
+    b = 12,
+    c
+  };
 
-    iscool::net::byte_array output;
-    output << enum_type::c << enum_type::a << enum_type::b;
+  iscool::net::byte_array output;
+  output << enum_type::c << enum_type::a << enum_type::b;
 
-    iscool::net::byte_array_reader input( output );
-    enum_type v;
-    input >> v;
-    EXPECT_EQ(enum_type::c, v);
+  iscool::net::byte_array_reader input(output);
+  enum_type v;
+  input >> v;
+  EXPECT_EQ(enum_type::c, v);
 
-    input >> v;
-    EXPECT_EQ(enum_type::a, v);
+  input >> v;
+  EXPECT_EQ(enum_type::a, v);
 
-    input >> v;
-    EXPECT_EQ(enum_type::b, v);
+  input >> v;
+  EXPECT_EQ(enum_type::b, v);
 }
-

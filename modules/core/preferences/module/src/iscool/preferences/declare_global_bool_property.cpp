@@ -16,9 +16,8 @@
 #include "iscool/preferences/declare_global_bool_property.h"
 
 iscool::preferences::bool_property
-iscool::preferences::declare_global_bool_property
-( std::string&& name, bool fallback )
+iscool::preferences::declare_global_bool_property(std::string&& name,
+                                                  bool fallback)
 {
-    return bool_property( std::move( name ), fallback );
+  return bool_property(std::move(name), fallback);
 }
-

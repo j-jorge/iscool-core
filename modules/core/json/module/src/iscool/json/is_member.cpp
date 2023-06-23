@@ -17,12 +17,12 @@
 
 #include <algorithm>
 
-bool iscool::json::is_member( const std::string& key, Json::Value json_value )
+bool iscool::json::is_member(const std::string& key, Json::Value json_value)
 {
-    if ( json_value.type() != Json::objectValue )
-        return false;
+  if (json_value.type() != Json::objectValue)
+    return false;
 
-    const Json::Value::Members members( json_value.getMemberNames() );
+  const Json::Value::Members members(json_value.getMemberNames());
 
-    return std::find( members.begin(), members.end(), key ) != members.end();
+  return std::find(members.begin(), members.end(), key) != members.end();
 }

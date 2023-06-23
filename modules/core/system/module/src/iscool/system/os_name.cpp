@@ -17,5 +17,5 @@
 
 std::string iscool::system::get_os_name()
 {
-    return "n/a";
+  return "n/a";
 }

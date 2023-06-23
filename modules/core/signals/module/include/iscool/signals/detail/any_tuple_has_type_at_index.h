@@ -23,44 +23,36 @@
 
 namespace iscool
 {
-    namespace signals
+  namespace signals
+  {
+    namespace detail
     {
-        namespace detail
-        {
-            template< std::size_t Index, typename Tuple, typename... Mask >
-            struct any_tuple_has_type_at_index
-            {
-            private:
-                typedef
-                typename std::tuple_element< Index, Tuple >::type
-                searched_type;
-  
-            public:
-                enum
-                {
-                    value =
-                      iscool::meta::combine_or
-                      <
-                          std::is_same
-                          <
-                              searched_type,
-                              typename std::tuple_element< Index, Mask >::type
-                          >::value...
-                      >::value
-                };
-            };
+      template <std::size_t Index, typename Tuple, typename... Mask>
+      struct any_tuple_has_type_at_index
+      {
+      private:
+        typedef typename std::tuple_element<Index, Tuple>::type searched_type;
 
-            template< std::size_t Index, typename Tuple >
-            struct any_tuple_has_type_at_index< Index, Tuple >
-            {
-            public:
-                enum
-                {
-                    value = false
-                };
-            };
-        }
+      public:
+        enum
+        {
+          value = iscool::meta::combine_or < std::is_same < searched_type,
+          typename std::tuple_element < Index,
+          Mask > ::type > ::value... > ::value
+        };
+      };
+
+      template <std::size_t Index, typename Tuple>
+      struct any_tuple_has_type_at_index<Index, Tuple>
+      {
+      public:
+        enum
+        {
+          value = false
+        };
+      };
     }
+  }
 }
 
 #include "iscool/signals/detail/any_tuple_has_type_at_index.tests.h"

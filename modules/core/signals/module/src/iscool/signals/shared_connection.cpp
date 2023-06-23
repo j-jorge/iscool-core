@@ -16,47 +16,43 @@
 #include "iscool/signals/shared_connection.h"
 
 iscool::signals::shared_connection::shared_connection()
-    : _connection( nullptr )
-{
+  : _connection(nullptr)
+{}
 
-}
-
-iscool::signals::shared_connection::shared_connection( const connection& c )
-    : _connection( std::make_shared< scoped_connection >( c ) )
-{
-
-}
+iscool::signals::shared_connection::shared_connection(const connection& c)
+  : _connection(std::make_shared<scoped_connection>(c))
+{}
 
 iscool::signals::shared_connection::~shared_connection() = default;
 
 bool iscool::signals::shared_connection::connected() const
 {
-    return ( _connection != nullptr ) && _connection->connected();
+  return (_connection != nullptr) && _connection->connected();
 }
 
 void iscool::signals::shared_connection::disconnect()
 {
-    if ( _connection == nullptr )
-        return;
+  if (_connection == nullptr)
+    return;
 
-    _connection->disconnect();
-    _connection = nullptr;
+  _connection->disconnect();
+  _connection = nullptr;
 }
 
-bool iscool::signals::shared_connection::operator==
-( const shared_connection& that ) const
+bool iscool::signals::shared_connection::operator==(
+    const shared_connection& that) const
 {
-    if ( ( _connection == nullptr ) && ( that._connection == nullptr ) )
-        return true;
+  if ((_connection == nullptr) && (that._connection == nullptr))
+    return true;
 
-    if ( ( _connection == nullptr ) || ( that._connection == nullptr ) )
-        return false;
+  if ((_connection == nullptr) || (that._connection == nullptr))
+    return false;
 
-    return *_connection == *that._connection;
+  return *_connection == *that._connection;
 }
 
-bool iscool::signals::shared_connection::operator!=
-( const shared_connection& that ) const
+bool iscool::signals::shared_connection::operator!=(
+    const shared_connection& that) const
 {
-    return !( *this == that );
+  return !(*this == that);
 }

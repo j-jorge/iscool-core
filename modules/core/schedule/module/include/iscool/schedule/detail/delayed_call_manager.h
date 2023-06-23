@@ -28,73 +28,64 @@
 
 namespace iscool
 {
-    namespace schedule
+  namespace schedule
+  {
+    namespace detail
     {
-        namespace detail
-        {
-            class delayed_call_manager
-            {
-            public:
-                typedef std::chrono::nanoseconds duration;
+      class delayed_call_manager
+      {
+      public:
+        typedef std::chrono::nanoseconds duration;
 
-            public:
-                explicit delayed_call_manager( std::size_t pool_size );
+      public:
+        explicit delayed_call_manager(std::size_t pool_size);
 
-                iscool::signals::connection
-                schedule_call
-                ( iscool::signals::void_signal_function f, duration delay);
+        iscool::signals::connection
+        schedule_call(iscool::signals::void_signal_function f, duration delay);
 
-                iscool::signals::connection
-                schedule_call
-                ( iscool::signals::void_signal_function f,
-                  short_call_policy policy );
+        iscool::signals::connection
+        schedule_call(iscool::signals::void_signal_function f,
+                      short_call_policy policy);
 
-                void clear();
+        void clear();
 
-            private:
-                typedef
-                iscool::memory::dynamic_pool
-                <
-                    iscool::signals::void_signal,
-                    iscool::memory::pool_signal_traits
-                    <
-                        iscool::signals::void_signal
-                    >
-                >
-                pool_type;
+      private:
+        typedef iscool::memory::dynamic_pool<
+            iscool::signals::void_signal,
+            iscool::memory::pool_signal_traits<iscool::signals::void_signal>>
+            pool_type;
 
-            private:
-                iscool::signals::connection
-                schedule_cumulated( iscool::signals::void_signal_function f );
+      private:
+        iscool::signals::connection
+        schedule_cumulated(iscool::signals::void_signal_function f);
 
-                iscool::signals::connection
-                schedule_non_cumulated
-                ( iscool::signals::void_signal_function f );
+        iscool::signals::connection
+        schedule_non_cumulated(iscool::signals::void_signal_function f);
 
-                iscool::signals::connection
-                schedule_delayed
-                ( iscool::signals::void_signal_function f, duration delay );
+        iscool::signals::connection
+        schedule_delayed(iscool::signals::void_signal_function f,
+                         duration delay);
 
-                void schedule_client( std::size_t id, duration delay );
-                void schedule_client_cumulated();
-                void schedule_client_non_cumulated();
+        void schedule_client(std::size_t id, duration delay);
+        void schedule_client_cumulated();
+        void schedule_client_non_cumulated();
 
-                void trigger( std::size_t id, duration expected_date );
-                void trigger_cumulated();
-                void trigger_non_cumulated();
+        void trigger(std::size_t id, duration expected_date);
+        void trigger_cumulated();
+        void trigger_non_cumulated();
 
-            private:
-                iscool::signals::void_signal _short_call_cumulated;
-                iscool::signals::void_signal _short_call_non_cumulated;
-                pool_type _pool;
+      private:
+        iscool::signals::void_signal _short_call_cumulated;
+        iscool::signals::void_signal _short_call_non_cumulated;
+        pool_type _pool;
 
-                bool _client_guard;
-                bool _in_cumulated_loop;
+        bool _client_guard;
+        bool _in_cumulated_loop;
 
-                std::recursive_mutex _mutex;
-            };
-        }
+        std::recursive_mutex _mutex;
+      };
     }
+  }
 }
 
 #endif

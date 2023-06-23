@@ -16,32 +16,31 @@
 #ifndef ISCOOL_RANDOM_RANDOMQUEUE_H
 #define ISCOOL_RANDOM_RANDOMQUEUE_H
 
-#include <vector>
 #include <deque>
-
+#include <vector>
 
 namespace iscool
 {
-    namespace random
+  namespace random
+  {
+    template <typename T>
+    class random_queue
     {
-        template<typename T>
-        class random_queue
-        {
-        public:
-            typedef T value_type;
+    public:
+      typedef T value_type;
 
-        public:
-            void insert( const value_type& value );
-            value_type next();
+    public:
+      void insert(const value_type& value);
+      value_type next();
 
-        private:
-            void shuffle_next();
+    private:
+      void shuffle_next();
 
-        private:
-            std::deque< value_type > _next;
-            std::vector< value_type > _domain;
-        };
-    }
+    private:
+      std::deque<value_type> _next;
+      std::vector<value_type> _domain;
+    };
+  }
 }
 
 #include "iscool/random/random_queue.tpp"

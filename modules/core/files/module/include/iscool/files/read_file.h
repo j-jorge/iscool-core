@@ -16,16 +16,16 @@
 #ifndef ISCOOL_FILES_READ_FILE_H
 #define ISCOOL_FILES_READ_FILE_H
 
-#include <memory>
 #include <iostream>
+#include <memory>
 #include <string>
 
 namespace iscool
 {
-    namespace files
-    {
-        std::unique_ptr< std::istream > read_file( const std::string& path );
-    }
+  namespace files
+  {
+    std::unique_ptr<std::istream> read_file(const std::string& path);
+  }
 }
 
 #endif

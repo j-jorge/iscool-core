@@ -22,29 +22,28 @@
 
 namespace iscool
 {
-    namespace jni
+  namespace jni
+  {
+    enum class native_callback_lifespan;
+
+    class scoped_native_callback
     {
-        enum class native_callback_lifespan;
+    public:
+      template <typename... Args>
+      explicit scoped_native_callback(const std::function<void(Args...)>& f);
 
-        class scoped_native_callback
-        {
-        public:
-            template< typename... Args >
-            explicit scoped_native_callback
-            ( const std::function< void( Args... ) >& f );
+      ~scoped_native_callback();
 
-            ~scoped_native_callback();
+      jlong get_id() const;
 
-            jlong get_id() const;
+      scoped_native_callback(const scoped_native_callback&) = delete;
+      scoped_native_callback&
+      operator=(const scoped_native_callback&) = delete;
 
-            scoped_native_callback( const scoped_native_callback& ) = delete;
-            scoped_native_callback& operator=
-            ( const scoped_native_callback& ) = delete;
-
-        private:
-            const jlong _id;
-        };
-    }
+    private:
+      const jlong _id;
+    };
+  }
 }
 
 #include "iscool/jni/detail/scoped_native_callback.tpp"

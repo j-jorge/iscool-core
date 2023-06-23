@@ -20,13 +20,12 @@
 
 namespace iscool
 {
-    namespace test
-    {
-        template< typename LeftContainer, typename RightContainer >
-        void assert_equal_collections
-        ( LeftContainer left, RightContainer right,
-          const std::string& message = std::string() );
-    }
+  namespace test
+  {
+    template <typename LeftContainer, typename RightContainer>
+    void assert_equal_collections(LeftContainer left, RightContainer right,
+                                  const std::string& message = std::string());
+  }
 }
 
 #include "iscool/test/detail/equal_collections.tpp"

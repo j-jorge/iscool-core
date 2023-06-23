@@ -21,21 +21,21 @@
 
 void iscool::log::initialize()
 {
-    // Nothing to do.
+  // Nothing to do.
 }
 
 void iscool::log::finalize()
 {
-    detail::stop_logger_thread();
-    detail::get_message_dispatcher().clear();
+  detail::stop_logger_thread();
+  detail::get_message_dispatcher().clear();
 }
 
 iscool::log::scoped_initializer::scoped_initializer()
 {
-    initialize();
+  initialize();
 }
 
 iscool::log::scoped_initializer::~scoped_initializer()
 {
-    finalize();
+  finalize();
 }

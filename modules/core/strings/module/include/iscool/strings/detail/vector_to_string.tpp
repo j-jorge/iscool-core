@@ -18,24 +18,24 @@
 
 #include <sstream>
 
-template< typename T >
-std::string
-iscool::strings::vector_to_string( const std::vector< T >& v, char separator )
+template <typename T>
+std::string iscool::strings::vector_to_string(const std::vector<T>& v,
+                                              char separator)
 {
-    if ( v.empty() )
-        return "";
-    
-    std::ostringstream oss;
+  if (v.empty())
+    return "";
 
-    typename std::vector< T >::const_iterator it( v.begin() );
-    typename std::vector< T >::const_iterator eit( v.end() );
-    
-    oss << *it;
+  std::ostringstream oss;
 
-    for( ++it; it != eit; ++it )
-        oss << separator << *it;
+  typename std::vector<T>::const_iterator it(v.begin());
+  typename std::vector<T>::const_iterator eit(v.end());
 
-    return oss.str();
+  oss << *it;
+
+  for (++it; it != eit; ++it)
+    oss << separator << *it;
+
+  return oss.str();
 }
 
 #endif

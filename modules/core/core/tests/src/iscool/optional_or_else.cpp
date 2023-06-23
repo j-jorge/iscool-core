@@ -17,15 +17,14 @@
 
 #include <gtest/gtest.h>
 
-TEST( iscool_optional_or_else, default )
+TEST(iscool_optional_or_else, default)
 {
-    iscool::optional< int > value;
-    EXPECT_EQ( 35, iscool::optional_or_else( value, 35 ) );
+  iscool::optional<int> value;
+  EXPECT_EQ(35, iscool::optional_or_else(value, 35));
 }
 
-TEST( iscool_optional_or_else, value )
+TEST(iscool_optional_or_else, value)
 {
-    iscool::optional< int > value( 85 );
-    EXPECT_EQ( 85, iscool::optional_or_else( value, 35 ) );
+  iscool::optional<int> value(85);
+  EXPECT_EQ(85, iscool::optional_or_else(value, 35));
 }
-

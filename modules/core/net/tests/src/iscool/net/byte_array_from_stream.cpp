@@ -19,24 +19,22 @@
 
 #include <gtest/gtest.h>
 
-TEST( byte_array_from_stream, result )
+TEST(byte_array_from_stream, result)
 {
-    const char bytes[] =
-        { 0x01, 0x02, 0x03, 0x04, 0x05, 0x06, 0x07, 0x08, 0 };
+  const char bytes[] = { 0x01, 0x02, 0x03, 0x04, 0x05, 0x06, 0x07, 0x08, 0 };
 
-    std::istringstream stream( bytes );
-    
-    const iscool::net::byte_array array
-        ( iscool::net::byte_array_from_stream( stream ) );
+  std::istringstream stream(bytes);
 
-    EXPECT_EQ( 8ull, array.size() );
-    EXPECT_EQ( 0x01, array[ 0 ] );
-    EXPECT_EQ( 0x02, array[ 1 ] );
-    EXPECT_EQ( 0x03, array[ 2 ] );
-    EXPECT_EQ( 0x04, array[ 3 ] );
-    EXPECT_EQ( 0x05, array[ 4 ] );
-    EXPECT_EQ( 0x06, array[ 5 ] );
-    EXPECT_EQ( 0x07, array[ 6 ] );
-    EXPECT_EQ( 0x08, array[ 7 ] );
+  const iscool::net::byte_array array(
+      iscool::net::byte_array_from_stream(stream));
+
+  EXPECT_EQ(8ull, array.size());
+  EXPECT_EQ(0x01, array[0]);
+  EXPECT_EQ(0x02, array[1]);
+  EXPECT_EQ(0x03, array[2]);
+  EXPECT_EQ(0x04, array[3]);
+  EXPECT_EQ(0x05, array[4]);
+  EXPECT_EQ(0x06, array[5]);
+  EXPECT_EQ(0x07, array[6]);
+  EXPECT_EQ(0x08, array[7]);
 }
-

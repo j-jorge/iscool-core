@@ -16,10 +16,10 @@
 #ifndef ISCOOL_FUNCTIONAL_IDENTITY_TPP
 #define ISCOOL_FUNCTIONAL_IDENTITY_TPP
 
-template< typename T >
-const T& iscool::functional::identity< T >::operator()( const T& value ) const
+template <typename T>
+const T& iscool::functional::identity<T>::operator()(const T& value) const
 {
-    return value;
+  return value;
 }
 
 #endif

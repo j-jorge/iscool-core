@@ -15,23 +15,22 @@
 */
 #include "iscool/jni/detail/get_static_method_info.h"
 
+#include "iscool/jni/detail/get_jni_env.h"
 #include "iscool/jni/get_class.h"
 #include "iscool/jni/method_not_found.h"
-#include "iscool/jni/detail/get_jni_env.h"
 
-iscool::jni::detail::method_info iscool::jni::detail::get_static_method_info
-( const char* class_name, const char* method_name, const char* signature )
+iscool::jni::detail::method_info iscool::jni::detail::get_static_method_info(
+    const char* class_name, const char* method_name, const char* signature)
 {
-    JNIEnv* const env( detail::get_jni_env() );
+  JNIEnv* const env(detail::get_jni_env());
 
-    const java_ptr< jclass > class_id( get_class( class_name ) );
-    const jmethodID method_id
-        ( env->GetStaticMethodID( class_id.get(), method_name, signature ) );
+  const java_ptr<jclass> class_id(get_class(class_name));
+  const jmethodID method_id(
+      env->GetStaticMethodID(class_id.get(), method_name, signature));
 
-    if ( !method_id )
-        throw method_not_found
-            ( std::string( "static method not found: " ) + class_name + "."
-              + method_name + signature );
+  if (!method_id)
+    throw method_not_found(std::string("static method not found: ")
+                           + class_name + "." + method_name + signature);
 
-    return method_info{ env, class_id, method_id };
+  return method_info{ env, class_id, method_id };
 }

@@ -21,7 +21,7 @@
 
 JNIEnv* iscool::jni::get_jni_env()
 {
-    assert( detail::get_jni_env );
+  assert(detail::get_jni_env);
 
-    return detail::get_jni_env();
+  return detail::get_jni_env();
 }

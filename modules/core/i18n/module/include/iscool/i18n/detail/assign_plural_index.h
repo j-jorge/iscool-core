@@ -20,13 +20,13 @@
 
 namespace iscool
 {
-    namespace i18n
+  namespace i18n
+  {
+    namespace detail
     {
-        namespace detail
-        {
-            void assign_plural_index( const std::string& language_code );
-        }
+      void assign_plural_index(const std::string& language_code);
     }
+  }
 }
 
 #endif

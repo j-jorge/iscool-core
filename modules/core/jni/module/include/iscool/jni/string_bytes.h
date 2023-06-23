@@ -22,10 +22,10 @@
 
 namespace iscool
 {
-    namespace jni
-    {
-        java_ptr< jbyteArray > string_bytes( const std::string& str );
-    }
+  namespace jni
+  {
+    java_ptr<jbyteArray> string_bytes(const std::string& str);
+  }
 }
 
 #endif

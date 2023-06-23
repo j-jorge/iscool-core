@@ -21,13 +21,12 @@
 
 #include <tuple>
 
-#define ic_any_detail_function_call_operator( r, data, i, type )        \
-    void operator()( const type& );
+#define ic_any_detail_function_call_operator(r, data, i, type)                \
+  void operator()(const type&);
 
-#define ic_any_declare_visitor_interface( types )                             \
-    typedef std::tuple< BOOST_PP_SEQ_ENUM( types ) > supported_types;         \
-    BOOST_PP_SEQ_FOR_EACH_I( ic_any_detail_function_call_operator, _, types ) \
-    void visit( std::size_t type_id, void* value )                            \
+#define ic_any_declare_visitor_interface(types)                               \
+  typedef std::tuple<BOOST_PP_SEQ_ENUM(types)> supported_types;               \
+  BOOST_PP_SEQ_FOR_EACH_I(ic_any_detail_function_call_operator, _, types)     \
+  void visit(std::size_t type_id, void* value)
 
 #endif
-

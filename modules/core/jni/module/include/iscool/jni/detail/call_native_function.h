@@ -20,16 +20,15 @@
 
 namespace iscool
 {
-    namespace jni
+  namespace jni
+  {
+    namespace detail
     {
-        namespace detail
-        {
-            template< typename... Arg >
-            void call_native_function
-            ( const std::function< void( Arg... ) >& f,
-              const java_ptr< jobjectArray >& arguments );
-        }
+      template <typename... Arg>
+      void call_native_function(const std::function<void(Arg...)>& f,
+                                const java_ptr<jobjectArray>& arguments);
     }
+  }
 }
 
 #include "iscool/jni/detail/call_native_function.tpp"

@@ -15,9 +15,9 @@
 */
 #include "iscool/style/detail/get_style_cache.h"
 
-std::unordered_map< std::string, iscool::style::declaration >&
+std::unordered_map<std::string, iscool::style::declaration>&
 iscool::style::detail::get_style_cache()
 {
-    static std::unordered_map< std::string, declaration > result;
-    return result;
+  static std::unordered_map<std::string, declaration> result;
+  return result;
 }

@@ -13,26 +13,26 @@
   See the License for the specific language governing permissions and
   limitations under the License.
 */
-#include "iscool/factory/dynamic_factory.h"
 #include "iscool/factory/dynamic_factory_registrar.h"
+#include "iscool/factory/dynamic_factory.h"
 #include "iscool/factory/dynamic_factory.impl.tpp"
 
 #include "iscool/test/debug_crash.h"
 
 #include <gtest/gtest.h>
 
-TEST( iscool_factory_dynamic_factory_registrar, constructor )
+TEST(iscool_factory_dynamic_factory_registrar, constructor)
 {
-    const auto factory_function
-        ( []() -> int
-          {
-              return 10;
-          } );
+  const auto factory_function(
+      []() -> int
+      {
+        return 10;
+      });
 
-    iscool::factory::dynamic_factory< int > factory;
-    iscool::factory::dynamic_factory_registrar< int > registrar
-        ( factory, "10", factory_function );
-    
-    EXPECT_EQ( 10, factory.create_by_typename( "10" ) );
-    EXPECT_DEBUG_CRASH( factory.create_by_typename( "b" ) );
+  iscool::factory::dynamic_factory<int> factory;
+  iscool::factory::dynamic_factory_registrar<int> registrar(factory, "10",
+                                                            factory_function);
+
+  EXPECT_EQ(10, factory.create_by_typename("10"));
+  EXPECT_DEBUG_CRASH(factory.create_by_typename("b"));
 }

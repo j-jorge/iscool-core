@@ -15,123 +15,118 @@
 */
 #include "iscool/http/mockup.h"
 
-#include "iscool/none.h"
 #include "iscool/files/get_full_path.h"
 #include "iscool/files/read_file.h"
 #include "iscool/json/from_file.h"
 #include "iscool/json/is_member.h"
+#include "iscool/none.h"
 
 #include <boost/algorithm/string/classification.hpp>
 #include <boost/algorithm/string/split.hpp>
 
 namespace iscool
 {
-    namespace http
+  namespace http
+  {
+    namespace detail
     {
-        namespace detail
-        {
-            static iscool::optional< std::vector< char > >
-            get_predefined_response
-            ( const Json::Value& responses, const std::string& url );
-            
-            static iscool::optional< std::vector< char > >
-            get_file_content( const std::string& path );
-        }
+      static iscool::optional<std::vector<char>>
+      get_predefined_response(const Json::Value& responses,
+                              const std::string& url);
+
+      static iscool::optional<std::vector<char>>
+      get_file_content(const std::string& path);
     }
+  }
 }
 
 iscool::http::mockup::mockup()
-    : _enabled( false )
-{
+  : _enabled(false)
+{}
 
-}
-
-void iscool::http::mockup::set_enabled( bool enabled )
+void iscool::http::mockup::set_enabled(bool enabled)
 {
-    _enabled = true;
+  _enabled = true;
 }
 
 bool iscool::http::mockup::is_enabled() const
 {
-    return _enabled;
-}
-    
-void iscool::http::mockup::add_predefined_responses
-( const std::string& path )
-{
-    _responses.push_back( path );
+  return _enabled;
 }
 
-iscool::optional< std::vector< char > >
-iscool::http::mockup::get_predefined_response
-( const std::string& url ) const
+void iscool::http::mockup::add_predefined_responses(const std::string& path)
 {
-    const auto end( _responses.rend() );
+  _responses.push_back(path);
+}
 
-    for ( auto it( _responses.rbegin() ); it != end; ++it )
+iscool::optional<std::vector<char>>
+iscool::http::mockup::get_predefined_response(const std::string& url) const
+{
+  const auto end(_responses.rend());
+
+  for (auto it(_responses.rbegin()); it != end; ++it)
     {
-        const iscool::optional< std::vector< char > > result
-            ( detail::get_predefined_response
-              ( iscool::json::from_file( *it ), url ) );
+      const iscool::optional<std::vector<char>> result(
+          detail::get_predefined_response(iscool::json::from_file(*it), url));
 
-        if ( result )
-            return result;
+      if (result)
+        return result;
     }
 
-    return iscool::none;
+  return iscool::none;
 }
 
-iscool::optional< std::vector< char > >
-iscool::http::detail::get_predefined_response
-( const Json::Value& responses, const std::string& url )
+iscool::optional<std::vector<char>>
+iscool::http::detail::get_predefined_response(const Json::Value& responses,
+                                              const std::string& url)
 {
-    std::string clean_url( url );
-    const std::string::size_type separator( clean_url.find_first_of( '?' ) );
+  std::string clean_url(url);
+  const std::string::size_type separator(clean_url.find_first_of('?'));
 
-    if ( separator != std::string::npos )
-        clean_url.erase( clean_url.begin() + separator, clean_url.end() );
-    
-    std::vector< std::string > path;
-    boost::split
-        ( path, clean_url, boost::is_any_of( "/" ), boost::token_compress_on );
+  if (separator != std::string::npos)
+    clean_url.erase(clean_url.begin() + separator, clean_url.end());
 
-    const std::size_t count( path.size() );
-    assert( count >= 3 );
+  std::vector<std::string> path;
+  boost::split(path, clean_url, boost::is_any_of("/"),
+               boost::token_compress_on);
 
-    Json::Value candidate( responses );
-    
-    for( std::size_t i( 1 ); i != count; ++i )
+  const std::size_t count(path.size());
+  assert(count >= 3);
+
+  Json::Value candidate(responses);
+
+  for (std::size_t i(1); i != count; ++i)
     {
-        const std::string& p( path[ i ] );
+      const std::string& p(path[i]);
 
-        assert( candidate.isObject() );
-        
-        if ( iscool::json::is_member( p, candidate ) )
-            candidate = candidate[ p ];
-        else
-            return iscool::none;
-    }
+      assert(candidate.isObject());
 
-    assert( candidate.isString() );
-    return detail::get_file_content( candidate.asString() );
-}
-
-iscool::optional< std::vector< char > >
-iscool::http::detail::get_file_content( const std::string& path )
-{
-    const std::unique_ptr< std::istream > content
-        ( iscool::files::read_file( iscool::files::get_full_path( path ) ) );
-
-    if ( ( content == nullptr ) || !(*content) )
+      if (iscool::json::is_member(p, candidate))
+        candidate = candidate[p];
+      else
         return iscool::none;
-    
-    content->seekg( 0, std::ios_base::end );
-    const std::streampos size( content->tellg() );
+    }
 
-    std::vector< char > result( size );
+  assert(candidate.isString());
+  return detail::get_file_content(candidate.asString());
+}
 
-    content->seekg( 0, std::ios_base::beg );
-    content->read( &result[ 0 ], size );
+iscool::optional<std::vector<char>>
+iscool::http::detail::get_file_content(const std::string& path)
+{
+  const std::unique_ptr<std::istream> content(
+      iscool::files::read_file(iscool::files::get_full_path(path)));
 
-    return result;
+  if ((content == nullptr) || !(*content))
+    return iscool::none;
+
+  content->seekg(0, std::ios_base::end);
+  const std::streampos size(content->tellg());
+
+  std::vector<char> result(size);
+
+  content->seekg(0, std::ios_base::beg);
+  content->read(&result[0], size);
+
+  return result;
 }

@@ -17,49 +17,44 @@
 
 iscool::net::message::message() = default;
 
-iscool::net::message::message( message_type type, const byte_array& content )
-    : message( type, 0, 0, content )
+iscool::net::message::message(message_type type, const byte_array& content)
+  : message(type, 0, 0, content)
+{}
+
+iscool::net::message::message(message_type type, session_id session,
+                              channel_id channel, const byte_array& content)
+  : _type(type)
+  , _session_id(session)
+  , _channel_id(channel)
+  , _content(content)
+{}
+
+void iscool::net::message::set_session_id(session_id session_id)
 {
-
-}
-
-iscool::net::message::message
-( message_type type, session_id session, channel_id channel,
-  const byte_array& content )
-    : _type( type ),
-      _session_id( session ),
-      _channel_id( channel ),
-      _content( content )
-{
-
-}
-
-void iscool::net::message::set_session_id( session_id session_id )
-{
-    _session_id = session_id;
+  _session_id = session_id;
 }
 
 iscool::net::session_id iscool::net::message::get_session_id() const
 {
-    return _session_id;
+  return _session_id;
 }
 
-void iscool::net::message::set_channel_id( channel_id channel_id )
+void iscool::net::message::set_channel_id(channel_id channel_id)
 {
-    _channel_id = channel_id;
+  _channel_id = channel_id;
 }
 
 iscool::net::channel_id iscool::net::message::get_channel_id() const
 {
-    return _channel_id;
+  return _channel_id;
 }
 
 iscool::net::message_type iscool::net::message::get_type() const
 {
-    return _type;
+  return _type;
 }
 
 const iscool::net::byte_array& iscool::net::message::get_content() const
 {
-    return _content;
+  return _content;
 }

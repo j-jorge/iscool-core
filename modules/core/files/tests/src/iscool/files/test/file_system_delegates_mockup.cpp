@@ -19,63 +19,59 @@
 
 #include <fstream>
 
-iscool::files::test::file_system_delegates_mockup::file_system_delegates_mockup
-()
-    : read_file_impl
-      ( []( const std::string& path ) -> std::unique_ptr< std::istream >
+iscool::files::test::file_system_delegates_mockup::
+    file_system_delegates_mockup()
+  : read_file_impl(
+      [](const std::string& path) -> std::unique_ptr<std::istream>
+      {
+        return std::unique_ptr<std::istream>(new std::ifstream(path));
+      })
+  , get_writable_path_impl(
+        []() -> std::string
         {
-            return std::unique_ptr< std::istream >( new std::ifstream( path ) );
-        } ),
-      get_writable_path_impl
-      ( []() -> std::string
+          return std::filesystem::temp_directory_path().string();
+        })
+  , file_exists_impl(
+        [](const std::string& path) -> bool
         {
-            return std::filesystem::temp_directory_path().string();
-        } ),
-      file_exists_impl
-      ( []( const std::string& path ) -> bool
+          const std::ifstream check(path);
+          return check.good();
+        })
+  , get_full_path_impl(
+        [](const std::string& path) -> std::string
         {
-            const std::ifstream check( path );
-            return check.good();
-        } ),
-      get_full_path_impl
-      ( []( const std::string& path ) -> std::string
-        {
-            return path;
-        } )
+          return path;
+        })
+{}
+
+std::unique_ptr<std::istream>
+iscool::files::test::file_system_delegates_mockup::read_file(
+    const std::string& path) const
 {
-
-}
-
-
-std::unique_ptr< std::istream >
-iscool::files::test::file_system_delegates_mockup::read_file
-( const std::string& path ) const
-{
-    return read_file_impl( path );
+  return read_file_impl(path);
 }
 
 std::string
 iscool::files::test::file_system_delegates_mockup::get_writable_path() const
 {
-    return get_writable_path_impl();
+  return get_writable_path_impl();
 }
 
-bool iscool::files::test::file_system_delegates_mockup::file_exists
-( const std::string& path ) const
+bool iscool::files::test::file_system_delegates_mockup::file_exists(
+    const std::string& path) const
 {
-    return file_exists_impl( path );
+  return file_exists_impl(path);
 }
 
-std::string
-iscool::files::test::file_system_delegates_mockup::get_full_path
-( const std::string& path ) const
+std::string iscool::files::test::file_system_delegates_mockup::get_full_path(
+    const std::string& path) const
 {
-    return get_full_path_impl( path );
+  return get_full_path_impl(path);
 }
 
 const iscool::files::file_system_delegates&
 iscool::files::test::default_file_system_delegates_mockup()
 {
-    static const file_system_delegates_mockup result;
-    return result;
+  static const file_system_delegates_mockup result;
+  return result;
 }

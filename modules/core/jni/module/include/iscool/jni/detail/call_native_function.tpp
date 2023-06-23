@@ -20,17 +20,13 @@
 
 #include "iscool/meta/make_indices.h"
 
-template< typename... Arg >
-void iscool::jni::detail::call_native_function
-( const std::function< void( Arg... ) >& f,
-  const java_ptr< jobjectArray >& arguments )
+template <typename... Arg>
+void iscool::jni::detail::call_native_function(
+    const std::function<void(Arg...)>& f,
+    const java_ptr<jobjectArray>& arguments)
 {
-    native_call_helper
-        <
-          std::tuple< Arg... >,
-          typename meta::make_indices< sizeof...( Arg ) >::type
-        >::call
-        ( f, arguments );
+  native_call_helper<std::tuple<Arg...>, typename meta::make_indices<sizeof...(
+                                             Arg)>::type>::call(f, arguments);
 }
 
 #endif

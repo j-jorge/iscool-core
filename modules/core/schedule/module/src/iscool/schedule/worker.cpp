@@ -17,87 +17,83 @@
 
 #include "iscool/schedule/delayed_call.h"
 
-
 iscool::schedule::worker::~worker()
 {
-    clear();
+  clear();
 }
 
-iscool::signals::connection
-iscool::schedule::worker::connect_to_complete
-( iscool::signals::void_signal_function f )
+iscool::signals::connection iscool::schedule::worker::connect_to_complete(
+    iscool::signals::void_signal_function f)
 {
-    assert( _task != nullptr );
-    return _task->connect_to_complete( f );
+  assert(_task != nullptr);
+  return _task->connect_to_complete(f);
 }
 
-iscool::schedule::worker::worker( task_pointer task )
-    : _task{ std::move( task ) }
+iscool::schedule::worker::worker(task_pointer task)
+  : _task{ std::move(task) }
 {
-    _update_connection =
-        iscool::schedule::delayed_call
-        ( std::bind( &iscool::schedule::worker::start_task, this ) );
-    _complete_connection =
-        _task->connect_to_complete
-        ( std::bind( &iscool::schedule::worker::complete_task, this ) );
+  _update_connection = iscool::schedule::delayed_call(
+      std::bind(&iscool::schedule::worker::start_task, this));
+  _complete_connection = _task->connect_to_complete(
+      std::bind(&iscool::schedule::worker::complete_task, this));
 }
 
 void iscool::schedule::worker::start_task()
 {
-    _update_connection.disconnect();
-    
-    task_pointer task( _task );
-    task->start();
-    
-    if ( task->is_running() )
-        schedule_next_update();
+  _update_connection.disconnect();
+
+  task_pointer task(_task);
+  task->start();
+
+  if (task->is_running())
+    schedule_next_update();
 }
 
 void iscool::schedule::worker::update_task()
 {
-    assert( _task != nullptr );
+  assert(_task != nullptr);
 
-    _update_connection.disconnect();
+  _update_connection.disconnect();
 
-    task_pointer task( _task );
-    task->update();
+  task_pointer task(_task);
+  task->update();
 
-    if ( !task->is_running() )
-        return;
+  if (!task->is_running())
+    return;
 
-    schedule_next_update();
+  schedule_next_update();
 }
 
 void iscool::schedule::worker::complete_task()
 {
-    _update_connection.disconnect();
+  _update_connection.disconnect();
 }
 
 void iscool::schedule::worker::schedule_next_update()
 {
-    assert( !_update_connection.connected() );
-    
-    const std::chrono::milliseconds update_interval
-        { _task->get_update_interval() };
+  assert(!_update_connection.connected());
 
-    if ( update_interval == task::no_update_interval )
-        return;
+  const std::chrono::milliseconds update_interval{
+    _task->get_update_interval()
+  };
 
-    _update_connection =
-        iscool::schedule::delayed_call
-        ( std::bind( &iscool::schedule::worker::update_task, this ),
-          update_interval );
+  if (update_interval == task::no_update_interval)
+    return;
+
+  _update_connection = iscool::schedule::delayed_call(
+      std::bind(&iscool::schedule::worker::update_task, this),
+      update_interval);
 }
 
 void iscool::schedule::worker::clear()
 {
-    assert( _task != nullptr );
+  assert(_task != nullptr);
 
-    if ( _task->is_running() )
+  if (_task->is_running())
     {
-        _task->abort();
-        _task = nullptr;
+      _task->abort();
+      _task = nullptr;
     }
 
-    _update_connection.disconnect();
+  _update_connection.disconnect();
 }

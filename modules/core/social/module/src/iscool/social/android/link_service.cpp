@@ -19,22 +19,20 @@
 #include "iscool/jni/static_method_void.h"
 #include "iscool/jni/string_bytes.h"
 
-void iscool::social::android::link_service::open_in_facebook
-( const std::string& page )
+void iscool::social::android::link_service::open_in_facebook(
+    const std::string& page)
 {
-    const jni::static_method< void > method
-        ( jni::get_static_method< void >
-          ( "iscool/social/LinkService", "openInFacebook", "([B)V" ) );
+  const jni::static_method<void> method(jni::get_static_method<void>(
+      "iscool/social/LinkService", "openInFacebook", "([B)V"));
 
-    method( jni::string_bytes( page ) );
+  method(jni::string_bytes(page));
 }
 
-void iscool::social::android::link_service::open_in_twitter
-( const std::string& page )
+void iscool::social::android::link_service::open_in_twitter(
+    const std::string& page)
 {
-    const jni::static_method< void > method
-        ( jni::get_static_method< void >
-          ( "iscool/social/LinkService", "openInTwitter", "([B)V" ) );
+  const jni::static_method<void> method(jni::get_static_method<void>(
+      "iscool/social/LinkService", "openInTwitter", "([B)V"));
 
-    method( jni::string_bytes( page ) );
+  method(jni::string_bytes(page));
 }

@@ -20,12 +20,11 @@
 
 namespace iscool
 {
-    namespace collections
-    {
-        template< typename T, typename... Arg >
-        std::array< T, sizeof...( Arg ) + 1 >
-        make_array( T head, Arg... arg );
-    }
+  namespace collections
+  {
+    template <typename T, typename... Arg>
+    std::array<T, sizeof...(Arg) + 1> make_array(T head, Arg... arg);
+  }
 }
 
 #include "iscool/collections/detail/make_array.tpp"

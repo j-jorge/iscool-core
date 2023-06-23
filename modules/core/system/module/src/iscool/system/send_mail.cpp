@@ -17,12 +17,11 @@
 
 #include "iscool/log/console_log.h"
 
-void iscool::system::send_mail
-( const std::string& address, const std::string& subject,
-  const std::string& body )
+void iscool::system::send_mail(const std::string& address,
+                               const std::string& subject,
+                               const std::string& body)
 {
-    ic_console_log
-        ( "iscool::system",
-          "Send mail to %1%, subject='%2%', body follows:\n%3%.",
-          address, subject, body );
+  ic_console_log("iscool::system",
+                 "Send mail to %1%, subject='%2%', body follows:\n%3%.",
+                 address, subject, body);
 }

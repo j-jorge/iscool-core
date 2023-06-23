@@ -16,10 +16,10 @@
 #ifndef ISCOOL_JSON_IS_OF_TYPE_UINT_H
 #define ISCOOL_JSON_IS_OF_TYPE_UINT_H
 
-#include "iscool/json/is_of_type.h"
 #include "iscool/json/declare_is_of_type.h"
 #include "iscool/json/detail/cast_uint.h"
+#include "iscool/json/is_of_type.h"
 
-DECLARE_JSON_IS_OF_TYPE( unsigned int );
+DECLARE_JSON_IS_OF_TYPE(unsigned int);
 
 #endif

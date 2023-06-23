@@ -18,13 +18,14 @@
 
 #include "iscool/jni/detail/get_method_info.h"
 
-template< typename R >
-iscool::jni::method< R > iscool::jni::get_method
-( const char* class_name, const char* method_name, const char* signature )
+template <typename R>
+iscool::jni::method<R> iscool::jni::get_method(const char* class_name,
+                                               const char* method_name,
+                                               const char* signature)
 {
-    const detail::method_info m
-        ( detail::get_method_info( class_name, method_name, signature ) );
-    return method< R >( m.env, m.method_id );
+  const detail::method_info m(
+      detail::get_method_info(class_name, method_name, signature));
+  return method<R>(m.env, m.method_id);
 }
 
 #endif

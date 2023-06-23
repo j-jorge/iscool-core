@@ -16,19 +16,17 @@
 #ifndef ISCOOL_CONTAINERS_DETAIL_HETEROGENEOUS_MAP_CLEAR_TPP
 #define ISCOOL_CONTAINERS_DETAIL_HETEROGENEOUS_MAP_CLEAR_TPP
 
-template< typename T >
-void iscool::containers::detail::heterogeneous_map_clear< 0 >::run( T )
-{
-    
-}
+template <typename T>
+void iscool::containers::detail::heterogeneous_map_clear<0>::run(T)
+{}
 
-template< std::size_t N >
-template< typename Key, typename... T >
-void iscool::containers::detail::heterogeneous_map_clear< N >::run
-( std::tuple< std::unordered_map< Key, T >... >& maps )
+template <std::size_t N>
+template <typename Key, typename... T>
+void iscool::containers::detail::heterogeneous_map_clear<N>::run(
+    std::tuple<std::unordered_map<Key, T>...>& maps)
 {
-    std::get< N - 1 >( maps ).clear();
-    heterogeneous_map_clear< N - 1 >::run( maps );
+  std::get<N - 1>(maps).clear();
+  heterogeneous_map_clear<N - 1>::run(maps);
 }
 
 #endif

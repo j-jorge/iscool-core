@@ -17,49 +17,46 @@
 #define ISCOOL_JNI_ITERATOR_TPP
 
 #include "iscool/jni/get_method.h"
-#include "iscool/jni/method_jboolean.h"
 #include "iscool/jni/method_java_ptr.h"
+#include "iscool/jni/method_jboolean.h"
 
-template< typename T >
-iscool::jni::iterator< T >::iterator( jobject impl )
-    : _impl( impl )
-{
-    
-}
-        
-template< typename T >
-iscool::jni::java_ptr< jobject >
-iscool::jni::iterator< T >::get_java_object() const
-{
-    return _impl;
-}
+template <typename T>
+iscool::jni::iterator<T>::iterator(jobject impl)
+  : _impl(impl)
+{}
 
-template< typename T >
-bool iscool::jni::iterator< T >::has_next() const
+template <typename T>
+iscool::jni::java_ptr<jobject>
+iscool::jni::iterator<T>::get_java_object() const
 {
-    const auto method
-        ( get_method< jboolean >( "java/util/Iterator", "hasNext", "()Z" ) );
-
-    return method( _impl );
+  return _impl;
 }
 
-template< typename T >
-typename iscool::jni::iterator< T >::value_type
-iscool::jni::iterator< T >::next() const
+template <typename T>
+bool iscool::jni::iterator<T>::has_next() const
 {
-    const auto method
-        ( get_method< java_ptr< jobject > >
-          ( "java/util/Iterator", "next", "()Ljava/lang/Object;" ) );
+  const auto method(
+      get_method<jboolean>("java/util/Iterator", "hasNext", "()Z"));
 
-    return method( _impl );
+  return method(_impl);
 }
 
-template< typename T >
+template <typename T>
+typename iscool::jni::iterator<T>::value_type
+iscool::jni::iterator<T>::next() const
+{
+  const auto method(get_method<java_ptr<jobject>>("java/util/Iterator", "next",
+                                                  "()Ljava/lang/Object;"));
+
+  return method(_impl);
+}
+
+template <typename T>
 jobject
-iscool::jni::detail::get_method_argument_impl< iscool::jni::iterator< T > >::get
-( const iterator< T >& i )
+iscool::jni::detail::get_method_argument_impl<iscool::jni::iterator<T>>::get(
+    const iterator<T>& i)
 {
-    return i.get_java_object().get();
+  return i.get_java_object().get();
 }
 
 #endif

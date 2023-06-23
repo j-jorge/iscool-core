@@ -18,11 +18,11 @@
 
 namespace iscool
 {
-    namespace time
-    {
-        template<typename Duration>
-        Duration now();
-    }
+  namespace time
+  {
+    template <typename Duration>
+    Duration now();
+  }
 }
 
 #include "iscool/time/detail/now.tpp"

@@ -20,11 +20,11 @@
 
 namespace iscool
 {
-    namespace preferences
-    {
-        float_property declare_global_float_property
-        ( std::string&& name, float fallback );
-    }
+  namespace preferences
+  {
+    float_property declare_global_float_property(std::string&& name,
+                                                 float fallback);
+  }
 }
 
 #endif

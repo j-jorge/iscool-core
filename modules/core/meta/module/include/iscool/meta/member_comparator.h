@@ -18,18 +18,14 @@
 
 #include <type_traits>
 
-#define member_comparator( T, Member, Operator )                        \
-    []( T const& a, T const& b ) -> bool                                \
-    {                                                                   \
-        static_assert                                                   \
-            ( std::is_same                                              \
-              <                                                         \
-                  bool,                                                 \
-                  decltype( a Member Operator b Member )                \
-              >::value,                                                 \
-              "member_comparator() needs a boolean operator." );        \
-                                                                        \
-        return a Member Operator b Member;                              \
-}
+#define member_comparator(T, Member, Operator)                                \
+  [](T const& a, T const& b) -> bool                                          \
+  {                                                                           \
+    static_assert(                                                            \
+        std::is_same<bool, decltype(a Member Operator b Member)>::value,      \
+        "member_comparator() needs a boolean operator.");                     \
+                                                                              \
+    return a Member Operator b Member;                                        \
+  }
 
 #endif

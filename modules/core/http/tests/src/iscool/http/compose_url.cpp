@@ -17,42 +17,38 @@
 
 #include <gtest/gtest.h>
 
-TEST( iscool_http_compose_url, no_arguments )
+TEST(iscool_http_compose_url, no_arguments)
 {
-    EXPECT_EQ( "example.com", iscool::http::compose_url( "example.com", {} ) );
+  EXPECT_EQ("example.com", iscool::http::compose_url("example.com", {}));
 }
 
-TEST( iscool_http_compose_url, single_argument )
+TEST(iscool_http_compose_url, single_argument)
 {
-    EXPECT_EQ( "example.com?arg1=value1",
-               iscool::http::compose_url
-               ( "example.com", { { "arg1", "value1" } } ) );
+  EXPECT_EQ(
+      "example.com?arg1=value1",
+      iscool::http::compose_url("example.com", { { "arg1", "value1" } }));
 }
 
-TEST( iscool_http_compose_url, two_arguments )
+TEST(iscool_http_compose_url, two_arguments)
 {
-    EXPECT_EQ( "example.com?arg1=value1&arg2=value2",
-               iscool::http::compose_url
-               ( "example.com",
-                 { { "arg1", "value1" }, { "arg2", "value2" } } ) );
+  EXPECT_EQ(
+      "example.com?arg1=value1&arg2=value2",
+      iscool::http::compose_url(
+          "example.com", { { "arg1", "value1" }, { "arg2", "value2" } }));
 }
 
-TEST( iscool_http_compose_url, multiple_arguments )
+TEST(iscool_http_compose_url, multiple_arguments)
 {
-    EXPECT_EQ( "example.com?arg1=value1&arg2=value2&arg3=value3",
-               iscool::http::compose_url
-               ( "example.com",
-                 { 
-                     { "arg1", "value1" },
-                     { "arg2", "value2" },
-                     { "arg3", "value3" }
-                 } ) );
+  EXPECT_EQ(
+      "example.com?arg1=value1&arg2=value2&arg3=value3",
+      iscool::http::compose_url("example.com", { { "arg1", "value1" },
+                                                 { "arg2", "value2" },
+                                                 { "arg3", "value3" } }));
 }
 
-TEST( iscool_http_compose_url, escape_values )
+TEST(iscool_http_compose_url, escape_values)
 {
-    EXPECT_EQ( "example.com?arg1=ftp%3A%2F%2Fa%20b&arg2=c%2B%26%3Fd",
-               iscool::http::compose_url
-               ( "example.com",
-                 { { "arg1", "ftp://a b" }, { "arg2", "c+&?d" } } ) );
+  EXPECT_EQ("example.com?arg1=ftp%3A%2F%2Fa%20b&arg2=c%2B%26%3Fd",
+            iscool::http::compose_url("example.com", { { "arg1", "ftp://a b" },
+                                                       { "arg2", "c+&?d" } }));
 }

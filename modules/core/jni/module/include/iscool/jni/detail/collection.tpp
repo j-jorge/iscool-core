@@ -20,49 +20,41 @@
 #include "iscool/jni/method_jint.h"
 #include "iscool/jni/method_jobject.h"
 
-template< typename T >
-iscool::jni::collection< T >::collection( jobject impl )
-    : _impl( impl )
+template <typename T>
+iscool::jni::collection<T>::collection(jobject impl)
+  : _impl(impl)
+{}
+
+template <typename T>
+iscool::jni::java_ptr<jobject>
+iscool::jni::collection<T>::get_java_object() const
 {
-    
-}
-        
-template< typename T >
-iscool::jni::java_ptr< jobject >
-iscool::jni::collection< T >::get_java_object() const
-{
-    return _impl;
+  return _impl;
 }
 
-template< typename T >
-std::size_t iscool::jni::collection< T >::size() const
+template <typename T>
+std::size_t iscool::jni::collection<T>::size() const
 {
-    const auto method
-        ( get_method< jint >
-          ( "java/util/Collection", "size", "()I" ) );
+  const auto method(get_method<jint>("java/util/Collection", "size", "()I"));
 
-    return method( _impl );
+  return method(_impl);
 }
 
-template< typename T >
-iscool::jni::iterator< T > iscool::jni::collection< T >::get_iterator() const
+template <typename T>
+iscool::jni::iterator<T> iscool::jni::collection<T>::get_iterator() const
 {
-    const auto method
-        ( get_method< jobject >
-          ( "java/util/Collection", "iterator", "()Ljava/util/Iterator;" ) );
+  const auto method(get_method<jobject>("java/util/Collection", "iterator",
+                                        "()Ljava/util/Iterator;"));
 
-    return iterator< T >( method( _impl ) );
+  return iterator<T>(method(_impl));
 }
 
-template< typename T >
+template <typename T>
 jobject
-iscool::jni::detail::get_method_argument_impl
-<
-    iscool::jni::collection< T >
->::get
-( const collection< T >& c )
+iscool::jni::detail::get_method_argument_impl<iscool::jni::collection<T>>::get(
+    const collection<T>& c)
 {
-    return c.get_java_object().get();
+  return c.get_java_object().get();
 }
 
 #endif

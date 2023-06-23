@@ -23,48 +23,48 @@
 
 namespace iscool
 {
-    namespace random
+  namespace random
+  {
+    template <typename Value>
+    class random_generator
     {
-        template<typename Value>
-        class random_generator
-        {
-        public:
-            typedef unsigned int weight_type;
+    public:
+      typedef unsigned int weight_type;
 
-        public:
-            random_generator();
-            explicit random_generator( rand random );
+    public:
+      random_generator();
+      explicit random_generator(rand random);
 
-            void set_random_source( rand random );
+      void set_random_source(rand random);
 
-            void set_value_weight( Value value, weight_type weight );
-            std::size_t get_cardinality() const;
-            Value get_random();
-            std::vector<Value> get_all_possible_values() const;
+      void set_value_weight(Value value, weight_type weight);
+      std::size_t get_cardinality() const;
+      Value get_random();
+      std::vector<Value> get_all_possible_values() const;
 
-        private:
-            struct entry
-            {
-                Value value;
-                weight_type weight;
-            };
+    private:
+      struct entry
+      {
+        Value value;
+        weight_type weight;
+      };
 
-            typedef std::vector<entry> value_weight_container;
+      typedef std::vector<entry> value_weight_container;
 
-        private:
-            Value get_value_cut_at_weight_sum( weight_type weight_cut ) const;
+    private:
+      Value get_value_cut_at_weight_sum(weight_type weight_cut) const;
 
-            void remove_value_if_any( Value value );
-            void set_or_replace_value_weight( Value value, weight_type weight );
-            typename value_weight_container::iterator
-            find_entry_by_value( Value value );
+      void remove_value_if_any(Value value);
+      void set_or_replace_value_weight(Value value, weight_type weight);
+      typename value_weight_container::iterator
+      find_entry_by_value(Value value);
 
-        private:
-            value_weight_container _weights;
-            weight_type _weight_sum;
-            rand _random;
-        };
-    }
+    private:
+      value_weight_container _weights;
+      weight_type _weight_sum;
+      rand _random;
+    };
+  }
 }
 
 #include "iscool/random/random_generator.tpp"

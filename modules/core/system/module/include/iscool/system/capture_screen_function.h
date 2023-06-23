@@ -21,16 +21,12 @@
 
 namespace iscool
 {
-    namespace system
-    {
-        typedef
-        std::function
-        <
-            void
-            ( const std::string&,
-              std::function< void( const std::string& ) > )
-        > capture_screen_function;
-    }
+  namespace system
+  {
+    typedef std::function<void(const std::string&,
+                               std::function<void(const std::string&)>)>
+        capture_screen_function;
+  }
 }
 
 #endif

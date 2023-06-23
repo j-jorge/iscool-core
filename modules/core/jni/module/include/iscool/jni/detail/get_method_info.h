@@ -20,15 +20,15 @@
 
 namespace iscool
 {
-    namespace jni
+  namespace jni
+  {
+    namespace detail
     {
-        namespace detail
-        {
-            method_info get_method_info
-            ( const char* class_name, const char* method_name,
-              const char* signature );
-        }
+      method_info get_method_info(const char* class_name,
+                                  const char* method_name,
+                                  const char* signature);
     }
+  }
 }
 
 #endif

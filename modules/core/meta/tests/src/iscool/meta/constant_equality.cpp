@@ -17,15 +17,15 @@
 
 #include "gtest/gtest.h"
 
-TEST( iscool_meta_constant_equality, int )
+TEST(iscool_meta_constant_equality, int)
 {
-    const int a( 24 );
-    const int b( 42 );
+  const int a(24);
+  const int b(42);
 
-    EXPECT_TRUE( constant_equality( 24 )( 24 ) );
-    EXPECT_TRUE( constant_equality( 24 )( a ) );
-    EXPECT_TRUE( constant_equality( a )( 24 ) );
-    EXPECT_TRUE( constant_equality( a )( a ) );
-    EXPECT_FALSE( constant_equality( a )( b ) );
-    EXPECT_FALSE( constant_equality( b )( a ) );
+  EXPECT_TRUE(constant_equality(24)(24));
+  EXPECT_TRUE(constant_equality(24)(a));
+  EXPECT_TRUE(constant_equality(a)(24));
+  EXPECT_TRUE(constant_equality(a)(a));
+  EXPECT_FALSE(constant_equality(a)(b));
+  EXPECT_FALSE(constant_equality(b)(a));
 }

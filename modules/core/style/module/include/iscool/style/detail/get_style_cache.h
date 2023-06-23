@@ -22,13 +22,13 @@
 
 namespace iscool
 {
-    namespace style
+  namespace style
+  {
+    namespace detail
     {
-        namespace detail
-        {
-            std::unordered_map< std::string, declaration >& get_style_cache();
-        }
+      std::unordered_map<std::string, declaration>& get_style_cache();
     }
+  }
 }
 
 #endif

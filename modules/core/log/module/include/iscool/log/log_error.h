@@ -21,9 +21,8 @@
 #include "iscool/log/detail/message_dispatcher.h"
 #include "iscool/log/detail/message_dispatcher.impl.tpp"
 
-#define ic_log_error( reporter, origin, synopsis )                      \
-    ::iscool::log::detail::get_message_dispatcher().dispatch_error      \
-    ( ::iscool::log::context( reporter, origin, __FILE__, __LINE__ ),   \
-      synopsis )
+#define ic_log_error(reporter, origin, synopsis)                              \
+  ::iscool::log::detail::get_message_dispatcher().dispatch_error(             \
+      ::iscool::log::context(reporter, origin, __FILE__, __LINE__), synopsis)
 
 #endif

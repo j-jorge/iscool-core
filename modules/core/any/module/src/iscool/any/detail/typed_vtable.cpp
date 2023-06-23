@@ -17,20 +17,17 @@
 
 #include "iscool/any/any.h"
 
-void iscool::any::detail::typed_vtable< void >::clear( any& that )
-{
+void iscool::any::detail::typed_vtable<void>::clear(any& that)
+{}
 
+void iscool::any::detail::typed_vtable<void>::copy(any& self, const any& that)
+{
+  self._value = nullptr;
+  self._vtable = that._vtable;
 }
 
-void
-iscool::any::detail::typed_vtable< void >::copy( any& self, const any& that )
+void iscool::any::detail::typed_vtable<void>::move(any& self, any&& that)
 {
-    self._value = nullptr;
-    self._vtable = that._vtable;
-}
-
-void iscool::any::detail::typed_vtable< void >::move( any& self, any&& that )
-{
-    self._value = nullptr;
-    self._vtable = that._vtable;
+  self._value = nullptr;
+  self._vtable = that._vtable;
 }

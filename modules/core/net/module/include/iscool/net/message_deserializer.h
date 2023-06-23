@@ -25,64 +25,56 @@
 
 namespace iscool
 {
-    namespace net
+  namespace net
+  {
+    class message;
+
+    class message_deserializer
     {
-        class message;
+    public:
+      message_deserializer();
+      ~message_deserializer();
 
-        class message_deserializer
-        {
-        public:
-            message_deserializer();
-            ~message_deserializer();
+      void interpret_received_message(const endpoint& endpoint,
+                                      const message& message) const;
 
-            void interpret_received_message
-            ( const endpoint& endpoint, const message& message ) const;
+      template <typename M>
+      iscool::signals::connection
+      connect_signal(const std::function<void(const endpoint&, M)>& f);
 
-            template< typename M >
-            iscool::signals::connection connect_signal
-            ( const std::function< void ( const endpoint&, M ) >& f );
+    private:
+      class deserializer_base;
 
-        private:
-            class deserializer_base;
+      template <typename M>
+      class typed_deserializer;
 
-            template< typename M >
-            class typed_deserializer;
+      class deserializer_collection
+      {
+      private:
+        typedef std::unordered_map<message_type, deserializer_base*>
+            deserializer_map;
 
-            class deserializer_collection
-            {
-            private:
-                typedef
-                std::unordered_map< message_type, deserializer_base* >
-                deserializer_map;
+      public:
+        deserializer_collection() = default;
+        ~deserializer_collection();
 
-            public:
-                deserializer_collection() = default;
-                ~deserializer_collection();
+        deserializer_collection(const deserializer_collection&) = delete;
+        deserializer_collection& operator=(deserializer_collection) = delete;
 
-                deserializer_collection
-                ( const deserializer_collection& ) = delete;
-                deserializer_collection& operator=
-                ( deserializer_collection ) = delete;
+        template <typename M>
+        iscool::signals::connection
+        connect(const std::function<void(const endpoint&, const M&)>& f);
 
-                template< typename M >
-                iscool::signals::connection
-                connect
-                ( const std::function
-                  <
-                      void ( const endpoint&, const M& )
-                  >& f );
+        void dispatch(const endpoint& endpoint, const message& message) const;
 
-                void dispatch
-                ( const endpoint& endpoint, const message& message ) const;
+      private:
+        deserializer_map _deserializers;
+      };
 
-            private:
-                deserializer_map _deserializers;
-            };
-
-        private:
-            deserializer_collection _deserializers;
-        };
-    }
+    private:
+      deserializer_collection _deserializers;
+    };
+  }
 }
 
 #endif

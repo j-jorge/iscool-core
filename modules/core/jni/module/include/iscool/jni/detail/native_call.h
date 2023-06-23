@@ -18,18 +18,18 @@
 
 namespace iscool
 {
-    namespace jni
+  namespace jni
+  {
+    namespace detail
     {
-        namespace detail
-        {
-            class native_call_manager;
+      class native_call_manager;
 
-            void initialize_native_calls();
-            void finalize_native_calls();
+      void initialize_native_calls();
+      void finalize_native_calls();
 
-            native_call_manager& get_native_call_manager();
-        }
+      native_call_manager& get_native_call_manager();
     }
+  }
 }
 
 #endif

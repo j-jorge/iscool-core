@@ -17,5 +17,5 @@
 
 std::string iscool::system::get_device_model()
 {
-    return "n/a";
+  return "n/a";
 }

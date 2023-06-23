@@ -20,13 +20,13 @@
 
 #include <cassert>
 
-template< typename T, typename... A >
-iscool::factory::dynamic_factory_registrar< T, A... >::dynamic_factory_registrar
-( dynamic_factory< T, A... >& factory, const std::string& name,
-  const factory_function< T, A... >& creator )
+template <typename T, typename... A>
+iscool::factory::dynamic_factory_registrar<T, A...>::dynamic_factory_registrar(
+    dynamic_factory<T, A...>& factory, const std::string& name,
+    const factory_function<T, A...>& creator)
 {
-    assert( creator );
-    factory.register_typename( name, creator );
+  assert(creator);
+  factory.register_typename(name, creator);
 }
 
 #endif

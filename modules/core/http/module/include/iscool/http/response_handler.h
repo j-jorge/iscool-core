@@ -21,10 +21,10 @@
 
 namespace iscool
 {
-    namespace http
-    {
-        typedef std::function<void (std::vector<char>)> response_handler;
-    }
+  namespace http
+  {
+    typedef std::function<void(std::vector<char>)> response_handler;
+  }
 }
 
 #endif

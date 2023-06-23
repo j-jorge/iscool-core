@@ -21,38 +21,33 @@
 
 namespace iscool
 {
-    namespace error
+  namespace error
+  {
+    class synopsis;
+  }
+
+  namespace log
+  {
+    namespace nature
     {
-        class synopsis;
+      class nature;
     }
 
-    namespace log
+    class context;
+
+    class message_delegates
     {
-        namespace nature
-        {
-            class nature;
-        }
+    public:
+      bool is_valid() const;
 
-        class context;
+    public:
+      std::function<void(const nature::nature&, const context&,
+                         const std::string&)>
+          print_message;
 
-        class message_delegates
-        {
-        public:
-            bool is_valid() const;
-
-        public:
-            std::function
-            <
-                void
-                ( const nature::nature&, const context&, const std::string&  )
-            > print_message;
-
-            std::function
-            <
-                void( const context&, const error::synopsis&  )
-            > print_error;
-        };
-    }
+      std::function<void(const context&, const error::synopsis&)> print_error;
+    };
+  }
 }
 
 #endif

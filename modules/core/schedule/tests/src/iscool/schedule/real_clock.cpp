@@ -13,48 +13,48 @@
   See the License for the specific language governing permissions and
   limitations under the License.
 */
-#include "iscool/schedule/manual_scheduler.h"
 #include "iscool/schedule/real_clock.h"
+#include "iscool/schedule/manual_scheduler.h"
 #include "iscool/schedule/setup.h"
 
 #include <thread>
 
 #include <gtest/gtest.h>
 
-TEST( iscool_schedule_real_clock, tick )
+TEST(iscool_schedule_real_clock, tick)
 {
-    iscool::schedule::manual_scheduler scheduler;
-    iscool::schedule::initialize( scheduler.get_delayed_call_delegate() );
+  iscool::schedule::manual_scheduler scheduler;
+  iscool::schedule::initialize(scheduler.get_delayed_call_delegate());
 
-    iscool::schedule::real_clock< std::chrono::milliseconds > clock
-        ( std::chrono::milliseconds( 50 ) );
+  iscool::schedule::real_clock<std::chrono::milliseconds> clock(
+      std::chrono::milliseconds(50));
 
-    int calls( 0 );
-    clock.connect_to_tick
-        ( [ &calls ]() -> void
-          {
-              ++calls;
-          } );
+  int calls(0);
+  clock.connect_to_tick(
+      [&calls]() -> void
+      {
+        ++calls;
+      });
 
-    std::this_thread::sleep_for( std::chrono::milliseconds( 49 ) );
-    scheduler.update_interval( std::chrono::milliseconds( 49 ) );
-    EXPECT_EQ( 0, calls );
-    
-    std::this_thread::sleep_for( std::chrono::milliseconds( 1 ) );
-    scheduler.update_interval( std::chrono::milliseconds( 1 ) );
-    EXPECT_EQ( 1, calls );
-    
-    std::this_thread::sleep_for( std::chrono::milliseconds( 50 ) );
-    scheduler.update_interval( std::chrono::milliseconds( 50 ) );
-    EXPECT_EQ( 2, calls );
-    
-    std::this_thread::sleep_for( std::chrono::milliseconds( 50 ) );
-    scheduler.update_interval( std::chrono::milliseconds( 50 ) );
-    EXPECT_EQ( 3, calls );
-    
-    std::this_thread::sleep_for( std::chrono::milliseconds( 50 ) );
-    scheduler.update_interval( std::chrono::milliseconds( 50 ) );
-    EXPECT_EQ( 4, calls );
+  std::this_thread::sleep_for(std::chrono::milliseconds(49));
+  scheduler.update_interval(std::chrono::milliseconds(49));
+  EXPECT_EQ(0, calls);
 
-    iscool::schedule::finalize();
+  std::this_thread::sleep_for(std::chrono::milliseconds(1));
+  scheduler.update_interval(std::chrono::milliseconds(1));
+  EXPECT_EQ(1, calls);
+
+  std::this_thread::sleep_for(std::chrono::milliseconds(50));
+  scheduler.update_interval(std::chrono::milliseconds(50));
+  EXPECT_EQ(2, calls);
+
+  std::this_thread::sleep_for(std::chrono::milliseconds(50));
+  scheduler.update_interval(std::chrono::milliseconds(50));
+  EXPECT_EQ(3, calls);
+
+  std::this_thread::sleep_for(std::chrono::milliseconds(50));
+  scheduler.update_interval(std::chrono::milliseconds(50));
+  EXPECT_EQ(4, calls);
+
+  iscool::schedule::finalize();
 }

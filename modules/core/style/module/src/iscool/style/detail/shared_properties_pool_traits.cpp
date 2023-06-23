@@ -17,12 +17,12 @@
 
 #include "iscool/style/detail/shared_properties.h"
 
-bool iscool::style::detail::shared_properties_pool_traits::clear
-( shared_properties& self )
+bool iscool::style::detail::shared_properties_pool_traits::clear(
+    shared_properties& self)
 {
-    if ( !self.is_dangling() )
-        return false;
-    
-    self.reuse();
-    return true;
+  if (!self.is_dangling())
+    return false;
+
+  self.reuse();
+  return true;
 };

@@ -18,11 +18,11 @@
 
 namespace iscool
 {
-    namespace collections
-    {
-        template< typename Iterator >
-        bool has_duplicates( Iterator first, Iterator last );
-    }
+  namespace collections
+  {
+    template <typename Iterator>
+    bool has_duplicates(Iterator first, Iterator last);
+  }
 }
 
 #include "iscool/collections/detail/has_duplicates.tpp"

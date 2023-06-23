@@ -19,8 +19,6 @@
 
 const iscool::log::nature::nature& iscool::log::nature::error()
 {
-    static const iscool::log::nature::nature result( "E" );
-    return result;
+  static const iscool::log::nature::nature result("E");
+  return result;
 }
-
- 

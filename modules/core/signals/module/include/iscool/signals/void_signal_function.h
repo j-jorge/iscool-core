@@ -20,10 +20,10 @@
 
 namespace iscool
 {
-    namespace signals
-    {
-        typedef std::function< void() > void_signal_function;
-    }
+  namespace signals
+  {
+    typedef std::function<void()> void_signal_function;
+  }
 }
 
 #endif

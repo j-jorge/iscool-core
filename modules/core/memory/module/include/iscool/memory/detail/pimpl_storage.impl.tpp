@@ -16,72 +16,62 @@
 #ifndef ISCOOL_MEMORY_DETAIL_PIMPL_STORAGE_IMPL_TPP
 #define ISCOOL_MEMORY_DETAIL_PIMPL_STORAGE_IMPL_TPP
 
-#include "iscool/memory/detail/pimpl_storage.impl.tpp"
+#include "iscool/memory/detail/pimpl_storage.h"
 
 #include <cassert>
 
 namespace iscool
 {
-    namespace memory
+  namespace memory
+  {
+    namespace detail
     {
-        namespace detail
-        {
-            template< std::size_t Needed, std::size_t Provided >
-            struct assert_exact_space
-            {
-                static_assert
-                ( Needed == Provided,
-                  "Incorrect capacity."
-                  " See template instantiation for values." );
-            };
-        }
+      template <std::size_t Needed, std::size_t Provided>
+      struct assert_exact_space
+      {
+        static_assert(Needed == Provided,
+                      "Incorrect capacity."
+                      " See template instantiation for values.");
+      };
     }
-}
-                   
-template< typename T, std::size_t N >
-template< typename... Args >
-iscool::memory::detail::pimpl_storage< T, N >::pimpl_storage( Args&&... args )
-{
-    assert_exact_space< sizeof( T ), N >();
-
-    new( &_storage ) T( std::forward< Args >( args )... );
+  }
 }
 
-template< typename T, std::size_t N >
-iscool::memory::detail::pimpl_storage< T, N >::~pimpl_storage()
+template <typename T, std::size_t N>
+template <typename... Args>
+iscool::memory::detail::pimpl_storage<T, N>::pimpl_storage(Args&&... args)
 {
-    get()->~T();
+  assert_exact_space<sizeof(T), N>();
+
+  new (&_storage) T(std::forward<Args>(args)...);
 }
 
-template< typename T, std::size_t N >
-T* iscool::memory::detail::pimpl_storage< T, N >::get() const
+template <typename T, std::size_t N>
+iscool::memory::detail::pimpl_storage<T, N>::~pimpl_storage()
 {
-    return
-        reinterpret_cast< T* >
-        ( const_cast< decltype( _storage )* >( &_storage ) );
+  get()->~T();
 }
 
-
-
-
-template< typename T >
-template< typename... Args >
-iscool::memory::detail::pimpl_storage< T, 0 >::pimpl_storage( Args&&... args )
-    : _pointer( new T( std::forward< Args >( args )... ) )
+template <typename T, std::size_t N>
+T* iscool::memory::detail::pimpl_storage<T, N>::get() const
 {
-
+  return reinterpret_cast<T*>(const_cast<decltype(_storage)*>(&_storage));
 }
 
-template< typename T >
-iscool::memory::detail::pimpl_storage< T, 0 >::~pimpl_storage()
-{
+template <typename T>
+template <typename... Args>
+iscool::memory::detail::pimpl_storage<T, 0>::pimpl_storage(Args&&... args)
+  : _pointer(new T(std::forward<Args>(args)...))
+{}
 
-}
+template <typename T>
+iscool::memory::detail::pimpl_storage<T, 0>::~pimpl_storage()
+{}
 
-template< typename T >
-T* iscool::memory::detail::pimpl_storage< T, 0 >::get() const
+template <typename T>
+T* iscool::memory::detail::pimpl_storage<T, 0>::get() const
 {
-    return _pointer.get();
+  return _pointer.get();
 }
 
 #endif

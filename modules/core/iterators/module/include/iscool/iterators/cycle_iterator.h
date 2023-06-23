@@ -20,37 +20,35 @@
 
 namespace iscool
 {
-    namespace iterators
+  namespace iterators
+  {
+    template <typename Iterator>
+    class cycle_iterator
     {
-        template< typename Iterator >
-        class cycle_iterator
-        {
-        public:
-            typedef std::forward_iterator_tag iterator_category;
+    public:
+      typedef std::forward_iterator_tag iterator_category;
 
-            typedef
-            typename std::iterator_traits< Iterator >::value_type value_type;
-            
-            typedef typename std::iterator_traits< Iterator >::pointer pointer;
-            
-            typedef
-            typename std::iterator_traits< Iterator >::reference reference;
-            
-        public:
-            cycle_iterator( const Iterator& begin, const Iterator& end );
+      typedef typename std::iterator_traits<Iterator>::value_type value_type;
 
-            cycle_iterator< Iterator >& operator++();
-            cycle_iterator< Iterator > operator++( int );
+      typedef typename std::iterator_traits<Iterator>::pointer pointer;
 
-            reference operator*() const;
-            pointer operator->() const;
+      typedef typename std::iterator_traits<Iterator>::reference reference;
 
-        private:
-            Iterator _begin;
-            Iterator _end;
-            Iterator _current;
-        };
-    }
+    public:
+      cycle_iterator(const Iterator& begin, const Iterator& end);
+
+      cycle_iterator<Iterator>& operator++();
+      cycle_iterator<Iterator> operator++(int);
+
+      reference operator*() const;
+      pointer operator->() const;
+
+    private:
+      Iterator _begin;
+      Iterator _end;
+      Iterator _current;
+    };
+  }
 }
 
 #endif

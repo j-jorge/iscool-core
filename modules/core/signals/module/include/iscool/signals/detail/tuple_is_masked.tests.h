@@ -18,41 +18,29 @@
 
 namespace iscool
 {
-    namespace signals
+  namespace signals
+  {
+    namespace detail
     {
-        namespace detail
-        {
-            static_assert
-            ( !tuple_is_masked
-              <
-                  iscool::meta::indices< 0, 1, 2 >,
-                  std::tuple< int, float, double >
-              >::value,
-              "Single tuple should not be masked." );
+      static_assert(!tuple_is_masked<iscool::meta::indices<0, 1, 2>,
+                                     std::tuple<int, float, double>>::value,
+                    "Single tuple should not be masked.");
 
-            static_assert
-            ( tuple_is_masked
-              <
-                  iscool::meta::indices< 0, 1, 2 >,
-                  std::tuple< int, float, double >,
-                  std::tuple< bool, float, bool >,
-                  std::tuple< int, bool, bool >,
-                  std::tuple< bool, bool, double >
-              >::value,
-              "Failed to detect masked tuple." );
+      static_assert(
+          tuple_is_masked<
+              iscool::meta::indices<0, 1, 2>, std::tuple<int, float, double>,
+              std::tuple<bool, float, bool>, std::tuple<int, bool, bool>,
+              std::tuple<bool, bool, double>>::value,
+          "Failed to detect masked tuple.");
 
-            static_assert
-            ( !tuple_is_masked
-              <
-                  iscool::meta::indices< 0, 1, 2 >,
-                  std::tuple< int, float, double >,
-                  std::tuple< float, bool, bool >,
-                  std::tuple< int, bool, bool >,
-                  std::tuple< bool, bool, float >
-              >::value,
-              "Failed not to detect masked tuple." );
-        }
+      static_assert(
+          !tuple_is_masked<
+              iscool::meta::indices<0, 1, 2>, std::tuple<int, float, double>,
+              std::tuple<float, bool, bool>, std::tuple<int, bool, bool>,
+              std::tuple<bool, bool, float>>::value,
+          "Failed not to detect masked tuple.");
     }
+  }
 }
 
 #endif

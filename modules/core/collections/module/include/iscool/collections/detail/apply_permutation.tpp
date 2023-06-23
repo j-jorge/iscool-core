@@ -20,20 +20,19 @@
 #include <iterator>
 #include <vector>
 
-template< typename Iterator >
-void iscool::collections::apply_permutation
-( const Iterator& first, const Iterator& last,
-  const std::vector< std::size_t >& permutation )
+template <typename Iterator>
+void iscool::collections::apply_permutation(
+    const Iterator& first, const Iterator& last,
+    const std::vector<std::size_t>& permutation)
 {
-    typedef typename std::iterator_traits< Iterator >::value_type type;
-    
-    const std::vector< type > input( first, last );
-    std::transform
-        ( permutation.begin(), permutation.end(), first,
-          [ &input ]( std::size_t i ) -> const type&
-          {
-              return input[ i ];
-          } );
+  typedef typename std::iterator_traits<Iterator>::value_type type;
+
+  const std::vector<type> input(first, last);
+  std::transform(permutation.begin(), permutation.end(), first,
+                 [&input](std::size_t i) -> const type&
+                 {
+                   return input[i];
+                 });
 }
 
 #endif

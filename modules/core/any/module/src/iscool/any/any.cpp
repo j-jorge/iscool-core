@@ -19,48 +19,46 @@
 #include "iscool/any/detail/vtable.h"
 
 iscool::any::any::any()
-    : _value( nullptr ),
-      _vtable( detail::get_vtable< void >() )
-{
-                    
-}
+  : _value(nullptr)
+  , _vtable(detail::get_vtable<void>())
+{}
 
 iscool::any::any::~any()
 {
-    ( *_vtable->clear )( *this );
+  (*_vtable->clear)(*this);
 }
 
-iscool::any::any::any( const any& that )
+iscool::any::any::any(const any& that)
 {
-    ( *that._vtable->copy )( *this, that );
+  (*that._vtable->copy)(*this, that);
 }
 
-iscool::any::any::any( any&& that )
+iscool::any::any::any(any&& that)
 {
-    const detail::vtable* vtable( that._vtable );
-    ( *vtable->move )( *this, std::move( that ) );
+  const detail::vtable* vtable(that._vtable);
+  (*vtable->move)(*this, std::move(that));
 }
 
-iscool::any::any& iscool::any::any::operator=( const any& that )
+iscool::any::any& iscool::any::any::operator=(const any& that)
 {
-    if ( this == &that )
-        return *this;
-                    
-    ( _vtable->clear )( *this );
-    ( *that._vtable->copy )( *this, that );
-
+  if (this == &that)
     return *this;
+
+  (_vtable->clear)(*this);
+  (*that._vtable->copy)(*this, that);
+
+  return *this;
 }
 
-iscool::any::any& iscool::any::any::operator=( any&& that )
+iscool::any::any& iscool::any::any::operator=(any&& that)
 {
-    if ( this == &that )
-        return *this;
-
-    ( *_vtable->clear )( *this );
-
-    const detail::vtable* vtable( that._vtable );
-    ( *vtable->move )( *this, std::move( that ) );
-
+  if (this == &that)
     return *this;
+
+  (*_vtable->clear)(*this);
+
+  const detail::vtable* vtable(that._vtable);
+  (*vtable->move)(*this, std::move(that));
+
+  return *this;
 }

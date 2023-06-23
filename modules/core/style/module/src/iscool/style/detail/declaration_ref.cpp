@@ -19,72 +19,72 @@
 
 iscool::style::detail::declaration_ref::declaration_ref()
 {
-    new ( &_storage ) iscool::style::declaration();
+  new (&_storage) iscool::style::declaration();
 }
 
-iscool::style::detail::declaration_ref::declaration_ref
-( const declaration_ref& that )
+iscool::style::detail::declaration_ref::declaration_ref(
+    const declaration_ref& that)
 {
-    new ( &_storage ) iscool::style::declaration( *that );
+  new (&_storage) iscool::style::declaration(*that);
 }
 
-iscool::style::detail::declaration_ref::declaration_ref
-( declaration_ref&& that )
+iscool::style::detail::declaration_ref::declaration_ref(declaration_ref&& that)
 {
-    new ( &_storage ) iscool::style::declaration( std::move( *that ) );
+  new (&_storage) iscool::style::declaration(std::move(*that));
 }
 
 iscool::style::detail::declaration_ref::~declaration_ref()
 {
-    ( **this ).~declaration();
+  (**this).~declaration();
 }
 
 iscool::style::detail::declaration_ref&
-iscool::style::detail::declaration_ref::operator=( const declaration_ref& that )
+iscool::style::detail::declaration_ref::operator=(const declaration_ref& that)
 {
-    **this = *that;
-    return *this;
+  **this = *that;
+  return *this;
 }
 
 iscool::style::detail::declaration_ref&
-iscool::style::detail::declaration_ref::operator=( declaration_ref&& that )
+iscool::style::detail::declaration_ref::operator=(declaration_ref&& that)
 {
-    if ( this == &that )
-        return *this;
-    
-    **this = std::move( *that );
+  if (this == &that)
     return *this;
+
+  **this = std::move(*that);
+  return *this;
 }
 
 iscool::style::declaration& iscool::style::detail::declaration_ref::operator*()
 {
-    return *reinterpret_cast< declaration* >( &_storage );
+  return *reinterpret_cast<declaration*>(&_storage);
 }
 
 const iscool::style::declaration&
 iscool::style::detail::declaration_ref::operator*() const
 {
-    return *reinterpret_cast< const declaration* >( &_storage );
+  return *reinterpret_cast<const declaration*>(&_storage);
 }
 
-iscool::style::declaration* iscool::style::detail::declaration_ref::operator->()
+iscool::style::declaration*
+iscool::style::detail::declaration_ref::operator->()
 {
-    return &this->operator*();
+  return &this->operator*();
 }
 
 const iscool::style::declaration*
 iscool::style::detail::declaration_ref::operator->() const
 {
-    return &this->operator*();
+  return &this->operator*();
 }
 
-iscool::style::detail::declaration_ref::operator iscool::style::declaration& ()
+iscool::style::detail::declaration_ref::operator iscool::style::declaration&()
 {
-    return **this;
+  return **this;
 }
 
-iscool::style::detail::declaration_ref::operator
-const iscool::style::declaration& () const
+iscool::style::detail::declaration_ref::operator const iscool::style::
+    declaration&() const
 {
-    return **this;
+  return **this;
 }

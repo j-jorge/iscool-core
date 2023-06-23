@@ -21,36 +21,28 @@ typedef int in_global_namespace;
 
 namespace iscool
 {
-    namespace meta
+  namespace meta
+  {
+    namespace test
     {
-        namespace test
-        {
-            typedef std::string in_namespace;
-        }
+      typedef std::string in_namespace;
     }
+  }
 }
 
-TEST( iscool_meta_reference_namespaces, global_namespace )
+TEST(iscool_meta_reference_namespaces, global_namespace)
 {
-    const bool same
-        ( std::is_same
-          <
-              int,
-              ic_reference_namespaces() in_global_namespace
-          >::value );
+  const bool same(
+      std::is_same<int, ic_reference_namespaces() in_global_namespace>::value);
 
-    EXPECT_TRUE( same );
+  EXPECT_TRUE(same);
 }
 
-TEST( iscool_meta_reference_namespaces, non_global_namespace )
+TEST(iscool_meta_reference_namespaces, non_global_namespace)
 {
-    const bool same
-        ( std::is_same
-          <
-              std::string,
-              ic_reference_namespaces( ( iscool ) ( meta ) ( test ) )
-              in_namespace
-          >::value );
+  const bool same(
+      std::is_same<std::string, ic_reference_namespaces((iscool)(meta)(test))
+                                    in_namespace>::value);
 
-    EXPECT_TRUE( same );
+  EXPECT_TRUE(same);
 }

@@ -25,96 +25,91 @@
 
 namespace iscool
 {
-    namespace signals
+  namespace signals
+  {
+    namespace detail
     {
-        namespace detail
-        {
-            template< typename Signature >
-            struct signal_binder;
+      template <typename Signature>
+      struct signal_binder;
 
-            template< typename R, typename... T >
-            struct signal_binder< R( T... ) >
-            {
-                typedef iscool::signals::signal< R( T... ) > signal_type;
-                typedef
-                typename signal_type::slot_function_type slot_function_type;
+      template <typename R, typename... T>
+      struct signal_binder<R(T...)>
+      {
+        typedef iscool::signals::signal<R(T...)> signal_type;
+        typedef typename signal_type::slot_function_type slot_function_type;
 
-                static slot_function_type bind( const signal_type& signal );
-            };
+        static slot_function_type bind(const signal_type& signal);
+      };
 
-            template< std::size_t N, typename R, typename... T >
-            struct signal_binder_n;
+      template <std::size_t N, typename R, typename... T>
+      struct signal_binder_n;
 
-            template< typename Signature >
-            struct signal_invoker;
+      template <typename Signature>
+      struct signal_invoker;
 
-            template< typename R, typename... T >
-            struct signal_invoker< R ( T... ) >
-            {
-                typedef iscool::signals::signal< R( T... ) > signal_type;
-                static R invoke( const signal_type* signal, T... arguments );
-            };
+      template <typename R, typename... T>
+      struct signal_invoker<R(T...)>
+      {
+        typedef iscool::signals::signal<R(T...)> signal_type;
+        static R invoke(const signal_type* signal, T... arguments);
+      };
 
-            template< typename ...T >
-            struct signal_invoker< void( T... ) >
-            {
-                typedef iscool::signals::signal<void( T... )> signal_type;
-                static void invoke( const signal_type* signal, T... arguments );
-            };
-        }
+      template <typename... T>
+      struct signal_invoker<void(T...)>
+      {
+        typedef iscool::signals::signal<void(T...)> signal_type;
+        static void invoke(const signal_type* signal, T... arguments);
+      };
     }
+  }
 }
 
-template< typename Signature >
-typename iscool::signals::signal< Signature >::slot_function_type
-iscool::signals::relay( const signal< Signature >& s )
+template <typename Signature>
+typename iscool::signals::signal<Signature>::slot_function_type
+iscool::signals::relay(const signal<Signature>& s)
 {
-    return detail::signal_binder<Signature>::bind( s );
+  return detail::signal_binder<Signature>::bind(s);
 }
 
-template< typename R, typename ...T >
-typename
-iscool::signals::detail::signal_binder< R( T... ) >::slot_function_type
-iscool::signals::detail::signal_binder<R( T... )>::bind
-( const signal_type& signal )
+template <typename R, typename... T>
+typename iscool::signals::detail::signal_binder<R(T...)>::slot_function_type
+iscool::signals::detail::signal_binder<R(T...)>::bind(
+    const signal_type& signal)
 {
-    constexpr std::size_t size = sizeof...(T);
-    return signal_binder_n< size, R, T... >::bind( signal );
+  constexpr std::size_t size = sizeof...(T);
+  return signal_binder_n<size, R, T...>::bind(signal);
 }
 
-#define SIGNAL_BINDER_PLACEHOLDER( UNUSED1, N, DATA )      \
-    BOOST_PP_CAT( DATA, BOOST_PP_INC( N ) )
+#define SIGNAL_BINDER_PLACEHOLDER(UNUSED1, N, DATA)                           \
+  BOOST_PP_CAT(DATA, BOOST_PP_INC(N))
 
-#define SIGNAL_BINDER_BINDN( N ) \
-    template< typename R, typename ...T > \
-    struct signal_binder_n< N, R, T... > \
-    { \
-        typedef iscool::signals::signal<R( T... )> signal_type; \
-        typedef typename signal_type::slot_function_type slot_function_type; \
-        static slot_function_type bind( const signal_type& signal ) \
-        { \
-            return std::bind<R>                                    \
-                ( &detail::signal_invoker<R( T... )>::invoke, &signal \
-                  BOOST_PP_COMMA_IF( N ) \
-                  BOOST_PP_ENUM( N, \
-                                 SIGNAL_BINDER_PLACEHOLDER, \
-                                 std::placeholders::_ )     \
-            ); \
-        } \
-    };
+#define SIGNAL_BINDER_BINDN(N)                                                \
+  template <typename R, typename... T>                                        \
+  struct signal_binder_n<N, R, T...>                                          \
+  {                                                                           \
+    typedef iscool::signals::signal<R(T...)> signal_type;                     \
+    typedef typename signal_type::slot_function_type slot_function_type;      \
+    static slot_function_type bind(const signal_type& signal)                 \
+    {                                                                         \
+      return std::bind<R>(&detail::signal_invoker<R(T...)>::invoke,           \
+                          &signal BOOST_PP_COMMA_IF(N)                        \
+                              BOOST_PP_ENUM(N, SIGNAL_BINDER_PLACEHOLDER,     \
+                                            std::placeholders::_));           \
+    }                                                                         \
+  };
 
-#define BOOST_PP_LOCAL_MACRO( N )  SIGNAL_BINDER_BINDN( N )
-#define BOOST_PP_LOCAL_LIMITS     (0, 8)
+#define BOOST_PP_LOCAL_MACRO(N) SIGNAL_BINDER_BINDN(N)
+#define BOOST_PP_LOCAL_LIMITS (0, 8)
 
 namespace iscool
 {
-    namespace signals
+  namespace signals
+  {
+    namespace detail
     {
-        namespace detail
-        {
 #include BOOST_PP_LOCAL_ITERATE()
-        }
     }
+  }
 }
 
 #undef SIGNAL_BINDER_PLACEHOLDER
@@ -122,20 +117,20 @@ namespace iscool
 #undef BOOST_PP_LOCAL_MACRO
 #undef BOOST_PP_LOCAL_LIMITS
 
-template< typename R, typename...T >
-R iscool::signals::detail::signal_invoker< R( T... ) >::invoke
-( const signal_type* signal, T... arguments )
+template <typename R, typename... T>
+R iscool::signals::detail::signal_invoker<R(T...)>::invoke(
+    const signal_type* signal, T... arguments)
 {
-    assert( signal );
-    return *( signal->operator() ( arguments... ) );
+  assert(signal);
+  return *(signal->operator()(arguments...));
 };
 
-template< typename ...T >
-void iscool::signals::detail::signal_invoker< void( T... ) >::invoke
-( const signal_type* signal, T... arguments )
+template <typename... T>
+void iscool::signals::detail::signal_invoker<void(T...)>::invoke(
+    const signal_type* signal, T... arguments)
 {
-    assert( signal );
-    signal->operator() ( arguments... );
+  assert(signal);
+  signal->operator()(arguments...);
 };
 
 #endif

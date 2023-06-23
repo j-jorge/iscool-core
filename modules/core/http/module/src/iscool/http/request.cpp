@@ -15,55 +15,55 @@
 */
 #include "iscool/http/request.h"
 
-void iscool::http::request::set_type( type t )
+void iscool::http::request::set_type(type t)
 {
-    _type = t;
+  _type = t;
 }
 
 iscool::http::request::type iscool::http::request::get_type() const
 {
-    return _type;
+  return _type;
 }
 
-void iscool::http::request::set_url( const std::string& url )
+void iscool::http::request::set_url(const std::string& url)
 {
-    _url = url;
+  _url = url;
 }
 
 const std::string& iscool::http::request::get_url() const
 {
-    return _url;
+  return _url;
 }
 
-void iscool::http::request::set_body( const std::string& body )
+void iscool::http::request::set_body(const std::string& body)
 {
-    _body = body;
+  _body = body;
 }
 
 const std::string& iscool::http::request::get_body() const
 {
-    return _body;
+  return _body;
 }
 
-void iscool::http::request::set_headers
-( const std::vector< std::string >& headers )
+void iscool::http::request::set_headers(
+    const std::vector<std::string>& headers)
 {
-    _headers = headers;
+  _headers = headers;
 }
 
-const std::vector< std::string >& iscool::http::request::get_headers() const
+const std::vector<std::string>& iscool::http::request::get_headers() const
 {
-    return _headers;
+  return _headers;
 }
 
-void iscool::http::request::set_response_handler( response_handler handler )
+void iscool::http::request::set_response_handler(response_handler handler)
 {
-    assert( handler );
-    _response_handler = handler;
+  assert(handler);
+  _response_handler = handler;
 }
 
 iscool::http::request::response_handler
 iscool::http::request::get_response_handler() const
 {
-    return _response_handler;
+  return _response_handler;
 }

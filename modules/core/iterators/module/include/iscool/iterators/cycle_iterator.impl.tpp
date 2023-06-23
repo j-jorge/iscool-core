@@ -18,49 +18,49 @@
 
 #include <cassert>
 
-template< typename Iterator >
-iscool::iterators::cycle_iterator< Iterator >::cycle_iterator
-( const Iterator& begin, const Iterator& end )
-    : _begin( begin ),
-      _end( end ),
-      _current( _begin )
+template <typename Iterator>
+iscool::iterators::cycle_iterator<Iterator>::cycle_iterator(
+    const Iterator& begin, const Iterator& end)
+  : _begin(begin)
+  , _end(end)
+  , _current(_begin)
 {
-    assert( begin != end );
+  assert(begin != end);
 }
 
-template< typename Iterator >
-iscool::iterators::cycle_iterator< Iterator >&
-iscool::iterators::cycle_iterator< Iterator >::operator++()
+template <typename Iterator>
+iscool::iterators::cycle_iterator<Iterator>&
+iscool::iterators::cycle_iterator<Iterator>::operator++()
 {
-    ++_current;
+  ++_current;
 
-    if ( _current == _end )
-        _current = _begin;
+  if (_current == _end)
+    _current = _begin;
 
-    return *this;
+  return *this;
 }
 
-template< typename Iterator >
-iscool::iterators::cycle_iterator< Iterator >
-iscool::iterators::cycle_iterator< Iterator >::operator++( int )
+template <typename Iterator>
+iscool::iterators::cycle_iterator<Iterator>
+iscool::iterators::cycle_iterator<Iterator>::operator++(int)
 {
-    const auto result( *this );
-    ++*this;
-    return result;
+  const auto result(*this);
+  ++*this;
+  return result;
 }
 
-template< typename Iterator >
-typename iscool::iterators::cycle_iterator< Iterator >::reference
-iscool::iterators::cycle_iterator< Iterator >::operator*() const
+template <typename Iterator>
+typename iscool::iterators::cycle_iterator<Iterator>::reference
+iscool::iterators::cycle_iterator<Iterator>::operator*() const
 {
-    return *_current;
+  return *_current;
 }
 
-template< typename Iterator >
-typename iscool::iterators::cycle_iterator< Iterator >::pointer
-iscool::iterators::cycle_iterator< Iterator >::operator->() const
+template <typename Iterator>
+typename iscool::iterators::cycle_iterator<Iterator>::pointer
+iscool::iterators::cycle_iterator<Iterator>::operator->() const
 {
-    return &*_current;
+  return &*_current;
 }
 
 #endif

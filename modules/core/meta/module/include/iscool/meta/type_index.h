@@ -20,15 +20,15 @@
 
 namespace iscool
 {
-    namespace meta
+  namespace meta
+  {
+    template <typename T, typename... U>
+    struct type_index
     {
-        template<typename T, typename... U>
-        struct type_index
-        {
-            static constexpr std::size_t value =
-                detail::type_index< 0, T, U... >::value;
-        };
-    }
+      static constexpr std::size_t value =
+          detail::type_index<0, T, U...>::value;
+    };
+  }
 }
 
 #endif

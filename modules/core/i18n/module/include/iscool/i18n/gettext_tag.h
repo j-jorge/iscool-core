@@ -16,6 +16,6 @@
 #ifndef ISCOOL_I18N_GETTEXT_TAG_H
 #define ISCOOL_I18N_GETTEXT_TAG_H
 
-#define ic_gettext_tag( message ) message
+#define ic_gettext_tag(message) message
 
 #endif

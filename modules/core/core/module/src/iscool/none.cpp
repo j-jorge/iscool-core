@@ -15,4 +15,4 @@
 */
 #include "iscool/none.h"
 
-const iscool::none_t iscool::none( ( iscool::none_t::init_tag() ) );
+const iscool::none_t iscool::none((iscool::none_t::init_tag()));

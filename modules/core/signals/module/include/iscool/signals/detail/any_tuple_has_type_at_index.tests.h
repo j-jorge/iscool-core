@@ -18,53 +18,34 @@
 
 namespace iscool
 {
-    namespace signals
+  namespace signals
+  {
+    namespace detail
     {
-        namespace detail
-        {
-            static_assert
-            ( !any_tuple_has_type_at_index
-              <
-                  1,
-                  std::tuple< bool, int >
-              >::value,
-              "Single tuple test should not find a tuple with the same type at"
-              " the given index." );
+      static_assert(
+          !any_tuple_has_type_at_index<1, std::tuple<bool, int>>::value,
+          "Single tuple test should not find a tuple with the same type at"
+          " the given index.");
 
-            static_assert
-            ( any_tuple_has_type_at_index
-              <
-                  1,
-                  std::tuple< bool, int >,
-                  std::tuple< float, float, double >,
-                  std::tuple< int, float >,
-                  std::tuple< float, int >
-              >::value,
-              "Failed to detect tuple with type int at second type." );
+      static_assert(
+          any_tuple_has_type_at_index<
+              1, std::tuple<bool, int>, std::tuple<float, float, double>,
+              std::tuple<int, float>, std::tuple<float, int>>::value,
+          "Failed to detect tuple with type int at second type.");
 
-            static_assert
-            ( any_tuple_has_type_at_index
-              <
-                  0,
-                  std::tuple< int, bool >,
-                  std::tuple< float, float >,
-                  std::tuple< int, float, double >,
-                  std::tuple< float, int >
-              >::value,
-              "Failed to detect tuple with type int at first type." );
+      static_assert(
+          any_tuple_has_type_at_index<
+              0, std::tuple<int, bool>, std::tuple<float, float>,
+              std::tuple<int, float, double>, std::tuple<float, int>>::value,
+          "Failed to detect tuple with type int at first type.");
 
-            static_assert
-            ( !any_tuple_has_type_at_index
-              <
-                  1,
-                  std::tuple< int, bool >,
-                  std::tuple< float, float >,
-                  std::tuple< int, float, double >,
-                  std::tuple< float, int >
-              >::value,
-              "Failed not to detect a tuple with type bool at second type." );
-        }
+      static_assert(
+          !any_tuple_has_type_at_index<
+              1, std::tuple<int, bool>, std::tuple<float, float>,
+              std::tuple<int, float, double>, std::tuple<float, int>>::value,
+          "Failed not to detect a tuple with type bool at second type.");
     }
+  }
 }
 
 #endif

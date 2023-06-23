@@ -20,39 +20,33 @@
 #include "iscool/jni/get_method.h"
 #include "iscool/jni/method_jboolean.h"
 
-template< typename T >
-iscool::jni::array_list< T >::array_list()
-    : _array( alloc( "java/util/ArrayList", "()V" ) )
+template <typename T>
+iscool::jni::array_list<T>::array_list()
+  : _array(alloc("java/util/ArrayList", "()V"))
+{}
+
+template <typename T>
+iscool::jni::java_ptr<jobject>
+iscool::jni::array_list<T>::get_java_object() const
 {
-    
-}
-        
-template< typename T >
-iscool::jni::java_ptr< jobject >
-iscool::jni::array_list< T >::get_java_object() const
-{
-    return _array;
+  return _array;
 }
 
-template< typename T >
-jboolean iscool::jni::array_list< T >::add( const value_type& value ) const
+template <typename T>
+jboolean iscool::jni::array_list<T>::add(const value_type& value) const
 {
-    const auto method
-        ( get_method< jboolean >
-          ( "java/util/ArrayList", "add", "(Ljava/lang/Object;)Z" ) );
+  const auto method(get_method<jboolean>("java/util/ArrayList", "add",
+                                         "(Ljava/lang/Object;)Z"));
 
-    return method( _array, value );
+  return method(_array, value);
 }
 
-template< typename T >
+template <typename T>
 jobject
-iscool::jni::detail::get_method_argument_impl
-<
-    iscool::jni::array_list< T >
->::get
-( const array_list< T >& array )
+iscool::jni::detail::get_method_argument_impl<iscool::jni::array_list<T>>::get(
+    const array_list<T>& array)
 {
-    return array.get_java_object().get();
+  return array.get_java_object().get();
 }
 
 #endif

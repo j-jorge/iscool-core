@@ -15,13 +15,12 @@
 */
 #include "gtest/gtest.h"
 
-template< typename AssociativeContainer, typename Key, typename Value >
-void iscool::test::expect_map_contains
-( const AssociativeContainer& map, const Key& key, const Value& value )
+template <typename AssociativeContainer, typename Key, typename Value>
+void iscool::test::expect_map_contains(const AssociativeContainer& map,
+                                       const Key& key, const Value& value)
 {
-    auto it( map.find( key ) );
+  auto it(map.find(key));
 
-    ASSERT_NE( map.end(), it );
-    EXPECT_EQ( value, it->second );
+  ASSERT_NE(map.end(), it);
+  EXPECT_EQ(value, it->second);
 }
-

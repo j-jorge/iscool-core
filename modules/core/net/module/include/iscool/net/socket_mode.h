@@ -18,14 +18,14 @@
 
 namespace iscool
 {
-    namespace net
+  namespace net
+  {
+    namespace socket_mode
     {
-        namespace socket_mode
-        {
-            enum class client;
-            enum class server;
-        }
+      enum class client;
+      enum class server;
     }
+  }
 }
 
 #endif

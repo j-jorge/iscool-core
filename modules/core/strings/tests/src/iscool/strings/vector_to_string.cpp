@@ -17,32 +17,32 @@
 
 #include "gtest/gtest.h"
 
-TEST( iscool_strings_vector_to_string, empty )
+TEST(iscool_strings_vector_to_string, empty)
 {
-    std::vector< int > v;
-    EXPECT_EQ( "", iscool::strings::vector_to_string( v, ',' ) );
+  std::vector<int> v;
+  EXPECT_EQ("", iscool::strings::vector_to_string(v, ','));
 }
 
-TEST( iscool_strings_vector_to_string, one )
+TEST(iscool_strings_vector_to_string, one)
 {
-    std::vector< int > v( { 2 } );
-    EXPECT_EQ( "2", iscool::strings::vector_to_string( v, ',' ) );
+  std::vector<int> v({ 2 });
+  EXPECT_EQ("2", iscool::strings::vector_to_string(v, ','));
 }
 
-TEST( iscool_strings_vector_to_string, two )
+TEST(iscool_strings_vector_to_string, two)
 {
-    std::vector< int > v( { 5, 4 } );
-    EXPECT_EQ( "5,4", iscool::strings::vector_to_string( v, ',' ) );
+  std::vector<int> v({ 5, 4 });
+  EXPECT_EQ("5,4", iscool::strings::vector_to_string(v, ','));
 }
 
-TEST( iscool_strings_vector_to_string, strings )
+TEST(iscool_strings_vector_to_string, strings)
 {
-    std::vector< std::string > v( { "abc", "def" } );
-    EXPECT_EQ( "abc,def", iscool::strings::vector_to_string( v, ',' ) );
+  std::vector<std::string> v({ "abc", "def" });
+  EXPECT_EQ("abc,def", iscool::strings::vector_to_string(v, ','));
 }
 
-TEST( iscool_strings_vector_to_string, separator )
+TEST(iscool_strings_vector_to_string, separator)
 {
-    std::vector< int > v( { 9, 32, 34, 8 } );
-    EXPECT_EQ( "9:32:34:8", iscool::strings::vector_to_string( v, ':' ) );
+  std::vector<int> v({ 9, 32, 34, 8 });
+  EXPECT_EQ("9:32:34:8", iscool::strings::vector_to_string(v, ':'));
 }

@@ -20,21 +20,21 @@
 
 namespace iscool
 {
-    namespace signals
+  namespace signals
+  {
+    namespace detail
     {
-        namespace detail
+      template <typename... Tuple>
+      struct no_tuple_is_masked
+      {
+        enum
         {
-            template< typename... Tuple >
-            struct no_tuple_is_masked
-            {
-                enum
-                {
-                    value =
-                      !any_tuple_is_masked< std::tuple<>, Tuple... >::value
-                };
-            };
-        }
+          value = !any_tuple_is_masked < std::tuple<>,
+          Tuple... > ::value
+        };
+      };
     }
+  }
 }
 
 #include "iscool/signals/detail/no_tuple_is_masked.tests.h"

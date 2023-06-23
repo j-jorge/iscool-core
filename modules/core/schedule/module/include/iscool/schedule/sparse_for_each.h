@@ -20,63 +20,61 @@
 
 namespace iscool
 {
-    namespace schedule
+  namespace schedule
+  {
+    class sparse_for_each
     {
-        class sparse_for_each
-        {
-        private:
-            typedef std::chrono::milliseconds duration_type;
+    private:
+      typedef std::chrono::milliseconds duration_type;
 
-        public:
+    public:
+      template <typename Iterator, typename Function>
+      void operator()(Iterator first, Iterator last, Function f)
+      {
+        assert(!_looping);
 
-            template< typename Iterator, typename Function >
-            void operator()( Iterator first, Iterator last, Function f )
-            {
-                assert( !_looping );
+        _calls.resize(0);
+        _calls.reserve(std::distance(first, last));
 
-                _calls.resize( 0 );
-                _calls.reserve( std::distance( first, last ) );
+        for (Iterator it(first); it != last; ++it)
+          _calls.push_back(std::bind(f, *it));
 
-                for( Iterator it( first ); it != last; ++it )
-                    _calls.push_back( std::bind( f, *it ) );
+        _next_index = 0;
+        schedule_loop();
+      }
 
-                _next_index = 0;
-                schedule_loop();
-            }
+    private:
+      void schedule_loop()
+      {
+        _loop_connection = delayed_call(&sparse_for_each::loop, this);
+      }
 
-        private:
-            void schedule_loop()
-            {
-                _loop_connection = delayed_call( &sparse_for_each::loop, this );
-            }
+      void loop()
+      {
+        assert(_next_index <= _calls.size());
 
-            void loop()
-            {
-                assert( _next_index <= _calls.size() );
+        const duration_type start(time::now<duration_type>());
+        duration_type now(start);
 
-                const duration_type start( time::now< duration_type >() );
-                duration_type now( start );
+        _looping = true;
+        while ((_next_index != _calls.size()) && (now - start < _time_limit))
+          {
+            _calls[i]();
+            ++_next_index;
+            now = time::now<duration_type>();
+          }
+        _looping = false;
 
-                _looping = true;
-                while ( ( _next_index != _calls.size() )
-                        && ( now - start < _time_limit ) )
-                {
-                    _calls[ i ]();
-                    ++_next_index;
-                    now = time::now< duration_type >();
-                }
-                _looping = false;
+        if (_next_index != _calls.size())
+          schedule_loop();
+      }
 
-                if ( _next_index != _calls.size() )
-                    schedule_loop();
-            }
-
-        private:
-            duration_type _time_limit;
-            std::size_t _next_index;
-            std::vector< std::function< void() > > _calls;
-            bool _looping;
-        };
-    }
+    private:
+      duration_type _time_limit;
+      std::size_t _next_index;
+      std::vector<std::function<void()>> _calls;
+      bool _looping;
+    };
+  }
 }
 #endif

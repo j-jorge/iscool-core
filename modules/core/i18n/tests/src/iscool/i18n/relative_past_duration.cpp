@@ -19,47 +19,35 @@
 
 #include "gtest/gtest.h"
 
-TEST( iscool_i18n, relative_past_duration )
+TEST(iscool_i18n, relative_past_duration)
 {
-    EXPECT_EQ( "now",
-                iscool::i18n::relative_past_duration
-               ( std::chrono::seconds::zero() ) );
-    EXPECT_EQ( "now",
-                iscool::i18n::relative_past_duration
-               ( std::chrono::hours::zero() ) );
-    EXPECT_EQ( "now",
-                iscool::i18n::relative_past_duration
-               ( iscool::time::days::zero() ) );
+  EXPECT_EQ("now", iscool::i18n::relative_past_duration(
+                       std::chrono::seconds::zero()));
+  EXPECT_EQ("now",
+            iscool::i18n::relative_past_duration(std::chrono::hours::zero()));
+  EXPECT_EQ("now",
+            iscool::i18n::relative_past_duration(iscool::time::days::zero()));
 
-    EXPECT_EQ( "834 ms. ago",
-                iscool::i18n::relative_past_duration
-               ( std::chrono::milliseconds( 834 ) ) );
+  EXPECT_EQ("834 ms. ago", iscool::i18n::relative_past_duration(
+                               std::chrono::milliseconds(834)));
 
-    EXPECT_EQ( "1 s. ago",
-                iscool::i18n::relative_past_duration
-               ( std::chrono::milliseconds( 1200 ) ) );
-    EXPECT_EQ( "2 s. ago",
-                iscool::i18n::relative_past_duration
-               ( std::chrono::milliseconds( 1834 ) ) );
+  EXPECT_EQ("1 s. ago", iscool::i18n::relative_past_duration(
+                            std::chrono::milliseconds(1200)));
+  EXPECT_EQ("2 s. ago", iscool::i18n::relative_past_duration(
+                            std::chrono::milliseconds(1834)));
 
-    EXPECT_EQ( "1 min. ago",
-                iscool::i18n::relative_past_duration
-               ( std::chrono::seconds( 88 ) ) );
-    EXPECT_EQ( "2 min. ago",
-                iscool::i18n::relative_past_duration
-               ( std::chrono::seconds( 118 ) ) );
+  EXPECT_EQ("1 min. ago",
+            iscool::i18n::relative_past_duration(std::chrono::seconds(88)));
+  EXPECT_EQ("2 min. ago",
+            iscool::i18n::relative_past_duration(std::chrono::seconds(118)));
 
-    EXPECT_EQ( "1 h. ago",
-                iscool::i18n::relative_past_duration
-               ( std::chrono::minutes( 62 ) ) );
-    EXPECT_EQ( "2 h. ago",
-                iscool::i18n::relative_past_duration
-               ( std::chrono::minutes( 118 ) ) );
+  EXPECT_EQ("1 h. ago",
+            iscool::i18n::relative_past_duration(std::chrono::minutes(62)));
+  EXPECT_EQ("2 h. ago",
+            iscool::i18n::relative_past_duration(std::chrono::minutes(118)));
 
-    EXPECT_EQ( "1 day ago",
-                iscool::i18n::relative_past_duration
-               ( std::chrono::hours( 24 ) ) );
-    EXPECT_EQ( "3 days ago",
-                iscool::i18n::relative_past_duration
-               ( std::chrono::hours( 70 ) ) );
+  EXPECT_EQ("1 day ago",
+            iscool::i18n::relative_past_duration(std::chrono::hours(24)));
+  EXPECT_EQ("3 days ago",
+            iscool::i18n::relative_past_duration(std::chrono::hours(70)));
 }

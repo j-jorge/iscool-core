@@ -22,26 +22,26 @@
 
 namespace iscool
 {
-    namespace preferences
+  namespace preferences
+  {
+    class property_map_to_json
     {
-        class property_map_to_json
-        {
-        public:
-            explicit property_map_to_json( Json::Value& target );
+    public:
+      explicit property_map_to_json(Json::Value& target);
 
-            void operator()( const std::string& key, std::int64_t value );
-            void operator()( const std::string& key, bool value );
-            void operator()( const std::string& key, float value );
-            void operator()( const std::string& key, const std::string& value );
-            
-        private:
-            template< typename T >
-            void insert( const std::string& key, const T& value );
+      void operator()(const std::string& key, std::int64_t value);
+      void operator()(const std::string& key, bool value);
+      void operator()(const std::string& key, float value);
+      void operator()(const std::string& key, const std::string& value);
 
-        private:
-            Json::Value& _target;
-        };
-    }
+    private:
+      template <typename T>
+      void insert(const std::string& key, const T& value);
+
+    private:
+      Json::Value& _target;
+    };
+  }
 }
 
 #endif

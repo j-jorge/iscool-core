@@ -20,14 +20,11 @@
 
 namespace iscool
 {
-    namespace notification
-    {
-        class service:
-            public detail::platform_service
-        {
-
-        };
-    }
+  namespace notification
+  {
+    class service : public detail::platform_service
+    {};
+  }
 }
 
 #endif

@@ -16,8 +16,8 @@
 #ifndef ISCOOL_JSON_IS_OF_TYPE_ARRAY_H
 #define ISCOOL_JSON_IS_OF_TYPE_ARRAY_H
 
+#include "iscool/json/detail/cast_array.h"
 #include "iscool/json/is_of_type.h"
 #include "iscool/json/is_of_type.impl.tpp"
-#include "iscool/json/detail/cast_array.h"
 
 #endif

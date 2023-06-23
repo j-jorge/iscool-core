@@ -17,15 +17,14 @@
 
 #include <cassert>
 
-iscool::jni::detail::method_base::method_base
-( JNIEnv* env, jmethodID method_id )
-    : _env( env ),
-      _method( method_id )
+iscool::jni::detail::method_base::method_base(JNIEnv* env, jmethodID method_id)
+  : _env(env)
+  , _method(method_id)
 {
-    assert( _env != nullptr );
+  assert(_env != nullptr);
 }
 
 JNIEnv* iscool::jni::detail::method_base::get_env() const
 {
-    return _env;
+  return _env;
 }

@@ -17,8 +17,8 @@
 #define ISCOOL_STYLE_DECLARATION_H
 
 #include "iscool/optional.h"
-#include "iscool/style/detail/properties_handle.h"
 #include "iscool/style/detail/declaration_ref.h"
+#include "iscool/style/detail/properties_handle.h"
 
 #include <boost/range/iterator_range.hpp>
 
@@ -27,75 +27,69 @@
 
 namespace iscool
 {
-    namespace style
+  namespace style
+  {
+    class declaration
     {
-        class declaration
-        {
-        public:
-            typedef std::unordered_map< std::string, float > numbers_map;
-            typedef std::unordered_map< std::string, bool > booleans_map;
+    public:
+      typedef std::unordered_map<std::string, float> numbers_map;
+      typedef std::unordered_map<std::string, bool> booleans_map;
 
-            typedef std::unordered_map< std::string, detail::declaration_ref >
-            declaration_map;
-            
-            typedef std::unordered_map< std::string, std::string > string_map;
+      typedef std::unordered_map<std::string, detail::declaration_ref>
+          declaration_map;
 
-            template< typename T >
-            using range = boost::iterator_range< T >;
-            typedef range< numbers_map::const_iterator > numbers_range;
-            typedef range< booleans_map::const_iterator > booleans_range;
-            typedef range< string_map::const_iterator > strings_range;
-            typedef range< declaration_map::const_iterator > declarations_range;
+      typedef std::unordered_map<std::string, std::string> string_map;
 
-        public:
-            void set_number( const std::string& key, float value );
-            iscool::optional< float >
-            get_number( const std::string& key ) const;
-            float get_number
-            ( const std::string& key, float default_value ) const;
+      template <typename T>
+      using range = boost::iterator_range<T>;
+      typedef range<numbers_map::const_iterator> numbers_range;
+      typedef range<booleans_map::const_iterator> booleans_range;
+      typedef range<string_map::const_iterator> strings_range;
+      typedef range<declaration_map::const_iterator> declarations_range;
 
-            void set_boolean( const std::string& key, bool value );
-            iscool::optional< bool >
-            get_boolean( const std::string& key ) const;
-            bool get_boolean
-            ( const std::string& key, bool default_value ) const;
-            
-            void set_string( const std::string& key, const std::string& value );
-            iscool::optional< const std::string& >
-            get_string( const std::string& key ) const;
-            std::string get_string
-            ( const std::string& key, const std::string& default_value ) const;
+    public:
+      void set_number(const std::string& key, float value);
+      iscool::optional<float> get_number(const std::string& key) const;
+      float get_number(const std::string& key, float default_value) const;
 
-            void set_declaration
-            ( const std::string& key, const declaration& style );
-            iscool::optional< const declaration& >
-            get_declaration( const std::string& key ) const;
-            const declaration&
-            get_declaration_or_empty( const std::string& key ) const;
+      void set_boolean(const std::string& key, bool value);
+      iscool::optional<bool> get_boolean(const std::string& key) const;
+      bool get_boolean(const std::string& key, bool default_value) const;
 
-            declaration merge( declaration style ) const;
+      void set_string(const std::string& key, const std::string& value);
+      iscool::optional<const std::string&>
+      get_string(const std::string& key) const;
+      std::string get_string(const std::string& key,
+                             const std::string& default_value) const;
 
-            bool is_empty() const;
+      void set_declaration(const std::string& key, const declaration& style);
+      iscool::optional<const declaration&>
+      get_declaration(const std::string& key) const;
+      const declaration&
+      get_declaration_or_empty(const std::string& key) const;
 
-            numbers_range get_numbers() const;
-            booleans_range get_booleans() const;
-            strings_range get_strings() const;
-            declarations_range get_declarations() const;
+      declaration merge(declaration style) const;
 
-            std::size_t get_declaration_count() const;
-            
-            std::uint64_t get_id() const;
-            
-        private:
-            declaration_map get_merged_declarations
-            ( const declaration& style ) const;
+      bool is_empty() const;
 
-            void ensure_owned_properties();
-            
-        private:
-            detail::properties_handle _properties;
-        };
-    }
+      numbers_range get_numbers() const;
+      booleans_range get_booleans() const;
+      strings_range get_strings() const;
+      declarations_range get_declarations() const;
+
+      std::size_t get_declaration_count() const;
+
+      std::uint64_t get_id() const;
+
+    private:
+      declaration_map get_merged_declarations(const declaration& style) const;
+
+      void ensure_owned_properties();
+
+    private:
+      detail::properties_handle _properties;
+    };
+  }
 }
 
 #endif

@@ -27,84 +27,76 @@
 
 namespace iscool
 {
-    namespace signals
+  namespace signals
+  {
+    namespace detail
     {
-        namespace detail
+      template <typename Signature>
+      class signal
+      {
+      public:
+        typedef void result_type;
+
+      public:
+        signal();
+        signal(const signal<Signature>&) = delete;
+        signal(signal<Signature>&&) = delete;
+        ~signal();
+
+        signal<Signature>& operator=(const signal<Signature>&) = delete;
+
+        signal<Signature>& operator=(signal<Signature>&&) = delete;
+
+        connection connect(std::function<Signature> f);
+
+        template <typename... Arg>
+        void operator()(Arg&&... arg) const;
+
+        bool empty() const;
+        void disconnect_all_slots();
+        std::size_t num_slots() const;
+        void swap(signal<Signature>& that) noexcept;
+
+      private:
+        struct internal_slot : public slot
         {
-            template< typename Signature >
-            class signal
-            {
-            public:
-                typedef void result_type;
+          explicit internal_slot(std::function<Signature> f);
+          ~internal_slot();
 
-            public:
-                signal();
-                signal( const signal< Signature >& ) = delete;
-                signal( signal< Signature >&& ) = delete;
-                ~signal();
+          std::function<Signature> callback;
+        };
 
-                signal< Signature >& operator=( const signal< Signature >& ) =
-                    delete;
+        typedef std::shared_ptr<internal_slot> shared_slot_ptr;
+        typedef std::vector<shared_slot_ptr> shared_slot_ptr_vector;
 
-                signal< Signature >& operator=( signal< Signature >&& ) =
-                    delete;
+        typedef typename std::aligned_storage<
+            (sizeof(shared_slot_ptr) > sizeof(shared_slot_ptr_vector))
+                ? sizeof(shared_slot_ptr)
+                : sizeof(shared_slot_ptr_vector)>::type slot_storage;
 
-                connection connect( std::function< Signature > f );
+        enum class storage_kind : char
+        {
+          none,
+          pointer,
+          vector
+        };
 
-                template< typename... Arg >
-                void operator()( Arg&&... arg ) const;
+      private:
+        shared_slot_ptr& get_storage_as_pointer();
+        const shared_slot_ptr& get_storage_as_pointer() const;
+        shared_slot_ptr_vector& get_storage_as_vector();
+        const shared_slot_ptr_vector& get_storage_as_vector() const;
 
-                bool empty() const;
-                void disconnect_all_slots();
-                std::size_t num_slots() const;
-                void swap( signal< Signature >& that ) noexcept;
+        void swap_pointer_vector(signal<Signature>& that) noexcept;
+        void swap_pointer_none(signal<Signature>& that) noexcept;
+        void swap_vector_none(signal<Signature>& that) noexcept;
 
-            private:
-                struct internal_slot:
-                    public slot
-                {
-                    explicit internal_slot( std::function< Signature > f );
-                    ~internal_slot();
-
-                    std::function< Signature > callback;
-                };
-
-                typedef std::shared_ptr< internal_slot > shared_slot_ptr;
-                typedef std::vector< shared_slot_ptr > shared_slot_ptr_vector;
-
-                typedef
-                typename std::aligned_storage
-                <
-                  ( sizeof( shared_slot_ptr )
-                    > sizeof( shared_slot_ptr_vector ) )
-                    ? sizeof( shared_slot_ptr )
-                    : sizeof( shared_slot_ptr_vector )
-                >::type
-                slot_storage;
-
-                enum class storage_kind : char
-                {
-                    none,
-                    pointer,
-                    vector
-                };
-
-            private:
-                shared_slot_ptr& get_storage_as_pointer();
-                const shared_slot_ptr& get_storage_as_pointer() const;
-                shared_slot_ptr_vector& get_storage_as_vector();
-                const shared_slot_ptr_vector& get_storage_as_vector() const;
-
-                void swap_pointer_vector( signal< Signature >& that ) noexcept;
-                void swap_pointer_none( signal< Signature >& that ) noexcept;
-                void swap_vector_none( signal< Signature >& that ) noexcept;
-
-            private:
-                slot_storage _slot_storage;
-                storage_kind _storage_kind;
-            };
-        }
+      private:
+        slot_storage _slot_storage;
+        storage_kind _storage_kind;
+      };
     }
+  }
 }
 
 #endif

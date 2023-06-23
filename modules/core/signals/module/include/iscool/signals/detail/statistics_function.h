@@ -20,18 +20,15 @@
 
 namespace iscool
 {
-    namespace signals
-    {
-        class statistics_data;
+  namespace signals
+  {
+    class statistics_data;
 
-        namespace detail
-        {
-            extern
-            std::function< void( const statistics_data& ) >
-            statistics_function;
-        }
+    namespace detail
+    {
+      extern std::function<void(const statistics_data&)> statistics_function;
     }
+  }
 }
 
 #endif
-

@@ -18,16 +18,16 @@
 
 #include "iscool/jni/detail/variadic_native_callback.h"
 
-template< typename... Args >
-jlong iscool::jni::detail::native_call_manager::register_callback
-( native_callback_lifespan lifespan,
-  const std::function< void( Args... ) >& callback )
+template <typename... Args>
+jlong iscool::jni::detail::native_call_manager::register_callback(
+    native_callback_lifespan lifespan,
+    const std::function<void(Args...)>& callback)
 {
-    auto* const pointer
-        ( new variadic_native_callback< Args... >( lifespan, callback ) );
-    _callbacks.push_back( pointer );
+  auto* const pointer(
+      new variadic_native_callback<Args...>(lifespan, callback));
+  _callbacks.push_back(pointer);
 
-    return reinterpret_cast< jlong >( pointer );
+  return reinterpret_cast<jlong>(pointer);
 }
 
 #endif

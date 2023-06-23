@@ -15,16 +15,16 @@
 */
 #include "iscool/style/detail/merge_declarations.h"
 
-iscool::style::declaration iscool::style::detail::merge_declarations
-( const std::vector< declaration >& declarations )
+iscool::style::declaration iscool::style::detail::merge_declarations(
+    const std::vector<declaration>& declarations)
 {
-    if ( declarations.size() == 1 )
-        return declarations[0];
-    
-    declaration result;
+  if (declarations.size() == 1)
+    return declarations[0];
 
-    for( const declaration& style : declarations )
-        result = result.merge( style );
-    
-    return result;
+  declaration result;
+
+  for (const declaration& style : declarations)
+    result = result.merge(style);
+
+  return result;
 }

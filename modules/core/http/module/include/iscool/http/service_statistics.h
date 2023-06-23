@@ -22,14 +22,14 @@
 
 namespace iscool
 {
-    namespace http
-    {
-        void reset_service_quality();
-        float get_service_quality();
+  namespace http
+  {
+    void reset_service_quality();
+    float get_service_quality();
 
-        signals::connection connect_to_service_quality_changed
-        ( const std::function< void( float ) >& f );
-    }
+    signals::connection
+    connect_to_service_quality_changed(const std::function<void(float)>& f);
+  }
 }
 
 #endif

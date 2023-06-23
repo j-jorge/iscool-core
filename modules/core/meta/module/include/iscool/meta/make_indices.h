@@ -20,23 +20,23 @@
 
 namespace iscool
 {
-    namespace meta
+  namespace meta
+  {
+    template <std::size_t R, std::size_t... I>
+    struct make_indices;
+
+    template <std::size_t... I>
+    struct make_indices<0, I...>
     {
-        template< std::size_t R, std::size_t... I >
-        struct make_indices;
+      typedef indices<I...> type;
+    };
 
-        template< std::size_t... I >
-        struct make_indices< 0, I... >
-        {
-            typedef indices< I... > type;
-        };
-
-        template< std::size_t R, std::size_t... I >
-        struct make_indices
-        {
-            typedef typename make_indices< R - 1, R - 1, I... >::type type;
-        };
-    }
+    template <std::size_t R, std::size_t... I>
+    struct make_indices
+    {
+      typedef typename make_indices<R - 1, R - 1, I...>::type type;
+    };
+  }
 }
 
 #endif

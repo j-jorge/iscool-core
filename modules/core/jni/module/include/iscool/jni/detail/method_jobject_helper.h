@@ -16,28 +16,26 @@
 #ifndef ISCOOL_JNI_DETAIL_METHOD_JOBJECT_HELPER_H
 #define ISCOOL_JNI_DETAIL_METHOD_JOBJECT_HELPER_H
 
-#include "iscool/jni/java_ptr.h"
 #include "iscool/jni/detail/method_base.h"
+#include "iscool/jni/java_ptr.h"
 
 namespace iscool
 {
-    namespace jni
+  namespace jni
+  {
+    namespace detail
     {
-        namespace detail
-        {
-            template< typename T >
-            class method_jobject_helper:
-                public method_base
-            {
-            public:
-                using detail::method_base::method_base;
-            
-                template< typename... Arg >
-                T operator()
-                ( const java_ptr< jobject >& self, Arg&&... args ) const;
-            };
-        }
+      template <typename T>
+      class method_jobject_helper : public method_base
+      {
+      public:
+        using detail::method_base::method_base;
+
+        template <typename... Arg>
+        T operator()(const java_ptr<jobject>& self, Arg&&... args) const;
+      };
     }
+  }
 }
 
 #include "iscool/jni/detail/method_jobject_helper.tpp"

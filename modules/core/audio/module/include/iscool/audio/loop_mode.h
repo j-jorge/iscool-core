@@ -18,14 +18,14 @@
 
 namespace iscool
 {
-    namespace audio
+  namespace audio
+  {
+    enum class loop_mode
     {
-        enum class loop_mode
-        {
-            once,
-            forever
-        };
-    }
+      once,
+      forever
+    };
+  }
 }
 
 #endif

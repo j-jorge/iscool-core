@@ -16,72 +16,49 @@
 #include "iscool/net/byte_array_serialization/byte_array_serialization.h"
 #include "iscool/net/byte_array_serialization/byte_array_tuple_serialization.h"
 
-template<iscool::net::message_type type_code, typename... fields_types>
+template <iscool::net::message_type type_code, typename... fields_types>
 iscool::net::message_type
 iscool::net::raw_message<type_code, fields_types...>::get_type()
 {
-    return type_code;
+  return type_code;
 }
 
-template<iscool::net::message_type type_code, typename... fields_types>
+template <iscool::net::message_type type_code, typename... fields_types>
 iscool::net::message
 iscool::net::raw_message<type_code, fields_types...>::build_message() const
 {
-    byte_array content;
-    content << _fields;
-    return message( get_type(), content );
+  byte_array content;
+  content << _fields;
+  return message(get_type(), content);
 }
 
-template<iscool::net::message_type type_code, typename... fields_types>
-iscool::net::raw_message<type_code, fields_types...>::raw_message
-( const byte_array& raw_content )
+template <iscool::net::message_type type_code, typename... fields_types>
+iscool::net::raw_message<type_code, fields_types...>::raw_message(
+    const byte_array& raw_content)
 {
-    byte_array_reader reader( raw_content );
-    reader >> _fields;
+  byte_array_reader reader(raw_content);
+  reader >> _fields;
 }
 
-template<iscool::net::message_type type_code, typename... fields_types>
-iscool::net::raw_message<type_code, fields_types...>::raw_message
-( fields_types... fields )
-    : _fields{ fields... }
-{
+template <iscool::net::message_type type_code, typename... fields_types>
+iscool::net::raw_message<type_code, fields_types...>::raw_message(
+    fields_types... fields)
+  : _fields{ fields... }
+{}
 
-}
-
-template<iscool::net::message_type type_code, typename... fields_types>
-template<std::size_t I>
-std::conditional_t
-<
-    std::is_fundamental_v
-    <
-        typename std::tuple_element
-        <
-            I,
-            typename iscool::net::raw_message
-            <
-                type_code, fields_types...
-            >::fields_tuple
-        >::type
-    >,
-    typename std::tuple_element
-    <
-        I,
-        typename iscool::net::raw_message
-        <
-            type_code, fields_types...
-        >::fields_tuple
-    >::type,
-    const typename std::tuple_element
-    <
-        I,
-        typename iscool::net::raw_message
-        <
-            type_code, fields_types...
-        >::fields_tuple
-    >::type&
->
+template <iscool::net::message_type type_code, typename... fields_types>
+template <std::size_t I>
+std::conditional_t<
+    std::is_fundamental_v<typename std::tuple_element<
+        I, typename iscool::net::raw_message<
+               type_code, fields_types...>::fields_tuple>::type>,
+    typename std::tuple_element<
+        I, typename iscool::net::raw_message<
+               type_code, fields_types...>::fields_tuple>::type,
+    const typename std::tuple_element<
+        I, typename iscool::net::raw_message<
+               type_code, fields_types...>::fields_tuple>::type&>
 iscool::net::raw_message<type_code, fields_types...>::get_field() const
 {
-    return std::get<I>( _fields );
-
+  return std::get<I>(_fields);
 }

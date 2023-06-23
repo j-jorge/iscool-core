@@ -20,10 +20,10 @@
 
 namespace iscool
 {
-    namespace strings
-    {
-        typedef std::uint32_t hash_type;
-    }
+  namespace strings
+  {
+    typedef std::uint32_t hash_type;
+  }
 }
 
 #endif

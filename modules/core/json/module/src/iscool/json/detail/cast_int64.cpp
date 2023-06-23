@@ -24,20 +24,20 @@
 
 #include <json/value.h>
 
-IMPLEMENT_JSON_CAST( std::int64_t )
-IMPLEMENT_JSON_IS_OF_TYPE( std::int64_t )
+IMPLEMENT_JSON_CAST(std::int64_t)
+IMPLEMENT_JSON_IS_OF_TYPE(std::int64_t)
 
-bool
-iscool::json::detail::cast< std::int64_t >::is_valid( const Json::Value& value )
+bool iscool::json::detail::cast<std::int64_t>::is_valid(
+    const Json::Value& value)
 {
-    return value.isInt64() || value.isUInt64();
+  return value.isInt64() || value.isUInt64();
 }
 
 std::int64_t
-iscool::json::detail::cast< std::int64_t >::value( const Json::Value& value )
+iscool::json::detail::cast<std::int64_t>::value(const Json::Value& value)
 {
-    if ( !is_valid( value ) )
-        throw bad_cast( value, "64 bits int" );
+  if (!is_valid(value))
+    throw bad_cast(value, "64 bits int");
 
-    return value.asInt64();
+  return value.asInt64();
 }

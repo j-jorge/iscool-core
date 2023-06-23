@@ -18,13 +18,13 @@
 
 #include "iscool/strings/format.h"
 
-template< typename... Args >
-void iscool::log::detail::message_dispatcher::dispatch
-( const nature::nature& nature, const context& context,
-  const char* pattern, Args&&... args ) const
+template <typename... Args>
+void iscool::log::detail::message_dispatcher::dispatch(
+    const nature::nature& nature, const context& context, const char* pattern,
+    Args&&... args) const
 {
-    const std::string message( strings::format( pattern, args... ) );
-    dispatch_to_delegates( nature, context, message );
+  const std::string message(strings::format(pattern, args...));
+  dispatch_to_delegates(nature, context, message);
 }
 
 #endif

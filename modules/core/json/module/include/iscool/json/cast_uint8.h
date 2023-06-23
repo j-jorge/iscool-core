@@ -20,6 +20,6 @@
 #include "iscool/json/declare_cast.h"
 #include "iscool/json/detail/cast_uint8.h"
 
-DECLARE_JSON_CAST( std::uint8_t );
+DECLARE_JSON_CAST(std::uint8_t);
 
 #endif

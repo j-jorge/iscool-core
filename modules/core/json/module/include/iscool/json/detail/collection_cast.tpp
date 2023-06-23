@@ -18,24 +18,23 @@
 
 #include "iscool/json/detail/cast_fwd.h"
 
-template< typename Collection >
-Collection
-iscool::json::collection_cast( const Json::Value& value )
+template <typename Collection>
+Collection iscool::json::collection_cast(const Json::Value& value)
 {
-    static const auto default_cast
-        ( []( const Json::Value& v ) -> typename Collection::value_type
-          {
-              return iscool::json::cast< typename Collection::value_type >( v );
-          } );
+  static const auto default_cast(
+      [](const Json::Value& v) -> typename Collection::value_type
+      {
+        return iscool::json::cast<typename Collection::value_type>(v);
+      });
 
-    return collection_cast< Collection >( value, default_cast );
+  return collection_cast<Collection>(value, default_cast);
 }
 
-template< typename Collection, typename EntryCast >
-Collection
-iscool::json::collection_cast( const Json::Value& value, EntryCast entry_cast )
+template <typename Collection, typename EntryCast>
+Collection iscool::json::collection_cast(const Json::Value& value,
+                                         EntryCast entry_cast)
 {
-    return detail::cast< Collection >::value( value, entry_cast );
+  return detail::cast<Collection>::value(value, entry_cast);
 }
 
 #endif

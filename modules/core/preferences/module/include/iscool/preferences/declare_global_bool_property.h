@@ -20,11 +20,11 @@
 
 namespace iscool
 {
-    namespace preferences
-    {
-        bool_property declare_global_bool_property
-        ( std::string&& name, bool fallback );
-    }
+  namespace preferences
+  {
+    bool_property declare_global_bool_property(std::string&& name,
+                                               bool fallback);
+  }
 }
 
 #endif

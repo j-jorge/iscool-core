@@ -23,59 +23,36 @@
 
 namespace iscool
 {
-    namespace signals
+  namespace signals
+  {
+    namespace detail
     {
-        namespace detail
+      template <typename Indices, typename Tuple, typename... Mask>
+      struct tuple_is_masked;
+
+      template <std::size_t... IndexInTuple, typename Tuple, typename... Mask>
+      struct tuple_is_masked<iscool::meta::indices<IndexInTuple...>, Tuple,
+                             Mask...>
+      {
+        enum
         {
-            template< typename Indices, typename Tuple, typename... Mask >
-            struct tuple_is_masked;
+          value = iscool::meta::combine_and < any_tuple_has_type_at_index
+                  < IndexInTuple,
+          Tuple,
+          Mask... > ::value... > ::value
+        };
+      };
 
-            template
-            <
-                std::size_t... IndexInTuple,
-                typename Tuple,
-                typename... Mask
-            >
-            struct tuple_is_masked
-            <
-                iscool::meta::indices< IndexInTuple... >,
-                Tuple,
-                Mask...
-            >
-            {
-                enum
-                {
-                    value =
-                      iscool::meta::combine_and
-                      <
-                          any_tuple_has_type_at_index
-                          <
-                              IndexInTuple,
-                              Tuple,
-                              Mask...
-                          >::value...
-                      >::value
-                };
-            };
-
-            template
-            <
-                std::size_t... IndexInTuple,
-                typename Tuple
-            >
-            struct tuple_is_masked
-            <
-                iscool::meta::indices< IndexInTuple... >,
-                Tuple
-            >
-            {
-                enum
-                {
-                    value = false
-                };
-            };
-        }
+      template <std::size_t... IndexInTuple, typename Tuple>
+      struct tuple_is_masked<iscool::meta::indices<IndexInTuple...>, Tuple>
+      {
+        enum
+        {
+          value = false
+        };
+      };
     }
+  }
 }
 
 #include "iscool/signals/detail/tuple_is_masked.tests.h"

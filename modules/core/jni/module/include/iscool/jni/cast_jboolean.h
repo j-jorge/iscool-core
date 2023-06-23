@@ -17,24 +17,24 @@
 #define ISCOOL_JNI_CAST_JBOOLEAN_H
 
 #include "iscool/jni/cast.h"
-#include "iscool/jni/detail/cast_fwd.h"
 #include "iscool/jni/declare_cast.h"
+#include "iscool/jni/detail/cast_fwd.h"
 
-DECLARE_JNI_CAST( jboolean );
+DECLARE_JNI_CAST(jboolean);
 
 namespace iscool
 {
-    namespace jni
+  namespace jni
+  {
+    namespace detail
     {
-        namespace detail
-        {
-            template<>
-            struct cast< jboolean >
-            {
-                static jboolean value( jobject value );
-            };
-        }
+      template <>
+      struct cast<jboolean>
+      {
+        static jboolean value(jobject value);
+      };
     }
+  }
 }
 
 #endif

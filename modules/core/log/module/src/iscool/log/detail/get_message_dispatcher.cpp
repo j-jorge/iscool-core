@@ -20,6 +20,6 @@
 iscool::log::detail::message_dispatcher&
 iscool::log::detail::get_message_dispatcher()
 {
-    static message_dispatcher result;
-    return result;
+  static message_dispatcher result;
+  return result;
 }

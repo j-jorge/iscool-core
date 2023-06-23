@@ -20,12 +20,12 @@
 
 namespace iscool
 {
-    namespace jni
-    {
-        template< typename... Arg >
-        java_ptr< jobject > alloc
-        ( const char* class_name, const char* signature, Arg&&... args );
-    }
+  namespace jni
+  {
+    template <typename... Arg>
+    java_ptr<jobject> alloc(const char* class_name, const char* signature,
+                            Arg&&... args);
+  }
 }
 
 #include "iscool/jni/detail/alloc.tpp"

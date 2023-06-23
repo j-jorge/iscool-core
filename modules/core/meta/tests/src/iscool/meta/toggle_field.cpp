@@ -20,85 +20,83 @@
 
 namespace iscool
 {
-    namespace meta
+  namespace meta
+  {
+    namespace test
     {
-        namespace test
-        {
-            class toggle_field_test
-            {
-                ic_declare_toggle_field( enabled );
+      class toggle_field_test
+      {
+        ic_declare_toggle_field(enabled);
 
-            public:
-                toggle_field_test();
-                explicit toggle_field_test( bool initial_value );
-                
-                void changed();
+      public:
+        toggle_field_test();
+        explicit toggle_field_test(bool initial_value);
 
-            public:
-                int call_count = 0;
-            };
-        }
+        void changed();
+
+      public:
+        int call_count = 0;
+      };
     }
+  }
 }
 
-ic_implement_toggle_field\
-( iscool::meta::test::toggle_field_test, enabled, changed() );
+ic_implement_toggle_field(iscool::meta::test::toggle_field_test, enabled,
+                          changed());
 
 iscool::meta::test::toggle_field_test::toggle_field_test() = default;
 
-iscool::meta::test::toggle_field_test::toggle_field_test( bool initial_value )
-    : _enabled_toggle_state( initial_value )
-{
-
-}
+iscool::meta::test::toggle_field_test::toggle_field_test(bool initial_value)
+  : _enabled_toggle_state(initial_value)
+{}
 
 void iscool::meta::test::toggle_field_test::changed()
 {
-    ++call_count;
+  ++call_count;
 }
 
-TEST( iscool_meta_toggle_field_test, notifies_changes )
+TEST(iscool_meta_toggle_field_test, notifies_changes)
 {
-    iscool::meta::test::toggle_field_test test;
+  iscool::meta::test::toggle_field_test test;
 
-    EXPECT_EQ( 0, test.call_count );
-    EXPECT_FALSE( test.is_enabled() );
+  EXPECT_EQ(0, test.call_count);
+  EXPECT_FALSE(test.is_enabled());
 
-    test.set_enabled( false );
-    
-    EXPECT_EQ( 0, test.call_count );
-    EXPECT_FALSE( test.is_enabled() );
+  test.set_enabled(false);
 
-    test.set_enabled( true );
-    
-    EXPECT_EQ( 1, test.call_count );
-    EXPECT_TRUE( test.is_enabled() );
+  EXPECT_EQ(0, test.call_count);
+  EXPECT_FALSE(test.is_enabled());
 
-    test.set_enabled( true );
-    
-    EXPECT_EQ( 1, test.call_count );
-    EXPECT_TRUE( test.is_enabled() );
+  test.set_enabled(true);
 
-    test.set_enabled( false );
-    
-    EXPECT_EQ( 2, test.call_count );
-    EXPECT_FALSE( test.is_enabled() );
+  EXPECT_EQ(1, test.call_count);
+  EXPECT_TRUE(test.is_enabled());
+
+  test.set_enabled(true);
+
+  EXPECT_EQ(1, test.call_count);
+  EXPECT_TRUE(test.is_enabled());
+
+  test.set_enabled(false);
+
+  EXPECT_EQ(2, test.call_count);
+  EXPECT_FALSE(test.is_enabled());
 }
 
-TEST( iscool_meta_toggle_field_test, explicit_initial_value )
+TEST(iscool_meta_toggle_field_test, explicit_initial_value)
 {
-    iscool::meta::test::toggle_field_test test( true );
+  iscool::meta::test::toggle_field_test test(true);
 
-    EXPECT_EQ( 0, test.call_count );
-    EXPECT_TRUE( test.is_enabled() );
+  EXPECT_EQ(0, test.call_count);
+  EXPECT_TRUE(test.is_enabled());
 
-    test.set_enabled( false );
-    
-    EXPECT_EQ( 1, test.call_count );
-    EXPECT_FALSE( test.is_enabled() );
+  test.set_enabled(false);
 
-    test.set_enabled( true );
-    
-    EXPECT_EQ( 2, test.call_count );
-    EXPECT_TRUE( test.is_enabled() );
+  EXPECT_EQ(1, test.call_count);
+  EXPECT_FALSE(test.is_enabled());
+
+  test.set_enabled(true);
+
+  EXPECT_EQ(2, test.call_count);
+  EXPECT_TRUE(test.is_enabled());
 }

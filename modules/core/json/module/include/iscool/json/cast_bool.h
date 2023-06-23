@@ -20,6 +20,6 @@
 #include "iscool/json/declare_cast.h"
 #include "iscool/json/detail/cast_bool.h"
 
-DECLARE_JSON_CAST( bool );
+DECLARE_JSON_CAST(bool);
 
 #endif

@@ -17,55 +17,51 @@
 
 #include <gtest/gtest.h>
 
-TEST( iscool_collections_sort_permutations, empty )
+TEST(iscool_collections_sort_permutations, empty)
 {
-    const std::vector< int > values( {} );
+  const std::vector<int> values({});
 
-    const std::vector< std::size_t > indices
-        ( iscool::collections::sort_permutation
-          ( values.begin(), values.end() ) );
+  const std::vector<std::size_t> indices(
+      iscool::collections::sort_permutation(values.begin(), values.end()));
 
-    EXPECT_TRUE( indices.empty() );
+  EXPECT_TRUE(indices.empty());
 }
 
-TEST( iscool_collections_sort_permutations, default_compare )
+TEST(iscool_collections_sort_permutations, default_compare)
 {
-    const std::vector< int > values( { 9, 5, 8 } );
+  const std::vector<int> values({ 9, 5, 8 });
 
-    const std::vector< std::size_t > indices
-        ( iscool::collections::sort_permutation
-          ( values.begin(), values.end() ) );
+  const std::vector<std::size_t> indices(
+      iscool::collections::sort_permutation(values.begin(), values.end()));
 
-    EXPECT_EQ( values.size(), indices.size() );
-    EXPECT_EQ( std::size_t( 1 ), indices[ 0 ] );
-    EXPECT_EQ( std::size_t( 2 ), indices[ 1 ] );
-    EXPECT_EQ( std::size_t( 0 ), indices[ 2 ] );
+  EXPECT_EQ(values.size(), indices.size());
+  EXPECT_EQ(std::size_t(1), indices[0]);
+  EXPECT_EQ(std::size_t(2), indices[1]);
+  EXPECT_EQ(std::size_t(0), indices[2]);
 }
 
-TEST( iscool_collections_sort_permutations, bounds )
+TEST(iscool_collections_sort_permutations, bounds)
 {
-    const std::vector< int > values( { 10, 9, 5, 8, 1 } );
+  const std::vector<int> values({ 10, 9, 5, 8, 1 });
 
-    const std::vector< std::size_t > indices
-        ( iscool::collections::sort_permutation
-          ( values.begin() + 1, values.end() - 1 ) );
+  const std::vector<std::size_t> indices(iscool::collections::sort_permutation(
+      values.begin() + 1, values.end() - 1));
 
-    EXPECT_EQ( values.size() - 2, indices.size() );
-    EXPECT_EQ( std::size_t( 1 ), indices[ 0 ] );
-    EXPECT_EQ( std::size_t( 2 ), indices[ 1 ] );
-    EXPECT_EQ( std::size_t( 0 ), indices[ 2 ] );
+  EXPECT_EQ(values.size() - 2, indices.size());
+  EXPECT_EQ(std::size_t(1), indices[0]);
+  EXPECT_EQ(std::size_t(2), indices[1]);
+  EXPECT_EQ(std::size_t(0), indices[2]);
 }
 
-TEST( iscool_collections_sort_permutations, custom_compare )
+TEST(iscool_collections_sort_permutations, custom_compare)
 {
-    const std::vector< int > values( { 9, 5, 8 } );
+  const std::vector<int> values({ 9, 5, 8 });
 
-    const std::vector< std::size_t > indices
-        ( iscool::collections::sort_permutation
-          ( values.begin(), values.end(), std::greater< int >() ) );
+  const std::vector<std::size_t> indices(iscool::collections::sort_permutation(
+      values.begin(), values.end(), std::greater<int>()));
 
-    EXPECT_EQ( values.size(), indices.size() );
-    EXPECT_EQ( std::size_t( 0 ), indices[ 0 ] );
-    EXPECT_EQ( std::size_t( 2 ), indices[ 1 ] );
-    EXPECT_EQ( std::size_t( 1 ), indices[ 2 ] );
+  EXPECT_EQ(values.size(), indices.size());
+  EXPECT_EQ(std::size_t(0), indices[0]);
+  EXPECT_EQ(std::size_t(2), indices[1]);
+  EXPECT_EQ(std::size_t(1), indices[2]);
 }

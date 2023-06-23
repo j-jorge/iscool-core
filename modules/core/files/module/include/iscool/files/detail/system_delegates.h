@@ -20,13 +20,13 @@
 
 namespace iscool
 {
-    namespace files
+  namespace files
+  {
+    namespace detail
     {
-        namespace detail
-        {
-            extern const file_system_delegates* system_delegates;
-        }
+      extern const file_system_delegates* system_delegates;
     }
+  }
 }
 
 #endif

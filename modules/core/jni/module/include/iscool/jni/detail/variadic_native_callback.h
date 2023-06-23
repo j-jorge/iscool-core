@@ -22,34 +22,30 @@
 
 namespace iscool
 {
-    namespace jni
+  namespace jni
+  {
+    namespace detail
     {
-        namespace detail
-        {
-            template< typename... Args >
-            class variadic_native_callback:
-                public native_callback
-            {
-                typedef std::function< void( Args... ) > callback_type;
+      template <typename... Args>
+      class variadic_native_callback : public native_callback
+      {
+        typedef std::function<void(Args...)> callback_type;
 
-            public:
-                variadic_native_callback
-                ( native_callback_lifespan lifespan,
-                  const callback_type& callback );
+      public:
+        variadic_native_callback(native_callback_lifespan lifespan,
+                                 const callback_type& callback);
 
-                void operator()
-                ( const java_ptr<jobjectArray>& arguments ) override;
+        void operator()(const java_ptr<jobjectArray>& arguments) override;
 
-            private:
-                template< std::size_t... I, typename... Arg >
-                void execute_callback
-                ( const java_ptr<jobjectArray>& arguments ) const;
+      private:
+        template <std::size_t... I, typename... Arg>
+        void execute_callback(const java_ptr<jobjectArray>& arguments) const;
 
-            private:
-                callback_type _callback;
-            };
-        }
+      private:
+        callback_type _callback;
+      };
     }
+  }
 }
 
 #include "iscool/jni/detail/variadic_native_callback.tpp"

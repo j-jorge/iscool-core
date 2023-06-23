@@ -22,43 +22,44 @@
 
 namespace iscool
 {
-    namespace schedule
+  namespace schedule
+  {
+    class task
     {
-        class task
-        {
-            DECLARE_VOID_SIGNAL( complete, _complete );
+      DECLARE_VOID_SIGNAL(complete, _complete);
 
-        public:
-            static constexpr std::chrono::milliseconds no_update_interval
-                { std::chrono::milliseconds::max() };
+    public:
+      static constexpr std::chrono::milliseconds no_update_interval{
+        std::chrono::milliseconds::max()
+      };
 
-        public:
-            explicit task( const std::string& name );
-            virtual ~task();
+    public:
+      explicit task(const std::string& name);
+      virtual ~task();
 
-            void start();
-            void update();
-            void abort();
-            std::chrono::milliseconds get_update_interval() const;
+      void start();
+      void update();
+      void abort();
+      std::chrono::milliseconds get_update_interval() const;
 
-        protected:
-            void complete();
-            void append_profile_tag( const std::string& tag );
+    protected:
+      void complete();
+      void append_profile_tag(const std::string& tag);
 
-        private:
-            virtual void implementation_start();
-            virtual void implementation_update();
-            virtual void implementation_abort();
-            virtual std::chrono::milliseconds
-            implementation_get_update_interval() const;
+    private:
+      virtual void implementation_start();
+      virtual void implementation_update();
+      virtual void implementation_abort();
+      virtual std::chrono::milliseconds
+      implementation_get_update_interval() const;
 
-            void end_profiler();
+      void end_profiler();
 
-        private:
-            iscool::profile::profiler _profiler;
-            std::size_t _update_count;
-        };
-    }
+    private:
+      iscool::profile::profiler _profiler;
+      std::size_t _update_count;
+    };
+  }
 }
 
 #endif

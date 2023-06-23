@@ -20,10 +20,10 @@
 
 namespace iscool
 {
-    namespace system
-    {
-        std::string get_os_version();
-    }
+  namespace system
+  {
+    std::string get_os_version();
+  }
 }
 
 #endif

@@ -20,6 +20,6 @@
 #include "iscool/json/declare_cast.h"
 #include "iscool/json/detail/cast_double.h"
 
-DECLARE_JSON_CAST( double );
+DECLARE_JSON_CAST(double);
 
 #endif

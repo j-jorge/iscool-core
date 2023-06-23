@@ -18,13 +18,13 @@
 
 namespace iscool
 {
-    namespace audio
-    {
-        class mixer;
+  namespace audio
+  {
+    class mixer;
 
-        void set_default_mixer( mixer& instance );
-        void clear_default_mixer();
-    }
+    void set_default_mixer(mixer& instance);
+    void clear_default_mixer();
+  }
 }
 
 #endif

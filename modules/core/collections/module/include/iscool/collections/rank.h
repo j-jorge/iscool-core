@@ -18,21 +18,15 @@
 
 namespace iscool
 {
-    namespace collections
-    {
-        template< typename Iterator, typename Output >
-        void rank( Iterator value_first, Iterator value_last, Output&& output );
-        
-        template
-        <
-            typename ValueIterator,
-            typename OrderIterator,
-            typename Output
-        >
-        void rank
-        ( ValueIterator values, OrderIterator order_first,
-          OrderIterator order_last, Output&& output );
-    }
+  namespace collections
+  {
+    template <typename Iterator, typename Output>
+    void rank(Iterator value_first, Iterator value_last, Output&& output);
+
+    template <typename ValueIterator, typename OrderIterator, typename Output>
+    void rank(ValueIterator values, OrderIterator order_first,
+              OrderIterator order_last, Output&& output);
+  }
 }
 
 #include "iscool/collections/detail/rank.tpp"

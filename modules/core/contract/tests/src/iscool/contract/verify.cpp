@@ -17,17 +17,17 @@
 
 #include <gtest/gtest.h>
 
-TEST( iscool_contract_verify, ok )
+TEST(iscool_contract_verify, ok)
 {
-    int calls( 0 );
-    
-    const auto predicate
-        ( [ &calls ]() -> bool
-          {
-              ++calls;
-              return true;
-          } );
+  int calls(0);
 
-    ic_verify( predicate() );
-    EXPECT_EQ( 1, calls );
+  const auto predicate(
+      [&calls]() -> bool
+      {
+        ++calls;
+        return true;
+      });
+
+  ic_verify(predicate());
+  EXPECT_EQ(1, calls);
 }

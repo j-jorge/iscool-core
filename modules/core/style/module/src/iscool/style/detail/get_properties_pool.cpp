@@ -20,6 +20,6 @@
 iscool::style::detail::properties_pool&
 iscool::style::detail::get_properties_pool()
 {
-    static properties_pool result( 10000 );
-    return result;
+  static properties_pool result(10000);
+  return result;
 }

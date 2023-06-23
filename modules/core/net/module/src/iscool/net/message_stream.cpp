@@ -21,56 +21,52 @@
 #include "iscool/net/socket_stream.h"
 #include "iscool/signals/implement_signal.h"
 
-IMPLEMENT_SIGNAL( iscool::net::message_stream, message, _message );
+IMPLEMENT_SIGNAL(iscool::net::message_stream, message, _message);
 
-iscool::net::message_stream::message_stream
-( iscool::net::socket_stream& socket )
-    : message_stream(socket, xor_key{})
+iscool::net::message_stream::message_stream(iscool::net::socket_stream& socket)
+  : message_stream(socket, xor_key{})
 {}
 
-iscool::net::message_stream::message_stream
-( iscool::net::socket_stream& socket, xor_key key )
-    : _socket(socket),
-      _key(std::move(key)),
-      _socket_connection
-      (socket.connect_to_received
-       (std::bind
-        (&message_stream::dispatch_message, this, std::placeholders::_1,
-         std::placeholders::_2)))
-{
-
-}
+iscool::net::message_stream::message_stream(iscool::net::socket_stream& socket,
+                                            xor_key key)
+  : _socket(socket)
+  , _key(std::move(key))
+  , _socket_connection(socket.connect_to_received(
+        std::bind(&message_stream::dispatch_message, this,
+                  std::placeholders::_1, std::placeholders::_2)))
+{}
 
 iscool::net::message_stream::~message_stream() = default;
 
-void
-iscool::net::message_stream::send( const iscool::net::message& message ) const
+void iscool::net::message_stream::send(
+    const iscool::net::message& message) const
 {
-    _socket.send( serialize_message(message, _key) );
+  _socket.send(serialize_message(message, _key));
 }
 
-void iscool::net::message_stream::send
-( const iscool::net::message& message, session_id session,
-  channel_id channel ) const
+void iscool::net::message_stream::send(const iscool::net::message& message,
+                                       session_id session,
+                                       channel_id channel) const
 {
-    _socket.send( serialize_message(message, session, channel, _key) );
+  _socket.send(serialize_message(message, session, channel, _key));
 }
 
-void iscool::net::message_stream::send
-( const endpoint& target, const iscool::net::message& message ) const
+void iscool::net::message_stream::send(
+    const endpoint& target, const iscool::net::message& message) const
 {
-    _socket.send( target, serialize_message(message, _key) );
+  _socket.send(target, serialize_message(message, _key));
 }
 
-void iscool::net::message_stream::send
-( const endpoint& target, const iscool::net::message& message,
-  session_id session, channel_id channel ) const
+void iscool::net::message_stream::send(const endpoint& target,
+                                       const iscool::net::message& message,
+                                       session_id session,
+                                       channel_id channel) const
 {
-    _socket.send( target, serialize_message(message, session, channel, _key) );
+  _socket.send(target, serialize_message(message, session, channel, _key));
 }
 
-void iscool::net::message_stream::dispatch_message
-( const iscool::net::endpoint& target, const byte_array& bytes ) const
+void iscool::net::message_stream::dispatch_message(
+    const iscool::net::endpoint& target, const byte_array& bytes) const
 {
-    _message(target, deserialize_message(bytes, _key));
+  _message(target, deserialize_message(bytes, _key));
 }

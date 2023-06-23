@@ -16,8 +16,8 @@
 #ifndef ISCOOL_JSON_IS_OF_TYPE_UNORDERED_MAP_H
 #define ISCOOL_JSON_IS_OF_TYPE_UNORDERED_MAP_H
 
+#include "iscool/json/detail/cast_unordered_map.h"
 #include "iscool/json/is_of_type.h"
 #include "iscool/json/is_of_type.impl.tpp"
-#include "iscool/json/detail/cast_unordered_map.h"
 
 #endif

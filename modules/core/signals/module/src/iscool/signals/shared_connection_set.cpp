@@ -18,34 +18,33 @@
 #include <algorithm>
 #include <cassert>
 
-template class std::vector< iscool::signals::shared_connection >;
+template class std::vector<iscool::signals::shared_connection>;
 
 iscool::signals::shared_connection_set::shared_connection_set() = default;
 iscool::signals::shared_connection_set::~shared_connection_set() = default;
 
-void iscool::signals::shared_connection_set::insert( shared_connection c )
+void iscool::signals::shared_connection_set::insert(shared_connection c)
 {
-    assert( std::find( _connections.begin(), _connections.end(), c )
-            == _connections.end() );
-    _connections.push_back( c );
+  assert(std::find(_connections.begin(), _connections.end(), c)
+         == _connections.end());
+  _connections.push_back(c);
 }
 
-void
-iscool::signals::shared_connection_set::insert( shared_connection_set that )
+void iscool::signals::shared_connection_set::insert(shared_connection_set that)
 {
-    for ( const shared_connection& c : that._connections )
-        insert( c );
+  for (const shared_connection& c : that._connections)
+    insert(c);
 }
 
 void iscool::signals::shared_connection_set::clear()
 {
-    for ( shared_connection& connection : _connections )
-        connection.disconnect();
+  for (shared_connection& connection : _connections)
+    connection.disconnect();
 
-    _connections.clear();
+  _connections.clear();
 }
 
 bool iscool::signals::shared_connection_set::empty() const
 {
-    return _connections.empty();
+  return _connections.empty();
 }

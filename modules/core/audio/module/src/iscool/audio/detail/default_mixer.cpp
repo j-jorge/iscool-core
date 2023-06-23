@@ -19,27 +19,27 @@
 
 namespace iscool
 {
-    namespace audio
+  namespace audio
+  {
+    namespace detail
     {
-        namespace detail
-        {
-            static mixer* default_mixer( nullptr );
-        }
+      static mixer* default_mixer(nullptr);
     }
-}
- 
-iscool::audio::mixer& iscool::audio::detail::get_default_mixer()
-{
-    assert( default_mixer != nullptr );
-    return *default_mixer;
+  }
 }
 
-void iscool::audio::detail::set_default_mixer( mixer& instance )
+iscool::audio::mixer& iscool::audio::detail::get_default_mixer()
 {
-    default_mixer = &instance;
+  assert(default_mixer != nullptr);
+  return *default_mixer;
+}
+
+void iscool::audio::detail::set_default_mixer(mixer& instance)
+{
+  default_mixer = &instance;
 }
 
 void iscool::audio::detail::clear_default_mixer()
 {
-    default_mixer = nullptr;
+  default_mixer = nullptr;
 }

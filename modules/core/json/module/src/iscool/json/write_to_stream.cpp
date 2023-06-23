@@ -19,18 +19,17 @@
 
 #include <memory>
 
-bool iscool::json::write_to_stream
-( std::ostream& output, const Json::Value& value )
+bool iscool::json::write_to_stream(std::ostream& output,
+                                   const Json::Value& value)
 {
-    Json::StreamWriterBuilder builder;
-    builder[ "commentStyle" ] = "None";
-    builder[ "indentation" ] = "";
-    builder[ "enableYAMLCompatibility" ] = false;
-    builder[ "dropNullPlaceholders" ] = false;
-    builder[ "useSpecialFloats" ] = false;
-    
-    const std::unique_ptr< Json::StreamWriter > writer
-        ( builder.newStreamWriter() );
+  Json::StreamWriterBuilder builder;
+  builder["commentStyle"] = "None";
+  builder["indentation"] = "";
+  builder["enableYAMLCompatibility"] = false;
+  builder["dropNullPlaceholders"] = false;
+  builder["useSpecialFloats"] = false;
 
-    return writer->write( value, &output ) == 0;
+  const std::unique_ptr<Json::StreamWriter> writer(builder.newStreamWriter());
+
+  return writer->write(value, &output) == 0;
 }

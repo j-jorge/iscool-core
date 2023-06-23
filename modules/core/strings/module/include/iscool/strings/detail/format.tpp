@@ -18,25 +18,25 @@
 
 #include "iscool/strings/detail/formatter_bridge.h"
 
-template< typename... Args >
-std::string iscool::strings::format( const char* pattern, Args... args )
+template <typename... Args>
+std::string iscool::strings::format(const char* pattern, Args... args)
 {
-    detail::formatter* formatter( detail::create_formatter( pattern ) );
+  detail::formatter* formatter(detail::create_formatter(pattern));
 
-    try
+  try
     {
-        (detail::append_to_formatter< Args >( *formatter, args ), ...);
+      (detail::append_to_formatter<Args>(*formatter, args), ...);
     }
-    catch( ... )
+  catch (...)
     {
-        detail::release_formatter( formatter );
-        throw;
+      detail::release_formatter(formatter);
+      throw;
     }
 
-    const std::string result( detail::get_formatter_string( *formatter ) );
-    detail::release_formatter( formatter );
+  const std::string result(detail::get_formatter_string(*formatter));
+  detail::release_formatter(formatter);
 
-    return result;
+  return result;
 }
 
 #endif

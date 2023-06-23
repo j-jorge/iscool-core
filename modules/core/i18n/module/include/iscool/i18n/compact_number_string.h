@@ -21,10 +21,10 @@
 
 namespace iscool
 {
-    namespace i18n
-    {
-        std::string compact_number_string( std::uint64_t value );
-    }
+  namespace i18n
+  {
+    std::string compact_number_string(std::uint64_t value);
+  }
 }
 
 #endif

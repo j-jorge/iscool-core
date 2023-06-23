@@ -16,24 +16,23 @@
 #ifndef ISCOOL_JNI_STATIC_METHOD_JBOOLEAN_H
 #define ISCOOL_JNI_STATIC_METHOD_JBOOLEAN_H
 
-#include "iscool/jni/static_method.h"
 #include "iscool/jni/detail/static_method_base.h"
+#include "iscool/jni/static_method.h"
 
 namespace iscool
 {
-    namespace jni
+  namespace jni
+  {
+    template <>
+    class static_method<jboolean> : public detail::static_method_base
     {
-        template<>
-        class static_method< jboolean >:
-            public detail::static_method_base
-        {
-        public:
-            using detail::static_method_base::static_method_base;
-            
-            template< typename... Arg >
-            jboolean operator()( Arg&&... args ) const;
-        };
-    }
+    public:
+      using detail::static_method_base::static_method_base;
+
+      template <typename... Arg>
+      jboolean operator()(Arg&&... args) const;
+    };
+  }
 }
 
 #include "iscool/jni/detail/static_method_jboolean.tpp"

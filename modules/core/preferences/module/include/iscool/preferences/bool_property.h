@@ -20,11 +20,10 @@
 
 namespace iscool
 {
-    namespace preferences 
-    {
-        typedef detail::property< bool > bool_property;
-    }
+  namespace preferences
+  {
+    typedef detail::property<bool> bool_property;
+  }
 }
-
 
 #endif

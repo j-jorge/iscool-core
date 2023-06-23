@@ -18,49 +18,45 @@
 #include <cassert>
 
 iscool::log::detail::message_dispatcher::message_dispatcher()
-    : _next_id( 0 )
-{
+  : _next_id(0)
+{}
 
+std::size_t iscool::log::detail::message_dispatcher::register_delegates(
+    const message_delegates& delegates)
+{
+  assert(delegates.is_valid());
+  assert(_delegates.find(_next_id) == _delegates.end());
+
+  const std::size_t result(_next_id);
+  ++_next_id;
+  _delegates[result] = delegates;
+
+  return result;
 }
 
-std::size_t
-iscool::log::detail::message_dispatcher::register_delegates
-( const message_delegates& delegates )
+void iscool::log::detail::message_dispatcher::unregister_delegates(
+    std::size_t id)
 {
-    assert( delegates.is_valid() );
-    assert( _delegates.find( _next_id ) == _delegates.end() );
-
-    const std::size_t result( _next_id );
-    ++_next_id;
-    _delegates[ result ] = delegates;
-
-    return result;
-}
-
-void
-iscool::log::detail::message_dispatcher::unregister_delegates( std::size_t id )
-{
-    assert( _delegates.find( id ) != _delegates.end() );
-    _delegates.erase( id );
+  assert(_delegates.find(id) != _delegates.end());
+  _delegates.erase(id);
 }
 
 void iscool::log::detail::message_dispatcher::clear()
 {
-    _delegates.clear();
+  _delegates.clear();
 }
 
-void iscool::log::detail::message_dispatcher::dispatch_error
-( const context& context, const error::synopsis& synopsis ) const
+void iscool::log::detail::message_dispatcher::dispatch_error(
+    const context& context, const error::synopsis& synopsis) const
 {
-    for ( const auto& e : _delegates )
-        e.second.print_error( context, synopsis );
+  for (const auto& e : _delegates)
+    e.second.print_error(context, synopsis);
 }
 
-void iscool::log::detail::message_dispatcher::dispatch_to_delegates
-( const nature::nature& nature, const context& context,
-  const std::string& message ) const
+void iscool::log::detail::message_dispatcher::dispatch_to_delegates(
+    const nature::nature& nature, const context& context,
+    const std::string& message) const
 {
-    for ( const auto& e : _delegates )
-        e.second.print_message( nature, context, message );
+  for (const auto& e : _delegates)
+    e.second.print_message(nature, context, message);
 }
-

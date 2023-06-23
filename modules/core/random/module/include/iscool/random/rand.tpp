@@ -19,32 +19,33 @@
 
 #include <iterator>
 
-template<typename T>
-T iscool::random::rand::random( T min, T max )
+template <typename T>
+T iscool::random::rand::random(T min, T max)
 {
-    boost::random::uniform_int_distribution<T> rand( min, max );
-    return rand( _generator );
-} 
-
-template<typename InputIterator>
-InputIterator iscool::random::rand::random_in_sequence
-( InputIterator first, InputIterator last )
-{
-    if ( first == last )
-        return first;
-
-    const std::size_t i
-        ( random< std::size_t >( 0, std::distance( first, last ) - 1 ) );
-    std::advance( first, i );
-    
-    return first;
+  boost::random::uniform_int_distribution<T> rand(min, max);
+  return rand(_generator);
 }
 
-template<typename randomIterator>
-void iscool::random::rand::random_shuffle
-( randomIterator first, randomIterator last )
+template <typename InputIterator>
+InputIterator iscool::random::rand::random_in_sequence(InputIterator first,
+                                                       InputIterator last)
 {
-    std::random_shuffle
-        ( first, last,
-          [this]( int max ) -> int { return random( 0, max - 1 ); } );
+  if (first == last)
+    return first;
+
+  const std::size_t i(random<std::size_t>(0, std::distance(first, last) - 1));
+  std::advance(first, i);
+
+  return first;
+}
+
+template <typename randomIterator>
+void iscool::random::rand::random_shuffle(randomIterator first,
+                                          randomIterator last)
+{
+  std::random_shuffle(first, last,
+                      [this](int max) -> int
+                      {
+                        return random(0, max - 1);
+                      });
 }

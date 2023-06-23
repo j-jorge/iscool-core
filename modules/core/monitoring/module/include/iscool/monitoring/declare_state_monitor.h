@@ -18,13 +18,9 @@
 
 #include "iscool/memory/pimpl.h"
 
-#define ic_declare_state_monitor( field_name )                          \
-    class state_monitor_ ## field_name;                                 \
-                                                                        \
-    iscool::memory::pimpl                                               \
-    <                                                                   \
-        state_monitor_ ## field_name,                                   \
-        sizeof( char )                                                  \
-    > field_name
+#define ic_declare_state_monitor(field_name)                                  \
+  class state_monitor_##field_name;                                           \
+                                                                              \
+  iscool::memory::pimpl<state_monitor_##field_name, sizeof(char)> field_name
 
 #endif

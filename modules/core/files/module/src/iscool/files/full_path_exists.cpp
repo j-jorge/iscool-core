@@ -18,7 +18,7 @@
 #include "iscool/files/file_exists.h"
 #include "iscool/files/get_full_path.h"
 
-bool iscool::files::full_path_exists( const std::string& path )
+bool iscool::files::full_path_exists(const std::string& path)
 {
-    return file_exists( get_full_path( path ) );
+  return file_exists(get_full_path(path));
 }

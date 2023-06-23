@@ -20,10 +20,10 @@
 
 namespace iscool
 {
-    namespace http
-    {
-        std::string url_encode( const std::string& url );
-    }
+  namespace http
+  {
+    std::string url_encode(const std::string& url);
+  }
 }
 
 #endif

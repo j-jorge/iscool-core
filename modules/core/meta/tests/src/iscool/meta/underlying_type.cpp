@@ -17,54 +17,41 @@
 
 #include "gtest/gtest.h"
 
-TEST( iscool_meta_underlying_type, int )
+TEST(iscool_meta_underlying_type, int)
 {
-    const bool same
-        ( std::is_same
-          <
-              int,
-              iscool::meta::underlying_type< int >::type
-          >::value );
+  const bool same(
+      std::is_same<int, iscool::meta::underlying_type<int>::type>::value);
 
-    EXPECT_TRUE( same );
+  EXPECT_TRUE(same);
 }
 
-TEST( iscool_meta_underlying_type, string )
+TEST(iscool_meta_underlying_type, string)
 {
-    const bool same
-        ( std::is_same
-          <
-              std::string,
-              iscool::meta::underlying_type< std::string >::type
-          >::value );
+  const bool same(
+      std::is_same<std::string,
+                   iscool::meta::underlying_type<std::string>::type>::value);
 
-    EXPECT_TRUE( same );
+  EXPECT_TRUE(same);
 }
 
-TEST( iscool_meta_underlying_type, enum )
+TEST(iscool_meta_underlying_type, enum)
 {
-    enum class enum_type : std::int64_t;
-        
-    const bool same
-        ( std::is_same
-          <
-              std::int64_t,
-              iscool::meta::underlying_type< enum_type >::type
-          >::value );
+  enum class enum_type : std::int64_t;
 
-    EXPECT_TRUE( same );
+  const bool same(
+      std::is_same<std::int64_t,
+                   iscool::meta::underlying_type<enum_type>::type>::value);
+
+  EXPECT_TRUE(same);
 }
 
-TEST( iscool_meta_underlying_type, enum_char )
+TEST(iscool_meta_underlying_type, enum_char)
 {
-    enum class enum_type : char;
-        
-    const bool same
-        ( std::is_same
-          <
-              char,
-              iscool::meta::underlying_type< enum_type >::type
-          >::value );
+  enum class enum_type : char;
 
-    EXPECT_TRUE( same );
+  const bool same(
+      std::is_same<char,
+                   iscool::meta::underlying_type<enum_type>::type>::value);
+
+  EXPECT_TRUE(same);
 }

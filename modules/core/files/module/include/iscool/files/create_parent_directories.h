@@ -20,10 +20,10 @@
 
 namespace iscool
 {
-    namespace files
-    {
-        bool create_parent_directories( const std::string& path );
-    }
+  namespace files
+  {
+    bool create_parent_directories(const std::string& path);
+  }
 }
 
 #endif

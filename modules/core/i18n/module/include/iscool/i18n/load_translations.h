@@ -21,12 +21,11 @@
 
 namespace iscool
 {
-    namespace i18n
-    {
-        bool load_translations
-        ( const std::string& language_code, std::istream& stream );
-    }
+  namespace i18n
+  {
+    bool load_translations(const std::string& language_code,
+                           std::istream& stream);
+  }
 }
-
 
 #endif

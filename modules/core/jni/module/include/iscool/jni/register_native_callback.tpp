@@ -16,12 +16,10 @@
 #include "iscool/jni/detail/native_call.h"
 #include "iscool/jni/detail/native_call_manager.h"
 
-template< typename... Args >
-jlong iscool::jni::register_native_callback
-( native_callback_lifespan lifespan,
-  std::function< void( Args... ) > callback )
+template <typename... Args>
+jlong iscool::jni::register_native_callback(
+    native_callback_lifespan lifespan, std::function<void(Args...)> callback)
 {
-    return
-        detail::get_native_call_manager().register_callback
-        ( lifespan, callback );
+  return detail::get_native_call_manager().register_callback(lifespan,
+                                                             callback);
 }

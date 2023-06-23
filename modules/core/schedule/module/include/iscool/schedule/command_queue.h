@@ -6,26 +6,26 @@
 
 namespace iscool
 {
-    namespace schedule
+  namespace schedule
+  {
+    class command_queue
     {
-        class command_queue
-        {
-        public:
-            command_queue();
+    public:
+      command_queue();
 
-            bool empty() const;
-            void clear();
-            
-            template< typename F, typename... Args >
-            void queue( F&& callback, Args&&... args );
+      bool empty() const;
+      void clear();
 
-            void execute_next();
-            
-        private:
-            std::vector< std::function< void() > > _commands;
-            std::size_t _next;
-        };
-    }
+      template <typename F, typename... Args>
+      void queue(F&& callback, Args&&... args);
+
+      void execute_next();
+
+    private:
+      std::vector<std::function<void()>> _commands;
+      std::size_t _next;
+    };
+  }
 }
 
 #include "iscool/schedule/detail/command_queue.tpp"

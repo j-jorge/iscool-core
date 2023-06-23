@@ -17,23 +17,21 @@
 
 #include "iscool/system/application_event_source.h"
 
-iscool::system::application_events::application_events
-( application_event_source& source )
-    : _source( source )
-{
-    
-}
-            
+iscool::system::application_events::application_events(
+    application_event_source& source)
+  : _source(source)
+{}
+
 iscool::signals::connection
-iscool::system::application_events::connect_to_enter_background
-( iscool::signals::void_signal_function f ) const
+iscool::system::application_events::connect_to_enter_background(
+    iscool::signals::void_signal_function f) const
 {
-    return _source.connect_to_enter_background( f );
+  return _source.connect_to_enter_background(f);
 }
 
 iscool::signals::connection
-iscool::system::application_events::connect_to_enter_foreground
-( iscool::signals::void_signal_function f ) const
+iscool::system::application_events::connect_to_enter_foreground(
+    iscool::signals::void_signal_function f) const
 {
-    return _source.connect_to_enter_foreground( f );
+  return _source.connect_to_enter_foreground(f);
 }

@@ -23,29 +23,24 @@
 
 namespace iscool
 {
-    namespace factory
+  namespace factory
+  {
+    template <typename T, typename... A>
+    class dynamic_factory
     {
-        template< typename T, typename... A >
-        class dynamic_factory
-        {
-        public:
-            typedef factory_function< T, A... > dynamic_factory_function;
-                
-        public:
-            void register_typename
-            ( const std::string& name,
-              const dynamic_factory_function& creator );
+    public:
+      typedef factory_function<T, A...> dynamic_factory_function;
 
-            T create_by_typename
-            ( const std::string& name, A... arguments ) const;
+    public:
+      void register_typename(const std::string& name,
+                             const dynamic_factory_function& creator);
 
-        private:
-            std::unordered_map
-            <
-                std::string, dynamic_factory_function
-            > _factory;
-        };
-    }
+      T create_by_typename(const std::string& name, A... arguments) const;
+
+    private:
+      std::unordered_map<std::string, dynamic_factory_function> _factory;
+    };
+  }
 }
 
 #endif

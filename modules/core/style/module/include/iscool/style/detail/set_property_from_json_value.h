@@ -20,23 +20,22 @@
 
 namespace Json
 {
-    class Value;
+  class Value;
 }
 
 namespace iscool
 {
-    namespace style
-    {
-        class declaration;
-        
-        namespace detail
-        {
-            void set_property_from_json_value
-            ( iscool::style::declaration& style, const std::string& key,
-              const Json::Value& value );
-        }
-    }
-}
+  namespace style
+  {
+    class declaration;
 
+    namespace detail
+    {
+      void set_property_from_json_value(iscool::style::declaration& style,
+                                        const std::string& key,
+                                        const Json::Value& value);
+    }
+  }
+}
 
 #endif

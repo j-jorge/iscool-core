@@ -20,27 +20,28 @@
 
 #include <functional>
 
-#define BOUNCE_SIGNAL( signature, name, bouncer )       \
-    public:                                             \
-    iscool::signals::connection connect_to_ ## name     \
-    ( const std::function< signature >& f ) const       \
-    {                                                   \
-        return bouncer.connect_to_ ## name( f );        \
-    }
+#define BOUNCE_SIGNAL(signature, name, bouncer)                               \
+public:                                                                       \
+  iscool::signals::connection connect_to_##name(                              \
+      const std::function<signature>& f) const                                \
+  {                                                                           \
+    return bouncer.connect_to_##name(f);                                      \
+  }
 
-#define DECLARE_BOUNCE_SIGNAL( signature, name )        \
-    public:                                             \
-    iscool::signals::connection connect_to_ ## name     \
-    ( const std::function< signature >& f ) const;
+#define DECLARE_BOUNCE_SIGNAL(signature, name)                                \
+public:                                                                       \
+  iscool::signals::connection connect_to_##name(                              \
+      const std::function<signature>& f) const;
 
-#define IMPLEMENT_BOUNCE_SIGNAL_RENAMED( classname, signature, name, bouncer, original_name ) \
-    iscool::signals::connection classname::connect_to_ ## name          \
-    ( const std::function< signature >& f ) const                       \
-    {                                                                   \
-        return bouncer.connect_to_ ## original_name( f );               \
-    }
+#define IMPLEMENT_BOUNCE_SIGNAL_RENAMED(classname, signature, name, bouncer,  \
+                                        original_name)                        \
+  iscool::signals::connection classname::connect_to_##name(                   \
+      const std::function<signature>& f) const                                \
+  {                                                                           \
+    return bouncer.connect_to_##original_name(f);                             \
+  }
 
-#define IMPLEMENT_BOUNCE_SIGNAL( classname, signature, name, bouncer )  \
-    IMPLEMENT_BOUNCE_SIGNAL_RENAMED( classname, signature, name, bouncer, name )
+#define IMPLEMENT_BOUNCE_SIGNAL(classname, signature, name, bouncer)          \
+  IMPLEMENT_BOUNCE_SIGNAL_RENAMED(classname, signature, name, bouncer, name)
 
 #endif

@@ -16,15 +16,15 @@
 #ifndef ISCOOL_JSON_PARSE_STREAM_H
 #define ISCOOL_JSON_PARSE_STREAM_H
 
-#include <json/value.h>
 #include <iosfwd>
+#include <json/value.h>
 
 namespace iscool
 {
-    namespace json
-    {
-        Json::Value parse_stream( std::istream& stream );
-    }
+  namespace json
+  {
+    Json::Value parse_stream(std::istream& stream);
+  }
 }
 
 #endif

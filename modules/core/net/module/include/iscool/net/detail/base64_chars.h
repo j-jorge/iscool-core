@@ -20,13 +20,13 @@
 
 namespace iscool
 {
-    namespace net
+  namespace net
+  {
+    namespace detail
     {
-        namespace detail
-        {
-            extern const std::string base64_chars;
-        }
+      extern const std::string base64_chars;
     }
+  }
 }
 
 #endif

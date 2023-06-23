@@ -22,19 +22,15 @@
 
 namespace iscool
 {
-    namespace jni
+  namespace jni
+  {
+    namespace detail
     {
-        namespace detail
-        {
-            template< std::size_t I, typename Tuple >
-            typename std::decay
-            <
-                typename std::tuple_element< I, Tuple >::type
-            >::type
-            extract_argument
-            ( JNIEnv* env, const java_ptr< jobjectArray >& arguments );
-        }
+      template <std::size_t I, typename Tuple>
+      typename std::decay<typename std::tuple_element<I, Tuple>::type>::type
+      extract_argument(JNIEnv* env, const java_ptr<jobjectArray>& arguments);
     }
+  }
 }
 
 #include "iscool/jni/detail/extract_argument.tpp"

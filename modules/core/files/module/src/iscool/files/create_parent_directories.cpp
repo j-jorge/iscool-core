@@ -22,21 +22,20 @@
 
 #include <filesystem>
 
-bool iscool::files::create_parent_directories( const std::string& path )
+bool iscool::files::create_parent_directories(const std::string& path)
 {
-    const std::filesystem::path parent_path
-        ( std::filesystem::path( path ).parent_path() );
-    std::error_code error;
-    
-    std::filesystem::create_directories( path );
+  const std::filesystem::path parent_path(
+      std::filesystem::path(path).parent_path());
+  std::error_code error;
 
-    if ( !error )
-        return true;
+  std::filesystem::create_directories(path);
 
-    ic_causeless_log
-        ( iscool::log::nature::error(), log_context(),
-          "Could not create directory '%s' for '%s': %s", parent_path.string(),
-          path, error.message() );
+  if (!error)
+    return true;
 
-    return false;
+  ic_causeless_log(iscool::log::nature::error(), log_context(),
+                   "Could not create directory '%s' for '%s': %s",
+                   parent_path.string(), path, error.message());
+
+  return false;
 }

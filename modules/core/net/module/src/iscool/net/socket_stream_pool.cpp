@@ -27,33 +27,33 @@ iscool::net::socket_stream_pool::socket_stream_pool() = default;
 
 iscool::net::socket_stream_pool::~socket_stream_pool()
 {
-    for ( const auto& e : _sockets )
-        delete e.second;
+  for (const auto& e : _sockets)
+    delete e.second;
 }
 
 iscool::net::socket_stream*
-iscool::net::socket_stream_pool::get_for_host( const std::string& host )
+iscool::net::socket_stream_pool::get_for_host(const std::string& host)
 {
-    const auto it( _sockets.find( host ) );
+  const auto it(_sockets.find(host));
 
-    if ( it != _sockets.end() )
-        return it->second;
+  if (it != _sockets.end())
+    return it->second;
 
-    socket_stream* result( nullptr );
+  socket_stream* result(nullptr);
 
-    try
+  try
     {
-        result = new socket_stream( host, socket_mode::client{} );
+      result = new socket_stream(host, socket_mode::client{});
     }
-    catch( const boost::system::system_error& e )
+  catch (const boost::system::system_error& e)
     {
-        ic_causeless_log
-            ( iscool::log::nature::error(), log_context(),
-              "could not create the socket for host '%s': %s", host, e.what() );
-        return nullptr;
+      ic_causeless_log(iscool::log::nature::error(), log_context(),
+                       "could not create the socket for host '%s': %s", host,
+                       e.what());
+      return nullptr;
     }
 
-    assert( result != nullptr );
-    _sockets[ host ] = result;
-    return result;
+  assert(result != nullptr);
+  _sockets[host] = result;
+  return result;
 }

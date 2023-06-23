@@ -20,10 +20,10 @@
 
 namespace iscool
 {
-    namespace jni
-    {
-        JNIEnv* get_jni_env();
-    }
+  namespace jni
+  {
+    JNIEnv* get_jni_env();
+  }
 }
 
 #endif

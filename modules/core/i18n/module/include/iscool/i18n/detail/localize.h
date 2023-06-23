@@ -20,14 +20,14 @@
 
 namespace iscool
 {
-    namespace i18n
+  namespace i18n
+  {
+    namespace detail
     {
-        namespace detail
-        {
-            const char* localize( const char* message );
-            const char* localize( const char* message, std::uint64_t count );
-        }
+      const char* localize(const char* message);
+      const char* localize(const char* message, std::uint64_t count);
     }
+  }
 }
 
 #endif

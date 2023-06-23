@@ -19,56 +19,46 @@
 #include "iscool/jni/get_method.h"
 #include "iscool/jni/method_jobject.h"
 
-template< typename K, typename V >
-iscool::jni::map_entry< K, V >::map_entry( const java_ptr< jobject >& impl )
-    : _impl( impl )
-{
+template <typename K, typename V>
+iscool::jni::map_entry<K, V>::map_entry(const java_ptr<jobject>& impl)
+  : _impl(impl)
+{}
 
-}
-    
-template< typename K, typename V >
-iscool::jni::map_entry< K, V >::map_entry( jobject impl )
-    : _impl( impl )
+template <typename K, typename V>
+iscool::jni::map_entry<K, V>::map_entry(jobject impl)
+  : _impl(impl)
+{}
+
+template <typename K, typename V>
+iscool::jni::java_ptr<jobject>
+iscool::jni::map_entry<K, V>::get_java_object() const
 {
-    
-}
-        
-template< typename K, typename V >
-iscool::jni::java_ptr< jobject >
-iscool::jni::map_entry< K, V >::get_java_object() const
-{
-    return _impl;
+  return _impl;
 }
 
-template< typename K, typename V >
-K iscool::jni::map_entry< K, V >::get_key() const
+template <typename K, typename V>
+K iscool::jni::map_entry<K, V>::get_key() const
 {
-    const auto method
-        ( get_method< jobject >
-          ( "java/util/Map$Entry", "getKey", "()Ljava/lang/Object;" ) );
+  const auto method(get_method<jobject>("java/util/Map$Entry", "getKey",
+                                        "()Ljava/lang/Object;"));
 
-    return K( method( _impl ) );
+  return K(method(_impl));
 }
 
-template< typename K, typename V >
-V iscool::jni::map_entry< K, V >::get_value() const
+template <typename K, typename V>
+V iscool::jni::map_entry<K, V>::get_value() const
 {
-    const auto method
-        ( get_method< jobject >
-          ( "java/util/Map$Entry", "getValue", "()Ljava/lang/Object;" ) );
+  const auto method(get_method<jobject>("java/util/Map$Entry", "getValue",
+                                        "()Ljava/lang/Object;"));
 
-    return V( method( _impl ) );
+  return V(method(_impl));
 }
 
-template< typename K, typename V >
-jobject
-iscool::jni::detail::get_method_argument_impl
-<
-    iscool::jni::map_entry< K, V >
->::get
-( const map_entry< K, V >& c )
+template <typename K, typename V>
+jobject iscool::jni::detail::get_method_argument_impl<
+    iscool::jni::map_entry<K, V>>::get(const map_entry<K, V>& c)
 {
-    return c.get_java_object().get();
+  return c.get_java_object().get();
 }
 
 #endif

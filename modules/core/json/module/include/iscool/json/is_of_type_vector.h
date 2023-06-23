@@ -16,8 +16,8 @@
 #ifndef ISCOOL_JSON_IS_OF_TYPE_VECTOR_H
 #define ISCOOL_JSON_IS_OF_TYPE_VECTOR_H
 
+#include "iscool/json/detail/cast_vector.h"
 #include "iscool/json/is_of_type.h"
 #include "iscool/json/is_of_type.impl.tpp"
-#include "iscool/json/detail/cast_vector.h"
 
 #endif

@@ -16,10 +16,10 @@
 #ifndef ISCOOL_MEMORY_MAKE_UNIQUE_TPP
 #define ISCOOL_MEMORY_MAKE_UNIQUE_TPP
 
-template< typename T, typename... Args >
-std::unique_ptr< T > iscool::memory::make_unique( Args&&... args )
+template <typename T, typename... Args>
+std::unique_ptr<T> iscool::memory::make_unique(Args&&... args)
 {
-    return std::unique_ptr< T >( new T( std::forward< Args >( args )... ) );
+  return std::unique_ptr<T>(new T(std::forward<Args>(args)...));
 }
 
 #endif

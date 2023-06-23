@@ -17,28 +17,28 @@
 
 #include "gtest/gtest.h"
 
-TEST( iscool_meta_contains, true )
+TEST(iscool_meta_contains, true)
 {
-    const bool result
-        ( iscool::meta::contains< int, std::string, int, float >::value );
+  const bool result(
+      iscool::meta::contains<int, std::string, int, float>::value);
 
-    EXPECT_TRUE( result );
+  EXPECT_TRUE(result);
 }
 
-TEST( iscool_meta_contains, false )
+TEST(iscool_meta_contains, false)
 {
-    const bool result
-        ( iscool::meta::contains< double, std::string, int, float >::value );
+  const bool result(
+      iscool::meta::contains<double, std::string, int, float>::value);
 
-    EXPECT_FALSE( result );
+  EXPECT_FALSE(result);
 }
 
-TEST( iscool_meta_contains, typedef )
+TEST(iscool_meta_contains, typedef)
 {
-    typedef int type;
-    
-    const bool result
-        ( iscool::meta::contains< type, std::string, int, float >::value );
+  typedef int type;
 
-    EXPECT_TRUE( result );
+  const bool result(
+      iscool::meta::contains<type, std::string, int, float>::value);
+
+  EXPECT_TRUE(result);
 }

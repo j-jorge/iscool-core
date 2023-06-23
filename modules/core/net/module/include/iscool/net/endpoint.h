@@ -20,10 +20,10 @@
 
 namespace iscool
 {
-    namespace net
-    {
-        typedef boost::asio::ip::udp::endpoint endpoint;
-    }
+  namespace net
+  {
+    typedef boost::asio::ip::udp::endpoint endpoint;
+  }
 }
 
 #endif

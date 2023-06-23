@@ -19,17 +19,17 @@
 #include <iterator>
 #include <set>
 
-template< typename Iterator >
-bool iscool::collections::has_duplicates( Iterator first, Iterator last )
+template <typename Iterator>
+bool iscool::collections::has_duplicates(Iterator first, Iterator last)
 {
-    typedef typename std::iterator_traits< Iterator >::value_type value_type;
-    
-    std::set< value_type > values;
-    for ( ; first != last; ++first )
-        if ( !values.insert( *first ).second )
-            return true;
+  typedef typename std::iterator_traits<Iterator>::value_type value_type;
 
-    return false;
+  std::set<value_type> values;
+  for (; first != last; ++first)
+    if (!values.insert(*first).second)
+      return true;
+
+  return false;
 }
 
 #endif

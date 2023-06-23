@@ -17,6 +17,6 @@
 
 const std::string& iscool::files::log_context()
 {
-    static const std::string result( "FileSystem" );
-    return result;
+  static const std::string result("FileSystem");
+  return result;
 }

@@ -21,28 +21,25 @@
 
 namespace iscool
 {
-    namespace system
-    {
-        class application_event_source;
+  namespace system
+  {
+    class application_event_source;
 
-        class application_events
-        {
-        public:
-            explicit application_events( application_event_source& source );
-            
-            iscool::signals::connection
-            connect_to_enter_background
-            ( iscool::signals::void_signal_function f ) const;
-            
-            iscool::signals::connection
-            connect_to_enter_foreground
-            ( iscool::signals::void_signal_function f ) const;
-            
-        private:
-            application_event_source& _source;
-        };
-    }
+    class application_events
+    {
+    public:
+      explicit application_events(application_event_source& source);
+
+      iscool::signals::connection connect_to_enter_background(
+          iscool::signals::void_signal_function f) const;
+
+      iscool::signals::connection connect_to_enter_foreground(
+          iscool::signals::void_signal_function f) const;
+
+    private:
+      application_event_source& _source;
+    };
+  }
 }
 
 #endif
-

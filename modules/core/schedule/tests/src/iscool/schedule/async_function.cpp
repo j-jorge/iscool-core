@@ -20,247 +20,249 @@
 #include "iscool/signals/signal.h"
 #include "iscool/signals/signal.impl.tpp"
 
-
 #include "gtest/gtest.h"
 
-TEST( iscool_schedule_async_function, is_delayed )
+TEST(iscool_schedule_async_function, is_delayed)
 {
-    iscool::schedule::manual_scheduler scheduler;
-    iscool::schedule::initialize( scheduler.get_delayed_call_delegate() );
-    
-    bool called( false );
-    iscool::schedule::async_function< void() > f
-        ( [ &called ]() -> void
-          {
-              called = true;
-          } );
-    
-    f();
-    EXPECT_FALSE( called );
+  iscool::schedule::manual_scheduler scheduler;
+  iscool::schedule::initialize(scheduler.get_delayed_call_delegate());
 
-    scheduler.update_interval( std::chrono::milliseconds::zero() );
-    EXPECT_TRUE( called );
+  bool called(false);
+  iscool::schedule::async_function<void()> f(
+      [&called]() -> void
+      {
+        called = true;
+      });
 
-    iscool::schedule::finalize();
+  f();
+  EXPECT_FALSE(called);
+
+  scheduler.update_interval(std::chrono::milliseconds::zero());
+  EXPECT_TRUE(called);
+
+  iscool::schedule::finalize();
 }
 
-TEST( iscool_schedule_async_function, fonctor )
+TEST(iscool_schedule_async_function, fonctor)
 {
-    iscool::schedule::manual_scheduler scheduler;
-    iscool::schedule::initialize( scheduler.get_delayed_call_delegate() );
+  iscool::schedule::manual_scheduler scheduler;
+  iscool::schedule::initialize(scheduler.get_delayed_call_delegate());
 
-    class F
+  class F
+  {
+  public:
+    explicit F(bool& result)
+      : _result(result)
+    {}
+
+    void operator()()
     {
-    public:
-        explicit F( bool& result )
-            : _result( result )
-        {}
-        
-        void operator()()
-        {
-            _result = true;
-        }
-
-    private:
-        bool& _result;
-    };
-
-    bool called( false );
-    F function( called );
-    iscool::schedule::async_function< void() > f( function );
-    
-    f();
-    scheduler.update_interval( std::chrono::milliseconds::zero() );
-    EXPECT_TRUE( called );
-
-    iscool::schedule::finalize();
-}
-
-TEST( iscool_schedule_async_function, destructor )
-{
-    iscool::schedule::manual_scheduler scheduler;
-    iscool::schedule::initialize( scheduler.get_delayed_call_delegate() );
-    
-    bool called( false );
-    {
-        iscool::schedule::async_function< void() > f
-            ( [ &called ]() -> void
-              {
-                  called = true;
-              } );
-    
-        f();
+      _result = true;
     }
-    
-    scheduler.update_interval( std::chrono::milliseconds::zero() );
-    EXPECT_FALSE( called );
 
-    iscool::schedule::finalize();
+  private:
+    bool& _result;
+  };
+
+  bool called(false);
+  F function(called);
+  iscool::schedule::async_function<void()> f(function);
+
+  f();
+  scheduler.update_interval(std::chrono::milliseconds::zero());
+  EXPECT_TRUE(called);
+
+  iscool::schedule::finalize();
 }
 
-TEST( iscool_schedule_async_function, copy )
+TEST(iscool_schedule_async_function, destructor)
 {
-    iscool::schedule::manual_scheduler scheduler;
-    iscool::schedule::initialize( scheduler.get_delayed_call_delegate() );
-    
-    std::size_t calls( 0 );
-    iscool::schedule::async_function< void() > f
-        ( [ &calls ]() -> void
-          {
-              ++calls;
-          } );
-    
-    iscool::schedule::async_function< void() > g( f );
-    
+  iscool::schedule::manual_scheduler scheduler;
+  iscool::schedule::initialize(scheduler.get_delayed_call_delegate());
+
+  bool called(false);
+  {
+    iscool::schedule::async_function<void()> f(
+        [&called]() -> void
+        {
+          called = true;
+        });
+
     f();
-    g();
-    
-    EXPECT_EQ( 0ull, calls );
-    scheduler.update_interval( std::chrono::milliseconds::zero() );
-    EXPECT_EQ( 2ull, calls );
+  }
 
-    iscool::schedule::finalize();
+  scheduler.update_interval(std::chrono::milliseconds::zero());
+  EXPECT_FALSE(called);
+
+  iscool::schedule::finalize();
 }
 
-TEST( iscool_schedule_async_function, assignment )
+TEST(iscool_schedule_async_function, copy)
 {
-    iscool::schedule::manual_scheduler scheduler;
-    iscool::schedule::initialize( scheduler.get_delayed_call_delegate() );
-    
-    std::size_t calls( 0 );
-    iscool::schedule::async_function< void() > f;
-    iscool::schedule::async_function< void() > g
-        ( [ &calls ]() -> void
-          {
-              ++calls;
-          } );
-    
-    f = g;
-    
-    f();
-    g();
-    
-    EXPECT_EQ( 0ull, calls );
-    scheduler.update_interval( std::chrono::milliseconds::zero() );
-    EXPECT_EQ( 2ull, calls );
+  iscool::schedule::manual_scheduler scheduler;
+  iscool::schedule::initialize(scheduler.get_delayed_call_delegate());
 
-    iscool::schedule::finalize();
+  std::size_t calls(0);
+  iscool::schedule::async_function<void()> f(
+      [&calls]() -> void
+      {
+        ++calls;
+      });
+
+  iscool::schedule::async_function<void()> g(f);
+
+  f();
+  g();
+
+  EXPECT_EQ(0ull, calls);
+  scheduler.update_interval(std::chrono::milliseconds::zero());
+  EXPECT_EQ(2ull, calls);
+
+  iscool::schedule::finalize();
 }
 
-TEST( iscool_schedule_async_function, empty )
+TEST(iscool_schedule_async_function, assignment)
 {
-    iscool::schedule::async_function< void() > f;
-    iscool::schedule::async_function< void() > g( []() -> void {} );
+  iscool::schedule::manual_scheduler scheduler;
+  iscool::schedule::initialize(scheduler.get_delayed_call_delegate());
 
-    EXPECT_TRUE( f.empty() );
-    EXPECT_FALSE( g.empty() );
-    g = f;
-    EXPECT_TRUE( g.empty() );
+  std::size_t calls(0);
+  iscool::schedule::async_function<void()> f;
+  iscool::schedule::async_function<void()> g(
+      [&calls]() -> void
+      {
+        ++calls;
+      });
+
+  f = g;
+
+  f();
+  g();
+
+  EXPECT_EQ(0ull, calls);
+  scheduler.update_interval(std::chrono::milliseconds::zero());
+  EXPECT_EQ(2ull, calls);
+
+  iscool::schedule::finalize();
 }
 
-TEST( iscool_schedule_async_function, arguments )
+TEST(iscool_schedule_async_function, empty)
 {
-    iscool::schedule::manual_scheduler scheduler;
-    iscool::schedule::initialize( scheduler.get_delayed_call_delegate() );
-    
-    int a( 0 );
-    std::string b;
-    float c( 0 );
-    
-    iscool::schedule::async_function< void( int, std::string, float ) > f
-        ( [ &a, &b, &c ]( int arg1, std::string arg2, float arg3 ) -> void
-          {
-              a = arg1;
-              b = arg2;
-              c = arg3;
-          } );
-    
-    f( 24, "yep", 2.f );
-    
-    scheduler.update_interval( std::chrono::milliseconds::zero() );
+  iscool::schedule::async_function<void()> f;
+  iscool::schedule::async_function<void()> g(
+      []() -> void
+      {
+      });
 
-    EXPECT_EQ( 24, a );
-    EXPECT_EQ( "yep", b );
-    EXPECT_EQ( 2.f, c );
-
-    iscool::schedule::finalize();
+  EXPECT_TRUE(f.empty());
+  EXPECT_FALSE(g.empty());
+  g = f;
+  EXPECT_TRUE(g.empty());
 }
 
-TEST( iscool_schedule_async_function, multiple_calls )
+TEST(iscool_schedule_async_function, arguments)
 {
-    iscool::schedule::manual_scheduler scheduler;
-    iscool::schedule::initialize( scheduler.get_delayed_call_delegate() );
-    
-    std::vector< std::size_t > values( 0 );
-    iscool::schedule::async_function< void( std::size_t ) > f
-        ( [ &values ]( std::size_t i ) -> void
-          {
-              values.push_back( i );
-          } );
-    
-    f( 1 );
-    f( 12 );
-    
-    EXPECT_TRUE( values.empty() );
-    scheduler.update_interval( std::chrono::milliseconds::zero() );
-    EXPECT_EQ( 2ull, values.size() );
+  iscool::schedule::manual_scheduler scheduler;
+  iscool::schedule::initialize(scheduler.get_delayed_call_delegate());
 
-    EXPECT_EQ( 1ull, values[ 0 ] );
-    EXPECT_EQ( 12ull, values[ 1 ] );
+  int a(0);
+  std::string b;
+  float c(0);
 
-    iscool::schedule::finalize();
+  iscool::schedule::async_function<void(int, std::string, float)> f(
+      [&a, &b, &c](int arg1, std::string arg2, float arg3) -> void
+      {
+        a = arg1;
+        b = arg2;
+        c = arg3;
+      });
+
+  f(24, "yep", 2.f);
+
+  scheduler.update_interval(std::chrono::milliseconds::zero());
+
+  EXPECT_EQ(24, a);
+  EXPECT_EQ("yep", b);
+  EXPECT_EQ(2.f, c);
+
+  iscool::schedule::finalize();
 }
 
-TEST( iscool_schedule_async_function, bind )
+TEST(iscool_schedule_async_function, multiple_calls)
 {
-    iscool::schedule::manual_scheduler scheduler;
-    iscool::schedule::initialize( scheduler.get_delayed_call_delegate() );
-    
-    std::size_t value( 0 );
-    iscool::schedule::async_function< void( std::size_t ) > f
-        ( [ &value ]( std::size_t i ) -> void
-          {
-              value = i;
-          } );
+  iscool::schedule::manual_scheduler scheduler;
+  iscool::schedule::initialize(scheduler.get_delayed_call_delegate());
 
-    auto g( std::bind<void>( f, std::placeholders::_1 ) );
-    g( 72 );
+  std::vector<std::size_t> values(0);
+  iscool::schedule::async_function<void(std::size_t)> f(
+      [&values](std::size_t i) -> void
+      {
+        values.push_back(i);
+      });
 
-    EXPECT_EQ( 0ull, value );
-    scheduler.update_interval( std::chrono::milliseconds::zero() );
-    EXPECT_EQ( 72ull, value );
+  f(1);
+  f(12);
 
-    iscool::schedule::finalize();
+  EXPECT_TRUE(values.empty());
+  scheduler.update_interval(std::chrono::milliseconds::zero());
+  EXPECT_EQ(2ull, values.size());
+
+  EXPECT_EQ(1ull, values[0]);
+  EXPECT_EQ(12ull, values[1]);
+
+  iscool::schedule::finalize();
 }
 
-TEST( iscool_schedule_async_function, signal )
+TEST(iscool_schedule_async_function, bind)
 {
-    iscool::schedule::manual_scheduler scheduler;
-    iscool::schedule::initialize( scheduler.get_delayed_call_delegate() );
-    
-    std::size_t value( 0 );
-    iscool::schedule::async_function< void( std::size_t ) > f
-        ( [ &value ]( std::size_t i ) -> void
-          {
-              value = i;
-          } );
+  iscool::schedule::manual_scheduler scheduler;
+  iscool::schedule::initialize(scheduler.get_delayed_call_delegate());
 
-    iscool::signals::signal< void( std::size_t ) > signal;
-    iscool::signals::connection connection( signal.connect( f ) );
+  std::size_t value(0);
+  iscool::schedule::async_function<void(std::size_t)> f(
+      [&value](std::size_t i) -> void
+      {
+        value = i;
+      });
 
-    signal( 48 );
-    EXPECT_EQ( 0ull, value );
-    scheduler.update_interval( std::chrono::milliseconds::zero() );
-    EXPECT_EQ( 48ull, value );
+  auto g(std::bind<void>(f, std::placeholders::_1));
+  g(72);
 
-    signal( 96 );
-    scheduler.update_interval( std::chrono::milliseconds::zero() );
-    EXPECT_EQ( 96ull, value );
+  EXPECT_EQ(0ull, value);
+  scheduler.update_interval(std::chrono::milliseconds::zero());
+  EXPECT_EQ(72ull, value);
 
-    connection.disconnect();
-    signal( 84 );
-    scheduler.update_interval( std::chrono::milliseconds::zero() );
-    EXPECT_EQ( 96ull, value );
+  iscool::schedule::finalize();
+}
 
-    iscool::schedule::finalize();
+TEST(iscool_schedule_async_function, signal)
+{
+  iscool::schedule::manual_scheduler scheduler;
+  iscool::schedule::initialize(scheduler.get_delayed_call_delegate());
+
+  std::size_t value(0);
+  iscool::schedule::async_function<void(std::size_t)> f(
+      [&value](std::size_t i) -> void
+      {
+        value = i;
+      });
+
+  iscool::signals::signal<void(std::size_t)> signal;
+  iscool::signals::connection connection(signal.connect(f));
+
+  signal(48);
+  EXPECT_EQ(0ull, value);
+  scheduler.update_interval(std::chrono::milliseconds::zero());
+  EXPECT_EQ(48ull, value);
+
+  signal(96);
+  scheduler.update_interval(std::chrono::milliseconds::zero());
+  EXPECT_EQ(96ull, value);
+
+  connection.disconnect();
+  signal(84);
+  scheduler.update_interval(std::chrono::milliseconds::zero());
+  EXPECT_EQ(96ull, value);
+
+  iscool::schedule::finalize();
 }

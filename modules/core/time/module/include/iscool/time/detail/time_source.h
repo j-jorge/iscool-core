@@ -20,13 +20,13 @@
 
 namespace iscool
 {
-    namespace time
+  namespace time
+  {
+    namespace detail
     {
-        namespace detail
-        {
-            extern time_source_delegate time_source;
-        }
+      extern time_source_delegate time_source;
     }
+  }
 }
 
 #endif

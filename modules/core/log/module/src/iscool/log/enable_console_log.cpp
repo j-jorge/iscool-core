@@ -25,18 +25,17 @@
 
 void iscool::log::enable_console_log()
 {
-    message_delegates delegates;
-    delegates.print_message = &detail::print_to_console;
+  message_delegates delegates;
+  delegates.print_message = &detail::print_to_console;
 
-    delegates.print_error =
-        []( const context& context, const error::synopsis& synopsis ) -> void
-        {
-            detail::print_to_console
-            ( nature::error(), context,
-              iscool::strings::format
-              ( "%1%-%2%: %3%", synopsis.get_category(), synopsis.get_code(),
-                synopsis.get_message() ) );
-        };
+  delegates.print_error = [](const context& context,
+                             const error::synopsis& synopsis) -> void
+  {
+    detail::print_to_console(
+        nature::error(), context,
+        iscool::strings::format("%1%-%2%: %3%", synopsis.get_category(),
+                                synopsis.get_code(), synopsis.get_message()));
+  };
 
-    detail::get_message_dispatcher().register_delegates( delegates );
+  detail::get_message_dispatcher().register_delegates(delegates);
 }

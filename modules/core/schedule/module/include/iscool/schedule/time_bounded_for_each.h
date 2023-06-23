@@ -19,49 +19,43 @@
 #include "iscool/signals/declare_signal.h"
 #include "iscool/signals/scoped_connection.h"
 
-#include <functional>
 #include <chrono>
+#include <functional>
 
 namespace iscool
 {
-    namespace schedule
+  namespace schedule
+  {
+    class time_bounded_for_each
     {
-        class time_bounded_for_each
-        {
-            DECLARE_VOID_SIGNAL( completed, _completed );
+      DECLARE_VOID_SIGNAL(completed, _completed);
 
-        private:
-            typedef std::chrono::milliseconds duration_type;
+    private:
+      typedef std::chrono::milliseconds duration_type;
 
-        public:
-            time_bounded_for_each();
-            ~time_bounded_for_each();
+    public:
+      time_bounded_for_each();
+      ~time_bounded_for_each();
 
-            void abort();
+      void abort();
 
-            template
-            <
-                typename Iterator,
-                typename Function,
-                typename Rep,
-                typename Period
-            >
-            void operator()
-            ( Iterator first, Iterator last, Function f,
-              std::chrono::duration< Rep, Period > time_limit );
+      template <typename Iterator, typename Function, typename Rep,
+                typename Period>
+      void operator()(Iterator first, Iterator last, Function f,
+                      std::chrono::duration<Rep, Period> time_limit);
 
-        private:
-            void schedule_loop();
-            void loop();
+    private:
+      void schedule_loop();
+      void loop();
 
-        private:
-            duration_type _time_limit;
-            std::size_t _next_index;
-            std::vector< std::function< void() > > _calls;
-            bool _looping;
-            iscool::signals::scoped_connection _loop_connection;
-        };
-    }
+    private:
+      duration_type _time_limit;
+      std::size_t _next_index;
+      std::vector<std::function<void()>> _calls;
+      bool _looping;
+      iscool::signals::scoped_connection _loop_connection;
+    };
+  }
 }
 
 #include "iscool/schedule/detail/time_bounded_for_each.tpp"

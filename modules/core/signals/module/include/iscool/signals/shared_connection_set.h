@@ -22,29 +22,29 @@
 
 namespace iscool
 {
-    namespace signals
+  namespace signals
+  {
+    class shared_connection_set
     {
-        class shared_connection_set
-        {
-        private:
-            typedef std::vector< shared_connection > connection_collection;
+    private:
+      typedef std::vector<shared_connection> connection_collection;
 
-        public:
-            shared_connection_set();
-            ~shared_connection_set();
-            
-            void insert( shared_connection c );
-            void insert( shared_connection_set that );
+    public:
+      shared_connection_set();
+      ~shared_connection_set();
 
-            void clear();
-            bool empty() const;
+      void insert(shared_connection c);
+      void insert(shared_connection_set that);
 
-        private:
-            connection_collection _connections;
-        };
-    }
+      void clear();
+      bool empty() const;
+
+    private:
+      connection_collection _connections;
+    };
+  }
 }
 
-extern template class std::vector< iscool::signals::shared_connection >;
+extern template class std::vector<iscool::signals::shared_connection>;
 
 #endif

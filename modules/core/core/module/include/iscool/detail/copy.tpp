@@ -16,10 +16,10 @@
 #ifndef ISCOOL_COPY_TPP
 #define ISCOOL_COPY_TPP
 
-template< typename T >
-T iscool::copy( const T& value )
+template <typename T>
+T iscool::copy(const T& value)
 {
-    return value;
+  return value;
 }
 
 #endif

@@ -18,10 +18,10 @@
 
 namespace iscool
 {
-    namespace log
-    {
-        void enable_console_log();
-    }
+  namespace log
+  {
+    void enable_console_log();
+  }
 }
 
 #endif

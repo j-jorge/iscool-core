@@ -22,34 +22,32 @@
 
 namespace iscool
 {
-    namespace resources
+  namespace resources
+  {
+    namespace detail
     {
-        namespace detail
-        {
-            static std::vector< std::string >
-            to_vector( const Json::Value& value );
-        }
+      static std::vector<std::string> to_vector(const Json::Value& value);
     }
+  }
 }
 
 iscool::resources::catalog
-iscool::resources::json::to_catalog( const Json::Value& value )
+iscool::resources::json::to_catalog(const Json::Value& value)
 {
-    if ( !value.isObject() || value.isNull() )
-        throw iscool::json::bad_cast( value, "object" );
+  if (!value.isObject() || value.isNull())
+    throw iscool::json::bad_cast(value, "object");
 
-    return catalog
-        ( detail::to_vector( value[ "textures" ] ),
-          detail::to_vector( value[ "particles" ] ),
-          detail::to_vector( value[ "sounds" ] ),
-          detail::to_vector( value[ "styles" ] ) );
+  return catalog(detail::to_vector(value["textures"]),
+                 detail::to_vector(value["particles"]),
+                 detail::to_vector(value["sounds"]),
+                 detail::to_vector(value["styles"]));
 }
 
-std::vector< std::string >
-iscool::resources::detail::to_vector( const Json::Value& value )
+std::vector<std::string>
+iscool::resources::detail::to_vector(const Json::Value& value)
 {
-    if ( value.isNull() )
-        return std::vector< std::string >();
+  if (value.isNull())
+    return std::vector<std::string>();
 
-    return iscool::json::cast< std::vector< std::string > >( value );
+  return iscool::json::cast<std::vector<std::string>>(value);
 }

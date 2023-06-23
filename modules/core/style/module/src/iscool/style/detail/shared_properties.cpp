@@ -17,50 +17,50 @@
 
 #include <cassert>
 
-std::uint64_t iscool::style::detail::shared_properties::_next_id( 0 );
+std::uint64_t iscool::style::detail::shared_properties::_next_id(0);
 
 iscool::style::detail::shared_properties::shared_properties()
-    : _reference_count( 0 )
+  : _reference_count(0)
 {
-    set_id();
+  set_id();
 }
 
 std::uint64_t iscool::style::detail::shared_properties::get_id() const
 {
-    return _id;
+  return _id;
 }
 
 void iscool::style::detail::shared_properties::reuse()
 {
-    assert( _reference_count == 0 );
-    values = properties();
+  assert(_reference_count == 0);
+  values = properties();
 
-    set_id();
+  set_id();
 }
 
 void iscool::style::detail::shared_properties::add_reference()
 {
-    ++_reference_count;
+  ++_reference_count;
 }
 
 void iscool::style::detail::shared_properties::remove_reference()
 {
-    assert( _reference_count != 0 );
-    --_reference_count;
+  assert(_reference_count != 0);
+  --_reference_count;
 }
 
 bool iscool::style::detail::shared_properties::is_dangling()
 {
-    return _reference_count == 0;
+  return _reference_count == 0;
 }
 
 std::size_t iscool::style::detail::shared_properties::get_use_count() const
 {
-    return _reference_count;
+  return _reference_count;
 }
 
 void iscool::style::detail::shared_properties::set_id()
 {
-    _id = _next_id;
-    ++_next_id;
+  _id = _next_id;
+  ++_next_id;
 }

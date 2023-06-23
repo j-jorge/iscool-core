@@ -20,71 +20,70 @@
 
 #include "iscool/signals/scoped_connection.h"
 
-ISCOOL_IOS_FORWARD_DECLARE_OBJC( UINotificationFeedbackGenerator );
-ISCOOL_IOS_FORWARD_DECLARE_OBJC( UISelectionFeedbackGenerator );
-ISCOOL_IOS_FORWARD_DECLARE_OBJC( UIImpactFeedbackGenerator );
+ISCOOL_IOS_FORWARD_DECLARE_OBJC(UINotificationFeedbackGenerator);
+ISCOOL_IOS_FORWARD_DECLARE_OBJC(UISelectionFeedbackGenerator);
+ISCOOL_IOS_FORWARD_DECLARE_OBJC(UIImpactFeedbackGenerator);
 
 namespace iscool
 {
-    namespace system
+  namespace system
+  {
+    enum class haptic_feedback_notification;
+
+    class haptic_feedback
     {
-        enum class haptic_feedback_notification;
+    public:
+      haptic_feedback();
+      ~haptic_feedback();
 
-        class haptic_feedback
-        {
-        public:
-            haptic_feedback();
-            ~haptic_feedback();
+      bool is_available() const;
 
-            bool is_available() const;
+      bool is_enabled() const;
+      void set_enabled(bool enabled);
 
-            bool is_enabled() const;
-            void set_enabled( bool enabled );
+      void prepare_notification();
+      void emit_notification(haptic_feedback_notification feedback,
+                             bool keep_prepared = false);
 
-            void prepare_notification();
-            void emit_notification
-            ( haptic_feedback_notification feedback,
-              bool keep_prepared = false );
+      void prepare_selection();
+      void emit_selection(bool keep_prepared = false);
 
-            void prepare_selection();
-            void emit_selection( bool keep_prepared = false );
+      void prepare_low_impact();
+      void emit_low_impact(bool keep_prepared = false);
 
-            void prepare_low_impact();
-            void emit_low_impact( bool keep_prepared = false );
+      void prepare_medium_impact();
+      void emit_medium_impact(bool keep_prepared = false);
 
-            void prepare_medium_impact();
-            void emit_medium_impact( bool keep_prepared = false );
+      void prepare_heavy_impact();
+      void emit_heavy_impact(bool keep_prepared = false);
 
-            void prepare_heavy_impact();
-            void emit_heavy_impact( bool keep_prepared = false );
+    private:
+      void ensure_notification_generator_exists();
+      void ensure_selection_generator_exists();
+      void ensure_low_impact_generator_exists();
+      void ensure_medium_impact_generator_exists();
+      void ensure_heavy_impact_generator_exists();
 
-        private:
-            void ensure_notification_generator_exists();
-            void ensure_selection_generator_exists();
-            void ensure_low_impact_generator_exists();
-            void ensure_medium_impact_generator_exists();
-            void ensure_heavy_impact_generator_exists();
+    private:
+      const bool _available;
+      bool _enabled;
 
-        private:
-            const bool _available;
-            bool _enabled;
+      UINotificationFeedbackGenerator* _notification_generator;
+      iscool::signals::scoped_connection _notification_connection;
 
-            UINotificationFeedbackGenerator* _notification_generator;
-            iscool::signals::scoped_connection _notification_connection;
+      UISelectionFeedbackGenerator* _selection_generator;
+      iscool::signals::scoped_connection _selection_connection;
 
-            UISelectionFeedbackGenerator* _selection_generator;
-            iscool::signals::scoped_connection _selection_connection;
+      UIImpactFeedbackGenerator* _low_impact_generator;
+      iscool::signals::scoped_connection _low_impact_connection;
 
-            UIImpactFeedbackGenerator* _low_impact_generator;
-            iscool::signals::scoped_connection _low_impact_connection;
+      UIImpactFeedbackGenerator* _medium_impact_generator;
+      iscool::signals::scoped_connection _medium_impact_connection;
 
-            UIImpactFeedbackGenerator* _medium_impact_generator;
-            iscool::signals::scoped_connection _medium_impact_connection;
-
-            UIImpactFeedbackGenerator* _heavy_impact_generator;
-            iscool::signals::scoped_connection _heavy_impact_connection;
-        };
-    }
+      UIImpactFeedbackGenerator* _heavy_impact_generator;
+      iscool::signals::scoped_connection _heavy_impact_connection;
+    };
+  }
 }
 
 #endif

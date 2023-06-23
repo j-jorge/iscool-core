@@ -17,22 +17,23 @@
 
 #include <algorithm>
 
-template< typename LeftContainer, typename RightContainer >
-void iscool::test::assert_equal_collections
-( LeftContainer left, RightContainer right, const std::string& message )
+template <typename LeftContainer, typename RightContainer>
+void iscool::test::assert_equal_collections(LeftContainer left,
+                                            RightContainer right,
+                                            const std::string& message)
 {
-    ASSERT_EQ( std::distance( left.begin(), left.end() ),
-               std::distance( right.begin(), right.end() ) )
-        << message;
+  ASSERT_EQ(std::distance(left.begin(), left.end()),
+            std::distance(right.begin(), right.end()))
+      << message;
 
-    bool are_equal( true );
+  bool are_equal(true);
 
-    for ( auto item : left )
-        if ( std::find( right.begin(), right.end(), item ) == right.end() )
-        {
-            are_equal = false;
-            break;
-        }
+  for (auto item : left)
+    if (std::find(right.begin(), right.end(), item) == right.end())
+      {
+        are_equal = false;
+        break;
+      }
 
-    ASSERT_TRUE( are_equal ) << message;
+  ASSERT_TRUE(are_equal) << message;
 }

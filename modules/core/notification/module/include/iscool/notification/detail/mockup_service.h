@@ -21,26 +21,23 @@
 
 namespace iscool
 {
-    namespace notification
+  namespace notification
+  {
+    namespace detail
     {
-        namespace detail
-        {
-            class mockup_service
-            {
-            public:
-                void enable_notifications();
-                bool are_notifications_enabled() const;
+      class mockup_service
+      {
+      public:
+        void enable_notifications();
+        bool are_notifications_enabled() const;
 
-                void schedule
-                ( std::size_t id,
-                  const std::chrono::seconds& delay,
-                  const std::string& title,
-                  const std::string& message );
+        void schedule(std::size_t id, const std::chrono::seconds& delay,
+                      const std::string& title, const std::string& message);
 
-                void cancel_all();
-            };
-        }
+        void cancel_all();
+      };
     }
+  }
 }
 
 #endif

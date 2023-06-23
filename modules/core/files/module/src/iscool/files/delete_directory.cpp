@@ -22,13 +22,13 @@
 
 #include <filesystem>
 
-void iscool::files::delete_directory( const std::string& path )
+void iscool::files::delete_directory(const std::string& path)
 {
-    std::error_code error;
-    std::filesystem::remove_all( path, error );
+  std::error_code error;
+  std::filesystem::remove_all(path, error);
 
-    if ( error )
-        ic_causeless_log
-            ( iscool::log::nature::error(), log_context(),
-              "Could not delete directory '%s': %s", path, error.message() );
+  if (error)
+    ic_causeless_log(iscool::log::nature::error(), log_context(),
+                     "Could not delete directory '%s': %s", path,
+                     error.message());
 }

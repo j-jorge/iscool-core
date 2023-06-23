@@ -20,10 +20,10 @@
 
 namespace iscool
 {
-    namespace log
-    {
-        void add_file_sink( const std::string& path );
-    }
+  namespace log
+  {
+    void add_file_sink(const std::string& path);
+  }
 }
 
 #endif

@@ -19,13 +19,12 @@
 #include "iscool/memory/global_thread_safe_pool.h"
 #include "iscool/memory/pool.impl.tpp"
 
-template< typename T >
-iscool::memory::thread_safe_pool< T >&
+template <typename T>
+iscool::memory::thread_safe_pool<T>&
 iscool::memory::get_global_thread_safe_pool()
 {
-    static thread_safe_pool< T > result;
-    return result;
+  static thread_safe_pool<T> result;
+  return result;
 }
 
 #endif
-

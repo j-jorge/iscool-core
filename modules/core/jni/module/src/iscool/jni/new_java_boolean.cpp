@@ -17,8 +17,7 @@
 
 #include "iscool/jni/alloc.h"
 
-iscool::jni::java_ptr< jobject >
-iscool::jni::new_java_boolean( bool value )
+iscool::jni::java_ptr<jobject> iscool::jni::new_java_boolean(bool value)
 {
-    return alloc( "java/lang/Boolean", "(Z)V", jboolean( value ) );
+  return alloc("java/lang/Boolean", "(Z)V", jboolean(value));
 }

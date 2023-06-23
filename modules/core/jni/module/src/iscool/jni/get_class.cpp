@@ -16,91 +16,85 @@
 #include "iscool/jni/get_class.h"
 
 #include "iscool/jni/class_not_found.h"
-#include "iscool/jni/method_jclass.h"
-#include "iscool/jni/new_java_string.h"
 #include "iscool/jni/detail/get_jni_env.h"
 #include "iscool/jni/detail/log_delegates.h"
+#include "iscool/jni/method_jclass.h"
+#include "iscool/jni/new_java_string.h"
 
 namespace iscool
 {
-    namespace jni
+  namespace jni
+  {
+    namespace detail
     {
-        namespace detail
-        {
-            static jclass get_java_class( const char* class_name );
-            static jclass get_custom_class( const char* class_name );
-            
-            static void set_class_loader( JNIEnv* env, jobject class_loader );
-            
-            static java_ptr< jobject > class_loader;
-            static jmethodID find_class_method;
-        }
+      static jclass get_java_class(const char* class_name);
+      static jclass get_custom_class(const char* class_name);
+
+      static void set_class_loader(JNIEnv* env, jobject class_loader);
+
+      static java_ptr<jobject> class_loader;
+      static jmethodID find_class_method;
     }
+  }
 }
 
-iscool::jni::java_ptr< jclass >
-iscool::jni::get_class( const char* class_name )
+iscool::jni::java_ptr<jclass> iscool::jni::get_class(const char* class_name)
 {
-    jclass result( detail::get_java_class( class_name ) );
+  jclass result(detail::get_java_class(class_name));
 
-    if ( result == nullptr )
-        result = detail::get_custom_class( class_name );
+  if (result == nullptr)
+    result = detail::get_custom_class(class_name);
 
-    if ( !result )
-        throw class_not_found
-            ( std::string( "class not found: " ) + class_name );
+  if (!result)
+    throw class_not_found(std::string("class not found: ") + class_name);
 
-    return result;
+  return result;
 }
 
-jclass iscool::jni::detail::get_java_class( const char* class_name )
+jclass iscool::jni::detail::get_java_class(const char* class_name)
 {
-    JNIEnv* const env( detail::get_jni_env() );
-    const jclass result( env->FindClass( class_name ) );
+  JNIEnv* const env(detail::get_jni_env());
+  const jclass result(env->FindClass(class_name));
 
-    if ( env->ExceptionCheck() )
-        env->ExceptionClear();
+  if (env->ExceptionCheck())
+    env->ExceptionClear();
 
-    return result;
+  return result;
 }
 
-jclass iscool::jni::detail::get_custom_class( const char* class_name )
+jclass iscool::jni::detail::get_custom_class(const char* class_name)
 {
-    assert( iscool::jni::detail::class_loader != nullptr );
-    assert( iscool::jni::detail::find_class_method != nullptr );
-    
-    const method< jclass > find_class
-        ( detail::get_jni_env(), find_class_method );
+  assert(iscool::jni::detail::class_loader != nullptr);
+  assert(iscool::jni::detail::find_class_method != nullptr);
 
-    const jclass result
-        ( find_class( class_loader, new_java_string( class_name ) ) );
+  const method<jclass> find_class(detail::get_jni_env(), find_class_method);
 
-    return result;
+  const jclass result(find_class(class_loader, new_java_string(class_name)));
+
+  return result;
 }
 
-void iscool::jni::detail::set_class_loader( JNIEnv* env, jobject class_loader )
+void iscool::jni::detail::set_class_loader(JNIEnv* env, jobject class_loader)
 {
-    assert( iscool::jni::detail::class_loader == nullptr );
-    
-    iscool::jni::detail::class_loader = env->NewGlobalRef( class_loader );
-    
-    const jclass class_loader_class( env->GetObjectClass( class_loader ) );
-    iscool::jni::detail::find_class_method =
-        env->GetMethodID
-        ( class_loader_class, "findClass",
-          "(Ljava/lang/String;)Ljava/lang/Class;" );
+  assert(iscool::jni::detail::class_loader == nullptr);
+
+  iscool::jni::detail::class_loader = env->NewGlobalRef(class_loader);
+
+  const jclass class_loader_class(env->GetObjectClass(class_loader));
+  iscool::jni::detail::find_class_method =
+      env->GetMethodID(class_loader_class, "findClass",
+                       "(Ljava/lang/String;)Ljava/lang/Class;");
 }
 
-extern "C" void Java_iscool_jni_JniService_configure
-( JNIEnv* env, jobject obj, jobject context )
+extern "C" void Java_iscool_jni_JniService_configure(JNIEnv* env, jobject obj,
+                                                     jobject context)
 {
-    const jclass context_class( env->GetObjectClass( context ) );
-    const jmethodID get_class_loader_method
-        ( env->GetMethodID
-          ( context_class, "getClassLoader", "()Ljava/lang/ClassLoader;" ) );
-    const jobject class_loader
-        ( env->CallObjectMethod( context, get_class_loader_method ) );
-    
-    iscool::jni::detail::set_class_loader( env, class_loader );
-    iscool::jni::detail::setup_log_delegates();
+  const jclass context_class(env->GetObjectClass(context));
+  const jmethodID get_class_loader_method(env->GetMethodID(
+      context_class, "getClassLoader", "()Ljava/lang/ClassLoader;"));
+  const jobject class_loader(
+      env->CallObjectMethod(context, get_class_loader_method));
+
+  iscool::jni::detail::set_class_loader(env, class_loader);
+  iscool::jni::detail::setup_log_delegates();
 }

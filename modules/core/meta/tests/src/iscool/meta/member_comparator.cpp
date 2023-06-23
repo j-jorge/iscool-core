@@ -17,74 +17,77 @@
 
 #include "gtest/gtest.h"
 
-TEST( iscool_meta_member_comparator, less )
+TEST(iscool_meta_member_comparator, less)
 {
-    struct object
-    {
-        int value;
-    };
+  struct object
+  {
+    int value;
+  };
 
-    const object a{ 24 };
-    const object b{ 42 };
+  const object a{ 24 };
+  const object b{ 42 };
 
-    EXPECT_TRUE( member_comparator( object, .value, < )( a, b ) );
-    EXPECT_FALSE( member_comparator( object, .value, < )( b, a ) );
+  EXPECT_TRUE(member_comparator(object, .value, <)(a, b));
+  EXPECT_FALSE(member_comparator(object, .value, <)(b, a));
 }
 
-TEST( iscool_meta_member_comparator, greater )
+TEST(iscool_meta_member_comparator, greater)
 {
-    struct object
-    {
-        int value;
-    };
+  struct object
+  {
+    int value;
+  };
 
-    const object a{ 24 };
-    const object b{ 42 };
+  const object a{ 24 };
+  const object b{ 42 };
 
-    EXPECT_FALSE( member_comparator( object, .value, > )( a, b ) );
-    EXPECT_TRUE( member_comparator( object, .value, > )( b, a ) );
+  EXPECT_FALSE(member_comparator(object, .value, >)(a, b));
+  EXPECT_TRUE(member_comparator(object, .value, >)(b, a));
 }
 
-TEST( iscool_meta_member_comparator, equal )
+TEST(iscool_meta_member_comparator, equal)
 {
-    struct object
-    {
-        int value;
-    };
+  struct object
+  {
+    int value;
+  };
 
-    const object a{ 24 };
-    const object b{ 42 };
+  const object a{ 24 };
+  const object b{ 42 };
 
-    EXPECT_FALSE( member_comparator( object, .value, == )( a, b ) );
-    EXPECT_TRUE( member_comparator( object, .value, == )( a, a ) );
+  EXPECT_FALSE(member_comparator(object, .value, ==)(a, b));
+  EXPECT_TRUE(member_comparator(object, .value, ==)(a, a));
 }
 
-TEST( iscool_meta_member_comparator, member_function )
+TEST(iscool_meta_member_comparator, member_function)
 {
-    struct object
+  struct object
+  {
+    int value;
+
+    int f() const
     {
-        int value;
+      return value;
+    }
+  };
 
-        int f() const { return value; }
-    };
+  const object a{ 24 };
+  const object b{ 42 };
 
-    const object a{ 24 };
-    const object b{ 42 };
-
-    EXPECT_TRUE( member_comparator( object, .f(), < )( a, b ) );
-    EXPECT_FALSE( member_comparator( object, .f(), < )( b, a ) );
+  EXPECT_TRUE(member_comparator(object, .f(), <)(a, b));
+  EXPECT_FALSE(member_comparator(object, .f(), <)(b, a));
 }
 
-TEST( iscool_meta_member_comparator, pointer_member )
+TEST(iscool_meta_member_comparator, pointer_member)
 {
-    struct object
-    {
-        int value;
-    };
+  struct object
+  {
+    int value;
+  };
 
-    const object a{ 24 };
-    const object b{ 42 };
+  const object a{ 24 };
+  const object b{ 42 };
 
-    EXPECT_TRUE( member_comparator( const object*, ->value, < )( &a, &b ) );
-    EXPECT_FALSE( member_comparator( const object*, ->value, < )( &b, &a ) );
+  EXPECT_TRUE(member_comparator(const object*, ->value, <)(&a, &b));
+  EXPECT_FALSE(member_comparator(const object*, ->value, <)(&b, &a));
 }

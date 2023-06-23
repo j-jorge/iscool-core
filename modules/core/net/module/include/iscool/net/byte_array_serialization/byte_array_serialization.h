@@ -20,27 +20,27 @@
 
 namespace iscool
 {
-    namespace net
-    {
-        class byte_array;
-        class byte_array_reader;
+  namespace net
+  {
+    class byte_array;
+    class byte_array_reader;
 
-        template<typename T>
-        std::enable_if_t<!std::is_enum_v<T>, byte_array&>
-        operator<<( byte_array& output, const T& value );
+    template <typename T>
+    std::enable_if_t<!std::is_enum_v<T>, byte_array&>
+    operator<<(byte_array& output, const T& value);
 
-        template<typename T>
-        std::enable_if_t<!std::is_enum_v<T>, byte_array_reader&>
-        operator>>( byte_array_reader& input, T& value );
+    template <typename T>
+    std::enable_if_t<!std::is_enum_v<T>, byte_array_reader&>
+    operator>>(byte_array_reader& input, T& value);
 
-        template<typename T>
-        std::enable_if_t<std::is_enum_v<T>, byte_array&>
-        operator<<( byte_array& output, T value );
+    template <typename T>
+    std::enable_if_t<std::is_enum_v<T>, byte_array&>
+    operator<<(byte_array& output, T value);
 
-        template<typename T>
-        std::enable_if_t<std::is_enum_v<T>, byte_array_reader&>
-        operator>>( byte_array_reader& input, T& value );
-    }
+    template <typename T>
+    std::enable_if_t<std::is_enum_v<T>, byte_array_reader&>
+    operator>>(byte_array_reader& input, T& value);
+  }
 }
 
 #include "iscool/net/byte_array_serialization/byte_array_serialization.tpp"

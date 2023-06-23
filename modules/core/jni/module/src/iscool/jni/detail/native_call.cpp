@@ -19,37 +19,38 @@
 
 namespace iscool
 {
-    namespace jni
+  namespace jni
+  {
+    namespace detail
     {
-        namespace detail
-        {
-            static native_call_manager* manager( nullptr );
-        }
+      static native_call_manager* manager(nullptr);
     }
+  }
 }
 
 void iscool::jni::detail::initialize_native_calls()
 {
-    assert( detail::manager == nullptr );
-    detail::manager = new detail::native_call_manager();
+  assert(detail::manager == nullptr);
+  detail::manager = new detail::native_call_manager();
 }
 
 void iscool::jni::detail::finalize_native_calls()
 {
-    assert( detail::manager != nullptr );
-    delete detail::manager;
-    detail::manager = nullptr;
+  assert(detail::manager != nullptr);
+  delete detail::manager;
+  detail::manager = nullptr;
 }
 
 iscool::jni::detail::native_call_manager&
 iscool::jni::detail::get_native_call_manager()
 {
-    assert( detail::manager != nullptr );
-    return *detail::manager;
+  assert(detail::manager != nullptr);
+  return *detail::manager;
 }
 
-extern "C" void Java_iscool_jni_NativeCall_call
-( JNIEnv* env, jobject obj, jlong callback, jobjectArray arguments )
+extern "C" void Java_iscool_jni_NativeCall_call(JNIEnv* env, jobject obj,
+                                                jlong callback,
+                                                jobjectArray arguments)
 {
-    iscool::jni::detail::get_native_call_manager().call( callback, arguments );
+  iscool::jni::detail::get_native_call_manager().call(callback, arguments);
 }

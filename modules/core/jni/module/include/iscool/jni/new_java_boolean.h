@@ -20,10 +20,10 @@
 
 namespace iscool
 {
-    namespace jni
-    {
-        java_ptr< jobject > new_java_boolean( bool value );
-    }
+  namespace jni
+  {
+    java_ptr<jobject> new_java_boolean(bool value);
+  }
 }
 
 #endif

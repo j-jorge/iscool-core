@@ -18,13 +18,13 @@
 
 namespace iscool
 {
-    namespace files
-    {
-        class file_system_delegates;
-        
-        void initialize( const file_system_delegates& delegates );
-        void finalize();
-    }
+  namespace files
+  {
+    class file_system_delegates;
+
+    void initialize(const file_system_delegates& delegates);
+    void finalize();
+  }
 }
 
 #endif

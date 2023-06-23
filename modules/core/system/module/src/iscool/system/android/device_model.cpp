@@ -21,10 +21,10 @@
 
 std::string iscool::system::get_device_model()
 {
-   const auto method
-        ( iscool::jni::get_static_method< iscool::jni::java_ptr< jstring > >
-          ( "iscool/system/SystemService", "getDeviceModel",
-            "()Ljava/lang/String;" ) );
+  const auto method(
+      iscool::jni::get_static_method<iscool::jni::java_ptr<jstring>>(
+          "iscool/system/SystemService", "getDeviceModel",
+          "()Ljava/lang/String;"));
 
-   return iscool::jni::to_string( method() );
+  return iscool::jni::to_string(method());
 }

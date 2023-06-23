@@ -20,20 +20,19 @@
 
 namespace iscool
 {
-    namespace social
+  namespace social
+  {
+    namespace ios
     {
-        namespace ios
-        {
-            class share_service
-            {
-            public:
-                void share_message( const std::string& message );
-                void share_file
-                ( const std::string& file_path, const std::string& message );
-
-            };
-        }
+      class share_service
+      {
+      public:
+        void share_message(const std::string& message);
+        void share_file(const std::string& file_path,
+                        const std::string& message);
+      };
     }
+  }
 }
 
 #endif

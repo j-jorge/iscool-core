@@ -20,11 +20,10 @@
 
 namespace iscool
 {
-    namespace preferences
-    {
-        typedef detail::property< float > float_property;
-    }
+  namespace preferences
+  {
+    typedef detail::property<float> float_property;
+  }
 }
-
 
 #endif

@@ -20,13 +20,13 @@
 
 namespace iscool
 {
-    namespace jni
-    {
-        template< typename R >
-        static_method< R > get_static_method
-        ( const char* class_name, const char* method_name,
-          const char* signature );
-    }
+  namespace jni
+  {
+    template <typename R>
+    static_method<R> get_static_method(const char* class_name,
+                                       const char* method_name,
+                                       const char* signature);
+  }
 }
 
 #include "iscool/jni/detail/get_static_method.tpp"

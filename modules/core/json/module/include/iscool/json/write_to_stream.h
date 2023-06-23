@@ -20,15 +20,15 @@
 
 namespace Json
 {
-    class Value;
+  class Value;
 }
 
 namespace iscool
 {
-    namespace json
-    {
-        bool write_to_stream( std::ostream& output, const Json::Value& value );
-    }
+  namespace json
+  {
+    bool write_to_stream(std::ostream& output, const Json::Value& value);
+  }
 }
 
 #endif

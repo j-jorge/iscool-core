@@ -22,10 +22,10 @@
 
 namespace iscool
 {
-    namespace jni
-    {
-        java_ptr< jobject > new_java_long( std::int64_t value );
-    }
+  namespace jni
+  {
+    java_ptr<jobject> new_java_long(std::int64_t value);
+  }
 }
 
 #endif

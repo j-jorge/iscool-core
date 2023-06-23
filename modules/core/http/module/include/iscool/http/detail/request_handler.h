@@ -20,26 +20,26 @@
 
 namespace iscool
 {
-    namespace http
-    {
-        class response;
-        
-        namespace detail
-        {
-            class request_handler
-            {
-                DECLARE_SIGNAL( void( std::vector<char> ), result, _on_result );
-                DECLARE_SIGNAL( void( std::vector<char> ), error, _on_error );
+  namespace http
+  {
+    class response;
 
-            public:
-                request_handler();
-                ~request_handler();
-                
-                void process_response( const response& r );
-                void clear();
-            };
-        }
+    namespace detail
+    {
+      class request_handler
+      {
+        DECLARE_SIGNAL(void(std::vector<char>), result, _on_result);
+        DECLARE_SIGNAL(void(std::vector<char>), error, _on_error);
+
+      public:
+        request_handler();
+        ~request_handler();
+
+        void process_response(const response& r);
+        void clear();
+      };
     }
+  }
 }
 
 #endif

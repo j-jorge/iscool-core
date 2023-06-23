@@ -20,21 +20,20 @@
 
 namespace iscool
 {
-    namespace resources
+  namespace resources
+  {
+    class resolver
     {
-        class resolver
-        {
-        public:
-            resolver
-            ( const std::string& search_path, const std::string& extension );
-            
-            std::string get_file_path( const std::string& name ) const;
+    public:
+      resolver(const std::string& search_path, const std::string& extension);
 
-        private:
-            const std::string _search_path;
-            const std::string _extension;
-        };
-    }
+      std::string get_file_path(const std::string& name) const;
+
+    private:
+      const std::string _search_path;
+      const std::string _extension;
+    };
+  }
 }
 
 #endif

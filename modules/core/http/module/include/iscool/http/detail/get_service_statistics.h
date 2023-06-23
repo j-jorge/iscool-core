@@ -20,13 +20,13 @@
 
 namespace iscool
 {
-    namespace http
+  namespace http
+  {
+    namespace detail
     {
-        namespace detail
-        {
-            service_statistics& get_service_statistics();
-        }
+      service_statistics& get_service_statistics();
     }
+  }
 }
 
 #endif

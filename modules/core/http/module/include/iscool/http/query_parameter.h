@@ -20,14 +20,14 @@
 
 namespace iscool
 {
-    namespace http
+  namespace http
+  {
+    struct query_parameter
     {
-        struct query_parameter
-        {
-            std::string key;
-            std::string value;
-        };
-    }
+      std::string key;
+      std::string value;
+    };
+  }
 }
 
 #endif

@@ -18,34 +18,34 @@
 
 #include "iscool/signals/signal.impl.tpp"
 
-template< typename Signature >
+template <typename Signature>
 iscool::signals::connection
-iscool::signals::one_shot_signal< Signature >::connect
-( const std::function< Signature >& f )
+iscool::signals::one_shot_signal<Signature>::connect(
+    const std::function<Signature>& f)
 {
-    return _impl.connect( f );
+  return _impl.connect(f);
 }
 
-template< typename Signature >
-template< typename... Arg >
-typename iscool::signals::one_shot_signal< Signature >::result_type
-iscool::signals::one_shot_signal< Signature >::operator()( Arg... arg )
+template <typename Signature>
+template <typename... Arg>
+typename iscool::signals::one_shot_signal<Signature>::result_type
+iscool::signals::one_shot_signal<Signature>::operator()(Arg... arg)
 {
-    signal_type s;
-    s.swap( _impl );
-    return s( arg... );
+  signal_type s;
+  s.swap(_impl);
+  return s(arg...);
 }
 
-template< typename Signature >
-void iscool::signals::one_shot_signal< Signature >::disconnect_all_slots()
+template <typename Signature>
+void iscool::signals::one_shot_signal<Signature>::disconnect_all_slots()
 {
-    _impl.disconnect_all_slots();
+  _impl.disconnect_all_slots();
 }
 
-template< typename Signature >
-bool iscool::signals::one_shot_signal< Signature >::empty() const
+template <typename Signature>
+bool iscool::signals::one_shot_signal<Signature>::empty() const
 {
-    return _impl.empty();
+  return _impl.empty();
 }
 
 #endif

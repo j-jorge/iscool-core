@@ -16,15 +16,15 @@
 #ifndef ISCOOL_STYLE_MERGE_PATH_LIST_H
 #define ISCOOL_STYLE_MERGE_PATH_LIST_H
 
-#include <vector>
 #include <string>
+#include <vector>
 
 namespace iscool
 {
-    namespace style
-    {
-        typedef std::vector< std::string > merge_path_list;
-    }
+  namespace style
+  {
+    typedef std::vector<std::string> merge_path_list;
+  }
 }
 
 #endif

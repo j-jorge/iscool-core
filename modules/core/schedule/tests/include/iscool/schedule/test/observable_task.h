@@ -17,43 +17,39 @@
 #define ISCOOL_SCHEDULE_TEST_OBSERVERVABLE_TASK_H
 
 #include "iscool/schedule/task.h"
-#include "iscool/signals/signal.h"
 #include "iscool/signals/scoped_connection.h"
+#include "iscool/signals/signal.h"
 
 namespace iscool
 {
-    namespace schedule
+  namespace schedule
+  {
+    namespace test
     {
-        namespace test
-        {
-            struct task_activity_report;
-            
-            class observable_task:
-                public iscool::schedule::task
-            {
-            public:
-                observable_task
-                ( const std::chrono::milliseconds& update_interval,
-                  task_activity_report& report );
-                observable_task
-                ( std::chrono::milliseconds& update_interval,
-                  task_activity_report& report,
-                  iscool::signals::signal< void() >& complete );
+      struct task_activity_report;
 
-                void implementation_start() override;
-                void implementation_update() override;
-                void implementation_abort() override;
-                std::chrono::milliseconds
-                implementation_get_update_interval() const override;
+      class observable_task : public iscool::schedule::task
+      {
+      public:
+        observable_task(const std::chrono::milliseconds& update_interval,
+                        task_activity_report& report);
+        observable_task(std::chrono::milliseconds& update_interval,
+                        task_activity_report& report,
+                        iscool::signals::signal<void()>& complete);
 
-            private:
-                const std::chrono::milliseconds& _update_interval;
-                task_activity_report& _report;
-                iscool::signals::scoped_connection _completion_connection;
-            };
-        }
+        void implementation_start() override;
+        void implementation_update() override;
+        void implementation_abort() override;
+        std::chrono::milliseconds
+        implementation_get_update_interval() const override;
+
+      private:
+        const std::chrono::milliseconds& _update_interval;
+        task_activity_report& _report;
+        iscool::signals::scoped_connection _completion_connection;
+      };
     }
+  }
 }
 
 #endif
-

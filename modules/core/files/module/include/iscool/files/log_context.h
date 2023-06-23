@@ -20,11 +20,10 @@
 
 namespace iscool
 {
-    namespace files
-    {
-        const std::string& log_context();
-    }
+  namespace files
+  {
+    const std::string& log_context();
+  }
 }
 
 #endif
-

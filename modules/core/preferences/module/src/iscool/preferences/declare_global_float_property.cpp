@@ -16,9 +16,8 @@
 #include "iscool/preferences/declare_global_float_property.h"
 
 iscool::preferences::float_property
-iscool::preferences::declare_global_float_property
-( std::string&& name, float fallback )
+iscool::preferences::declare_global_float_property(std::string&& name,
+                                                   float fallback)
 {
-    return float_property( std::move( name ), fallback );
+  return float_property(std::move(name), fallback);
 }
-

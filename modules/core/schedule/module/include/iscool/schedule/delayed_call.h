@@ -24,22 +24,22 @@
 
 namespace iscool
 {
-    namespace schedule
-    {
-        iscool::signals::connection delayed_call
-        ( iscool::signals::void_signal_function f,
-          short_call_policy policy = short_call_policy::cumulated );
+  namespace schedule
+  {
+    iscool::signals::connection
+    delayed_call(iscool::signals::void_signal_function f,
+                 short_call_policy policy = short_call_policy::cumulated);
 
-        iscool::signals::connection delayed_call
-        ( iscool::signals::void_signal_function f,
-          std::chrono::nanoseconds delay );
+    iscool::signals::connection
+    delayed_call(iscool::signals::void_signal_function f,
+                 std::chrono::nanoseconds delay);
 
-        template< typename Rep, typename Period >
-        iscool::signals::connection delayed_call
-        ( iscool::signals::void_signal_function f,
-          std::chrono::duration< Rep, Period > delay );
+    template <typename Rep, typename Period>
+    iscool::signals::connection
+    delayed_call(iscool::signals::void_signal_function f,
+                 std::chrono::duration<Rep, Period> delay);
 
-    }
+  }
 }
 
 #include "iscool/schedule/detail/delayed_call.tpp"

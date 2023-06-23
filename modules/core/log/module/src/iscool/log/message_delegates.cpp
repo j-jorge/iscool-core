@@ -17,5 +17,5 @@
 
 bool iscool::log::message_delegates::is_valid() const
 {
-    return print_message && print_error;
+  return print_message && print_error;
 }

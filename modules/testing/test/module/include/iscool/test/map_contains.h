@@ -18,12 +18,12 @@
 
 namespace iscool
 {
-    namespace test
-    {
-        template< typename AssociativeContainer, typename Key, typename Value >
-        void expect_map_contains
-        ( const AssociativeContainer& map, const Key& key, const Value& value );
-    }
+  namespace test
+  {
+    template <typename AssociativeContainer, typename Key, typename Value>
+    void expect_map_contains(const AssociativeContainer& map, const Key& key,
+                             const Value& value);
+  }
 }
 
 #include "iscool/test/detail/map_contains.tpp"

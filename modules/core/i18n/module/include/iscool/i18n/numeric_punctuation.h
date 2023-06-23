@@ -20,27 +20,25 @@
 
 namespace iscool
 {
-    namespace i18n
+  namespace i18n
+  {
+    class numeric_punctuation : public std::numpunct<char>
     {
-        class numeric_punctuation:
-            public std::numpunct<char>
-        {
-        public:
-            numeric_punctuation
-            ( char decimal_point, char thousands_separator,
-              std::string grouping );
-            
-        private:
-            char do_decimal_point() const override;
-            char do_thousands_sep() const override;
-            std::string do_grouping() const override;
+    public:
+      numeric_punctuation(char decimal_point, char thousands_separator,
+                          std::string grouping);
 
-        private:
-            char _decimal_point;
-            char _thousands_separator;
-            std::string _grouping;
-        };
-    }
+    private:
+      char do_decimal_point() const override;
+      char do_thousands_sep() const override;
+      std::string do_grouping() const override;
+
+    private:
+      char _decimal_point;
+      char _thousands_separator;
+      std::string _grouping;
+    };
+  }
 }
 
 #endif

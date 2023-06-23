@@ -16,29 +16,28 @@
 #ifndef ISCOOL_PROFILE_PROFILE_DATA_H
 #define ISCOOL_PROFILE_PROFILE_DATA_H
 
-#include <string>
 #include <chrono>
+#include <string>
 #include <vector>
 
 namespace iscool
 {
-    namespace profile
+  namespace profile
+  {
+    struct profile_data
     {
-        struct profile_data
-        {
-            profile_data();
-            profile_data
-            ( const std::string& new_name,
-              const std::chrono::milliseconds& new_start,
-              const std::chrono::milliseconds& new_end,
-              const std::vector< std::string >& new_tags );
+      profile_data();
+      profile_data(const std::string& new_name,
+                   const std::chrono::milliseconds& new_start,
+                   const std::chrono::milliseconds& new_end,
+                   const std::vector<std::string>& new_tags);
 
-            std::string name;
-            std::chrono::milliseconds start;
-            std::chrono::milliseconds end;
-            std::vector< std::string > tags;
-        };
-    }
+      std::string name;
+      std::chrono::milliseconds start;
+      std::chrono::milliseconds end;
+      std::vector<std::string> tags;
+    };
+  }
 }
 
 #endif

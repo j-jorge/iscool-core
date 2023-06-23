@@ -19,12 +19,11 @@
 #include "iscool/memory/global_pool.h"
 #include "iscool/memory/pool.impl.tpp"
 
-template< typename T >
-iscool::memory::pool< T >& iscool::memory::get_global_pool()
+template <typename T>
+iscool::memory::pool<T>& iscool::memory::get_global_pool()
 {
-    static pool< T > result;
-    return result;
+  static pool<T> result;
+  return result;
 }
 
 #endif
-

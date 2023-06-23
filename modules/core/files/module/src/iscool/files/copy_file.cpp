@@ -22,17 +22,17 @@
 
 #include <filesystem>
 
-bool iscool::files::copy_file( const std::string& from, const std::string& to )
+bool iscool::files::copy_file(const std::string& from, const std::string& to)
 {
-    std::error_code error;
-    std::filesystem::copy( from, to, error );
+  std::error_code error;
+  std::filesystem::copy(from, to, error);
 
-    if ( !error )
-        return true;
+  if (!error)
+    return true;
 
-    ic_causeless_log
-        ( iscool::log::nature::error(), log_context(),
-          "Could not copy file '%s' to '%s': %s", from, to, error.message() );
+  ic_causeless_log(iscool::log::nature::error(), log_context(),
+                   "Could not copy file '%s' to '%s': %s", from, to,
+                   error.message());
 
-    return false;
+  return false;
 }

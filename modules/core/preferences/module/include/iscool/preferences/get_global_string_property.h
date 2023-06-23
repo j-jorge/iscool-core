@@ -20,11 +20,10 @@
 
 namespace iscool
 {
-    namespace preferences
-    {
-        std::string get_global_string_property
-        ( const string_property& property );
-    }
+  namespace preferences
+  {
+    std::string get_global_string_property(const string_property& property);
+  }
 }
 
 #endif

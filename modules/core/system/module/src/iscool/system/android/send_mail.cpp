@@ -19,17 +19,15 @@
 #include "iscool/jni/new_java_string.h"
 #include "iscool/jni/static_method_void.h"
 
-void iscool::system::send_mail
-( const std::string& address, const std::string& subject,
-  const std::string& body )
+void iscool::system::send_mail(const std::string& address,
+                               const std::string& subject,
+                               const std::string& body)
 {
-    const auto method
-        ( iscool::jni::get_static_method< void >
-          ( "iscool/system/SystemService", "sendMail",
-            "(Ljava/lang/String;Ljava/lang/String;Ljava/lang/String;)V" ) );
+  const auto method(iscool::jni::get_static_method<void>(
+      "iscool/system/SystemService", "sendMail",
+      "(Ljava/lang/String;Ljava/lang/String;Ljava/lang/String;)V"));
 
-    method
-        ( iscool::jni::new_java_string( address ),
-          iscool::jni::new_java_string( subject ),
-          iscool::jni::new_java_string( body ) );
+  method(iscool::jni::new_java_string(address),
+         iscool::jni::new_java_string(subject),
+         iscool::jni::new_java_string(body));
 }

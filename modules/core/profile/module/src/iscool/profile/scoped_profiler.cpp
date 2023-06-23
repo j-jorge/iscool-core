@@ -15,19 +15,18 @@
 */
 #include "iscool/profile/scoped_profiler.h"
 
-iscool::profile::scoped_profiler::scoped_profiler
-( const std::string& name )
-    : _profiler( name )
+iscool::profile::scoped_profiler::scoped_profiler(const std::string& name)
+  : _profiler(name)
 {
-    _profiler.start();
+  _profiler.start();
 }
 
 iscool::profile::scoped_profiler::~scoped_profiler()
 {
-    _profiler.end();
+  _profiler.end();
 }
 
-void iscool::profile::scoped_profiler::append_tag( const std::string& tag )
+void iscool::profile::scoped_profiler::append_tag(const std::string& tag)
 {
-    _profiler.append_tag( tag );
+  _profiler.append_tag(tag);
 }

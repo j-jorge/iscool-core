@@ -25,42 +25,37 @@
 
 namespace iscool
 {
-    namespace net
+  namespace net
+  {
+    class byte_array;
+    class message;
+    class message_stream;
+
+    class message_channel
     {
-        class byte_array;
-        class message;
-        class message_stream;
+    public:
+      DECLARE_SIGNAL(void(const endpoint&, const message&), message, _message);
 
-        class message_channel
-        {
-        public:
-            DECLARE_SIGNAL
-            ( void( const endpoint&, const message& ), message, _message );
+    public:
+      message_channel(const message_stream& stream, session_id session_id,
+                      channel_id channel_id);
+      ~message_channel();
 
-        public:
-            message_channel
-            ( const message_stream& stream, session_id session_id,
-              channel_id channel_id );
-            ~message_channel();
+      void send(const message& message) const;
+      void send(const endpoint& endpoint, const message& message) const;
 
-            void send( const message& message ) const;
-            void send
-            ( const endpoint& endpoint, const message& message ) const;
+    private:
+      void process_incoming_message(const endpoint& endpoint,
+                                    const message& message) const;
 
-        private:
-            void
-            process_incoming_message
-            ( const endpoint& endpoint, const message& message ) const;
+    private:
+      const session_id _session_id;
+      const channel_id _channel_id;
+      const message_stream& _stream;
 
-        private:
-            const session_id _session_id;
-            const channel_id _channel_id;
-            const message_stream& _stream;
-
-            const iscool::signals::scoped_connection
-            _received_signal_connection;
-        };
-    }
+      const iscool::signals::scoped_connection _received_signal_connection;
+    };
+  }
 }
 
 #endif

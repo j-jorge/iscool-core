@@ -17,49 +17,42 @@
 
 #include "iscool/schedule/test/task_activity_report.h"
 
+iscool::schedule::test::observable_task::observable_task(
+    const std::chrono::milliseconds& update_interval,
+    task_activity_report& report)
+  : iscool::schedule::task("observable_task")
+  , _update_interval(update_interval)
+  , _report(report)
+{}
 
-iscool::schedule::test::observable_task::observable_task
-( const std::chrono::milliseconds& update_interval,
-  task_activity_report& report )
-    : iscool::schedule::task( "observable_task" ),
-      _update_interval( update_interval ),
-      _report( report )
-{
-
-}
-
-iscool::schedule::test::observable_task::observable_task
-( std::chrono::milliseconds& update_interval, task_activity_report& report,
-  iscool::signals::signal< void() >& complete )
-    : iscool::schedule::task( "observable_task" ),
-      _update_interval( update_interval ),
-      _report( report ),
-      _completion_connection
-      ( complete.connect
-        ( std::bind
-          ( &iscool::schedule::test::observable_task::complete, this ) ) )
-{
-    
-}
+iscool::schedule::test::observable_task::observable_task(
+    std::chrono::milliseconds& update_interval, task_activity_report& report,
+    iscool::signals::signal<void()>& complete)
+  : iscool::schedule::task("observable_task")
+  , _update_interval(update_interval)
+  , _report(report)
+  , _completion_connection(complete.connect(
+        std::bind(&iscool::schedule::test::observable_task::complete, this)))
+{}
 
 void iscool::schedule::test::observable_task::implementation_start()
 {
-    ++_report.start_calls;
+  ++_report.start_calls;
 }
 
 void iscool::schedule::test::observable_task::implementation_update()
 {
-    ++_report.update_calls;
+  ++_report.update_calls;
 }
 
 void iscool::schedule::test::observable_task::implementation_abort()
 {
-    ++_report.abort_calls;
+  ++_report.abort_calls;
 }
 
 std::chrono::milliseconds
-iscool::schedule::test::observable_task
-::implementation_get_update_interval() const
+iscool::schedule::test::observable_task ::implementation_get_update_interval()
+    const
 {
-    return _update_interval;
+  return _update_interval;
 }

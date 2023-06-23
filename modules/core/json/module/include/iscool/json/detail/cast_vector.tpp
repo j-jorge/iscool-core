@@ -20,48 +20,46 @@
 
 #include "json/value.h"
 
-template< typename T >
-bool
-iscool::json::detail::cast< std::vector< T > >::is_valid
-( const Json::Value& value )
+template <typename T>
+bool iscool::json::detail::cast<std::vector<T>>::is_valid(
+    const Json::Value& value)
 {
-    if ( !value.isArray() || value.isNull() )
-        return false;
+  if (!value.isArray() || value.isNull())
+    return false;
 
-    const Json::ArrayIndex count( value.size() );
+  const Json::ArrayIndex count(value.size());
 
-    for ( Json::ArrayIndex i( 0 ); i != count; ++i )
-        if ( !cast< T >::is_valid( value[ i ] ) )
-            return false;
+  for (Json::ArrayIndex i(0); i != count; ++i)
+    if (!cast<T>::is_valid(value[i]))
+      return false;
 
-    return true;
+  return true;
 }
 
-template< typename T >
-std::vector< T >
-iscool::json::detail::cast< std::vector< T > >::value
-( const Json::Value& jsonValue )
+template <typename T>
+std::vector<T>
+iscool::json::detail::cast<std::vector<T>>::value(const Json::Value& jsonValue)
 {
-    return value( jsonValue, &cast< T >::value );
+  return value(jsonValue, &cast<T>::value);
 }
 
-template< typename T >
-template< typename EntryCast >
-std::vector< T >
-iscool::json::detail::cast< std::vector< T > >::value
-( const Json::Value& value, EntryCast entry_cast )
+template <typename T>
+template <typename EntryCast>
+std::vector<T>
+iscool::json::detail::cast<std::vector<T>>::value(const Json::Value& value,
+                                                  EntryCast entry_cast)
 {
-    if ( !value.isArray() || value.isNull() )
-        throw bad_cast( value, "vector" );
+  if (!value.isArray() || value.isNull())
+    throw bad_cast(value, "vector");
 
-    const Json::ArrayIndex count( value.size() );
-    std::vector< T > result;
-    result.reserve( count );
+  const Json::ArrayIndex count(value.size());
+  std::vector<T> result;
+  result.reserve(count);
 
-    for ( Json::ArrayIndex i( 0 ); i != count; ++i )
-        result.push_back( entry_cast( value[ i ] ) );
+  for (Json::ArrayIndex i(0); i != count; ++i)
+    result.push_back(entry_cast(value[i]));
 
-    return result;
+  return result;
 }
 
 #endif

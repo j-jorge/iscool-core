@@ -23,26 +23,21 @@
 
 namespace iscool
 {
-    namespace jni
+  namespace jni
+  {
+    namespace detail
     {
-        namespace detail
-        {
-            template< typename T, typename U >
-            struct native_call_helper;
+      template <typename T, typename U>
+      struct native_call_helper;
 
-            template< typename... Arg, std::size_t... I >
-            struct native_call_helper
-            <
-                std::tuple< Arg... >,
-                meta::indices< I... >
-            >
-            {
-                static void call
-                ( const std::function< void( Arg... ) >& f,
-                  const java_ptr< jobjectArray >& arguments );
-            };
-        }
+      template <typename... Arg, std::size_t... I>
+      struct native_call_helper<std::tuple<Arg...>, meta::indices<I...>>
+      {
+        static void call(const std::function<void(Arg...)>& f,
+                         const java_ptr<jobjectArray>& arguments);
+      };
     }
+  }
 }
 
 #include "iscool/jni/detail/native_call_helper.tpp"

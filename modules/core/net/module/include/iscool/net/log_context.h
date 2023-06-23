@@ -20,10 +20,10 @@
 
 namespace iscool
 {
-    namespace net
-    {
-        const std::string& log_context();
-    }
+  namespace net
+  {
+    const std::string& log_context();
+  }
 }
 
 #endif

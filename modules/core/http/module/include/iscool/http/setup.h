@@ -20,11 +20,11 @@
 
 namespace iscool
 {
-    namespace http
-    {
-        void initialize( send_function delegate );
-        void finalize();
-    }
+  namespace http
+  {
+    void initialize(send_function delegate);
+    void finalize();
+  }
 }
 
 #endif

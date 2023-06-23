@@ -16,21 +16,19 @@
 #ifndef ISCOOL_CONTAINERS_DETAIL_HETEROGENEOUS_MAP_VISIT_TPP
 #define ISCOOL_CONTAINERS_DETAIL_HETEROGENEOUS_MAP_VISIT_TPP
 
-template< typename T, typename U >
-void iscool::containers::detail::heterogeneous_map_visit< 0 >::run( T, U )
-{
-    
-}
+template <typename T, typename U>
+void iscool::containers::detail::heterogeneous_map_visit<0>::run(T, U)
+{}
 
-template< std::size_t N >
-template< typename Key, typename Visitor, typename... T >
-void iscool::containers::detail::heterogeneous_map_visit< N >::run
-( const std::tuple< std::unordered_map< Key, T >... >& maps, Visitor&& visitor )
+template <std::size_t N>
+template <typename Key, typename Visitor, typename... T>
+void iscool::containers::detail::heterogeneous_map_visit<N>::run(
+    const std::tuple<std::unordered_map<Key, T>...>& maps, Visitor&& visitor)
 {
-    for ( const auto& entry : std::get< N - 1 >( maps ) )
-        visitor( entry.first, entry.second );
+  for (const auto& entry : std::get<N - 1>(maps))
+    visitor(entry.first, entry.second);
 
-    heterogeneous_map_visit< N - 1 >::run( maps, visitor );
+  heterogeneous_map_visit<N - 1>::run(maps, visitor);
 }
 
 #endif

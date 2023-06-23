@@ -19,10 +19,10 @@
 #include "iscool/jni/cast.h"
 #include "iscool/jni/detail/cast_fwd.h"
 
-template< typename T >
-T iscool::jni::cast( jobject value )
+template <typename T>
+T iscool::jni::cast(jobject value)
 {
-    return detail::cast< T >::value( value );
+  return detail::cast<T>::value(value);
 }
 
 #endif

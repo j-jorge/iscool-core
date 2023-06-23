@@ -17,17 +17,13 @@
 
 #include <json/value.h>
 
-iscool::json::bad_cast::bad_cast
-( const Json::Value& value, const std::string& expected )
-    : _message
-      ( "Json value is not a valid " + expected + ": "
-        + value.toStyledString() )
-{
+iscool::json::bad_cast::bad_cast(const Json::Value& value,
+                                 const std::string& expected)
+  : _message("Json value is not a valid " + expected + ": "
+             + value.toStyledString())
+{}
 
-}
-            
 const char* iscool::json::bad_cast::what() const noexcept
 {
-    return _message.c_str();
+  return _message.c_str();
 }
-

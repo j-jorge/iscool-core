@@ -15,16 +15,13 @@
 */
 #include "iscool/strings/detail/formatter.h"
 
-iscool::strings::detail::formatter::formatter( const std::string& pattern )
-    : _format( pattern )
-{
-
-}
+iscool::strings::detail::formatter::formatter(const std::string& pattern)
+  : _format(pattern)
+{}
 
 iscool::strings::detail::formatter::~formatter() = default;
 
 std::string iscool::strings::detail::formatter::string() const
 {
-    return _format.str();
+  return _format.str();
 }
-

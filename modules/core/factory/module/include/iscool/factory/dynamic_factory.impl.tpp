@@ -21,31 +21,30 @@
 
 #include <cassert>
 
-template< typename T, typename... A >
-void iscool::factory::dynamic_factory< T, A... >::register_typename
-( const std::string& name, const dynamic_factory_function& creator )
+template <typename T, typename... A>
+void iscool::factory::dynamic_factory<T, A...>::register_typename(
+    const std::string& name, const dynamic_factory_function& creator)
 {
-    assert( _factory.find( name ) == _factory.end() );
-    assert( creator );
-    _factory[ name ] = creator;
+  assert(_factory.find(name) == _factory.end());
+  assert(creator);
+  _factory[name] = creator;
 }
 
-template< typename T, typename... A >
-T iscool::factory::dynamic_factory< T, A... >::create_by_typename
-( const std::string& name, A... arguments ) const
+template <typename T, typename... A>
+T iscool::factory::dynamic_factory<T, A...>::create_by_typename(
+    const std::string& name, A... arguments) const
 {
-    const auto it( _factory.find( name ) );
+  const auto it(_factory.find(name));
 
-    if ( it == _factory.end() )
+  if (it == _factory.end())
     {
-        ic_causeless_log
-            ( iscool::log::nature::error(), "iscool::factory::dynamic_factory",
-              "Type not found in factory: %s", name );
-        assert( false );
+      ic_causeless_log(iscool::log::nature::error(),
+                       "iscool::factory::dynamic_factory",
+                       "Type not found in factory: %s", name);
+      assert(false);
     }
 
-    return it->second( arguments... );
+  return it->second(arguments...);
 }
-
 
 #endif

@@ -23,26 +23,26 @@
 
 namespace iscool
 {
-    namespace http
+  namespace http
+  {
+    class mockup
     {
-        class mockup
-        {
-        public:
-            mockup();
+    public:
+      mockup();
 
-            void set_enabled( bool enabled );
-            bool is_enabled() const;
+      void set_enabled(bool enabled);
+      bool is_enabled() const;
 
-            void add_predefined_responses( const std::string& path );
+      void add_predefined_responses(const std::string& path);
 
-            iscool::optional< std::vector< char > >
-            get_predefined_response( const std::string& url ) const;
+      iscool::optional<std::vector<char>>
+      get_predefined_response(const std::string& url) const;
 
-        private:
-            bool _enabled;
-            std::vector< std::string > _responses;
-        };
-    }
+    private:
+      bool _enabled;
+      std::vector<std::string> _responses;
+    };
+  }
 }
 
 #endif

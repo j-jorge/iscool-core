@@ -24,29 +24,28 @@
 
 #include <json/value.h>
 
-IMPLEMENT_JSON_CAST( std::uint8_t )
-IMPLEMENT_JSON_IS_OF_TYPE( std::uint8_t )
+IMPLEMENT_JSON_CAST(std::uint8_t)
+IMPLEMENT_JSON_IS_OF_TYPE(std::uint8_t)
 
-bool
-iscool::json::detail::cast< std::uint8_t >::is_valid
-( const Json::Value& value )
+bool iscool::json::detail::cast<std::uint8_t>::is_valid(
+    const Json::Value& value)
 {
-    if ( value.isUInt() )
-        return value.asUInt64() <= 255;
+  if (value.isUInt())
+    return value.asUInt64() <= 255;
 
-    if ( !value.isInt() )
-        return false;
+  if (!value.isInt())
+    return false;
 
-    const std::int64_t int_value( value.asInt64() );
+  const std::int64_t int_value(value.asInt64());
 
-    return ( 0 <= int_value ) && ( int_value <= 255 );
+  return (0 <= int_value) && (int_value <= 255);
 }
 
 std::uint8_t
-iscool::json::detail::cast< std::uint8_t >::value( const Json::Value& value )
+iscool::json::detail::cast<std::uint8_t>::value(const Json::Value& value)
 {
-    if ( !is_valid( value ) )
-        throw bad_cast( value, "8 bits unsigned int" );
+  if (!is_valid(value))
+    throw bad_cast(value, "8 bits unsigned int");
 
-    return value.asUInt();
+  return value.asUInt();
 }

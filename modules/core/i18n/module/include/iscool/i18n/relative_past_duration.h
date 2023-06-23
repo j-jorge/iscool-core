@@ -16,17 +16,17 @@
 #ifndef ISCOOL_I18N_RELATIVE_PAST_DURATION_H
 #define ISCOOL_I18N_RELATIVE_PAST_DURATION_H
 
-#include <string>
 #include <chrono>
+#include <string>
 
 namespace iscool
 {
-    namespace i18n
-    {
-        template< class Rep, class Period >
-        std::string relative_past_duration
-        ( const std::chrono::duration< Rep, Period >& duration );
-    }
+  namespace i18n
+  {
+    template <class Rep, class Period>
+    std::string
+    relative_past_duration(const std::chrono::duration<Rep, Period>& duration);
+  }
 }
 
 #include "iscool/i18n/detail/relative_past_duration.tpp"

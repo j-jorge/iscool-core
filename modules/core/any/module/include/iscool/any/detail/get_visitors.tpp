@@ -21,86 +21,62 @@
 
 namespace iscool
 {
-    namespace any
+  namespace any
+  {
+    namespace detail
     {
-        namespace detail
-        {
-            template< typename T, typename Visitor >
-            void visit( void* value, Visitor visitor );
+      template <typename T, typename Visitor>
+      void visit(void* value, Visitor visitor);
 
-            template< typename Visitor, typename T >
-            struct visitor_map_entry_builder
-            {
-                static std::pair< std::size_t, void(*)( void*, Visitor ) >
-                build();
-            };
-            
+      template <typename Visitor, typename T>
+      struct visitor_map_entry_builder
+      {
+        static std::pair<std::size_t, void (*)(void*, Visitor)> build();
+      };
 
-            template< typename Visitor, typename Types >
-            class visitor_map_builder;
-            
-            template< typename Visitor, typename... T >
-            class visitor_map_builder< Visitor, std::tuple< T... > >
-            {
-            public:
-                static
-                const std::unordered_map
-                <
-                    std::size_t,
-                    void(*)( void*, Visitor )
-                >&
-                get();
-            };
-        }
+      template <typename Visitor, typename Types>
+      class visitor_map_builder;
+
+      template <typename Visitor, typename... T>
+      class visitor_map_builder<Visitor, std::tuple<T...>>
+      {
+      public:
+        static const std::unordered_map<std::size_t, void (*)(void*, Visitor)>&
+        get();
+      };
     }
+  }
 }
 
-
-template< typename Visitor, typename Types >
-const
-std::unordered_map< std::size_t, void(*)( void*, Visitor ) >&
+template <typename Visitor, typename Types>
+const std::unordered_map<std::size_t, void (*)(void*, Visitor)>&
 iscool::any::detail::get_visitors()
 {
-    return visitor_map_builder< Visitor, Types >::get();
-}
-            
-template< typename Visitor, typename... T >
-const std::unordered_map
-<
-    std::size_t,
-    void(*)( void*, Visitor )
->&
-iscool::any::detail::visitor_map_builder< Visitor, std::tuple< T... > >::get()
-{
-    static
-        std::unordered_map
-        <
-            std::size_t,
-            void(*)( void*, Visitor )
-        > result
-        ( {
-            visitor_map_entry_builder< Visitor, T >::build()...
-          } );
-                    
-    return result;
+  return visitor_map_builder<Visitor, Types>::get();
 }
 
-template< typename Visitor, typename T >
-std::pair< std::size_t, void(*)( void*, Visitor ) >
-iscool::any::detail::visitor_map_entry_builder< Visitor, T >::build()
+template <typename Visitor, typename... T>
+const std::unordered_map<std::size_t, void (*)(void*, Visitor)>&
+iscool::any::detail::visitor_map_builder<Visitor, std::tuple<T...>>::get()
 {
-    return
-    {
-        typeid( T ).hash_code(),
-        &visit< T, Visitor >
-    };
+  static std::unordered_map<std::size_t, void (*)(void*, Visitor)> result(
+      { visitor_map_entry_builder<Visitor, T>::build()... });
+
+  return result;
 }
 
-template< typename T, typename Visitor >
-void iscool::any::detail::visit( void* value, Visitor visitor )
+template <typename Visitor, typename T>
+std::pair<std::size_t, void (*)(void*, Visitor)>
+iscool::any::detail::visitor_map_entry_builder<Visitor, T>::build()
 {
-    assert( value != nullptr );
-    visitor( *reinterpret_cast< const T* >( value ) );
+  return { typeid(T).hash_code(), &visit<T, Visitor> };
+}
+
+template <typename T, typename Visitor>
+void iscool::any::detail::visit(void* value, Visitor visitor)
+{
+  assert(value != nullptr);
+  visitor(*reinterpret_cast<const T*>(value));
 }
 
 #endif

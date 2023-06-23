@@ -18,36 +18,35 @@
 
 namespace iscool
 {
-    namespace system
+  namespace system
+  {
+    enum class haptic_feedback_notification;
+
+    class haptic_feedback
     {
-        enum class haptic_feedback_notification;
+    public:
+      bool is_available() const;
+      bool is_enabled() const;
 
-        class haptic_feedback
-        {
-        public:
-            bool is_available() const;
-            bool is_enabled() const;
+      void set_enabled(bool enabled);
 
-            void set_enabled( bool enabled );
+      void prepare_notification();
+      void emit_notification(haptic_feedback_notification feedback,
+                             bool keep_prepared = false);
 
-            void prepare_notification();
-            void emit_notification
-            ( haptic_feedback_notification feedback,
-              bool keep_prepared = false );
+      void prepare_selection();
+      void emit_selection(bool keep_prepared = false);
 
-            void prepare_selection();
-            void emit_selection( bool keep_prepared = false );
+      void prepare_low_impact();
+      void emit_low_impact(bool keep_prepared = false);
 
-            void prepare_low_impact();
-            void emit_low_impact( bool keep_prepared = false );
+      void prepare_medium_impact();
+      void emit_medium_impact(bool keep_prepared = false);
 
-            void prepare_medium_impact();
-            void emit_medium_impact( bool keep_prepared = false );
-
-            void prepare_heavy_impact();
-            void emit_heavy_impact( bool keep_prepared = false );
-        };
-    }
+      void prepare_heavy_impact();
+      void emit_heavy_impact(bool keep_prepared = false);
+    };
+  }
 }
 
 #endif

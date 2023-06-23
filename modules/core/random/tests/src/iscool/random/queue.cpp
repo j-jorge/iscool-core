@@ -17,66 +17,66 @@
 
 #include <gtest/gtest.h>
 
-TEST( iscool_random_queue, next_fail_if_empty )
+TEST(iscool_random_queue, next_fail_if_empty)
 {
-    iscool::random::random_queue<int> queue;
-    ASSERT_THROW( queue.next(), std::out_of_range );
+  iscool::random::random_queue<int> queue;
+  ASSERT_THROW(queue.next(), std::out_of_range);
 }
 
-TEST( iscool_random_queue, returns_one_of_each )
+TEST(iscool_random_queue, returns_one_of_each)
 {
-    iscool::random::random_queue<int> queue;
-    const std::size_t count( 10 );
+  iscool::random::random_queue<int> queue;
+  const std::size_t count(10);
 
-    for( std::size_t i( 0 ); i != count; ++i )
-        queue.insert( i );
+  for (std::size_t i(0); i != count; ++i)
+    queue.insert(i);
 
-    std::set< int > result;
+  std::set<int> result;
 
-    for( std::size_t i( 0 ); i != count; ++i )
-        result.insert( queue.next() );
+  for (std::size_t i(0); i != count; ++i)
+    result.insert(queue.next());
 
-    EXPECT_EQ( count, result.size() );
+  EXPECT_EQ(count, result.size());
 }
 
-TEST( iscool_random_queue, regenerate )
+TEST(iscool_random_queue, regenerate)
 {
-    iscool::random::random_queue<int> queue;
-    const std::size_t count( 10 );
+  iscool::random::random_queue<int> queue;
+  const std::size_t count(10);
 
-    for( std::size_t i( 0 ); i != count; ++i )
-        queue.insert( i );
+  for (std::size_t i(0); i != count; ++i)
+    queue.insert(i);
 
-    std::set< int > first_sequence;
+  std::set<int> first_sequence;
 
-    for( std::size_t i( 0 ); i != count; ++i )
-        first_sequence.insert( queue.next() );
+  for (std::size_t i(0); i != count; ++i)
+    first_sequence.insert(queue.next());
 
-    std::set< int > second_sequence;
+  std::set<int> second_sequence;
 
-    for( std::size_t i( 0 ); i != count; ++i )
-        second_sequence.insert( queue.next() );
+  for (std::size_t i(0); i != count; ++i)
+    second_sequence.insert(queue.next());
 
-    EXPECT_EQ( count, second_sequence.size() );
+  EXPECT_EQ(count, second_sequence.size());
 }
 
-TEST( iscool_random_queue, dynamic_isert )
+TEST(iscool_random_queue, dynamic_isert)
 {
-    iscool::random::random_queue<int> queue;
-    const std::size_t count( 10 );
+  iscool::random::random_queue<int> queue;
+  const std::size_t count(10);
 
-    for( std::size_t i( 0 ); i != count; ++i )
-        queue.insert( i );
+  for (std::size_t i(0); i != count; ++i)
+    queue.insert(i);
 
-    std::set< int > result;
+  std::set<int> result;
 
-    for( std::size_t i( 0 ); i != count + 1; ++i )
+  for (std::size_t i(0); i != count + 1; ++i)
     {
-        if ( i == count / 2 )
-            queue.insert( count );
+      if (i == count / 2)
+        queue.insert(count);
 
-        result.insert( queue.next() );
+      result.insert(queue.next());
     }
 
-    EXPECT_EQ( count + 1, result.size() );
+  EXPECT_EQ(count + 1, result.size());
 }

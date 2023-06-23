@@ -17,25 +17,25 @@
 
 #include <limits>
 
-std::uint8_t iscool::digits( std::int64_t value )
+std::uint8_t iscool::digits(std::int64_t value)
 {
-    std::uint8_t result( 1 );
+  std::uint8_t result(1);
 
-    if ( value < 0 )
+  if (value < 0)
     {
-        ++result;
-        
-        if ( value == std::numeric_limits< std::int64_t >::min() )
-            value = -( value + 1 );
-        else
-            value = -value;
-    }
-    
-    while ( value >= 10 )
-    {
-        ++result;
-        value /= 10;
+      ++result;
+
+      if (value == std::numeric_limits<std::int64_t>::min())
+        value = -(value + 1);
+      else
+        value = -value;
     }
 
-    return result;
+  while (value >= 10)
+    {
+      ++result;
+      value /= 10;
+    }
+
+  return result;
 }

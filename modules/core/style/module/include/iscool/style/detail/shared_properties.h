@@ -20,41 +20,40 @@
 
 namespace iscool
 {
-    namespace style
+  namespace style
+  {
+    namespace detail
     {
-        namespace detail
-        {
-            class shared_properties
-            {
-            public:
-                shared_properties();
+      class shared_properties
+      {
+      public:
+        shared_properties();
 
-                shared_properties( const shared_properties& that ) = delete;
-                shared_properties&
-                operator=( const shared_properties& that ) = delete;
+        shared_properties(const shared_properties& that) = delete;
+        shared_properties& operator=(const shared_properties& that) = delete;
 
-                std::uint64_t get_id() const;
-                void reuse();
+        std::uint64_t get_id() const;
+        void reuse();
 
-                void add_reference();
-                void remove_reference();
-                bool is_dangling();
-                std::size_t get_use_count() const;
-                
-            public:
-                properties values;
-                
-            private:
-                void set_id();
+        void add_reference();
+        void remove_reference();
+        bool is_dangling();
+        std::size_t get_use_count() const;
 
-            private:
-                static std::uint64_t _next_id;
-                std::uint64_t _id;
+      public:
+        properties values;
 
-                std::size_t _reference_count;
-            };
-        }
+      private:
+        void set_id();
+
+      private:
+        static std::uint64_t _next_id;
+        std::uint64_t _id;
+
+        std::size_t _reference_count;
+      };
     }
+  }
 }
 
 #endif

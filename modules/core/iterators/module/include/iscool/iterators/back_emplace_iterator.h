@@ -20,35 +20,30 @@
 
 namespace iscool
 {
-    namespace iterators
+  namespace iterators
+  {
+    template <typename Container>
+    class back_emplace_iterator
+      : public std::iterator<std::output_iterator_tag, void, void, void, void>
     {
-        template< typename Container >
-        class back_emplace_iterator:
-            public std::iterator
-            <
-                std::output_iterator_tag, void, void, void, void
-            >
-        {
-        public:
-            explicit back_emplace_iterator( Container& container );
+    public:
+      explicit back_emplace_iterator(Container& container);
 
-            back_emplace_iterator& operator=
-            ( const typename Container::value_type& value );
-            back_emplace_iterator& operator=
-            ( typename Container::value_type&& value );
-            
-            back_emplace_iterator& operator++();
-            back_emplace_iterator operator++( int );
-            back_emplace_iterator& operator*();
+      back_emplace_iterator&
+      operator=(const typename Container::value_type& value);
+      back_emplace_iterator& operator=(typename Container::value_type&& value);
 
-        private:
-            Container* _container;
-        };
+      back_emplace_iterator& operator++();
+      back_emplace_iterator operator++(int);
+      back_emplace_iterator& operator*();
 
-        template< typename Container >
-        back_emplace_iterator< Container > back_emplacer
-        ( Container& container );
-    }
+    private:
+      Container* _container;
+    };
+
+    template <typename Container>
+    back_emplace_iterator<Container> back_emplacer(Container& container);
+  }
 }
 
 #include "iscool/iterators/detail/back_emplace_iterator.tpp"

@@ -20,21 +20,21 @@
 
 namespace iscool
 {
-    namespace system
+  namespace system
+  {
+    class application_event_source
     {
-        class application_event_source
-        {
-            DECLARE_VOID_SIGNAL( enter_background, _enter_background );
-            DECLARE_VOID_SIGNAL( enter_foreground, _enter_foreground );
+      DECLARE_VOID_SIGNAL(enter_background, _enter_background);
+      DECLARE_VOID_SIGNAL(enter_foreground, _enter_foreground);
 
-        public:
-            application_event_source();
-            ~application_event_source();
-            
-            void dispatch_enter_background() const;
-            void dispatch_enter_foreground() const;
-        };
-    }
+    public:
+      application_event_source();
+      ~application_event_source();
+
+      void dispatch_enter_background() const;
+      void dispatch_enter_foreground() const;
+    };
+  }
 }
 
 #endif

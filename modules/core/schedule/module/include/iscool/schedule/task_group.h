@@ -22,26 +22,26 @@
 
 namespace iscool
 {
-    namespace schedule
+  namespace schedule
+  {
+    class task_group
     {
-        class task_group
-        {
-        public:
-            task_group();
-            ~task_group();
+    public:
+      task_group();
+      ~task_group();
 
-            template< typename TaskType, typename... Args >
-            void run( Args&&... args );
+      template <typename TaskType, typename... Args>
+      void run(Args&&... args);
 
-        private:
-            void pop( std::size_t id );
+    private:
+      void pop(std::size_t id);
 
-            std::size_t get_available_task_index();
-            
-        private:
-            std::vector< worker::handle > _tasks;
-        };
-    }
+      std::size_t get_available_task_index();
+
+    private:
+      std::vector<worker::handle> _tasks;
+    };
+  }
 }
 
 #endif

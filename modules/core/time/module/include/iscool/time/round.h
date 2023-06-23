@@ -20,11 +20,11 @@
 
 namespace iscool
 {
-    namespace time
-    {
-        template< class TargetDuration, class Rep, class Period >
-        TargetDuration round( std::chrono::duration< Rep, Period > duration );
-    }
+  namespace time
+  {
+    template <class TargetDuration, class Rep, class Period>
+    TargetDuration round(std::chrono::duration<Rep, Period> duration);
+  }
 }
 
 #include "iscool/time/detail/round.tpp"

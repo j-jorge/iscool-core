@@ -17,8 +17,7 @@
 
 #include "iscool/jni/alloc.h"
 
-iscool::jni::java_ptr< jobject >
-iscool::jni::new_java_long( std::int64_t value )
+iscool::jni::java_ptr<jobject> iscool::jni::new_java_long(std::int64_t value)
 {
-    return alloc( "java/lang/Long", "(J)V", jlong( value ) );
+  return alloc("java/lang/Long", "(J)V", jlong(value));
 }

@@ -20,45 +20,45 @@
 
 namespace iscool
 {
-    namespace schedule
+  namespace schedule
+  {
+    namespace detail
     {
-        namespace detail
+      class task_life_cycle
+      {
+        DECLARE_VOID_SIGNAL(complete, _complete);
+
+      public:
+        typedef std::unique_ptr<task> task_pointer;
+
+      public:
+        explicit task_life_cycle(task_pointer implementation);
+        ~task_life_cycle();
+
+        void start();
+        void update();
+        void abort();
+
+        bool is_running() const;
+        std::chrono::milliseconds get_update_interval() const;
+
+      private:
+        void complete();
+
+      private:
+        enum class state
         {
-            class task_life_cycle
-            {
-                DECLARE_VOID_SIGNAL( complete, _complete );
+          created,
+          running,
+          stopped
+        };
 
-            public:
-                typedef std::unique_ptr< task > task_pointer;
-
-            public:
-                explicit task_life_cycle( task_pointer implementation );
-                ~task_life_cycle();
-
-                void start();
-                void update();
-                void abort();
-
-                bool is_running() const;
-                std::chrono::milliseconds get_update_interval() const;
-
-            private:
-                void complete();
-
-            private:
-                enum class state
-                {
-                    created,
-                    running,
-                    stopped
-                };
-
-            private:
-                state _internal_state;
-                task_pointer _implementation;
-            };
-        }
+      private:
+        state _internal_state;
+        task_pointer _implementation;
+      };
     }
+  }
 }
 
 #endif

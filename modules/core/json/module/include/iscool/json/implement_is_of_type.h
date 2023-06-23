@@ -16,13 +16,13 @@
 #ifndef ISCOOL_JSON_DETAIL_IMPLEMENT_JSON_IS_OF_TYPE_H
 #define ISCOOL_JSON_DETAIL_IMPLEMENT_JSON_IS_OF_TYPE_H
 
-#define IMPLEMENT_JSON_IS_OF_TYPE( T )                                  \
-    namespace iscool                                                    \
-    {                                                                   \
-        namespace json                                                  \
-        {                                                               \
-            template bool is_of_type< T >( const Json::Value& );        \
-        }                                                               \
-    }
+#define IMPLEMENT_JSON_IS_OF_TYPE(T)                                          \
+  namespace iscool                                                            \
+  {                                                                           \
+    namespace json                                                            \
+    {                                                                         \
+      template bool is_of_type<T>(const Json::Value&);                        \
+    }                                                                         \
+  }
 
 #endif

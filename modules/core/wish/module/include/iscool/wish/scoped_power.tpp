@@ -16,18 +16,18 @@
 #ifndef SCOPEDPOWER_TPP
 #define SCOPEDPOWER_TPP
 
-template< typename T >
-iscool::wish::scoped_power<T>::scoped_power
-( genie& main_genie, std::function<void(const T&)> function )
-    : _genie( main_genie )
+template <typename T>
+iscool::wish::scoped_power<T>::scoped_power(
+    genie& main_genie, std::function<void(const T&)> function)
+  : _genie(main_genie)
 {
-    _genie.empower<T>( function );
+  _genie.empower<T>(function);
 }
 
-template< typename T >
+template <typename T>
 iscool::wish::scoped_power<T>::~scoped_power()
 {
-    _genie.deny<T>();
+  _genie.deny<T>();
 }
 
 #endif

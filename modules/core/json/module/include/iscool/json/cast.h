@@ -18,19 +18,19 @@
 
 namespace Json
 {
-    class Value;
+  class Value;
 }
 
 namespace iscool
 {
-    namespace json
-    {
-        template< typename T >
-        T cast( const Json::Value& value );
+  namespace json
+  {
+    template <typename T>
+    T cast(const Json::Value& value);
 
-        template< typename T >
-        T cast( const Json::Value& value, const T& fallback );
-    }
+    template <typename T>
+    T cast(const Json::Value& value, const T& fallback);
+  }
 }
 
 #endif

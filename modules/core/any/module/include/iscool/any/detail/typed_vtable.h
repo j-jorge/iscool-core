@@ -18,31 +18,31 @@
 
 namespace iscool
 {
-    namespace any
+  namespace any
+  {
+    class any;
+
+    namespace detail
     {
-        class any;
-        
-        namespace detail
-        {
-            template< typename T >
-            class typed_vtable
-            {
-            public:
-                static void clear( any& that );
-                static void copy( any& target, const any& source );
-                static void move( any& target, any&& source );
-            };
-            
-            template<>
-            class typed_vtable< void >
-            {
-            public:
-                static void clear( any& that );
-                static void copy( any& target, const any& source );
-                static void move( any& target, any&& source );
-            };
-        }
+      template <typename T>
+      class typed_vtable
+      {
+      public:
+        static void clear(any& that);
+        static void copy(any& target, const any& source);
+        static void move(any& target, any&& source);
+      };
+
+      template <>
+      class typed_vtable<void>
+      {
+      public:
+        static void clear(any& that);
+        static void copy(any& target, const any& source);
+        static void move(any& target, any&& source);
+      };
     }
+  }
 }
 
 #include "iscool/any/detail/typed_vtable.tpp"

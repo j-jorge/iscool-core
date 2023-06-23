@@ -20,13 +20,13 @@
 
 namespace iscool
 {
-    namespace http
+  namespace http
+  {
+    namespace detail
     {
-        namespace detail
-        {
-            typedef monitoring::instant_quality service_statistics;
-        }
+      typedef monitoring::instant_quality service_statistics;
     }
+  }
 }
 
 #endif

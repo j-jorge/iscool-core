@@ -22,202 +22,194 @@
 #include "iscool/schedule/detail/call_later.h"
 #include "iscool/signals/signal.impl.tpp"
 
+iscool::schedule::detail::delayed_call_manager::delayed_call_manager(
+    std::size_t pool_size)
+  : _short_call_cumulated("delayed_call_manager::short_call_cumulated")
+  , _short_call_non_cumulated("delayed_call_manager::short_call_non_cumulated")
+  , _pool(pool_size)
+  , _client_guard(false)
+  , _in_cumulated_loop(false)
+{}
 
-iscool::schedule::detail::delayed_call_manager::delayed_call_manager
-( std::size_t pool_size )
-    : _short_call_cumulated( "delayed_call_manager::short_call_cumulated" ),
-      _short_call_non_cumulated
-      ( "delayed_call_manager::short_call_non_cumulated" ),
-      _pool( pool_size ),
-      _client_guard( false ),
-      _in_cumulated_loop( false )
+iscool::signals::connection
+iscool::schedule::detail::delayed_call_manager::schedule_call(
+    iscool::signals::void_signal_function f, duration delay)
 {
-
+  assert(delay.count() > 0);
+  return schedule_delayed(f, delay);
 }
 
 iscool::signals::connection
-iscool::schedule::detail::delayed_call_manager::schedule_call
-( iscool::signals::void_signal_function f, duration delay )
+iscool::schedule::detail::delayed_call_manager::schedule_call(
+    iscool::signals::void_signal_function f, short_call_policy policy)
 {
-    assert( delay.count() > 0 );
-    return schedule_delayed( f, delay );
-}
+  if (policy == short_call_policy::cumulated)
+    return schedule_cumulated(f);
 
-iscool::signals::connection
-iscool::schedule::detail::delayed_call_manager::schedule_call
-( iscool::signals::void_signal_function f, short_call_policy policy )
-{
-    if ( policy == short_call_policy::cumulated )
-        return schedule_cumulated( f );
-
-    assert( policy == short_call_policy::non_cumulated );
-    return schedule_non_cumulated( f );
+  assert(policy == short_call_policy::non_cumulated);
+  return schedule_non_cumulated(f);
 }
 
 void iscool::schedule::detail::delayed_call_manager::clear()
 {
-    std::unique_lock< std::recursive_mutex > lock( _mutex );
+  std::unique_lock<std::recursive_mutex> lock(_mutex);
 
-    _short_call_cumulated.disconnect_all_slots();
-    _short_call_non_cumulated.disconnect_all_slots();
-    _pool.clear();
+  _short_call_cumulated.disconnect_all_slots();
+  _short_call_non_cumulated.disconnect_all_slots();
+  _pool.clear();
 }
 
 iscool::signals::connection
-iscool::schedule::detail::delayed_call_manager::schedule_cumulated
-( iscool::signals::void_signal_function f )
+iscool::schedule::detail::delayed_call_manager::schedule_cumulated(
+    iscool::signals::void_signal_function f)
 {
-    std::unique_lock< std::recursive_mutex > lock( _mutex );
+  std::unique_lock<std::recursive_mutex> lock(_mutex);
 
-    if ( !_in_cumulated_loop && _short_call_cumulated.empty() )
-        schedule_client_cumulated();
+  if (!_in_cumulated_loop && _short_call_cumulated.empty())
+    schedule_client_cumulated();
 
-    return _short_call_cumulated.connect( f );
+  return _short_call_cumulated.connect(f);
 }
 
 iscool::signals::connection
-iscool::schedule::detail::delayed_call_manager::schedule_non_cumulated
-( iscool::signals::void_signal_function f )
+iscool::schedule::detail::delayed_call_manager::schedule_non_cumulated(
+    iscool::signals::void_signal_function f)
 {
-    std::unique_lock< std::recursive_mutex > lock( _mutex );
+  std::unique_lock<std::recursive_mutex> lock(_mutex);
 
-    if ( _short_call_non_cumulated.empty() )
-        schedule_client_non_cumulated();
+  if (_short_call_non_cumulated.empty())
+    schedule_client_non_cumulated();
 
-    return _short_call_non_cumulated.connect( f );
+  return _short_call_non_cumulated.connect(f);
 }
 
 iscool::signals::connection
-iscool::schedule::detail::delayed_call_manager::schedule_delayed
-( iscool::signals::void_signal_function f, duration delay )
+iscool::schedule::detail::delayed_call_manager::schedule_delayed(
+    iscool::signals::void_signal_function f, duration delay)
 {
-    std::unique_lock< std::recursive_mutex > lock( _mutex );
+  std::unique_lock<std::recursive_mutex> lock(_mutex);
 
-    assert( delay.count() > 0 );
+  assert(delay.count() > 0);
 
-    const auto slot( _pool.pick_available() );
-    const iscool::signals::connection result = slot.value.connect( f );
+  const auto slot(_pool.pick_available());
+  const iscool::signals::connection result = slot.value.connect(f);
 
-    schedule_client( slot.id, delay );
+  schedule_client(slot.id, delay);
 
-    return result;
+  return result;
 }
 
-void iscool::schedule::detail::delayed_call_manager::schedule_client
-( std::size_t id, duration delay )
+void iscool::schedule::detail::delayed_call_manager::schedule_client(
+    std::size_t id, duration delay)
 {
-    assert( detail::call_later );
+  assert(detail::call_later);
 
-    detail::call_later
-        ( std::bind
-          ( &delayed_call_manager::trigger, this,
-            id, time::now< duration >() + delay ),
-          delay );
+  detail::call_later(std::bind(&delayed_call_manager::trigger, this, id,
+                               time::now<duration>() + delay),
+                     delay);
 }
 
-void iscool::schedule::detail::delayed_call_manager::schedule_client_cumulated()
+void iscool::schedule::detail::delayed_call_manager::
+    schedule_client_cumulated()
 {
-    assert( !_client_guard );
-    _client_guard = true;
+  assert(!_client_guard);
+  _client_guard = true;
 
-    assert( detail::call_later );
+  assert(detail::call_later);
 
-    detail::call_later
-        ( std::bind( &delayed_call_manager::trigger_cumulated, this ),
-          duration::zero() );
+  detail::call_later(std::bind(&delayed_call_manager::trigger_cumulated, this),
+                     duration::zero());
 
-    _client_guard = false;
+  _client_guard = false;
 }
 
-void
-iscool::schedule::detail::delayed_call_manager::schedule_client_non_cumulated()
+void iscool::schedule::detail::delayed_call_manager::
+    schedule_client_non_cumulated()
 {
-    assert( _short_call_non_cumulated.empty() );
-    assert( !_client_guard );
-    _client_guard = true;
+  assert(_short_call_non_cumulated.empty());
+  assert(!_client_guard);
+  _client_guard = true;
 
-    assert( detail::call_later );
+  assert(detail::call_later);
 
-    detail::call_later
-        ( std::bind
-          ( &delayed_call_manager::trigger_non_cumulated, this ),
-          duration::zero() );
+  detail::call_later(
+      std::bind(&delayed_call_manager::trigger_non_cumulated, this),
+      duration::zero());
 
-    _client_guard = false;
+  _client_guard = false;
 }
 
-void iscool::schedule::detail::delayed_call_manager::trigger
-( std::size_t id, duration expected_date )
+void iscool::schedule::detail::delayed_call_manager::trigger(
+    std::size_t id, duration expected_date)
 {
-    const duration now( time::now< duration >() );
+  const duration now(time::now<duration>());
 
-    if ( expected_date > now )
+  if (expected_date > now)
     {
-        const duration remaining( expected_date - now );
-        schedule_client( id, remaining );
+      const duration remaining(expected_date - now);
+      schedule_client(id, remaining);
     }
-    else
+  else
     {
-        iscool::signals::void_signal calls;
+      iscool::signals::void_signal calls;
 
-        {
-            std::unique_lock< std::recursive_mutex > lock( _mutex );
-            calls.swap( _pool.get( id ) );
-            _pool.release( id );
-        }
+      {
+        std::unique_lock<std::recursive_mutex> lock(_mutex);
+        calls.swap(_pool.get(id));
+        _pool.release(id);
+      }
 
-        calls();
-        trigger_cumulated();
+      calls();
+      trigger_cumulated();
     }
 }
 
 void iscool::schedule::detail::delayed_call_manager::trigger_cumulated()
 {
-    _mutex.lock();
+  _mutex.lock();
 
-    assert( !_client_guard );
-    assert( !_in_cumulated_loop );
+  assert(!_client_guard);
+  assert(!_in_cumulated_loop);
 
-    _in_cumulated_loop = true;
+  _in_cumulated_loop = true;
 
-    std::size_t limit( 10 );
+  std::size_t limit(10);
 
-    do
+  do
     {
-        --limit;
+      --limit;
 
-        iscool::signals::void_signal calls;
-        calls.swap( _short_call_cumulated );
+      iscool::signals::void_signal calls;
+      calls.swap(_short_call_cumulated);
 
-        _mutex.unlock();
-        calls();
-        _mutex.lock();
+      _mutex.unlock();
+      calls();
+      _mutex.lock();
     }
-    while( ( limit != 0 ) && !_short_call_cumulated.empty() );
+  while ((limit != 0) && !_short_call_cumulated.empty());
 
-    _in_cumulated_loop = false;
+  _in_cumulated_loop = false;
 
-    if ( !_short_call_cumulated.empty() )
+  if (!_short_call_cumulated.empty())
     {
-        ic_causeless_log
-            ( iscool::log::nature::warning(), "Scheduler",
-              "Too many recursively cumulated calls." );
+      ic_causeless_log(iscool::log::nature::warning(), "Scheduler",
+                       "Too many recursively cumulated calls.");
 
-        schedule_client_cumulated();
+      schedule_client_cumulated();
     }
 
-    _mutex.unlock();
+  _mutex.unlock();
 }
 
 void iscool::schedule::detail::delayed_call_manager::trigger_non_cumulated()
 {
-    iscool::signals::void_signal calls;
+  iscool::signals::void_signal calls;
 
-    {
-        std::unique_lock< std::recursive_mutex > lock( _mutex );
-        assert( !_client_guard );
-        calls.swap( _short_call_non_cumulated );
-    }
+  {
+    std::unique_lock<std::recursive_mutex> lock(_mutex);
+    assert(!_client_guard);
+    calls.swap(_short_call_non_cumulated);
+  }
 
-    calls();
+  calls();
 }

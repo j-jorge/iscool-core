@@ -20,12 +20,12 @@
 
 namespace iscool
 {
-    namespace http
-    {
-        class request;
+  namespace http
+  {
+    class request;
 
-        typedef std::function< void( const request& ) > send_function;
-    }
+    typedef std::function<void(const request&)> send_function;
+  }
 }
 
 #endif

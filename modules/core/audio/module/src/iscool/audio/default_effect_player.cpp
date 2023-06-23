@@ -15,16 +15,16 @@
 */
 #include "iscool/audio/default_effect_player.h"
 
-#include "iscool/audio/mixer.h"
 #include "iscool/audio/detail/default_mixer.h"
+#include "iscool/audio/mixer.h"
 
-iscool::audio::track_id iscool::audio::play_effect
-( const std::string& name, loop_mode loop )
+iscool::audio::track_id iscool::audio::play_effect(const std::string& name,
+                                                   loop_mode loop)
 {
-    return detail::get_default_mixer().play_effect( name, loop );
+  return detail::get_default_mixer().play_effect(name, loop);
 }
 
-void iscool::audio::stop_effect( track_id id )
+void iscool::audio::stop_effect(track_id id)
 {
-    detail::get_default_mixer().stop_effect( id );
+  detail::get_default_mixer().stop_effect(id);
 }

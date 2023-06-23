@@ -18,38 +18,36 @@
 
 #include "iscool/style/detail/declaration_ref.h"
 
-#include <unordered_map>
 #include <string>
+#include <unordered_map>
 
 namespace iscool
 {
-    namespace style
+  namespace style
+  {
+    namespace detail
     {
-        namespace detail
-        {
-            class properties
-            {
-            public:
-                typedef std::unordered_map< std::string, float > numbers_map;
-                typedef std::unordered_map< std::string, bool > booleans_map;
+      class properties
+      {
+      public:
+        typedef std::unordered_map<std::string, float> numbers_map;
+        typedef std::unordered_map<std::string, bool> booleans_map;
 
-                typedef
-                std::unordered_map< std::string, detail::declaration_ref >
-                declaration_map;
-                
-                typedef
-                std::unordered_map< std::string, std::string > string_map;
+        typedef std::unordered_map<std::string, detail::declaration_ref>
+            declaration_map;
 
-            public:
-                properties();
-                
-            public:
-                numbers_map numbers;
-                booleans_map booleans;
-                declaration_map declarations;
-                string_map strings;
-            };
-        }
+        typedef std::unordered_map<std::string, std::string> string_map;
+
+      public:
+        properties();
+
+      public:
+        numbers_map numbers;
+        booleans_map booleans;
+        declaration_map declarations;
+        string_map strings;
+      };
     }
+  }
 }
 #endif

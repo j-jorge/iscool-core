@@ -18,12 +18,12 @@
 
 namespace iscool
 {
-    namespace collections
-    {
-        template< typename Iterator, typename Compare >
-        Iterator binary_search
-        ( const Iterator& first, const Iterator& last, const Compare& compare );
-    }
+  namespace collections
+  {
+    template <typename Iterator, typename Compare>
+    Iterator binary_search(const Iterator& first, const Iterator& last,
+                           const Compare& compare);
+  }
 }
 
 #include "iscool/collections/detail/binary_search.tpp"

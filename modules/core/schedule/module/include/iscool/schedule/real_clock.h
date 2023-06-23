@@ -23,32 +23,31 @@
 
 namespace iscool
 {
-    namespace schedule
+  namespace schedule
+  {
+    template <typename Tick>
+    class real_clock : public clock<Tick>
     {
-        template<typename Tick>
-        class real_clock:
-            public clock<Tick>
-        {
-        public:
-            template< typename Rep, typename Period > 
-            explicit real_clock( std::chrono::duration< Rep, Period > beat );
+    public:
+      template <typename Rep, typename Period>
+      explicit real_clock(std::chrono::duration<Rep, Period> beat);
 
-        private:
-            Tick implementation_get_date() const override;
+    private:
+      Tick implementation_get_date() const override;
 
-        private:
-            template< typename Rep, typename Period > 
-            void schedule_beat( std::chrono::duration< Rep, Period > beat );
-            void check_tick_change();
+    private:
+      template <typename Rep, typename Period>
+      void schedule_beat(std::chrono::duration<Rep, Period> beat);
+      void check_tick_change();
 
-            real_clock( real_clock< Tick >& ) = delete;
-            real_clock< Tick >& operator=( real_clock< Tick > ) = delete;
+      real_clock(real_clock<Tick>&) = delete;
+      real_clock<Tick>& operator=(real_clock<Tick>) = delete;
 
-        private:
-            Tick _last_tick;
-            iscool::signals::scoped_connection _beat_connection;
-        };
-    }
+    private:
+      Tick _last_tick;
+      iscool::signals::scoped_connection _beat_connection;
+    };
+  }
 }
 
 #include "iscool/schedule/detail/real_clock.tpp"

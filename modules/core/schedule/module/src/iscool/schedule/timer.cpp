@@ -16,33 +16,33 @@
 #include "iscool/schedule/timer.h"
 
 iscool::schedule::timer::timer()
-    : _paused( true )
+  : _paused(true)
 {
-    reset();
+  reset();
 }
 
 void iscool::schedule::timer::reset()
 {
-    _duration_reference_date = time::now< reference_duration >();
+  _duration_reference_date = time::now<reference_duration>();
 
-    if ( _paused )
-        _pause_date = _duration_reference_date;
+  if (_paused)
+    _pause_date = _duration_reference_date;
 }
 
 void iscool::schedule::timer::pause()
 {
-    if ( _paused )
-        return;
+  if (_paused)
+    return;
 
-    _paused = true;
-    _pause_date = time::now< reference_duration >();
+  _paused = true;
+  _pause_date = time::now<reference_duration>();
 }
 
 void iscool::schedule::timer::resume()
 {
-    if ( !_paused )
-        return;
+  if (!_paused)
+    return;
 
-    _paused = false;
-    _duration_reference_date += time::now< reference_duration >() - _pause_date;
+  _paused = false;
+  _duration_reference_date += time::now<reference_duration>() - _pause_date;
 }

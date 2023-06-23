@@ -20,12 +20,11 @@
 
 namespace iscool
 {
-    namespace profile
-    {
-        void initialize( output_delegate delegate );
-        void finalize();
-    }
+  namespace profile
+  {
+    void initialize(output_delegate delegate);
+    void finalize();
+  }
 }
-
 
 #endif

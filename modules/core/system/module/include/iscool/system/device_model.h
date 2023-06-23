@@ -20,10 +20,10 @@
 
 namespace iscool
 {
-    namespace system
-    {
-        std::string get_device_model();
-    }
+  namespace system
+  {
+    std::string get_device_model();
+  }
 }
 
 #endif

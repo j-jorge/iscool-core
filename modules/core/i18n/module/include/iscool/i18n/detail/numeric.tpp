@@ -22,29 +22,23 @@
 
 #include <sstream>
 
-template< typename T >
-typename std::enable_if
-<
-    std::is_integral< T >::value,
-    std::string
->::type
-iscool::i18n::numeric::to_string( const T& value )
+template <typename T>
+typename std::enable_if<std::is_integral<T>::value, std::string>::type
+iscool::i18n::numeric::to_string(const T& value)
 {
-    std::ostringstream formatter;
-    
-    formatter.imbue
-        ( detail::get_locale_for_numeric_display
-          ( formatter.getloc(), iscool::i18n::detail::default_language_code ) );
+  std::ostringstream formatter;
 
-    const std::num_put<char>& facet
-        ( std::use_facet< std::num_put<char> >( formatter.getloc() ) );
+  formatter.imbue(detail::get_locale_for_numeric_display(
+      formatter.getloc(), iscool::i18n::detail::default_language_code));
 
-    facet.put
-        ( std::ostreambuf_iterator<char>(formatter), formatter, ' ',
-          static_cast< typename detail::num_put_disambiguation< T >::type >
-          ( value ) );
+  const std::num_put<char>& facet(
+      std::use_facet<std::num_put<char>>(formatter.getloc()));
 
-    return formatter.str();
+  facet.put(
+      std::ostreambuf_iterator<char>(formatter), formatter, ' ',
+      static_cast<typename detail::num_put_disambiguation<T>::type>(value));
+
+  return formatter.str();
 }
 
 #endif

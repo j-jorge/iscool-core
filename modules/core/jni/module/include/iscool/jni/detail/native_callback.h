@@ -22,28 +22,27 @@
 
 namespace iscool
 {
-    namespace jni
+  namespace jni
+  {
+    enum class native_callback_lifespan;
+
+    namespace detail
     {
-        enum class native_callback_lifespan;
-            
-        namespace detail
-        {
-            class native_callback
-            {
-            public:
-                explicit native_callback( native_callback_lifespan lifespan );
-                virtual ~native_callback();
+      class native_callback
+      {
+      public:
+        explicit native_callback(native_callback_lifespan lifespan);
+        virtual ~native_callback();
 
-                virtual void operator()
-                ( const java_ptr< jobjectArray >& arguments ) = 0;
+        virtual void operator()(const java_ptr<jobjectArray>& arguments) = 0;
 
-                native_callback_lifespan get_lifespan() const;
-                
-            private:
-                const native_callback_lifespan _lifespan;
-            };
-        }
+        native_callback_lifespan get_lifespan() const;
+
+      private:
+        const native_callback_lifespan _lifespan;
+      };
     }
+  }
 }
 
 #endif

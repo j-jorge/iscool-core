@@ -21,30 +21,29 @@
 
 namespace iscool
 {
-    namespace signals
+  namespace signals
+  {
+    namespace detail
     {
-        namespace detail
-        {
-            class slot
-            {
-            public:
-                slot();
-                ~slot();
-                
-                bool connected() const;
-                void disconnect();
-    
-            private:
-                bool _connected;
-            };
-        }
+      class slot
+      {
+      public:
+        slot();
+        ~slot();
+
+        bool connected() const;
+        void disconnect();
+
+      private:
+        bool _connected;
+      };
     }
+  }
 }
 
-extern template
-class std::shared_ptr< iscool::signals::detail::slot >;
+extern template class std::shared_ptr<iscool::signals::detail::slot>;
 
-extern template
-class std::vector< std::shared_ptr< iscool::signals::detail::slot > >;
+extern template class std::vector<
+    std::shared_ptr<iscool::signals::detail::slot>>;
 
 #endif

@@ -16,10 +16,10 @@
 #ifndef ISCOOL_JSON_IS_OF_TYPE_STRING_H
 #define ISCOOL_JSON_IS_OF_TYPE_STRING_H
 
-#include "iscool/json/is_of_type.h"
 #include "iscool/json/declare_is_of_type.h"
 #include "iscool/json/detail/cast_string.h"
+#include "iscool/json/is_of_type.h"
 
-DECLARE_JSON_IS_OF_TYPE( std::string );
+DECLARE_JSON_IS_OF_TYPE(std::string);
 
 #endif

@@ -18,23 +18,22 @@
 #include "iscool/style/declaration.h"
 #include "iscool/style/detail/merge_declarations.h"
 
-Json::Value iscool::style::json::from_declaration
-( const iscool::style::declaration& style )
+Json::Value
+iscool::style::json::from_declaration(const iscool::style::declaration& style)
 {
-    Json::Value result( Json::objectValue );
-    
-    for ( const auto& e : style.get_numbers() )
-        result[ e.first ] = e.second;
+  Json::Value result(Json::objectValue);
 
-    for ( const auto& e : style.get_booleans() )
-        result[ e.first ] = e.second;
+  for (const auto& e : style.get_numbers())
+    result[e.first] = e.second;
 
-    for ( const auto& e : style.get_strings() )
-        result[ e.first ] = e.second;
+  for (const auto& e : style.get_booleans())
+    result[e.first] = e.second;
 
-    for ( const auto& e : style.get_declarations() )
-        result[ e.first ][ 0 ] = from_declaration( e.second );
+  for (const auto& e : style.get_strings())
+    result[e.first] = e.second;
 
-    return result;
+  for (const auto& e : style.get_declarations())
+    result[e.first][0] = from_declaration(e.second);
+
+  return result;
 }
-

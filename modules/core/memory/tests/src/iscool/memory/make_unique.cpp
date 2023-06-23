@@ -17,51 +17,51 @@
 
 #include "gtest/gtest.h"
 
-TEST( iscool_memory_make_unique, compilation_test )
+TEST(iscool_memory_make_unique, compilation_test)
 {
-    std::unique_ptr< int > value( iscool::memory::make_unique< int >( 24 ) );
+  std::unique_ptr<int> value(iscool::memory::make_unique<int>(24));
 
-    EXPECT_NE( nullptr, value );
-    EXPECT_EQ( 24, *value );
+  EXPECT_NE(nullptr, value);
+  EXPECT_EQ(24, *value);
 }
 
-TEST( iscool_memory_make_unique, perfect_forwarding )
+TEST(iscool_memory_make_unique, perfect_forwarding)
 {
-    class copy_counter
+  class copy_counter
+  {
+  public:
+    explicit copy_counter(std::size_t& counter)
+      : _counter(&counter)
+    {}
+
+    copy_counter(const copy_counter& that)
+      : _counter(that._counter)
     {
-    public:
-        explicit copy_counter( std::size_t& counter )
-            : _counter( &counter )
-            {}
-
-        copy_counter( const copy_counter& that )
-            : _counter( that._counter )
-            {
-                ++*_counter;
-            };
-
-        copy_counter& operator=( const copy_counter& that ) = delete;
-
-    private:
-        std::size_t* _counter;
+      ++*_counter;
     };
 
-    class dummy
-    {
-    public:
-        explicit dummy( const copy_counter& counter )
-            : _counter( counter )
-            {}
+    copy_counter& operator=(const copy_counter& that) = delete;
 
-    private:
-        copy_counter _counter;
-    };
-    
-    std::size_t count( 0 );
-    copy_counter counter( count );
-    
-    std::unique_ptr< dummy > value
-        ( iscool::memory::make_unique< dummy >( std::ref( counter ) ) );
+  private:
+    std::size_t* _counter;
+  };
 
-    EXPECT_EQ( 1, count );
+  class dummy
+  {
+  public:
+    explicit dummy(const copy_counter& counter)
+      : _counter(counter)
+    {}
+
+  private:
+    copy_counter _counter;
+  };
+
+  std::size_t count(0);
+  copy_counter counter(count);
+
+  std::unique_ptr<dummy> value(
+      iscool::memory::make_unique<dummy>(std::ref(counter)));
+
+  EXPECT_EQ(1, count);
 }

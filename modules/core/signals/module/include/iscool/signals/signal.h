@@ -24,60 +24,59 @@
 
 namespace iscool
 {
-    namespace signals
+  namespace signals
+  {
+    template <typename Signature, typename Identifier = void>
+    class signal;
+
+    template <typename Signature>
+    class signal<Signature, void>
     {
-        template< typename Signature, typename Identifier = void >
-        class signal;
+    private:
+      typedef detail::signal<Signature> implementation;
 
-        template< typename Signature >
-        class signal< Signature, void >
-        {
-        private:
-            typedef detail::signal< Signature > implementation;
+    public:
+      typedef std::function<Signature> slot_function_type;
+      typedef typename implementation::result_type result_type;
 
-        public:
-            typedef std::function< Signature > slot_function_type;
-            typedef typename implementation::result_type result_type;
+    public:
+      signal();
+      explicit signal(const std::string& identifier);
+      ~signal();
 
-        public:
-            signal();
-            explicit signal( const std::string& identifier );
-            ~signal();
+      void swap(signal& that);
 
-            void swap( signal& that );
+      connection connect(std::function<Signature> f);
+      void disconnect_all_slots();
+      bool empty() const;
 
-            connection connect( std::function< Signature > f );
-            void disconnect_all_slots();
-            bool empty() const;
+      template <typename... Arg>
+      result_type operator()(Arg&&... arg) const;
 
-            template< typename... Arg >
-            result_type operator()( Arg&&... arg ) const;
+    private:
+      const std::string _identifier;
+      implementation _signal;
+    };
 
-        private:
-            const std::string _identifier;
-            implementation _signal;
-        };
+    template <typename Signature, typename Identifier>
+    class signal : public signal<Signature, void>
+    {
+    public:
+      signal();
+      ~signal();
+    };
 
-        template< typename Signature, typename Identifier >
-        class signal:
-            public signal< Signature, void >
-        {
-        public:
-            signal();
-            ~signal();
-        };
+    typedef signal<void()> void_signal;
 
-        typedef signal< void() > void_signal;
-
-        extern template class signal< void() >;
-        extern template class signal< void( bool ) >;
-        extern template class signal< void( int ) >;
-        extern template class signal< void( float ) >;
-        extern template class signal< void( std::uint32_t ) >;
-        extern template class signal< void( std::uint64_t ) >;
-        extern template class signal< void( std::string ) >;
-        extern template class signal< void( const std::string& ) >;
-    }
+    extern template class signal<void()>;
+    extern template class signal<void(bool)>;
+    extern template class signal<void(int)>;
+    extern template class signal<void(float)>;
+    extern template class signal<void(std::uint32_t)>;
+    extern template class signal<void(std::uint64_t)>;
+    extern template class signal<void(std::string)>;
+    extern template class signal<void(const std::string&)>;
+  }
 }
 
 #endif

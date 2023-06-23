@@ -20,29 +20,28 @@
 
 namespace iscool
 {
-    namespace log
+  namespace log
+  {
+    class context
     {
-        class context
-        {
-        public:
-            context();
-            context
-            ( const std::string& reporter, const std::string origin,
-              const std::string& file, std::size_t line );
-            ~context();
-            
-            const std::string& get_reporter() const;
-            const std::string& get_origin() const;
-            const std::string& get_file() const;
-            std::size_t get_line() const;
+    public:
+      context();
+      context(const std::string& reporter, const std::string origin,
+              const std::string& file, std::size_t line);
+      ~context();
 
-        private:
-            std::string _reporter;
-            std::string _origin;
-            std::string _file;
-            std::size_t _line;
-        };
-    }
+      const std::string& get_reporter() const;
+      const std::string& get_origin() const;
+      const std::string& get_file() const;
+      std::size_t get_line() const;
+
+    private:
+      std::string _reporter;
+      std::string _origin;
+      std::string _file;
+      std::size_t _line;
+    };
+  }
 }
 
 #endif

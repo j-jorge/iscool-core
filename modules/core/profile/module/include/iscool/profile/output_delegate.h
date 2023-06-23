@@ -22,11 +22,10 @@
 
 namespace iscool
 {
-    namespace profile
-    {
-        typedef std::function< void( profile_data ) > output_delegate;
-    }
+  namespace profile
+  {
+    typedef std::function<void(profile_data)> output_delegate;
+  }
 }
-
 
 #endif

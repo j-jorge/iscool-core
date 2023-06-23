@@ -16,13 +16,13 @@
 #ifndef ISCOOL_JNI_IMPLEMENT_CAST_H
 #define ISCOOL_JNI_IMPLEMENT_CAST_H
 
-#define IMPLEMENT_JNI_CAST( T )                             \
-    namespace iscool                                        \
-    {                                                       \
-        namespace jni                                       \
-        {                                                   \
-            template T cast< T >( jobject object );         \
-        }                                                   \
-    }
+#define IMPLEMENT_JNI_CAST(T)                                                 \
+  namespace iscool                                                            \
+  {                                                                           \
+    namespace jni                                                             \
+    {                                                                         \
+      template T cast<T>(jobject object);                                     \
+    }                                                                         \
+  }
 
 #endif

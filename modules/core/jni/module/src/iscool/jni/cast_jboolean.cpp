@@ -17,16 +17,15 @@
 
 #include "iscool/jni/bad_cast.h"
 #include "iscool/jni/cast.impl.tpp"
-#include "iscool/jni/implement_cast.h"
 #include "iscool/jni/get_method.h"
+#include "iscool/jni/implement_cast.h"
 #include "iscool/jni/method_jboolean.h"
 
-IMPLEMENT_JNI_CAST( jboolean );
+IMPLEMENT_JNI_CAST(jboolean);
 
-jboolean iscool::jni::detail::cast< jboolean >::value( jobject object )
+jboolean iscool::jni::detail::cast<jboolean>::value(jobject object)
 {
-    const auto to_boolean_method
-        ( jni::get_method< jboolean >
-          ( "java/lang/Boolean", "booleanValue", "()Z" ) );
-    return to_boolean_method( object );
+  const auto to_boolean_method(
+      jni::get_method<jboolean>("java/lang/Boolean", "booleanValue", "()Z"));
+  return to_boolean_method(object);
 }

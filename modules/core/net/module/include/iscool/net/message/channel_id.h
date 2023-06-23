@@ -20,12 +20,12 @@
 
 namespace iscool
 {
-    namespace net
-    {
-        typedef std::uint32_t channel_id;
+  namespace net
+  {
+    typedef std::uint32_t channel_id;
 
-        constexpr channel_id system_channel_id{ 0 };
-    }
+    constexpr channel_id system_channel_id{ 0 };
+  }
 }
 
 #endif

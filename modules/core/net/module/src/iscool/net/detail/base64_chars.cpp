@@ -17,15 +17,14 @@
 
 namespace iscool
 {
-    namespace net
+  namespace net
+  {
+    namespace detail
     {
-        namespace detail
-        {
-            const std::string base64_chars = 
-                "ABCDEFGHIJKLMNOPQRSTUVWXYZ"
-                "abcdefghijklmnopqrstuvwxyz"
-                "0123456789+/";
- 
-        }
+      const std::string base64_chars = "ABCDEFGHIJKLMNOPQRSTUVWXYZ"
+                                       "abcdefghijklmnopqrstuvwxyz"
+                                       "0123456789+/";
+
     }
+  }
 }

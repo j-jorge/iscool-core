@@ -18,18 +18,18 @@
 
 namespace iscool
 {
-    namespace style
+  namespace style
+  {
+    namespace detail
     {
-        namespace detail
-        {
-            class shared_properties;
-            
-            struct shared_properties_pool_traits
-            {
-                static bool clear( shared_properties& self );
-            };
-        }
+      class shared_properties;
+
+      struct shared_properties_pool_traits
+      {
+        static bool clear(shared_properties& self);
+      };
     }
+  }
 }
 
 #endif

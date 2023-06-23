@@ -20,10 +20,10 @@
 
 namespace iscool
 {
-    namespace preferences
-    {
-        bool get_global_bool_property( const bool_property& property );
-    }
+  namespace preferences
+  {
+    bool get_global_bool_property(const bool_property& property);
+  }
 }
 
 #endif

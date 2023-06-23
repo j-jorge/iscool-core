@@ -22,11 +22,11 @@
 
 namespace iscool
 {
-    namespace memory
-    {
-        template< typename T >
-        using thread_safe_pool = pool< T, std::mutex >;
-    }
+  namespace memory
+  {
+    template <typename T>
+    using thread_safe_pool = pool<T, std::mutex>;
+  }
 }
 
 #endif

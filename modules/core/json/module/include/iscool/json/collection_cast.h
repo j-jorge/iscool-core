@@ -18,21 +18,19 @@
 
 namespace Json
 {
-    class Value;
+  class Value;
 }
 
 namespace iscool
 {
-    namespace json
-    {
-        template< typename Collection >
-        Collection
-        collection_cast( const Json::Value& value );
-        
-        template< typename Collection, typename EntryCast >
-        Collection
-        collection_cast( const Json::Value& value, EntryCast entry_cast );
-    }
+  namespace json
+  {
+    template <typename Collection>
+    Collection collection_cast(const Json::Value& value);
+
+    template <typename Collection, typename EntryCast>
+    Collection collection_cast(const Json::Value& value, EntryCast entry_cast);
+  }
 }
 
 #include "iscool/json/detail/collection_cast.tpp"

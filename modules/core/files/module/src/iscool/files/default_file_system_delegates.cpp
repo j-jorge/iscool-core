@@ -19,42 +19,38 @@
 
 #include <fstream>
 
-iscool::files::default_file_system_delegates::default_file_system_delegates
-( const std::string& root, const std::string& writable_path )
-    : _root( root ),
-      _writable_path( writable_path )
-{
+iscool::files::default_file_system_delegates::default_file_system_delegates(
+    const std::string& root, const std::string& writable_path)
+  : _root(root)
+  , _writable_path(writable_path)
+{}
 
-}
-
-std::unique_ptr< std::istream >
-iscool::files::default_file_system_delegates::read_file
-( const std::string& path ) const
+std::unique_ptr<std::istream>
+iscool::files::default_file_system_delegates::read_file(
+    const std::string& path) const
 {
-    return
-        std::unique_ptr< std::istream >
-        ( new std::ifstream( _root + "/" + path ) );
+  return std::unique_ptr<std::istream>(new std::ifstream(_root + "/" + path));
 }
 
 std::string
 iscool::files::default_file_system_delegates::get_writable_path() const
 {
-    return _writable_path;
+  return _writable_path;
 }
 
-bool iscool::files::default_file_system_delegates::file_exists
-( const std::string& path ) const
+bool iscool::files::default_file_system_delegates::file_exists(
+    const std::string& path) const
 {
-    return std::filesystem::exists( path );
+  return std::filesystem::exists(path);
 }
 
-std::string iscool::files::default_file_system_delegates::get_full_path
-( const std::string& path ) const
+std::string iscool::files::default_file_system_delegates::get_full_path(
+    const std::string& path) const
 {
-    std::filesystem::path p(path);
+  std::filesystem::path p(path);
 
-    if (p.is_absolute())
-        return path;
+  if (p.is_absolute())
+    return path;
 
-    return std::filesystem::absolute( _root / p ).string();
+  return std::filesystem::absolute(_root / p).string();
 }

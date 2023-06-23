@@ -18,18 +18,18 @@
 #include "gtest/gtest.h"
 
 iscool::net::byte_array
-iscool::net::tests::std_string_to_byte_array( const std::string& string )
+iscool::net::tests::std_string_to_byte_array(const std::string& string)
 {
-    iscool::net::byte_array result;
-    for( char character: string )
-        result.append< std::uint8_t >( character );
+  iscool::net::byte_array result;
+  for (char character : string)
+    result.append<std::uint8_t>(character);
 
-    return result;
+  return result;
 }
 
-void iscool::net::tests::expect_eq
-( const iscool::net::byte_array& first, const iscool::net::byte_array& second )
+void iscool::net::tests::expect_eq(const iscool::net::byte_array& first,
+                                   const iscool::net::byte_array& second)
 {
-    ASSERT_EQ( first.size(), second.size() );
-    EXPECT_TRUE( std::equal( first.begin(), first.end(), second.begin() ) );
+  ASSERT_EQ(first.size(), second.size());
+  EXPECT_TRUE(std::equal(first.begin(), first.end(), second.begin()));
 }

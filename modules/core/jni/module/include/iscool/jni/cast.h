@@ -20,11 +20,11 @@
 
 namespace iscool
 {
-    namespace jni
-    {
-        template< typename T >
-        T cast( jobject object );
-    }
+  namespace jni
+  {
+    template <typename T>
+    T cast(jobject object);
+  }
 }
 
 #endif

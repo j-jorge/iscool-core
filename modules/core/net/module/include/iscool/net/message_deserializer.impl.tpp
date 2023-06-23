@@ -20,72 +20,68 @@
 #include "iscool/signals/declare_signal.h"
 #include "iscool/signals/implement_signal.h"
 
-
 class iscool::net::message_deserializer::deserializer_base
 {
 public:
-    virtual ~deserializer_base() = default;
-    virtual void dispatch
-    ( const endpoint& endpoint, const message& message ) const = 0;
+  virtual ~deserializer_base() = default;
+  virtual void dispatch(const endpoint& endpoint,
+                        const message& message) const = 0;
 };
 
-template< typename M >
-class iscool::net::message_deserializer::typed_deserializer:
-    public deserializer_base
+template <typename M>
+class iscool::net::message_deserializer::typed_deserializer
+  : public deserializer_base
 {
-    DECLARE_SIGNAL_IN_TEMPLATE
-    ( void ( const endpoint&, const M& ), message, _message );
+  DECLARE_SIGNAL_IN_TEMPLATE(void(const endpoint&, const M&), message,
+                             _message);
 
 public:
-    void dispatch
-    ( const endpoint& endpoint, const message& message ) const override;
+  void dispatch(const endpoint& endpoint,
+                const message& message) const override;
 };
 
-template< typename M >
-void iscool::net::message_deserializer::typed_deserializer< M >::dispatch
-( const endpoint& endpoint, const message& message ) const
+template <typename M>
+void iscool::net::message_deserializer::typed_deserializer<M>::dispatch(
+    const endpoint& endpoint, const message& message) const
 {
-    assert( message.get_type() == M::get_type() );
-    _message( endpoint, M( message.get_content() ) );
+  assert(message.get_type() == M::get_type());
+  _message(endpoint, M(message.get_content()));
 }
 
-template< typename M >
-IMPLEMENT_SIGNAL
-( iscool::net::message_deserializer::typed_deserializer< M >, message,
-  _message );
+template <typename M>
+IMPLEMENT_SIGNAL(iscool::net::message_deserializer::typed_deserializer<M>,
+                 message, _message);
 
-template< typename M >
+template <typename M>
 iscool::signals::connection
-iscool::net::message_deserializer::deserializer_collection::connect
-( const std::function< void ( const endpoint&, const M& ) >& f )
+iscool::net::message_deserializer::deserializer_collection::connect(
+    const std::function<void(const endpoint&, const M&)>& f)
 {
-    typed_deserializer< M >* deserializer;
+  typed_deserializer<M>* deserializer;
 
-    const message_type message_type( M::get_type() );
+  const message_type message_type(M::get_type());
 
-    typename deserializer_map::iterator it
-        (  _deserializers.find( message_type ) );
+  typename deserializer_map::iterator it(_deserializers.find(message_type));
 
-    if ( it == _deserializers.end() )
+  if (it == _deserializers.end())
     {
-        deserializer = new typed_deserializer< M >();
-        _deserializers[ message_type ] = deserializer;
+      deserializer = new typed_deserializer<M>();
+      _deserializers[message_type] = deserializer;
     }
-    else
-        deserializer = dynamic_cast< typed_deserializer< M >* >( it->second );
+  else
+    deserializer = dynamic_cast<typed_deserializer<M>*>(it->second);
 
-    assert( deserializer != nullptr );
-    assert( _deserializers.find( message_type ) != _deserializers.end() );
+  assert(deserializer != nullptr);
+  assert(_deserializers.find(message_type) != _deserializers.end());
 
-    return deserializer->connect_to_message( f );
+  return deserializer->connect_to_message(f);
 }
 
-template< typename M >
-iscool::signals::connection
-iscool::net::message_deserializer::connect_signal
-( const std::function< void ( const endpoint&, M ) >& f )
+template <typename M>
+iscool::signals::connection iscool::net::message_deserializer::connect_signal(
+    const std::function<void(const endpoint&, M)>& f)
 {
-    return _deserializers.connect< M >( f );
+  return _deserializers.connect<M>(f);
 }
 
 #endif

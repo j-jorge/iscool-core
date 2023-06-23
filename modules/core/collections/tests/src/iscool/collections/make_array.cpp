@@ -17,13 +17,12 @@
 
 #include <gtest/gtest.h>
 
-TEST( iscool_collections_make_array, make )
+TEST(iscool_collections_make_array, make)
 {
-    const std::array< int, 4 > array
-        ( iscool::collections::make_array( 2, 9, 2, 3 ) );
-    
-    EXPECT_EQ( 2, array[ 0 ] );
-    EXPECT_EQ( 9, array[ 1 ] );
-    EXPECT_EQ( 2, array[ 2 ] );
-    EXPECT_EQ( 3, array[ 3 ] );
+  const std::array<int, 4> array(iscool::collections::make_array(2, 9, 2, 3));
+
+  EXPECT_EQ(2, array[0]);
+  EXPECT_EQ(9, array[1]);
+  EXPECT_EQ(2, array[2]);
+  EXPECT_EQ(3, array[3]);
 }

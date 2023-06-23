@@ -20,12 +20,11 @@
 
 namespace iscool
 {
-    namespace system
-    {
-        void send_mail
-        ( const std::string& address, const std::string& subject,
-          const std::string& body );
-    }
+  namespace system
+  {
+    void send_mail(const std::string& address, const std::string& subject,
+                   const std::string& body);
+  }
 }
 
 #endif

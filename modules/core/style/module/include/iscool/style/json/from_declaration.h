@@ -20,15 +20,15 @@
 
 namespace iscool
 {
-    namespace style
+  namespace style
+  {
+    class declaration;
+
+    namespace json
     {
-        class declaration;
-        
-        namespace json
-        {
-            Json::Value from_declaration( const iscool::style::declaration& );
-        }
+      Json::Value from_declaration(const iscool::style::declaration&);
     }
+  }
 }
 
 #endif

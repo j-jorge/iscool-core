@@ -20,19 +20,15 @@
 
 namespace iscool
 {
-    namespace i18n
+  namespace i18n
+  {
+    namespace numeric
     {
-        namespace numeric
-        {
-            template< typename T>
-            typename std::enable_if
-            <
-                std::is_integral< T >::value,
-                std::string
-            >::type
-            to_string( const T& value );
-        }
+      template <typename T>
+      typename std::enable_if<std::is_integral<T>::value, std::string>::type
+      to_string(const T& value);
     }
+  }
 }
 
 #include "iscool/i18n/detail/numeric.tpp"

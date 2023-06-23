@@ -22,51 +22,48 @@
 
 namespace iscool
 {
-    namespace error
+  namespace error
+  {
+    class synopsis;
+  }
+
+  namespace log
+  {
+    namespace nature
     {
-        class synopsis;
+      class nature;
     }
-    
-    namespace log
+
+    namespace detail
     {
-        namespace nature
-        {
-            class nature;
-        }
-        
-        namespace detail
-        {
-            class message_dispatcher
-            {
-            public:
-                message_dispatcher();
+      class message_dispatcher
+      {
+      public:
+        message_dispatcher();
 
-                std::size_t
-                register_delegates( const message_delegates& delegates );
-                void unregister_delegates( std::size_t id );
+        std::size_t register_delegates(const message_delegates& delegates);
+        void unregister_delegates(std::size_t id);
 
-                void clear();
-            
-                template< typename... Args >
-                void dispatch
-                ( const nature::nature& nature, const context& context,
-                  const char* pattern, Args&&... args ) const;
+        void clear();
 
-                void dispatch_error
-                ( const context& context,
-                  const error::synopsis& synopsis ) const;
+        template <typename... Args>
+        void dispatch(const nature::nature& nature, const context& context,
+                      const char* pattern, Args&&... args) const;
 
-            private:
-                void dispatch_to_delegates
-                ( const nature::nature& nature, const context& context,
-                  const std::string& message ) const;
+        void dispatch_error(const context& context,
+                            const error::synopsis& synopsis) const;
 
-            private:
-                std::size_t _next_id;
-                std::unordered_map< std::size_t, message_delegates > _delegates;
-            };
-        }
+      private:
+        void dispatch_to_delegates(const nature::nature& nature,
+                                   const context& context,
+                                   const std::string& message) const;
+
+      private:
+        std::size_t _next_id;
+        std::unordered_map<std::size_t, message_delegates> _delegates;
+      };
     }
+  }
 }
 
 #endif

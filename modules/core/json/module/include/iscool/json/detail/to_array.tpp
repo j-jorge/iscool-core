@@ -18,19 +18,18 @@
 
 #include <iterator>
 
-template< typename Iterator >
-Json::Value
-iscool::json::to_array( const Iterator& first, const Iterator& last )
+template <typename Iterator>
+Json::Value iscool::json::to_array(const Iterator& first, const Iterator& last)
 {
-    Json::Value result( Json::arrayValue );
-    result.resize( std::distance( first, last ) );
+  Json::Value result(Json::arrayValue);
+  result.resize(std::distance(first, last));
 
-    Json::ArrayIndex i( 0 );
-    
-    for ( Iterator it( first ); it != last; ++it, ++i )
-        result[ i ] = *it;
+  Json::ArrayIndex i(0);
 
-    return result;
+  for (Iterator it(first); it != last; ++it, ++i)
+    result[i] = *it;
+
+  return result;
 }
 
 #endif

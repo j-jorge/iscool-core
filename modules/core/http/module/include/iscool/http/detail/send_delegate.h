@@ -20,13 +20,13 @@
 
 namespace iscool
 {
-    namespace http
+  namespace http
+  {
+    namespace detail
     {
-        namespace detail
-        {
-            extern http::send_function send_delegate;
-        }
+      extern http::send_function send_delegate;
     }
+  }
 }
 
 #endif

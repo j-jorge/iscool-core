@@ -22,27 +22,27 @@
 
 namespace Json
 {
-    class Value;
+  class Value;
 }
 
 namespace iscool
 {
-    namespace json
+  namespace json
+  {
+    namespace detail
     {
-        namespace detail
-        {
-            template< typename T >
-            struct cast< std::vector< T > >
-            {
-                static bool is_valid( const Json::Value& value );
-                static std::vector< T > value( const Json::Value& value );
+      template <typename T>
+      struct cast<std::vector<T>>
+      {
+        static bool is_valid(const Json::Value& value);
+        static std::vector<T> value(const Json::Value& value);
 
-                template< typename EntryCast >
-                static std::vector< T >
-                value( const Json::Value& value, EntryCast entry_cast );
-            };
-        }
+        template <typename EntryCast>
+        static std::vector<T> value(const Json::Value& value,
+                                    EntryCast entry_cast);
+      };
     }
+  }
 }
 
 #include "iscool/json/detail/cast_vector.tpp"

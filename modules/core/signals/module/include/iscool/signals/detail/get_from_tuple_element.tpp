@@ -20,173 +20,82 @@
 
 namespace iscool
 {
-    namespace signals
+  namespace signals
+  {
+    namespace detail
     {
-        namespace detail
+      template <typename SearchedType, std::size_t I, bool same,
+                typename... Tuple>
+      class find_signal_from_tuple_element;
+
+      template <typename SearchedType, std::size_t I, typename Tuple,
+                typename... OtherTuples>
+      class find_signal_from_tuple_element<SearchedType, I, true, Tuple,
+                                           OtherTuples...>
+      {
+      public:
+        static typename signal_from_tuple_arguments<Tuple>::type&
+        get(detail::signal_collection_from_tuple<Tuple, OtherTuples...>& s)
         {
-            template
-            <
-                typename SearchedType,
-                std::size_t I,
-                bool same,
-                typename... Tuple
-            >
-            class find_signal_from_tuple_element;
-
-            template
-            <
-                typename SearchedType,
-                std::size_t I,
-                typename Tuple,
-                typename... OtherTuples
-            >
-            class find_signal_from_tuple_element
-            <
-                SearchedType,
-                I,
-                true,
-                Tuple,
-                OtherTuples...
-            >
-            {
-            public:
-                static
-                typename signal_from_tuple_arguments< Tuple >::type& get
-                ( detail::signal_collection_from_tuple
-                  <
-                      Tuple,
-                      OtherTuples...
-                  >& s )
-                    {
-                        return s.signal_instance;
-                    }
-
-                static
-                const typename signal_from_tuple_arguments< Tuple >::type& get
-                ( const
-                  detail::signal_collection_from_tuple
-                  <
-                      Tuple,
-                      OtherTuples...
-                  >& s )
-                    {
-                        return s.signal_instance;
-                    }
-            };
-
-            template
-            <
-                typename SearchedType,
-                std::size_t I,
-                typename Ignored,
-                typename Tuple,
-                typename... OtherTuples
-            >
-            class find_signal_from_tuple_element
-            <
-                SearchedType,
-                I,
-                false,
-                Ignored,
-                Tuple,
-                OtherTuples...
-            >:
-                public find_signal_from_tuple_element
-                <
-                    SearchedType,
-                    I,
-                    std::is_same
-                    <
-                        typename std::tuple_element< I, Tuple >::type,
-                        SearchedType
-                    >::value,
-                    Tuple,
-                    OtherTuples...
-                >
-            {
-
-            };
-
-            template
-            <
-                typename SearchedType,
-                std::size_t I,
-                typename... Tuple
-            >
-            class signal_collection_from_tuple_visitor;
-
-            template
-            <
-                typename SearchedType,
-                std::size_t I,
-                typename Head,
-                typename... Tuple
-            >
-            class signal_collection_from_tuple_visitor
-            <
-                SearchedType,
-                I,
-                Head,
-                Tuple...
-            >:
-                public find_signal_from_tuple_element
-                <
-                    SearchedType,
-                    I,
-                    std::is_same
-                    <
-                        typename std::tuple_element< I, Head >::type,
-                        SearchedType
-                    >::value,
-                    Head,
-                    Tuple...
-                >
-            {
-
-            };
+          return s.signal_instance;
         }
+
+        static const typename signal_from_tuple_arguments<Tuple>::type&
+        get(const detail::signal_collection_from_tuple<Tuple, OtherTuples...>&
+                s)
+        {
+          return s.signal_instance;
+        }
+      };
+
+      template <typename SearchedType, std::size_t I, typename Ignored,
+                typename Tuple, typename... OtherTuples>
+      class find_signal_from_tuple_element<SearchedType, I, false, Ignored,
+                                           Tuple, OtherTuples...>
+        : public find_signal_from_tuple_element<
+              SearchedType, I,
+              std::is_same<typename std::tuple_element<I, Tuple>::type,
+                           SearchedType>::value,
+              Tuple, OtherTuples...>
+      {};
+
+      template <typename SearchedType, std::size_t I, typename... Tuple>
+      class signal_collection_from_tuple_visitor;
+
+      template <typename SearchedType, std::size_t I, typename Head,
+                typename... Tuple>
+      class signal_collection_from_tuple_visitor<SearchedType, I, Head,
+                                                 Tuple...>
+        : public find_signal_from_tuple_element<
+              SearchedType, I,
+              std::is_same<typename std::tuple_element<I, Head>::type,
+                           SearchedType>::value,
+              Head, Tuple...>
+      {};
     }
+  }
 }
 
-template< typename SearchedType, std::size_t I, typename... Tuple >
-typename
-iscool::signals::find_signal_type_from_tuple_element
-<
-    SearchedType,
-    I,
-    iscool::signals::signal_collection_from_tuple< Tuple... >
->::type&
-iscool::signals::get_from_tuple_element
-( signal_collection_from_tuple< Tuple... >& collection )
+template <typename SearchedType, std::size_t I, typename... Tuple>
+typename iscool::signals::find_signal_type_from_tuple_element<
+    SearchedType, I,
+    iscool::signals::signal_collection_from_tuple<Tuple...>>::type&
+iscool::signals::get_from_tuple_element(
+    signal_collection_from_tuple<Tuple...>& collection)
 {
-    return 
-        detail::signal_collection_from_tuple_visitor
-        <
-            SearchedType,
-            I,
-            Tuple...
-        >::get( collection );
+  return detail::signal_collection_from_tuple_visitor<
+      SearchedType, I, Tuple...>::get(collection);
 }
 
-template< typename SearchedType, std::size_t I, typename... Tuple >
-const typename
-iscool::signals::find_signal_type_from_tuple_element
-<
-    SearchedType,
-    I,
-    iscool::signals::signal_collection_from_tuple< Tuple... >
->::type&
-iscool::signals::get_from_tuple_element
-( const signal_collection_from_tuple< Tuple... >& collection )
+template <typename SearchedType, std::size_t I, typename... Tuple>
+const typename iscool::signals::find_signal_type_from_tuple_element<
+    SearchedType, I,
+    iscool::signals::signal_collection_from_tuple<Tuple...>>::type&
+iscool::signals::get_from_tuple_element(
+    const signal_collection_from_tuple<Tuple...>& collection)
 {
-    return 
-        detail::signal_collection_from_tuple_visitor
-        <
-            SearchedType,
-            I,
-            Tuple...
-        >::get( collection );
+  return detail::signal_collection_from_tuple_visitor<
+      SearchedType, I, Tuple...>::get(collection);
 }
-
 
 #endif

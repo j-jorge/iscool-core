@@ -18,14 +18,14 @@
 
 namespace iscool
 {
-    namespace jni
+  namespace jni
+  {
+    enum class native_callback_lifespan
     {
-        enum class native_callback_lifespan
-        {
-            one_shot,
-            persistent
-        };
-    }
+      one_shot,
+      persistent
+    };
+  }
 }
 
 #endif

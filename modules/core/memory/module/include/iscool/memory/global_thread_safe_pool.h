@@ -20,11 +20,11 @@
 
 namespace iscool
 {
-    namespace memory
-    {
-        template< typename T >
-        thread_safe_pool< T >& get_global_thread_safe_pool();
-    }
+  namespace memory
+  {
+    template <typename T>
+    thread_safe_pool<T>& get_global_thread_safe_pool();
+  }
 }
 
 #endif

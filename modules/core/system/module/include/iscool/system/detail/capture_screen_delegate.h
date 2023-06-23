@@ -20,14 +20,14 @@
 
 namespace iscool
 {
-    namespace system
+  namespace system
+  {
+    namespace detail
     {
-        namespace detail
-        {
-            extern capture_screen_function capture_screen_delegate;
-        }
-
+      extern capture_screen_function capture_screen_delegate;
     }
+
+  }
 }
-    
+
 #endif

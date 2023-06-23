@@ -16,26 +16,27 @@
 #ifndef ISCOOL_FILES_FILE_SYSTEM_DELEGATES_H
 #define ISCOOL_FILES_FILE_SYSTEM_DELEGATES_H
 
-#include <memory>
 #include <iosfwd>
+#include <memory>
 
 namespace iscool
 {
-    namespace files
+  namespace files
+  {
+    class file_system_delegates
     {
-        class file_system_delegates
-        {
-        public:
-            virtual ~file_system_delegates() {}
-            
-            virtual std::unique_ptr< std::istream > read_file
-            ( const std::string& ) const = 0;
-            
-            virtual std::string get_writable_path() const = 0;
-            virtual bool file_exists( const std::string& ) const = 0;
-            virtual std::string get_full_path( const std::string& ) const = 0;
-        };
-    }
+    public:
+      virtual ~file_system_delegates()
+      {}
+
+      virtual std::unique_ptr<std::istream>
+      read_file(const std::string&) const = 0;
+
+      virtual std::string get_writable_path() const = 0;
+      virtual bool file_exists(const std::string&) const = 0;
+      virtual std::string get_full_path(const std::string&) const = 0;
+    };
+  }
 }
 
 #endif

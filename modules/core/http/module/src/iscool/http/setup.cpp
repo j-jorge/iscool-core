@@ -19,15 +19,15 @@
 #include "iscool/http/detail/send_delegate.h"
 #include "iscool/http/detail/service_statistics.h"
 
-void iscool::http::initialize( send_function delegate )
+void iscool::http::initialize(send_function delegate)
 {
-    assert( delegate );
-    assert( !detail::send_delegate );
-    detail::send_delegate = delegate;
-    detail::get_service_statistics().reset();
+  assert(delegate);
+  assert(!detail::send_delegate);
+  detail::send_delegate = delegate;
+  detail::get_service_statistics().reset();
 }
-        
+
 void iscool::http::finalize()
 {
-    detail::send_delegate = send_function();
+  detail::send_delegate = send_function();
 }

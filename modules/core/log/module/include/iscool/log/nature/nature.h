@@ -20,26 +20,26 @@
 
 namespace iscool
 {
-    namespace log
+  namespace log
+  {
+    namespace nature
     {
-        namespace nature
-        {
-            class nature
-            {
-            public:
-                nature();
-                explicit nature( const std::string& key );
+      class nature
+      {
+      public:
+        nature();
+        explicit nature(const std::string& key);
 
-                bool operator==( const nature& that ) const;
-                bool operator!=( const nature& that ) const;
+        bool operator==(const nature& that) const;
+        bool operator!=(const nature& that) const;
 
-                const std::string& string() const;
-            
-            private:
-                std::string _key;
-            };
-        }
+        const std::string& string() const;
+
+      private:
+        std::string _key;
+      };
     }
+  }
 }
 
 #endif

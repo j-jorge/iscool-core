@@ -22,10 +22,10 @@
 
 namespace iscool
 {
-    namespace jni
-    {
-        std::string to_string( const java_ptr< jstring >& java_string );
-    }
+  namespace jni
+  {
+    std::string to_string(const java_ptr<jstring>& java_string);
+  }
 }
 
 #endif

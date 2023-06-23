@@ -26,83 +26,80 @@
 
 namespace iscool
 {
-    namespace net
+  namespace net
+  {
+    class byte_array;
+
+    namespace detail
     {
-        class byte_array;
+      class socket
+      {
+      public:
+        DECLARE_SIGNAL(void(const endpoint&, const byte_array&), received,
+                       _received);
 
-        namespace detail
-        {
-            class socket
-            {
-            public:
-                DECLARE_SIGNAL
-                ( void( const endpoint&, const byte_array& ), received,
-                  _received );
+      public:
+        /**
+         * Open a socket with the given remote host. This kind of socket
+         * can send with no explicit end point.
+         */
+        socket(const std::string& host, socket_mode::client);
 
-            public:
-                /**
-                 * Open a socket with the given remote host. This kind of socket
-                 * can send with no explicit end point.
-                 */
-                socket( const std::string& host, socket_mode::client );
+        /**
+         * Open a socket locally. The remote endpoint must be explicited
+         * with every send.
+         */
+        socket(const std::string& host, socket_mode::server);
 
-                /**
-                 * Open a socket locally. The remote endpoint must be explicited
-                 * with every send.
-                 */
-                socket( const std::string& host, socket_mode::server );
+        /**
+         * Open a socket in server mode, locally on the given port. The
+         * remote endpoint must be explicited with every send.
+         */
+        explicit socket(unsigned short port);
 
-                /**
-                 * Open a socket in server mode, locally on the given port. The
-                 * remote endpoint must be explicited with every send.
-                 */
-                explicit socket( unsigned short port );
+        void run();
+        void close();
 
-                void run();
-                void close();
+        void send(const byte_array& bytes);
+        void send(const endpoint& endpoint, const byte_array& bytes);
 
-                void send( const byte_array& bytes );
-                void send( const endpoint& endpoint, const byte_array& bytes );
+      private:
+        using socket_pointer = std::unique_ptr<boost::asio::ip::udp::socket>;
+        using socket_allocator = void (socket::*)();
 
-            private:
-                using socket_pointer =
-                    std::unique_ptr< boost::asio::ip::udp::socket >;
-                using socket_allocator = void (socket::*)();
+      private:
+        void allocate_client_socket();
+        void allocate_server_socket();
 
-            private:
-                void allocate_client_socket();
-                void allocate_server_socket();
+        endpoint build_endpoint(const std::string& host);
+        endpoint build_endpoint(const std::string& address,
+                                const std::string& port);
 
-                endpoint build_endpoint( const std::string& host );
-                endpoint build_endpoint
-                ( const std::string& address, const std::string& port );
+        void send_bytes_no_error_check(const endpoint& endpoint,
+                                       const byte_array& bytes);
+        void bytes_sent(const std::shared_ptr<byte_array>& bytes,
+                        const boost::system::error_code& error,
+                        std::size_t bytes_transferred);
 
-                void send_bytes_no_error_check
-                ( const endpoint& endpoint, const byte_array& bytes );
-                void bytes_sent
-                ( const std::shared_ptr< byte_array >& bytes,
-                  const boost::system::error_code& error,
-                  std::size_t bytes_transferred );
+        void receive();
+        void bytes_received(const boost::system::error_code& error);
 
-                void receive();
-                void bytes_received( const boost::system::error_code& error );
+        bool read_available_bytes();
+        void dispatch_bytes(std::uint8_t* buffer,
+                            std::size_t bytes_transferred) const;
 
-                bool read_available_bytes();
-                void dispatch_bytes
-                ( std::uint8_t* buffer, std::size_t bytes_transferred ) const;
+      private:
+        boost::asio::io_service _io_service;
+        boost::asio::io_service::work _work;
+        endpoint _send_endpoint;
+        endpoint _receive_endpoint;
+        const socket_allocator _allocate_socket;
+        socket_pointer _socket;
 
-            private:
-                boost::asio::io_service _io_service;
-                boost::asio::io_service::work _work;
-                endpoint _send_endpoint;
-                endpoint _receive_endpoint;
-                const socket_allocator _allocate_socket;
-                socket_pointer _socket;
-
-                std::mutex _receive_bytes;
-            };
-        }
+        std::mutex _receive_bytes;
+      };
     }
+  }
 }
 
 #endif

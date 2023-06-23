@@ -20,29 +20,29 @@
 
 namespace iscool
 {
-    namespace net
+  namespace net
+  {
+    class byte_array;
+
+    class byte_array_bit_inserter
     {
-        class byte_array;
+    public:
+      explicit byte_array_bit_inserter(byte_array& array);
+      ~byte_array_bit_inserter();
 
-        class byte_array_bit_inserter
-        {
-        public:
-            explicit byte_array_bit_inserter( byte_array& array );
-            ~byte_array_bit_inserter();
-            
-            void flush();
+      void flush();
 
-            void append( std::uint8_t value, std::uint8_t bit_count );
+      void append(std::uint8_t value, std::uint8_t bit_count);
 
-            template< typename T >
-            void append( T value, std::uint8_t bit_count );
-            
-        private:
-            byte_array& _array;
-            std::uint8_t _buffer;
-            std::uint8_t _available_bits;
-        };
-    }
+      template <typename T>
+      void append(T value, std::uint8_t bit_count);
+
+    private:
+      byte_array& _array;
+      std::uint8_t _buffer;
+      std::uint8_t _available_bits;
+    };
+  }
 }
 
 #include "iscool/net/detail/byte_array_bit_inserter.tpp"

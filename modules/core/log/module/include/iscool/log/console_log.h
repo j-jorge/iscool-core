@@ -18,21 +18,23 @@
 
 #ifndef NDEBUG
 
-#include "iscool/log/context.h"
-#include "iscool/log/detail/print_to_console.h"
-#include "iscool/log/nature/debug.h"
-#include "iscool/strings/format.h"
+  #include "iscool/log/context.h"
+  #include "iscool/log/detail/print_to_console.h"
+  #include "iscool/log/nature/debug.h"
+  #include "iscool/strings/format.h"
 
-#define ic_console_log( reporter, ... )                                  \
-    ::iscool::log::detail::print_to_console                              \
-    ( ::iscool::log::nature::debug(),                                    \
-      ::iscool::log::context( reporter, "Unknown", __FILE__, __LINE__ ), \
-      ::iscool::strings::format( __VA_ARGS__ ) )
+  #define ic_console_log(reporter, ...)                                       \
+    ::iscool::log::detail::print_to_console(                                  \
+        ::iscool::log::nature::debug(),                                       \
+        ::iscool::log::context(reporter, "Unknown", __FILE__, __LINE__),      \
+        ::iscool::strings::format(__VA_ARGS__))
 
 #else
 
-#define ic_console_log( context, ... )          \
-    do {} while ( 0 );
+  #define ic_console_log(context, ...)                                        \
+    do                                                                        \
+      {}                                                                      \
+    while (0);
 
 #endif
 

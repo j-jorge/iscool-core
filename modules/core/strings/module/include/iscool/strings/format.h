@@ -20,11 +20,11 @@
 
 namespace iscool
 {
-    namespace strings
-    {
-        template< typename... Args >
-        std::string format( const char* fmt, Args... args );
-    }
+  namespace strings
+  {
+    template <typename... Args>
+    std::string format(const char* fmt, Args... args);
+  }
 }
 
 #include "iscool/strings/detail/format.tpp"

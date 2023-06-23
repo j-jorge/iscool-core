@@ -15,28 +15,28 @@
 */
 #include "iscool/net/byte_array_serialization/byte_array_serialization.h"
 
-template<typename T>
-iscool::net::byte_array&
-iscool::net::operator<<( byte_array& output, const std::vector<T>& value )
+template <typename T>
+iscool::net::byte_array& iscool::net::operator<<(byte_array& output,
+                                                 const std::vector<T>& value)
 {
-    output << static_cast< std::uint32_t >( value.size() );
+  output << static_cast<std::uint32_t>(value.size());
 
-    for ( const T& item : value )
-        output << item;
+  for (const T& item : value)
+    output << item;
 
-    return output;
+  return output;
 }
 
-template<typename T>
+template <typename T>
 iscool::net::byte_array_reader&
-iscool::net::operator>>( byte_array_reader& input, std::vector<T>& value )
+iscool::net::operator>>(byte_array_reader& input, std::vector<T>& value)
 {
-    std::uint32_t item_count;
-    input >> item_count;
-    value.resize( item_count );
+  std::uint32_t item_count;
+  input >> item_count;
+  value.resize(item_count);
 
-    for ( T& item : value )
-        input >> item;
+  for (T& item : value)
+    input >> item;
 
-    return input;
+  return input;
 }

@@ -20,10 +20,10 @@
 
 namespace iscool
 {
-    namespace net
-    {
-        typedef std::uint32_t session_id;
-    }
+  namespace net
+  {
+    typedef std::uint32_t session_id;
+  }
 }
 
 #endif

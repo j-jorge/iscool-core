@@ -18,14 +18,14 @@
 
 #include "iscool/ios/forward_declare_objc.h"
 
-ISCOOL_IOS_FORWARD_DECLARE_OBJC( UIViewController );
+ISCOOL_IOS_FORWARD_DECLARE_OBJC(UIViewController);
 
 namespace iscool
 {
-    namespace ios
-    {
-        UIViewController* get_root_view_controller();
-    }
+  namespace ios
+  {
+    UIViewController* get_root_view_controller();
+  }
 }
 
 #endif

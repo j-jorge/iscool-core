@@ -24,20 +24,20 @@
 
 #include <json/value.h>
 
-IMPLEMENT_JSON_CAST( std::string )
-IMPLEMENT_JSON_IS_OF_TYPE( std::string )
+IMPLEMENT_JSON_CAST(std::string)
+IMPLEMENT_JSON_IS_OF_TYPE(std::string)
 
-bool
-iscool::json::detail::cast< std::string >::is_valid( const Json::Value& value )
+bool iscool::json::detail::cast<std::string>::is_valid(
+    const Json::Value& value)
 {
-    return value.isString();
+  return value.isString();
 }
 
 std::string
-iscool::json::detail::cast< std::string >::value( const Json::Value& value )
+iscool::json::detail::cast<std::string>::value(const Json::Value& value)
 {
-    if ( !is_valid( value ) )
-        throw bad_cast( value, "string" );
+  if (!is_valid(value))
+    throw bad_cast(value, "string");
 
-    return value.asString();
+  return value.asString();
 }

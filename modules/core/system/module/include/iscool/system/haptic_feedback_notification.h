@@ -18,15 +18,15 @@
 
 namespace iscool
 {
-    namespace system
+  namespace system
+  {
+    enum class haptic_feedback_notification
     {
-        enum class haptic_feedback_notification
-        {
-            success,
-            warning,
-            failure
-        };
-    }
+      success,
+      warning,
+      failure
+    };
+  }
 }
 
 #endif

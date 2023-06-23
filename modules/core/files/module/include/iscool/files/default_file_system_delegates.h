@@ -22,27 +22,26 @@
 
 namespace iscool
 {
-    namespace files
+  namespace files
+  {
+    class default_file_system_delegates : public file_system_delegates
     {
-        class default_file_system_delegates:
-            public file_system_delegates
-        {
-        public:
-            default_file_system_delegates
-            ( const std::string& root, const std::string& writable_path );
+    public:
+      default_file_system_delegates(const std::string& root,
+                                    const std::string& writable_path);
 
-            std::unique_ptr< std::istream > read_file
-            ( const std::string& path ) const override;
-            
-            std::string get_writable_path() const override;
-            bool file_exists( const std::string& path ) const override;
-            std::string get_full_path( const std::string& path ) const override;
+      std::unique_ptr<std::istream>
+      read_file(const std::string& path) const override;
 
-        private:
-            const std::string _root;
-            const std::string _writable_path;
-        };
-    }
+      std::string get_writable_path() const override;
+      bool file_exists(const std::string& path) const override;
+      std::string get_full_path(const std::string& path) const override;
+
+    private:
+      const std::string _root;
+      const std::string _writable_path;
+    };
+  }
 }
 
 #endif

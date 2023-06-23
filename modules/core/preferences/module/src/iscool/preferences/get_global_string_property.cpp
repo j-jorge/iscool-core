@@ -17,8 +17,8 @@
 
 #include "iscool/preferences/detail/get_global_property.h"
 
-std::string
-iscool::preferences::get_global_string_property( const string_property& property )
+std::string iscool::preferences::get_global_string_property(
+    const string_property& property)
 {
-    return detail::get_global_property( property );
+  return detail::get_global_property(property);
 }

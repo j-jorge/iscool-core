@@ -22,30 +22,30 @@
 
 namespace iscool
 {
-    namespace signals
+  namespace signals
+  {
+    class connection
     {
-        class connection
-        {
-        public:
-            connection();
-            explicit connection( const std::weak_ptr< detail::slot >& slot );
-            connection( const connection& that );
-            connection( connection&& that );
-            ~connection();
+    public:
+      connection();
+      explicit connection(const std::weak_ptr<detail::slot>& slot);
+      connection(const connection& that);
+      connection(connection&& that);
+      ~connection();
 
-            connection& operator=( const connection& that );
-            connection& operator=( connection&& that );
+      connection& operator=(const connection& that);
+      connection& operator=(connection&& that);
 
-            bool operator==( const connection& that ) const;
-            bool operator!=( const connection& that ) const;
-            
-            bool connected() const;
-            void disconnect() const;
-            
-        private:
-            std::weak_ptr< detail::slot > _slot;
-        };
-    }
+      bool operator==(const connection& that) const;
+      bool operator!=(const connection& that) const;
+
+      bool connected() const;
+      void disconnect() const;
+
+    private:
+      std::weak_ptr<detail::slot> _slot;
+    };
+  }
 }
 
 #endif

@@ -20,15 +20,15 @@
 
 namespace iscool
 {
-    namespace style
-    {
-        class declaration;
-        
-        template< typename Mutation, std::size_t N >
-        void deep_mutate
-        ( declaration& style, const std::array< std::string, N >& path,
-          Mutation mutation );
-    }
+  namespace style
+  {
+    class declaration;
+
+    template <typename Mutation, std::size_t N>
+    void deep_mutate(declaration& style,
+                     const std::array<std::string, N>& path,
+                     Mutation mutation);
+  }
 }
 
 #include "iscool/style/detail/deep_mutate.tpp"

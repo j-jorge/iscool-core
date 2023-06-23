@@ -20,13 +20,13 @@
 
 namespace iscool
 {
-    namespace log
-    {
-        class message_delegates;
+  namespace log
+  {
+    class message_delegates;
 
-        std::size_t register_delegates( const message_delegates& delegates );
-        void unregister_delegates( std::size_t id );
-    }
+    std::size_t register_delegates(const message_delegates& delegates);
+    void unregister_delegates(std::size_t id);
+  }
 }
 
 #endif

@@ -20,15 +20,13 @@
 
 namespace iscool
 {
-    namespace system
+  namespace system
+  {
+    namespace detail
     {
-        namespace detail
-        {
-            typedef
-            iscool::signals::signal< void( std::string ) >
-            capture_screen_signal;
-        }
+      typedef iscool::signals::signal<void(std::string)> capture_screen_signal;
     }
+  }
 }
 
 #endif

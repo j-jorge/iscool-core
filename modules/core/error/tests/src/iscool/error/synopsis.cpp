@@ -17,12 +17,12 @@
 
 #include <gtest/gtest.h>
 
-TEST( iscool_error_synopsis, getters )
+TEST(iscool_error_synopsis, getters)
 {
-    const iscool::error::synopsis synopsis( 24, "a", "b", "c" );
-    
-    EXPECT_EQ( std::size_t( 24 ), synopsis.get_code() );
-    EXPECT_EQ( "a", synopsis.get_category() );
-    EXPECT_EQ( "b", synopsis.get_title() );
-    EXPECT_EQ( "c", synopsis.get_message() );
+  const iscool::error::synopsis synopsis(24, "a", "b", "c");
+
+  EXPECT_EQ(std::size_t(24), synopsis.get_code());
+  EXPECT_EQ("a", synopsis.get_category());
+  EXPECT_EQ("b", synopsis.get_title());
+  EXPECT_EQ("c", synopsis.get_message());
 }

@@ -19,119 +19,115 @@
 #include "iscool/style/detail/shared_properties.h"
 
 iscool::style::detail::properties_handle::properties_handle()
-    : _properties( nullptr )
-{
+  : _properties(nullptr)
+{}
 
+iscool::style::detail::properties_handle::properties_handle(
+    const properties_handle& that)
+  : _pool_id(that._pool_id)
+  , _properties(that._properties)
+{
+  if (_properties != nullptr)
+    _properties->add_reference();
 }
 
-iscool::style::detail::properties_handle::properties_handle
-( const properties_handle& that )
-    : _pool_id( that._pool_id ),
-      _properties( that._properties )
+iscool::style::detail::properties_handle::properties_handle(
+    properties_handle&& that)
+  : _pool_id(that._pool_id)
+  , _properties(that._properties)
 {
-    if ( _properties != nullptr )
-        _properties->add_reference();
-}
-
-iscool::style::detail::properties_handle::properties_handle
-( properties_handle&& that )
-    : _pool_id( that._pool_id ),
-      _properties( that._properties )
-{
-    that._properties = nullptr;
+  that._properties = nullptr;
 }
 
 iscool::style::detail::properties_handle::~properties_handle()
 {
-    reset();
+  reset();
 }
 
 iscool::style::detail::properties_handle&
-iscool::style::detail::properties_handle::operator=
-( const properties_handle& that )
+iscool::style::detail::properties_handle::operator=(
+    const properties_handle& that)
 {
-    if ( this == &that )
-        return *this;
-
-    reset();
-
-    _pool_id = that._pool_id;
-    _properties = that._properties;
-
-    if ( _properties != nullptr )
-        _properties->add_reference();
-
+  if (this == &that)
     return *this;
+
+  reset();
+
+  _pool_id = that._pool_id;
+  _properties = that._properties;
+
+  if (_properties != nullptr)
+    _properties->add_reference();
+
+  return *this;
 }
 
 iscool::style::detail::properties_handle&
-iscool::style::detail::properties_handle::operator=
-( properties_handle&& that )
+iscool::style::detail::properties_handle::operator=(properties_handle&& that)
 {
-    if ( this == &that )
-        return *this;
-
-    reset();
-
-    _pool_id = that._pool_id;
-    _properties = that._properties;
-
-    that._properties = nullptr;
-    
+  if (this == &that)
     return *this;
+
+  reset();
+
+  _pool_id = that._pool_id;
+  _properties = that._properties;
+
+  that._properties = nullptr;
+
+  return *this;
 }
 
 iscool::style::detail::properties_handle::operator bool() const
 {
-    return _properties != nullptr;
+  return _properties != nullptr;
 }
 
 iscool::style::detail::properties*
 iscool::style::detail::properties_handle::operator->() const
 {
-    assert( _properties != nullptr );
-    return &_properties->values;
+  assert(_properties != nullptr);
+  return &_properties->values;
 }
 
 iscool::style::detail::properties&
 iscool::style::detail::properties_handle::operator*() const
 {
-    assert( _properties != nullptr );
-    return _properties->values;
+  assert(_properties != nullptr);
+  return _properties->values;
 }
 
 std::uint64_t iscool::style::detail::properties_handle::get_id() const
 {
-    assert( _properties != nullptr );
-    return _properties->get_id();
+  assert(_properties != nullptr);
+  return _properties->get_id();
 }
 
 void iscool::style::detail::properties_handle::alloc()
 {
-    reset();
+  reset();
 
-    const auto slot( get_properties_pool().pick_available() );
-    _pool_id = slot.id;
-    _properties = &slot.value;
+  const auto slot(get_properties_pool().pick_available());
+  _pool_id = slot.id;
+  _properties = &slot.value;
 
-    _properties->add_reference();
+  _properties->add_reference();
 }
 
 void iscool::style::detail::properties_handle::reset()
 {
-    if ( _properties == nullptr )
-        return;
+  if (_properties == nullptr)
+    return;
 
-    _properties->remove_reference();
+  _properties->remove_reference();
 
-    if ( _properties->is_dangling() )
-        get_properties_pool().release( _pool_id );
+  if (_properties->is_dangling())
+    get_properties_pool().release(_pool_id);
 
-    _properties = nullptr;
+  _properties = nullptr;
 }
 
 bool iscool::style::detail::properties_handle::is_unique() const
 {
-    return ( _properties != nullptr ) && ( _properties->get_use_count() == 1 );
+  return (_properties != nullptr) && (_properties->get_use_count() == 1);
 }
-

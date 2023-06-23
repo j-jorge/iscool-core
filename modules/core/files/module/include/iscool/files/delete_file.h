@@ -20,10 +20,10 @@
 
 namespace iscool
 {
-    namespace files
-    {
-        void delete_file( const std::string& path );
-    }
+  namespace files
+  {
+    void delete_file(const std::string& path);
+  }
 }
 
 #endif

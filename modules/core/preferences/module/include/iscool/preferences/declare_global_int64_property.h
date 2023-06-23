@@ -20,11 +20,11 @@
 
 namespace iscool
 {
-    namespace preferences
-    {
-        int64_property declare_global_int64_property
-        ( std::string&& name, std::int64_t fallback );
-    }
+  namespace preferences
+  {
+    int64_property declare_global_int64_property(std::string&& name,
+                                                 std::int64_t fallback);
+  }
 }
 
 #endif

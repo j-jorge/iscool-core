@@ -18,25 +18,24 @@
 #include "iscool/i18n/numeric.h"
 #include "iscool/strings/format.h"
 
-std::string iscool::i18n::compact_number_string( std::uint64_t value )
+std::string iscool::i18n::compact_number_string(std::uint64_t value)
 {
-    if ( value < 1000 )
-        return iscool::i18n::numeric::to_string( value ); 
-    
-    float result;
-    std::string suffix;
-    
-    if ( value < 950000 )
+  if (value < 1000)
+    return iscool::i18n::numeric::to_string(value);
+
+  float result;
+  std::string suffix;
+
+  if (value < 950000)
     {
-        result = value / 1000.f;
-        suffix = "k";
+      result = value / 1000.f;
+      suffix = "k";
     }
-    else
+  else
     {
-        result = value / 1000000.f;
-        suffix = "M";
+      result = value / 1000000.f;
+      suffix = "M";
     }
 
-    return iscool::strings::format( "%.1f%s", result, suffix );
+  return iscool::strings::format("%.1f%s", result, suffix);
 }
-

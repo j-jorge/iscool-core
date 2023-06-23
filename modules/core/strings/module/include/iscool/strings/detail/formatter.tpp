@@ -16,10 +16,10 @@
 #ifndef ISCOOL_STRINGS_DETAIL_FORMATTER_TPP
 #define ISCOOL_STRINGS_DETAIL_FORMATTER_TPP
 
-template< typename T >
-void iscool::strings::detail::formatter::append( const T& value )
+template <typename T>
+void iscool::strings::detail::formatter::append(const T& value)
 {
-    _format = _format % value;
+  _format = _format % value;
 }
 
 #endif

@@ -21,57 +21,57 @@
 #include <string>
 
 #ifndef ISCOOL_ENABLE_DEBUG_STRING_HASH
-#ifndef NDEBUG
-#define ISCOOL_ENABLE_DEBUG_STRING_HASH
-#endif
+  #ifndef NDEBUG
+    #define ISCOOL_ENABLE_DEBUG_STRING_HASH
+  #endif
 #endif
 
 #ifdef ISCOOL_ENABLE_DEBUG_STRING_HASH
-#define DEBUG_STRING_HASH( e ) e
-#define DEBUG_STRING_HASH_FIELD( e ) , e
+  #define DEBUG_STRING_HASH(e) e
+  #define DEBUG_STRING_HASH_FIELD(e) , e
 #else
-#define DEBUG_STRING_HASH( e )
-#define DEBUG_STRING_HASH_FIELD( e )
+  #define DEBUG_STRING_HASH(e)
+  #define DEBUG_STRING_HASH_FIELD(e)
 #endif
 
 namespace iscool
 {
-    namespace strings
+  namespace strings
+  {
+    class string_hash
     {
-        class string_hash
-        {
-        public:
-            string_hash( const std::string& s );
+    public:
+      string_hash(const std::string& s);
 
-            template< std::size_t N >
-            constexpr string_hash( const char (&s)[ N ] );
+      template <std::size_t N>
+      constexpr string_hash(const char (&s)[N]);
 
-            bool operator<( const string_hash& that ) const;
-            bool operator==( const string_hash& that ) const;
-            bool operator!=( const string_hash& that ) const;
-            
-            hash_type get_hash_code() const;
+      bool operator<(const string_hash& that) const;
+      bool operator==(const string_hash& that) const;
+      bool operator!=(const string_hash& that) const;
 
-        private:
+      hash_type get_hash_code() const;
+
+    private:
 #ifdef ISCOOL_ENABLE_DEBUG_STRING_HASH
-            void check_duplicate() const;
+      void check_duplicate() const;
 #endif
 
-        private:
-            const hash_type _hash;
-            DEBUG_STRING_HASH( const std::string _string; )
-            DEBUG_STRING_HASH( mutable bool _checked; )
-        };
-    }
+    private:
+      const hash_type _hash;
+      DEBUG_STRING_HASH(const std::string _string;)
+      DEBUG_STRING_HASH(mutable bool _checked;)
+    };
+  }
 }
 
 namespace std
 {
-    template<>
-    struct hash< iscool::strings::string_hash >
-    {
-        size_t operator()( const iscool::strings::string_hash& h ) const;
-    };
+  template <>
+  struct hash<iscool::strings::string_hash>
+  {
+    size_t operator()(const iscool::strings::string_hash& h) const;
+  };
 }
 
 #include "iscool/strings/detail/string_hash.tpp"

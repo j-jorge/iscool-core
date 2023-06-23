@@ -20,13 +20,13 @@
 
 namespace iscool
 {
-    namespace log
+  namespace log
+  {
+    namespace detail
     {
-        namespace detail
-        {
-            std::string prettify( const std::string& message );
-        }
+      std::string prettify(const std::string& message);
     }
+  }
 }
 
 #endif

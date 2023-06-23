@@ -20,18 +20,18 @@
 
 namespace iscool
 {
-    namespace jni
+  namespace jni
+  {
+    namespace detail
     {
-        namespace detail
-        {
-            struct method_info
-            {
-                JNIEnv* env;
-                java_ptr< jclass > class_id;
-                jmethodID method_id;
-            };
-        }
+      struct method_info
+      {
+        JNIEnv* env;
+        java_ptr<jclass> class_id;
+        jmethodID method_id;
+      };
     }
+  }
 }
 
 #endif

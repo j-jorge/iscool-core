@@ -22,58 +22,38 @@
 
 namespace iscool
 {
-    namespace meta
+  namespace meta
+  {
+    namespace detail
     {
-        namespace detail
-        {
-            template< typename T, typename Tuple, typename Indices >
-            struct new_from_tuple_helper;
+      template <typename T, typename Tuple, typename Indices>
+      struct new_from_tuple_helper;
 
-            template< typename T, typename Tuple, std::size_t... I >
-            struct new_from_tuple_helper< T, Tuple, indices< I... > >
-            {
-                static T* call( Tuple&& tuple );
-            };
-        }
+      template <typename T, typename Tuple, std::size_t... I>
+      struct new_from_tuple_helper<T, Tuple, indices<I...>>
+      {
+        static T* call(Tuple&& tuple);
+      };
     }
+  }
 }
 
-template< typename T, typename Tuple >
-T* iscool::meta::new_from_tuple( Tuple&& tuple )
+template <typename T, typename Tuple>
+T* iscool::meta::new_from_tuple(Tuple&& tuple)
 {
-    return
-        detail::new_from_tuple_helper
-        <
-            T,
-            Tuple,
-            typename make_indices
-            <
-                std::tuple_size< typename std::decay< Tuple >::type >::value
-            >::type
-        >::call
-        ( std::forward< Tuple >( tuple ) );
+  return detail::new_from_tuple_helper<
+      T, Tuple,
+      typename make_indices<std::tuple_size<typename std::decay<
+          Tuple>::type>::value>::type>::call(std::forward<Tuple>(tuple));
 }
 
-template< typename T, typename Tuple, std::size_t... I >
-T*
-iscool::meta::detail::new_from_tuple_helper
-<
-    T,
-    Tuple,
-    iscool::meta::indices< I... > >
-::call
-( Tuple&& args )
+template <typename T, typename Tuple, std::size_t... I>
+T* iscool::meta::detail::new_from_tuple_helper<
+    T, Tuple, iscool::meta::indices<I...>>::call(Tuple&& args)
 {
-    return
-        new T
-        ( std::forward
-          <
-              typename std::tuple_element
-              <
-                  I,
-                  typename std::decay< Tuple >::type
-              >::type
-          >( std::get< I >( std::forward< Tuple >( args ) ) )... );
+  return new T(std::forward<typename std::tuple_element<
+                   I, typename std::decay<Tuple>::type>::type>(
+      std::get<I>(std::forward<Tuple>(args)))...);
 }
 
 #endif

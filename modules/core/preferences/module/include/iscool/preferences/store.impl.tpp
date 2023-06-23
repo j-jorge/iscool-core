@@ -18,31 +18,30 @@
 
 #include "iscool/preferences/property_map.impl.h"
 
-template< typename T >
-void
-iscool::preferences::store::set_value( const std::string& key, const T& value )
+template <typename T>
+void iscool::preferences::store::set_value(const std::string& key,
+                                           const T& value)
 {
-    const iscool::optional< T > old_value( _preferences.get< T >( key ) );
+  const iscool::optional<T> old_value(_preferences.get<T>(key));
 
-    if ( old_value && ( *old_value == value ) )
-        return;
-                
-    _dirty.set( key, value );
-    _preferences.set( key, value );
-    schedule_save();
+  if (old_value && (*old_value == value))
+    return;
+
+  _dirty.set(key, value);
+  _preferences.set(key, value);
+  schedule_save();
 }
 
-template< typename T >
-T iscool::preferences::store::get_value
-( const std::string& key, const T& default_value ) const
+template <typename T>
+T iscool::preferences::store::get_value(const std::string& key,
+                                        const T& default_value) const
 {
-    const iscool::optional< T > result( _preferences.get< T >( key ) );
+  const iscool::optional<T> result(_preferences.get<T>(key));
 
-    if ( result )
-        return *result;
+  if (result)
+    return *result;
 
-    return default_value;
+  return default_value;
 }
 
 #endif
-

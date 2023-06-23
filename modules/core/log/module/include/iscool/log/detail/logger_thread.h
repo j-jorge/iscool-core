@@ -20,14 +20,14 @@
 
 namespace iscool
 {
-    namespace log
+  namespace log
+  {
+    namespace detail
     {
-        namespace detail
-        {
-            void queue_in_logger_thread( std::function< void() > f );
-            void stop_logger_thread();
-        }
+      void queue_in_logger_thread(std::function<void()> f);
+      void stop_logger_thread();
     }
+  }
 }
 
 #endif

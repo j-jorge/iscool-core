@@ -18,22 +18,22 @@
 
 #include "iscool/jni/cast.h"
 #include "iscool/jni/cast.impl.tpp"
-#include "iscool/jni/hash_map.h"
 #include "iscool/jni/detail/cast_fwd.h"
+#include "iscool/jni/hash_map.h"
 
 namespace iscool
 {
-    namespace jni
+  namespace jni
+  {
+    namespace detail
     {
-        namespace detail
-        {
-            template< typename K, typename V >
-            struct cast< hash_map< K, V > >
-            {
-                static hash_map< K, V > value( jobject value );
-            };
-        }
+      template <typename K, typename V>
+      struct cast<hash_map<K, V>>
+      {
+        static hash_map<K, V> value(jobject value);
+      };
     }
+  }
 }
 
 #include "iscool/jni/detail/cast_hash_map.tpp"

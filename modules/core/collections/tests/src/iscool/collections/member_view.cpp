@@ -19,75 +19,69 @@
 
 namespace iscool
 {
-    namespace collections
+  namespace collections
+  {
+    namespace test
     {
-        namespace test
+      struct item
+      {
+        item(int value)
+          : field(value)
+        {}
+
+        int const_getter() const
         {
-            struct item
-            {
-                item( int value )
-                    : field( value )
-                {
-
-                }
-
-                int const_getter() const
-                {
-                    return field;
-                }
-
-                int field;
-            };
+          return field;
         }
+
+        int field;
+      };
     }
+  }
 }
 
-TEST( iscool_collections_member_view, empty_field )
+TEST(iscool_collections_member_view, empty_field)
 {
-    const std::vector< iscool::collections::test::item > items( {} );
+  const std::vector<iscool::collections::test::item> items({});
 
-    const std::vector< int > view
-        ( iscool::collections::member_view
-          ( items, &iscool::collections::test::item::field ) );
+  const std::vector<int> view(iscool::collections::member_view(
+      items, &iscool::collections::test::item::field));
 
-    EXPECT_TRUE( view.empty() );
+  EXPECT_TRUE(view.empty());
 }
 
-TEST( iscool_collections_member_view, empty_const_getter )
+TEST(iscool_collections_member_view, empty_const_getter)
 {
-    const std::vector< iscool::collections::test::item > items( {} );
+  const std::vector<iscool::collections::test::item> items({});
 
-    const std::vector< int > view
-        ( iscool::collections::member_view
-          ( items, &iscool::collections::test::item::const_getter ) );
+  const std::vector<int> view(iscool::collections::member_view(
+      items, &iscool::collections::test::item::const_getter));
 
-    EXPECT_TRUE( view.empty() );
+  EXPECT_TRUE(view.empty());
 }
 
-TEST( iscool_collections_member_view, not_empty_field )
+TEST(iscool_collections_member_view, not_empty_field)
 {
-    const std::vector< iscool::collections::test::item > items( { 9, 5, 8 } );
+  const std::vector<iscool::collections::test::item> items({ 9, 5, 8 });
 
-    const std::vector< int > view
-        ( iscool::collections::member_view
-          ( items, &iscool::collections::test::item::field ) );
+  const std::vector<int> view(iscool::collections::member_view(
+      items, &iscool::collections::test::item::field));
 
-    EXPECT_EQ( items.size(), view.size() );
-    EXPECT_EQ( items[ 0 ].field, view[ 0 ] );
-    EXPECT_EQ( items[ 1 ].field, view[ 1 ] );
-    EXPECT_EQ( items[ 2 ].field, view[ 2 ] );
+  EXPECT_EQ(items.size(), view.size());
+  EXPECT_EQ(items[0].field, view[0]);
+  EXPECT_EQ(items[1].field, view[1]);
+  EXPECT_EQ(items[2].field, view[2]);
 }
 
-TEST( iscool_collections_member_view, not_empty_const_getter )
+TEST(iscool_collections_member_view, not_empty_const_getter)
 {
-    const std::vector< iscool::collections::test::item > items( { 9, 5, 8 } );
+  const std::vector<iscool::collections::test::item> items({ 9, 5, 8 });
 
-    const std::vector< int > view
-        ( iscool::collections::member_view
-          ( items, &iscool::collections::test::item::const_getter ) );
+  const std::vector<int> view(iscool::collections::member_view(
+      items, &iscool::collections::test::item::const_getter));
 
-    EXPECT_EQ( items.size(), view.size() );
-    EXPECT_EQ( items[ 0 ].const_getter(), view[ 0 ] );
-    EXPECT_EQ( items[ 1 ].const_getter(), view[ 1 ] );
-    EXPECT_EQ( items[ 2 ].const_getter(), view[ 2 ] );
+  EXPECT_EQ(items.size(), view.size());
+  EXPECT_EQ(items[0].const_getter(), view[0]);
+  EXPECT_EQ(items[1].const_getter(), view[1]);
+  EXPECT_EQ(items[2].const_getter(), view[2]);
 }

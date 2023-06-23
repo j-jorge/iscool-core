@@ -17,23 +17,21 @@
 
 iscool::log::nature::nature::nature() = default;
 
-iscool::log::nature::nature::nature( const std::string& key )
-    : _key( key )
-{
+iscool::log::nature::nature::nature(const std::string& key)
+  : _key(key)
+{}
 
+bool iscool::log::nature::nature::operator==(const nature& that) const
+{
+  return _key == that._key;
 }
 
-bool iscool::log::nature::nature::operator==( const nature& that ) const
+bool iscool::log::nature::nature::operator!=(const nature& that) const
 {
-    return _key == that._key;
-}
-
-bool iscool::log::nature::nature::operator!=( const nature& that ) const
-{
-    return !(*this == that );
+  return !(*this == that);
 }
 
 const std::string& iscool::log::nature::nature::string() const
 {
-    return _key;
+  return _key;
 }

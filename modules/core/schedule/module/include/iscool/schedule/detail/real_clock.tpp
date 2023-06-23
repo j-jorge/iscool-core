@@ -19,46 +19,46 @@
 #include "iscool/schedule/delayed_call.h"
 #include "iscool/time/now.h"
 
-template< typename Tick >
-template< typename Rep, typename Period >
-iscool::schedule::real_clock< Tick >::real_clock
-( std::chrono::duration< Rep, Period > beat )
-    : _last_tick( time::now< Tick >() )
+template <typename Tick>
+template <typename Rep, typename Period>
+iscool::schedule::real_clock<Tick>::real_clock(
+    std::chrono::duration<Rep, Period> beat)
+  : _last_tick(time::now<Tick>())
 {
-    schedule_beat( beat );
+  schedule_beat(beat);
 }
 
-template<typename Tick>
+template <typename Tick>
 Tick iscool::schedule::real_clock<Tick>::implementation_get_date() const
 {
-    return time::now<Tick>();
+  return time::now<Tick>();
 }
 
-template< typename Tick >
-template< typename Rep, typename Period >
-void iscool::schedule::real_clock< Tick >::schedule_beat
-( std::chrono::duration< Rep, Period > beat )
+template <typename Tick>
+template <typename Rep, typename Period>
+void iscool::schedule::real_clock<Tick>::schedule_beat(
+    std::chrono::duration<Rep, Period> beat)
 {
-    auto f
-        ( [ this, beat ]() -> void
-          {
-              schedule_beat( beat );
-              check_tick_change();
-          } );
+  auto f(
+      [this, beat]() -> void
+      {
+        schedule_beat(beat);
+        check_tick_change();
+      });
 
-    _beat_connection = delayed_call( f, beat );
+  _beat_connection = delayed_call(f, beat);
 }
 
-template<typename Tick>
+template <typename Tick>
 void iscool::schedule::real_clock<Tick>::check_tick_change()
 {
-    const Tick now{ this->get_date() };
+  const Tick now{ this->get_date() };
 
-    if ( now == _last_tick )
-        return;
+  if (now == _last_tick)
+    return;
 
-    _last_tick = now;
-    this->trigger_tick_signal();
+  _last_tick = now;
+  this->trigger_tick_signal();
 }
 
 #endif

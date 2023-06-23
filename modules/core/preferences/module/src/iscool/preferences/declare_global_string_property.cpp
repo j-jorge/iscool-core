@@ -16,9 +16,8 @@
 #include "iscool/preferences/declare_global_string_property.h"
 
 iscool::preferences::string_property
-iscool::preferences::declare_global_string_property
-( std::string&& name, std::string&& fallback )
+iscool::preferences::declare_global_string_property(std::string&& name,
+                                                    std::string&& fallback)
 {
-    return string_property( std::move( name ), std::move( fallback ) );
+  return string_property(std::move(name), std::move(fallback));
 }
-

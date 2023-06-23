@@ -20,6 +20,6 @@
 iscool::http::detail::service_statistics&
 iscool::http::detail::get_service_statistics()
 {
-    static service_statistics result( 8 );
-    return result;
+  static service_statistics result(8);
+  return result;
 }

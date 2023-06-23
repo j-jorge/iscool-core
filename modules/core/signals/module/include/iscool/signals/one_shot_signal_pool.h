@@ -21,40 +21,33 @@
 
 namespace iscool
 {
-    namespace signals
+  namespace signals
+  {
+    template <typename T>
+    class one_shot_signal_pool
     {
-        template< typename T >
-        class one_shot_signal_pool
-        {
 
-        public:
-            typedef
-            iscool::memory::dynamic_pool
-            <
-                iscool::signals::signal< T >,
-                iscool::memory::pool_signal_traits
-                <
-                    iscool::signals::signal< T >
-                >
-            >
-            pool_type;
+    public:
+      typedef iscool::memory::dynamic_pool<
+          iscool::signals::signal<T>,
+          iscool::memory::pool_signal_traits<iscool::signals::signal<T>>>
+          pool_type;
 
+    public:
+      explicit one_shot_signal_pool(std::size_t pool_size);
+      ~one_shot_signal_pool();
 
-        public:
-            explicit one_shot_signal_pool( std::size_t pool_size );
-            ~one_shot_signal_pool();
+      typename pool_type::slot pick_available();
 
-            typename pool_type::slot pick_available();
+      template <typename... Args>
+      void trigger(std::size_t id, Args&&... args);
 
-            template< typename... Args >
-            void trigger( std::size_t id, Args&&... args );
+      void clear();
 
-            void clear();
-        private:
-            pool_type _pool;
-
-        };
-    }
+    private:
+      pool_type _pool;
+    };
+  }
 }
 
 #endif

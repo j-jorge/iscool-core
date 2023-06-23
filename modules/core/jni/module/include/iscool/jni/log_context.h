@@ -20,10 +20,10 @@
 
 namespace iscool
 {
-    namespace jni
-    {
-        const std::string& log_context();
-    }
+  namespace jni
+  {
+    const std::string& log_context();
+  }
 }
 
 #endif

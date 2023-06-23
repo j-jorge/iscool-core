@@ -20,12 +20,11 @@
 
 #ifdef NDEBUG
 
-    #define EXPECT_DEBUG_CRASH( statement )
+  #define EXPECT_DEBUG_CRASH(statement)
 
 #else
 
-    #define EXPECT_DEBUG_CRASH( statement )  \
-        EXPECT_DEATH( statement, "" )
+  #define EXPECT_DEBUG_CRASH(statement) EXPECT_DEATH(statement, "")
 
 #endif
 

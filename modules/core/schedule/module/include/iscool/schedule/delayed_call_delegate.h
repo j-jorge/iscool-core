@@ -18,21 +18,17 @@
 
 #include "iscool/signals/void_signal_function.h"
 
-#include <functional>
 #include <chrono>
+#include <functional>
 
 namespace iscool
 {
-    namespace schedule
-    {
-        typedef
-        std::function
-        <
-            void
-            ( iscool::signals::void_signal_function, std::chrono::nanoseconds )
-        >
+  namespace schedule
+  {
+    typedef std::function<void(iscool::signals::void_signal_function,
+                               std::chrono::nanoseconds)>
         delayed_call_delegate;
-    }
+  }
 }
 
 #endif

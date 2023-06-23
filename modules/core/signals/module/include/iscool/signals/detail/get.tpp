@@ -18,161 +18,103 @@
 
 namespace iscool
 {
-    namespace signals
+  namespace signals
+  {
+    namespace detail
     {
-        namespace detail
-        {
-            template
-            <
-                typename SearchedArgument,
-                typename HeadArgument,
-                typename... OtherArguments
-            >
-            class signal_collection_visitor;
+      template <typename SearchedArgument, typename HeadArgument,
+                typename... OtherArguments>
+      class signal_collection_visitor;
 
-            template
-            <
-                typename SearchedArgument,
-                typename... OtherArguments
-            >
-            class signal_collection_visitor
-            <
-                SearchedArgument,
-                SearchedArgument,
-                OtherArguments...
-            >
-            {
-            private:
-                typedef
-                signal_collection< SearchedArgument, OtherArguments... >
-                collection_type;
-                
-            public:
-                static iscool::signals::signal< void ( SearchedArgument ) >&
-                find_by_argument_type( collection_type& collection );
+      template <typename SearchedArgument, typename... OtherArguments>
+      class signal_collection_visitor<SearchedArgument, SearchedArgument,
+                                      OtherArguments...>
+      {
+      private:
+        typedef signal_collection<SearchedArgument, OtherArguments...>
+            collection_type;
 
-                static
-                const iscool::signals::signal< void ( SearchedArgument ) >&
-                find_by_argument_type( const collection_type& collection );
-            };
+      public:
+        static iscool::signals::signal<void(SearchedArgument)>&
+        find_by_argument_type(collection_type& collection);
 
-            template
-            <
-                typename SearchedArgument,
-                typename HeadArgument,
-                typename... OtherArguments
-            >
-            class signal_collection_visitor
-            {
-            private:
-                typedef
-                signal_collection< HeadArgument, OtherArguments... >
-                collection_type;
+        static const iscool::signals::signal<void(SearchedArgument)>&
+        find_by_argument_type(const collection_type& collection);
+      };
 
-            public:
-                static iscool::signals::signal< void ( SearchedArgument ) >&
-                find_by_argument_type( collection_type& collection );
+      template <typename SearchedArgument, typename HeadArgument,
+                typename... OtherArguments>
+      class signal_collection_visitor
+      {
+      private:
+        typedef signal_collection<HeadArgument, OtherArguments...>
+            collection_type;
 
-                static
-                const iscool::signals::signal< void ( SearchedArgument ) >&
-                find_by_argument_type( const collection_type& collection );
-            };
-        }
+      public:
+        static iscool::signals::signal<void(SearchedArgument)>&
+        find_by_argument_type(collection_type& collection);
+
+        static const iscool::signals::signal<void(SearchedArgument)>&
+        find_by_argument_type(const collection_type& collection);
+      };
     }
+  }
 }
 
-template
-<
-    typename SearchedArgument,
-    typename... OtherArguments
->
-iscool::signals::signal< void ( SearchedArgument ) >&
-iscool::signals::detail::signal_collection_visitor
-<
-    SearchedArgument,
-    SearchedArgument,
-    OtherArguments...
->::find_by_argument_type
-( collection_type& collection )
+template <typename SearchedArgument, typename... OtherArguments>
+iscool::signals::signal<void(SearchedArgument)>&
+iscool::signals::detail::signal_collection_visitor<
+    SearchedArgument, SearchedArgument,
+    OtherArguments...>::find_by_argument_type(collection_type& collection)
 {
-    return collection.signal_instance;
+  return collection.signal_instance;
 }
 
-template
-<
-    typename SearchedArgument,
-    typename... OtherArguments
->
-const iscool::signals::signal< void ( SearchedArgument ) >&
-iscool::signals::detail::signal_collection_visitor
-<
-    SearchedArgument,
-    SearchedArgument,
-    OtherArguments...
->::find_by_argument_type
-( const collection_type& collection )
+template <typename SearchedArgument, typename... OtherArguments>
+const iscool::signals::signal<void(SearchedArgument)>&
+iscool::signals::detail::signal_collection_visitor<
+    SearchedArgument, SearchedArgument, OtherArguments...>::
+    find_by_argument_type(const collection_type& collection)
 {
-    return collection.signal_instance;
+  return collection.signal_instance;
 }
 
-template
-<
-    typename SearchedArgument,
-    typename HeadArgument,
-    typename... OtherArguments
->
-iscool::signals::signal< void ( SearchedArgument ) >&
-iscool::signals::detail::signal_collection_visitor
-<
-    SearchedArgument,
-    HeadArgument,
-    OtherArguments...
->::find_by_argument_type
-( collection_type& collection )
+template <typename SearchedArgument, typename HeadArgument,
+          typename... OtherArguments>
+iscool::signals::signal<void(SearchedArgument)>&
+iscool::signals::detail::signal_collection_visitor<
+    SearchedArgument, HeadArgument,
+    OtherArguments...>::find_by_argument_type(collection_type& collection)
 {
-    return
-        signal_collection_visitor< SearchedArgument, OtherArguments... >
-        ::find_by_argument_type( collection );
+  return signal_collection_visitor<
+      SearchedArgument, OtherArguments...>::find_by_argument_type(collection);
 }
 
-template
-<
-    typename SearchedArgument,
-    typename HeadArgument,
-    typename... OtherArguments
->
-const iscool::signals::signal< void ( SearchedArgument ) >&
-iscool::signals::detail::signal_collection_visitor
-<
-    SearchedArgument,
-    HeadArgument,
-    OtherArguments...
->::find_by_argument_type
-( const collection_type& collection )
+template <typename SearchedArgument, typename HeadArgument,
+          typename... OtherArguments>
+const iscool::signals::signal<void(SearchedArgument)>&
+iscool::signals::detail::signal_collection_visitor<
+    SearchedArgument, HeadArgument, OtherArguments...>::
+    find_by_argument_type(const collection_type& collection)
 {
-    return
-        signal_collection_visitor< SearchedArgument, OtherArguments... >
-        ::find_by_argument_type( collection );
+  return signal_collection_visitor<
+      SearchedArgument, OtherArguments...>::find_by_argument_type(collection);
 }
 
-template< typename SearchedType, typename... SignalArgument >
-iscool::signals::signal< void ( SearchedType ) >&
-iscool::signals::get
-( signal_collection< SignalArgument... >& collection )
+template <typename SearchedType, typename... SignalArgument>
+iscool::signals::signal<void(SearchedType)>&
+iscool::signals::get(signal_collection<SignalArgument...>& collection)
 {
-    return 
-        detail::signal_collection_visitor< SearchedType, SignalArgument... >
-        ::find_by_argument_type( collection );
+  return detail::signal_collection_visitor<
+      SearchedType, SignalArgument...>::find_by_argument_type(collection);
 }
 
-template< typename SearchedType, typename... SignalArgument >
-const iscool::signals::signal< void ( SearchedType ) >&
-iscool::signals::get
-( const signal_collection< SignalArgument... >& collection )
+template <typename SearchedType, typename... SignalArgument>
+const iscool::signals::signal<void(SearchedType)>&
+iscool::signals::get(const signal_collection<SignalArgument...>& collection)
 {
-    return 
-        detail::signal_collection_visitor< SearchedType, SignalArgument... >
-        ::find_by_argument_type( collection );
+  return detail::signal_collection_visitor<
+      SearchedType, SignalArgument...>::find_by_argument_type(collection);
 }
 
 #endif

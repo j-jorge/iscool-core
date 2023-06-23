@@ -20,19 +20,18 @@
 
 namespace iscool
 {
-    namespace social
+  namespace social
+  {
+    namespace ios
     {
-        namespace ios
-        {
-            class link_service
-            {
-            public:
-                void open_in_facebook( const std::string& page );
-                void open_in_twitter( const std::string& page );
-
-            };
-        }
+      class link_service
+      {
+      public:
+        void open_in_facebook(const std::string& page);
+        void open_in_twitter(const std::string& page);
+      };
     }
+  }
 }
 
 #endif

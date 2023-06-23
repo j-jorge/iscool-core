@@ -20,16 +20,17 @@
 
 namespace iscool
 {
-    namespace collections
-    {
-        template< typename Iterator >
-        std::vector< std::size_t > sort_permutation
-        ( const Iterator& first, const Iterator& last );
-        
-        template< typename Iterator, typename Compare >
-        std::vector< std::size_t > sort_permutation
-        ( const Iterator& first, const Iterator& last, const Compare& compare );
-    }
+  namespace collections
+  {
+    template <typename Iterator>
+    std::vector<std::size_t> sort_permutation(const Iterator& first,
+                                              const Iterator& last);
+
+    template <typename Iterator, typename Compare>
+    std::vector<std::size_t> sort_permutation(const Iterator& first,
+                                              const Iterator& last,
+                                              const Compare& compare);
+  }
 }
 
 #include "iscool/collections/detail/sort_permutation.tpp"

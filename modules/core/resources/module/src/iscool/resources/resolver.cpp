@@ -15,17 +15,14 @@
 */
 #include "iscool/resources/resolver.h"
 
-iscool::resources::resolver::resolver
-( const std::string& search_path, const std::string& extension )
-    : _search_path( search_path ),
-      _extension( extension )
-{
+iscool::resources::resolver::resolver(const std::string& search_path,
+                                      const std::string& extension)
+  : _search_path(search_path)
+  , _extension(extension)
+{}
 
-}
-            
 std::string
-iscool::resources::resolver::get_file_path( const std::string& name ) const
+iscool::resources::resolver::get_file_path(const std::string& name) const
 {
-    return _search_path + name + _extension;
+  return _search_path + name + _extension;
 }
-

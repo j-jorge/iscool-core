@@ -18,30 +18,30 @@
 #include "iscool/net/message_deserializer.impl.tpp"
 
 iscool::net::message_deserializer::deserializer_collection::
-~deserializer_collection()
+    ~deserializer_collection()
 {
-    for ( const auto& entry : _deserializers )
-        delete entry.second;
+  for (const auto& entry : _deserializers)
+    delete entry.second;
 }
 
-void iscool::net::message_deserializer::deserializer_collection::dispatch
-( const endpoint& endpoint, const message& message ) const
+void iscool::net::message_deserializer::deserializer_collection::dispatch(
+    const endpoint& endpoint, const message& message) const
 {
-    typename deserializer_map::const_iterator it
-        { _deserializers.find( message.get_type() ) };
+  typename deserializer_map::const_iterator it{ _deserializers.find(
+      message.get_type()) };
 
-    if ( it != _deserializers.end() )
+  if (it != _deserializers.end())
     {
-        assert( it->second != nullptr );
-        it->second->dispatch( endpoint, message );
+      assert(it->second != nullptr);
+      it->second->dispatch(endpoint, message);
     }
 }
 
 iscool::net::message_deserializer::message_deserializer() = default;
 iscool::net::message_deserializer::~message_deserializer() = default;
 
-void iscool::net::message_deserializer::interpret_received_message
-( const endpoint& endpoint, const message& message ) const
+void iscool::net::message_deserializer::interpret_received_message(
+    const endpoint& endpoint, const message& message) const
 {
-    _deserializers.dispatch( endpoint, message );
+  _deserializers.dispatch(endpoint, message);
 }

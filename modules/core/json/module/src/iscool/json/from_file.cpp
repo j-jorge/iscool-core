@@ -22,15 +22,14 @@
 #include "iscool/log/causeless_log.h"
 #include "iscool/log/nature/error.h"
 
-Json::Value iscool::json::from_file( const std::string& path )
+Json::Value iscool::json::from_file(const std::string& path)
 {
-    const std::unique_ptr< std::istream > file( files::read_file( path ) );
-    const Json::Value result( parse_stream( *file ) );
-    
-    if( result == Json::nullValue )
-        ic_causeless_log
-            ( iscool::log::nature::error(), log_context(),
-              "could not parse json file: %s", path );
-    
-    return result;
+  const std::unique_ptr<std::istream> file(files::read_file(path));
+  const Json::Value result(parse_stream(*file));
+
+  if (result == Json::nullValue)
+    ic_causeless_log(iscool::log::nature::error(), log_context(),
+                     "could not parse json file: %s", path);
+
+  return result;
 }

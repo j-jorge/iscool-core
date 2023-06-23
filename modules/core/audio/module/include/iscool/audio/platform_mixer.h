@@ -22,28 +22,28 @@
 
 namespace iscool
 {
-    namespace audio
-    {
-        enum class loop_mode;
-        
-        class platform_mixer
-        {
-        public:
-            virtual ~platform_mixer() = default;
-            
-            virtual void set_effects_muted( bool muted ) = 0;
-            virtual void set_music_muted( bool muted ) = 0;
+  namespace audio
+  {
+    enum class loop_mode;
 
-            virtual void play_music
-            ( const std::string& file_path, loop_mode loop ) = 0;
-            virtual void stop_music() = 0;
-            
-            virtual void preload_effect( const std::string& file_path ) = 0;
-            virtual track_id play_effect
-            ( const std::string& file_path, loop_mode loop ) = 0;
-            virtual void stop_effect( track_id id ) = 0;
-        };
-    }
+    class platform_mixer
+    {
+    public:
+      virtual ~platform_mixer() = default;
+
+      virtual void set_effects_muted(bool muted) = 0;
+      virtual void set_music_muted(bool muted) = 0;
+
+      virtual void play_music(const std::string& file_path,
+                              loop_mode loop) = 0;
+      virtual void stop_music() = 0;
+
+      virtual void preload_effect(const std::string& file_path) = 0;
+      virtual track_id play_effect(const std::string& file_path,
+                                   loop_mode loop) = 0;
+      virtual void stop_effect(track_id id) = 0;
+    };
+  }
 }
 
 #endif

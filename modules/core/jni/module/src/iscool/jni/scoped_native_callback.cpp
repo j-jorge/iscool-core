@@ -17,10 +17,10 @@
 
 iscool::jni::scoped_native_callback::~scoped_native_callback()
 {
-    detail::get_native_call_manager().release_callback( _id );
+  detail::get_native_call_manager().release_callback(_id);
 }
 
 jlong iscool::jni::scoped_native_callback::get_id() const
 {
-    return _id;
+  return _id;
 }

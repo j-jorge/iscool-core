@@ -19,11 +19,9 @@
 #include <boost/preprocessor/control/if.hpp>
 #include <boost/preprocessor/seq/for_each_i.hpp>
 
-#define ic_detail_referenced_namespace_identifier( r, data, i, elem )   \
-    elem::
+#define ic_detail_referenced_namespace_identifier(r, data, i, elem) elem::
 
-#define ic_reference_namespaces( scope )                        \
-    BOOST_PP_SEQ_FOR_EACH_I                                     \
-    ( ic_detail_referenced_namespace_identifier, _, scope )
+#define ic_reference_namespaces(scope)                                        \
+  BOOST_PP_SEQ_FOR_EACH_I(ic_detail_referenced_namespace_identifier, _, scope)
 
 #endif

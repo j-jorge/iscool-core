@@ -22,18 +22,15 @@
 
 namespace iscool
 {
-    namespace style
+  namespace style
+  {
+    namespace detail
     {
-        namespace detail
-        {
-            typedef iscool::memory::dynamic_pool
-            <
-                shared_properties,
-                shared_properties_pool_traits
-            >
-            properties_pool;
-        }
+      typedef iscool::memory::dynamic_pool<shared_properties,
+                                           shared_properties_pool_traits>
+          properties_pool;
     }
+  }
 }
 
 #endif

@@ -25,43 +25,43 @@
 
 namespace iscool
 {
-    namespace schedule
+  namespace schedule
+  {
+    class worker
     {
-        class worker
-        {
-        public:
-            typedef std::unique_ptr< worker > handle;
+    public:
+      typedef std::unique_ptr<worker> handle;
 
-        public:
-            template< typename TaskType, typename ...Args >
-            static handle run( Args... arguments );
-        
-            ~worker();
+    public:
+      template <typename TaskType, typename... Args>
+      static handle run(Args... arguments);
 
-            iscool::signals::connection
-            connect_to_complete( iscool::signals::void_signal_function f );
+      ~worker();
 
-        private:
-            typedef std::shared_ptr< detail::task_life_cycle > task_pointer;
+      iscool::signals::connection
+      connect_to_complete(iscool::signals::void_signal_function f);
 
-        private:
-            explicit worker( task_pointer task );
-        
-            void start_task();
-            void update_task();
-            void complete_task();
-            void schedule_next_update();
-            void clear();
-    
-            worker( const worker& ) = delete;
-            worker& operator=( const worker& ) = delete;
+    private:
+      typedef std::shared_ptr<detail::task_life_cycle> task_pointer;
 
-        private:
-            task_pointer _task;
-            iscool::signals::scoped_connection _update_connection;
-            iscool::signals::scoped_connection _complete_connection;
-        };
-    }
+    private:
+      explicit worker(task_pointer task);
+
+      void start_task();
+      void update_task();
+      void complete_task();
+      void schedule_next_update();
+      void clear();
+
+      worker(const worker&) = delete;
+      worker& operator=(const worker&) = delete;
+
+    private:
+      task_pointer _task;
+      iscool::signals::scoped_connection _update_connection;
+      iscool::signals::scoped_connection _complete_connection;
+    };
+  }
 }
 
 #include "iscool/schedule/detail/worker.tpp"

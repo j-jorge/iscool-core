@@ -15,20 +15,21 @@
 */
 #include "iscool/resources/detail/check_extension.h"
 
-std::string::size_type iscool::resources::detail::check_extension
-( const std::string& extension, const std::string& filename )
+std::string::size_type
+iscool::resources::detail::check_extension(const std::string& extension,
+                                           const std::string& filename)
 {
-    const std::string::size_type extension_size( extension.size() );
-    const std::string::size_type filename_size( filename.size() );
-    
-    if ( filename_size < extension_size )
-        return std::string::npos;
+  const std::string::size_type extension_size(extension.size());
+  const std::string::size_type filename_size(filename.size());
 
-    const std::string::size_type result( filename_size - extension_size );
-    
-    if ( std::equal
-         ( extension.begin(), extension.end(), filename.begin() + result ) )
-        return result;
-
+  if (filename_size < extension_size)
     return std::string::npos;
+
+  const std::string::size_type result(filename_size - extension_size);
+
+  if (std::equal(extension.begin(), extension.end(),
+                 filename.begin() + result))
+    return result;
+
+  return std::string::npos;
 }

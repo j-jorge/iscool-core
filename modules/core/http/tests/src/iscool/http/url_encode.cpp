@@ -17,8 +17,8 @@
 
 #include <gtest/gtest.h>
 
-TEST( iscool_http, url_encode )
+TEST(iscool_http, url_encode)
 {
-    EXPECT_EQ( "ftp%3A%2F%2Fa%20b", iscool::http::url_encode( "ftp://a b" ) );
-    EXPECT_EQ( "c%2B%26%3Fd", iscool::http::url_encode( "c+&?d" ) );
+  EXPECT_EQ("ftp%3A%2F%2Fa%20b", iscool::http::url_encode("ftp://a b"));
+  EXPECT_EQ("c%2B%26%3Fd", iscool::http::url_encode("c+&?d"));
 }

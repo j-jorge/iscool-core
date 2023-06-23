@@ -20,14 +20,13 @@
 
 namespace iscool
 {
-    namespace jni
+  namespace jni
+  {
+    class method_not_found : public std::runtime_error
     {
-        class method_not_found:
-            public std::runtime_error
-        {
-        public:
-            using std::runtime_error::runtime_error;
-        };
-    }
+    public:
+      using std::runtime_error::runtime_error;
+    };
+  }
 }
 #endif

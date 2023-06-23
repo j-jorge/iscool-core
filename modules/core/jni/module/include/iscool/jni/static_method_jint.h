@@ -16,24 +16,23 @@
 #ifndef ISCOOL_JNI_STATIC_METHOD_JINT_H
 #define ISCOOL_JNI_STATIC_METHOD_JINT_H
 
-#include "iscool/jni/static_method.h"
 #include "iscool/jni/detail/static_method_base.h"
+#include "iscool/jni/static_method.h"
 
 namespace iscool
 {
-    namespace jni
+  namespace jni
+  {
+    template <>
+    class static_method<jint> : public detail::static_method_base
     {
-        template<>
-        class static_method< jint >:
-            public detail::static_method_base
-        {
-        public:
-            using detail::static_method_base::static_method_base;
-            
-            template< typename... Arg >
-            jint operator()( Arg&&... args ) const;
-        };
-    }
+    public:
+      using detail::static_method_base::static_method_base;
+
+      template <typename... Arg>
+      jint operator()(Arg&&... args) const;
+    };
+  }
 }
 
 #include "iscool/jni/detail/static_method_jint.tpp"

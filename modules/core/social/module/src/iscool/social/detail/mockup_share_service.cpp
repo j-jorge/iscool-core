@@ -17,16 +17,15 @@
 
 #include "iscool/log/console_log.h"
 
-void iscool::social::detail::mockup_share_service::share_message
-( const std::string& message )
+void iscool::social::detail::mockup_share_service::share_message(
+    const std::string& message)
 {
-    ic_console_log( "ShareServiceMockup", "sharing message '%s'", message );
+  ic_console_log("ShareServiceMockup", "sharing message '%s'", message);
 }
 
-void iscool::social::detail::mockup_share_service::share_file
-( const std::string& file_path, const std::string& message )
+void iscool::social::detail::mockup_share_service::share_file(
+    const std::string& file_path, const std::string& message)
 {
-    ic_console_log
-        ( "ShareServiceMockup", "sharing file '%s' with message '%s'",
-          file_path, message );
+  ic_console_log("ShareServiceMockup", "sharing file '%s' with message '%s'",
+                 file_path, message);
 }

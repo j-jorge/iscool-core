@@ -21,17 +21,18 @@
 
 namespace iscool
 {
-    namespace i18n
+  namespace i18n
+  {
+    namespace numeric
     {
-        namespace numeric
-        {
-            namespace detail
-            {
-                const std::locale& get_locale_for_numeric_display
-                ( const std::locale& from, const std::string& language_code );
-            }
-        }
+      namespace detail
+      {
+        const std::locale&
+        get_locale_for_numeric_display(const std::locale& from,
+                                       const std::string& language_code);
+      }
     }
+  }
 }
 
 #endif

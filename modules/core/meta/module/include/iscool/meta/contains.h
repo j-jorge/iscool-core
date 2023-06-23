@@ -20,26 +20,21 @@
 
 namespace iscool
 {
-    namespace meta
-    {
-        template< typename T, typename... U >
-        struct contains;
+  namespace meta
+  {
+    template <typename T, typename... U>
+    struct contains;
 
-        template< typename T, typename Head, typename... Tail >
-        struct contains< T, Head, Tail... >
-            : public std::conditional
-              <
-                  std::is_same< T, Head >::value,
-                  std::true_type,
-                  contains<T, Tail...>
-              >::type
-        {};
+    template <typename T, typename Head, typename... Tail>
+    struct contains<T, Head, Tail...>
+      : public std::conditional<std::is_same<T, Head>::value, std::true_type,
+                                contains<T, Tail...>>::type
+    {};
 
-        template<typename T>
-        struct contains<T>:
-            public std::false_type
-        {};
-    }
+    template <typename T>
+    struct contains<T> : public std::false_type
+    {};
+  }
 }
 
 #endif

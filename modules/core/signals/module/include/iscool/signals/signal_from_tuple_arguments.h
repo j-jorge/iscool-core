@@ -22,18 +22,18 @@
 
 namespace iscool
 {
-    namespace signals
+  namespace signals
+  {
+    template <typename T>
+    class signal_from_tuple_arguments;
+
+    template <typename... Arg>
+    class signal_from_tuple_arguments<std::tuple<Arg...>>
     {
-        template< typename T >
-        class signal_from_tuple_arguments;
-    
-        template< typename... Arg >
-        class signal_from_tuple_arguments< std::tuple< Arg... > >
-        {
-        public:
-            typedef signal< void( Arg... ) > type;
-        };
-    }
+    public:
+      typedef signal<void(Arg...)> type;
+    };
+  }
 }
 
 #endif

@@ -15,5 +15,5 @@
 */
 #include "iscool/signals/detail/statistics_function.h"
 
-std::function< void( const iscool::signals::statistics_data& ) >
-iscool::signals::detail::statistics_function;
+std::function<void(const iscool::signals::statistics_data&)>
+    iscool::signals::detail::statistics_function;

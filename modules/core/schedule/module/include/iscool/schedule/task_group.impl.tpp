@@ -16,18 +16,15 @@
 #ifndef ISCOOL_SCHEDULE_TASK_GROUP_IMPL_TPP
 #define ISCOOL_SCHEDULE_TASK_GROUP_IMPL_TPP
 
-
-template< typename TaskType, typename... Args >
-void iscool::schedule::task_group::run( Args&&... args )
+template <typename TaskType, typename... Args>
+void iscool::schedule::task_group::run(Args&&... args)
 {
-    const std::size_t i( get_available_task_index() );
+  const std::size_t i(get_available_task_index());
 
-    worker::handle handle
-        ( worker::run< TaskType >( std::forward< Args >( args )... ) );
-    handle->connect_to_complete( std::bind( &task_group::pop, this, i ) );
+  worker::handle handle(worker::run<TaskType>(std::forward<Args>(args)...));
+  handle->connect_to_complete(std::bind(&task_group::pop, this, i));
 
-    _tasks[ i ] = std::move( handle );
+  _tasks[i] = std::move(handle);
 }
 
 #endif
-

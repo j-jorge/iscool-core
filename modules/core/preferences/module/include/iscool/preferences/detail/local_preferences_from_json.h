@@ -20,19 +20,18 @@
 
 namespace Json
 {
-    class Value;
+  class Value;
 }
 
 namespace iscool
 {
-    namespace preferences
+  namespace preferences
+  {
+    namespace detail
     {
-        namespace detail
-        {
-            property_map
-            local_preferences_from_json( const Json::Value& values );
-        }
+      property_map local_preferences_from_json(const Json::Value& values);
     }
+  }
 }
 
 #endif

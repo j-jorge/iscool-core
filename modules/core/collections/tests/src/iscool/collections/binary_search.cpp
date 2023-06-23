@@ -19,124 +19,95 @@
 
 namespace iscool
 {
-    namespace collections
+  namespace collections
+  {
+    namespace tests
     {
-        namespace tests
-        {
-            class int_compare
-	    {
-	    public:
-	      explicit int_compare( int rhs );
+      class int_compare
+      {
+      public:
+        explicit int_compare(int rhs);
 
-	      int operator()( int lhs ) const;
+        int operator()(int lhs) const;
 
-	    private:
-	      const int _rhs;
-
-	    };
-        }
+      private:
+        const int _rhs;
+      };
     }
+  }
 }
 
-iscool::collections::tests::int_compare::int_compare( int rhs )
-  : _rhs( rhs )
-{
+iscool::collections::tests::int_compare::int_compare(int rhs)
+  : _rhs(rhs)
+{}
 
+int iscool::collections::tests::int_compare::operator()(int lhs) const
+{
+  return lhs - _rhs;
 }
 
-int iscool::collections::tests::int_compare::operator()( int lhs ) const
+TEST(iscool_collections_binary_search, empty)
 {
-    return lhs - _rhs;
+  const std::vector<int> values;
+
+  EXPECT_EQ(values.end(), iscool::collections::binary_search(
+                              values.begin(), values.end(),
+                              iscool::collections::tests::int_compare(10)));
 }
 
-TEST( iscool_collections_binary_search, empty )
+TEST(iscool_collections_binary_search, singleton)
 {
-    const std::vector< int > values;
+  const std::vector<int> values({ 10 });
 
-    EXPECT_EQ
-        ( values.end(),
-          iscool::collections::binary_search
-          ( values.begin(), values.end(),
-            iscool::collections::tests::int_compare( 10 ) ) );
+  const auto begin(values.begin());
+  const auto end(values.end());
+
+  EXPECT_EQ(end, iscool::collections::binary_search(
+                     begin, end, iscool::collections::tests::int_compare(20)));
+  EXPECT_EQ(begin,
+            iscool::collections::binary_search(
+                begin, end, iscool::collections::tests::int_compare(10)));
 }
 
-TEST( iscool_collections_binary_search, singleton )
+TEST(iscool_collections_binary_search, two_values)
 {
-    const std::vector< int > values( { 10 } );
+  const std::vector<int> values({ 10, 20 });
 
-    const auto begin( values.begin() );
-    const auto end( values.end() );
-    
-    EXPECT_EQ
-        ( end,
-          iscool::collections::binary_search
-          ( begin, end,
-            iscool::collections::tests::int_compare( 20 ) ) );
-    EXPECT_EQ
-        ( begin,
-          iscool::collections::binary_search
-          ( begin, end,
-            iscool::collections::tests::int_compare( 10 ) ) );
+  const auto begin(values.begin());
+  const auto end(values.end());
+
+  EXPECT_EQ(begin,
+            iscool::collections::binary_search(
+                begin, end, iscool::collections::tests::int_compare(10)));
+  EXPECT_EQ(begin + 1,
+            iscool::collections::binary_search(
+                begin, end, iscool::collections::tests::int_compare(20)));
+  EXPECT_EQ(end, iscool::collections::binary_search(
+                     begin, end, iscool::collections::tests::int_compare(30)));
 }
 
-TEST( iscool_collections_binary_search, two_values )
+TEST(iscool_collections_binary_search, 5_values)
 {
-    const std::vector< int > values( { 10, 20 } );
+  const std::vector<int> values({ 10, 20, 30, 30, 40 });
 
-    const auto begin( values.begin() );
-    const auto end( values.end() );
-    
-    EXPECT_EQ
-        ( begin,
-          iscool::collections::binary_search
-          ( begin, end,
-            iscool::collections::tests::int_compare( 10 ) ) );
-    EXPECT_EQ
-        ( begin + 1,
-          iscool::collections::binary_search
-          ( begin, end,
-            iscool::collections::tests::int_compare( 20 ) ) );
-    EXPECT_EQ
-        ( end,
-          iscool::collections::binary_search
-          ( begin, end,
-            iscool::collections::tests::int_compare( 30 ) ) );
-}
+  const auto begin(values.begin());
+  const auto end(values.end());
 
-TEST( iscool_collections_binary_search, 5_values )
-{
-    const std::vector< int > values( { 10, 20, 30, 30, 40 } );
+  EXPECT_EQ(begin,
+            iscool::collections::binary_search(
+                begin, end, iscool::collections::tests::int_compare(10)));
+  EXPECT_EQ(begin + 1,
+            iscool::collections::binary_search(
+                begin, end, iscool::collections::tests::int_compare(20)));
 
-    const auto begin( values.begin() );
-    const auto end( values.end() );
-    
-    EXPECT_EQ
-        ( begin,
-          iscool::collections::binary_search
-          ( begin, end,
-            iscool::collections::tests::int_compare( 10 ) ) );
-    EXPECT_EQ
-        ( begin + 1,
-          iscool::collections::binary_search
-          ( begin, end,
-            iscool::collections::tests::int_compare( 20 ) ) );
+  const auto duplicate_it(iscool::collections::binary_search(
+      begin, end, iscool::collections::tests::int_compare(30)));
 
-    const auto duplicate_it
-        ( iscool::collections::binary_search
-          ( begin, end,
-            iscool::collections::tests::int_compare( 30 ) ) );
-        
-    EXPECT_TRUE
-        ( ( duplicate_it == begin + 2 ) || ( duplicate_it == begin + 3 ) );
+  EXPECT_TRUE((duplicate_it == begin + 2) || (duplicate_it == begin + 3));
 
-    EXPECT_EQ
-        ( begin + 4,
-          iscool::collections::binary_search
-          ( begin, end,
-            iscool::collections::tests::int_compare( 40 ) ) );
-    EXPECT_EQ
-        ( end,
-          iscool::collections::binary_search
-          ( begin, end,
-            iscool::collections::tests::int_compare( 50 ) ) );
+  EXPECT_EQ(begin + 4,
+            iscool::collections::binary_search(
+                begin, end, iscool::collections::tests::int_compare(40)));
+  EXPECT_EQ(end, iscool::collections::binary_search(
+                     begin, end, iscool::collections::tests::int_compare(50)));
 }

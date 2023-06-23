@@ -20,12 +20,11 @@
 
 #include <chrono>
 
-template< typename Duration >
+template <typename Duration>
 Duration iscool::system::device_time()
 {
-    return
-        std::chrono::duration_cast< Duration >
-        ( detail::device_time_milliseconds() );
+  return std::chrono::duration_cast<Duration>(
+      detail::device_time_milliseconds());
 }
 
 #endif

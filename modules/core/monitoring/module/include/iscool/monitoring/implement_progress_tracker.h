@@ -16,43 +16,37 @@
 #ifndef ISCOOL_MONITORING_IMPLEMENT_PROGRESS_TRACKER_H
 #define ISCOOL_MONITORING_IMPLEMENT_PROGRESS_TRACKER_H
 
-#define ic_monitoring_implement_progress_tracker( scope, type )      \
-    scope::type::type()                                              \
-        : _done_steps( 0 )                                           \
-    {                                                                \
-                                                                     \
-    }                                                                \
-                                                                     \
-    scope::type::type                                                \
-    ( const std::function< void() >& on_completed )                \
-        : _notify_completed( on_completed ),                         \
-          _done_steps( 0 )                                           \
-    {                                                                \
-                                                                     \
-    }                                                                \
-                                                                     \
-    void scope::type::done( step s )                                 \
-    {                                                                \
-        assert( _notify_completed );                                 \
-        const bit_field step_value( static_cast< bit_field >( s ) ); \
-                                                                     \
-        assert( ( _done_steps & step_value ) == 0 );                 \
-        _done_steps |= step_value;                                   \
-                                                                     \
-        if ( _done_steps == all_mask )                               \
-            _notify_completed();                                     \
-    }                                                                \
-                                                                     \
-    void scope::type::reset()                                        \
-    {                                                                \
-        _done_steps = 0;                                             \
-    }                                                                \
-                                                                     \
-    void scope::type::reset                                          \
-    ( const std::function< void() >& on_completed )                \
-    {                                                                \
-        reset();                                                     \
-        _notify_completed = on_completed;                            \
-    }
+#define ic_monitoring_implement_progress_tracker(scope, type)                 \
+  scope::type::type()                                                         \
+    : _done_steps(0)                                                          \
+  {}                                                                          \
+                                                                              \
+  scope::type::type(const std::function<void()>& on_completed)                \
+    : _notify_completed(on_completed)                                         \
+    , _done_steps(0)                                                          \
+  {}                                                                          \
+                                                                              \
+  void scope::type::done(step s)                                              \
+  {                                                                           \
+    assert(_notify_completed);                                                \
+    const bit_field step_value(static_cast<bit_field>(s));                    \
+                                                                              \
+    assert((_done_steps & step_value) == 0);                                  \
+    _done_steps |= step_value;                                                \
+                                                                              \
+    if (_done_steps == all_mask)                                              \
+      _notify_completed();                                                    \
+  }                                                                           \
+                                                                              \
+  void scope::type::reset()                                                   \
+  {                                                                           \
+    _done_steps = 0;                                                          \
+  }                                                                           \
+                                                                              \
+  void scope::type::reset(const std::function<void()>& on_completed)          \
+  {                                                                           \
+    reset();                                                                  \
+    _notify_completed = on_completed;                                         \
+  }
 
 #endif

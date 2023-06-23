@@ -23,11 +23,10 @@
 #include <algorithm>
 #include <functional>
 
-void iscool::net::detail::apply_xor( byte_array& bytes, const xor_key& key )
+void iscool::net::detail::apply_xor(byte_array& bytes, const xor_key& key)
 {
-    std::transform
-        ( bytes.begin(), bytes.end(),
-          iterators::cycle_iterator< xor_key::const_iterator >
-          ( key.begin(), key.end() ),
-          bytes.begin(), std::bit_xor< xor_key::value_type >() );
+  std::transform(bytes.begin(), bytes.end(),
+                 iterators::cycle_iterator<xor_key::const_iterator>(
+                     key.begin(), key.end()),
+                 bytes.begin(), std::bit_xor<xor_key::value_type>());
 }

@@ -16,29 +16,22 @@
 #ifndef ISCOOL_SCHEDULE_TIME_BOUNDED_FOR_EACH_TPP
 #define ISCOOL_SCHEDULE_TIME_BOUNDED_FOR_EACH_TPP
 
-
-template
-<
-    typename Iterator,
-    typename Function,
-    typename Rep,
-    typename Period
->
-void iscool::schedule::time_bounded_for_each::operator()
-( Iterator first, Iterator last, Function f,
-  std::chrono::duration< Rep, Period > time_limit )
+template <typename Iterator, typename Function, typename Rep, typename Period>
+void iscool::schedule::time_bounded_for_each::operator()(
+    Iterator first, Iterator last, Function f,
+    std::chrono::duration<Rep, Period> time_limit)
 {
-    assert( !_looping );
+  assert(!_looping);
 
-    _calls.resize( 0 );
-    _calls.reserve( std::distance( first, last ) );
+  _calls.resize(0);
+  _calls.reserve(std::distance(first, last));
 
-    for( Iterator it( first ); it != last; ++it )
-        _calls.push_back( std::bind< void >( f, *it ) );
+  for (Iterator it(first); it != last; ++it)
+    _calls.push_back(std::bind<void>(f, *it));
 
-    _next_index = 0;
-    _time_limit = std::chrono::duration_cast< duration_type >( time_limit );
-    schedule_loop();
+  _next_index = 0;
+  _time_limit = std::chrono::duration_cast<duration_type>(time_limit);
+  schedule_loop();
 }
 
 #endif

@@ -20,44 +20,42 @@
 
 #include <mutex>
 
-template< typename T, typename Mutex >
-iscool::memory::pool< T, Mutex >::pool()
-    : _allocated_count( 0 )
+template <typename T, typename Mutex>
+iscool::memory::pool<T, Mutex>::pool()
+  : _allocated_count(0)
+{}
+
+template <typename T, typename Mutex>
+iscool::memory::pool<T, Mutex>::~pool()
 {
-    
+  assert(_allocated_count == 0);
 }
 
-template< typename T, typename Mutex >
-iscool::memory::pool< T, Mutex >::~pool()
+template <typename T, typename Mutex>
+template <typename... Args>
+typename iscool::memory::pool<T, Mutex>::pointer
+iscool::memory::pool<T, Mutex>::construct(Args&&... args)
 {
-    assert( _allocated_count == 0 );
+  const std::unique_lock<Mutex> lock(_mutex);
+
+  ++_allocated_count;
+
+  const pointer result(_allocator.allocate(1));
+  new (result) T(std::forward<Args>(args)...);
+
+  return result;
 }
 
-template< typename T, typename Mutex >
-template< typename... Args >
-typename iscool::memory::pool< T, Mutex >::pointer
-iscool::memory::pool< T, Mutex >::construct( Args&&... args )
+template <typename T, typename Mutex>
+void iscool::memory::pool<T, Mutex>::destroy(pointer p)
 {
-    const std::unique_lock< Mutex > lock( _mutex );
-    
-    ++_allocated_count;
-    
-    const pointer result( _allocator.allocate( 1 ) );
-    new ( result ) T( std::forward< Args >( args )... );
+  const std::unique_lock<Mutex> lock(_mutex);
 
-    return result;
-}
-            
-template< typename T, typename Mutex >
-void iscool::memory::pool< T, Mutex >::destroy( pointer p )
-{
-    const std::unique_lock< Mutex > lock( _mutex );
+  assert(_allocated_count != 0);
+  --_allocated_count;
 
-    assert( _allocated_count != 0 );
-    --_allocated_count;
-    
-    p->~T();
-    _allocator.deallocate( p );
+  p->~T();
+  _allocator.deallocate(p);
 }
 
 #endif

@@ -20,54 +20,52 @@
 
 #include "json/value.h"
 
-template< typename T, std::size_t N >
-bool
-iscool::json::detail::cast< std::array< T, N > >::is_valid
-( const Json::Value& value )
+template <typename T, std::size_t N>
+bool iscool::json::detail::cast<std::array<T, N>>::is_valid(
+    const Json::Value& value)
 {
-    if ( !value.isArray() || value.isNull() )
-        return false;
+  if (!value.isArray() || value.isNull())
+    return false;
 
-    const Json::ArrayIndex count( value.size() );
+  const Json::ArrayIndex count(value.size());
 
-    if ( count != Json::ArrayIndex( N ) )
-        return false;
-    
-    for ( std::size_t i( 0 ); i != N; ++i )
-        if ( !cast< T >::is_valid( value[ Json::ArrayIndex( i ) ] ) )
-            return false;
+  if (count != Json::ArrayIndex(N))
+    return false;
 
-    return true;
+  for (std::size_t i(0); i != N; ++i)
+    if (!cast<T>::is_valid(value[Json::ArrayIndex(i)]))
+      return false;
+
+  return true;
 }
 
-template< typename T, std::size_t N >
-std::array< T, N >
-iscool::json::detail::cast< std::array< T, N > >::value
-( const Json::Value& json_value )
+template <typename T, std::size_t N>
+std::array<T, N> iscool::json::detail::cast<std::array<T, N>>::value(
+    const Json::Value& json_value)
 {
-    return value( json_value, &cast< T >::value );
+  return value(json_value, &cast<T>::value);
 }
 
-template< typename T, std::size_t N >
-template< typename EntryCast >
-std::array< T, N >
-iscool::json::detail::cast< std::array< T, N > >::value
-( const Json::Value& value, EntryCast entry_cast )
+template <typename T, std::size_t N>
+template <typename EntryCast>
+std::array<T, N>
+iscool::json::detail::cast<std::array<T, N>>::value(const Json::Value& value,
+                                                    EntryCast entry_cast)
 {
-    if ( !value.isArray() || value.isNull() )
-        throw bad_cast( value, "array" );
+  if (!value.isArray() || value.isNull())
+    throw bad_cast(value, "array");
 
-    const Json::ArrayIndex count( value.size() );
+  const Json::ArrayIndex count(value.size());
 
-    if ( count != N )
-        throw bad_cast( value, "array" );
+  if (count != N)
+    throw bad_cast(value, "array");
 
-    std::array< T, N > result;
+  std::array<T, N> result;
 
-    for ( std::size_t i( 0 ); i != N; ++i )
-        result[ i ] = entry_cast( value[ Json::ArrayIndex( i ) ] );
+  for (std::size_t i(0); i != N; ++i)
+    result[i] = entry_cast(value[Json::ArrayIndex(i)]);
 
-    return result;
+  return result;
 }
 
 #endif

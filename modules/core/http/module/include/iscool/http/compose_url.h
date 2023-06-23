@@ -22,12 +22,11 @@
 
 namespace iscool
 {
-    namespace http
-    {
-        std::string compose_url
-        ( const std::string& root,
-          const std::vector< query_parameter >& parameters );
-    }
+  namespace http
+  {
+    std::string compose_url(const std::string& root,
+                            const std::vector<query_parameter>& parameters);
+  }
 }
 
 #endif

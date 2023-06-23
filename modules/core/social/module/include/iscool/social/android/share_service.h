@@ -21,24 +21,24 @@
 
 namespace iscool
 {
-    namespace social
+  namespace social
+  {
+    namespace android
     {
-        namespace android
-        {
-            class share_service
-            {
-            public:
-                ~share_service();
-                
-                void share_message( const std::string& message );
-                void share_file
-                ( const std::string& file_path, const std::string& message );
+      class share_service
+      {
+      public:
+        ~share_service();
 
-            private:
-                std::unordered_set< std::string > _temp_files;
-            };
-        }
+        void share_message(const std::string& message);
+        void share_file(const std::string& file_path,
+                        const std::string& message);
+
+      private:
+        std::unordered_set<std::string> _temp_files;
+      };
     }
+  }
 }
 
 #endif

@@ -17,17 +17,15 @@
 
 #include "iscool/jni/bad_cast.h"
 #include "iscool/jni/cast.impl.tpp"
-#include "iscool/jni/implement_cast.h"
 #include "iscool/jni/get_method.h"
+#include "iscool/jni/implement_cast.h"
 #include "iscool/jni/method_jint.h"
 
-IMPLEMENT_JNI_CAST( jint );
+IMPLEMENT_JNI_CAST(jint);
 
-jint iscool::jni::detail::cast< jint >::value( jobject object )
+jint iscool::jni::detail::cast<jint>::value(jobject object)
 {
-    const auto to_int_method
-        ( jni::get_method< jint >
-          ( "java/lang/Integer", "intValue", "()I" ) );
-    return to_int_method( object );
+  const auto to_int_method(
+      jni::get_method<jint>("java/lang/Integer", "intValue", "()I"));
+  return to_int_method(object);
 }
-

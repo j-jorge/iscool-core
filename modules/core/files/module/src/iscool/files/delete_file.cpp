@@ -22,13 +22,12 @@
 
 #include <filesystem>
 
-void iscool::files::delete_file( const std::string& path )
+void iscool::files::delete_file(const std::string& path)
 {
-    std::error_code error;
-    std::filesystem::remove( path, error );
+  std::error_code error;
+  std::filesystem::remove(path, error);
 
-    if ( error )
-        ic_causeless_log
-            ( iscool::log::nature::error(), log_context(),
-              "Could not delete file '%s': %s", path, error.message() );
+  if (error)
+    ic_causeless_log(iscool::log::nature::error(), log_context(),
+                     "Could not delete file '%s': %s", path, error.message());
 }

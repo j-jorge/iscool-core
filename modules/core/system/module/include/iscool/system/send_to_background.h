@@ -18,10 +18,10 @@
 
 namespace iscool
 {
-    namespace system
-    {
-        void send_to_background();
-    }
+  namespace system
+  {
+    void send_to_background();
+  }
 }
 
 #endif

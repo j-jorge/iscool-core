@@ -21,17 +21,16 @@
 
 namespace iscool
 {
-    namespace signals
+  namespace signals
+  {
+    template <typename... Tuple>
+    class signal_collection_from_tuple
+      : public detail::signal_collection_from_tuple<Tuple...>
     {
-        template< typename... Tuple >
-        class signal_collection_from_tuple:
-            public detail::signal_collection_from_tuple< Tuple... >
-        {
-            static_assert
-            ( detail::no_tuple_is_masked< Tuple... >::value,
-              "Some tuples cannot be reached." );
-        };
-    }
+      static_assert(detail::no_tuple_is_masked<Tuple...>::value,
+                    "Some tuples cannot be reached.");
+    };
+  }
 }
 
 #endif

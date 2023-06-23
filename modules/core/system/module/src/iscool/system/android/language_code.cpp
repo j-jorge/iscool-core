@@ -21,10 +21,10 @@
 
 std::string iscool::system::get_language_code()
 {
-   const auto method
-        ( iscool::jni::get_static_method< iscool::jni::java_ptr< jstring > >
-          ( "iscool/system/SystemService", "getLanguageCode",
-            "()Ljava/lang/String;" ) );
+  const auto method(
+      iscool::jni::get_static_method<iscool::jni::java_ptr<jstring>>(
+          "iscool/system/SystemService", "getLanguageCode",
+          "()Ljava/lang/String;"));
 
-   return iscool::jni::to_string( method() );
+  return iscool::jni::to_string(method());
 }

@@ -20,10 +20,10 @@
 
 namespace iscool
 {
-    namespace ios
-    {
-        std::string get_bundle_id();
-    }
+  namespace ios
+  {
+    std::string get_bundle_id();
+  }
 }
 
 #endif

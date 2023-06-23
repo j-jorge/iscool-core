@@ -16,47 +16,47 @@
 #ifndef ISCOOL_STYLE_DETAIL_PROPERTIES_HANDLE_H
 #define ISCOOL_STYLE_DETAIL_PROPERTIES_HANDLE_H
 
-#include <cstdint>
 #include <cstddef>
+#include <cstdint>
 
 namespace iscool
 {
-    namespace style
+  namespace style
+  {
+    namespace detail
     {
-        namespace detail
-        {
-            class properties;
-            class shared_properties;
-            
-            class properties_handle
-            {
-            public:
-                properties_handle();
-                properties_handle( const properties_handle& that );
-                properties_handle( properties_handle&& that );
-                ~properties_handle();
-                
-                properties_handle& operator=( const properties_handle& that );
-                properties_handle& operator=( properties_handle&& that );
+      class properties;
+      class shared_properties;
 
-                explicit operator bool() const;
+      class properties_handle
+      {
+      public:
+        properties_handle();
+        properties_handle(const properties_handle& that);
+        properties_handle(properties_handle&& that);
+        ~properties_handle();
 
-                properties* operator->() const;
-                properties& operator*() const;
-                
-                std::uint64_t get_id() const;
+        properties_handle& operator=(const properties_handle& that);
+        properties_handle& operator=(properties_handle&& that);
 
-                void alloc();
-                void reset();
+        explicit operator bool() const;
 
-                bool is_unique() const;
-                
-            private:
-                std::size_t _pool_id;
-                shared_properties* _properties;
-            };
-        }
+        properties* operator->() const;
+        properties& operator*() const;
+
+        std::uint64_t get_id() const;
+
+        void alloc();
+        void reset();
+
+        bool is_unique() const;
+
+      private:
+        std::size_t _pool_id;
+        shared_properties* _properties;
+      };
     }
+  }
 }
 
 #endif

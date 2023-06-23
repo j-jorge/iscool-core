@@ -20,10 +20,10 @@
 
 namespace iscool
 {
-    namespace preferences
-    {
-        const std::string& log_context();
-    }
+  namespace preferences
+  {
+    const std::string& log_context();
+  }
 }
 
 #endif

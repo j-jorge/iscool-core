@@ -18,21 +18,18 @@
 
 #include "iscool/any/detail/get_visitors.h"
 
-#define ic_any_implement_visitor_interface( visitor )                   \
-    void visitor::visit( std::size_t type_id, void* value )             \
-    {                                                                   \
-        static const auto visitors                                      \
-            ( ::iscool::any::detail::get_visitors                       \
-              <                                                         \
-                visitor&,                                               \
-                visitor::supported_types                                \
-              >() );                                                    \
-        static const auto end( visitors.end() );                        \
-                                                                        \
-        const auto it( visitors.find( type_id ) );                      \
-                                                                        \
-        if ( it != end )                                                \
-            it->second( value, *this );                                 \
-    }
+#define ic_any_implement_visitor_interface(visitor)                           \
+  void visitor::visit(std::size_t type_id, void* value)                       \
+  {                                                                           \
+    static const auto visitors(                                               \
+        ::iscool::any::detail::get_visitors<visitor&,                         \
+                                            visitor::supported_types>());     \
+    static const auto end(visitors.end());                                    \
+                                                                              \
+    const auto it(visitors.find(type_id));                                    \
+                                                                              \
+    if (it != end)                                                            \
+      it->second(value, *this);                                               \
+  }
 
 #endif

@@ -20,20 +20,20 @@
 
 namespace iscool
 {
-    namespace profile
+  namespace profile
+  {
+    class scoped_profiler
     {
-        class scoped_profiler
-        {
-        public:
-            explicit scoped_profiler( const std::string& name );
-            ~scoped_profiler();
+    public:
+      explicit scoped_profiler(const std::string& name);
+      ~scoped_profiler();
 
-            void append_tag( const std::string& tag );
-        private:
-            profiler _profiler;
-        };
-    }
+      void append_tag(const std::string& tag);
+
+    private:
+      profiler _profiler;
+    };
+  }
 }
 
-
-#endif 
+#endif

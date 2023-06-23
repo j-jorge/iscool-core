@@ -17,531 +17,526 @@
 
 #include <gtest/gtest.h>
 
-TEST( iscool_signals_signal, initially_empty )
+TEST(iscool_signals_signal, initially_empty)
 {
-    iscool::signals::signal< void() > signal;
-    EXPECT_TRUE( signal.empty() );
+  iscool::signals::signal<void()> signal;
+  EXPECT_TRUE(signal.empty());
 }
 
-TEST( iscool_signals_signal, connect )
+TEST(iscool_signals_signal, connect)
 {
-    iscool::signals::signal< void() > signal;
+  iscool::signals::signal<void()> signal;
 
-    bool called( false );
-    signal.connect
-        ( [ &called ]() -> void
-          {
-              called = true;
-          } );
+  bool called(false);
+  signal.connect(
+      [&called]() -> void
+      {
+        called = true;
+      });
 
-    EXPECT_FALSE( signal.empty() );
-    
-    signal();
-    EXPECT_TRUE( called );
+  EXPECT_FALSE(signal.empty());
+
+  signal();
+  EXPECT_TRUE(called);
 }
 
-TEST( iscool_signals_signal, disconnect_all_slots )
+TEST(iscool_signals_signal, disconnect_all_slots)
 {
-    iscool::signals::signal< void() > signal;
+  iscool::signals::signal<void()> signal;
 
-    bool called( false );
-    signal.connect
-        ( [ &called ]() -> void
-          {
-              called = true;
-          } );
+  bool called(false);
+  signal.connect(
+      [&called]() -> void
+      {
+        called = true;
+      });
 
-    signal.disconnect_all_slots();
-    signal();
-    EXPECT_FALSE( called );
+  signal.disconnect_all_slots();
+  signal();
+  EXPECT_FALSE(called);
 }
 
-TEST( iscool_signals_signal, call_order )
+TEST(iscool_signals_signal, call_order)
 {
-    iscool::signals::signal< void() > signal;
+  iscool::signals::signal<void()> signal;
 
-    std::size_t calls( 0 );
-    std::size_t first_call( 0 );
-    signal.connect
-        ( [ &calls, &first_call ]() -> void
-          {
-              ++calls;
-              first_call = calls;
-          } );
-    
-    std::size_t second_call( 0 );
-    signal.connect
-        ( [ &calls, &second_call ]() -> void
-          {
-              ++calls;
-              second_call = calls;
-          } );
+  std::size_t calls(0);
+  std::size_t first_call(0);
+  signal.connect(
+      [&calls, &first_call]() -> void
+      {
+        ++calls;
+        first_call = calls;
+      });
 
-    signal();
-    EXPECT_EQ( std::size_t( 1 ), first_call );
-    EXPECT_EQ( std::size_t( 2 ), second_call );
+  std::size_t second_call(0);
+  signal.connect(
+      [&calls, &second_call]() -> void
+      {
+        ++calls;
+        second_call = calls;
+      });
+
+  signal();
+  EXPECT_EQ(std::size_t(1), first_call);
+  EXPECT_EQ(std::size_t(2), second_call);
 }
 
-TEST( iscool_signals_signal, connect_while_triggered )
+TEST(iscool_signals_signal, connect_while_triggered)
 {
-    iscool::signals::signal< void() > signal;
+  iscool::signals::signal<void()> signal;
 
-    bool called( false );
-    auto set_call
-        ( [ &called ]() -> void
-          {
-              called = true;
-          } );
-    
-    signal.connect
-        ( [ &signal, set_call ]() -> void
-          {
-              signal.connect( set_call );
-          } );
+  bool called(false);
+  auto set_call(
+      [&called]() -> void
+      {
+        called = true;
+      });
 
-    signal();
-    EXPECT_FALSE( called );
+  signal.connect(
+      [&signal, set_call]() -> void
+      {
+        signal.connect(set_call);
+      });
 
-    signal();
-    EXPECT_TRUE( called );
+  signal();
+  EXPECT_FALSE(called);
+
+  signal();
+  EXPECT_TRUE(called);
 }
 
-TEST( iscool_signals_signal, disconnect_while_triggered )
+TEST(iscool_signals_signal, disconnect_while_triggered)
 {
-    iscool::signals::signal< void() > signal;
+  iscool::signals::signal<void()> signal;
 
-    bool called_1( false );
-    iscool::signals::connection connection;
-    
-    signal.connect
-        ( [ &called_1, &connection ]() -> void
-          {
-              called_1 = true;
-              connection.disconnect();
-          } );
+  bool called_1(false);
+  iscool::signals::connection connection;
 
-    bool called_2( false );
-    connection =
-        signal.connect
-        ( [ &called_2 ]() -> void
-          {
-              called_2 = true;
-          } );
-    
-    signal();
-    EXPECT_TRUE( called_1 );
-    EXPECT_FALSE( called_2 );
+  signal.connect(
+      [&called_1, &connection]() -> void
+      {
+        called_1 = true;
+        connection.disconnect();
+      });
+
+  bool called_2(false);
+  connection = signal.connect(
+      [&called_2]() -> void
+      {
+        called_2 = true;
+      });
+
+  signal();
+  EXPECT_TRUE(called_1);
+  EXPECT_FALSE(called_2);
 }
 
-TEST( iscool_signals_signal, swap_0_0 )
+TEST(iscool_signals_signal, swap_0_0)
 {
-    iscool::signals::signal< void() > signal;
-    iscool::signals::signal< void() > signal_alt;
+  iscool::signals::signal<void()> signal;
+  iscool::signals::signal<void()> signal_alt;
 
-    signal.swap( signal_alt );
-    EXPECT_TRUE( signal.empty() );
-    EXPECT_TRUE( signal_alt.empty() );
+  signal.swap(signal_alt);
+  EXPECT_TRUE(signal.empty());
+  EXPECT_TRUE(signal_alt.empty());
 }
 
-TEST( iscool_signals_signal, swap_0_1 )
+TEST(iscool_signals_signal, swap_0_1)
 {
-    iscool::signals::signal< void() > signal;
+  iscool::signals::signal<void()> signal;
 
-    bool called( false );
-    signal.connect
-        ( [ &called ]() -> void
-          {
-              called = true;
-          } );
+  bool called(false);
+  signal.connect(
+      [&called]() -> void
+      {
+        called = true;
+      });
 
-    iscool::signals::signal< void() > signal_alt;
-    signal_alt.swap( signal );
-    
-    signal();
-    EXPECT_FALSE( called );
+  iscool::signals::signal<void()> signal_alt;
+  signal_alt.swap(signal);
 
-    signal_alt();
-    EXPECT_TRUE( called );
+  signal();
+  EXPECT_FALSE(called);
+
+  signal_alt();
+  EXPECT_TRUE(called);
 }
 
-TEST( iscool_signals_signal, swap_0_n )
+TEST(iscool_signals_signal, swap_0_n)
 {
-    iscool::signals::signal< void() > signal;
+  iscool::signals::signal<void()> signal;
 
-    bool called_1( false );
-    signal.connect
-        ( [ &called_1 ]() -> void
-          {
-              called_1 = true;
-          } );
+  bool called_1(false);
+  signal.connect(
+      [&called_1]() -> void
+      {
+        called_1 = true;
+      });
 
-    bool called_2( false );
-    signal.connect
-        ( [ &called_2 ]() -> void
-          {
-              called_2 = true;
-          } );
+  bool called_2(false);
+  signal.connect(
+      [&called_2]() -> void
+      {
+        called_2 = true;
+      });
 
-    iscool::signals::signal< void() > signal_alt;
-    signal_alt.swap( signal );
-    
-    signal();
-    EXPECT_FALSE( called_1 );
-    EXPECT_FALSE( called_2 );
+  iscool::signals::signal<void()> signal_alt;
+  signal_alt.swap(signal);
 
-    signal_alt();
-    EXPECT_TRUE( called_1 );
-    EXPECT_TRUE( called_2 );
+  signal();
+  EXPECT_FALSE(called_1);
+  EXPECT_FALSE(called_2);
+
+  signal_alt();
+  EXPECT_TRUE(called_1);
+  EXPECT_TRUE(called_2);
 }
 
-TEST( iscool_signals_signal, swap_1_1 )
+TEST(iscool_signals_signal, swap_1_1)
 {
-    iscool::signals::signal< void() > signal;
+  iscool::signals::signal<void()> signal;
 
-    bool called( false );
-    signal.connect
-        ( [ &called ]() -> void
-          {
-              called = true;
-          } );
+  bool called(false);
+  signal.connect(
+      [&called]() -> void
+      {
+        called = true;
+      });
 
-    iscool::signals::signal< void() > signal_alt;
+  iscool::signals::signal<void()> signal_alt;
 
-    bool called_alt( false );
-    signal_alt.connect
-        ( [ &called_alt ]() -> void
-          {
-              called_alt = true;
-          } );
+  bool called_alt(false);
+  signal_alt.connect(
+      [&called_alt]() -> void
+      {
+        called_alt = true;
+      });
 
-    signal_alt.swap( signal );
-    
-    signal();
-    EXPECT_FALSE( called );
-    EXPECT_TRUE( called_alt );
+  signal_alt.swap(signal);
 
-    called_alt = false;
-    signal_alt();
-    
-    EXPECT_TRUE( called );
-    EXPECT_FALSE( called_alt );
+  signal();
+  EXPECT_FALSE(called);
+  EXPECT_TRUE(called_alt);
+
+  called_alt = false;
+  signal_alt();
+
+  EXPECT_TRUE(called);
+  EXPECT_FALSE(called_alt);
 }
 
-TEST( iscool_signals_signal, swap_1_n )
+TEST(iscool_signals_signal, swap_1_n)
 {
-    iscool::signals::signal< void() > signal;
+  iscool::signals::signal<void()> signal;
 
-    bool called( false );
-    signal.connect
-        ( [ &called ]() -> void
-          {
-              called = true;
-          } );
+  bool called(false);
+  signal.connect(
+      [&called]() -> void
+      {
+        called = true;
+      });
 
-    iscool::signals::signal< void() > signal_alt;
+  iscool::signals::signal<void()> signal_alt;
 
-    bool called_alt_1( false );
-    signal_alt.connect
-        ( [ &called_alt_1 ]() -> void
-          {
-              called_alt_1 = true;
-          } );
+  bool called_alt_1(false);
+  signal_alt.connect(
+      [&called_alt_1]() -> void
+      {
+        called_alt_1 = true;
+      });
 
-    bool called_alt_2( false );
-    signal_alt.connect
-        ( [ &called_alt_2 ]() -> void
-          {
-              called_alt_2 = true;
-          } );
+  bool called_alt_2(false);
+  signal_alt.connect(
+      [&called_alt_2]() -> void
+      {
+        called_alt_2 = true;
+      });
 
-    signal_alt.swap( signal );
-    
-    signal();
-    EXPECT_FALSE( called );
-    EXPECT_TRUE( called_alt_1 );
-    EXPECT_TRUE( called_alt_2 );
+  signal_alt.swap(signal);
 
-    called_alt_1 = false;
-    called_alt_2 = false;
-    signal_alt();
-    
-    EXPECT_TRUE( called );
-    EXPECT_FALSE( called_alt_1 );
-    EXPECT_FALSE( called_alt_2 );
+  signal();
+  EXPECT_FALSE(called);
+  EXPECT_TRUE(called_alt_1);
+  EXPECT_TRUE(called_alt_2);
+
+  called_alt_1 = false;
+  called_alt_2 = false;
+  signal_alt();
+
+  EXPECT_TRUE(called);
+  EXPECT_FALSE(called_alt_1);
+  EXPECT_FALSE(called_alt_2);
 }
 
-TEST( iscool_signals_signal, swap_n_n )
+TEST(iscool_signals_signal, swap_n_n)
 {
-    iscool::signals::signal< void() > signal;
+  iscool::signals::signal<void()> signal;
 
-    bool called_1( false );
-    signal.connect
-        ( [ &called_1 ]() -> void
-          {
-              called_1 = true;
-          } );
+  bool called_1(false);
+  signal.connect(
+      [&called_1]() -> void
+      {
+        called_1 = true;
+      });
 
-    bool called_2( false );
-    signal.connect
-        ( [ &called_2 ]() -> void
-          {
-              called_2 = true;
-          } );
+  bool called_2(false);
+  signal.connect(
+      [&called_2]() -> void
+      {
+        called_2 = true;
+      });
 
-    iscool::signals::signal< void() > signal_alt;
+  iscool::signals::signal<void()> signal_alt;
 
-    bool called_alt_1( false );
-    signal_alt.connect
-        ( [ &called_alt_1 ]() -> void
-          {
-              called_alt_1 = true;
-          } );
+  bool called_alt_1(false);
+  signal_alt.connect(
+      [&called_alt_1]() -> void
+      {
+        called_alt_1 = true;
+      });
 
-    bool called_alt_2( false );
-    signal_alt.connect
-        ( [ &called_alt_2 ]() -> void
-          {
-              called_alt_2 = true;
-          } );
+  bool called_alt_2(false);
+  signal_alt.connect(
+      [&called_alt_2]() -> void
+      {
+        called_alt_2 = true;
+      });
 
-    signal_alt.swap( signal );
-    
-    signal();
-    EXPECT_FALSE( called_1 );
-    EXPECT_FALSE( called_2 );
-    EXPECT_TRUE( called_alt_1 );
-    EXPECT_TRUE( called_alt_2 );
+  signal_alt.swap(signal);
 
-    called_alt_1 = false;
-    called_alt_2 = false;
-    signal_alt();
-    
-    EXPECT_TRUE( called_1 );
-    EXPECT_TRUE( called_2 );
-    EXPECT_FALSE( called_alt_1 );
-    EXPECT_FALSE( called_alt_2 );
+  signal();
+  EXPECT_FALSE(called_1);
+  EXPECT_FALSE(called_2);
+  EXPECT_TRUE(called_alt_1);
+  EXPECT_TRUE(called_alt_2);
+
+  called_alt_1 = false;
+  called_alt_2 = false;
+  signal_alt();
+
+  EXPECT_TRUE(called_1);
+  EXPECT_TRUE(called_2);
+  EXPECT_FALSE(called_alt_1);
+  EXPECT_FALSE(called_alt_2);
 }
 
-TEST( iscool_signals_signal, swap_while_triggered )
+TEST(iscool_signals_signal, swap_while_triggered)
 {
-    iscool::signals::signal< void() > signal;
+  iscool::signals::signal<void()> signal;
 
-    int calls_1( 0 );
-    signal.connect
-        ( [ &calls_1 ]() -> void
-          {
-              ++calls_1;
-          } );
+  int calls_1(0);
+  signal.connect(
+      [&calls_1]() -> void
+      {
+        ++calls_1;
+      });
 
-    int calls_2( 0 );
-    signal.connect
-        ( [ &calls_2 ]() -> void
-          {
-              ++calls_2;
-          } );
+  int calls_2(0);
+  signal.connect(
+      [&calls_2]() -> void
+      {
+        ++calls_2;
+      });
 
-    iscool::signals::signal< void() > signal_alt;
+  iscool::signals::signal<void()> signal_alt;
 
-    signal_alt.connect
-        ( [ &signal_alt, &signal ]() -> void
-          {
-              signal_alt.swap( signal );
-          } );
-    
-    int calls_alt( 0 );
-    signal_alt.connect
-        ( [ &calls_alt ]() -> void
-          {
-              ++calls_alt;
-          } );
-    
-    signal_alt();
-    EXPECT_EQ( 0, calls_1 );
-    EXPECT_EQ( 0, calls_2 );
-    EXPECT_EQ( 1, calls_alt );
+  signal_alt.connect(
+      [&signal_alt, &signal]() -> void
+      {
+        signal_alt.swap(signal);
+      });
 
-    signal_alt();
-    EXPECT_EQ( 1, calls_1 );
-    EXPECT_EQ( 1, calls_2 );
-    EXPECT_EQ( 1, calls_alt );
+  int calls_alt(0);
+  signal_alt.connect(
+      [&calls_alt]() -> void
+      {
+        ++calls_alt;
+      });
+
+  signal_alt();
+  EXPECT_EQ(0, calls_1);
+  EXPECT_EQ(0, calls_2);
+  EXPECT_EQ(1, calls_alt);
+
+  signal_alt();
+  EXPECT_EQ(1, calls_1);
+  EXPECT_EQ(1, calls_2);
+  EXPECT_EQ(1, calls_alt);
 }
 
-TEST( iscool_signals_signal, argument )
+TEST(iscool_signals_signal, argument)
 {
-    iscool::signals::signal< void( int ) > signal;
+  iscool::signals::signal<void(int)> signal;
 
-    int arg( 0 );
-    signal.connect
-        ( [ &arg ]( int v ) -> void
-          {
-              arg = v;
-          } );
+  int arg(0);
+  signal.connect(
+      [&arg](int v) -> void
+      {
+        arg = v;
+      });
 
-    signal( 24 );
-    EXPECT_EQ( 24, arg );
+  signal(24);
+  EXPECT_EQ(24, arg);
 }
 
-TEST( iscool_signals_signal, recursive )
+TEST(iscool_signals_signal, recursive)
 {
-    iscool::signals::signal< void( int ) > signal;
+  iscool::signals::signal<void(int)> signal;
 
-    int calls( 0 );
-    signal.connect
-        ( [ &calls, &signal ]( int v ) -> void
-          {
-              ++calls;
+  int calls(0);
+  signal.connect(
+      [&calls, &signal](int v) -> void
+      {
+        ++calls;
 
-              if ( v > 0 )
-                  signal( v - 1 );
-          } );
+        if (v > 0)
+          signal(v - 1);
+      });
 
-    signal( 3 );
-    EXPECT_EQ( 4, calls );
+  signal(3);
+  EXPECT_EQ(4, calls);
 }
 
-TEST( iscool_signals_signal, connections_of_swapped_signals )
+TEST(iscool_signals_signal, connections_of_swapped_signals)
 {
-    iscool::signals::signal< void() > signal_1;
-    bool called_1( false );
-    const iscool::signals::connection connection_1
-        ( signal_1.connect
-          ( [ &called_1 ]() -> void
-            {
-                called_1 = true;
-            } ) );
+  iscool::signals::signal<void()> signal_1;
+  bool called_1(false);
+  const iscool::signals::connection connection_1(signal_1.connect(
+      [&called_1]() -> void
+      {
+        called_1 = true;
+      }));
 
-    iscool::signals::signal< void() > signal_2;
-    bool called_2( false );
-    const iscool::signals::connection connection_2
-        ( signal_2.connect
-          ( [ &called_2 ]() -> void
-            {
-                called_2 = true;
-            } ) );
+  iscool::signals::signal<void()> signal_2;
+  bool called_2(false);
+  const iscool::signals::connection connection_2(signal_2.connect(
+      [&called_2]() -> void
+      {
+        called_2 = true;
+      }));
 
-    signal_1.swap( signal_2 );
-    signal_1.disconnect_all_slots();
+  signal_1.swap(signal_2);
+  signal_1.disconnect_all_slots();
 
-    EXPECT_TRUE( signal_1.empty() );
-    EXPECT_FALSE( signal_2.empty() );
+  EXPECT_TRUE(signal_1.empty());
+  EXPECT_FALSE(signal_2.empty());
 
-    EXPECT_TRUE( connection_1.connected() );
-    EXPECT_FALSE( connection_2.connected() );
+  EXPECT_TRUE(connection_1.connected());
+  EXPECT_FALSE(connection_2.connected());
 
-    signal_2();
+  signal_2();
 
-    EXPECT_TRUE( called_1 );
-    EXPECT_FALSE( called_2 );
+  EXPECT_TRUE(called_1);
+  EXPECT_FALSE(called_2);
 }
 
 class dummy_class_with_signal
 {
-    DECLARE_SIGNAL( void( int ), int, _int );
-    DECLARE_VOID_SIGNAL( void, _void );
+  DECLARE_SIGNAL(void(int), int, _int);
+  DECLARE_VOID_SIGNAL(void, _void);
 
 public:
-    dummy_class_with_signal();
-    void trigger_int( int i ) const;
-    void trigger_void() const;
+  dummy_class_with_signal();
+  void trigger_int(int i) const;
+  void trigger_void() const;
 };
 
-IMPLEMENT_SIGNAL( dummy_class_with_signal, int, _int );
-IMPLEMENT_SIGNAL( dummy_class_with_signal, void, _void );
+IMPLEMENT_SIGNAL(dummy_class_with_signal, int, _int);
+IMPLEMENT_SIGNAL(dummy_class_with_signal, void, _void);
 
 dummy_class_with_signal::dummy_class_with_signal()
+{}
+
+void dummy_class_with_signal::trigger_int(int i) const
 {
-}
-    
-void dummy_class_with_signal::trigger_int( int i ) const
-{
-    _int( i );
+  _int(i);
 }
 
 void dummy_class_with_signal::trigger_void() const
 {
-    _void();
+  _void();
 }
 
-TEST( iscool_signals_signal, declare_macro )
+TEST(iscool_signals_signal, declare_macro)
 {
-    const dummy_class_with_signal dummy;
+  const dummy_class_with_signal dummy;
 
-    int int_arg( 0 );
-    dummy.connect_to_int
-        ( [ &int_arg ]( int i ) -> void
-          {
-              int_arg = i;
-          } );
+  int int_arg(0);
+  dummy.connect_to_int(
+      [&int_arg](int i) -> void
+      {
+        int_arg = i;
+      });
 
-    dummy.trigger_int( 843 );
-    EXPECT_EQ( 843, int_arg );
-    
-    bool void_called( false );
-    dummy.connect_to_void
-        ( [ &void_called ]() -> void
-          {
-              void_called = true;
-          } );
+  dummy.trigger_int(843);
+  EXPECT_EQ(843, int_arg);
 
-    dummy.trigger_void();
-    EXPECT_TRUE( void_called );
+  bool void_called(false);
+  dummy.connect_to_void(
+      [&void_called]() -> void
+      {
+        void_called = true;
+      });
+
+  dummy.trigger_void();
+  EXPECT_TRUE(void_called);
 }
 
-template< typename T >
+template <typename T>
 class dummy_template_class_with_signal
 {
-    DECLARE_SIGNAL_IN_TEMPLATE( void( T ), typed, _typed );
-    DECLARE_VOID_SIGNAL( void, _void );
+  DECLARE_SIGNAL_IN_TEMPLATE(void(T), typed, _typed);
+  DECLARE_VOID_SIGNAL(void, _void);
 
 public:
-    dummy_template_class_with_signal();
-    void trigger_typed( T value  ) const;
-    void trigger_void() const;
+  dummy_template_class_with_signal();
+  void trigger_typed(T value) const;
+  void trigger_void() const;
 };
 
-template< typename T >
-IMPLEMENT_SIGNAL( dummy_template_class_with_signal< T >, typed, _typed );
-template< typename T >
-IMPLEMENT_SIGNAL( dummy_template_class_with_signal< T >, void, _void );
+template <typename T>
+IMPLEMENT_SIGNAL(dummy_template_class_with_signal<T>, typed, _typed);
+template <typename T>
+IMPLEMENT_SIGNAL(dummy_template_class_with_signal<T>, void, _void);
 
-template< typename T >
-dummy_template_class_with_signal< T >::dummy_template_class_with_signal()
-{
-}
-    
-template< typename T >
-void dummy_template_class_with_signal< T >::trigger_typed( T value ) const
-{
-    _typed( value );
-}
+template <typename T>
+dummy_template_class_with_signal<T>::dummy_template_class_with_signal()
+{}
 
-template< typename T >
-void dummy_template_class_with_signal< T >::trigger_void() const
+template <typename T>
+void dummy_template_class_with_signal<T>::trigger_typed(T value) const
 {
-    _void();
+  _typed(value);
 }
 
-TEST( iscool_signals_signal, declare_macro_template )
+template <typename T>
+void dummy_template_class_with_signal<T>::trigger_void() const
 {
-    const dummy_template_class_with_signal< int > dummy;
+  _void();
+}
 
-    int int_arg( 0 );
-    dummy.connect_to_typed
-        ( [ &int_arg ]( int i ) -> void
-          {
-              int_arg = i;
-          } );
+TEST(iscool_signals_signal, declare_macro_template)
+{
+  const dummy_template_class_with_signal<int> dummy;
 
-    dummy.trigger_typed( 843 );
-    EXPECT_EQ( 843, int_arg );
-    
-    bool void_called( false );
-    dummy.connect_to_void
-        ( [ &void_called ]() -> void
-          {
-              void_called = true;
-          } );
+  int int_arg(0);
+  dummy.connect_to_typed(
+      [&int_arg](int i) -> void
+      {
+        int_arg = i;
+      });
 
-    dummy.trigger_void();
-    EXPECT_TRUE( void_called );
+  dummy.trigger_typed(843);
+  EXPECT_EQ(843, int_arg);
+
+  bool void_called(false);
+  dummy.connect_to_void(
+      [&void_called]() -> void
+      {
+        void_called = true;
+      });
+
+  dummy.trigger_void();
+  EXPECT_TRUE(void_called);
 }

@@ -16,31 +16,31 @@
 #ifndef WISHINGWELL_H
 #define WISHINGWELL_H
 
-#include "iscool/wish/wish.h"
 #include "iscool/wish/genie.h"
+#include "iscool/wish/wish.h"
 
 namespace iscool
 {
-    namespace wish
+  namespace wish
+  {
+    class wishing_well
     {
-        class wishing_well
-        {
-        public:
-            explicit wishing_well( genie& genie );
+    public:
+      explicit wishing_well(genie& genie);
 
-            template< typename T >
-            void make_a_wish( const T& wish );
+      template <typename T>
+      void make_a_wish(const T& wish);
 
-            template< typename T >
-            void make_a_wish();
+      template <typename T>
+      void make_a_wish();
 
-            template< typename T >
-            bool is_wish_grantable();
+      template <typename T>
+      bool is_wish_grantable();
 
-        private:
-            genie& _genie;
-        };
-    }
+    private:
+      genie& _genie;
+    };
+  }
 }
 
 #include "iscool/wish/wishing_well.tpp"

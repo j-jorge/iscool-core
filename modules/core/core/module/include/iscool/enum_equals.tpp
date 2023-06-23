@@ -16,16 +16,16 @@
 #ifndef ISCOOL_ENUM_EQUALS_TPP
 #define ISCOOL_ENUM_EQUALS_TPP
 
-template< typename Enum >
-bool iscool::enum_equals( int lhs, Enum rhs )
+template <typename Enum>
+bool iscool::enum_equals(int lhs, Enum rhs)
 {
-    return lhs == static_cast< int >( rhs );
+  return lhs == static_cast<int>(rhs);
 }
 
-template< typename Enum >
-bool iscool::enum_equals( Enum lhs, int rhs )
+template <typename Enum>
+bool iscool::enum_equals(Enum lhs, int rhs)
 {
-    return enum_equals( rhs, lhs );
+  return enum_equals(rhs, lhs);
 }
 
 #endif

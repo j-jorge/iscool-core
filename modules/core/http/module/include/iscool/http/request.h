@@ -23,43 +23,43 @@
 
 namespace iscool
 {
-    namespace http
+  namespace http
+  {
+    class request
     {
-        class request
-        {
-        public:
-            enum class type
-            {
-                get,
-                post
-            };
+    public:
+      enum class type
+      {
+        get,
+        post
+      };
 
-            typedef std::function< void( const response& ) > response_handler;
+      typedef std::function<void(const response&)> response_handler;
 
-        public:
-            void set_type( type t );
-            type get_type() const;
+    public:
+      void set_type(type t);
+      type get_type() const;
 
-            void set_url( const std::string& url );
-            const std::string& get_url() const;
+      void set_url(const std::string& url);
+      const std::string& get_url() const;
 
-            void set_body( const std::string& body );
-            const std::string& get_body() const;
+      void set_body(const std::string& body);
+      const std::string& get_body() const;
 
-            void set_headers( const std::vector< std::string >& headers );
-            const std::vector< std::string >& get_headers() const;
+      void set_headers(const std::vector<std::string>& headers);
+      const std::vector<std::string>& get_headers() const;
 
-            void set_response_handler( response_handler handler );
-            response_handler get_response_handler() const;
+      void set_response_handler(response_handler handler);
+      response_handler get_response_handler() const;
 
-        private:
-            type _type;
-            std::string _url;
-            std::string _body;
-            std::vector< std::string > _headers;
-            response_handler _response_handler;
-        };
-    }
+    private:
+      type _type;
+      std::string _url;
+      std::string _body;
+      std::vector<std::string> _headers;
+      response_handler _response_handler;
+    };
+  }
 }
 
 #endif

@@ -16,52 +16,29 @@
 #ifndef ISCOOL_SIGNALS_FIND_SIGNAL_TYPE_FROM_TUPLE_ELEMENT_H
 #define ISCOOL_SIGNALS_FIND_SIGNAL_TYPE_FROM_TUPLE_ELEMENT_H
 
-#include "iscool/signals/signal_collection_from_tuple.h"
 #include "iscool/signals/detail/find_signal_type_from_tuple_element.h"
+#include "iscool/signals/signal_collection_from_tuple.h"
 
 namespace iscool
 {
-    namespace signals
-    {
-        template< typename SearchedType, std::size_t I, typename Collection >
-        class find_signal_type_from_tuple_element;
+  namespace signals
+  {
+    template <typename SearchedType, std::size_t I, typename Collection>
+    class find_signal_type_from_tuple_element;
 
-        template
-        <
-            typename SearchedType,
-            std::size_t I,
-            typename Tuple,
-            typename... Arg
-        >
-        class find_signal_type_from_tuple_element
-        <
-            SearchedType,
-            I,
-            signal_collection_from_tuple
-            <
-                Tuple,
-                Arg...
-            >
-        >
-        {
-        public:
-            typedef typename detail::find_signal_type_from_tuple_element
-            <
-                SearchedType,
-                I,
-                std::is_same
-                <
-                    typename std::tuple_element< I, Tuple >::type,
-                    SearchedType
-                >::value,
-                detail::signal_collection_from_tuple
-                <
-                    Tuple,
-                    Arg...
-                >
-            >::type type;
-        };
-    }
+    template <typename SearchedType, std::size_t I, typename Tuple,
+              typename... Arg>
+    class find_signal_type_from_tuple_element<
+        SearchedType, I, signal_collection_from_tuple<Tuple, Arg...>>
+    {
+    public:
+      typedef typename detail::find_signal_type_from_tuple_element<
+          SearchedType, I,
+          std::is_same<typename std::tuple_element<I, Tuple>::type,
+                       SearchedType>::value,
+          detail::signal_collection_from_tuple<Tuple, Arg...>>::type type;
+    };
+  }
 }
 
 #endif

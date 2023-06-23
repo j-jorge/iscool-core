@@ -16,4 +16,4 @@
 #include "iscool/system/detail/capture_screen_delegate.h"
 
 iscool::system::capture_screen_function
-iscool::system::detail::capture_screen_delegate;
+    iscool::system::detail::capture_screen_delegate;

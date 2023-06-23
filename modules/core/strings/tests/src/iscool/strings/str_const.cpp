@@ -17,7 +17,7 @@
 
 #include <gtest/gtest.h>
 
-TEST( iscool_strings_str_const, size )
+TEST(iscool_strings_str_const, size)
 {
-    EXPECT_EQ( 5, iscool::strings::str_const( "abcde" ).size() );
+  EXPECT_EQ(5, iscool::strings::str_const("abcde").size());
 }

@@ -20,13 +20,13 @@
 
 namespace iscool
 {
-    namespace i18n
+  namespace i18n
+  {
+    namespace detail
     {
-        namespace detail
-        {
-            extern std::string default_language_code;
-        }
+      extern std::string default_language_code;
     }
+  }
 }
 
 #endif

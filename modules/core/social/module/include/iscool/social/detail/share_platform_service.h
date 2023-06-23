@@ -17,32 +17,32 @@
 #define ISCOOL_SOCIAL_DETAIL_SHARE_PLATFORM_SERVICE_H
 
 #if defined __APPLE__
-#include "TargetConditionals.h"
+  #include "TargetConditionals.h"
 #endif
 
 #if defined __ANDROID__
-#include "iscool/social/android/share_service.h"
-#elif ( TARGET_OS_IPHONE == 1 )
-#include "iscool/social/ios/share_service.h"
+  #include "iscool/social/android/share_service.h"
+#elif (TARGET_OS_IPHONE == 1)
+  #include "iscool/social/ios/share_service.h"
 #else
   #include "iscool/social/detail/mockup_share_service.h"
 #endif
 
 namespace iscool
 {
-    namespace social
+  namespace social
+  {
+    namespace detail
     {
-        namespace detail
-        {
 #if defined __ANDROID__
-            typedef android::share_service share_platform_service;
-#elif ( TARGET_OS_IPHONE == 1 )
-            typedef ios::share_service share_platform_service;
+      typedef android::share_service share_platform_service;
+#elif (TARGET_OS_IPHONE == 1)
+      typedef ios::share_service share_platform_service;
 #else
-            typedef mockup_share_service share_platform_service;
+      typedef mockup_share_service share_platform_service;
 #endif
-        }
     }
+  }
 }
 
 #endif

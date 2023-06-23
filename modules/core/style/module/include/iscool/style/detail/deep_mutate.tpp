@@ -18,23 +18,23 @@
 
 #include "iscool/style/declaration.h"
 
-template< typename Mutation, std::size_t N >
-void iscool::style::deep_mutate
-( declaration& style, const std::array< std::string, N >& path,
-  Mutation mutation )
+template <typename Mutation, std::size_t N>
+void iscool::style::deep_mutate(declaration& style,
+                                const std::array<std::string, N>& path,
+                                Mutation mutation)
 {
-    static constexpr std::size_t queue_size( N + 1 );
-    std::array< declaration, queue_size > queue{{ style }};
+  static constexpr std::size_t queue_size(N + 1);
+  std::array<declaration, queue_size> queue{ { style } };
 
-    for ( std::size_t i( 0 ); i != N; ++i )
-        queue[ i + 1 ] = queue[ i ].get_declaration_or_empty( path[ i ] );
+  for (std::size_t i(0); i != N; ++i)
+    queue[i + 1] = queue[i].get_declaration_or_empty(path[i]);
 
-    mutation( queue.back() );
-        
-    for ( std::size_t i( queue_size - 1 ); i != 0; --i )
-        queue[ i - 1 ].set_declaration( path[ i - 1 ], queue[ i ] );
+  mutation(queue.back());
 
-    style = std::move( queue.front() );
+  for (std::size_t i(queue_size - 1); i != 0; --i)
+    queue[i - 1].set_declaration(path[i - 1], queue[i]);
+
+  style = std::move(queue.front());
 }
 
 #endif

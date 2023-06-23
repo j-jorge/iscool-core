@@ -15,33 +15,32 @@
 */
 #include "iscool/error/synopsis.h"
 
-iscool::error::synopsis::synopsis
-( std::size_t code, const std::string& category,
-  const std::string& title, const std::string& message )
-    : m_code( code ),
-      m_category( category ),
-      m_title( title ),
-      m_message( message )
-{
+iscool::error::synopsis::synopsis(std::size_t code,
+                                  const std::string& category,
+                                  const std::string& title,
+                                  const std::string& message)
+  : m_code(code)
+  , m_category(category)
+  , m_title(title)
+  , m_message(message)
+{}
 
-}
-            
 std::size_t iscool::error::synopsis::get_code() const
 {
-    return m_code;
+  return m_code;
 }
 
 const std::string& iscool::error::synopsis::get_category() const
 {
-    return m_category;
+  return m_category;
 }
 
 const std::string& iscool::error::synopsis::get_title() const
 {
-    return m_title;
+  return m_title;
 }
 
 const std::string& iscool::error::synopsis::get_message() const
 {
-    return m_message;
+  return m_message;
 }

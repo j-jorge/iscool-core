@@ -23,44 +23,41 @@
 
 namespace iscool
 {
-    namespace audio
+  namespace audio
+  {
+    namespace tests
     {
-        namespace tests
-        {
-            class platform_mixer_mockup:
-                public iscool::audio::platform_mixer
-            {
-            public:
-                void set_effects_muted( bool muted ) override;
-                void set_music_muted( bool muted ) override;
+      class platform_mixer_mockup : public iscool::audio::platform_mixer
+      {
+      public:
+        void set_effects_muted(bool muted) override;
+        void set_music_muted(bool muted) override;
 
-                void play_music
-                ( const std::string& name, loop_mode loop ) override;
-                void stop_music() override;
+        void play_music(const std::string& name, loop_mode loop) override;
+        void stop_music() override;
 
-                void preload_effect( const std::string& name ) override;
-                track_id play_effect
-                ( const std::string& name, loop_mode loop ) override;
-                void stop_effect( track_id id ) override;
+        void preload_effect(const std::string& name) override;
+        track_id play_effect(const std::string& name, loop_mode loop) override;
+        void stop_effect(track_id id) override;
 
-            public:
-                bool effects_muted = false;
-                bool music_muted = false;
+      public:
+        bool effects_muted = false;
+        bool music_muted = false;
 
-                bool music_stopped = false;
-                std::string last_music;
-                loop_mode music_loop;
+        bool music_stopped = false;
+        std::string last_music;
+        loop_mode music_loop;
 
-                std::unordered_set< std::string > preloaded;
-                
-                std::unordered_map< track_id, std::string > effects;
-                std::unordered_map< track_id, loop_mode > effect_loops;
+        std::unordered_set<std::string> preloaded;
 
-            private:
-                track_id _next_effect_id = 12;
-            };
-        }
+        std::unordered_map<track_id, std::string> effects;
+        std::unordered_map<track_id, loop_mode> effect_loops;
+
+      private:
+        track_id _next_effect_id = 12;
+      };
     }
+  }
 }
 
 #endif

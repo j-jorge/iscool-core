@@ -17,68 +17,66 @@
 
 #include "iscool/signals/implement_signal.h"
 
+IMPLEMENT_SIGNAL(iscool::schedule::detail::task_life_cycle, complete,
+                 _complete);
 
-IMPLEMENT_SIGNAL
-( iscool::schedule::detail::task_life_cycle, complete, _complete );
-
-iscool::schedule::detail::task_life_cycle::task_life_cycle
-( task_pointer implementation )
-    : _internal_state( state::created ),
-      _implementation( std::move( implementation ) )
+iscool::schedule::detail::task_life_cycle::task_life_cycle(
+    task_pointer implementation)
+  : _internal_state(state::created)
+  , _implementation(std::move(implementation))
 {
-    assert( _implementation != nullptr );
-    _implementation->connect_to_complete
-        ( std::bind
-          ( &iscool::schedule::detail::task_life_cycle::complete, this ) );
+  assert(_implementation != nullptr);
+  _implementation->connect_to_complete(
+      std::bind(&iscool::schedule::detail::task_life_cycle::complete, this));
 }
 
 iscool::schedule::detail::task_life_cycle::~task_life_cycle()
 {
-    assert( !is_running() );
+  assert(!is_running());
 }
 
 void iscool::schedule::detail::task_life_cycle::start()
 {
-    assert( _internal_state == state::created );
-    
-    _internal_state = state::running;
-    _implementation->start();
+  assert(_internal_state == state::created);
+
+  _internal_state = state::running;
+  _implementation->start();
 }
 
 void iscool::schedule::detail::task_life_cycle::update()
 {
-    assert( is_running() );
-    _implementation->update();
+  assert(is_running());
+  _implementation->update();
 }
 
 void iscool::schedule::detail::task_life_cycle::abort()
 {
-    assert( _internal_state != state::stopped );
-    
-    _internal_state = state::stopped;
-    _implementation->abort();
+  assert(_internal_state != state::stopped);
+
+  _internal_state = state::stopped;
+  _implementation->abort();
 }
 
 bool iscool::schedule::detail::task_life_cycle::is_running() const
 {
-    return _internal_state == state::running;
+  return _internal_state == state::running;
 }
 
 std::chrono::milliseconds
 iscool::schedule::detail::task_life_cycle::get_update_interval() const
 {
-    assert( _internal_state != state::created );
+  assert(_internal_state != state::created);
 
-    if ( _internal_state == state::stopped )
-        return task::no_update_interval;
+  if (_internal_state == state::stopped)
+    return task::no_update_interval;
 
-    return _implementation->get_update_interval();
+  return _implementation->get_update_interval();
 }
 
 void iscool::schedule::detail::task_life_cycle::complete()
 {
-    assert( _internal_state != state::stopped );
-    
-    _internal_state = state::stopped;
-    _complete();
+  assert(_internal_state != state::stopped);
+
+  _internal_state = state::stopped;
+  _complete();
 }

@@ -18,29 +18,28 @@
 
 namespace iscool
 {
-    namespace containers
+  namespace containers
+  {
+    namespace detail
     {
-        namespace detail
-        {
-            template< std::size_t N >
-            struct heterogeneous_map_empty;
+      template <std::size_t N>
+      struct heterogeneous_map_empty;
 
-            template<>
-            struct heterogeneous_map_empty< 0 >
-            {
-                template< typename T >
-                static bool run( T );
-            };
+      template <>
+      struct heterogeneous_map_empty<0>
+      {
+        template <typename T>
+        static bool run(T);
+      };
 
-            template< std::size_t N >
-            struct heterogeneous_map_empty
-            {
-                template< typename Key, typename... T >
-                static bool run
-                ( const std::tuple< std::unordered_map< Key, T >... >& maps );
-            };
-        }
+      template <std::size_t N>
+      struct heterogeneous_map_empty
+      {
+        template <typename Key, typename... T>
+        static bool run(const std::tuple<std::unordered_map<Key, T>...>& maps);
+      };
     }
+  }
 }
 
 #include "iscool/containers/detail/heterogeneous_map_empty.tpp"

@@ -16,12 +16,11 @@
 #include "iscool/signals/signal.h"
 #include "iscool/signals/signal.impl.tpp"
 
-template class iscool::signals::signal< void() >;
-template class iscool::signals::signal< void( bool ) >;
-template class iscool::signals::signal< void( int ) >;
-template class iscool::signals::signal< void( float ) >;
-template class iscool::signals::signal< void( std::uint32_t ) >;
-template class iscool::signals::signal< void( std::uint64_t ) >;
-template class iscool::signals::signal< void( std::string ) >;
-template class iscool::signals::signal< void( const std::string& ) >;
-
+template class iscool::signals::signal<void()>;
+template class iscool::signals::signal<void(bool)>;
+template class iscool::signals::signal<void(int)>;
+template class iscool::signals::signal<void(float)>;
+template class iscool::signals::signal<void(std::uint32_t)>;
+template class iscool::signals::signal<void(std::uint64_t)>;
+template class iscool::signals::signal<void(std::string)>;
+template class iscool::signals::signal<void(const std::string&)>;

@@ -20,71 +20,68 @@
 
 #include <gtest/gtest.h>
 
-TEST( iscool_factory_dynamic_factory, register_create_by_typename )
+TEST(iscool_factory_dynamic_factory, register_create_by_typename)
 {
-    iscool::factory::dynamic_factory< int > factory;
-    
-    factory.register_typename
-        ( "ten",
-          []() -> int
-          {
-              return 10;
-          } );
+  iscool::factory::dynamic_factory<int> factory;
 
-    EXPECT_EQ( 10, factory.create_by_typename( "ten" ) );
-               
-    factory.register_typename
-        ( "twenty",
-          []() -> int
-          {
-              return 20;
-          } );
+  factory.register_typename("ten",
+                            []() -> int
+                            {
+                              return 10;
+                            });
 
-    EXPECT_EQ( 20, factory.create_by_typename( "twenty" ) );
-    EXPECT_EQ( 10, factory.create_by_typename( "ten" ) );
+  EXPECT_EQ(10, factory.create_by_typename("ten"));
+
+  factory.register_typename("twenty",
+                            []() -> int
+                            {
+                              return 20;
+                            });
+
+  EXPECT_EQ(20, factory.create_by_typename("twenty"));
+  EXPECT_EQ(10, factory.create_by_typename("ten"));
 }
 
-TEST( iscool_factory_dynamic_factory, register_create_by_typename_with_args )
+TEST(iscool_factory_dynamic_factory, register_create_by_typename_with_args)
 {
-    iscool::factory::dynamic_factory< int, int, int > factory;
-    
-    factory.register_typename
-        ( "add",
-          []( int x, int y ) -> int
-          {
-              return x + y;
-          } );
+  iscool::factory::dynamic_factory<int, int, int> factory;
 
-    EXPECT_EQ( 10, factory.create_by_typename( "add", 6, 4 ) );
-    EXPECT_EQ( 5, factory.create_by_typename( "add", 3, 2 ) );
-               
-    factory.register_typename
-        ( "multiply",
-          []( int x, int y ) -> int
-          {
-              return x * y;
-          } );
+  factory.register_typename("add",
+                            [](int x, int y) -> int
+                            {
+                              return x + y;
+                            });
 
-    EXPECT_EQ( 20, factory.create_by_typename( "multiply", 2, 10 ) );
-    EXPECT_EQ( 8, factory.create_by_typename( "add", 5, 3 ) );
+  EXPECT_EQ(10, factory.create_by_typename("add", 6, 4));
+  EXPECT_EQ(5, factory.create_by_typename("add", 3, 2));
+
+  factory.register_typename("multiply",
+                            [](int x, int y) -> int
+                            {
+                              return x * y;
+                            });
+
+  EXPECT_EQ(20, factory.create_by_typename("multiply", 2, 10));
+  EXPECT_EQ(8, factory.create_by_typename("add", 5, 3));
 }
 
-TEST( iscool_factory_dynamic_factory, debug_fail_on_duplicate_name )
+TEST(iscool_factory_dynamic_factory, debug_fail_on_duplicate_name)
 {
-    iscool::factory::dynamic_factory< int > factory;
+  iscool::factory::dynamic_factory<int> factory;
 
-    const auto factory_function
-        ( []() -> int
-          {
-              return 0;;
-          } );
-    factory.register_typename( "a", factory_function );
-    EXPECT_DEBUG_CRASH( factory.register_typename( "a", factory_function ) );
+  const auto factory_function(
+      []() -> int
+      {
+        return 0;
+        ;
+      });
+  factory.register_typename("a", factory_function);
+  EXPECT_DEBUG_CRASH(factory.register_typename("a", factory_function));
 }
 
-TEST( iscool_factory_dynamic_factory, debug_fail_on_create_unknown )
+TEST(iscool_factory_dynamic_factory, debug_fail_on_create_unknown)
 {
-    iscool::factory::dynamic_factory< int > factory;
+  iscool::factory::dynamic_factory<int> factory;
 
-    EXPECT_DEBUG_CRASH( factory.create_by_typename( "a" ) );
+  EXPECT_DEBUG_CRASH(factory.create_by_typename("a"));
 }

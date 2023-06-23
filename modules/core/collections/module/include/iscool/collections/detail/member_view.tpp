@@ -16,28 +16,28 @@
 #ifndef ISCOOL_COLLECTIONS_MEMBER_VIEW_TPP
 #define ISCOOL_COLLECTIONS_MEMBER_VIEW_TPP
 
-template< typename R, typename T >
-std::vector< R > iscool::collections::member_view
-( const std::vector< T >& input, R ( T::*getter )() const )
+template <typename R, typename T>
+std::vector<R> iscool::collections::member_view(const std::vector<T>& input,
+                                                R (T::*getter)() const)
 {
-    std::vector< R > result;
-    result.reserve( input.size() );
-    for ( const T& entry : input )
-        result.push_back( ( entry.*getter )() );
+  std::vector<R> result;
+  result.reserve(input.size());
+  for (const T& entry : input)
+    result.push_back((entry.*getter)());
 
-    return result;
+  return result;
 }
 
-template< typename R, typename T >
-std::vector< R > iscool::collections::member_view
-( const std::vector< T >& input, R T::*field )
+template <typename R, typename T>
+std::vector<R> iscool::collections::member_view(const std::vector<T>& input,
+                                                R T::*field)
 {
-    std::vector< R > result;
-    result.reserve( input.size() );
-    for ( const T& entry : input )
-        result.push_back( entry.*field );
+  std::vector<R> result;
+  result.reserve(input.size());
+  for (const T& entry : input)
+    result.push_back(entry.*field);
 
-    return result;
+  return result;
 }
 
 #endif

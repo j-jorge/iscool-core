@@ -18,21 +18,21 @@
 iscool::schedule::task_group::task_group() = default;
 iscool::schedule::task_group::~task_group() = default;
 
-void iscool::schedule::task_group::pop( std::size_t id )
+void iscool::schedule::task_group::pop(std::size_t id)
 {
-    assert( id < _tasks.size() );
-    assert( _tasks[ id ] != nullptr );
-    _tasks[ id ] = nullptr;
+  assert(id < _tasks.size());
+  assert(_tasks[id] != nullptr);
+  _tasks[id] = nullptr;
 }
 
 std::size_t iscool::schedule::task_group::get_available_task_index()
 {
-    const std::size_t count( _tasks.size() );
+  const std::size_t count(_tasks.size());
 
-    for ( std::size_t i( 0 ); i != count; ++i )
-        if ( _tasks[ i ] == nullptr )
-            return i;
+  for (std::size_t i(0); i != count; ++i)
+    if (_tasks[i] == nullptr)
+      return i;
 
-    _tasks.emplace_back();
-    return count;
+  _tasks.emplace_back();
+  return count;
 }

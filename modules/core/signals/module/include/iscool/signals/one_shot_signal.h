@@ -22,28 +22,28 @@
 
 namespace iscool
 {
-    namespace signals
+  namespace signals
+  {
+    template <typename Signature>
+    class one_shot_signal
     {
-        template< typename Signature >
-        class one_shot_signal
-        {
-        public:
-            typedef signal< Signature > signal_type;
-            typedef typename signal_type::result_type result_type;
+    public:
+      typedef signal<Signature> signal_type;
+      typedef typename signal_type::result_type result_type;
 
-        public:
-            connection connect( const std::function< Signature >& f );
+    public:
+      connection connect(const std::function<Signature>& f);
 
-            template< typename... Arg >
-            result_type operator()( Arg... arg );
+      template <typename... Arg>
+      result_type operator()(Arg... arg);
 
-            void disconnect_all_slots();
-            bool empty() const;
+      void disconnect_all_slots();
+      bool empty() const;
 
-        private:
-            signal_type _impl;
-        };
-    }
+    private:
+      signal_type _impl;
+    };
+  }
 }
 
 #endif

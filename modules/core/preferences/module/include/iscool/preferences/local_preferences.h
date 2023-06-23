@@ -28,73 +28,71 @@
 
 namespace iscool
 {
-    namespace preferences
+  namespace preferences
+  {
+    namespace detail
     {
-        namespace detail
-        {
-            struct backup_state
-            {
-                std::condition_variable ready_condition;
-                std::mutex mutex;
-                bool quit;
-                bool available;
-            };
-        }
-        
-        class local_preferences
-        {
-        public:
-            DECLARE_SIGNAL( void( const property_map& ), saving, _saving );
-            
-        public:
-            explicit local_preferences( const property_map& values );
-
-            local_preferences
-            ( const std::chrono::milliseconds& flush_delay,
-              const std::string& file_path );
-            
-            local_preferences
-            ( const std::chrono::milliseconds& flush_delay,
-              const std::string& file_path,
-              const std::string& backup_extension_format,
-              std::size_t backup_count );
-            
-            ~local_preferences();
-            
-            void flush();
-            
-            std::int64_t get_value
-            ( const std::string& key, std::int64_t default_value ) const;
-            void set_value( const std::string& key, std::int64_t value );
-
-            bool get_value( const std::string& key, bool default_value ) const;
-            void set_value( const std::string& key, bool value );
-
-            std::string get_value
-            ( const std::string& key, const std::string& default_value ) const;
-            void set_value( const std::string& key, const std::string& value );
-
-            std::vector< std::string > get_keys() const;
-
-            const property_map& get_properties() const;
-            
-        private:
-            void save( property_map dirty );
-            void update_fields( const property_map& dirty );
-
-            bool save_to_file();
-            
-        private:
-            const std::string _file_path;
-            const std::string _backup_extension_format;
-            
-            Json::Value _values;
-            store _store;
-
-            detail::backup_state _backup_thread_state;
-            std::thread _backup_thread;
-        };
+      struct backup_state
+      {
+        std::condition_variable ready_condition;
+        std::mutex mutex;
+        bool quit;
+        bool available;
+      };
     }
+
+    class local_preferences
+    {
+    public:
+      DECLARE_SIGNAL(void(const property_map&), saving, _saving);
+
+    public:
+      explicit local_preferences(const property_map& values);
+
+      local_preferences(const std::chrono::milliseconds& flush_delay,
+                        const std::string& file_path);
+
+      local_preferences(const std::chrono::milliseconds& flush_delay,
+                        const std::string& file_path,
+                        const std::string& backup_extension_format,
+                        std::size_t backup_count);
+
+      ~local_preferences();
+
+      void flush();
+
+      std::int64_t get_value(const std::string& key,
+                             std::int64_t default_value) const;
+      void set_value(const std::string& key, std::int64_t value);
+
+      bool get_value(const std::string& key, bool default_value) const;
+      void set_value(const std::string& key, bool value);
+
+      std::string get_value(const std::string& key,
+                            const std::string& default_value) const;
+      void set_value(const std::string& key, const std::string& value);
+
+      std::vector<std::string> get_keys() const;
+
+      const property_map& get_properties() const;
+
+    private:
+      void save(property_map dirty);
+      void update_fields(const property_map& dirty);
+
+      bool save_to_file();
+
+    private:
+      const std::string _file_path;
+      const std::string _backup_extension_format;
+
+      Json::Value _values;
+      store _store;
+
+      detail::backup_state _backup_thread_state;
+      std::thread _backup_thread;
+    };
+  }
 }
 
 #endif

@@ -20,32 +20,29 @@
 
 namespace iscool
 {
-    namespace signals
+  namespace signals
+  {
+    namespace detail
     {
-        namespace detail
-        {
-            template< typename... Tuple >
-            class signal_collection_from_tuple;
+      template <typename... Tuple>
+      class signal_collection_from_tuple;
 
-            template<>
-            class signal_collection_from_tuple<>
-            {
-    
-            };
+      template <>
+      class signal_collection_from_tuple<>
+      {};
 
-            template< typename HeadTuple, typename... OtherTuples >
-            class signal_collection_from_tuple< HeadTuple, OtherTuples... >:
-                public signal_collection_from_tuple< OtherTuples... >
-            {
-            public:
-                typedef
-                typename signal_from_tuple_arguments< HeadTuple >::type
-                signal_type;
-            
-                signal_type signal_instance;
-            };
-        }
+      template <typename HeadTuple, typename... OtherTuples>
+      class signal_collection_from_tuple<HeadTuple, OtherTuples...>
+        : public signal_collection_from_tuple<OtherTuples...>
+      {
+      public:
+        typedef
+            typename signal_from_tuple_arguments<HeadTuple>::type signal_type;
+
+        signal_type signal_instance;
+      };
     }
+  }
 }
 
 #endif

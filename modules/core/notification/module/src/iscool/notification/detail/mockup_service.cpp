@@ -19,30 +19,28 @@
 
 void iscool::notification::detail::mockup_service::enable_notifications()
 {
-    ic_console_log( "iscool::notification::service", "Enable notifications" );
+  ic_console_log("iscool::notification::service", "Enable notifications");
 }
 
-bool
-iscool::notification::detail::mockup_service::are_notifications_enabled() const
+bool iscool::notification::detail::mockup_service::are_notifications_enabled()
+    const
 {
-    ic_console_log( "iscool::notification::service", "Test availability." );
+  ic_console_log("iscool::notification::service", "Test availability.");
 
-    return true;
+  return true;
 }
 
-void iscool::notification::detail::mockup_service::schedule
-( std::size_t id, const std::chrono::seconds& delay, const std::string& title,
-  const std::string& message )
+void iscool::notification::detail::mockup_service::schedule(
+    std::size_t id, const std::chrono::seconds& delay,
+    const std::string& title, const std::string& message)
 {
-    ic_console_log
-        ( "iscool::notification::service",
-          "Schedule notification in %1% seconds:"
-          " id=%2%, title='%3%', message='%4%'.",
-          delay.count(), id, title, message );
+  ic_console_log("iscool::notification::service",
+                 "Schedule notification in %1% seconds:"
+                 " id=%2%, title='%3%', message='%4%'.",
+                 delay.count(), id, title, message);
 }
 
 void iscool::notification::detail::mockup_service::cancel_all()
 {
-    ic_console_log( "iscool::notification::service", "Cancel all." );
+  ic_console_log("iscool::notification::service", "Cancel all.");
 }
-

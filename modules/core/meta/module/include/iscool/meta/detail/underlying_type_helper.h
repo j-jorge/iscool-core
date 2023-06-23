@@ -20,26 +20,26 @@
 
 namespace iscool
 {
-    namespace meta
+  namespace meta
+  {
+    namespace detail
     {
-        namespace detail
-        {
-            template<bool IsEnum, typename T>
-            struct underlying_type_helper;
+      template <bool IsEnum, typename T>
+      struct underlying_type_helper;
 
-            template<typename T>
-            struct underlying_type_helper<true, T>
-            {
-                typedef typename std::underlying_type< T >::type type;
-            };
+      template <typename T>
+      struct underlying_type_helper<true, T>
+      {
+        typedef typename std::underlying_type<T>::type type;
+      };
 
-            template<typename T>
-            struct underlying_type_helper<false, T>
-            {
-                typedef T type;
-            };
-        }
+      template <typename T>
+      struct underlying_type_helper<false, T>
+      {
+        typedef T type;
+      };
     }
+  }
 }
 
 #endif

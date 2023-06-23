@@ -19,8 +19,8 @@
 
 #include <cassert>
 
-std::string iscool::files::get_full_path( const std::string& path )
+std::string iscool::files::get_full_path(const std::string& path)
 {
-    assert( detail::system_delegates != nullptr );
-    return detail::system_delegates->get_full_path( path );
+  assert(detail::system_delegates != nullptr);
+  return detail::system_delegates->get_full_path(path);
 }

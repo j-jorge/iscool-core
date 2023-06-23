@@ -16,10 +16,10 @@
 #ifndef ISCOOL_JNI_DETAIL_GET_METHOD_ARGUMENT_TPP
 #define ISCOOL_JNI_DETAIL_GET_METHOD_ARGUMENT_TPP
 
-template< typename T >
-T iscool::jni::detail::get_method_argument_impl< T >::get( const T& arg )
+template <typename T>
+T iscool::jni::detail::get_method_argument_impl<T>::get(const T& arg)
 {
-    return arg;
+  return arg;
 }
 
 #endif

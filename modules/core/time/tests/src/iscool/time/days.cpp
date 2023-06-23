@@ -17,13 +17,13 @@
 
 #include "gtest/gtest.h"
 
-TEST( iscool_time, days )
+TEST(iscool_time, days)
 {
-    EXPECT_EQ( 24,
-               std::chrono::duration_cast< std::chrono::hours >
-               ( iscool::time::days( 1 ) ).count() );
-    
-    EXPECT_EQ( 72,
-               std::chrono::duration_cast< std::chrono::hours >
-               ( iscool::time::days( 3 ) ).count() );
+  EXPECT_EQ(
+      24, std::chrono::duration_cast<std::chrono::hours>(iscool::time::days(1))
+              .count());
+
+  EXPECT_EQ(
+      72, std::chrono::duration_cast<std::chrono::hours>(iscool::time::days(3))
+              .count());
 }

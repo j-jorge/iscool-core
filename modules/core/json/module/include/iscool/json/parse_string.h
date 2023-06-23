@@ -20,10 +20,10 @@
 
 namespace iscool
 {
-    namespace json
-    {
-        Json::Value parse_string( const std::string& string );
-    }
+  namespace json
+  {
+    Json::Value parse_string(const std::string& string);
+  }
 }
 
 #endif

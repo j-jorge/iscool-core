@@ -20,67 +20,40 @@
 
 #include <gtest/gtest.h>
 
-TEST( iscool_signals_find_signal_type_from_tuple_element, find )
+TEST(iscool_signals_find_signal_type_from_tuple_element, find)
 {
-    typedef iscool::signals::signal_collection_from_tuple
-    <
-        std::tuple< int, float >,
-        std::tuple< std::string, float >,
-        std::tuple< float, int >
-    > signals;
+  typedef iscool::signals::signal_collection_from_tuple<
+      std::tuple<int, float>, std::tuple<std::string, float>,
+      std::tuple<float, int>>
+      signals;
 
-    const bool string_0
-        ( std::is_same
-          <
-              iscool::signals::signal< void( std::string, float ) >,
-              iscool::signals::find_signal_type_from_tuple_element
-              <
-                  std::string, 0, signals
-              >::type
-          >::value );
-    EXPECT_TRUE( string_0 );
+  const bool string_0(
+      std::is_same<iscool::signals::signal<void(std::string, float)>,
+                   iscool::signals::find_signal_type_from_tuple_element<
+                       std::string, 0, signals>::type>::value);
+  EXPECT_TRUE(string_0);
 
-    const bool int_0
-        ( std::is_same
-          <
-              iscool::signals::signal< void( int, float ) >,
-              iscool::signals::find_signal_type_from_tuple_element
-              <
-                  int, 0, signals
-              >::type
-          >::value );
-    EXPECT_TRUE( int_0 );
+  const bool int_0(
+      std::is_same<iscool::signals::signal<void(int, float)>,
+                   iscool::signals::find_signal_type_from_tuple_element<
+                       int, 0, signals>::type>::value);
+  EXPECT_TRUE(int_0);
 
-    const bool int_1
-        ( std::is_same
-          <
-              iscool::signals::signal< void( float, int ) >,
-              iscool::signals::find_signal_type_from_tuple_element
-              <
-                  int, 1, signals
-              >::type
-          >::value );
-    EXPECT_TRUE( int_1 );
+  const bool int_1(
+      std::is_same<iscool::signals::signal<void(float, int)>,
+                   iscool::signals::find_signal_type_from_tuple_element<
+                       int, 1, signals>::type>::value);
+  EXPECT_TRUE(int_1);
 
-    const bool float_0
-        ( std::is_same
-          <
-              iscool::signals::signal< void( float, int ) >,
-              iscool::signals::find_signal_type_from_tuple_element
-              <
-                  float, 0, signals
-              >::type
-          >::value );
-    EXPECT_TRUE( float_0 );
+  const bool float_0(
+      std::is_same<iscool::signals::signal<void(float, int)>,
+                   iscool::signals::find_signal_type_from_tuple_element<
+                       float, 0, signals>::type>::value);
+  EXPECT_TRUE(float_0);
 
-    const bool float_1
-        ( std::is_same
-          <
-              iscool::signals::signal< void( int, float ) >,
-              iscool::signals::find_signal_type_from_tuple_element
-              <
-                  float, 1, signals
-              >::type
-          >::value );
-    EXPECT_TRUE( float_1 );
+  const bool float_1(
+      std::is_same<iscool::signals::signal<void(int, float)>,
+                   iscool::signals::find_signal_type_from_tuple_element<
+                       float, 1, signals>::type>::value);
+  EXPECT_TRUE(float_1);
 }

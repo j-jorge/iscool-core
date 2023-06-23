@@ -18,8 +18,8 @@
 
 namespace iscool
 {
-    template< typename T >
-    T copy( const T& value );
+  template <typename T>
+  T copy(const T& value);
 }
 
 #include "iscool/detail/copy.tpp"

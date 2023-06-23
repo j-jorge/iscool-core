@@ -17,34 +17,23 @@
 
 #include <gtest/gtest.h>
 
-ic_open_namespaces()
-typedef int in_global_namespace;
+ic_open_namespaces() typedef int in_global_namespace;
 ic_close_namespaces()
 
-ic_open_namespaces( ( iscool ) ( meta ) ( test ) )
-typedef std::string in_namespace;
-ic_close_namespaces( ( iscool ) ( meta ) ( test ) )
+    ic_open_namespaces((iscool)(meta)(test)) typedef std::string in_namespace;
+ic_close_namespaces((iscool)(meta)(test))
 
-TEST( iscool_meta_declare_namespaces, global_namespace )
+    TEST(iscool_meta_declare_namespaces, global_namespace)
 {
-    const bool same
-        ( std::is_same
-          <
-              int,
-              ::in_global_namespace
-          >::value );
+  const bool same(std::is_same<int, ::in_global_namespace>::value);
 
-    EXPECT_TRUE( same );
+  EXPECT_TRUE(same);
 }
 
-TEST( iscool_meta_declare_namespaces, non_global_namespace )
+TEST(iscool_meta_declare_namespaces, non_global_namespace)
 {
-    const bool same
-        ( std::is_same
-          <
-              std::string,
-              ::iscool::meta::test::in_namespace
-          >::value );
+  const bool same(
+      std::is_same<std::string, ::iscool::meta::test::in_namespace>::value);
 
-    EXPECT_TRUE( same );
+  EXPECT_TRUE(same);
 }

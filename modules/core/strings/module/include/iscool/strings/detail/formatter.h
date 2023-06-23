@@ -21,26 +21,26 @@
 
 namespace iscool
 {
-    namespace strings
+  namespace strings
+  {
+    namespace detail
     {
-        namespace detail
-        {
-            class formatter
-            {
-            public:
-                explicit formatter( const std::string& pattern );
-                ~formatter();
-                
-                template< typename T >
-                void append( const T& value );
+      class formatter
+      {
+      public:
+        explicit formatter(const std::string& pattern);
+        ~formatter();
 
-                std::string string() const;
-                
-            private:
-                boost::format _format;
-            };
-        }
+        template <typename T>
+        void append(const T& value);
+
+        std::string string() const;
+
+      private:
+        boost::format _format;
+      };
     }
+  }
 }
 
 #include "iscool/strings/detail/formatter.tpp"

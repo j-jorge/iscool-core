@@ -22,61 +22,60 @@
 
 namespace iscool
 {
-    namespace i18n
+  namespace i18n
+  {
+    namespace numeric
     {
-        namespace numeric
-        {
-            namespace detail
-            {
-                static numeric_punctuation*
-                allocate_numeric_punctuation
-                ( const std::string& language_code );
-            }
-        }
+      namespace detail
+      {
+        static numeric_punctuation*
+        allocate_numeric_punctuation(const std::string& language_code);
+      }
     }
+  }
 }
 
-const std::locale& iscool::i18n::numeric::detail::get_locale_for_numeric_display
-( const std::locale& from, const std::string& language_code )
+const std::locale&
+iscool::i18n::numeric::detail::get_locale_for_numeric_display(
+    const std::locale& from, const std::string& language_code)
 {
-    static iscool::optional< std::locale > cached_locale;
-    static std::string cached_language_code;
+  static iscool::optional<std::locale> cached_locale;
+  static std::string cached_language_code;
 
-    if ( !cached_locale || ( cached_language_code != language_code ) )
+  if (!cached_locale || (cached_language_code != language_code))
     {
-        cached_locale.emplace
-            ( from, allocate_numeric_punctuation( language_code ) );
-        cached_language_code = language_code;
+      cached_locale.emplace(from, allocate_numeric_punctuation(language_code));
+      cached_language_code = language_code;
     }
 
-    return *cached_locale;
+  return *cached_locale;
 }
 
 iscool::i18n::numeric_punctuation*
-iscool::i18n::numeric::detail::allocate_numeric_punctuation
-( const std::string& language_code )
+iscool::i18n::numeric::detail::allocate_numeric_punctuation(
+    const std::string& language_code)
 {
-    char thousands_separator;
-    char decimal_point;
+  char thousands_separator;
+  char decimal_point;
 
-    if ( language_code == "fr" )
+  if (language_code == "fr")
     {
-        thousands_separator = ' ';
-        decimal_point = ',';
+      thousands_separator = ' ';
+      decimal_point = ',';
     }
-    else if ( ( language_code == "it" ) || ( language_code == "de" )
-              || ( language_code == "es" ) || ( language_code == "nl" ) )
+  else if ((language_code == "it") || (language_code == "de")
+           || (language_code == "es") || (language_code == "nl"))
     {
-        thousands_separator = '.';
-        decimal_point = ',';
+      thousands_separator = '.';
+      decimal_point = ',';
     }
-    else
+  else
     {
-        thousands_separator = ',';
-        decimal_point = '.';
-    }        
+      thousands_separator = ',';
+      decimal_point = '.';
+    }
 
-    // The first character in the grouping is the number of digits in the
-    // rightmost group
-    return new numeric_punctuation( decimal_point, thousands_separator, "\3" );
+  // The first character in the grouping is the number of digits in the
+  // rightmost group
+  return new numeric_punctuation(decimal_point, thousands_separator, "\3");
 }

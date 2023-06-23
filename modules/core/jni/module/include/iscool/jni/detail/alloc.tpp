@@ -19,20 +19,19 @@
 #include "iscool/jni/detail/get_method_argument.h"
 #include "iscool/jni/detail/get_method_info.h"
 
-template< typename... Arg >
-iscool::jni::java_ptr< jobject > iscool::jni::alloc
-( const char* class_name, const char* signature, Arg&&... args )
+template <typename... Arg>
+iscool::jni::java_ptr<jobject> iscool::jni::alloc(const char* class_name,
+                                                  const char* signature,
+                                                  Arg&&... args)
 {
-    const detail::method_info m
-        ( detail::get_method_info( class_name, "<init>", signature ) );
+  const detail::method_info m(
+      detail::get_method_info(class_name, "<init>", signature));
 
-    const jobject result
-        ( m.env->NewObject
-          ( m.class_id.get(), m.method_id,
-            detail::get_method_argument< Arg >::get
-            ( std::forward< Arg >( args ) )... ) );
+  const jobject result(m.env->NewObject(
+      m.class_id.get(), m.method_id,
+      detail::get_method_argument<Arg>::get(std::forward<Arg>(args))...));
 
-    return java_ptr< jobject >( result );
+  return java_ptr<jobject>(result);
 }
 
 #endif

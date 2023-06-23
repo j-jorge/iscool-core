@@ -18,56 +18,56 @@
 
 namespace iscool
 {
-    namespace i18n
+  namespace i18n
+  {
+    namespace numeric
     {
-        namespace numeric
+      namespace detail
+      {
+        template <typename T>
+        struct num_put_disambiguation
         {
-            namespace detail
-            {
-                template< typename T >
-                struct num_put_disambiguation
-                {
-                    typedef T type;
-                };
+          typedef T type;
+        };
 
-                template<>
-                struct num_put_disambiguation<int>
-                {
-                    typedef long type;
-                };
+        template <>
+        struct num_put_disambiguation<int>
+        {
+          typedef long type;
+        };
 
-                template<>
-                struct num_put_disambiguation<short>
-                {
-                    typedef long type;
-                };
+        template <>
+        struct num_put_disambiguation<short>
+        {
+          typedef long type;
+        };
 
-                template<>
-                struct num_put_disambiguation<char>
-                {
-                    typedef long type;
-                };
+        template <>
+        struct num_put_disambiguation<char>
+        {
+          typedef long type;
+        };
 
-                template<>
-                struct num_put_disambiguation<unsigned int>
-                {
-                    typedef unsigned long type;
-                };
+        template <>
+        struct num_put_disambiguation<unsigned int>
+        {
+          typedef unsigned long type;
+        };
 
-                template<>
-                struct num_put_disambiguation<unsigned short>
-                {
-                    typedef unsigned long type;
-                };
+        template <>
+        struct num_put_disambiguation<unsigned short>
+        {
+          typedef unsigned long type;
+        };
 
-                template<>
-                struct num_put_disambiguation<unsigned char>
-                {
-                    typedef unsigned long type;
-                };
-            }
-        }
+        template <>
+        struct num_put_disambiguation<unsigned char>
+        {
+          typedef unsigned long type;
+        };
+      }
     }
+  }
 }
 
 #endif

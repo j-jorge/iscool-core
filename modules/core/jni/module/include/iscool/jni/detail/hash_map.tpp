@@ -22,69 +22,59 @@
 #include "iscool/jni/iterator.h"
 #include "iscool/jni/method_jobject.h"
 
-template< typename K, typename V >
-iscool::jni::hash_map< K, V >::hash_map()
-    : _map( alloc( "java/util/HashMap", "()V" ) )
-{
-    
-}
-        
-template< typename K, typename V >
-iscool::jni::hash_map< K, V >::hash_map( const java_ptr< jobject >& impl )
-    : _map( impl )
-{
+template <typename K, typename V>
+iscool::jni::hash_map<K, V>::hash_map()
+  : _map(alloc("java/util/HashMap", "()V"))
+{}
 
-}
+template <typename K, typename V>
+iscool::jni::hash_map<K, V>::hash_map(const java_ptr<jobject>& impl)
+  : _map(impl)
+{}
 
-template< typename K, typename V >
-const iscool::jni::java_ptr< jobject >&
-iscool::jni::hash_map< K, V >::get_java_object() const
+template <typename K, typename V>
+const iscool::jni::java_ptr<jobject>&
+iscool::jni::hash_map<K, V>::get_java_object() const
 {
-    return _map;
+  return _map;
 }
 
-template< typename K, typename V >
-typename iscool::jni::hash_map< K, V >::value_type
-iscool::jni::hash_map< K, V >::put
-( const key_type& key, const value_type& value ) const
+template <typename K, typename V>
+typename iscool::jni::hash_map<K, V>::value_type
+iscool::jni::hash_map<K, V>::put(const key_type& key,
+                                 const value_type& value) const
 {
-    const auto method
-        ( get_method< jobject >
-          ( "java/util/Map", "put",
-            "(Ljava/lang/Object;Ljava/lang/Object;)Ljava/lang/Object;" ) );
+  const auto method(get_method<jobject>(
+      "java/util/Map", "put",
+      "(Ljava/lang/Object;Ljava/lang/Object;)Ljava/lang/Object;"));
 
-    jobject result( method( _map, key, value ) );
-    return value_type( static_cast< V >( result ) );
+  jobject result(method(_map, key, value));
+  return value_type(static_cast<V>(result));
 }
 
-template< typename K, typename V >
-std::vector< iscool::jni::map_entry< K, V > >
-iscool::jni::hash_map< K, V >::get_entry_set() const
+template <typename K, typename V>
+std::vector<iscool::jni::map_entry<K, V>>
+iscool::jni::hash_map<K, V>::get_entry_set() const
 {
-    const auto method
-        ( get_method< jobject >
-          ( "java/util/Map", "entrySet", "()Ljava/util/Set;" ) );
+  const auto method(
+      get_method<jobject>("java/util/Map", "entrySet", "()Ljava/util/Set;"));
 
-    const collection< jobject > entry_set( method( _map ) );
-    iterator< jobject > it( entry_set.get_iterator() );
+  const collection<jobject> entry_set(method(_map));
+  iterator<jobject> it(entry_set.get_iterator());
 
-    std::vector< map_entry< K, V > > result;
-    
-    while ( it.has_next() )
-        result.emplace_back( it.next() );
+  std::vector<map_entry<K, V>> result;
 
-    return result;
+  while (it.has_next())
+    result.emplace_back(it.next());
+
+  return result;
 }
 
-template< typename K, typename V >
-jobject
-iscool::jni::detail::get_method_argument_impl
-<
-    iscool::jni::hash_map< K, V >
->::get
-( const hash_map< K, V >& map )
+template <typename K, typename V>
+jobject iscool::jni::detail::get_method_argument_impl<
+    iscool::jni::hash_map<K, V>>::get(const hash_map<K, V>& map)
 {
-    return map.get_java_object().get();
+  return map.get_java_object().get();
 }
 
 #endif

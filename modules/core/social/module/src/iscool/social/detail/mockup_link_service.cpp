@@ -17,16 +17,14 @@
 
 #include "iscool/log/console_log.h"
 
-void
-iscool::social::detail::mockup_link_service::open_in_facebook
-( const std::string& page )
+void iscool::social::detail::mockup_link_service::open_in_facebook(
+    const std::string& page)
 {
-    ic_console_log( "LinkServiceMockup", "opening '%s' in Facebook.", page );
+  ic_console_log("LinkServiceMockup", "opening '%s' in Facebook.", page);
 }
 
-void
-iscool::social::detail::mockup_link_service::open_in_twitter
-( const std::string& page )
+void iscool::social::detail::mockup_link_service::open_in_twitter(
+    const std::string& page)
 {
-    ic_console_log( "LinkServiceMockup", "opening '%s' in Twitter.", page );
+  ic_console_log("LinkServiceMockup", "opening '%s' in Twitter.", page);
 }

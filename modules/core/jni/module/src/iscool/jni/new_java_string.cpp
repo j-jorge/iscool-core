@@ -17,15 +17,14 @@
 
 #include "iscool/jni/detail/get_jni_env.h"
 
-iscool::jni::java_ptr< jstring > iscool::jni::new_java_string( const char* str )
+iscool::jni::java_ptr<jstring> iscool::jni::new_java_string(const char* str)
 {
-    JNIEnv* const env( detail::get_jni_env() );
-    return java_ptr< jstring >( env->NewStringUTF( str ) );
+  JNIEnv* const env(detail::get_jni_env());
+  return java_ptr<jstring>(env->NewStringUTF(str));
 }
 
-iscool::jni::java_ptr< jstring >
-iscool::jni::new_java_string( const std::string& str )
+iscool::jni::java_ptr<jstring>
+iscool::jni::new_java_string(const std::string& str)
 {
-    return new_java_string( str.c_str() );
+  return new_java_string(str.c_str());
 }
-

@@ -17,17 +17,16 @@
 
 #include "iscool/jni/bad_cast.h"
 #include "iscool/jni/cast.impl.tpp"
-#include "iscool/jni/implement_cast.h"
 #include "iscool/jni/get_method.h"
+#include "iscool/jni/implement_cast.h"
 #include "iscool/jni/method_jstring.h"
 #include "iscool/jni/to_string.h"
 
-IMPLEMENT_JNI_CAST( std::string );
+IMPLEMENT_JNI_CAST(std::string);
 
-std::string iscool::jni::detail::cast< std::string >::value( jobject object )
+std::string iscool::jni::detail::cast<std::string>::value(jobject object)
 {
-    const auto to_string_method
-        ( jni::get_method< jstring >
-          ( "java/lang/String", "toString", "()Ljava/lang/String;" ) );
-    return iscool::jni::to_string( to_string_method( object ) );
+  const auto to_string_method(jni::get_method<jstring>(
+      "java/lang/String", "toString", "()Ljava/lang/String;"));
+  return iscool::jni::to_string(to_string_method(object));
 }

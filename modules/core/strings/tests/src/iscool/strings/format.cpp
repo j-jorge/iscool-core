@@ -19,35 +19,33 @@
 
 #include <gtest/gtest.h>
 
-TEST( iscool_strings, format )
+TEST(iscool_strings, format)
 {
-    EXPECT_EQ( "some text", iscool::strings::format( "some text" ) );
-    EXPECT_EQ( "24", iscool::strings::format( "%d", 24 ) );
-    EXPECT_EQ( "42", iscool::strings::format( "%f", 42 ) );
-    EXPECT_EQ( "%", iscool::strings::format( "%%" ) );
-    EXPECT_EQ( "text", iscool::strings::format( "%s", "text" ) );
-    EXPECT_EQ( "answer = 42",
-               iscool::strings::format( "%s = %d", "answer", 42 ) );
+  EXPECT_EQ("some text", iscool::strings::format("some text"));
+  EXPECT_EQ("24", iscool::strings::format("%d", 24));
+  EXPECT_EQ("42", iscool::strings::format("%f", 42));
+  EXPECT_EQ("%", iscool::strings::format("%%"));
+  EXPECT_EQ("text", iscool::strings::format("%s", "text"));
+  EXPECT_EQ("answer = 42", iscool::strings::format("%s = %d", "answer", 42));
 }
 
-TEST( iscool_strings, thread_safety )
+TEST(iscool_strings, thread_safety)
 {
-    std::vector< std::thread > threads;
-    
-    const auto thread_body
-        ( []() -> void
-          {
-              for ( std::size_t i( 0 ); i != 100; ++i )
-              {
-                  iscool::strings::format( "%s = %d", "answer", 42 );
-                  std::this_thread::sleep_for
-                      ( std::chrono::milliseconds( 100 ) );
-              }
-          } );
-    
-    for ( std::size_t i( 0 ); i != 10; ++i )
-        threads.emplace_back( thread_body );
+  std::vector<std::thread> threads;
 
-    for ( std::size_t i( 0 ); i != 10; ++i )
-        threads[ i ].join();
+  const auto thread_body(
+      []() -> void
+      {
+        for (std::size_t i(0); i != 100; ++i)
+          {
+            iscool::strings::format("%s = %d", "answer", 42);
+            std::this_thread::sleep_for(std::chrono::milliseconds(100));
+          }
+      });
+
+  for (std::size_t i(0); i != 10; ++i)
+    threads.emplace_back(thread_body);
+
+  for (std::size_t i(0); i != 10; ++i)
+    threads[i].join();
 }

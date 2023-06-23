@@ -20,12 +20,11 @@
 
 namespace iscool
 {
-    namespace json
-    {
-        template< typename Iterator >
-        Json::Value
-        to_array( const Iterator& first, const Iterator& last );
-    }
+  namespace json
+  {
+    template <typename Iterator>
+    Json::Value to_array(const Iterator& first, const Iterator& last);
+  }
 }
 
 #include "iscool/json/detail/to_array.tpp"

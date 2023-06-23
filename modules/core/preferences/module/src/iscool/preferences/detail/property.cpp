@@ -17,7 +17,7 @@
 
 #include "iscool/preferences/detail/property.impl.tpp"
 
-template class iscool::preferences::detail::property< bool >;
-template class iscool::preferences::detail::property< float >;
-template class iscool::preferences::detail::property< int >;
-template class iscool::preferences::detail::property< std::string >;
+template class iscool::preferences::detail::property<bool>;
+template class iscool::preferences::detail::property<float>;
+template class iscool::preferences::detail::property<int>;
+template class iscool::preferences::detail::property<std::string>;

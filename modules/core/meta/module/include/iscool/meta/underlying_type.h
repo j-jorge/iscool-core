@@ -20,20 +20,15 @@
 
 namespace iscool
 {
-    namespace meta
+  namespace meta
+  {
+    template <typename T>
+    struct underlying_type
     {
-        template<typename T>
-        struct underlying_type
-        {
-            typedef
-            typename detail::underlying_type_helper
-            <
-                std::is_enum< T >::value,
-                T
-            >::type
-            type;
-        };
-    }
+      typedef typename detail::underlying_type_helper<std::is_enum<T>::value,
+                                                      T>::type type;
+    };
+  }
 }
 
 #endif

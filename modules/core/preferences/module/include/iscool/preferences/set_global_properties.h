@@ -21,11 +21,11 @@
 
 namespace iscool
 {
-    namespace preferences
-    {
-        void set_global_properties
-        ( const std::unordered_map< std::string, std::string >& properties );
-    }
+  namespace preferences
+  {
+    void set_global_properties(
+        const std::unordered_map<std::string, std::string>& properties);
+  }
 }
 
 #endif

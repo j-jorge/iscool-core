@@ -20,16 +20,13 @@
 
 namespace iscool
 {
-    namespace collections
-    {
-        template
-        <
-            template <typename, typename> class OutputContainer, typename T,
-            template <typename, typename> class InputContainer, typename U
-        >
-        void append( OutputContainer< T, std::allocator<T> >& output,
-                     const InputContainer< U, std::allocator<U> >& input );
-    }
+  namespace collections
+  {
+    template <template <typename, typename> class OutputContainer, typename T,
+              template <typename, typename> class InputContainer, typename U>
+    void append(OutputContainer<T, std::allocator<T>>& output,
+                const InputContainer<U, std::allocator<U>>& input);
+  }
 }
 
 #include "iscool/collections/detail/append.tpp"

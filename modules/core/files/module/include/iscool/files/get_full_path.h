@@ -20,10 +20,10 @@
 
 namespace iscool
 {
-    namespace files
-    {
-        std::string get_full_path( const std::string& path );
-    }
+  namespace files
+  {
+    std::string get_full_path(const std::string& path);
+  }
 }
 
 #endif

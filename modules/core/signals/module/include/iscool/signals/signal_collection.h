@@ -20,25 +20,23 @@
 
 namespace iscool
 {
-    namespace signals
+  namespace signals
+  {
+    template <typename... SignalArgument>
+    class signal_collection;
+
+    template <>
+    class signal_collection<>
+    {};
+
+    template <typename SignalArgument, typename... OtherArguments>
+    class signal_collection<SignalArgument, OtherArguments...>
+      : public signal_collection<OtherArguments...>
     {
-        template< typename... SignalArgument >
-        class signal_collection;
-
-        template<>
-        class signal_collection<>
-        {
-    
-        };
-
-        template< typename SignalArgument, typename... OtherArguments >
-        class signal_collection< SignalArgument, OtherArguments... >:
-            public signal_collection< OtherArguments... >
-        {
-        public:
-            signal< void ( SignalArgument ) > signal_instance;
-        };
-    }
+    public:
+      signal<void(SignalArgument)> signal_instance;
+    };
+  }
 }
 
 #endif

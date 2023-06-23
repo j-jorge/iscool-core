@@ -16,32 +16,33 @@
 #ifndef ISCOOL_COLLECTIONS_BINARY_SEARCH_TPP
 #define ISCOOL_COLLECTIONS_BINARY_SEARCH_TPP
 
-template< typename Iterator, typename Criterion >
-Iterator iscool::collections::binary_search
-( const Iterator& first, const Iterator& last, const Criterion& criterion )
+template <typename Iterator, typename Criterion>
+Iterator iscool::collections::binary_search(const Iterator& first,
+                                            const Iterator& last,
+                                            const Criterion& criterion)
 {
-    int count( last - first );
-    Iterator range_begin( first );
+  int count(last - first);
+  Iterator range_begin(first);
 
-    while ( count > 0 )
+  while (count > 0)
     {
-        const int step( count / 2 );
-        const Iterator it( range_begin + step ); 
-        const auto diff( criterion( *it ) );
+      const int step(count / 2);
+      const Iterator it(range_begin + step);
+      const auto diff(criterion(*it));
 
-        if ( diff == 0 )
-            return it;
+      if (diff == 0)
+        return it;
 
-        if ( diff < 0 )
+      if (diff < 0)
         {
-            range_begin = it + 1; 
-            count -= step + 1; 
+          range_begin = it + 1;
+          count -= step + 1;
         }
-        else
-            count = step;
+      else
+        count = step;
     }
-    
-    return last;
+
+  return last;
 }
 
 #endif

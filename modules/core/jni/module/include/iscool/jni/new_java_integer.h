@@ -20,10 +20,10 @@
 
 namespace iscool
 {
-    namespace jni
-    {
-        java_ptr< jobject > new_java_integer( int value );
-    }
+  namespace jni
+  {
+    java_ptr<jobject> new_java_integer(int value);
+  }
 }
 
 #endif

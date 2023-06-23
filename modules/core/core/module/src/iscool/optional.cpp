@@ -21,24 +21,24 @@
 #include <string>
 #include <vector>
 
-template class iscool::optional< bool >;
-template class iscool::optional< char >;
-template class iscool::optional< unsigned char >;
-template class iscool::optional< int >;
-template class iscool::optional< unsigned int >;
-template class iscool::optional< long >;
-template class iscool::optional< unsigned long >;
-template class iscool::optional< long long >;
-template class iscool::optional< unsigned long long >;
-template class iscool::optional< float >;
-template class iscool::optional< double >;
+template class iscool::optional<bool>;
+template class iscool::optional<char>;
+template class iscool::optional<unsigned char>;
+template class iscool::optional<int>;
+template class iscool::optional<unsigned int>;
+template class iscool::optional<long>;
+template class iscool::optional<unsigned long>;
+template class iscool::optional<long long>;
+template class iscool::optional<unsigned long long>;
+template class iscool::optional<float>;
+template class iscool::optional<double>;
 
-template class iscool::optional< std::chrono::nanoseconds >;
-template class iscool::optional< std::chrono::milliseconds >;
-template class iscool::optional< std::chrono::seconds >;
+template class iscool::optional<std::chrono::nanoseconds>;
+template class iscool::optional<std::chrono::milliseconds>;
+template class iscool::optional<std::chrono::seconds>;
 
-template class iscool::optional< std::string >;
+template class iscool::optional<std::string>;
 
-template class iscool::optional< std::vector< char > >;
-template class iscool::optional< std::vector< unsigned long > >;
-template class iscool::optional< std::vector< unsigned long long > >;
+template class iscool::optional<std::vector<char>>;
+template class iscool::optional<std::vector<unsigned long>>;
+template class iscool::optional<std::vector<unsigned long long>>;

@@ -20,21 +20,21 @@
 
 namespace iscool
 {
-    namespace http
+  namespace http
+  {
+    class response
     {
-        class response
-        {
-        public:
-            response( int code, const std::vector< char >& body );
-            
-            int get_code() const;
-            const std::vector< char >& get_body() const;
+    public:
+      response(int code, const std::vector<char>& body);
 
-        private:
-            int _code;
-            std::vector< char > _body;
-        };
-    }
+      int get_code() const;
+      const std::vector<char>& get_body() const;
+
+    private:
+      int _code;
+      std::vector<char> _body;
+    };
+  }
 }
 
 #endif

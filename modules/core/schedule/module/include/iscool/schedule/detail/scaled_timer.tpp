@@ -16,18 +16,14 @@
 #ifndef ISCOOL_SCHEDULE_SCALED_TIMER_TPP
 #define ISCOOL_SCHEDULE_SCALED_TIMER_TPP
 
-template< typename Duration  >
+template <typename Duration>
 Duration iscool::schedule::scaled_timer::get_duration() const
 {
-    const duration now( _timer.get_duration< duration >() );
-    const float result
-        ( _scaled_reference.count()
-          + _scale * ( now - _real_reference ).count() );
+  const duration now(_timer.get_duration<duration>());
+  const float result(_scaled_reference.count()
+                     + _scale * (now - _real_reference).count());
 
-    return
-        std::chrono::duration_cast< Duration >
-        ( duration( duration::rep( result ) ) );
+  return std::chrono::duration_cast<Duration>(duration(duration::rep(result)));
 }
 
 #endif
-

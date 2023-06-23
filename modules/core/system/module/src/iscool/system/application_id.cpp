@@ -17,5 +17,5 @@
 
 std::string iscool::system::get_application_id()
 {
-    return "n/a";
+  return "n/a";
 }

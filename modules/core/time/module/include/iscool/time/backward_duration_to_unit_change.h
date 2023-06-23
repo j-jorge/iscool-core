@@ -20,13 +20,12 @@
 
 namespace iscool
 {
-    namespace time
-    {
-        template< class TargetDuration, class Rep, class Period >
-        TargetDuration
-        backward_duration_to_unit_change
-        ( const std::chrono::duration< Rep, Period >& duration );
-    }
+  namespace time
+  {
+    template <class TargetDuration, class Rep, class Period>
+    TargetDuration backward_duration_to_unit_change(
+        const std::chrono::duration<Rep, Period>& duration);
+  }
 }
 
 #include "iscool/time/detail/backward_duration_to_unit_change.tpp"

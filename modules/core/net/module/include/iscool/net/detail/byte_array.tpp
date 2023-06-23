@@ -17,32 +17,31 @@
 
 #include "iscool/meta/underlying_type.h"
 
-template< typename Iterator >
-iscool::net::byte_array::byte_array
-( const Iterator& first, const Iterator& last )
+template <typename Iterator>
+iscool::net::byte_array::byte_array(const Iterator& first,
+                                    const Iterator& last)
 {
-    append( first, last );
+  append(first, last);
 }
 
-template< typename T >
-void iscool::net::byte_array::append( T value )
+template <typename T>
+void iscool::net::byte_array::append(T value)
 {
-    typedef typename iscool::meta::underlying_type< T >::type raw_type;
+  typedef typename iscool::meta::underlying_type<T>::type raw_type;
 
-    const raw_type raw_value
-        ( to_network_endianness( static_cast<const raw_type>( value ) ) );
+  const raw_type raw_value(
+      to_network_endianness(static_cast<const raw_type>(value)));
 
-    const std::uint8_t* p
-        ( reinterpret_cast< const std::uint8_t* >( &raw_value ) );
-    _content.insert( _content.end(), p, p + sizeof( T ) );
+  const std::uint8_t* p(reinterpret_cast<const std::uint8_t*>(&raw_value));
+  _content.insert(_content.end(), p, p + sizeof(T));
 }
 
-template< typename Iterator >
-void iscool::net::byte_array::append
-( const Iterator& first, const Iterator& last )
+template <typename Iterator>
+void iscool::net::byte_array::append(const Iterator& first,
+                                     const Iterator& last)
 {
-    _content.reserve( _content.size() + last - first );
-    
-    for ( Iterator it( first ); it != last; ++it )
-        append( *it );
+  _content.reserve(_content.size() + last - first);
+
+  for (Iterator it(first); it != last; ++it)
+    append(*it);
 }

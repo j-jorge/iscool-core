@@ -19,18 +19,17 @@
 #include "iscool/jni/check_java_exception.h"
 #include "iscool/jni/detail/get_method_argument.h"
 
-template< typename... Arg >
-void iscool::jni::method< void >::operator()
-( const java_ptr< jobject >& self, Arg&&... args ) const
+template <typename... Arg>
+void iscool::jni::method<void>::operator()(const java_ptr<jobject>& self,
+                                           Arg&&... args) const
 {
-    assert( check_java_exception() );
+  assert(check_java_exception());
 
-    _env->CallVoidMethod
-        ( self.get(), _method,
-          detail::get_method_argument< Arg >::get
-          ( std::forward< Arg >( args ) )... );
+  _env->CallVoidMethod(
+      self.get(), _method,
+      detail::get_method_argument<Arg>::get(std::forward<Arg>(args))...);
 
-    assert( check_java_exception() );
+  assert(check_java_exception());
 }
 
 #endif

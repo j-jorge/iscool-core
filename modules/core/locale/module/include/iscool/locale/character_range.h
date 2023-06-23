@@ -17,26 +17,25 @@
 #define ISCOOL_LOCALE_CHARACTER_RANGE_H
 
 #ifdef ISCOOL_HAS_BOOST_LOCALE
-#include <boost/locale/boundary/index.hpp>
+  #include <boost/locale/boundary/index.hpp>
 #else
-#include <vector>
+  #include <vector>
 #endif
 
 #include <string>
 
 namespace iscool
 {
-    namespace locale
-    {
+  namespace locale
+  {
 #ifdef ISCOOL_HAS_BOOST_LOCALE
-        typedef
-        boost::locale::boundary::ssegment_index character_range;
+    typedef boost::locale::boundary::ssegment_index character_range;
 #else
-        typedef std::vector< std::string > character_range;
+    typedef std::vector<std::string> character_range;
 #endif
-        
-        character_range make_character_range( const std::string& text );
-    }
+
+    character_range make_character_range(const std::string& text);
+  }
 }
 
 #endif

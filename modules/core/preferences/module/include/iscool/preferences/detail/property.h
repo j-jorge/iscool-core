@@ -20,29 +20,29 @@
 
 namespace iscool
 {
-    namespace preferences
+  namespace preferences
+  {
+    namespace detail
     {
-        namespace detail
-        {
-            template< typename T >
-            class property
-            {
-            public:
-                property();
-                property( std::string&& name, T&& fallback );
-                property( std::string&& name, const T& fallback );
+      template <typename T>
+      class property
+      {
+      public:
+        property();
+        property(std::string&& name, T&& fallback);
+        property(std::string&& name, const T& fallback);
 
-            public:
-                std::string name;
-                T fallback;
-            };
+      public:
+        std::string name;
+        T fallback;
+      };
 
-            extern template class property< bool >;
-            extern template class property< float >;
-            extern template class property< int >;
-            extern template class property< std::string >;
-        }
+      extern template class property<bool>;
+      extern template class property<float>;
+      extern template class property<int>;
+      extern template class property<std::string>;
     }
+  }
 }
 
 #endif

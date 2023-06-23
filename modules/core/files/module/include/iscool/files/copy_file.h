@@ -20,10 +20,10 @@
 
 namespace iscool
 {
-    namespace files
-    {
-        bool copy_file( const std::string& from, const std::string& to );
-    }
+  namespace files
+  {
+    bool copy_file(const std::string& from, const std::string& to);
+  }
 }
 
 #endif

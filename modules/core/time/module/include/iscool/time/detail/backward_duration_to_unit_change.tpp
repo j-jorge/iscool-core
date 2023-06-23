@@ -16,38 +16,30 @@
 #ifndef ISCOOL_TIME_BACKWARD_DURATION_TO_UNIT_CHANGE_TPP
 #define ISCOOL_TIME_BACKWARD_DURATION_TO_UNIT_CHANGE_TPP
 
-template< class TargetDuration, class Rep, class Period >
-TargetDuration
-iscool::time::backward_duration_to_unit_change
-( const std::chrono::duration< Rep, Period >& duration )
+template <class TargetDuration, class Rep, class Period>
+TargetDuration iscool::time::backward_duration_to_unit_change(
+    const std::chrono::duration<Rep, Period>& duration)
 {
-    TargetDuration result( TargetDuration::zero() );
-    
-    if ( duration >= std::chrono::hours( 2 ) )
-        result =
-            std::chrono::duration_cast< TargetDuration >
-            ( std::chrono::hours( 1 ) );
-    else if ( duration >= std::chrono::hours( 1 ) )
-        result =
-            std::chrono::duration_cast< TargetDuration >
-            ( std::chrono::minutes
-              ( std::chrono::duration_cast< std::chrono::minutes >
-                ( duration ).count() - 59 ) );
-    else if ( duration >= std::chrono::minutes( 2 ) )
-        result =
-            std::chrono::duration_cast< TargetDuration >
-            ( std::chrono::minutes( 1 ) );
-    else if ( duration >= std::chrono::minutes( 1 ) )
-        result =
-            std::chrono::duration_cast< TargetDuration >
-            ( std::chrono::seconds
-              ( std::chrono::duration_cast< std::chrono::seconds >
-                ( duration ).count() - 59 ) );
+  TargetDuration result(TargetDuration::zero());
 
-    if ( result != TargetDuration::zero() )
-        return result;
-    
-    return TargetDuration( 1 );
+  if (duration >= std::chrono::hours(2))
+    result = std::chrono::duration_cast<TargetDuration>(std::chrono::hours(1));
+  else if (duration >= std::chrono::hours(1))
+    result = std::chrono::duration_cast<TargetDuration>(std::chrono::minutes(
+        std::chrono::duration_cast<std::chrono::minutes>(duration).count()
+        - 59));
+  else if (duration >= std::chrono::minutes(2))
+    result =
+        std::chrono::duration_cast<TargetDuration>(std::chrono::minutes(1));
+  else if (duration >= std::chrono::minutes(1))
+    result = std::chrono::duration_cast<TargetDuration>(std::chrono::seconds(
+        std::chrono::duration_cast<std::chrono::seconds>(duration).count()
+        - 59));
+
+  if (result != TargetDuration::zero())
+    return result;
+
+  return TargetDuration(1);
 }
 
 #endif

@@ -21,14 +21,14 @@
 
 namespace iscool
 {
-    namespace schedule
+  namespace schedule
+  {
+    namespace detail
     {
-        namespace detail
-        {
-            extern delayed_call_delegate call_later;
-            extern delayed_call_manager call_manager;
-        }
+      extern delayed_call_delegate call_later;
+      extern delayed_call_manager call_manager;
     }
+  }
 }
 
 #endif

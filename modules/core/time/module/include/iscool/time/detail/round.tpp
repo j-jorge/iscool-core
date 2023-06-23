@@ -17,27 +17,26 @@
 #define ISCOOL_TIME_ROUND_TPP
 
 template <class TargetDuration, class Rep, class Period>
-TargetDuration
-iscool::time::round( std::chrono::duration< Rep, Period > duration )
+TargetDuration iscool::time::round(std::chrono::duration<Rep, Period> duration)
 {
-    const TargetDuration floor
-        ( std::chrono::duration_cast< TargetDuration >( duration ) );
-    const TargetDuration ceil( floor + TargetDuration( 1 ) );
+  const TargetDuration floor(
+      std::chrono::duration_cast<TargetDuration>(duration));
+  const TargetDuration ceil(floor + TargetDuration(1));
 
-    const auto underestimation( duration - floor );
-    const auto overestimation( ceil - duration );
+  const auto underestimation(duration - floor);
+  const auto overestimation(ceil - duration);
 
-    if ( underestimation == overestimation )
+  if (underestimation == overestimation)
     {
-        if ( floor.count() % 2 == 1 )
-            return ceil;
+      if (floor.count() % 2 == 1)
+        return ceil;
 
-        return floor;
+      return floor;
     }
-    else if ( underestimation < overestimation )
-        return floor;
+  else if (underestimation < overestimation)
+    return floor;
 
-    return ceil;
+  return ceil;
 }
 
 #endif

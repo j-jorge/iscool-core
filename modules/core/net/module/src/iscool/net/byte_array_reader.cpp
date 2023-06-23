@@ -17,37 +17,32 @@
 
 #include "iscool/net/byte_array.h"
 
-iscool::net::byte_array_reader::byte_array_reader
-( byte_array byte_array )
-    : _byte_array( std::move( byte_array ) ),
-      _current_index( 0 )
-{
+iscool::net::byte_array_reader::byte_array_reader(byte_array byte_array)
+  : _byte_array(std::move(byte_array))
+  , _current_index(0)
+{}
 
+iscool::net::byte_array
+iscool::net::byte_array_reader::get_raw(std::size_t size)
+{
+  const byte_array result(slice(size));
+  _current_index += size;
+  return result;
+}
+
+iscool::net::byte_array iscool::net::byte_array_reader::slice() const
+{
+  return slice(_byte_array.size() - _current_index);
 }
 
 iscool::net::byte_array
-iscool::net::byte_array_reader::get_raw( std::size_t size )
+iscool::net::byte_array_reader::slice(std::size_t size) const
 {
-    const byte_array result( slice( size ) );
-    _current_index += size;
-    return result;
-}
-
-iscool::net::byte_array
-iscool::net::byte_array_reader::slice() const
-{
-    return slice( _byte_array.size() - _current_index );
-}
-
-iscool::net::byte_array
-iscool::net::byte_array_reader::slice( std::size_t size ) const
-{
-    const byte_array::const_iterator first
-        ( _byte_array.begin() + _current_index );
-    return byte_array( first, first + size );
+  const byte_array::const_iterator first(_byte_array.begin() + _current_index);
+  return byte_array(first, first + size);
 }
 
 bool iscool::net::byte_array_reader::has_next() const
 {
-    return _current_index != _byte_array.size();
+  return _current_index != _byte_array.size();
 }

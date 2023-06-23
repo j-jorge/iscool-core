@@ -20,10 +20,10 @@
 
 namespace iscool
 {
-    namespace net
-    {
-        typedef std::uint16_t message_type;
-    }
+  namespace net
+  {
+    typedef std::uint16_t message_type;
+  }
 }
 
 #endif

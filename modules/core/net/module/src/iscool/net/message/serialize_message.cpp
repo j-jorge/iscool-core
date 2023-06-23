@@ -15,39 +15,40 @@
 */
 #include "iscool/net/message/serialize_message.h"
 
-#include "iscool/net/message/message.h"
 #include "iscool/net/detail/apply_xor.h"
+#include "iscool/net/message/message.h"
 
-iscool::net::byte_array iscool::net::serialize_message( const message& m )
+iscool::net::byte_array iscool::net::serialize_message(const message& m)
 {
-    return serialize_message( m, {} );
+  return serialize_message(m, {});
 }
 
-iscool::net::byte_array
-iscool::net::serialize_message( const message& m, const xor_key& key )
+iscool::net::byte_array iscool::net::serialize_message(const message& m,
+                                                       const xor_key& key)
 {
-    return serialize_message( m, m.get_session_id(), m.get_channel_id(), key );
+  return serialize_message(m, m.get_session_id(), m.get_channel_id(), key);
 }
 
-iscool::net::byte_array
-iscool::net::serialize_message
-( const message& m, session_id session, channel_id channel, const xor_key& key )
+iscool::net::byte_array iscool::net::serialize_message(const message& m,
+                                                       session_id session,
+                                                       channel_id channel,
+                                                       const xor_key& key)
 {
-    byte_array content( m.get_content() );
+  byte_array content(m.get_content());
 
-    if ( !key.empty() )
-        detail::apply_xor( content, key );
-    
-    const std::uint16_t size
-        ( sizeof( message_type ) + sizeof( size ) + sizeof( session_id ) +
-          sizeof( channel_id ) + content.size() );
+  if (!key.empty())
+    detail::apply_xor(content, key);
 
-    byte_array result;
-    result.append( m.get_type() );
-    result.append( size );
-    result.append( session );
-    result.append( channel );
-    result.append( content );
+  const std::uint16_t size(sizeof(message_type) + sizeof(size)
+                           + sizeof(session_id) + sizeof(channel_id)
+                           + content.size());
 
-    return result;
+  byte_array result;
+  result.append(m.get_type());
+  result.append(size);
+  result.append(session);
+  result.append(channel);
+  result.append(content);
+
+  return result;
 }

@@ -17,6 +17,6 @@
 
 const std::string& iscool::preferences::log_context()
 {
-    static const std::string result( "Preferences" );
-    return result;
+  static const std::string result("Preferences");
+  return result;
 }

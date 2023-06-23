@@ -16,22 +16,22 @@
 #ifndef WISHINGWELL_TPP
 #define WISHINGWELL_TPP
 
-template< typename T >
-void iscool::wish::wishing_well::make_a_wish( const T& wish )
+template <typename T>
+void iscool::wish::wishing_well::make_a_wish(const T& wish)
 {
-    _genie.grant<T>( wish );
+  _genie.grant<T>(wish);
 }
 
-template< typename T >
+template <typename T>
 void iscool::wish::wishing_well::make_a_wish()
 {
-    _genie.grant<T>( T() );
+  _genie.grant<T>(T());
 }
 
-template< typename T >
+template <typename T>
 bool iscool::wish::wishing_well::is_wish_grantable()
 {
-    return _genie.is_wish_valid<T>();
+  return _genie.is_wish_valid<T>();
 }
 
 #endif

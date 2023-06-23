@@ -18,14 +18,14 @@
 
 namespace iscool
 {
-    namespace memory
+  namespace memory
+  {
+    template <typename S>
+    struct pool_signal_traits
     {
-        template< typename S >
-        struct pool_signal_traits
-        {
-            static bool clear( S& value );
-        };
-    }
+      static bool clear(S& value);
+    };
+  }
 }
 
 #include "iscool/memory/detail/pool_signal_traits.tpp"

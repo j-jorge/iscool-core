@@ -21,28 +21,28 @@
 
 namespace iscool
 {
-    namespace signals
+  namespace signals
+  {
+    class shared_connection
     {
-        class shared_connection
-        {
-        private:
-            typedef std::shared_ptr< scoped_connection > connection_pointer;
+    private:
+      typedef std::shared_ptr<scoped_connection> connection_pointer;
 
-        public:
-            shared_connection();
-            shared_connection( const connection& c );
-            ~shared_connection();
-            
-            bool connected() const;
-            void disconnect();
+    public:
+      shared_connection();
+      shared_connection(const connection& c);
+      ~shared_connection();
 
-            bool operator==( const shared_connection& that ) const;
-            bool operator!=( const shared_connection& that ) const;
+      bool connected() const;
+      void disconnect();
 
-        private:
-            connection_pointer _connection;
-        };
-    }
+      bool operator==(const shared_connection& that) const;
+      bool operator!=(const shared_connection& that) const;
+
+    private:
+      connection_pointer _connection;
+    };
+  }
 }
 
 #endif

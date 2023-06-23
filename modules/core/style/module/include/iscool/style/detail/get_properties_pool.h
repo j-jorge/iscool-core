@@ -20,13 +20,13 @@
 
 namespace iscool
 {
-    namespace style
+  namespace style
+  {
+    namespace detail
     {
-        namespace detail
-        {
-            properties_pool& get_properties_pool();
-        }
+      properties_pool& get_properties_pool();
     }
+  }
 }
 
 #endif

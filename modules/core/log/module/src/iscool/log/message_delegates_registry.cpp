@@ -18,13 +18,12 @@
 #include "iscool/log/detail/get_message_dispatcher.h"
 #include "iscool/log/detail/message_dispatcher.h"
 
-std::size_t iscool::log::register_delegates
-( const message_delegates& delegates )
+std::size_t iscool::log::register_delegates(const message_delegates& delegates)
 {
-    return detail::get_message_dispatcher().register_delegates( delegates );
+  return detail::get_message_dispatcher().register_delegates(delegates);
 }
 
-void iscool::log::unregister_delegates( std::size_t id )
+void iscool::log::unregister_delegates(std::size_t id)
 {
-    detail::get_message_dispatcher().unregister_delegates( id );
+  detail::get_message_dispatcher().unregister_delegates(id);
 }

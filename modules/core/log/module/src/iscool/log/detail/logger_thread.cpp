@@ -22,66 +22,65 @@
 
 namespace iscool
 {
-    namespace log
+  namespace log
+  {
+    namespace detail
     {
-        namespace detail
-        {
-            static void logger_thread_loop();
-            
-            static std::thread logger_thread;
-            static std::mutex logger_thread_state_mutex;
-            static std::condition_variable queue_updated;
+      static void logger_thread_loop();
 
-            static std::vector< std::function< void() > > logger_queue;
-            static bool exit_logger_thread;
-        }
+      static std::thread logger_thread;
+      static std::mutex logger_thread_state_mutex;
+      static std::condition_variable queue_updated;
+
+      static std::vector<std::function<void()>> logger_queue;
+      static bool exit_logger_thread;
     }
+  }
 }
 
-void iscool::log::detail::queue_in_logger_thread( std::function< void() > f )
+void iscool::log::detail::queue_in_logger_thread(std::function<void()> f)
 {
-    if ( logger_thread.get_id() == std::thread::id() )
+  if (logger_thread.get_id() == std::thread::id())
     {
-        exit_logger_thread = false;
-        logger_thread = std::thread( &logger_thread_loop );
+      exit_logger_thread = false;
+      logger_thread = std::thread(&logger_thread_loop);
     }
 
-    {
-        const std::unique_lock< std::mutex > lock( logger_thread_state_mutex );
-        logger_queue.emplace_back( std::move( f ) );
-    }
+  {
+    const std::unique_lock<std::mutex> lock(logger_thread_state_mutex);
+    logger_queue.emplace_back(std::move(f));
+  }
 
-    queue_updated.notify_one();
+  queue_updated.notify_one();
 }
 
 void iscool::log::detail::stop_logger_thread()
 {
-    {
-        const std::unique_lock< std::mutex > lock( logger_thread_state_mutex );
-        exit_logger_thread = true;
-    }
+  {
+    const std::unique_lock<std::mutex> lock(logger_thread_state_mutex);
+    exit_logger_thread = true;
+  }
 
-    queue_updated.notify_one();
+  queue_updated.notify_one();
 
-    if ( logger_thread.joinable() )
-        logger_thread.join();
+  if (logger_thread.joinable())
+    logger_thread.join();
 }
 
 void iscool::log::detail::logger_thread_loop()
 {
-    while ( true )
+  while (true)
     {
-        std::unique_lock< std::mutex > lock( logger_thread_state_mutex );
+      std::unique_lock<std::mutex> lock(logger_thread_state_mutex);
 
-        queue_updated.wait( lock );
-            
-        if ( exit_logger_thread )
-            break;
+      queue_updated.wait(lock);
 
-        for ( const std::function< void() >& f : logger_queue )
-            f();
+      if (exit_logger_thread)
+        break;
 
-        logger_queue.clear();
+      for (const std::function<void()>& f : logger_queue)
+        f();
+
+      logger_queue.clear();
     }
 }
-

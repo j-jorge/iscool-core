@@ -18,21 +18,19 @@
 
 #include "iscool/jni/collection.h"
 
-template< typename T >
-std::vector< T >
-iscool::jni::detail::cast< std::vector< T > >::value( jobject value )
+template <typename T>
+std::vector<T> iscool::jni::detail::cast<std::vector<T>>::value(jobject value)
 {
-    collection< jobject > collection( value );
-    std::vector< T > result;
-    result.reserve( collection.size() );
-    
-    iterator< jobject > it( collection.get_iterator() );
+  collection<jobject> collection(value);
+  std::vector<T> result;
+  result.reserve(collection.size());
 
-    while ( it.has_next() )
-        result.push_back( jni::cast< T >( it.next().release() ) );
+  iterator<jobject> it(collection.get_iterator());
 
-    return result;
+  while (it.has_next())
+    result.push_back(jni::cast<T>(it.next().release()));
+
+  return result;
 }
 
 #endif
-

@@ -16,14 +16,14 @@
 #ifndef ISCOOL_JSON_DETAIL_DECLARE_JSON_CAST_H
 #define ISCOOL_JSON_DETAIL_DECLARE_JSON_CAST_H
 
-#define DECLARE_JSON_CAST( T )                                          \
-    namespace iscool                                                    \
-    {                                                                   \
-        namespace json                                                  \
-        {                                                               \
-            extern template T cast< T >( const Json::Value& );          \
-            extern template T cast< T >( const Json::Value&, const T& ); \
-        }                                                               \
-    }
-    
+#define DECLARE_JSON_CAST(T)                                                  \
+  namespace iscool                                                            \
+  {                                                                           \
+    namespace json                                                            \
+    {                                                                         \
+      extern template T cast<T>(const Json::Value&);                          \
+      extern template T cast<T>(const Json::Value&, const T&);                \
+    }                                                                         \
+  }
+
 #endif

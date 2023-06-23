@@ -20,48 +20,46 @@
 
 #include "json/value.h"
 
-template< typename K, typename V >
-bool
-iscool::json::detail::cast< std::unordered_map< K, V > >::is_valid
-( const Json::Value& value )
+template <typename K, typename V>
+bool iscool::json::detail::cast<std::unordered_map<K, V>>::is_valid(
+    const Json::Value& value)
 {
-    if ( !value.isArray() || value.isNull() )
-        return false;
+  if (!value.isArray() || value.isNull())
+    return false;
 
-    for ( const Json::Value& entry : value )
+  for (const Json::Value& entry : value)
     {
-        const Json::Value& key( entry[ "key" ] );
-        const Json::Value& value( entry[ "value" ] );
-        
-        if ( !cast< K >::is_valid( key ) || !cast< V >::is_valid( value ) )
-            return false;
+      const Json::Value& key(entry["key"]);
+      const Json::Value& value(entry["value"]);
+
+      if (!cast<K>::is_valid(key) || !cast<V>::is_valid(value))
+        return false;
     }
 
-    return true;
+  return true;
 }
 
-template< typename K, typename V >
-std::unordered_map< K, V >
-iscool::json::detail::cast< std::unordered_map< K, V > >::value
-( const Json::Value& value )
+template <typename K, typename V>
+std::unordered_map<K, V>
+iscool::json::detail::cast<std::unordered_map<K, V>>::value(
+    const Json::Value& value)
 {
-    if ( !value.isArray() || value.isNull() )
-        throw bad_cast( value, "array" );
+  if (!value.isArray() || value.isNull())
+    throw bad_cast(value, "array");
 
-    std::unordered_map< K, V > result;
-    result.reserve( value.size() );
+  std::unordered_map<K, V> result;
+  result.reserve(value.size());
 
-    for ( const Json::Value& entry : value )
+  for (const Json::Value& entry : value)
     {
-        if ( !entry.isObject() || entry.isNull() )
-            throw iscool::json::bad_cast( entry, "object" );
-    
-        result.emplace
-            ( cast< K >::value( entry[ "key" ] ),
-              cast< V >::value( entry[ "value" ] ) );
+      if (!entry.isObject() || entry.isNull())
+        throw iscool::json::bad_cast(entry, "object");
+
+      result.emplace(cast<K>::value(entry["key"]),
+                     cast<V>::value(entry["value"]));
     }
-    
-    return result;
+
+  return result;
 }
 
 #endif

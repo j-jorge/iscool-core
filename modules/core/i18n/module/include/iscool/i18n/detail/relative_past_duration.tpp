@@ -16,57 +16,57 @@
 #ifndef ISCOOL_I18N_RELATIVE_PAST_DURATION_TPP
 #define ISCOOL_I18N_RELATIVE_PAST_DURATION_TPP
 
-#include "iscool/time/round.h"
-#include "iscool/time/days.h"
 #include "iscool/i18n/gettext.h"
+#include "iscool/time/days.h"
+#include "iscool/time/round.h"
 
 #include <boost/format.hpp>
 
 #include <cassert>
 
-template< class Rep, class Period >
-std::string iscool::i18n::relative_past_duration
-( const std::chrono::duration< Rep, Period >& duration )
+template <class Rep, class Period>
+std::string iscool::i18n::relative_past_duration(
+    const std::chrono::duration<Rep, Period>& duration)
 {
-    assert( duration.count () >= 0 );
-    
-    if ( duration == std::chrono::milliseconds::zero() )
-        return ic_gettext( "now" );
+  assert(duration.count() >= 0);
 
-    std::size_t count;
-    std::string format;
-    
-    if ( duration < std::chrono::seconds( 1 ) )
-    {
-        count = time::round< std::chrono::milliseconds >( duration ).count();
-        format = ic_gettext( "%d ms. ago" );
-    }
-    else if ( duration < std::chrono::minutes( 1 ) )
-    {
-        count = time::round< std::chrono::seconds >( duration ).count();
-        format = ic_gettext( "%d s. ago" );
-    }
-    else if ( duration < std::chrono::hours( 1 ) )
-    {
-        count = time::round< std::chrono::minutes >( duration ).count();
-        format = ic_gettext( "%d min. ago" );
-    }
-    else if ( duration < iscool::time::days( 1 ) )
-    {
-        count = time::round< std::chrono::hours >( duration ).count();
-        format = ic_gettext( "%d h. ago" );
-    }
-    else
-    {
-        count = time::round< iscool::time::days >( duration ).count();
+  if (duration == std::chrono::milliseconds::zero())
+    return ic_gettext("now");
 
-        if ( count == 1 )
-            format = ic_gettext( "%d day ago" );
-        else
-            format = ic_gettext( "%d days ago" );
+  std::size_t count;
+  std::string format;
+
+  if (duration < std::chrono::seconds(1))
+    {
+      count = time::round<std::chrono::milliseconds>(duration).count();
+      format = ic_gettext("%d ms. ago");
+    }
+  else if (duration < std::chrono::minutes(1))
+    {
+      count = time::round<std::chrono::seconds>(duration).count();
+      format = ic_gettext("%d s. ago");
+    }
+  else if (duration < std::chrono::hours(1))
+    {
+      count = time::round<std::chrono::minutes>(duration).count();
+      format = ic_gettext("%d min. ago");
+    }
+  else if (duration < iscool::time::days(1))
+    {
+      count = time::round<std::chrono::hours>(duration).count();
+      format = ic_gettext("%d h. ago");
+    }
+  else
+    {
+      count = time::round<iscool::time::days>(duration).count();
+
+      if (count == 1)
+        format = ic_gettext("%d day ago");
+      else
+        format = ic_gettext("%d days ago");
     }
 
-    return ( boost::format( format ) % count ).str();
+  return (boost::format(format) % count).str();
 }
 
 #endif

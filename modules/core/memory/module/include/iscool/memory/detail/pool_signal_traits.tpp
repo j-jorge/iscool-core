@@ -16,13 +16,13 @@
 #ifndef ISCOOL_MEMORY_POOL_SIGNAL_TRAITS_TPP
 #define ISCOOL_MEMORY_POOL_SIGNAL_TRAITS_TPP
 
-template< typename S >
-bool iscool::memory::pool_signal_traits< S >::clear( S& value )
+template <typename S>
+bool iscool::memory::pool_signal_traits<S>::clear(S& value)
 {
-    S new_value;
-    value.swap( new_value );
+  S new_value;
+  value.swap(new_value);
 
-    return true;
+  return true;
 }
 
 #endif

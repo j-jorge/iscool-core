@@ -16,6 +16,4 @@
 #include "iscool/style/detail/properties.h"
 
 iscool::style::detail::properties::properties()
-{
-
-}
+{}

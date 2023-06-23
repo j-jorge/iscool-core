@@ -22,33 +22,32 @@
 #include "iscool/memory/global_pool.h"
 #include "iscool/memory/global_pool.impl.tpp"
 
-template< typename T >
-void iscool::any::detail::typed_vtable< T >::clear( any& that )
+template <typename T>
+void iscool::any::detail::typed_vtable<T>::clear(any& that)
 {
-    iscool::memory::get_global_pool< T >().destroy
-        ( reinterpret_cast< T* >( that._value ) );
-    that._vtable = get_vtable< void >();
+  iscool::memory::get_global_pool<T>().destroy(
+      reinterpret_cast<T*>(that._value));
+  that._vtable = get_vtable<void>();
 }
 
-template< typename T >
-void iscool::any::detail::typed_vtable< T >::copy( any& self, const any& that )
+template <typename T>
+void iscool::any::detail::typed_vtable<T>::copy(any& self, const any& that)
 {
-    if ( that._value != nullptr )
-        self._value =
-            iscool::memory::get_global_pool< T >().construct
-            ( *reinterpret_cast< T* >( that._value ) );
-    else
-        self._value = nullptr;
+  if (that._value != nullptr)
+    self._value = iscool::memory::get_global_pool<T>().construct(
+        *reinterpret_cast<T*>(that._value));
+  else
+    self._value = nullptr;
 
-    self._vtable = that._vtable;
+  self._vtable = that._vtable;
 }
 
-template< typename T >
-void iscool::any::detail::typed_vtable< T >::move( any& self, any&& that )
+template <typename T>
+void iscool::any::detail::typed_vtable<T>::move(any& self, any&& that)
 {
-    self._value = that._value;
-    self._vtable = that._vtable;
-    that._vtable = get_vtable< void >();
+  self._value = that._value;
+  self._vtable = that._vtable;
+  that._vtable = get_vtable<void>();
 }
 
 #endif

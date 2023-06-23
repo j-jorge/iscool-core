@@ -20,11 +20,11 @@
 
 namespace iscool
 {
-    namespace preferences
-    {
-        string_property declare_global_string_property
-        ( std::string&& name, std::string&& fallback );
-    }
+  namespace preferences
+  {
+    string_property declare_global_string_property(std::string&& name,
+                                                   std::string&& fallback);
+  }
 }
 
 #endif

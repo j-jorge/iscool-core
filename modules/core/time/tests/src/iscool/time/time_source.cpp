@@ -18,20 +18,20 @@
 
 #include <gtest/gtest.h>
 
-TEST( iscool_time, time_source )
+TEST(iscool_time, time_source)
 {
-    std::chrono::nanoseconds current_date(123);
+  std::chrono::nanoseconds current_date(123);
 
-    iscool::time::scoped_time_source_delegate scoped_time_source
-        ([&current_date]() -> std::chrono::nanoseconds
-            {
-                return current_date;
-            });
+  iscool::time::scoped_time_source_delegate scoped_time_source(
+      [&current_date]() -> std::chrono::nanoseconds
+      {
+        return current_date;
+      });
 
-    EXPECT_EQ(current_date, iscool::time::now<std::chrono::nanoseconds>());
-    EXPECT_EQ(current_date, iscool::time::now<std::chrono::nanoseconds>());
+  EXPECT_EQ(current_date, iscool::time::now<std::chrono::nanoseconds>());
+  EXPECT_EQ(current_date, iscool::time::now<std::chrono::nanoseconds>());
 
-    current_date = std::chrono::nanoseconds(666);
+  current_date = std::chrono::nanoseconds(666);
 
-    EXPECT_EQ(current_date, iscool::time::now<std::chrono::nanoseconds>());
+  EXPECT_EQ(current_date, iscool::time::now<std::chrono::nanoseconds>());
 }

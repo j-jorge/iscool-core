@@ -20,10 +20,10 @@
 
 namespace iscool
 {
-    namespace jni
-    {
-        java_ptr< jclass > get_class( const char* class_name );
-    }
+  namespace jni
+  {
+    java_ptr<jclass> get_class(const char* class_name);
+  }
 }
 
 #endif

@@ -20,15 +20,15 @@
 
 namespace iscool
 {
-    namespace video
+  namespace video
+  {
+    class video_info
     {
-        class video_info
-        {
-        public:
-            int width;
-            int height;
-        };
-    }
+    public:
+      int width;
+      int height;
+    };
+  }
 }
 
 #endif

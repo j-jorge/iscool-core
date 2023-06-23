@@ -20,11 +20,11 @@
 
 namespace iscool
 {
-    namespace style
-    {
-        void initialize( const merge_path_list& path_list );
-        void finalize();
-    }
+  namespace style
+  {
+    void initialize(const merge_path_list& path_list);
+    void finalize();
+  }
 }
 
 #endif

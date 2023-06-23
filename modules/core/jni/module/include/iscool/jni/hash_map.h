@@ -22,39 +22,38 @@
 
 namespace iscool
 {
-    namespace jni
+  namespace jni
+  {
+    template <typename K, typename V>
+    class hash_map
     {
-        template< typename K, typename V >
-        class hash_map
-        {
-        public:
-            typedef java_ptr< K > key_type;
-            typedef java_ptr< V > value_type;
-        
-        public:
-            hash_map();
-            explicit hash_map( const java_ptr< jobject >& impl );
-            
-            const java_ptr< jobject >& get_java_object() const;
+    public:
+      typedef java_ptr<K> key_type;
+      typedef java_ptr<V> value_type;
 
-            value_type
-            put( const key_type& key, const value_type& value ) const;
+    public:
+      hash_map();
+      explicit hash_map(const java_ptr<jobject>& impl);
 
-            std::vector< map_entry< K, V > > get_entry_set() const;
-            
-        private:
-            java_ptr< jobject > _map;
-        };
+      const java_ptr<jobject>& get_java_object() const;
 
-        namespace detail
-        {
-            template< typename K, typename V >
-            struct get_method_argument_impl< hash_map< K, V > >
-            {
-                static jobject get( const hash_map< K, V >& array );
-            };
-        }
+      value_type put(const key_type& key, const value_type& value) const;
+
+      std::vector<map_entry<K, V>> get_entry_set() const;
+
+    private:
+      java_ptr<jobject> _map;
+    };
+
+    namespace detail
+    {
+      template <typename K, typename V>
+      struct get_method_argument_impl<hash_map<K, V>>
+      {
+        static jobject get(const hash_map<K, V>& array);
+      };
     }
+  }
 }
 
 #include "iscool/jni/detail/hash_map.tpp"

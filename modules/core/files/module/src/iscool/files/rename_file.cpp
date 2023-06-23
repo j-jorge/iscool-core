@@ -22,18 +22,17 @@
 
 #include <filesystem>
 
-bool iscool::files::rename_file
-( const std::string& from, const std::string& to )
+bool iscool::files::rename_file(const std::string& from, const std::string& to)
 {
-    std::error_code error;
-    std::filesystem::rename( from, to, error );
+  std::error_code error;
+  std::filesystem::rename(from, to, error);
 
-    if ( !error )
-        return true;
+  if (!error)
+    return true;
 
-    ic_causeless_log
-        ( iscool::log::nature::error(), log_context(),
-          "Could not rename file '%s' as '%s': %s", from, to, error.message() );
+  ic_causeless_log(iscool::log::nature::error(), log_context(),
+                   "Could not rename file '%s' as '%s': %s", from, to,
+                   error.message());
 
-    return false;
+  return false;
 }

@@ -15,8 +15,6 @@
 */
 #include "iscool/wish/wishing_well.h"
 
-iscool::wish::wishing_well::wishing_well( genie& genie )
-    : _genie( genie )
-{
-}
-
+iscool::wish::wishing_well::wishing_well(genie& genie)
+  : _genie(genie)
+{}

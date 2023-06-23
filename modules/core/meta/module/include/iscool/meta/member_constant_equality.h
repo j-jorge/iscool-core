@@ -16,10 +16,10 @@
 #ifndef ISCOOL_META_MEMBER_CONSTANT_EQUALITY_H
 #define ISCOOL_META_MEMBER_CONSTANT_EQUALITY_H
 
-#define member_constant_equality( Type, Member, Value )                 \
-    [ & ]( Type const& value ) -> bool                                  \
-    {                                                                   \
-        return ( Value ) == value Member;                               \
-    }
+#define member_constant_equality(Type, Member, Value)                         \
+  [&](Type const& value) -> bool                                              \
+  {                                                                           \
+    return (Value) == value Member;                                           \
+  }
 
 #endif

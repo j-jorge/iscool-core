@@ -20,29 +20,29 @@
 
 namespace iscool
 {
-    namespace net
+  namespace net
+  {
+    class byte_array_reader;
+
+    class byte_array_bit_reader
     {
-        class byte_array_reader;
+    public:
+      explicit byte_array_bit_reader(byte_array_reader& array);
 
-        class byte_array_bit_reader
-        {
-        public:
-            explicit byte_array_bit_reader( byte_array_reader& array );
-            
-            std::uint8_t get( std::uint8_t bit_count );
+      std::uint8_t get(std::uint8_t bit_count);
 
-            template< typename T >
-            T get_large( std::uint8_t bit_count );
+      template <typename T>
+      T get_large(std::uint8_t bit_count);
 
-        private:
-            void fill_buffer();
-            
-        private:
-            byte_array_reader& _array;
-            std::uint8_t _buffer;
-            std::uint8_t _available_bits;
-        };
-    }
+    private:
+      void fill_buffer();
+
+    private:
+      byte_array_reader& _array;
+      std::uint8_t _buffer;
+      std::uint8_t _available_bits;
+    };
+  }
 }
 
 #include "iscool/net/detail/byte_array_bit_reader.tpp"

@@ -21,19 +21,19 @@
 
 #include <json/value.h>
 
-template< typename T >
-T iscool::json::cast( const Json::Value& value )
+template <typename T>
+T iscool::json::cast(const Json::Value& value)
 {
-    return detail::cast< T >::value( value );
+  return detail::cast<T>::value(value);
 }
 
-template< typename T >
-T iscool::json::cast( const Json::Value& value, const T& fallback )
+template <typename T>
+T iscool::json::cast(const Json::Value& value, const T& fallback)
 {
-    if ( value.isNull() )
-        return fallback;
-    
-    return cast< T >( value );
+  if (value.isNull())
+    return fallback;
+
+  return cast<T>(value);
 }
 
 #endif

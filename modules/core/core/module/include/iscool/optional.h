@@ -20,117 +20,116 @@
 
 namespace iscool
 {
-    struct none_t;
-    
-    template< typename T >
-    class optional
-    {
-    public:
-        optional();
-        optional( T&& that );
-        optional( const T& that );
-        optional( const optional< T >& that );
-        
-        template< typename U >
-        optional( const optional< U >& that );
+  struct none_t;
 
-        optional( optional< T >&& that );
-        optional( const none_t& );
+  template <typename T>
+  class optional
+  {
+  public:
+    optional();
+    optional(T&& that);
+    optional(const T& that);
+    optional(const optional<T>& that);
 
-        ~optional();
-  
-        explicit operator bool() const;
+    template <typename U>
+    optional(const optional<U>& that);
 
-        T& operator*();
-        const T& operator*() const;
-        
-        T* operator->();
-        const T* operator->() const;
-        
-        optional< T >& operator=( const T& that );
-        optional< T >& operator=( const optional< T >& that );
-        optional< T >& operator=( optional< T >&& that );
-        optional< T >& operator=( const none_t& );
-        
-        bool operator==( const none_t& ) const;
-        bool operator!=( const none_t& ) const;
+    optional(optional<T>&& that);
+    optional(const none_t&);
 
-        template< typename... Args >
-        void emplace( Args&&... args );
-   
-        void reset();
-        void swap( optional< T >& that );
+    ~optional();
 
-    private:
-        T* get();
-        const T* get() const;
+    explicit operator bool() const;
 
-    private:
-        typename
-        std::aligned_storage< sizeof( T ), alignof( T ) >::type _storage;
-        bool _initialized;          
-    };
+    T& operator*();
+    const T& operator*() const;
 
-    template< typename T >
-    class optional< T& >
-    {
-    public:
-        optional();
-        optional( T& that );
-        optional( const optional< T& >& that );
+    T* operator->();
+    const T* operator->() const;
 
-        template< typename U >
-        optional( const optional< U& >& that );
+    optional<T>& operator=(const T& that);
+    optional<T>& operator=(const optional<T>& that);
+    optional<T>& operator=(optional<T>&& that);
+    optional<T>& operator=(const none_t&);
 
-        optional( optional< T& >&& that );
-        optional( const none_t& );
-        
-        ~optional();
-        
-        explicit operator bool() const;
+    bool operator==(const none_t&) const;
+    bool operator!=(const none_t&) const;
 
-        T& operator*();
-        const T& operator*() const;
-        
-        T* operator->();
-        const T* operator->() const;
+    template <typename... Args>
+    void emplace(Args&&... args);
 
-        optional< T& >& operator=( T& that );
-        optional< T& >& operator=( const optional< T& >& that );
-        optional< T& >& operator=( optional< T& >&& that );
-        optional< T& >& operator=( const none_t& );
+    void reset();
+    void swap(optional<T>& that);
 
-        bool operator==( const none_t& ) const;
-        bool operator!=( const none_t& ) const;
+  private:
+    T* get();
+    const T* get() const;
 
-        void emplace( T& that );
-        void reset();
-        void swap( optional< T& >& that );
+  private:
+    typename std::aligned_storage<sizeof(T), alignof(T)>::type _storage;
+    bool _initialized;
+  };
 
-    private:
-        T* _value;
-    };
+  template <typename T>
+  class optional<T&>
+  {
+  public:
+    optional();
+    optional(T& that);
+    optional(const optional<T&>& that);
 
-    template< typename T >
-    bool operator==( const none_t&, const optional< T >& value );
+    template <typename U>
+    optional(const optional<U&>& that);
 
-    template< typename T >
-    bool operator!=( const none_t&, const optional< T >& value );
+    optional(optional<T&>&& that);
+    optional(const none_t&);
 
-    template< typename T >
-    iscool::optional< T > make_optional( T value );
+    ~optional();
+
+    explicit operator bool() const;
+
+    T& operator*();
+    const T& operator*() const;
+
+    T* operator->();
+    const T* operator->() const;
+
+    optional<T&>& operator=(T& that);
+    optional<T&>& operator=(const optional<T&>& that);
+    optional<T&>& operator=(optional<T&>&& that);
+    optional<T&>& operator=(const none_t&);
+
+    bool operator==(const none_t&) const;
+    bool operator!=(const none_t&) const;
+
+    void emplace(T& that);
+    void reset();
+    void swap(optional<T&>& that);
+
+  private:
+    T* _value;
+  };
+
+  template <typename T>
+  bool operator==(const none_t&, const optional<T>& value);
+
+  template <typename T>
+  bool operator!=(const none_t&, const optional<T>& value);
+
+  template <typename T>
+  iscool::optional<T> make_optional(T value);
 }
 
-extern template class iscool::optional< bool >;
-extern template class iscool::optional< char >;
-extern template class iscool::optional< unsigned char >;
-extern template class iscool::optional< int >;
-extern template class iscool::optional< unsigned int >;
-extern template class iscool::optional< long >;
-extern template class iscool::optional< unsigned long >;
-extern template class iscool::optional< long long >;
-extern template class iscool::optional< unsigned long long >;
-extern template class iscool::optional< float >;
-extern template class iscool::optional< double >;
+extern template class iscool::optional<bool>;
+extern template class iscool::optional<char>;
+extern template class iscool::optional<unsigned char>;
+extern template class iscool::optional<int>;
+extern template class iscool::optional<unsigned int>;
+extern template class iscool::optional<long>;
+extern template class iscool::optional<unsigned long>;
+extern template class iscool::optional<long long>;
+extern template class iscool::optional<unsigned long long>;
+extern template class iscool::optional<float>;
+extern template class iscool::optional<double>;
 
 #endif

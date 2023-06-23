@@ -18,14 +18,14 @@
 
 namespace iscool
 {
-    namespace functional
+  namespace functional
+  {
+    template <typename T>
+    struct identity
     {
-        template< typename T >
-        struct identity
-        {
-            const T& operator()( const T& value ) const;
-        };
-    }
+      const T& operator()(const T& value) const;
+    };
+  }
 }
 
 #include "iscool/functional/detail/identity.tpp"

@@ -17,5 +17,5 @@
 
 std::string iscool::system::get_language_code()
 {
-    return "en";
+  return "en";
 }

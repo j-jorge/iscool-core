@@ -18,34 +18,31 @@
 #include <cstring>
 
 #ifdef ISCOOL_HAS_BOOST_LOCALE
-#include <boost/locale/generator.hpp>
+  #include <boost/locale/generator.hpp>
 #else
-#include <stdexcept>
+  #include <stdexcept>
 #endif
 
 #ifdef ISCOOL_HAS_BOOST_LOCALE
-iscool::locale::character_range iscool::locale::make_character_range
-( const std::string& text )
+iscool::locale::character_range
+iscool::locale::make_character_range(const std::string& text)
 {
-    static const std::locale locale( boost::locale::generator()("en.UTF-8") );
+  static const std::locale locale(boost::locale::generator()("en.UTF-8"));
 
-    return
-        character_range
-        ( boost::locale::boundary::character, text.begin(), text.end(),
-          locale );
+  return character_range(boost::locale::boundary::character, text.begin(),
+                         text.end(), locale);
 }
 
 #else
 
 iscool::locale::character_range
-iscool::locale::make_character_range( const std::string& text )
+iscool::locale::make_character_range(const std::string& text)
 {
-    throw
-        std::runtime_error
-        ( "iscool::locale::make_character_range is not supported on this"
-          " platform." );
-    
-    return character_range();
+  throw std::runtime_error(
+      "iscool::locale::make_character_range is not supported on this"
+      " platform.");
+
+  return character_range();
 }
 
 #endif

@@ -20,11 +20,10 @@
 
 namespace iscool
 {
-    namespace http
-    {
-        mockup& get_global_mockup();
-    }
+  namespace http
+  {
+    mockup& get_global_mockup();
+  }
 }
 
 #endif
-

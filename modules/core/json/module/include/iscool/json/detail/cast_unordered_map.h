@@ -22,25 +22,24 @@
 
 namespace Json
 {
-    class Value;
+  class Value;
 }
 
 namespace iscool
 {
-    namespace json
+  namespace json
+  {
+    namespace detail
     {
-        namespace detail
-        {
-            template< typename K, typename V >
-            struct cast< std::unordered_map< K, V > >
-            {
-                static bool is_valid( const Json::Value& value );
+      template <typename K, typename V>
+      struct cast<std::unordered_map<K, V>>
+      {
+        static bool is_valid(const Json::Value& value);
 
-                static std::unordered_map< K, V > value
-                ( const Json::Value& value );
-            };
-        }
+        static std::unordered_map<K, V> value(const Json::Value& value);
+      };
     }
+  }
 }
 
 #include "iscool/json/detail/cast_unordered_map.tpp"

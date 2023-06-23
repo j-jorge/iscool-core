@@ -20,19 +20,18 @@
 
 namespace iscool
 {
-    namespace net
-    {
-        class byte_array;
-        class byte_array_reader;
+  namespace net
+  {
+    class byte_array;
+    class byte_array_reader;
 
-        template<typename... T>
-        byte_array&
-        operator<<( byte_array& output, const std::tuple<T...>& value );
-        
-        template<typename... T>
-        byte_array_reader&
-        operator>>( byte_array_reader& input, std::tuple<T...>& value );
-    }
+    template <typename... T>
+    byte_array& operator<<(byte_array& output, const std::tuple<T...>& value);
+
+    template <typename... T>
+    byte_array_reader& operator>>(byte_array_reader& input,
+                                  std::tuple<T...>& value);
+  }
 }
 
 #include "iscool/net/byte_array_serialization/byte_array_tuple_serialization.tpp"

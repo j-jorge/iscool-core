@@ -23,18 +23,12 @@
 
 namespace iscool
 {
-    namespace preferences
-    {
-        typedef
-        iscool::containers::heterogeneous_map
-        <
-            std::string,
-            std::int64_t,
-            bool,
-            float,
-            std::string
-        > property_map;
-    }
+  namespace preferences
+  {
+    typedef iscool::containers::heterogeneous_map<std::string, std::int64_t,
+                                                  bool, float, std::string>
+        property_map;
+  }
 }
 
 #endif

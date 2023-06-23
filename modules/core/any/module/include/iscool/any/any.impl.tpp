@@ -22,27 +22,24 @@
 #include "iscool/memory/global_pool.h"
 #include "iscool/memory/global_pool.impl.tpp"
 
-template< typename T >
-iscool::any::any::any( const T& value )
-    : _value( iscool::memory::get_global_pool< T >().construct( value ) ),
-      _vtable( detail::get_vtable< T >() )
-{
+template <typename T>
+iscool::any::any::any(const T& value)
+  : _value(iscool::memory::get_global_pool<T>().construct(value))
+  , _vtable(detail::get_vtable<T>())
+{}
 
-}
-
-template< typename T >
+template <typename T>
 const T* iscool::any::any::get() const
 {
-    return
-        ( _vtable->type_id == typeid( T ).hash_code() )
-        ? reinterpret_cast< const T* >( _value )
-        : nullptr;
+  return (_vtable->type_id == typeid(T).hash_code())
+             ? reinterpret_cast<const T*>(_value)
+             : nullptr;
 }
 
-template< typename Visitor >
-void iscool::any::any::visit( Visitor visitor ) const
+template <typename Visitor>
+void iscool::any::any::visit(Visitor visitor) const
 {
-    visitor.visit( _vtable->type_id, _value );
+  visitor.visit(_vtable->type_id, _value);
 }
 
 #endif

@@ -16,16 +16,13 @@
 #ifndef ISCOOL_COLLECTIONS_APPEND_TPP
 #define ISCOOL_COLLECTIONS_APPEND_TPP
 
-template
-<
-    template <typename, typename> class OutputContainer, typename T,
-    template <typename, typename> class InputContainer, typename U
->
-void iscool::collections::append
-( OutputContainer< T, std::allocator<T> >& output,
-  const InputContainer< U, std::allocator<U> >& input )
+template <template <typename, typename> class OutputContainer, typename T,
+          template <typename, typename> class InputContainer, typename U>
+void iscool::collections::append(
+    OutputContainer<T, std::allocator<T>>& output,
+    const InputContainer<U, std::allocator<U>>& input)
 {
-    output.insert( output.end(), input.begin(), input.end() );
+  output.insert(output.end(), input.begin(), input.end());
 }
 
 #endif

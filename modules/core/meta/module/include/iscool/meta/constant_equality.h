@@ -16,14 +16,12 @@
 #ifndef ISCOOL_META_CONSTANT_EQUALITY_H
 #define ISCOOL_META_CONSTANT_EQUALITY_H
 
-#define constant_equality( Value )                                      \
-    [ & ]                                                               \
-    ( std::remove_const                                                 \
-      <                                                                 \
-      std::remove_reference< decltype( Value ) >::type                  \
-      >::type const& value ) -> bool                                    \
-    {                                                                   \
-        return ( Value ) == value;                                      \
-    }
+#define constant_equality(Value)                                              \
+  [&](std::remove_const<                                                      \
+      std::remove_reference<decltype(Value)>::type>::type const& value)       \
+      -> bool                                                                 \
+  {                                                                           \
+    return (Value) == value;                                                  \
+  }
 
 #endif

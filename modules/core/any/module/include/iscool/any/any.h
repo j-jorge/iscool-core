@@ -18,45 +18,45 @@
 
 namespace iscool
 {
-    namespace any
+  namespace any
+  {
+    namespace detail
     {
-        namespace detail
-        {
-            template< typename T >
-            class typed_vtable;
+      template <typename T>
+      class typed_vtable;
 
-            class vtable;
-        }
-        
-        class any
-        {
-            template< typename T >
-            friend class detail::typed_vtable;
-                
-        public:
-            any();
-            any( const any& that );
-            any( any&& that );
-                
-            template< typename T >
-            any( const T& value );
-
-            ~any();
-
-            any& operator=( const any& that );
-            any& operator=( any&& that );
-
-            template< typename T >
-            const T* get() const;
-
-            template< typename Visitor >
-            void visit( Visitor visitor ) const;
-
-        private:
-            void* _value;
-            detail::vtable* _vtable;
-        };
+      class vtable;
     }
+
+    class any
+    {
+      template <typename T>
+      friend class detail::typed_vtable;
+
+    public:
+      any();
+      any(const any& that);
+      any(any&& that);
+
+      template <typename T>
+      any(const T& value);
+
+      ~any();
+
+      any& operator=(const any& that);
+      any& operator=(any&& that);
+
+      template <typename T>
+      const T* get() const;
+
+      template <typename Visitor>
+      void visit(Visitor visitor) const;
+
+    private:
+      void* _value;
+      detail::vtable* _vtable;
+    };
+  }
 }
 
 #endif

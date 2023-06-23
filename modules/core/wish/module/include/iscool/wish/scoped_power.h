@@ -20,24 +20,23 @@
 
 namespace iscool
 {
-    namespace wish
+  namespace wish
+  {
+    template <typename T>
+    class scoped_power
     {
-        template< typename T >
-        class scoped_power
-        {
-        public:
-            scoped_power
-            ( genie& main_genie, std::function<void(const T&)> function );
+    public:
+      scoped_power(genie& main_genie, std::function<void(const T&)> function);
 
-            ~scoped_power();
+      ~scoped_power();
 
-            scoped_power<T>& operator= ( const scoped_power<T>& ) = delete;
-            scoped_power( const scoped_power<T>& ) = delete;
+      scoped_power<T>& operator=(const scoped_power<T>&) = delete;
+      scoped_power(const scoped_power<T>&) = delete;
 
-        private:
-            genie& _genie;
-        };
-    }
+    private:
+      genie& _genie;
+    };
+  }
 }
 
 #include "iscool/wish/scoped_power.tpp"

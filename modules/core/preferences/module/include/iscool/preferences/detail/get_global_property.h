@@ -20,14 +20,14 @@
 
 namespace iscool
 {
-    namespace preferences
+  namespace preferences
+  {
+    namespace detail
     {
-        namespace detail
-        {
-            template< typename T >
-            T get_global_property( const property< T >& property );
-        }
+      template <typename T>
+      T get_global_property(const property<T>& property);
     }
+  }
 }
 
 #include "iscool/preferences/detail/get_global_property.tpp"

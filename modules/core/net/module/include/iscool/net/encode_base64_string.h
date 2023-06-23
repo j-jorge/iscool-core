@@ -22,10 +22,10 @@
 
 namespace iscool
 {
-    namespace net
-    {
-        std::string encode_base64_string( const byte_array& input );
-    }
+  namespace net
+  {
+    std::string encode_base64_string(const byte_array& input);
+  }
 }
 
 #endif

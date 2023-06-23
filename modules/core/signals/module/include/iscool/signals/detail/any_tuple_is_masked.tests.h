@@ -18,41 +18,29 @@
 
 namespace iscool
 {
-    namespace signals
+  namespace signals
+  {
+    namespace detail
     {
-        namespace detail
-        {
-            static_assert
-            ( !any_tuple_is_masked
-              <
-                  std::tuple<>,
-                  std::tuple< int, float, bool >
-              >::value,
-              "Single tuple to check should not be masked." );
+      static_assert(!any_tuple_is_masked<std::tuple<>,
+                                         std::tuple<int, float, bool>>::value,
+                    "Single tuple to check should not be masked.");
 
-            static_assert
-            ( any_tuple_is_masked
-              <
-                  std::tuple<>,
-                  std::tuple< int, float, bool >,
-                  std::tuple< float, bool, double >,
-                  std::tuple< int, float, double >,
-                  std::tuple< bool, int, double >
-              >::value,
-              "Failed to detect masked tuple." );
+      static_assert(
+          any_tuple_is_masked<std::tuple<>, std::tuple<int, float, bool>,
+                              std::tuple<float, bool, double>,
+                              std::tuple<int, float, double>,
+                              std::tuple<bool, int, double>>::value,
+          "Failed to detect masked tuple.");
 
-            static_assert
-            ( !any_tuple_is_masked
-              <
-                  std::tuple<>,
-                  std::tuple< int, float, bool >,
-                  std::tuple< float, bool, double >,
-                  std::tuple< int, float, int >,
-                  std::tuple< bool, int, double >
-              >::value,
-              "Failed not to detect masked tuple." );
-        }
+      static_assert(
+          !any_tuple_is_masked<std::tuple<>, std::tuple<int, float, bool>,
+                               std::tuple<float, bool, double>,
+                               std::tuple<int, float, int>,
+                               std::tuple<bool, int, double>>::value,
+          "Failed not to detect masked tuple.");
     }
+  }
 }
 
 #endif

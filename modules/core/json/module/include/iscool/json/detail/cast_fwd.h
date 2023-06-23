@@ -18,14 +18,14 @@
 
 namespace iscool
 {
-    namespace json
+  namespace json
+  {
+    namespace detail
     {
-        namespace detail
-        {
-            template< typename T >
-            struct cast;
-        }
+      template <typename T>
+      struct cast;
     }
+  }
 }
 
 #endif

@@ -22,12 +22,12 @@
 
 namespace iscool
 {
-    namespace system
-    {
-        iscool::signals::connection capture_screen
-        ( const std::string& file_name,
-          std::function< void( std::string ) > on_capture );
-    }
+  namespace system
+  {
+    iscool::signals::connection
+    capture_screen(const std::string& file_name,
+                   std::function<void(std::string)> on_capture);
+  }
 }
 
 #endif

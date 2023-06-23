@@ -22,66 +22,43 @@
 
 namespace iscool
 {
-    namespace signals
+  namespace signals
+  {
+    namespace detail
     {
-        namespace detail
+      template <typename TuplesBefore, typename... TuplesToCheck>
+      struct any_tuple_is_masked;
+
+      template <typename... TupleBefore, typename Tuple>
+      struct any_tuple_is_masked<std::tuple<TupleBefore...>, Tuple>
+      {
+        enum
         {
-            template< typename TuplesBefore, typename... TuplesToCheck >
-            struct any_tuple_is_masked;
+          value = tuple_is_masked < typename iscool::meta::make_indices<
+                      std::tuple_size<Tuple>::value>::type,
+          Tuple,
+          TupleBefore... > ::value
+        };
+      };
 
-            template< typename... TupleBefore, typename Tuple >
-            struct any_tuple_is_masked< std::tuple< TupleBefore... >, Tuple >
-            {
-                enum
-                {
-                    value =
-                      tuple_is_masked
-                      <
-                          typename iscool::meta::make_indices
-                          <
-                              std::tuple_size< Tuple >::value
-                          >::type,
-                          Tuple,
-                          TupleBefore...
-                      >::value
-                };
-            };
-
-            template
-            <
-                typename... TupleBefore,
-                typename Tuple,
-                typename... TupleAfter
-            >
-            struct any_tuple_is_masked
-            <
-                std::tuple< TupleBefore... >,
-                Tuple,
-                TupleAfter...
-            >
-            {
-                enum
-                {
-                    value =
-                      tuple_is_masked
-                      <
-                          typename iscool::meta::make_indices
-                          <
-                              std::tuple_size< Tuple >::value
-                          >::type,
-                          Tuple,
-                          TupleBefore...
-                      >::value
-                      ||
-                      any_tuple_is_masked
-                      <
-                          std::tuple< TupleBefore..., Tuple >,
-                          TupleAfter...
-                      >::value
-                };
-            };
-        }
+      template <typename... TupleBefore, typename Tuple,
+                typename... TupleAfter>
+      struct any_tuple_is_masked<std::tuple<TupleBefore...>, Tuple,
+                                 TupleAfter...>
+      {
+        enum
+        {
+          value = tuple_is_masked < typename iscool::meta::make_indices<
+                      std::tuple_size<Tuple>::value>::type,
+          Tuple,
+          TupleBefore... > ::value
+              || any_tuple_is_masked < std::tuple < TupleBefore...,
+          Tuple >,
+          TupleAfter... > ::value
+        };
+      };
     }
+  }
 }
 
 #include "iscool/signals/detail/any_tuple_is_masked.tests.h"

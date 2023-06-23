@@ -17,22 +17,21 @@
 #define ISCOOL_NET_SERIALIZE_MESSAGE_H
 
 #include "iscool/net/byte_array.h"
-#include "iscool/net/xor_key.h"
 #include "iscool/net/message/channel_id.h"
 #include "iscool/net/message/session_id.h"
+#include "iscool/net/xor_key.h"
 
 namespace iscool
 {
-    namespace net
-    {
-        class message;
-        
-        byte_array serialize_message( const message& m );
-        byte_array serialize_message( const message& m, const xor_key& key );
-        byte_array serialize_message
-        ( const message& m, session_id session, channel_id channel,
-          const xor_key& key );
-    }
+  namespace net
+  {
+    class message;
+
+    byte_array serialize_message(const message& m);
+    byte_array serialize_message(const message& m, const xor_key& key);
+    byte_array serialize_message(const message& m, session_id session,
+                                 channel_id channel, const xor_key& key);
+  }
 }
 
 #endif

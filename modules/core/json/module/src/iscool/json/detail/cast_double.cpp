@@ -24,20 +24,18 @@
 
 #include <json/value.h>
 
-IMPLEMENT_JSON_CAST( double )
-IMPLEMENT_JSON_IS_OF_TYPE( double )
+IMPLEMENT_JSON_CAST(double)
+IMPLEMENT_JSON_IS_OF_TYPE(double)
 
-bool
-iscool::json::detail::cast< double >::is_valid( const Json::Value& value )
+bool iscool::json::detail::cast<double>::is_valid(const Json::Value& value)
 {
-    return value.isDouble() || value.isInt() || value.isUInt();
+  return value.isDouble() || value.isInt() || value.isUInt();
 }
 
-double
-iscool::json::detail::cast< double >::value( const Json::Value& value )
+double iscool::json::detail::cast<double>::value(const Json::Value& value)
 {
-    if ( !is_valid( value ) )
-        throw bad_cast( value, "double" );
+  if (!is_valid(value))
+    throw bad_cast(value, "double");
 
-    return value.asDouble();
+  return value.asDouble();
 }

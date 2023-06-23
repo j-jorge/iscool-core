@@ -24,74 +24,74 @@
 
 #include "gtest/gtest.h"
 
-TEST( iscool_preferences_local_preferences_from_json_test, values )
+TEST(iscool_preferences_local_preferences_from_json_test, values)
 {
-    Json::Value json;
-    json[ "int64" ] = 24;
-    json[ "string" ] = "s";
-    json[ "bool" ] = true;
-    
-    const iscool::preferences::property_map map
-        ( iscool::preferences::detail::local_preferences_from_json( json ) );
+  Json::Value json;
+  json["int64"] = 24;
+  json["string"] = "s";
+  json["bool"] = true;
 
-    EXPECT_TRUE( map.has< std::int64_t >( "int64" ) );
-    EXPECT_EQ( 24, *map.get< std::int64_t >( "int64" ) );
-    
-    EXPECT_TRUE( map.has< std::string >( "string" ) );
-    EXPECT_EQ( "s", *map.get< std::string >( "string" ) );
+  const iscool::preferences::property_map map(
+      iscool::preferences::detail::local_preferences_from_json(json));
 
-    EXPECT_TRUE( map.has< bool >( "bool" ) );
-    EXPECT_EQ( true, *map.get< bool >( "bool" ) );
+  EXPECT_TRUE(map.has<std::int64_t>("int64"));
+  EXPECT_EQ(24, *map.get<std::int64_t>("int64"));
+
+  EXPECT_TRUE(map.has<std::string>("string"));
+  EXPECT_EQ("s", *map.get<std::string>("string"));
+
+  EXPECT_TRUE(map.has<bool>("bool"));
+  EXPECT_EQ(true, *map.get<bool>("bool"));
 }
 
-TEST( iscool_preferences_local_preferences_from_json_test, non_object )
+TEST(iscool_preferences_local_preferences_from_json_test, non_object)
 {
-    Json::Value json( 53489 );
-    
-    const iscool::preferences::property_map map
-        ( iscool::preferences::detail::local_preferences_from_json( json ) );
+  Json::Value json(53489);
 
-    EXPECT_TRUE( map.empty() );
+  const iscool::preferences::property_map map(
+      iscool::preferences::detail::local_preferences_from_json(json));
+
+  EXPECT_TRUE(map.empty());
 }
 
 struct key_visitor
 {
-    template< typename T >
-    void operator()( const std::string& key, const T& )
-    {
-        if ( key == "array" )
-            array_key = true;
-        else if ( key == "double" )
-            double_key = true;
-        else if ( key == "object" )
-            object_key = true;
-        else if ( key == "int64" )
-            int64_key = true;
-    }
+  template <typename T>
+  void operator()(const std::string& key, const T&)
+  {
+    if (key == "array")
+      array_key = true;
+    else if (key == "double")
+      double_key = true;
+    else if (key == "object")
+      object_key = true;
+    else if (key == "int64")
+      int64_key = true;
+  }
 
-    bool int64_key = false;
-    bool array_key = false;
-    bool double_key = false;
-    bool object_key = false;
+  bool int64_key = false;
+  bool array_key = false;
+  bool double_key = false;
+  bool object_key = false;
 };
 
-TEST( iscool_preferences_local_preferences_from_json_test, skip_fields )
+TEST(iscool_preferences_local_preferences_from_json_test, skip_fields)
 {
-    Json::Value json;
-    json[ "int64" ] = 24;
+  Json::Value json;
+  json["int64"] = 24;
 
-    json[ "array" ][ 0 ] = 18;
-    json[ "object" ][ "member" ] = 18;
-    json[ "double" ] = 1.8;
-    
-    const iscool::preferences::property_map map
-        ( iscool::preferences::detail::local_preferences_from_json( json ) );
+  json["array"][0] = 18;
+  json["object"]["member"] = 18;
+  json["double"] = 1.8;
 
-    key_visitor visitor;
-    map.visit( std::ref( visitor ) );
-    
-    EXPECT_TRUE( visitor.int64_key );
-    EXPECT_FALSE( visitor.array_key );
-    EXPECT_FALSE( visitor.object_key );
-    EXPECT_FALSE( visitor.double_key );
+  const iscool::preferences::property_map map(
+      iscool::preferences::detail::local_preferences_from_json(json));
+
+  key_visitor visitor;
+  map.visit(std::ref(visitor));
+
+  EXPECT_TRUE(visitor.int64_key);
+  EXPECT_FALSE(visitor.array_key);
+  EXPECT_FALSE(visitor.object_key);
+  EXPECT_FALSE(visitor.double_key);
 }

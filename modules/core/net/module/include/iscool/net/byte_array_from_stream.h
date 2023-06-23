@@ -22,10 +22,10 @@
 
 namespace iscool
 {
-    namespace net
-    {
-        byte_array byte_array_from_stream( std::istream& in );
-    }
+  namespace net
+  {
+    byte_array byte_array_from_stream(std::istream& in);
+  }
 }
 
 #endif

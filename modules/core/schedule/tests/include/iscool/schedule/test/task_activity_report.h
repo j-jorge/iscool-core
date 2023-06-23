@@ -18,19 +18,18 @@
 
 namespace iscool
 {
-    namespace schedule
+  namespace schedule
+  {
+    namespace test
     {
-        namespace test
-        {
-            struct task_activity_report
-            {
-                std::size_t start_calls = 0;
-                std::size_t update_calls = 0;
-                std::size_t abort_calls = 0;
-            };
-        }
+      struct task_activity_report
+      {
+        std::size_t start_calls = 0;
+        std::size_t update_calls = 0;
+        std::size_t abort_calls = 0;
+      };
     }
+  }
 }
 
 #endif
-

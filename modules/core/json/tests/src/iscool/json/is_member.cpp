@@ -17,42 +17,42 @@
 
 #include "gtest/gtest.h"
 
-TEST( iscool_json_is_member, check_member_is_true )
+TEST(iscool_json_is_member, check_member_is_true)
 {
-    Json::Value value;
-    value[ "member" ] = 0;
+  Json::Value value;
+  value["member"] = 0;
 
-    ASSERT_TRUE( iscool::json::is_member( "member", value ) );
+  ASSERT_TRUE(iscool::json::is_member("member", value));
 }
 
-TEST( iscool_json_is_member, check_member_is_false )
+TEST(iscool_json_is_member, check_member_is_false)
 {
-    Json::Value value;
-    value[ "member" ] = 0;
+  Json::Value value;
+  value["member"] = 0;
 
-    ASSERT_FALSE( iscool::json::is_member( "not_member", value ) );
+  ASSERT_FALSE(iscool::json::is_member("not_member", value));
 }
 
-TEST( iscool_json_is_member, null_member_is_member )
+TEST(iscool_json_is_member, null_member_is_member)
 {
-    Json::Value value;
-    value[ "member" ] = Json::Value::null;
+  Json::Value value;
+  value["member"] = Json::Value::null;
 
-    ASSERT_TRUE( iscool::json::is_member( "member", value ) );
+  ASSERT_TRUE(iscool::json::is_member("member", value));
 }
 
-TEST( iscool_json_is_member, check_is_member_does_not_add_member )
+TEST(iscool_json_is_member, check_is_member_does_not_add_member)
 {
-    Json::Value value;
-    value[ "member" ] = 0;
+  Json::Value value;
+  value["member"] = 0;
 
-    iscool::json::is_member( "not_member", value );
-    ASSERT_FALSE( iscool::json::is_member( "not_member", value ) );
+  iscool::json::is_member("not_member", value);
+  ASSERT_FALSE(iscool::json::is_member("not_member", value));
 }
 
-TEST( iscool_json_is_member, check_is_member_on_non_object_is_false )
+TEST(iscool_json_is_member, check_is_member_on_non_object_is_false)
 {
-    Json::Value value( 12 );
+  Json::Value value(12);
 
-    ASSERT_FALSE( iscool::json::is_member( "not_member", value ) );
+  ASSERT_FALSE(iscool::json::is_member("not_member", value));
 }

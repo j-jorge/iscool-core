@@ -16,22 +16,20 @@
 #ifndef ISCOOL_NET_TESTS_BYTE_ARRAY_TEST_HELPER_H
 #define ISCOOL_NET_TESTS_BYTE_ARRAY_TEST_HELPER_H
 
-#include <string>
 #include "iscool/net/byte_array.h"
+#include <string>
 
 namespace iscool
 {
-    namespace net
+  namespace net
+  {
+    namespace tests
     {
-        namespace tests
-        {
-            byte_array
-            std_string_to_byte_array( const std::string& string );
+      byte_array std_string_to_byte_array(const std::string& string);
 
-            void expect_eq
-            ( const byte_array& first, const byte_array& second );
-        }
+      void expect_eq(const byte_array& first, const byte_array& second);
     }
+  }
 }
 
 #endif

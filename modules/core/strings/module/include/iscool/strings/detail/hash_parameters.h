@@ -20,14 +20,14 @@
 
 namespace iscool
 {
-    namespace strings
+  namespace strings
+  {
+    namespace detail
     {
-        namespace detail
-        {
-            static constexpr hash_type hash_seed( 2166136261 );
-            static constexpr hash_type hash_factor( 101 );
-        }
+      static constexpr hash_type hash_seed(2166136261);
+      static constexpr hash_type hash_factor(101);
     }
+  }
 }
 
 #endif

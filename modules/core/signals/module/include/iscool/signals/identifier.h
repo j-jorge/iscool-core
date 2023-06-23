@@ -19,25 +19,18 @@
 #include <boost/preprocessor/cat.hpp>
 #include <boost/preprocessor/stringize.hpp>
 
-#define DETAIL_SIGNAL_IDENTIFIER_TYPE_NAME( name )      \
-    BOOST_PP_CAT                                        \
-    ( signal_,                                          \
-      BOOST_PP_CAT                                      \
-      ( __LINE__,                                       \
-        BOOST_PP_CAT                                    \
-        ( _,                                            \
-          BOOST_PP_CAT                                  \
-          ( name, _id ) ) ) )
+#define DETAIL_SIGNAL_IDENTIFIER_TYPE_NAME(name)                              \
+  BOOST_PP_CAT(                                                               \
+      signal_,                                                                \
+      BOOST_PP_CAT(__LINE__, BOOST_PP_CAT(_, BOOST_PP_CAT(name, _id))))
 
-#define DECLARE_SIGNAL_IDENTIFIER( Signature, Name )                    \
-    struct DETAIL_SIGNAL_IDENTIFIER_TYPE_NAME( Name )                   \
-    {                                                                   \
-        static const char* name()                                       \
-        {                                                               \
-            return                                                      \
-                __FILE__ ":" BOOST_PP_STRINGIZE( __LINE__ ) ":"         \
-                BOOST_PP_STRINGIZE( Name ) "(signal)";                  \
-        }                                                               \
-    };
+#define DECLARE_SIGNAL_IDENTIFIER(Signature, Name)                            \
+  struct DETAIL_SIGNAL_IDENTIFIER_TYPE_NAME(Name)                             \
+  {                                                                           \
+    static const char* name()                                                 \
+    {                                                                         \
+      return __FILE__ ":" BOOST_PP_STRINGIZE( __LINE__ ) ":" BOOST_PP_STRINGIZE( Name ) "(signal)";               \
+    }                                                                         \
+  };
 
 #endif

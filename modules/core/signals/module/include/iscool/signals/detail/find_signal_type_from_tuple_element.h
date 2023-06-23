@@ -22,86 +22,41 @@
 
 namespace iscool
 {
-    namespace signals
+  namespace signals
+  {
+    namespace detail
     {
-        namespace detail
-        {
-            template
-            <
-                typename SearchedType,
-                std::size_t I,
-                bool Same,
-                typename Collection
-            >
-            class find_signal_type_from_tuple_element;
+      template <typename SearchedType, std::size_t I, bool Same,
+                typename Collection>
+      class find_signal_type_from_tuple_element;
 
-            template
-            <
-                typename SearchedType,
-                std::size_t I,
-                typename Tuple,
-                typename... Arg
-            >
-            class find_signal_type_from_tuple_element
-            <
-                SearchedType,
-                I,
-                true,
-                detail::signal_collection_from_tuple
-                <
-                    Tuple,
-                    Arg...
-                >
-            >
-            {
-            public:
-                typedef
-                typename
-                detail::signal_collection_from_tuple< Tuple >::signal_type
+      template <typename SearchedType, std::size_t I, typename Tuple,
+                typename... Arg>
+      class find_signal_type_from_tuple_element<
+          SearchedType, I, true,
+          detail::signal_collection_from_tuple<Tuple, Arg...>>
+      {
+      public:
+        typedef
+            typename detail::signal_collection_from_tuple<Tuple>::signal_type
                 type;
-            };
+      };
 
-            
-            template
-            <
-                typename SearchedType,
-                std::size_t I,
-                typename Ignored,
-                typename Tuple,
-                typename... Arg
-            >
-            class find_signal_type_from_tuple_element
-            <
-                SearchedType,
-                I,
-                false,
-                detail::signal_collection_from_tuple
-                <
-                    Ignored,
-                    Tuple,
-                    Arg...
-                >
-            >
-            {
-            public:
-                typedef typename find_signal_type_from_tuple_element
-                <
-                    SearchedType,
-                    I,
-                    std::is_same
-                    <
-                        typename std::tuple_element< I, Tuple >::type,
-                        SearchedType
-                    >::value,
-                    detail::signal_collection_from_tuple
-                    <
-                        Tuple,
-                        Arg...
-                    >
-                >::type type;
-            };
-        }
+      template <typename SearchedType, std::size_t I, typename Ignored,
+                typename Tuple, typename... Arg>
+      class find_signal_type_from_tuple_element<
+          SearchedType, I, false,
+          detail::signal_collection_from_tuple<Ignored, Tuple, Arg...>>
+      {
+      public:
+        typedef typename find_signal_type_from_tuple_element<
+            SearchedType, I,
+            std::is_same<typename std::tuple_element<I, Tuple>::type,
+                         SearchedType>::value,
+            detail::signal_collection_from_tuple<Tuple, Arg...>>::type type;
+      };
     }
+  }
 }
 
 #endif

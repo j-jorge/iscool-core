@@ -16,13 +16,12 @@
 #ifndef ISCOOL_COLLECTIONS_MAKE_ARRAY_TPP
 #define ISCOOL_COLLECTIONS_MAKE_ARRAY_TPP
 
-template< typename T, typename... Arg >
-std::array< T, sizeof...( Arg ) + 1 >
-iscool::collections::make_array( T head, Arg... arg )
+template <typename T, typename... Arg>
+std::array<T, sizeof...(Arg) + 1> iscool::collections::make_array(T head,
+                                                                  Arg... arg)
 {
-    return
-        std::array< T, sizeof...( Arg ) + 1 >
-        { { std::forward< T >( head ), std::forward< Arg >( arg )... } };
+  return std::array<T, sizeof...(Arg) + 1>{ { std::forward<T>(head),
+                                              std::forward<Arg>(arg)... } };
 }
 
 #endif

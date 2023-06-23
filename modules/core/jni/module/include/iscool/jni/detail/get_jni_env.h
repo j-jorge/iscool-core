@@ -20,13 +20,13 @@
 
 namespace iscool
 {
-    namespace jni
+  namespace jni
+  {
+    namespace detail
     {
-        namespace detail
-        {
-            extern environment_delegate get_jni_env;
-        }
+      extern environment_delegate get_jni_env;
     }
+  }
 }
 
 #endif

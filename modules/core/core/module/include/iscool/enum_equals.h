@@ -18,11 +18,11 @@
 
 namespace iscool
 {
-    template< typename Enum >
-    bool enum_equals( int lhs, Enum rhs );
+  template <typename Enum>
+  bool enum_equals(int lhs, Enum rhs);
 
-    template< typename Enum >
-    bool enum_equals( Enum lhs, int rhs );
+  template <typename Enum>
+  bool enum_equals(Enum lhs, int rhs);
 }
 
 #include "iscool/enum_equals.tpp"

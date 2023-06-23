@@ -20,14 +20,14 @@
 
 namespace iscool
 {
-    namespace signals
-    {
-        class statistics_data;
+  namespace signals
+  {
+    class statistics_data;
 
-        void set_statistics_sink
-        ( const std::function< void( const statistics_data& ) >& sink );
-        void clear_statistics_sink();
-    }
+    void set_statistics_sink(
+        const std::function<void(const statistics_data&)>& sink);
+    void clear_statistics_sink();
+  }
 }
 
 #endif

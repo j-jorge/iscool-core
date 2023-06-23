@@ -20,10 +20,10 @@
 
 namespace iscool
 {
-    namespace files
-    {
-        std::string get_writable_path();
-    }
+  namespace files
+  {
+    std::string get_writable_path();
+  }
 }
 
 #endif

@@ -17,6 +17,6 @@
 
 const std::string& iscool::net::log_context()
 {
-    static const std::string result( "Net" );
-    return result;
+  static const std::string result("Net");
+  return result;
 }

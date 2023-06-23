@@ -15,12 +15,12 @@
 */
 #include "iscool/social/link_service.h"
 
-void iscool::social::link_service::open_in_facebook( const std::string& page )
+void iscool::social::link_service::open_in_facebook(const std::string& page)
 {
-    _impl.open_in_facebook( page );
+  _impl.open_in_facebook(page);
 }
 
-void iscool::social::link_service::open_in_twitter( const std::string& page )
+void iscool::social::link_service::open_in_twitter(const std::string& page)
 {
-    _impl.open_in_twitter( page );
+  _impl.open_in_twitter(page);
 }

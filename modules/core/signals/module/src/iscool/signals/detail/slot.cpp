@@ -15,23 +15,21 @@
 */
 #include "iscool/signals/detail/slot.h"
 
-template class std::shared_ptr< iscool::signals::detail::slot >;
-template class std::vector< std::shared_ptr< iscool::signals::detail::slot > >;
+template class std::shared_ptr<iscool::signals::detail::slot>;
+template class std::vector<std::shared_ptr<iscool::signals::detail::slot>>;
 
 iscool::signals::detail::slot::slot()
-    : _connected( true )
-{
-
-}
+  : _connected(true)
+{}
 
 iscool::signals::detail::slot::~slot() = default;
 
 bool iscool::signals::detail::slot::connected() const
 {
-    return _connected;
+  return _connected;
 }
 
 void iscool::signals::detail::slot::disconnect()
 {
-    _connected = false;
+  _connected = false;
 }

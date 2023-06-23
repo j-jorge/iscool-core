@@ -15,26 +15,24 @@
 */
 #include "iscool/i18n/numeric_punctuation.h"
 
-iscool::i18n::numeric_punctuation::numeric_punctuation
-( char decimal_point, char thousands_separator, std::string grouping )
-    : _decimal_point( decimal_point ),
-      _thousands_separator( thousands_separator ),
-      _grouping( std::move( grouping ) )
-{
-
-}
+iscool::i18n::numeric_punctuation::numeric_punctuation(
+    char decimal_point, char thousands_separator, std::string grouping)
+  : _decimal_point(decimal_point)
+  , _thousands_separator(thousands_separator)
+  , _grouping(std::move(grouping))
+{}
 
 char iscool::i18n::numeric_punctuation::do_decimal_point() const
 {
-    return _decimal_point;
+  return _decimal_point;
 }
 
 char iscool::i18n::numeric_punctuation::do_thousands_sep() const
 {
-    return _thousands_separator;
+  return _thousands_separator;
 }
 
 std::string iscool::i18n::numeric_punctuation::do_grouping() const
 {
-    return _grouping;
+  return _grouping;
 }

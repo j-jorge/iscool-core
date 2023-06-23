@@ -18,4 +18,4 @@
 #include "iscool/optional.h"
 #include "iscool/optional.impl.tpp"
 
-template class iscool::optional< iscool::error::synopsis >;
+template class iscool::optional<iscool::error::synopsis>;

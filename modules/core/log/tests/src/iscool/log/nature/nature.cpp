@@ -17,32 +17,32 @@
 
 #include <gtest/gtest.h>
 
-TEST( iscool_log_nature_nature, getters )
+TEST(iscool_log_nature_nature, getters)
 {
-    const iscool::log::nature::nature nature( "test" );
+  const iscool::log::nature::nature nature("test");
 
-    EXPECT_EQ( "test", nature.string() );
-    EXPECT_EQ( nature, nature );
-    EXPECT_NE( iscool::log::nature::nature(), nature );
-    EXPECT_NE( iscool::log::nature::nature( "nope" ), nature );
+  EXPECT_EQ("test", nature.string());
+  EXPECT_EQ(nature, nature);
+  EXPECT_NE(iscool::log::nature::nature(), nature);
+  EXPECT_NE(iscool::log::nature::nature("nope"), nature);
 }
 
-TEST( iscool_log_nature_nature, copy )
+TEST(iscool_log_nature_nature, copy)
 {
-    const iscool::log::nature::nature nature( "N" );
-    const iscool::log::nature::nature copy( nature );
+  const iscool::log::nature::nature nature("N");
+  const iscool::log::nature::nature copy(nature);
 
-    EXPECT_EQ( "N", copy.string() );
-    EXPECT_EQ( nature, copy );
+  EXPECT_EQ("N", copy.string());
+  EXPECT_EQ(nature, copy);
 }
 
-TEST( iscool_log_nature_nature, assignment )
+TEST(iscool_log_nature_nature, assignment)
 {
-    iscool::log::nature::nature copy;
-    const iscool::log::nature::nature nature( "N" );
+  iscool::log::nature::nature copy;
+  const iscool::log::nature::nature nature("N");
 
-    copy = nature;
-    
-    EXPECT_EQ( "N", copy.string() );
-    EXPECT_EQ( nature, copy );
+  copy = nature;
+
+  EXPECT_EQ("N", copy.string());
+  EXPECT_EQ(nature, copy);
 }

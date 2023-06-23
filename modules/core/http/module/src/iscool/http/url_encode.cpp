@@ -15,19 +15,19 @@
 */
 #include "iscool/http/url_encode.h"
 
-#include <sstream>
 #include <iomanip>
+#include <sstream>
 
-std::string iscool::http::url_encode( const std::string& url )
+std::string iscool::http::url_encode(const std::string& url)
 {
-    std::ostringstream result;
+  std::ostringstream result;
 
-    for( const auto& c : url )
-        if ( isalnum( c ) )
-            result << c;
-        else
-            result << '%' << std::setw( 2 ) << std::setfill( '0' )
-                   << std::hex << std::uppercase << int( c );
-    
-    return result.str();
+  for (const auto& c : url)
+    if (isalnum(c))
+      result << c;
+    else
+      result << '%' << std::setw(2) << std::setfill('0') << std::hex
+             << std::uppercase << int(c);
+
+  return result.str();
 }

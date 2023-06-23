@@ -20,6 +20,6 @@
 #include "iscool/json/declare_cast.h"
 #include "iscool/json/detail/cast_uint.h"
 
-DECLARE_JSON_CAST( unsigned int );
+DECLARE_JSON_CAST(unsigned int);
 
 #endif

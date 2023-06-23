@@ -23,38 +23,36 @@
 
 namespace iscool
 {
-    namespace schedule
+  namespace schedule
+  {
+    class manual_scheduler
     {
-        class manual_scheduler
-        {
-        public:
-            manual_scheduler();
+    public:
+      manual_scheduler();
 
-            delayed_call_delegate get_delayed_call_delegate();
+      delayed_call_delegate get_delayed_call_delegate();
 
-            std::chrono::nanoseconds
-            delay_until_next_non_immediate_call() const;
+      std::chrono::nanoseconds delay_until_next_non_immediate_call() const;
 
-            void update_interval( std::chrono::nanoseconds interval );
+      void update_interval(std::chrono::nanoseconds interval);
 
-        private:
-            struct call
-            {
-                std::chrono::nanoseconds at_date;
-                iscool::signals::void_signal_function function;
-            };
+    private:
+      struct call
+      {
+        std::chrono::nanoseconds at_date;
+        iscool::signals::void_signal_function function;
+      };
 
-        private:
-            void schedule_call
-            ( iscool::signals::void_signal_function f,
-              std::chrono::nanoseconds delay );
+    private:
+      void schedule_call(iscool::signals::void_signal_function f,
+                         std::chrono::nanoseconds delay);
 
-        private:
-            std::chrono::nanoseconds _current_date;
-            std::vector<call> _calls;
-            std::mutex _mutex;
-        };
-    }
+    private:
+      std::chrono::nanoseconds _current_date;
+      std::vector<call> _calls;
+      std::mutex _mutex;
+    };
+  }
 }
 
 #endif

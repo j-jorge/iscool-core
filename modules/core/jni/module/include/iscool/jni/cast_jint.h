@@ -17,24 +17,24 @@
 #define ISCOOL_JNI_CAST_JINT_H
 
 #include "iscool/jni/cast.h"
-#include "iscool/jni/detail/cast_fwd.h"
 #include "iscool/jni/declare_cast.h"
+#include "iscool/jni/detail/cast_fwd.h"
 
-DECLARE_JNI_CAST( jint );
+DECLARE_JNI_CAST(jint);
 
 namespace iscool
 {
-    namespace jni
+  namespace jni
+  {
+    namespace detail
     {
-        namespace detail
-        {
-            template<>
-            struct cast< jint >
-            {
-                static jint value( jobject value );
-            };
-        }
+      template <>
+      struct cast<jint>
+      {
+        static jint value(jobject value);
+      };
     }
+  }
 }
 
 #endif

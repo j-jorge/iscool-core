@@ -19,66 +19,57 @@
 
 #include <cassert>
 
-#define assign_index_expression_and_return( expression )        \
-    {                                                           \
-        plural_index =                                          \
-            []( std::uint64_t n ) -> std::uint8_t               \
-            {                                                   \
-                return expression;                              \
-            };                                                  \
-                                                                \
-        return;                                                 \
-    }
+#define assign_index_expression_and_return(expression)                        \
+  {                                                                           \
+    plural_index = [](std::uint64_t n) -> std::uint8_t                        \
+    {                                                                         \
+      return expression;                                                      \
+    };                                                                        \
+                                                                              \
+    return;                                                                   \
+  }
 
-void
-iscool::i18n::detail::assign_plural_index( const std::string& language_code )
+void iscool::i18n::detail::assign_plural_index(
+    const std::string& language_code)
 {
-    /*
-      See the table on this page for updates:
-      http://localization-guide.readthedocs.org/en/latest/l10n/pluralforms.html
-    */
+  /*
+    See the table on this page for updates:
+    http://localization-guide.readthedocs.org/en/latest/l10n/pluralforms.html
+  */
 
-    if ( ( language_code == "fr" )
-         || ( language_code == "pt_BR" )
-         || ( language_code == "tr" ) )
-        assign_index_expression_and_return( ( n > 1 ) ? 1 : 0 );
+  if ((language_code == "fr") || (language_code == "pt_BR")
+      || (language_code == "tr"))
+    assign_index_expression_and_return((n > 1) ? 1 : 0);
 
-    if ( ( language_code == "de" )
-         || ( language_code == "en" )
-         || ( language_code == "es" )
-         || ( language_code == "fi" )
-         || ( language_code == "it" )
-         || ( language_code == "nl" )
-         || ( language_code == "pt" )
-         || ( language_code == "sv" ) )
-        assign_index_expression_and_return( ( n != 1 ) ? 1 : 0 );
+  if ((language_code == "de") || (language_code == "en")
+      || (language_code == "es") || (language_code == "fi")
+      || (language_code == "it") || (language_code == "nl")
+      || (language_code == "pt") || (language_code == "sv"))
+    assign_index_expression_and_return((n != 1) ? 1 : 0);
 
-    if ( ( language_code == "ja" )
-         || ( language_code == "ko" )
-         || ( language_code == "th" )
-         || ( language_code == "zh_CN" )
-         || ( language_code == "zh_TW" ) )
-        assign_index_expression_and_return( 0 );
+  if ((language_code == "ja") || (language_code == "ko")
+      || (language_code == "th") || (language_code == "zh_CN")
+      || (language_code == "zh_TW"))
+    assign_index_expression_and_return(0);
 
-    if ( language_code == "pl" )
-        assign_index_expression_and_return
-            ( ( n == 1 )
-              ? 0
-              : ( ( n % 10 >= 2 ) && ( n % 10 <= 4 )
-                  && ( ( n % 100 < 10 ) || ( n % 100 >= 20 ) )
-                  ? 1
-                  : 2 ) );
+  if (language_code == "pl")
+    assign_index_expression_and_return(
+        (n == 1) ? 0
+                 : ((n % 10 >= 2) && (n % 10 <= 4)
+                            && ((n % 100 < 10) || (n % 100 >= 20))
+                        ? 1
+                        : 2));
 
-    if ( language_code == "ru" )
-        assign_index_expression_and_return
-            ( ( ( n % 10 == 1 ) && ( n % 100 != 11 ) )
-              ? 0
-              : ( ( n % 10 >= 2 ) && ( n % 10 <= 4 )
-                  && ( ( n % 100 < 10 ) || ( n % 100 >= 20 ) )
-                  ? 1
-                  : 2 ) );
+  if (language_code == "ru")
+    assign_index_expression_and_return(
+        ((n % 10 == 1) && (n % 100 != 11))
+            ? 0
+            : ((n % 10 >= 2) && (n % 10 <= 4)
+                       && ((n % 100 < 10) || (n % 100 >= 20))
+                   ? 1
+                   : 2));
 
-    assert( false );
+  assert(false);
 }
 
 #undef assign_index_expression_and_return

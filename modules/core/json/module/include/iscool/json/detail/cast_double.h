@@ -20,23 +20,23 @@
 
 namespace Json
 {
-    class Value;
+  class Value;
 }
 
 namespace iscool
 {
-    namespace json
+  namespace json
+  {
+    namespace detail
     {
-        namespace detail
-        {
-            template<>
-            struct cast< double >
-            {
-                static bool is_valid( const Json::Value& value );
-                static double value( const Json::Value& value );
-            };
-        }
+      template <>
+      struct cast<double>
+      {
+        static bool is_valid(const Json::Value& value);
+        static double value(const Json::Value& value);
+      };
     }
+  }
 }
 
 #endif

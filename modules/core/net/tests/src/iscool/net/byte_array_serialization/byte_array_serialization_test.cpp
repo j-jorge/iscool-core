@@ -19,28 +19,26 @@
 #include "iscool/net/byte_array_reader.h"
 #include "iscool/net/byte_array_serialization/byte_array_serialization.h"
 
-TEST( byte_array_serialization_test, simple_values )
+TEST(byte_array_serialization_test, simple_values)
 {
-    iscool::net::byte_array output;
-    output << std::uint8_t( 0x01 )
-           << std::uint16_t( 0x0123 )
-           << std::uint32_t( 0x01234567 )
-           << std::uint64_t( 0x0123456789abcdef );
+  iscool::net::byte_array output;
+  output << std::uint8_t(0x01) << std::uint16_t(0x0123)
+         << std::uint32_t(0x01234567) << std::uint64_t(0x0123456789abcdef);
 
-    iscool::net::byte_array_reader input( output );
-    std::uint8_t a;
-    input >> a;
-    ASSERT_EQ( std::uint8_t( 0x01 ), a );
+  iscool::net::byte_array_reader input(output);
+  std::uint8_t a;
+  input >> a;
+  ASSERT_EQ(std::uint8_t(0x01), a);
 
-    std::uint16_t b;
-    input >> b;
-    ASSERT_EQ( std::uint16_t( 0x0123 ), b );
+  std::uint16_t b;
+  input >> b;
+  ASSERT_EQ(std::uint16_t(0x0123), b);
 
-    std::uint32_t c;
-    input >> c;
-    ASSERT_EQ( std::uint32_t( 0x01234567 ), c );
+  std::uint32_t c;
+  input >> c;
+  ASSERT_EQ(std::uint32_t(0x01234567), c);
 
-    std::uint64_t d;
-    input >> d;
-    ASSERT_EQ( std::uint64_t( 0x0123456789abcdef ), d );
+  std::uint64_t d;
+  input >> d;
+  ASSERT_EQ(std::uint64_t(0x0123456789abcdef), d);
 }

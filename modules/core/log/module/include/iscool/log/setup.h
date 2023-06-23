@@ -18,21 +18,21 @@
 
 namespace iscool
 {
-    namespace log
+  namespace log
+  {
+    void initialize();
+    void finalize();
+
+    class scoped_initializer
     {
-        void initialize();
-        void finalize();
+    public:
+      explicit scoped_initializer();
+      scoped_initializer(const scoped_initializer&) = delete;
+      ~scoped_initializer();
 
-        class scoped_initializer
-        {
-        public:
-            explicit scoped_initializer();
-            scoped_initializer(const scoped_initializer&) = delete;
-            ~scoped_initializer();
-
-            scoped_initializer& operator=(const scoped_initializer&) = delete;
-        };
-    }
+      scoped_initializer& operator=(const scoped_initializer&) = delete;
+    };
+  }
 }
 
 #endif

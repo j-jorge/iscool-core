@@ -20,14 +20,14 @@
 
 namespace iscool
 {
-    namespace signals
-    {
-        template< typename Signature >
-        typename signal< Signature >::slot_function_type
-        relay( const signal< Signature >& s );
-    }
+  namespace signals
+  {
+    template <typename Signature>
+    typename signal<Signature>::slot_function_type
+    relay(const signal<Signature>& s);
+  }
 }
 
 #include "iscool/signals/detail/relay.tpp"
 
-#endif 
+#endif

@@ -20,13 +20,13 @@
 
 namespace iscool
 {
-    namespace jni
-    {
-        void throw_java_exception
-        ( const std::string& type, const std::string& what );
+  namespace jni
+  {
+    void throw_java_exception(const std::string& type,
+                              const std::string& what);
 
-        void throw_java_exception( const std::string& what );
-    }
+    void throw_java_exception(const std::string& what);
+  }
 }
 
 #endif

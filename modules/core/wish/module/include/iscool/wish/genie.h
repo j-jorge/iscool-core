@@ -24,30 +24,30 @@
 
 namespace iscool
 {
-    namespace wish
+  namespace wish
+  {
+    class genie
     {
-        class genie
-        {
-        public:
-            template<typename T>
-            void empower( std::function< void( const T& ) > function );
+    public:
+      template <typename T>
+      void empower(std::function<void(const T&)> function);
 
-            template<typename T>
-            void deny();
+      template <typename T>
+      void deny();
 
-            template<typename T>
-            void grant( const T& wish ) const;
+      template <typename T>
+      void grant(const T& wish) const;
 
-            template<typename T>
-            bool is_wish_valid() const;
+      template <typename T>
+      bool is_wish_valid() const;
 
-        private:
-            typedef std::map< iscool::wish::kind, std::any > power_list;
+    private:
+      typedef std::map<iscool::wish::kind, std::any> power_list;
 
-        private:
-            power_list _powers;
-        };
-    }
+    private:
+      power_list _powers;
+    };
+  }
 }
 
 #include "iscool/wish/genie.tpp"

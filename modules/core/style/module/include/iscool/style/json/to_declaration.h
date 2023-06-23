@@ -20,18 +20,18 @@
 
 namespace Json
 {
-    class Value;
+  class Value;
 }
 
 namespace iscool
 {
-    namespace style
+  namespace style
+  {
+    namespace json
     {
-        namespace json
-        {
-            declaration to_declaration( const Json::Value& value );
-        }
+      declaration to_declaration(const Json::Value& value);
     }
+  }
 }
 
 #endif

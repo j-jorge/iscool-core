@@ -24,21 +24,18 @@
 
 bool iscool::jni::check_java_exception()
 {
-    JNIEnv* const env( detail::get_jni_env() );
+  JNIEnv* const env(detail::get_jni_env());
 
-    if ( !env->ExceptionCheck() )
-        return true;
+  if (!env->ExceptionCheck())
+    return true;
 
-    const method< jstring > method
-        ( get_method< jstring >
-          ( "java/lang/Object", "toString", "()Ljava/lang/String;" ) );
-    
-    const std::string message
-        ( to_string( method( ( env->ExceptionOccurred() ) ) ) );
+  const method<jstring> method(get_method<jstring>(
+      "java/lang/Object", "toString", "()Ljava/lang/String;"));
 
-    ic_causeless_log
-        ( iscool::log::nature::error(), log_context(), "Java Exception: %s",
-          message );
-    
-    return false;
+  const std::string message(to_string(method((env->ExceptionOccurred()))));
+
+  ic_causeless_log(iscool::log::nature::error(), log_context(),
+                   "Java Exception: %s", message);
+
+  return false;
 }

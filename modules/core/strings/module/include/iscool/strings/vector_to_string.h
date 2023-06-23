@@ -21,12 +21,11 @@
 
 namespace iscool
 {
-    namespace strings
-    {
-        template< typename T >
-        std::string
-        vector_to_string( const std::vector< T >& v, char separator );
-    }
+  namespace strings
+  {
+    template <typename T>
+    std::string vector_to_string(const std::vector<T>& v, char separator);
+  }
 }
 
 #include "iscool/strings/detail/vector_to_string.tpp"

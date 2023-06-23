@@ -23,12 +23,12 @@
   #define htole16(x) OSSwapHostToLittleInt16(x)
   #define be16toh(x) OSSwapBigToHostInt16(x)
   #define le16toh(x) OSSwapLittleToHostInt16(x)
- 
+
   #define htobe32(x) OSSwapHostToBigInt32(x)
   #define htole32(x) OSSwapHostToLittleInt32(x)
   #define be32toh(x) OSSwapBigToHostInt32(x)
   #define le32toh(x) OSSwapLittleToHostInt32(x)
- 
+
   #define htobe64(x) OSSwapHostToBigInt64(x)
   #define htole64(x) OSSwapHostToLittleInt64(x)
   #define be64toh(x) OSSwapBigToHostInt64(x)
@@ -44,43 +44,42 @@
   #endif
 #endif
 
-std::uint8_t iscool::net::to_host_endianness( std::uint8_t value )
+std::uint8_t iscool::net::to_host_endianness(std::uint8_t value)
 {
-    return value;
+  return value;
 }
 
-std::uint16_t iscool::net::to_host_endianness( std::uint16_t value )
+std::uint16_t iscool::net::to_host_endianness(std::uint16_t value)
 {
-    return be16toh( value );
+  return be16toh(value);
 }
 
-std::uint32_t iscool::net::to_host_endianness( std::uint32_t value )
+std::uint32_t iscool::net::to_host_endianness(std::uint32_t value)
 {
-    return be32toh( value );
+  return be32toh(value);
 }
 
-std::uint64_t iscool::net::to_host_endianness( std::uint64_t value )
+std::uint64_t iscool::net::to_host_endianness(std::uint64_t value)
 {
-    return be64toh( value );
+  return be64toh(value);
 }
 
-std::uint8_t iscool::net::to_network_endianness( std::uint8_t value )
+std::uint8_t iscool::net::to_network_endianness(std::uint8_t value)
 {
-    return value;
+  return value;
 }
 
-std::uint16_t iscool::net::to_network_endianness( std::uint16_t value )
+std::uint16_t iscool::net::to_network_endianness(std::uint16_t value)
 {
-    return htobe16( value );
+  return htobe16(value);
 }
 
-std::uint32_t iscool::net::to_network_endianness( std::uint32_t value )
+std::uint32_t iscool::net::to_network_endianness(std::uint32_t value)
 {
-    return htobe32( value );
+  return htobe32(value);
 }
 
-std::uint64_t iscool::net::to_network_endianness( std::uint64_t value )
+std::uint64_t iscool::net::to_network_endianness(std::uint64_t value)
 {
-    return htobe64( value );
+  return htobe64(value);
 }
-

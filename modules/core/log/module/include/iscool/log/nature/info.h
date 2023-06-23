@@ -18,15 +18,15 @@
 
 namespace iscool
 {
-    namespace log
+  namespace log
+  {
+    namespace nature
     {
-        namespace nature
-        {
-            class nature;
-            
-            const nature& info();
-        }
+      class nature;
+
+      const nature& info();
     }
+  }
 }
-            
+
 #endif

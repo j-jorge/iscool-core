@@ -18,19 +18,19 @@
 
 #include <tuple>
 
-template< typename OutputContainer, typename InputContainer >
-void iscool::collections::insert_or_assign_all
-( OutputContainer& output, const InputContainer& input )
+template <typename OutputContainer, typename InputContainer>
+void iscool::collections::insert_or_assign_all(OutputContainer& output,
+                                               const InputContainer& input)
 {
-    bool inserted;
-    typename OutputContainer::iterator iterator;
-    
-    for ( const auto& e : input )
-    {
-        std::tie( iterator, inserted ) = output.insert( e );
+  bool inserted;
+  typename OutputContainer::iterator iterator;
 
-        if ( !inserted )
-            iterator->second = e.second;
+  for (const auto& e : input)
+    {
+      std::tie(iterator, inserted) = output.insert(e);
+
+      if (!inserted)
+        iterator->second = e.second;
     }
 }
 

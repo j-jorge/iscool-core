@@ -20,10 +20,10 @@
 
 namespace iscool
 {
-    namespace json
-    {
-        const std::string& log_context();
-    }
+  namespace json
+  {
+    const std::string& log_context();
+  }
 }
 
 #endif

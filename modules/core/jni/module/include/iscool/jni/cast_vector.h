@@ -24,17 +24,17 @@
 
 namespace iscool
 {
-    namespace jni
+  namespace jni
+  {
+    namespace detail
     {
-        namespace detail
-        {
-            template< typename T >
-            struct cast< std::vector< T > >
-            {
-                static std::vector< T > value( jobject value );
-            };
-        }
+      template <typename T>
+      struct cast<std::vector<T>>
+      {
+        static std::vector<T> value(jobject value);
+      };
     }
+  }
 }
 
 #include "iscool/jni/detail/cast_vector.tpp"

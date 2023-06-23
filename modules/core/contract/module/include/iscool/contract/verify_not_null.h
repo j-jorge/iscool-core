@@ -18,12 +18,12 @@
 
 #include <cassert>
 
-#define ic_verify_not_null( p )                 \
-    [&]() -> decltype( p )                      \
-    {                                           \
-        const decltype( p ) result( ( p ) );    \
-        assert( result != nullptr );            \
-        return result;                          \
-    }()
+#define ic_verify_not_null(p)                                                 \
+  [&]() -> decltype(p)                                                        \
+  {                                                                           \
+    const decltype(p) result((p));                                            \
+    assert(result != nullptr);                                                \
+    return result;                                                            \
+  }()
 
 #endif

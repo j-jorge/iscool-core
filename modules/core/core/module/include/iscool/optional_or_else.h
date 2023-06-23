@@ -20,9 +20,8 @@
 
 namespace iscool
 {
-    template< typename T >
-    T optional_or_else
-    ( const optional< T >& optional, const T& fallback );
+  template <typename T>
+  T optional_or_else(const optional<T>& optional, const T& fallback);
 }
 
 #include "iscool/detail/optional_or_else.tpp"

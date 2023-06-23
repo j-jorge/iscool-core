@@ -22,10 +22,10 @@
 
 namespace iscool
 {
-    namespace jni
-    {
-        typedef std::function< JNIEnv*() > environment_delegate;
-    }
+  namespace jni
+  {
+    typedef std::function<JNIEnv*()> environment_delegate;
+  }
 }
 
 #endif

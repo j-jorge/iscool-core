@@ -18,25 +18,24 @@
 #include "iscool/http/response.h"
 #include "iscool/signals/implement_signal.h"
 
-IMPLEMENT_SIGNAL( iscool::http::detail::request_handler, result, _on_result );
-IMPLEMENT_SIGNAL( iscool::http::detail::request_handler, error, _on_error );
+IMPLEMENT_SIGNAL(iscool::http::detail::request_handler, result, _on_result);
+IMPLEMENT_SIGNAL(iscool::http::detail::request_handler, error, _on_error);
 
 iscool::http::detail::request_handler::request_handler() = default;
 iscool::http::detail::request_handler::~request_handler() = default;
 
-void
-iscool::http::detail::request_handler::process_response( const response& r )
+void iscool::http::detail::request_handler::process_response(const response& r)
 {
-    const std::vector<char> body( r.get_body() );
+  const std::vector<char> body(r.get_body());
 
-    if ( r.get_code() == 200 )
-        _on_result( body );
-    else
-        _on_error( body );
+  if (r.get_code() == 200)
+    _on_result(body);
+  else
+    _on_error(body);
 }
 
 void iscool::http::detail::request_handler::clear()
 {
-    _on_result.disconnect_all_slots();
-    _on_error.disconnect_all_slots();
+  _on_result.disconnect_all_slots();
+  _on_error.disconnect_all_slots();
 }

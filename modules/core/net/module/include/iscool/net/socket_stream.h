@@ -17,8 +17,8 @@
 #define ISCOOL_NET_SOCKET_STREAM_H
 
 #include "iscool/net/byte_array.h"
-#include "iscool/net/socket_mode.h"
 #include "iscool/net/detail/socket.h"
+#include "iscool/net/socket_mode.h"
 #include "iscool/signals/declare_signal.h"
 
 #include <mutex>
@@ -26,67 +26,63 @@
 
 namespace iscool
 {
-    namespace net
+  namespace net
+  {
+    class socket_stream
     {
-        class socket_stream
-        {
-        public:
-            DECLARE_SIGNAL
-            ( void( const endpoint&, const iscool::net::byte_array& ),
-              received, _received );
+    public:
+      DECLARE_SIGNAL(void(const endpoint&, const iscool::net::byte_array&),
+                     received, _received);
 
-        public:
-            /**
-             * Open a socket with the given remote host. This kind of socket can
-             * send with no explicit end point.
-             */
-            socket_stream( const std::string& host, socket_mode::client );
+    public:
+      /**
+       * Open a socket with the given remote host. This kind of socket can
+       * send with no explicit end point.
+       */
+      socket_stream(const std::string& host, socket_mode::client);
 
-            /**
-             * Open a socket locally. The remote endpoint must be explicited
-             * with every send.
-             */
-            socket_stream( const std::string& host, socket_mode::server );
+      /**
+       * Open a socket locally. The remote endpoint must be explicited
+       * with every send.
+       */
+      socket_stream(const std::string& host, socket_mode::server);
 
-            /**
-             * Open a socket in server mode, locally on the given port. The
-             * remote endpoint must be explicited with every send.
-             */
-            explicit socket_stream( unsigned short port );
+      /**
+       * Open a socket in server mode, locally on the given port. The
+       * remote endpoint must be explicited with every send.
+       */
+      explicit socket_stream(unsigned short port);
 
-            ~socket_stream();
+      ~socket_stream();
 
-            void send( const iscool::net::byte_array& bytes );
-            void send
-            ( const endpoint& target,
-              const iscool::net::byte_array& bytes );
+      void send(const iscool::net::byte_array& bytes);
+      void send(const endpoint& target, const iscool::net::byte_array& bytes);
 
-        private:
-            struct queued_bytes
-            {
-                endpoint target;
-                byte_array bytes;
-            };
+    private:
+      struct queued_bytes
+      {
+        endpoint target;
+        byte_array bytes;
+      };
 
-            typedef std::vector< queued_bytes > bytes_queue;
+      typedef std::vector<queued_bytes> bytes_queue;
 
-        private:
-            void init();
+    private:
+      void init();
 
-            void queue_bytes
-            ( const endpoint& target, const byte_array& bytes );
-            void dispatch_bytes();
+      void queue_bytes(const endpoint& target, const byte_array& bytes);
+      void dispatch_bytes();
 
-        private:
-            iscool::net::detail::socket _socket;
+    private:
+      iscool::net::detail::socket _socket;
 
-            bytes_queue _bytes_queue;
-            std::mutex _queue_access_mutex;
-            std::thread _update_thread;
+      bytes_queue _bytes_queue;
+      std::mutex _queue_access_mutex;
+      std::thread _update_thread;
 
-            iscool::signals::connection _dispatch_connection;
-        };
-    }
+      iscool::signals::connection _dispatch_connection;
+    };
+  }
 }
 
 #endif

@@ -20,10 +20,10 @@
 
 namespace iscool
 {
-    namespace system
-    {
-        std::string get_application_id();
-    }
+  namespace system
+  {
+    std::string get_application_id();
+  }
 }
 
 #endif

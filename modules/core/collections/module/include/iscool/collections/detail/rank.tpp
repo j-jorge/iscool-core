@@ -18,65 +18,57 @@
 
 #include <cstdlib>
 
-template< typename Iterator, typename Output >
-void iscool::collections::rank
-( Iterator value_first, Iterator value_last, Output&& output )
+template <typename Iterator, typename Output>
+void iscool::collections::rank(Iterator value_first, Iterator value_last,
+                               Output&& output)
 {
-    if ( value_first == value_last )
-        return;
-    
-    Iterator reference_value( value_first );
-    std::size_t rank( 1 );
-    std::size_t count( 0 );
-    output( rank );
+  if (value_first == value_last)
+    return;
 
-    for ( ++value_first, ++count;
-          value_first != value_last;
-          ++value_first, ++count )
+  Iterator reference_value(value_first);
+  std::size_t rank(1);
+  std::size_t count(0);
+  output(rank);
+
+  for (++value_first, ++count; value_first != value_last;
+       ++value_first, ++count)
     {
-        if ( *value_first != *reference_value )
+      if (*value_first != *reference_value)
         {
-            rank = count + 1;
-            reference_value = value_first;
+          rank = count + 1;
+          reference_value = value_first;
         }
 
-        output( rank );
+      output(rank);
     }
 }
 
-template
-<
-    typename ValueIterator,
-    typename OrderIterator,
-    typename Output
->
-void iscool::collections::rank
-( ValueIterator values, OrderIterator order_first,
-  OrderIterator order_last, Output&& output )
+template <typename ValueIterator, typename OrderIterator, typename Output>
+void iscool::collections::rank(ValueIterator values, OrderIterator order_first,
+                               OrderIterator order_last, Output&& output)
 {
-    if ( order_first == order_last )
-        return;
+  if (order_first == order_last)
+    return;
 
-    auto index( *order_first );
-    ValueIterator reference_value( values + index );
-    std::size_t rank( 1 );
-    std::size_t count( 0 );
-    output( rank );
+  auto index(*order_first);
+  ValueIterator reference_value(values + index);
+  std::size_t rank(1);
+  std::size_t count(0);
+  output(rank);
 
-    for ( ++order_first, ++count;
-          order_first != order_last;
-          ++order_first, ++count )
+  for (++order_first, ++count; order_first != order_last;
+       ++order_first, ++count)
     {
-        index = *order_first;
-        ValueIterator value( values + index );
-        
-        if ( *value != *reference_value )
+      index = *order_first;
+      ValueIterator value(values + index);
+
+      if (*value != *reference_value)
         {
-            rank = count + 1;
-            reference_value = value;
+          rank = count + 1;
+          reference_value = value;
         }
 
-        output( rank );
+      output(rank);
     }
 }
 

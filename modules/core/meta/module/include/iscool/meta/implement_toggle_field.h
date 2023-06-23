@@ -16,19 +16,19 @@
 #ifndef ISCOOL_META_IMPLEMENT_TOGGLE_FIELD_H
 #define ISCOOL_META_IMPLEMENT_TOGGLE_FIELD_H
 
-#define ic_implement_toggle_field( scope, name, action )        \
-    bool scope::is_ ## name () const                            \
-    {                                                           \
-        return _ ## name ## _toggle_state;                      \
-    }                                                           \
-                                                                \
-    void scope::set_ ## name( bool v )                          \
-    {                                                           \
-        if ( _ ## name ## _toggle_state == v )                  \
-            return;                                             \
-                                                                \
-        _ ## name ## _toggle_state = v;                         \
-        action;                                                 \
-    }
+#define ic_implement_toggle_field(scope, name, action)                        \
+  bool scope::is_##name() const                                               \
+  {                                                                           \
+    return _##name##_toggle_state;                                            \
+  }                                                                           \
+                                                                              \
+  void scope::set_##name(bool v)                                              \
+  {                                                                           \
+    if (_##name##_toggle_state == v)                                          \
+      return;                                                                 \
+                                                                              \
+    _##name##_toggle_state = v;                                               \
+    action;                                                                   \
+  }
 
 #endif

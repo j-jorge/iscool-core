@@ -19,12 +19,10 @@
 #include "iscool/jni/native_callback_lifespan.h"
 #include "iscool/jni/register_native_callback.h"
 
-template< typename... Args >
-iscool::jni::scoped_native_callback::scoped_native_callback
-( const std::function< void( Args... ) >& f )
-    : _id( register_native_callback( native_callback_lifespan::persistent, f ) )
-{
-
-}
+template <typename... Args>
+iscool::jni::scoped_native_callback::scoped_native_callback(
+    const std::function<void(Args...)>& f)
+  : _id(register_native_callback(native_callback_lifespan::persistent, f))
+{}
 
 #endif

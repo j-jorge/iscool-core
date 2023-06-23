@@ -15,75 +15,70 @@
 */
 #include "iscool/schedule/manual_scheduler.h"
 
-
 #include <vector>
 
 iscool::schedule::manual_scheduler::manual_scheduler()
-    : _current_date(0)
-{
-
-}
+  : _current_date(0)
+{}
 
 iscool::schedule::delayed_call_delegate
 iscool::schedule::manual_scheduler::get_delayed_call_delegate()
 {
-    return std::bind
-        ( &manual_scheduler::schedule_call, this, std::placeholders::_1,
-          std::placeholders::_2 );
+  return std::bind(&manual_scheduler::schedule_call, this,
+                   std::placeholders::_1, std::placeholders::_2);
 }
 
 std::chrono::nanoseconds
 iscool::schedule::manual_scheduler::delay_until_next_non_immediate_call() const
 {
-    for (const call& c :  _calls)
-        if (c.at_date > _current_date)
-            return c.at_date - _current_date;
+  for (const call& c : _calls)
+    if (c.at_date > _current_date)
+      return c.at_date - _current_date;
 
-    return std::chrono::nanoseconds::zero();
+  return std::chrono::nanoseconds::zero();
 }
 
-void iscool::schedule::manual_scheduler::update_interval
-( std::chrono::nanoseconds interval )
+void iscool::schedule::manual_scheduler::update_interval(
+    std::chrono::nanoseconds interval)
 {
-    std::vector< iscool::signals::void_signal_function > calls_to_do;
+  std::vector<iscool::signals::void_signal_function> calls_to_do;
 
-    {
-        const std::unique_lock<std::mutex> lock(_mutex);
-        _current_date += interval;
-
-        calls_to_do.reserve(_calls.size());
-
-        const std::vector<call>::iterator begin(_calls.begin());
-        const std::vector<call>::iterator end(_calls.end());
-        std::vector<call>::iterator split;
-
-        for (split = begin; split != end; ++split)
-            if (split->at_date <= _current_date)
-                calls_to_do.emplace_back(std::move(split->function));
-            else
-                break;
-
-        _calls.erase(begin, split);
-    }
-
-    for ( iscool::signals::void_signal_function& s : calls_to_do )
-        s();
-}
-
-void
-iscool::schedule::manual_scheduler::schedule_call
-( iscool::signals::void_signal_function f, std::chrono::nanoseconds delay )
-{
-    assert( delay.count() >= 0 );
-
+  {
     const std::unique_lock<std::mutex> lock(_mutex);
+    _current_date += interval;
 
-    const std::chrono::nanoseconds at_date = _current_date + delay;
-    std::vector<call>::iterator it;
+    calls_to_do.reserve(_calls.size());
 
-    for (it = _calls.begin(); it != _calls.end(); ++it)
-        if (it->at_date > at_date)
-            break;
+    const std::vector<call>::iterator begin(_calls.begin());
+    const std::vector<call>::iterator end(_calls.end());
+    std::vector<call>::iterator split;
 
-    _calls.insert(it, call{at_date, std::move(f)});
+    for (split = begin; split != end; ++split)
+      if (split->at_date <= _current_date)
+        calls_to_do.emplace_back(std::move(split->function));
+      else
+        break;
+
+    _calls.erase(begin, split);
+  }
+
+  for (iscool::signals::void_signal_function& s : calls_to_do)
+    s();
+}
+
+void iscool::schedule::manual_scheduler::schedule_call(
+    iscool::signals::void_signal_function f, std::chrono::nanoseconds delay)
+{
+  assert(delay.count() >= 0);
+
+  const std::unique_lock<std::mutex> lock(_mutex);
+
+  const std::chrono::nanoseconds at_date = _current_date + delay;
+  std::vector<call>::iterator it;
+
+  for (it = _calls.begin(); it != _calls.end(); ++it)
+    if (it->at_date > at_date)
+      break;
+
+  _calls.insert(it, call{ at_date, std::move(f) });
 }

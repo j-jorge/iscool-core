@@ -20,35 +20,35 @@
 
 namespace iscool
 {
-    namespace jni
+  namespace jni
+  {
+    template <typename T>
+    class collection
     {
-        template< typename T >
-        class collection
-        {
-        public:
-            typedef java_ptr< T > value_type;
-        
-        public:
-            explicit collection( jobject impl );
-        
-            java_ptr< jobject > get_java_object() const;
+    public:
+      typedef java_ptr<T> value_type;
 
-            std::size_t size() const;
-            iterator< T > get_iterator() const;
-        
-        private:
-            java_ptr< jobject > _impl;
-        };
+    public:
+      explicit collection(jobject impl);
 
-        namespace detail
-        {
-            template< typename T >
-            struct get_method_argument_impl< collection< T > >
-            {
-                static jobject get( const collection< T >& c );
-            };
-        }
+      java_ptr<jobject> get_java_object() const;
+
+      std::size_t size() const;
+      iterator<T> get_iterator() const;
+
+    private:
+      java_ptr<jobject> _impl;
+    };
+
+    namespace detail
+    {
+      template <typename T>
+      struct get_method_argument_impl<collection<T>>
+      {
+        static jobject get(const collection<T>& c);
+      };
     }
+  }
 }
 
 #include "iscool/jni/detail/collection.tpp"

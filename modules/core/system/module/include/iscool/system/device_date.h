@@ -20,10 +20,10 @@
 
 namespace iscool
 {
-    namespace system
-    {
-        std::tm device_date();
-    }
+  namespace system
+  {
+    std::tm device_date();
+  }
 }
 
 #endif

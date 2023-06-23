@@ -24,30 +24,28 @@
 #include "json/value.h"
 
 iscool::style::declaration
-iscool::style::json::to_declaration( const Json::Value& value )
+iscool::style::json::to_declaration(const Json::Value& value)
 {
-    declaration result;
-    if( !value.isObject() )
+  declaration result;
+  if (!value.isObject())
     {
-        ic_causeless_log
-            ( iscool::log::nature::error(), log_context(),
-              "value is not a json object." );
-        return result;
+      ic_causeless_log(iscool::log::nature::error(), log_context(),
+                       "value is not a json object.");
+      return result;
     }
 
-    const auto end( value.end() );
-    
-    for ( auto it( value.begin() ); it != end; ++it )
+  const auto end(value.end());
+
+  for (auto it(value.begin()); it != end; ++it)
     {
-        const std::string& key( it.key().asString() );
-        
-        if( key.empty() )
-            ic_causeless_log
-                ( iscool::log::nature::error(), log_context(),
-                  "the name cannot be emtpy." );
-        else
-            detail::set_property_from_json_value( result, key, *it );
+      const std::string& key(it.key().asString());
+
+      if (key.empty())
+        ic_causeless_log(iscool::log::nature::error(), log_context(),
+                         "the name cannot be emtpy.");
+      else
+        detail::set_property_from_json_value(result, key, *it);
     }
-    
-    return result;
+
+  return result;
 }

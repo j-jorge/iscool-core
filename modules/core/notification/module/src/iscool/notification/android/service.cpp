@@ -21,41 +21,33 @@
 #include "iscool/jni/static_method_void.h"
 
 void iscool::notification::android::service::enable_notifications()
-{
+{}
 
+bool iscool::notification::android::service::are_notifications_enabled() const
+{
+  const jni::static_method<jboolean> method(jni::get_static_method<jboolean>(
+      "iscool/notification/NotificationService", "areNotificationsEnabled",
+      "()Z"));
+
+  return method();
 }
 
-bool
-iscool::notification::android::service::are_notifications_enabled() const
+void iscool::notification::android::service::schedule(
+    std::size_t id, const std::chrono::seconds& delay,
+    const std::string& title, const std::string& message)
 {
-    const jni::static_method< jboolean > method
-        ( jni::get_static_method< jboolean >
-          ( "iscool/notification/NotificationService",
-            "areNotificationsEnabled",
-            "()Z" ) );
+  const jni::static_method<void> method(jni::get_static_method<void>(
+      "iscool/notification/NotificationService", "schedule",
+      "(IJLjava/lang/String;Ljava/lang/String;)V"));
 
-    return method();
-}
-
-void iscool::notification::android::service::schedule
-( std::size_t id, const std::chrono::seconds& delay, const std::string& title,
-  const std::string& message )
-{
-    const jni::static_method< void > method
-        ( jni::get_static_method< void >
-          ( "iscool/notification/NotificationService", "schedule",
-            "(IJLjava/lang/String;Ljava/lang/String;)V" ) );
-
-    method
-        ( id, delay.count(), iscool::jni::new_java_string( title ),
-          iscool::jni::new_java_string( message ) );
+  method(id, delay.count(), iscool::jni::new_java_string(title),
+         iscool::jni::new_java_string(message));
 }
 
 void iscool::notification::android::service::cancel_all()
 {
-    const jni::static_method< void > method
-        ( jni::get_static_method< void >
-          ( "iscool/notification/NotificationService", "cancelAll", "()V" ) );
+  const jni::static_method<void> method(jni::get_static_method<void>(
+      "iscool/notification/NotificationService", "cancelAll", "()V"));
 
-    method();
+  method();
 }

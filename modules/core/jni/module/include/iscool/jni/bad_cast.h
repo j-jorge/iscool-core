@@ -23,20 +23,19 @@
 
 namespace iscool
 {
-    namespace jni
+  namespace jni
+  {
+    class bad_cast : public std::bad_cast
     {
-        class bad_cast:
-            public std::bad_cast
-        {
-        public:
-            bad_cast( jobject object, const std::string& expected );
-            
-            const char* what() const noexcept override;
-            
-        private:
-            std::string _message;
-        };
-    }
+    public:
+      bad_cast(jobject object, const std::string& expected);
+
+      const char* what() const noexcept override;
+
+    private:
+      std::string _message;
+    };
+  }
 }
 
 #endif

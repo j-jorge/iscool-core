@@ -17,23 +17,22 @@
 
 #include "gtest/gtest.h"
 
-TEST( iscool_collections_has_duplicates, true )
+TEST(iscool_collections_has_duplicates, true)
 {
-    const std::vector< int > values = { 0, 1, 1, 8 };
-    EXPECT_TRUE
-        ( iscool::collections::has_duplicates( values.begin(), values.end() ) );
+  const std::vector<int> values = { 0, 1, 1, 8 };
+  EXPECT_TRUE(
+      iscool::collections::has_duplicates(values.begin(), values.end()));
 }
 
-TEST( iscool_collections_has_duplicates, false )
+TEST(iscool_collections_has_duplicates, false)
 {
-    const std::vector< int > values = { 0, 1, 5, 8 };
-    EXPECT_FALSE
-        ( iscool::collections::has_duplicates( values.begin(), values.end() ) );
+  const std::vector<int> values = { 0, 1, 5, 8 };
+  EXPECT_FALSE(
+      iscool::collections::has_duplicates(values.begin(), values.end()));
 }
 
-TEST( iscool_collections_has_duplicates, pointer )
+TEST(iscool_collections_has_duplicates, pointer)
 {
-    const int values[ 4 ] = { 0, 5, 5, 8 };
-    EXPECT_TRUE
-        ( iscool::collections::has_duplicates( values, values + 4 ) );
+  const int values[4] = { 0, 5, 5, 8 };
+  EXPECT_TRUE(iscool::collections::has_duplicates(values, values + 4));
 }

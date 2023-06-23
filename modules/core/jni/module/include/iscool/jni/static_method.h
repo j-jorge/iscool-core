@@ -18,11 +18,11 @@
 
 namespace iscool
 {
-    namespace jni
-    {
-        template< typename R >
-        class static_method;
-    }
+  namespace jni
+  {
+    template <typename R>
+    class static_method;
+  }
 }
 
 #endif

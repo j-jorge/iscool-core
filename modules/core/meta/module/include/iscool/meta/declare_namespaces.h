@@ -18,18 +18,16 @@
 
 #include <boost/preprocessor/seq/for_each_i.hpp>
 
-#define ic_detail_open_namespace( r, data, i, elem ) \
-    namespace elem {
+#define ic_detail_open_namespace(r, data, i, elem)                            \
+  namespace elem                                                              \
+  {
 
-#define ic_detail_close_namespace( r, data, i, elem )   \
-    }
+#define ic_detail_close_namespace(r, data, i, elem) }
 
-#define ic_open_namespaces( scope )                             \
-    BOOST_PP_SEQ_FOR_EACH_I                                     \
-    ( ic_detail_open_namespace, _, scope )
+#define ic_open_namespaces(scope)                                             \
+  BOOST_PP_SEQ_FOR_EACH_I(ic_detail_open_namespace, _, scope)
 
-#define ic_close_namespaces( scope )                             \
-    BOOST_PP_SEQ_FOR_EACH_I                                      \
-    ( ic_detail_close_namespace, _, scope )
+#define ic_close_namespaces(scope)                                            \
+  BOOST_PP_SEQ_FOR_EACH_I(ic_detail_close_namespace, _, scope)
 
 #endif

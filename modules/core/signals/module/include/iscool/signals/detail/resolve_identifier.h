@@ -18,24 +18,29 @@
 
 namespace iscool
 {
-    namespace signals
+  namespace signals
+  {
+    namespace detail
     {
-        namespace detail
+      template <typename T>
+      struct resolve_identifier
+      {
+        static const char* name()
         {
-            template< typename T >
-            struct resolve_identifier
-            {
-                static const char* name() { return T::name(); }
-            };
-            
-            template<>
-            struct resolve_identifier< void >
-            {
-                static const char* name() { return "unnamed_signal"; }
-            };
+          return T::name();
         }
+      };
+
+      template <>
+      struct resolve_identifier<void>
+      {
+        static const char* name()
+        {
+          return "unnamed_signal";
+        }
+      };
     }
+  }
 }
 
 #endif
-

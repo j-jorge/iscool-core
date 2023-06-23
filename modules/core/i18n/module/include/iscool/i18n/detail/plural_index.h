@@ -20,13 +20,13 @@
 
 namespace iscool
 {
-    namespace i18n
+  namespace i18n
+  {
+    namespace detail
     {
-        namespace detail
-        {
-            extern plural_index_function plural_index;
-        }
+      extern plural_index_function plural_index;
     }
+  }
 }
 
 #endif

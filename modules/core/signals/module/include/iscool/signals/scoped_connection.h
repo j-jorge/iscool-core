@@ -20,36 +20,36 @@
 
 namespace iscool
 {
-    namespace signals
+  namespace signals
+  {
+    class scoped_connection
     {
-        class scoped_connection
-        {
-        public:
-            scoped_connection();
-            scoped_connection( const connection& that );
-            scoped_connection( connection&& that );
-            scoped_connection( const scoped_connection& that );
-            scoped_connection( scoped_connection&& that );
-            ~scoped_connection();
+    public:
+      scoped_connection();
+      scoped_connection(const connection& that);
+      scoped_connection(connection&& that);
+      scoped_connection(const scoped_connection& that);
+      scoped_connection(scoped_connection&& that);
+      ~scoped_connection();
 
-            bool operator==( const scoped_connection& that ) const;
-            bool operator!=( const scoped_connection& that ) const;
-            
-            bool operator!=( const connection& that ) const;
-            bool operator==( const connection& that ) const;
-            
-            scoped_connection& operator=( const connection& that );
-            scoped_connection& operator=( connection&& that );
-            scoped_connection& operator=( const scoped_connection& that );
-            scoped_connection& operator=( scoped_connection&& that );
+      bool operator==(const scoped_connection& that) const;
+      bool operator!=(const scoped_connection& that) const;
 
-            void disconnect() const;
-            bool connected() const;
-            
-        private:
-            connection _connection;
-        };
-    }
+      bool operator!=(const connection& that) const;
+      bool operator==(const connection& that) const;
+
+      scoped_connection& operator=(const connection& that);
+      scoped_connection& operator=(connection&& that);
+      scoped_connection& operator=(const scoped_connection& that);
+      scoped_connection& operator=(scoped_connection&& that);
+
+      void disconnect() const;
+      bool connected() const;
+
+    private:
+      connection _connection;
+    };
+  }
 }
 
 #endif

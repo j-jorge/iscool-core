@@ -19,21 +19,16 @@
 #include "iscool/jni/detail/extract_argument.h"
 #include "iscool/jni/detail/get_jni_env.h"
 
-template< typename... Arg, std::size_t... I >
-void
-iscool::jni::detail::native_call_helper
-<
-    std::tuple< Arg... >,
-    iscool::meta::indices< I... >
->
-::call
-( const std::function< void( Arg... ) >& f,
-  const java_ptr< jobjectArray >& arguments )
+template <typename... Arg, std::size_t... I>
+void iscool::jni::detail::native_call_helper<
+    std::tuple<Arg...>,
+    iscool::meta::indices<I...>>::call(const std::function<void(Arg...)>& f,
+                                       const java_ptr<jobjectArray>& arguments)
 {
-    JNIEnv* const env( detail::get_jni_env() );
-    (void)env;
-    
-    f( extract_argument< I, std::tuple< Arg... > >( env, arguments )... );
+  JNIEnv* const env(detail::get_jni_env());
+  (void)env;
+
+  f(extract_argument<I, std::tuple<Arg...>>(env, arguments)...);
 }
 
 #endif

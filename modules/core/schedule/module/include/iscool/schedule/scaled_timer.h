@@ -20,34 +20,34 @@
 
 namespace iscool
 {
-    namespace schedule
+  namespace schedule
+  {
+    class scaled_timer
     {
-        class scaled_timer
-        {
-        public:
-            scaled_timer();
+    public:
+      scaled_timer();
 
-            void set_scale( float scale );
-            float get_scale() const;
-            
-            void reset();
-            void pause();
-            void resume();
+      void set_scale(float scale);
+      float get_scale() const;
 
-            template< typename Duration >
-            Duration get_duration() const;
+      void reset();
+      void pause();
+      void resume();
 
-        private:
-            typedef std::chrono::milliseconds duration;
+      template <typename Duration>
+      Duration get_duration() const;
 
-        private:
-            float _scale;
-            timer _timer;
+    private:
+      typedef std::chrono::milliseconds duration;
 
-            duration _real_reference;
-            duration _scaled_reference;
-        };
-    }
+    private:
+      float _scale;
+      timer _timer;
+
+      duration _real_reference;
+      duration _scaled_reference;
+    };
+  }
 }
 
 #include "iscool/schedule/detail/scaled_timer.tpp"

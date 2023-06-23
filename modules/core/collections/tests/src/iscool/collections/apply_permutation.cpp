@@ -17,41 +17,41 @@
 
 #include <gtest/gtest.h>
 
-TEST( iscool_collections_apply_permutations, empty )
+TEST(iscool_collections_apply_permutations, empty)
 {
-    std::vector< int > values( {} );
-    const std::vector< std::size_t > permutation( {} );
+  std::vector<int> values({});
+  const std::vector<std::size_t> permutation({});
 
-    iscool::collections::apply_permutation
-        ( values.begin(), values.end(), permutation );
+  iscool::collections::apply_permutation(values.begin(), values.end(),
+                                         permutation);
 
-    EXPECT_TRUE( values.empty() );
+  EXPECT_TRUE(values.empty());
 }
 
-TEST( iscool_collections_apply_permutations, permutation )
+TEST(iscool_collections_apply_permutations, permutation)
 {
-    std::vector< int > values( { 9, 5, 8 } );
-    const std::vector< std::size_t > permutation( { 1, 2, 0 } );
+  std::vector<int> values({ 9, 5, 8 });
+  const std::vector<std::size_t> permutation({ 1, 2, 0 });
 
-    iscool::collections::apply_permutation
-        ( values.begin(), values.end(), permutation );
+  iscool::collections::apply_permutation(values.begin(), values.end(),
+                                         permutation);
 
-    EXPECT_EQ( 5, values[ 0 ] );
-    EXPECT_EQ( 8, values[ 1 ] );
-    EXPECT_EQ( 9, values[ 2 ] );
+  EXPECT_EQ(5, values[0]);
+  EXPECT_EQ(8, values[1]);
+  EXPECT_EQ(9, values[2]);
 }
 
-TEST( iscool_collections_apply_permutations, partial )
+TEST(iscool_collections_apply_permutations, partial)
 {
-    std::vector< int > values( { 10, 9, 5, 8, 1 } );
-    const std::vector< std::size_t > permutation( { 1, 0, 2 } );
-    
-    iscool::collections::apply_permutation
-        ( values.begin() + 1, values.end() - 1, permutation );
+  std::vector<int> values({ 10, 9, 5, 8, 1 });
+  const std::vector<std::size_t> permutation({ 1, 0, 2 });
 
-    EXPECT_EQ( 10, values[ 0 ] );
-    EXPECT_EQ( 5, values[ 1 ] );
-    EXPECT_EQ( 9, values[ 2 ] );
-    EXPECT_EQ( 8, values[ 3 ] );
-    EXPECT_EQ( 1, values[ 4 ] );
+  iscool::collections::apply_permutation(values.begin() + 1, values.end() - 1,
+                                         permutation);
+
+  EXPECT_EQ(10, values[0]);
+  EXPECT_EQ(5, values[1]);
+  EXPECT_EQ(9, values[2]);
+  EXPECT_EQ(8, values[3]);
+  EXPECT_EQ(1, values[4]);
 }

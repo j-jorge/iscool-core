@@ -22,46 +22,41 @@
 
 namespace iscool
 {
-    namespace files
+  namespace files
+  {
+    class file_system_delegates;
+
+    namespace test
     {
-        class file_system_delegates;
+      class file_system_delegates_mockup
+        : public iscool::files::file_system_delegates
+      {
+      public:
+        file_system_delegates_mockup();
 
-        namespace test
-        {
-            class file_system_delegates_mockup:
-                public iscool::files::file_system_delegates
-            {
-            public:
-                file_system_delegates_mockup();
+        std::unique_ptr<std::istream>
+        read_file(const std::string& path) const override;
 
-                std::unique_ptr< std::istream > read_file
-                ( const std::string& path ) const override;
+        std::string get_writable_path() const override;
+        bool file_exists(const std::string& path) const override;
 
-                std::string get_writable_path() const override;
-                bool file_exists( const std::string& path ) const override;
+        std::string get_full_path(const std::string& path) const override;
 
-                std::string get_full_path
-                ( const std::string& path ) const override;
+      public:
+        std::function<std::unique_ptr<std::istream>(const std::string&)>
+            read_file_impl;
 
-            public:
-                std::function
-                <
-                    std::unique_ptr< std::istream >( const std::string& )
-                > read_file_impl;
+        std::function<std::string()> get_writable_path_impl;
 
-                std::function< std::string() > get_writable_path_impl;
+        std::function<bool(const std::string&)> file_exists_impl;
 
-                std::function< bool( const std::string& ) >
-                file_exists_impl;
+        std::function<std::string(const std::string&)> get_full_path_impl;
+      };
 
-                std::function< std::string( const std::string& ) >
-                get_full_path_impl;
-            };
-
-            const iscool::files::file_system_delegates&
-            default_file_system_delegates_mockup();
-        }
+      const iscool::files::file_system_delegates&
+      default_file_system_delegates_mockup();
     }
+  }
 }
 
 #endif

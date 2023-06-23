@@ -18,7 +18,7 @@
 
 #include <gtest/gtest.h>
 
-#define ASSERT_NO_CRASH( statement )                                    \
-    ASSERT_EXIT( statement; exit(0), ::testing::ExitedWithCode(0), "" )
+#define ASSERT_NO_CRASH(statement)                                            \
+  ASSERT_EXIT(statement; exit(0), ::testing::ExitedWithCode(0), "")
 
 #endif

@@ -17,14 +17,14 @@
 
 #include "iscool/system/detail/capture_screen_delegate.h"
 
-void iscool::system::initialize( capture_screen_function delegate )
+void iscool::system::initialize(capture_screen_function delegate)
 {
-    assert( delegate );
-    assert( !detail::capture_screen_delegate );
-    detail::capture_screen_delegate = delegate;
+  assert(delegate);
+  assert(!detail::capture_screen_delegate);
+  detail::capture_screen_delegate = delegate;
 }
-        
+
 void iscool::system::finalize()
 {
-    detail::capture_screen_delegate = capture_screen_function();
+  detail::capture_screen_delegate = capture_screen_function();
 }

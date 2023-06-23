@@ -19,21 +19,18 @@
 #include "iscool/jni/check_java_exception.h"
 #include "iscool/jni/detail/get_method_argument.h"
 
-template< typename... Arg >
-jboolean
-iscool::jni::static_method< jboolean >::operator()( Arg&&... args ) const
+template <typename... Arg>
+jboolean iscool::jni::static_method<jboolean>::operator()(Arg&&... args) const
 {
-    assert( check_java_exception() );
-    
-    const jboolean result
-        ( _env->CallStaticBooleanMethod
-          ( _class.get(), _method,
-            detail::get_method_argument< Arg >::get
-            ( std::forward< Arg >( args ) )... ) );
+  assert(check_java_exception());
 
-    assert( check_java_exception() );
+  const jboolean result(_env->CallStaticBooleanMethod(
+      _class.get(), _method,
+      detail::get_method_argument<Arg>::get(std::forward<Arg>(args))...));
 
-    return result;
+  assert(check_java_exception());
+
+  return result;
 }
 
 #endif

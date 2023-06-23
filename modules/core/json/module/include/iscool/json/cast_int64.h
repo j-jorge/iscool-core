@@ -20,6 +20,6 @@
 #include "iscool/json/declare_cast.h"
 #include "iscool/json/detail/cast_int64.h"
 
-DECLARE_JSON_CAST( std::int64_t );
+DECLARE_JSON_CAST(std::int64_t);
 
 #endif

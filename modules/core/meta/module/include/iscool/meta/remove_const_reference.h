@@ -18,29 +18,29 @@
 
 namespace iscool
 {
-    namespace meta
+  namespace meta
+  {
+    template <typename T>
+    struct remove_const_reference;
+
+    template <typename T>
+    struct remove_const_reference<T&>
     {
-        template< typename T >
-        struct remove_const_reference;
+      typedef typename remove_const_reference<T>::type type;
+    };
 
-        template< typename T >
-        struct remove_const_reference< T& >
-        {
-            typedef typename remove_const_reference< T >::type type;
-        };
+    template <typename T>
+    struct remove_const_reference<const T>
+    {
+      typedef typename remove_const_reference<T>::type type;
+    };
 
-        template< typename T >
-        struct remove_const_reference< const T >
-        {
-            typedef typename remove_const_reference< T >::type type;
-        };
-
-        template< typename T >
-        struct remove_const_reference
-        {
-            typedef T type;
-        };
-    }
+    template <typename T>
+    struct remove_const_reference
+    {
+      typedef T type;
+    };
+  }
 }
 
 #include "iscool/meta/detail/remove_const_reference.tests.h"

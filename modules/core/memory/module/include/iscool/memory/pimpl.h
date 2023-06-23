@@ -18,50 +18,42 @@
 
 #include "iscool/memory/detail/pimpl_storage.h"
 
-#include <type_traits>
 #include <tuple>
+#include <type_traits>
 
 namespace iscool
 {
-    namespace memory
+  namespace memory
+  {
+    template <typename T, std::size_t N = 0>
+    class pimpl
     {
-        template< typename T, std::size_t N = 0 >
-        class pimpl
-        {
-        public:
-            pimpl();
-            pimpl( pimpl< T, N >&& that );
-            pimpl( const pimpl< T, N >& );
-  
-            template
-            < typename... Args,
-              typename OK =
-                typename std::enable_if
-                <
-                  !std::is_same
-                  <
-                      std::tuple< pimpl< T, N > >,
-                      std::tuple< typename std::decay< Args >::type... >
-                  >::value
-                >::type
-            >
-            pimpl
-            ( Args&&... args );
-  
-            ~pimpl();
-  
-            pimpl< T, N >& operator=( pimpl< T, N >&& that );
-            pimpl< T, N >& operator=( const pimpl< T, N >& );
+    public:
+      pimpl();
+      pimpl(pimpl<T, N>&& that);
+      pimpl(const pimpl<T, N>&);
 
-            T* get() const;
-            
-            T* operator->() const;
-            T& operator*() const;
+      template <
+          typename... Args,
+          typename OK = typename std::enable_if<!std::is_same<
+              std::tuple<pimpl<T, N>>,
+              std::tuple<typename std::decay<Args>::type...>>::value>::type>
+      pimpl(Args&&... args);
 
-        private:
-            detail::pimpl_storage< T, N > _storage;
-        };
-    }
+      ~pimpl();
+
+      pimpl<T, N>& operator=(pimpl<T, N>&& that);
+      pimpl<T, N>& operator=(const pimpl<T, N>&);
+
+      T* get() const;
+
+      T* operator->() const;
+      T& operator*() const;
+
+    private:
+      detail::pimpl_storage<T, N> _storage;
+    };
+  }
 }
 
 #endif

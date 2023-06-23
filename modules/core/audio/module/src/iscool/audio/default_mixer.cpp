@@ -17,12 +17,12 @@
 
 #include "iscool/audio/detail/default_mixer.h"
 
-void iscool::audio::set_default_mixer( mixer& instance )
+void iscool::audio::set_default_mixer(mixer& instance)
 {
-    detail::set_default_mixer( instance );
+  detail::set_default_mixer(instance);
 }
 
 void iscool::audio::clear_default_mixer()
 {
-    detail::clear_default_mixer();
+  detail::clear_default_mixer();
 }

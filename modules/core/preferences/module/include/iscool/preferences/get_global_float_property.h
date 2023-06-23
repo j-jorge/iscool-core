@@ -20,10 +20,10 @@
 
 namespace iscool
 {
-    namespace preferences
-    {
-        float get_global_float_property( const float_property& property );
-    }
+  namespace preferences
+  {
+    float get_global_float_property(const float_property& property);
+  }
 }
 
 #endif

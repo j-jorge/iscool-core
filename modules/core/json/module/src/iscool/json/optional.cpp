@@ -18,4 +18,4 @@
 
 #include <json/value.h>
 
-template class iscool::optional< Json::Value >;
+template class iscool::optional<Json::Value>;

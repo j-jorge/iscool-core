@@ -18,11 +18,12 @@
 
 #include <cassert>
 
-#define ic_verify( op )                         \
-    do                                          \
-    {                                           \
-        if ( !(op) )                            \
-            assert( false );                    \
-    } while( false )
+#define ic_verify(op)                                                         \
+  do                                                                          \
+    {                                                                         \
+      if (!(op))                                                              \
+        assert(false);                                                        \
+    }                                                                         \
+  while (false)
 
 #endif

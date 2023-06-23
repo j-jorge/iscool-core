@@ -21,18 +21,13 @@
 
 #include <typeinfo>
 
-template< typename T >
+template <typename T>
 iscool::any::detail::vtable* iscool::any::detail::get_vtable()
 {
-    static vtable result
-    {
-        typeid( T ).hash_code(),
-        &typed_vtable< T >::clear,
-        &typed_vtable< T >::copy,
-        &typed_vtable< T >::move
-    };
+  static vtable result{ typeid(T).hash_code(), &typed_vtable<T>::clear,
+                        &typed_vtable<T>::copy, &typed_vtable<T>::move };
 
-    return &result;
+  return &result;
 }
 
 #endif

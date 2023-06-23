@@ -20,13 +20,13 @@
 
 namespace iscool
 {
-    namespace system
+  namespace system
+  {
+    namespace detail
     {
-        namespace detail
-        {
-            std::chrono::milliseconds device_time_milliseconds();
-        }
+      std::chrono::milliseconds device_time_milliseconds();
     }
+  }
 }
 
 #endif

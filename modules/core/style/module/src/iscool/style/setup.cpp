@@ -22,18 +22,18 @@
 
 #include <cassert>
 
-void iscool::style::initialize( const merge_path_list& path_list )
+void iscool::style::initialize(const merge_path_list& path_list)
 {
-    assert( !path_list.empty() );
-    assert( detail::loader_merge_path_list.empty() );
-    detail::loader_merge_path_list = path_list;
+  assert(!path_list.empty());
+  assert(detail::loader_merge_path_list.empty());
+  detail::loader_merge_path_list = path_list;
 }
-        
+
 void iscool::style::finalize()
 {
-    assert( !detail::loader_merge_path_list.empty() );
-    detail::loader_merge_path_list.clear();
+  assert(!detail::loader_merge_path_list.empty());
+  detail::loader_merge_path_list.clear();
 
-    detail::get_style_cache().clear();
-    detail::get_properties_pool().clear();
+  detail::get_style_cache().clear();
+  detail::get_properties_pool().clear();
 }

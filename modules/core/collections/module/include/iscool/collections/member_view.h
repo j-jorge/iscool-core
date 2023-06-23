@@ -20,16 +20,15 @@
 
 namespace iscool
 {
-    namespace collections
-    {
-        template< typename R, typename T >
-        std::vector< R > member_view
-        ( const std::vector< T >& input, R ( T::*getter )() const );
+  namespace collections
+  {
+    template <typename R, typename T>
+    std::vector<R> member_view(const std::vector<T>& input,
+                               R (T::*getter)() const);
 
-        template< typename R, typename T >
-        std::vector< R > member_view
-        ( const std::vector< T >& input, R T::*field );
-    }
+    template <typename R, typename T>
+    std::vector<R> member_view(const std::vector<T>& input, R T::*field);
+  }
 }
 
 #include "iscool/collections/detail/member_view.tpp"

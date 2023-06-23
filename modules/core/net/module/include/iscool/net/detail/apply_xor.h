@@ -20,15 +20,15 @@
 
 namespace iscool
 {
-    namespace net
-    {
-        class byte_array;
+  namespace net
+  {
+    class byte_array;
 
-        namespace detail
-        {
-            void apply_xor( byte_array& bytes, const xor_key& key );
-        }
+    namespace detail
+    {
+      void apply_xor(byte_array& bytes, const xor_key& key);
     }
+  }
 }
 
 #endif

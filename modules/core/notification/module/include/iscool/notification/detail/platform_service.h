@@ -17,32 +17,32 @@
 #define ISCOOL_NOTIFICATION_DETAIL_PLATFORM_SERVICE_H
 
 #if defined __APPLE__
-#include "TargetConditionals.h"
+  #include "TargetConditionals.h"
 #endif
 
 #if defined __ANDROID__
-#include "iscool/notification/android/service.h"
-#elif ( TARGET_OS_IPHONE == 1 )
-#include "iscool/notification/ios/service.h"
+  #include "iscool/notification/android/service.h"
+#elif (TARGET_OS_IPHONE == 1)
+  #include "iscool/notification/ios/service.h"
 #else
-#include "iscool/notification/detail/mockup_service.h"
+  #include "iscool/notification/detail/mockup_service.h"
 #endif
 
 namespace iscool
 {
-    namespace notification
+  namespace notification
+  {
+    namespace detail
     {
-        namespace detail
-        {
 #if defined __ANDROID__
-            typedef android::service platform_service;
-#elif ( TARGET_OS_IPHONE == 1 )
-            typedef ios::service platform_service;
+      typedef android::service platform_service;
+#elif (TARGET_OS_IPHONE == 1)
+      typedef ios::service platform_service;
 #else
-            typedef detail::mockup_service platform_service;
+      typedef detail::mockup_service platform_service;
 #endif
-        }
     }
+  }
 }
 
 #endif

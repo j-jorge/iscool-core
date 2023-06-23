@@ -16,25 +16,24 @@
 #ifndef ISCOOL_PREFERENCES_DETAIL_GLOBAL_PROPERTIES_H
 #define ISCOOL_PREFERENCES_DETAIL_GLOBAL_PROPERTIES_H
 
-#include <unordered_map>
 #include <string>
+#include <unordered_map>
 
 namespace iscool
 {
-    namespace preferences
+  namespace preferences
+  {
+    namespace detail
     {
-        namespace detail
-        {
-            const std::unordered_map< std::string, std::string >&
-            get_global_properties();
-            
-            void set_global_properties
-            ( const std::unordered_map< std::string, std::string >&
-              properties );
-            
-            int get_global_properties_version();
-        }
+      const std::unordered_map<std::string, std::string>&
+      get_global_properties();
+
+      void set_global_properties(
+          const std::unordered_map<std::string, std::string>& properties);
+
+      int get_global_properties_version();
     }
+  }
 }
 
 #endif

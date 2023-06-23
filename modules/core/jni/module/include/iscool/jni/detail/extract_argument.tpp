@@ -16,28 +16,19 @@
 #ifndef ISCOOL_JNI_DETAIL_EXTRACT_ARGUMENT_TPP
 #define ISCOOL_JNI_DETAIL_EXTRACT_ARGUMENT_TPP
 
-#include "iscool/jni/detail/extract_argument.h"
 #include "iscool/jni/cast.h"
+#include "iscool/jni/detail/extract_argument.h"
 
-template< std::size_t I, typename Tuple >
-typename std::decay
-<
-    typename std::tuple_element< I, Tuple >::type
->::type
-iscool::jni::detail::extract_argument
-( JNIEnv* env, const java_ptr< jobjectArray >& arguments )
+template <std::size_t I, typename Tuple>
+typename std::decay<typename std::tuple_element<I, Tuple>::type>::type
+iscool::jni::detail::extract_argument(JNIEnv* env,
+                                      const java_ptr<jobjectArray>& arguments)
 {
-    assert( env != nullptr );
-    
-    return
-        iscool::jni::cast
-        <
-            typename std::decay
-            <
-                typename std::tuple_element< I, Tuple >::type
-            >::type
-        >
-        ( env->GetObjectArrayElement( *arguments, I ) );
+  assert(env != nullptr);
+
+  return iscool::jni::cast<
+      typename std::decay<typename std::tuple_element<I, Tuple>::type>::type>(
+      env->GetObjectArrayElement(*arguments, I));
 }
 
 #endif

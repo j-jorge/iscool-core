@@ -20,10 +20,10 @@
 
 namespace iscool
 {
-    namespace json
-    {
-        bool is_member( const std::string& key, Json::Value json_value );
-    }
+  namespace json
+  {
+    bool is_member(const std::string& key, Json::Value json_value);
+  }
 }
 
 #endif

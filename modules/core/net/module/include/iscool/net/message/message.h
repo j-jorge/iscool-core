@@ -18,38 +18,37 @@
 
 #include "iscool/net/byte_array.h"
 #include "iscool/net/message/channel_id.h"
-#include "iscool/net/message/session_id.h"
 #include "iscool/net/message/message_type.h"
+#include "iscool/net/message/session_id.h"
 
 namespace iscool
 {
-    namespace net
+  namespace net
+  {
+    class message
     {
-        class message
-        {
-        public:
-            message();
-            message( message_type type, const byte_array& content );
-            message
-            ( message_type type, session_id session, channel_id channel,
-              const byte_array& content );
+    public:
+      message();
+      message(message_type type, const byte_array& content);
+      message(message_type type, session_id session, channel_id channel,
+              const byte_array& content);
 
-            void set_session_id( session_id session_id );
-            session_id get_session_id() const;
-    
-            void set_channel_id( channel_id channel_id );
-            channel_id get_channel_id() const;
-            
-            message_type get_type() const;
-            const byte_array& get_content() const;
+      void set_session_id(session_id session_id);
+      session_id get_session_id() const;
 
-        private:
-            message_type _type;
-            session_id _session_id;
-            channel_id _channel_id;
-            byte_array _content;
-        };
-    }
+      void set_channel_id(channel_id channel_id);
+      channel_id get_channel_id() const;
+
+      message_type get_type() const;
+      const byte_array& get_content() const;
+
+    private:
+      message_type _type;
+      session_id _session_id;
+      channel_id _channel_id;
+      byte_array _content;
+    };
+  }
 }
 
 #endif

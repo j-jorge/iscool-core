@@ -19,21 +19,21 @@
 
 #include <gtest/gtest.h>
 
-TEST( iscool_copy, int )
+TEST(iscool_copy, int)
 {
-    int value( 24 );
-    const int& copy( iscool::copy( value ) );
+  int value(24);
+  const int& copy(iscool::copy(value));
 
-    EXPECT_EQ( 24, copy );
-    EXPECT_NE( &value, &copy );
+  EXPECT_EQ(24, copy);
+  EXPECT_NE(&value, &copy);
 }
 
-TEST( iscool_copy, string )
+TEST(iscool_copy, string)
 {
-    std::string value( "test" );
-    const std::string& copy( iscool::copy( value ) );
+  std::string value("test");
+  const std::string& copy(iscool::copy(value));
 
-    EXPECT_EQ( "test", copy );
-    EXPECT_EQ( "test", value );
-    EXPECT_NE( &value, &copy );
+  EXPECT_EQ("test", copy);
+  EXPECT_EQ("test", value);
+  EXPECT_NE(&value, &copy);
 }

@@ -17,6 +17,6 @@
 
 const std::string& iscool::json::log_context()
 {
-    static const std::string result( "Json" );
-    return result;
+  static const std::string result("Json");
+  return result;
 }

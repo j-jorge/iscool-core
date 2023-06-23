@@ -15,12 +15,10 @@
 */
 #include "iscool/signals/statistics_data.h"
 
-iscool::signals::statistics_data::statistics_data
-( const std::string& signal_identifier, std::size_t slot_count )
-    : signal_identifier( signal_identifier ),
-      slot_count( slot_count )
-{
-    
-}
+iscool::signals::statistics_data::statistics_data(
+    const std::string& signal_identifier, std::size_t slot_count)
+  : signal_identifier(signal_identifier)
+  , slot_count(slot_count)
+{}
 
 iscool::signals::statistics_data::~statistics_data() = default;

@@ -20,11 +20,11 @@
 
 namespace iscool
 {
-    namespace factory
-    {
-        template< typename T, typename... A >
-        using factory_function = std::function< T( A... ) >;
-    }
+  namespace factory
+  {
+    template <typename T, typename... A>
+    using factory_function = std::function<T(A...)>;
+  }
 }
 
 #endif

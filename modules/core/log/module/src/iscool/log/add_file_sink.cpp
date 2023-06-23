@@ -16,11 +16,11 @@
 #include "iscool/log/add_file_sink.h"
 
 #include "iscool/log/context.h"
+#include "iscool/log/detail/get_message_dispatcher.h"
+#include "iscool/log/detail/logger_thread.h"
+#include "iscool/log/detail/message_dispatcher.h"
 #include "iscool/log/nature/error.h"
 #include "iscool/log/nature/nature.h"
-#include "iscool/log/detail/get_message_dispatcher.h"
-#include "iscool/log/detail/message_dispatcher.h"
-#include "iscool/log/detail/logger_thread.h"
 
 #include "iscool/error/synopsis.h"
 #include "iscool/strings/format.h"
@@ -28,40 +28,36 @@
 #include <fstream>
 #include <memory>
 
-void iscool::log::add_file_sink( const std::string& path )
+void iscool::log::add_file_sink(const std::string& path)
 {
-    std::shared_ptr< std::ofstream > log_file
-        ( std::make_shared< std::ofstream >
-          ( path, std::ios_base::out | std::ios_base::trunc ) );
-    
-    const auto write_log
-        ( [ log_file ]
-          ( const iscool::log::nature::nature& nature, const context& context,
-            const std::string& message )
-          {
-              detail::queue_in_logger_thread
-                  ( [ = ]() -> void
-                    {
-                        *log_file << '[' << nature.string()
-                                  << "][" << context.get_reporter()
-                                  << "][" << context.get_origin() << "] "
-                                  << message << std::endl;
-                    } );
-          } );
+  std::shared_ptr<std::ofstream> log_file(std::make_shared<std::ofstream>(
+      path, std::ios_base::out | std::ios_base::trunc));
 
-    message_delegates delegates;
-    delegates.print_message = write_log;
+  const auto write_log(
+      [log_file](const iscool::log::nature::nature& nature,
+                 const context& context, const std::string& message)
+      {
+        detail::queue_in_logger_thread(
+            [=]() -> void
+            {
+              *log_file << '[' << nature.string() << "]["
+                        << context.get_reporter() << "]["
+                        << context.get_origin() << "] " << message
+                        << std::endl;
+            });
+      });
 
-    delegates.print_error =
-        [ write_log ]
-        ( const context& context, const error::synopsis& synopsis ) -> void
-        {
-            write_log
-            ( nature::error(), context,
-              iscool::strings::format
-              ( "%1%-%2%: %3%", synopsis.get_category(), synopsis.get_code(),
-                synopsis.get_message() ) );
-        };
-    
-    detail::get_message_dispatcher().register_delegates( delegates );
+  message_delegates delegates;
+  delegates.print_message = write_log;
+
+  delegates.print_error = [write_log](const context& context,
+                                      const error::synopsis& synopsis) -> void
+  {
+    write_log(nature::error(), context,
+              iscool::strings::format("%1%-%2%: %3%", synopsis.get_category(),
+                                      synopsis.get_code(),
+                                      synopsis.get_message()));
+  };
+
+  detail::get_message_dispatcher().register_delegates(delegates);
 }

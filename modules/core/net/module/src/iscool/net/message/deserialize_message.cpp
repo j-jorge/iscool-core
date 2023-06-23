@@ -20,30 +20,29 @@
 
 #include <cassert>
 
-iscool::net::message
-iscool::net::deserialize_message( const byte_array& bytes )
+iscool::net::message iscool::net::deserialize_message(const byte_array& bytes)
 {
-    return deserialize_message( bytes, {} );
+  return deserialize_message(bytes, {});
 }
 
-iscool::net::message
-iscool::net::deserialize_message( const byte_array& bytes, const xor_key& key )
+iscool::net::message iscool::net::deserialize_message(const byte_array& bytes,
+                                                      const xor_key& key)
 {
-    byte_array_reader reader( bytes );
-    
-    const message_type type( reader.get< message_type >() );
+  byte_array_reader reader(bytes);
 
-    const std::uint16_t size( reader.get< std::uint16_t >() );
-    assert( bytes.size() == size );
-    (void)size;
-    
-    const session_id session( reader.get< session_id >() );
-    const channel_id channel( reader.get< channel_id >() );
+  const message_type type(reader.get<message_type>());
 
-    byte_array content( reader.slice() );
+  const std::uint16_t size(reader.get<std::uint16_t>());
+  assert(bytes.size() == size);
+  (void)size;
 
-    if ( !key.empty() )
-        detail::apply_xor( content, key );
-    
-    return message( type, session, channel, content );
+  const session_id session(reader.get<session_id>());
+  const channel_id channel(reader.get<channel_id>());
+
+  byte_array content(reader.slice());
+
+  if (!key.empty())
+    detail::apply_xor(content, key);
+
+  return message(type, session, channel, content);
 }

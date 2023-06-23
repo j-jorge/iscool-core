@@ -22,31 +22,30 @@
 
 namespace iscool
 {
-    namespace strings
+  namespace strings
+  {
+    class str_const
     {
-        class str_const
-        {
-        public:
-            template< std::size_t N >
-            constexpr str_const( const char (&s)[ N ] );
+    public:
+      template <std::size_t N>
+      constexpr str_const(const char (&s)[N]);
 
-            constexpr operator const char *() const;
+      constexpr operator const char*() const;
 
-            constexpr std::size_t size() const;
+      constexpr std::size_t size() const;
 
-            constexpr hash_type hash() const;
+      constexpr hash_type hash() const;
 
-        private:
-            constexpr hash_type hash( std::size_t pos ) const;
+    private:
+      constexpr hash_type hash(std::size_t pos) const;
 
-        private:
-            const char* const _begin;
-            const std::size_t _size;
-        };
-    }
+    private:
+      const char* const _begin;
+      const std::size_t _size;
+    };
+  }
 }
 
 #include "iscool/strings/detail/str_const.tpp"
 
 #endif
-

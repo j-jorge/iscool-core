@@ -16,44 +16,41 @@
 #ifndef ISCOOL_HTTP_DETAIL_REQUEST_HANDLER_POOL_H
 #define ISCOOL_HTTP_DETAIL_REQUEST_HANDLER_POOL_H
 
-#include "iscool/memory/dynamic_pool.h"
 #include "iscool/http/detail/request_handler.h"
+#include "iscool/memory/dynamic_pool.h"
 
 #include <utility>
 
 namespace iscool
 {
-    namespace http
+  namespace http
+  {
+    namespace detail
     {
-        namespace detail
-        {
-            struct request_handler_pool_traits;
-                
-            class request_handler_pool
-            {
-            private:
-                typedef iscool::memory::dynamic_pool
-                <
-                    request_handler,
-                    request_handler_pool_traits
-                > pool_type;
+      struct request_handler_pool_traits;
 
-            public:
-                typedef pool_type::slot slot;
-                
-            public:
-                explicit request_handler_pool( std::size_t size );
-                
-                slot pick_available_handler();
+      class request_handler_pool
+      {
+      private:
+        typedef iscool::memory::dynamic_pool<request_handler,
+                                             request_handler_pool_traits>
+            pool_type;
 
-                void process_response
-                ( std::size_t handler_index, const response& r );
+      public:
+        typedef pool_type::slot slot;
 
-            private:
-                pool_type _pool;
-            };
-        }
+      public:
+        explicit request_handler_pool(std::size_t size);
+
+        slot pick_available_handler();
+
+        void process_response(std::size_t handler_index, const response& r);
+
+      private:
+        pool_type _pool;
+      };
     }
+  }
 }
 
 #endif

@@ -21,43 +21,28 @@
 
 #include <map>
 
-TEST( iscool_collections_insert_all, set )
+TEST(iscool_collections_insert_all, set)
 {
-    std::set<int> output = {{ 1, 3, 5 }};
-    const std::set<int> input = {{ 2, 3, 4 }};
+  std::set<int> output = { { 1, 3, 5 } };
+  const std::set<int> input = { { 2, 3, 4 } };
 
-    const std::vector<int> expected_result( { 1, 2, 3, 4, 5 } );
+  const std::vector<int> expected_result({ 1, 2, 3, 4, 5 });
 
-    iscool::collections::insert_all( output, input );
+  iscool::collections::insert_all(output, input);
 
-    iscool::test::assert_equal_collections( output, expected_result );
+  iscool::test::assert_equal_collections(output, expected_result);
 }
 
-TEST( iscool_collections_insert_all, map )
+TEST(iscool_collections_insert_all, map)
 {
-    std::map<int, double> output =
-        {
-            { 1, 1.0 },
-            { 3, 3.0 },
-            { 5, 5.0 }
-        };
-    const std::map<int, double> input =
-        {
-            { 2, 2.0 },
-            { 3, 3.5 },
-            { 4, 4.0 }
-        };
+  std::map<int, double> output = { { 1, 1.0 }, { 3, 3.0 }, { 5, 5.0 } };
+  const std::map<int, double> input = { { 2, 2.0 }, { 3, 3.5 }, { 4, 4.0 } };
 
-    const std::map<int, double> expected_result =
-        {
-            { 1, 1.0 },
-            { 2, 2.0 },
-            { 3, 3.0 },
-            { 4, 4.0 },
-            { 5, 5.0 }
-        };
+  const std::map<int, double> expected_result = {
+    { 1, 1.0 }, { 2, 2.0 }, { 3, 3.0 }, { 4, 4.0 }, { 5, 5.0 }
+  };
 
-    iscool::collections::insert_all( output, input );
+  iscool::collections::insert_all(output, input);
 
-    iscool::test::assert_equal_collections( output, expected_result );
+  iscool::test::assert_equal_collections(output, expected_result);
 }

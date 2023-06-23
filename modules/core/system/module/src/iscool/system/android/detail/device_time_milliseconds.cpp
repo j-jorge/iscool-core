@@ -20,9 +20,8 @@
 
 std::chrono::milliseconds iscool::system::detail::device_time_milliseconds()
 {
-    const auto method
-        ( iscool::jni::get_static_method< jlong >
-          ( "iscool/system/SystemService", "getDeviceTime", "()J" ) );
+  const auto method(iscool::jni::get_static_method<jlong>(
+      "iscool/system/SystemService", "getDeviceTime", "()J"));
 
-    return std::chrono::milliseconds( method() );
+  return std::chrono::milliseconds(method());
 }

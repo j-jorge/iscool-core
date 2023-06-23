@@ -18,23 +18,21 @@
 
 #include "iscool/time/now.h"
 
-template< typename Duration  >
+template <typename Duration>
 Duration iscool::schedule::timer::get_duration() const
 {
-    const reference_duration current_date( time::now< reference_duration >() );
-    const reference_duration duration_since_resume
-        ( current_date - _duration_reference_date );
+  const reference_duration current_date(time::now<reference_duration>());
+  const reference_duration duration_since_resume(current_date
+                                                 - _duration_reference_date);
 
-    reference_duration duration_in_pause( 0 );
+  reference_duration duration_in_pause(0);
 
-    if ( _paused )
-        duration_in_pause = current_date - _pause_date;
+  if (_paused)
+    duration_in_pause = current_date - _pause_date;
 
-    const reference_duration duration
-        ( duration_since_resume - duration_in_pause );
+  const reference_duration duration(duration_since_resume - duration_in_pause);
 
-    return std::chrono::duration_cast< Duration >( duration );
+  return std::chrono::duration_cast<Duration>(duration);
 }
 
 #endif
-

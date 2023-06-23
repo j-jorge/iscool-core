@@ -18,32 +18,32 @@
 
 #include "iscool/optional.h"
 #include <chrono>
-#include <vector>
 #include <string>
+#include <vector>
 
 namespace iscool
 {
-    namespace profile
+  namespace profile
+  {
+    class profiler
     {
-        class profiler
-        {
-        public:
-            explicit profiler( const std::string& name );
+    public:
+      explicit profiler(const std::string& name);
 
-            void append_tag( const std::string& tag );
-            void clear_tags();
+      void append_tag(const std::string& tag);
+      void clear_tags();
 
-            bool started() const;
-            
-            void start();
-            void end();
-            
-        private:
-            const std::string _name;
-            std::vector< std::string > _tags;
-            iscool::optional< std::chrono::milliseconds > _start;
-        };
-    }
+      bool started() const;
+
+      void start();
+      void end();
+
+    private:
+      const std::string _name;
+      std::vector<std::string> _tags;
+      iscool::optional<std::chrono::milliseconds> _start;
+    };
+  }
 }
 
 #endif

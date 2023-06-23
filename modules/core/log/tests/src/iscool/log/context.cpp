@@ -17,38 +17,37 @@
 
 #include <gtest/gtest.h>
 
-TEST( iscool_log_context, getters )
+TEST(iscool_log_context, getters)
 {
-    const iscool::log::context context( "reporter", "origin", "file", 89 );
+  const iscool::log::context context("reporter", "origin", "file", 89);
 
-    EXPECT_EQ( "reporter", context.get_reporter() );
-    EXPECT_EQ( "origin", context.get_origin() );
-    EXPECT_EQ( "file", context.get_file() );
-    EXPECT_EQ( 89, context.get_line() );
+  EXPECT_EQ("reporter", context.get_reporter());
+  EXPECT_EQ("origin", context.get_origin());
+  EXPECT_EQ("file", context.get_file());
+  EXPECT_EQ(89, context.get_line());
 }
 
-TEST( iscool_log_context, copy )
+TEST(iscool_log_context, copy)
 {
-    const iscool::log::context context( "rp", "or", "f", 222 );
-    const iscool::log::context copy( context );
+  const iscool::log::context context("rp", "or", "f", 222);
+  const iscool::log::context copy(context);
 
-    EXPECT_EQ( context.get_reporter(), copy.get_reporter() );
-    EXPECT_EQ( context.get_origin(), copy.get_origin() );
-    EXPECT_EQ( context.get_file(), copy.get_file() );
-    EXPECT_EQ( context.get_line(), copy.get_line() );
+  EXPECT_EQ(context.get_reporter(), copy.get_reporter());
+  EXPECT_EQ(context.get_origin(), copy.get_origin());
+  EXPECT_EQ(context.get_file(), copy.get_file());
+  EXPECT_EQ(context.get_line(), copy.get_line());
 }
 
-TEST( iscool_log_context, assignment )
+TEST(iscool_log_context, assignment)
 {
-    iscool::log::context copy;
-    
-    const iscool::log::context context( "rp", "or", "f", 222 );
+  iscool::log::context copy;
 
-    copy = context;
+  const iscool::log::context context("rp", "or", "f", 222);
 
-    EXPECT_EQ( context.get_reporter(), copy.get_reporter() );
-    EXPECT_EQ( context.get_origin(), copy.get_origin() );
-    EXPECT_EQ( context.get_file(), copy.get_file() );
-    EXPECT_EQ( context.get_line(), copy.get_line() );
+  copy = context;
+
+  EXPECT_EQ(context.get_reporter(), copy.get_reporter());
+  EXPECT_EQ(context.get_origin(), copy.get_origin());
+  EXPECT_EQ(context.get_file(), copy.get_file());
+  EXPECT_EQ(context.get_line(), copy.get_line());
 }
-

@@ -15,20 +15,16 @@
 */
 #include "iscool/jni/detail/native_callback.h"
 
-iscool::jni::detail::native_callback::native_callback
-( native_callback_lifespan lifespan )
-    : _lifespan( lifespan )
-{
-
-}
+iscool::jni::detail::native_callback::native_callback(
+    native_callback_lifespan lifespan)
+  : _lifespan(lifespan)
+{}
 
 iscool::jni::detail::native_callback::~native_callback()
-{
-
-}
+{}
 
 iscool::jni::native_callback_lifespan
 iscool::jni::detail::native_callback::get_lifespan() const
 {
-    return _lifespan;
+  return _lifespan;
 }

@@ -14,21 +14,20 @@
   limitations under the License.
 */
 #ifndef ISCOOL_RANDOM_DISTINCT_RANDOM_H
-#define	ISCOOL_RANDOM_DISTINCT_RANDOM_H
+#define ISCOOL_RANDOM_DISTINCT_RANDOM_H
 
 #include <vector>
 
 namespace iscool
 {
-    namespace random
-    {
-        template< typename T >
-        std::vector< T > distinct_random( std::size_t count, T min, T max );
-    }
-}    
+  namespace random
+  {
+    template <typename T>
+    std::vector<T> distinct_random(std::size_t count, T min, T max);
+  }
+}
 
-extern template
-std::vector< int > iscool::random::distinct_random< int >
-( std::size_t, int, int );
+extern template std::vector<int>
+iscool::random::distinct_random<int>(std::size_t, int, int);
 
 #endif

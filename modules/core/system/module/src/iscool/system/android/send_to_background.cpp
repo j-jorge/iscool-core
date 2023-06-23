@@ -20,9 +20,8 @@
 
 void iscool::system::send_to_background()
 {
-    const auto method
-        ( iscool::jni::get_static_method< void >
-          ( "iscool/system/SystemService", "sendToBackground", "()V" ) );
+  const auto method(iscool::jni::get_static_method<void>(
+      "iscool/system/SystemService", "sendToBackground", "()V"));
 
-    method();
+  method();
 }

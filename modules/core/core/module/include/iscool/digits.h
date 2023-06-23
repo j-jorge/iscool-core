@@ -20,7 +20,7 @@
 
 namespace iscool
 {
-    std::uint8_t digits( std::int64_t value );
+  std::uint8_t digits(std::int64_t value);
 }
 
 #endif

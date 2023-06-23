@@ -19,64 +19,57 @@
 
 iscool::signals::connection::connection() = default;
 
-iscool::signals::connection::connection
-( const std::weak_ptr< detail::slot >& slot )
-    : _slot( slot )
-{
+iscool::signals::connection::connection(
+    const std::weak_ptr<detail::slot>& slot)
+  : _slot(slot)
+{}
 
-}
+iscool::signals::connection::connection(const connection& that)
+  : _slot(that._slot)
+{}
 
-iscool::signals::connection::connection( const connection& that )
-    : _slot( that._slot )
-{
-
-}
-
-iscool::signals::connection::connection( connection&& that )
-    : _slot( std::move( that._slot ) )
-{
-
-}
+iscool::signals::connection::connection(connection&& that)
+  : _slot(std::move(that._slot))
+{}
 
 iscool::signals::connection::~connection() = default;
 
 iscool::signals::connection&
-iscool::signals::connection::operator=( const connection& that )
+iscool::signals::connection::operator=(const connection& that)
 {
-    _slot = that._slot;
-    return *this;
+  _slot = that._slot;
+  return *this;
 }
 
 iscool::signals::connection&
-iscool::signals::connection::operator=( connection&& that )
+iscool::signals::connection::operator=(connection&& that)
 {
-    _slot = std::move( that._slot );
-    return *this;
+  _slot = std::move(that._slot);
+  return *this;
 }
 
-bool iscool::signals::connection::operator==( const connection& that ) const
+bool iscool::signals::connection::operator==(const connection& that) const
 {
-    static const std::owner_less< decltype( _slot ) > comparator{};
-    
-    return
-        !( comparator( _slot, that._slot ) || comparator( that._slot, _slot ) );
+  static const std::owner_less<decltype(_slot)> comparator{};
+
+  return !(comparator(_slot, that._slot) || comparator(that._slot, _slot));
 }
 
-bool iscool::signals::connection::operator!=( const connection& that ) const
+bool iscool::signals::connection::operator!=(const connection& that) const
 {
-    return !( *this == that );
+  return !(*this == that);
 }
 
 bool iscool::signals::connection::connected() const
 {
-    const std::shared_ptr< detail::slot > s( _slot.lock() );
-    return ( s != nullptr ) && s->connected();
+  const std::shared_ptr<detail::slot> s(_slot.lock());
+  return (s != nullptr) && s->connected();
 }
 
 void iscool::signals::connection::disconnect() const
 {
-    const std::shared_ptr< detail::slot > s( _slot.lock() );
+  const std::shared_ptr<detail::slot> s(_slot.lock());
 
-    if ( s != nullptr )
-        s->disconnect();
+  if (s != nullptr)
+    s->disconnect();
 }

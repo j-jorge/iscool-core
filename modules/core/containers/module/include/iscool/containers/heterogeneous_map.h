@@ -18,42 +18,42 @@
 
 #include "iscool/optional.h"
 
-#include <unordered_map>
 #include <tuple>
+#include <unordered_map>
 
 namespace iscool
 {
-    namespace containers
+  namespace containers
+  {
+    template <typename Key, typename... T>
+    class heterogeneous_map
     {
-        template< typename Key, typename... T >
-        class heterogeneous_map
-        {
-        public:
-            template< typename U >
-            void set( const Key& key, const U& value );
+    public:
+      template <typename U>
+      void set(const Key& key, const U& value);
 
-            template< typename U >
-            bool has( const Key& key ) const;
+      template <typename U>
+      bool has(const Key& key) const;
 
-            template< typename U >
-            iscool::optional< U > get( const Key& key ) const;
-            
-            template< typename U >
-            void erase( const Key& key );
-            
-            template< typename Visitor >
-            void visit( Visitor&& v ) const;
+      template <typename U>
+      iscool::optional<U> get(const Key& key) const;
 
-            bool empty() const;
+      template <typename U>
+      void erase(const Key& key);
 
-            void swap( heterogeneous_map< Key, T... >& that );
+      template <typename Visitor>
+      void visit(Visitor&& v) const;
 
-            void clear();
-            
-        private:
-            std::tuple< std::unordered_map< Key, T >... > _maps;
-        };
-    }
+      bool empty() const;
+
+      void swap(heterogeneous_map<Key, T...>& that);
+
+      void clear();
+
+    private:
+      std::tuple<std::unordered_map<Key, T>...> _maps;
+    };
+  }
 }
 
 #endif

@@ -16,6 +16,5 @@
 #include "iscool/random/distinct_random.h"
 #include "iscool/random/distinct_random.impl.tpp"
 
-template
-std::vector< int > iscool::random::distinct_random
-( std::size_t count, int min, int max );
+template std::vector<int> iscool::random::distinct_random(std::size_t count,
+                                                          int min, int max);

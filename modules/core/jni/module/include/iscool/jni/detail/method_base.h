@@ -20,23 +20,23 @@
 
 namespace iscool
 {
-    namespace jni
+  namespace jni
+  {
+    namespace detail
     {
-        namespace detail
-        {
-            class method_base
-            {
-            public:
-                method_base( JNIEnv* env, jmethodID method_id );
+      class method_base
+      {
+      public:
+        method_base(JNIEnv* env, jmethodID method_id);
 
-                JNIEnv* get_env() const;
+        JNIEnv* get_env() const;
 
-            protected:
-                JNIEnv* _env;
-                jmethodID _method;
-            };
-        }
+      protected:
+        JNIEnv* _env;
+        jmethodID _method;
+      };
     }
+  }
 }
 
 #endif

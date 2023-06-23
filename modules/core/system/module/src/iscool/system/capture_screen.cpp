@@ -20,36 +20,34 @@
 
 #include "iscool/signals/signal.impl.tpp"
 
-
 #include <cassert>
 
 namespace iscool
 {
-    namespace system
+  namespace system
+  {
+    namespace detail
     {
-        namespace detail
-        {
-            static capture_screen_signal_pool signal_pool( 1 );
-        }
+      static capture_screen_signal_pool signal_pool(1);
     }
+  }
 }
 
-iscool::signals::connection iscool::system::capture_screen
-( const std::string& file_name,
-  std::function< void ( std::string ) > on_done )
+iscool::signals::connection
+iscool::system::capture_screen(const std::string& file_name,
+                               std::function<void(std::string)> on_done)
 {
-    assert( detail::capture_screen_delegate );
+  assert(detail::capture_screen_delegate);
 
-    const auto slot( detail::signal_pool.pick_available_signal() );
-    const iscool::signals::connection result( slot.value.connect( on_done ) );
+  const auto slot(detail::signal_pool.pick_available_signal());
+  const iscool::signals::connection result(slot.value.connect(on_done));
 
-    detail::capture_screen_delegate
-        ( file_name,
-          std::bind
-          ( &detail::capture_screen_signal_pool::process_capture,
-            &detail::signal_pool, slot.id, std::placeholders::_1 ) );
+  detail::capture_screen_delegate(
+      file_name,
+      std::bind(&detail::capture_screen_signal_pool::process_capture,
+                &detail::signal_pool, slot.id, std::placeholders::_1));
 
-    assert( result.connected() );
+  assert(result.connected());
 
-    return result;
+  return result;
 }

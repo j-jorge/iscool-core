@@ -15,23 +15,23 @@
 */
 #include "iscool/social/service.h"
 
-void iscool::social::service::share_message( const std::string& message )
+void iscool::social::service::share_message(const std::string& message)
 {
-    _share.share_message( message );
+  _share.share_message(message);
 }
 
-void iscool::social::service::share_file
-( const std::string& file_path, const std::string& message )
+void iscool::social::service::share_file(const std::string& file_path,
+                                         const std::string& message)
 {
-    _share.share_file( file_path, message );
+  _share.share_file(file_path, message);
 }
 
-void iscool::social::service::open_in_facebook( const std::string& page )
+void iscool::social::service::open_in_facebook(const std::string& page)
 {
-    _link.open_in_facebook( page );
+  _link.open_in_facebook(page);
 }
 
-void iscool::social::service::open_in_twitter( const std::string& page )
+void iscool::social::service::open_in_twitter(const std::string& page)
 {
-    _link.open_in_twitter( page );
+  _link.open_in_twitter(page);
 }

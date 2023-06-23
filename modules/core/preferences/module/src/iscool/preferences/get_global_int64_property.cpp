@@ -17,8 +17,8 @@
 
 #include "iscool/preferences/detail/get_global_property.h"
 
-std::int64_t iscool::preferences::get_global_int64_property
-( const int64_property& property )
+std::int64_t
+iscool::preferences::get_global_int64_property(const int64_property& property)
 {
-    return detail::get_global_property( property );
+  return detail::get_global_property(property);
 }

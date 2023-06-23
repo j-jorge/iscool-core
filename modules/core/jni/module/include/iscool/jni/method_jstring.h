@@ -16,22 +16,20 @@
 #ifndef ISCOOL_JNI_METHOD_JSTRING_H
 #define ISCOOL_JNI_METHOD_JSTRING_H
 
-#include "iscool/jni/method.h"
 #include "iscool/jni/detail/method_jobject_helper.h"
+#include "iscool/jni/method.h"
 
 namespace iscool
 {
-    namespace jni
+  namespace jni
+  {
+    template <>
+    class method<jstring> : public detail::method_jobject_helper<jstring>
     {
-        template<>
-        class method< jstring >:
-            public detail::method_jobject_helper< jstring >
-        {
-        public:
-            using
-            detail::method_jobject_helper< jstring >::method_jobject_helper;
-        };
-    }
+    public:
+      using detail::method_jobject_helper<jstring>::method_jobject_helper;
+    };
+  }
 }
 
 #endif

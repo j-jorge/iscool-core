@@ -20,34 +20,34 @@
 
 namespace iscool
 {
-    namespace jni
+  namespace jni
+  {
+    template <typename T>
+    class array_list
     {
-        template< typename T >
-        class array_list
-        {
-        public:
-            typedef java_ptr< T > value_type;
-        
-        public:
-            array_list();
-        
-            java_ptr< jobject > get_java_object() const;
+    public:
+      typedef java_ptr<T> value_type;
 
-            jboolean add( const value_type& value ) const;
-        
-        private:
-            java_ptr< jobject > _array;
-        };
+    public:
+      array_list();
 
-        namespace detail
-        {
-            template< typename T >
-            struct get_method_argument_impl< array_list< T > >
-            {
-                static jobject get( const array_list< T >& map );
-            };
-        }
+      java_ptr<jobject> get_java_object() const;
+
+      jboolean add(const value_type& value) const;
+
+    private:
+      java_ptr<jobject> _array;
+    };
+
+    namespace detail
+    {
+      template <typename T>
+      struct get_method_argument_impl<array_list<T>>
+      {
+        static jobject get(const array_list<T>& map);
+      };
     }
+  }
 }
 
 #include "iscool/jni/detail/array_list.tpp"

@@ -13,69 +13,69 @@
   See the License for the specific language governing permissions and
   limitations under the License.
 */
-#include "iscool/system/application_event_source.h"
 #include "iscool/system/application_events.h"
+#include "iscool/system/application_event_source.h"
 
 #include "gtest/gtest.h"
 
-TEST( iscool_system_application_events, enter_background )
+TEST(iscool_system_application_events, enter_background)
 {
-    bool called( false );
-    const auto enter_background
-        ( [ &called ]() -> void
-          {
-              called = true;
-          } );
+  bool called(false);
+  const auto enter_background(
+      [&called]() -> void
+      {
+        called = true;
+      });
 
-    iscool::system::application_event_source source;
-    const iscool::system::application_events events( source );
-    
-    iscool::signals::connection connection
-        ( events.connect_to_enter_background( enter_background ) );
+  iscool::system::application_event_source source;
+  const iscool::system::application_events events(source);
 
-    EXPECT_TRUE( connection.connected() );
-    EXPECT_FALSE( called );
+  iscool::signals::connection connection(
+      events.connect_to_enter_background(enter_background));
 
-    source.dispatch_enter_background();
-    EXPECT_TRUE( called );
+  EXPECT_TRUE(connection.connected());
+  EXPECT_FALSE(called);
 
-    called = false;
-    source.dispatch_enter_foreground();
-    EXPECT_FALSE( called );
+  source.dispatch_enter_background();
+  EXPECT_TRUE(called);
 
-    called = false;
-    connection.disconnect();
-    source.dispatch_enter_background();
-    EXPECT_FALSE( called );
+  called = false;
+  source.dispatch_enter_foreground();
+  EXPECT_FALSE(called);
+
+  called = false;
+  connection.disconnect();
+  source.dispatch_enter_background();
+  EXPECT_FALSE(called);
 }
 
-TEST( iscool_system_application_events, enter_foreground )
+TEST(iscool_system_application_events, enter_foreground)
 {
-    bool called( false );
-    const auto enter_foreground
-        ( [ &called ]() -> void
-          {
-              called = true;
-          } );
+  bool called(false);
+  const auto enter_foreground(
+      [&called]() -> void
+      {
+        called = true;
+      });
 
-    iscool::system::application_event_source source;
-    const iscool::system::application_events events( source );
-    
-    iscool::signals::connection connection
-        ( events.connect_to_enter_foreground( enter_foreground ) );
+  iscool::system::application_event_source source;
+  const iscool::system::application_events events(source);
 
-    EXPECT_TRUE( connection.connected() );
-    EXPECT_FALSE( called );
+  iscool::signals::connection connection(
+      events.connect_to_enter_foreground(enter_foreground));
 
-    source.dispatch_enter_foreground();
-    EXPECT_TRUE( called );
+  EXPECT_TRUE(connection.connected());
+  EXPECT_FALSE(called);
 
-    called = false;
-    source.dispatch_enter_background();
-    EXPECT_FALSE( called );
+  source.dispatch_enter_foreground();
+  EXPECT_TRUE(called);
 
-    called = false;
-    connection.disconnect();
-    source.dispatch_enter_foreground();
-    EXPECT_FALSE( called );
+  called = false;
+  source.dispatch_enter_background();
+  EXPECT_FALSE(called);
+
+  called = false;
+  connection.disconnect();
+  source.dispatch_enter_foreground();
+  EXPECT_FALSE(called);
 }

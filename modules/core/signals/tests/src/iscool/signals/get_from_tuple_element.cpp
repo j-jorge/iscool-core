@@ -20,141 +20,126 @@
 
 #include <gtest/gtest.h>
 
-TEST( iscool_signals_get_from_tuple_element, different_arities )
+TEST(iscool_signals_get_from_tuple_element, different_arities)
 {
-    iscool::signals::signal_collection_from_tuple
-    <
-        std::tuple< float, int, std::string >,
-        std::tuple< std::string, float >,
-        std::tuple< int >
-    > signals;
+  iscool::signals::signal_collection_from_tuple<
+      std::tuple<float, int, std::string>, std::tuple<std::string, float>,
+      std::tuple<int>>
+      signals;
 
-    iscool::signals::signal< void( int ) >& int_0
-        ( iscool::signals::get_from_tuple_element< int, 0 >
-          ( signals ) );
+  iscool::signals::signal<void(int)>& int_0(
+      iscool::signals::get_from_tuple_element<int, 0>(signals));
 
-    int_0( 23 );
+  int_0(23);
 
-    iscool::signals::signal< void( std::string, float ) >& float_1
-        ( iscool::signals::get_from_tuple_element< float, 1 >
-          ( signals ) );
+  iscool::signals::signal<void(std::string, float)>& float_1(
+      iscool::signals::get_from_tuple_element<float, 1>(signals));
 
-    float_1( "yep", 4.9 );
+  float_1("yep", 4.9);
 
-    iscool::signals::signal< void( float, int, std::string ) >& string_2
-        ( iscool::signals::get_from_tuple_element< std::string, 2 >
-          ( signals ) );
+  iscool::signals::signal<void(float, int, std::string)>& string_2(
+      iscool::signals::get_from_tuple_element<std::string, 2>(signals));
 
-    string_2( 9.12, 4, "e/a" );
+  string_2(9.12, 4, "e/a");
 }
 
-TEST( iscool_signals_get_from_tuple_element, non_const )
+TEST(iscool_signals_get_from_tuple_element, non_const)
 {
-    iscool::signals::signal_collection_from_tuple
-    <
-        std::tuple< int, float >,
-        std::tuple< std::string, float >,
-        std::tuple< float, int >
-    > signals;
+  iscool::signals::signal_collection_from_tuple<std::tuple<int, float>,
+                                                std::tuple<std::string, float>,
+                                                std::tuple<float, int>>
+      signals;
 
-    std::string string_string_argument;
-    float string_float_argument( 0 );
-    const auto string_callback
-        ( [ &string_string_argument, &string_float_argument ]
-          ( const std::string& s, float f ) -> void
-          {
-              string_string_argument = s;
-              string_float_argument = f;
-          } );
+  std::string string_string_argument;
+  float string_float_argument(0);
+  const auto string_callback(
+      [&string_string_argument, &string_float_argument](const std::string& s,
+                                                        float f) -> void
+      {
+        string_string_argument = s;
+        string_float_argument = f;
+      });
 
-    iscool::signals::get_from_tuple_element< std::string, 0 >( signals ).connect
-        ( string_callback );
+  iscool::signals::get_from_tuple_element<std::string, 0>(signals).connect(
+      string_callback);
 
-    iscool::signals::signal< void( std::string, float ) >& string_0
-        ( iscool::signals::get_from_tuple_element< std::string, 0 >
-          ( signals ) );
+  iscool::signals::signal<void(std::string, float)>& string_0(
+      iscool::signals::get_from_tuple_element<std::string, 0>(signals));
 
-    string_0( "bac", 49 );
-    
-    EXPECT_EQ( "bac", string_string_argument );
-    EXPECT_EQ( 49, string_float_argument );
-    
-    float int_float_argument( 0 );
-    int int_int_argument( 0 );
-    const auto int_callback
-        ( [ &int_float_argument, &int_int_argument ]
-          ( float f, int i ) -> void
-          {
-              int_float_argument = f;
-              int_int_argument = i;
-          } );
+  string_0("bac", 49);
 
-    iscool::signals::get_from_tuple_element< int, 1 >( signals ).connect
-        ( int_callback );
+  EXPECT_EQ("bac", string_string_argument);
+  EXPECT_EQ(49, string_float_argument);
 
-    iscool::signals::signal< void( float, int ) >& int_1
-        ( iscool::signals::get_from_tuple_element< int, 1 >
-          ( signals ) );
+  float int_float_argument(0);
+  int int_int_argument(0);
+  const auto int_callback(
+      [&int_float_argument, &int_int_argument](float f, int i) -> void
+      {
+        int_float_argument = f;
+        int_int_argument = i;
+      });
 
-    int_1( 2.9, 23 );
+  iscool::signals::get_from_tuple_element<int, 1>(signals).connect(
+      int_callback);
 
-    EXPECT_FLOAT_EQ( 2.9, int_float_argument );
-    EXPECT_EQ( 23, int_int_argument );
+  iscool::signals::signal<void(float, int)>& int_1(
+      iscool::signals::get_from_tuple_element<int, 1>(signals));
+
+  int_1(2.9, 23);
+
+  EXPECT_FLOAT_EQ(2.9, int_float_argument);
+  EXPECT_EQ(23, int_int_argument);
 }
 
-TEST( iscool_signals_get_from_tuple_element, const )
+TEST(iscool_signals_get_from_tuple_element, const)
 {
-    typedef iscool::signals::signal_collection_from_tuple
-    <
-        std::tuple< int, float >,
-        std::tuple< std::string, float >,
-        std::tuple< float, int >
-    > signals_type;
+  typedef iscool::signals::signal_collection_from_tuple<
+      std::tuple<int, float>, std::tuple<std::string, float>,
+      std::tuple<float, int>>
+      signals_type;
 
-    std::string string_string_argument;
-    float string_float_argument( 0 );
-    const auto string_callback
-        ( [ &string_string_argument, &string_float_argument ]
-          ( const std::string& s, float f ) -> void
-          {
-              string_string_argument = s;
-              string_float_argument = f;
-          } );
+  std::string string_string_argument;
+  float string_float_argument(0);
+  const auto string_callback(
+      [&string_string_argument, &string_float_argument](const std::string& s,
+                                                        float f) -> void
+      {
+        string_string_argument = s;
+        string_float_argument = f;
+      });
 
-    signals_type signals;
-    
-    iscool::signals::get_from_tuple_element< std::string, 0 >( signals ).connect
-        ( string_callback );
-    
-    const signals_type& const_signals( signals );
-    const iscool::signals::signal< void( std::string, float ) >& string_0
-        ( iscool::signals::get_from_tuple_element< std::string, 0 >
-          ( const_signals ) );
+  signals_type signals;
 
-    string_0( "abc", 10 );
+  iscool::signals::get_from_tuple_element<std::string, 0>(signals).connect(
+      string_callback);
 
-    EXPECT_EQ( "abc", string_string_argument );
-    EXPECT_EQ( 10, string_float_argument );
-    
-    float int_float_argument( 0 );
-    int int_int_argument( 0 );
-    const auto int_callback
-        ( [ &int_float_argument, &int_int_argument ]
-          ( float f, int i ) -> void
-          {
-              int_float_argument = f;
-              int_int_argument = i;
-          } );
+  const signals_type& const_signals(signals);
+  const iscool::signals::signal<void(std::string, float)>& string_0(
+      iscool::signals::get_from_tuple_element<std::string, 0>(const_signals));
 
-    iscool::signals::get_from_tuple_element< int, 1 >( signals ).connect
-        ( int_callback );
+  string_0("abc", 10);
 
-    const iscool::signals::signal< void( float, int ) >& int_1
-        ( iscool::signals::get_from_tuple_element< int, 1 >
-          ( const_signals ) );
+  EXPECT_EQ("abc", string_string_argument);
+  EXPECT_EQ(10, string_float_argument);
 
-    int_1( 2.9, 23 );
+  float int_float_argument(0);
+  int int_int_argument(0);
+  const auto int_callback(
+      [&int_float_argument, &int_int_argument](float f, int i) -> void
+      {
+        int_float_argument = f;
+        int_int_argument = i;
+      });
 
-    EXPECT_FLOAT_EQ( 2.9, int_float_argument );
-    EXPECT_EQ( 23, int_int_argument );
+  iscool::signals::get_from_tuple_element<int, 1>(signals).connect(
+      int_callback);
+
+  const iscool::signals::signal<void(float, int)>& int_1(
+      iscool::signals::get_from_tuple_element<int, 1>(const_signals));
+
+  int_1(2.9, 23);
+
+  EXPECT_FLOAT_EQ(2.9, int_float_argument);
+  EXPECT_EQ(23, int_int_argument);
 }
