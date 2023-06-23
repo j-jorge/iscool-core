@@ -32,6 +32,9 @@ namespace iscool
 
             delayed_call_delegate get_delayed_call_delegate();
 
+            std::chrono::nanoseconds
+            delay_until_next_non_immediate_call() const;
+
             void update_interval( std::chrono::nanoseconds interval );
 
         private:

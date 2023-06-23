@@ -32,6 +32,16 @@ iscool::schedule::manual_scheduler::get_delayed_call_delegate()
           std::placeholders::_2 );
 }
 
+std::chrono::nanoseconds
+iscool::schedule::manual_scheduler::delay_until_next_non_immediate_call() const
+{
+    for (const call& c :  _calls)
+        if (c.at_date > _current_date)
+            return c.at_date - _current_date;
+
+    return std::chrono::nanoseconds::zero();
+}
+
 void iscool::schedule::manual_scheduler::update_interval
 ( std::chrono::nanoseconds interval )
 {
