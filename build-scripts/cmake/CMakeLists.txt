@@ -39,45 +39,73 @@ add_subdirectory( "testing/test" )
 add_subdirectory( "modules/core" )
 add_subdirectory( "modules/meta" )
 
-add_subdirectory( "modules/collections" )
-add_subdirectory( "modules/containers" )
-add_subdirectory( "modules/contract" )
-add_subdirectory( "modules/functional" )
-add_subdirectory( "modules/locale" )
-add_subdirectory( "modules/memory" )
-add_subdirectory( "modules/any" )
-add_subdirectory( "modules/strings" )
-add_subdirectory( "modules/error" )
-add_subdirectory( "modules/log" )
-add_subdirectory( "modules/files" )
-add_subdirectory( "modules/iterators" )
-add_subdirectory( "modules/time" )
-add_subdirectory( "modules/profile" )
-add_subdirectory( "modules/json" )
-add_subdirectory( "modules/random" )
-add_subdirectory( "modules/signals" )
-add_subdirectory( "modules/monitoring" )
-add_subdirectory( "modules/schedule" )
-add_subdirectory( "modules/http" )
-add_subdirectory( "modules/i18n" )
-add_subdirectory( "modules/preferences" )
-add_subdirectory( "modules/resources" )
-add_subdirectory( "modules/audio" )
-add_subdirectory( "modules/net" )
-add_subdirectory( "modules/video" )
-add_subdirectory( "modules/wish" )
-add_subdirectory( "modules/style" )
-add_subdirectory( "modules/factory" )
+# The order matters, a module may depend on a previously listed one.
+set(all_modules
+  collections
+  containers
+  contract
+  functional
+  locale
+  memory
+  any
+  strings
+  error
+  log
+  files
+  iterators
+  time
+  profile
+  json
+  random
+  signals
+  monitoring
+  schedule
+  http
+  i18n
+  preferences
+  resources
+  audio
+  net
+  video
+  wish
+  style
+  factory
+  notification
+  social
+  system
+)
 
 if( TARGET_ANDROID )
-  add_subdirectory( "modules/jni" )
+  set(all_modules ${all_modules} jni)
 elseif( TARGET_IOS )
-  add_subdirectory( "modules/ios" )
+  set(all_modules ${all_modules} ios)
 endif()
 
-add_subdirectory( "modules/notification" )
-add_subdirectory( "modules/social" )
-add_subdirectory( "modules/system" )
+
+set(ISCOOL_ENABLE_MODULES
+  "${all_modules}"
+  CACHE STRING
+  "A list of modules to build. Default is to build all modules. Note that
+  there is no dependency managenent here, so building a single module
+  may fail because a required dependency is not built."
+)
+
+set(ISCOOL_DISABLE_MODULES
+  ""
+  CACHE STRING
+  "A list of modules to skip."
+)
+
+foreach(module ${all_modules})
+  list(FIND ISCOOL_ENABLE_MODULES "${module}" is_enabled)
+  list(FIND ISCOOL_DISABLE_MODULES "${module}" is_disabled)
+
+  if(NOT is_enabled EQUAL -1 AND is_disabled EQUAL -1)
+    add_subdirectory( "modules/${module}" )
+  else()
+    message("Skipping iscool::${module} on user request.")
+  endif()
+endforeach()
 
 option(
   ISCOOL_CORE_WITH_APPS
