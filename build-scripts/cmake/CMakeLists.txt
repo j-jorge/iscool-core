@@ -1,6 +1,6 @@
 cmake_minimum_required( VERSION 3.1 )
 
-project( iscool-core VERSION 1.8.0 )
+project( iscool-core VERSION 1.9.0 )
 
 set( source_root "${CMAKE_CURRENT_SOURCE_DIR}/../.." )
 set( required_boost_version 1.58.0 )
