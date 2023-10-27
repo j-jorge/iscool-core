@@ -10,6 +10,7 @@ find_package(
 declare_iscool_library( NAME strings
   FILES
   "dynamic_hash.cpp"
+  "hash.cpp"
   "string_hash.cpp"
   "detail/formatter.cpp"
   "detail/formatter_bridge.cpp"
