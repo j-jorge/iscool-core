@@ -23,16 +23,16 @@
 
 template <typename T, typename... A>
 void iscool::factory::dynamic_factory<T, A...>::register_typename(
-    const std::string& name, const dynamic_factory_function& creator)
+    std::string name, dynamic_factory_function creator)
 {
   assert(_factory.find(name) == _factory.end());
   assert(creator);
-  _factory[name] = creator;
+  _factory.insert(std::make_pair(std::move(name), std::move(creator)));
 }
 
 template <typename T, typename... A>
 T iscool::factory::dynamic_factory<T, A...>::create_by_typename(
-    const std::string& name, A... arguments) const
+    std::string_view name, A... arguments) const
 {
   const auto it(_factory.find(name));
 

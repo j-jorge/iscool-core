@@ -18,8 +18,10 @@
 
 #include <iscool/factory/factory_function.hpp>
 
+#include <iscool/strings/unordered_string_map.hpp>
+
 #include <string>
-#include <unordered_map>
+#include <string_view>
 
 namespace iscool
 {
@@ -32,13 +34,14 @@ namespace iscool
       typedef factory_function<T, A...> dynamic_factory_function;
 
     public:
-      void register_typename(const std::string& name,
-                             const dynamic_factory_function& creator);
+      void register_typename(std::string name,
+                             dynamic_factory_function creator);
 
-      T create_by_typename(const std::string& name, A... arguments) const;
+      T create_by_typename(std::string_view name, A... arguments) const;
 
     private:
-      std::unordered_map<std::string, dynamic_factory_function> _factory;
+      iscool::strings::unordered_string_map<dynamic_factory_function>
+          _factory;
     };
   }
 }

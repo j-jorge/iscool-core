@@ -8,7 +8,8 @@ declare_iscool_interface_library(
 
   LINK
   iscool_log
-  
+  iscool_strings
+
   TEST
   "dynamic_factory.cpp"
   "dynamic_factory_registrar.cpp"
