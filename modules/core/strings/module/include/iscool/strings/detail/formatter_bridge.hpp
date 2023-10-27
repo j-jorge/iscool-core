@@ -17,6 +17,7 @@
 #define ISCOOL_STRINGS_DETAIL_FORMATTER_BRIDGE_H
 
 #include <string>
+#include <string_view>
 
 namespace iscool
 {
@@ -41,6 +42,9 @@ namespace iscool
                                               const std::string& value);
       extern template int append_to_formatter<std::string>(formatter& f,
                                                            std::string value);
+      extern template int
+      append_to_formatter<std::string_view>(formatter& f,
+                                            std::string_view value);
       extern template int append_to_formatter<short>(formatter& f,
                                                      short value);
       extern template int

@@ -51,6 +51,8 @@ template int iscool::strings::detail::append_to_formatter<const std::string&>(
 template int
 iscool::strings::detail::append_to_formatter<std::string>(formatter& f,
                                                           std::string value);
+template int iscool::strings::detail::append_to_formatter<std::string_view>(
+    formatter& f, std::string_view value);
 template int iscool::strings::detail::append_to_formatter<int>(formatter& f,
                                                                int value);
 template int
