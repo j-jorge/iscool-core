@@ -2,10 +2,10 @@ if( NOT ISCOOL_TEST_ENABLED )
 
   function( declare_iscool_library_test )
   endfunction()
-  
+
   return()
 endif()
-  
+
 include( iscool-repository )
 include( prepend-string )
 include( unity-build )
@@ -50,9 +50,13 @@ function( declare_iscool_library_test )
     )
 
   if( ISCOOL_AUTO_RUN_TESTS )
+    if(CMAKE_COLOR_DIAGNOSTICS)
+      set(test_args --gtest_color=yes)
+    endif()
+
     add_custom_command( TARGET ${executable_name}
       POST_BUILD
-      COMMAND ${executable_name}
+      COMMAND ${executable_name} ${test_args}
       WORKING_DIRECTORY ${CMAKE_CURRENT_BINARY_DIR}
       )
   endif()
