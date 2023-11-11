@@ -25,6 +25,8 @@
 #include <boost/preprocessor/seq/for_each_i.hpp>
 #include <boost/preprocessor/stringize.hpp>
 
+#include <type_traits>
+
 #define ic_detail_context_member_name(seq)                                    \
   BOOST_PP_CAT(_field, ic_detail_context_field_name(seq))
 
@@ -73,8 +75,8 @@
   }
 
 #define ic_detail_context_get_rw_method(seq)                                  \
-  ic_detail_context_field_type(seq) ic_detail_context_get_method_name(seq)()  \
-      const                                                                   \
+  std::add_const_t<ic_detail_context_field_type(seq)>&                        \
+  ic_detail_context_get_method_name(seq)() const                              \
   {                                                                           \
     assert(ic_detail_context_member_name(seq));                               \
     return *(ic_detail_context_member_name(seq));                             \

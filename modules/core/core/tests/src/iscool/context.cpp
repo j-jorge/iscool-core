@@ -55,6 +55,20 @@ namespace iscool
       context& get_context();
     };
 
+    struct child_context_references_parent_test
+    {
+      ic_declare_context(
+          _context,
+          ic_context_declare_parent_properties(((const int&)(root_value))),
+          ic_context_no_properties);
+
+    public:
+      explicit child_context_references_parent_test(
+          const iscool_root_context_test::context& root_context);
+
+      context& get_context();
+    };
+
     struct only_parent_properties_test
     {
       ic_declare_context(
@@ -77,6 +91,19 @@ iscool::test::child_context_test::child_context_test(
 
 iscool::test::child_context_test::context&
 iscool::test::child_context_test::get_context()
+{
+  return _context;
+}
+
+iscool::test::child_context_references_parent_test::
+    child_context_references_parent_test(
+        const iscool_root_context_test::context& root_context)
+  : _context(root_context)
+{}
+
+
+iscool::test::child_context_references_parent_test::context&
+iscool::test::child_context_references_parent_test::get_context()
 {
   return _context;
 }
@@ -153,6 +180,21 @@ TEST_F(iscool_root_context_test, values_are_copied)
   EXPECT_EQ(12, get_context().get_root_value());
 
   EXPECT_EQ(10, child.get_context().get_root_value());
+}
+
+TEST_F(iscool_root_context_test, reference_to_parent)
+{
+  get_context().set_root_value(10);
+
+  iscool::test::child_context_references_parent_test child(get_context());
+
+  EXPECT_EQ(10, child.get_context().get_root_value());
+
+  get_context().set_root_value(12);
+
+  EXPECT_EQ(12, get_context().get_root_value());
+
+  EXPECT_EQ(12, child.get_context().get_root_value());
 }
 
 TEST_F(iscool_root_context_test, copy_assign_properties)
