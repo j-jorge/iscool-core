@@ -91,11 +91,8 @@ iscool::style::detail::loader::open_and_merge(const std::string& style_name)
   const auto it(cache.find(style_name));
 
   if (it == cache.end())
-    {
-      const declaration result(merge_with_platform_override(style_name));
-      cache[style_name] = result;
-      return result;
-    }
+    return cache.emplace(style_name, merge_with_platform_override(style_name))
+        .first->second;
   else
     return it->second;
 }
@@ -104,15 +101,22 @@ iscool::style::declaration
 iscool::style::detail::loader::merge_with_platform_override(
     const std::string& style_name)
 {
-  static const std::string extension(".json");
   declaration result;
 
-  for (const auto path : detail::loader_merge_path_list)
-    result = result.merge(merge_from_json_file(path + style_name + extension));
+  for (const std::string& path : detail::loader_merge_path_list)
+    {
+      const std::string_view extension(".json");
+      std::string p;
+      p.reserve(path.size() + style_name.size() + extension.size());
+      p += path;
+      p += style_name;
+      p += extension;
+      result = result.merge(merge_from_json_file(p));
+    }
 
   if (result.is_empty())
     ic_causeless_log(iscool::log::nature::error(), log_context(),
-                     "empty style : %s", style_name);
+                     "empty style: '%s'.", style_name);
 
   return result;
 }
