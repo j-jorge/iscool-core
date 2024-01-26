@@ -43,9 +43,9 @@ template <typename randomIterator>
 void iscool::random::rand::random_shuffle(randomIterator first,
                                           randomIterator last)
 {
-  std::random_shuffle(first, last,
-                      [this](int max) -> int
-                      {
-                        return random(0, max - 1);
-                      });
+  boost::random_shuffle(first, last,
+                        [this](int max) -> int
+                        {
+                          return random(0, max - 1);
+                        });
 }
