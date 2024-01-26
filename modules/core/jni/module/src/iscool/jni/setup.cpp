@@ -19,8 +19,8 @@
 
 void iscool::jni::initialize(environment_delegate delegate)
 {
-  assert(detail::get_jni_env.empty());
-  assert(!delegate.empty());
+  assert(!detail::get_jni_env);
+  assert(delegate);
 
   detail::get_jni_env = delegate;
   detail::initialize_native_calls();
