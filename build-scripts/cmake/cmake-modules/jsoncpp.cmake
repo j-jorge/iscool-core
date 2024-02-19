@@ -1,5 +1,5 @@
 if( USE_DEFAULT_JSONCPP )
-  find_package( jsoncpp )
+  find_package( jsoncpp REQUIRED )
   return()
 endif()
 

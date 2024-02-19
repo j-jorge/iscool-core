@@ -1,5 +1,5 @@
 if( USE_DEFAULT_MO_FILE_READER )
-  find_package( moFileReader )
+  find_package( moFileReader REQUIRED )
   return()
 endif()
 
