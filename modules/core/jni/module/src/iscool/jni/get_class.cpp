@@ -86,8 +86,8 @@ void iscool::jni::detail::set_class_loader(JNIEnv* env, jobject class_loader)
                        "(Ljava/lang/String;)Ljava/lang/Class;");
 }
 
-extern "C" void Java_iscool_jni_JniService_configure(JNIEnv* env, jobject obj,
-                                                     jobject context)
+extern "C" JNIEXPORT void
+Java_iscool_jni_JniService_configure(JNIEnv* env, jobject obj, jobject context)
 {
   const jclass context_class(env->GetObjectClass(context));
   const jmethodID get_class_loader_method(env->GetMethodID(
