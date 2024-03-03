@@ -20,29 +20,77 @@
 
 IMPLEMENT_SIGNAL(iscool::net::socket_stream, received, _received);
 
+iscool::net::socket_stream::socket_stream() = default;
+
 iscool::net::socket_stream::socket_stream(const std::string& host,
                                           socket_mode::client)
-  : _socket(host, socket_mode::client{})
 {
-  init();
+  connect(host);
 }
 
 iscool::net::socket_stream::socket_stream(const std::string& host,
                                           socket_mode::server)
-  : _socket(host, socket_mode::server{})
 {
-  init();
+  listen(host);
 }
 
 iscool::net::socket_stream::socket_stream(unsigned short port)
-  : _socket(port)
 {
-  init();
+  listen(port);
 }
 
 iscool::net::socket_stream::~socket_stream()
 {
-  _socket.close();
+  stop();
+}
+
+void iscool::net::socket_stream::connect(const std::string& host)
+{
+  stop();
+  _socket.reset(new iscool::net::detail::socket(host, socket_mode::client{}));
+  start();
+}
+
+void iscool::net::socket_stream::listen(const std::string& host)
+{
+  stop();
+  _socket.reset(new iscool::net::detail::socket(host, socket_mode::server{}));
+  start();
+}
+
+void iscool::net::socket_stream::listen(unsigned short port)
+{
+  stop();
+  _socket.reset(new iscool::net::detail::socket(port));
+  start();
+}
+
+void iscool::net::socket_stream::send(const iscool::net::byte_array& bytes)
+{
+  _socket->send(bytes);
+}
+
+void iscool::net::socket_stream::send(const endpoint& target,
+                                      const iscool::net::byte_array& bytes)
+{
+  _socket->send(target, bytes);
+}
+
+void iscool::net::socket_stream::start()
+{
+  _socket->connect_to_received(std::bind(&socket_stream::queue_bytes, this,
+                                         std::placeholders::_1,
+                                         std::placeholders::_2));
+
+  _update_thread = std::thread(std::bind(&detail::socket::run, _socket.get()));
+}
+
+void iscool::net::socket_stream::stop()
+{
+  if (!_socket)
+    return;
+
+  _socket->close();
 
   {
     const std::unique_lock<std::mutex> lock(_queue_access_mutex);
@@ -50,26 +98,6 @@ iscool::net::socket_stream::~socket_stream()
   }
 
   _update_thread.join();
-}
-
-void iscool::net::socket_stream::send(const iscool::net::byte_array& bytes)
-{
-  _socket.send(bytes);
-}
-
-void iscool::net::socket_stream::send(const endpoint& target,
-                                      const iscool::net::byte_array& bytes)
-{
-  _socket.send(target, bytes);
-}
-
-void iscool::net::socket_stream::init()
-{
-  _socket.connect_to_received(std::bind(&socket_stream::queue_bytes, this,
-                                        std::placeholders::_1,
-                                        std::placeholders::_2));
-
-  _update_thread = std::thread(std::bind(&detail::socket::run, &_socket));
 }
 
 void iscool::net::socket_stream::queue_bytes(

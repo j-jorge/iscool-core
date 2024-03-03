@@ -35,6 +35,14 @@ namespace iscool
                      received, _received);
 
     public:
+      socket_stream();
+
+      socket_stream(const socket_stream&) = delete;
+      socket_stream(socket_stream&&) = delete;
+
+      socket_stream& operator=(const socket_stream&) = delete;
+      socket_stream& operator=(socket_stream&&) = delete;
+
       /**
        * Open a socket with the given remote host. This kind of socket can
        * send with no explicit end point.
@@ -53,6 +61,24 @@ namespace iscool
        */
       explicit socket_stream(unsigned short port);
 
+      /**
+       * Open a socket with the given remote host. This kind of socket can
+       * send with no explicit end point.
+       */
+      void connect(const std::string& host);
+
+      /**
+       * Open a socket locally. The remote endpoint must be explicited
+       * with every send.
+       */
+      void listen(const std::string& host);
+
+      /**
+       * Open a socket in server mode, locally on the given port. The
+       * remote endpoint must be explicited with every send.
+       */
+      void listen(unsigned short port);
+
       ~socket_stream();
 
       void send(const iscool::net::byte_array& bytes);
@@ -68,13 +94,14 @@ namespace iscool
       typedef std::vector<queued_bytes> bytes_queue;
 
     private:
-      void init();
+      void start();
+      void stop();
 
       void queue_bytes(const endpoint& target, const byte_array& bytes);
       void dispatch_bytes();
 
     private:
-      iscool::net::detail::socket _socket;
+      std::unique_ptr<iscool::net::detail::socket> _socket;
 
       bytes_queue _bytes_queue;
       std::mutex _queue_access_mutex;
