@@ -37,9 +37,12 @@ namespace iscool
       DECLARE_SIGNAL(void(const endpoint&, const message&), message, _message);
 
     public:
+      message_channel(const message_stream& stream);
       message_channel(const message_stream& stream, session_id session_id,
                       channel_id channel_id);
       ~message_channel();
+
+      void rebind(session_id session_id, channel_id channel_id);
 
       void send(const message& message) const;
       void send(const endpoint& endpoint, const message& message) const;
@@ -49,8 +52,8 @@ namespace iscool
                                     const message& message) const;
 
     private:
-      const session_id _session_id;
-      const channel_id _channel_id;
+      session_id _session_id;
+      channel_id _channel_id;
       const message_stream& _stream;
 
       const iscool::signals::scoped_connection _received_signal_connection;

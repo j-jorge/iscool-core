@@ -21,18 +21,31 @@
 
 IMPLEMENT_SIGNAL(iscool::net::message_channel, message, _message);
 
+iscool::net::message_channel::message_channel(const message_stream& stream)
+  : _stream(stream)
+  , _received_signal_connection(_stream.connect_to_message(
+        [this](const endpoint& endpoint, const message& message)
+        {
+          process_incoming_message(endpoint, message);
+        }))
+{}
+
 iscool::net::message_channel::message_channel(const message_stream& stream,
                                               session_id session_id,
                                               channel_id channel_id)
-  : _session_id(session_id)
-  , _channel_id(channel_id)
-  , _stream(stream)
-  , _received_signal_connection(_stream.connect_to_message(
-        std::bind(&message_channel::process_incoming_message, this,
-                  std::placeholders::_1, std::placeholders::_2)))
-{}
+  : message_channel(stream)
+{
+  rebind(session_id, channel_id);
+}
 
 iscool::net::message_channel::~message_channel() = default;
+
+void iscool::net::message_channel::rebind(session_id session_id,
+                                          channel_id channel_id)
+{
+  _session_id = session_id;
+  _channel_id = channel_id;
+}
 
 void iscool::net::message_channel::send(const message& message) const
 {
