@@ -15,7 +15,7 @@
 */
 #include <iscool/schedule/detail/delayed_call_manager.hpp>
 
-#include <iscool/time/now.hpp>
+#include <iscool/time/monotonic_now.hpp>
 
 #include <iscool/log/causeless_log.hpp>
 #include <iscool/log/nature/warning.hpp>
@@ -105,7 +105,7 @@ void iscool::schedule::detail::delayed_call_manager::schedule_client(
   assert(detail::call_later);
 
   detail::call_later(std::bind(&delayed_call_manager::trigger, this, id,
-                               time::now<duration>() + delay),
+                               time::monotonic_now<duration>() + delay),
                      delay);
 }
 
@@ -142,7 +142,7 @@ void iscool::schedule::detail::delayed_call_manager::
 void iscool::schedule::detail::delayed_call_manager::trigger(
     std::size_t id, duration expected_date)
 {
-  const duration now(time::now<duration>());
+  const duration now(time::monotonic_now<duration>());
 
   if (expected_date > now)
     {
