@@ -8,6 +8,7 @@ declare_iscool_library(
 
   FILES
   "setup.cpp"
+  "detail/monotonic_time_source.cpp"
   "detail/time_source.cpp"
 )
 

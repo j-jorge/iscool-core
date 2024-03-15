@@ -13,6 +13,7 @@
   See the License for the specific language governing permissions and
   limitations under the License.
 */
+#include <iscool/time/monotonic_now.hpp>
 #include <iscool/time/now.hpp>
 #include <iscool/time/setup.hpp>
 
@@ -21,17 +22,30 @@
 TEST(iscool_time, time_source)
 {
   std::chrono::nanoseconds current_date(123);
+  std::chrono::nanoseconds monotonic_current_date(321);
 
   iscool::time::scoped_time_source_delegate scoped_time_source(
       [&current_date]() -> std::chrono::nanoseconds
       {
         return current_date;
+      },
+      [&monotonic_current_date]() -> std::chrono::nanoseconds
+      {
+        return monotonic_current_date;
       });
 
   EXPECT_EQ(current_date, iscool::time::now<std::chrono::nanoseconds>());
   EXPECT_EQ(current_date, iscool::time::now<std::chrono::nanoseconds>());
 
+  EXPECT_EQ(monotonic_current_date,
+            iscool::time::monotonic_now<std::chrono::nanoseconds>());
+  EXPECT_EQ(monotonic_current_date,
+            iscool::time::monotonic_now<std::chrono::nanoseconds>());
+
   current_date = std::chrono::nanoseconds(666);
+  monotonic_current_date = std::chrono::nanoseconds(42);
 
   EXPECT_EQ(current_date, iscool::time::now<std::chrono::nanoseconds>());
+  EXPECT_EQ(monotonic_current_date,
+            iscool::time::monotonic_now<std::chrono::nanoseconds>());
 }

@@ -22,13 +22,15 @@ namespace iscool
 {
   namespace time
   {
-    void initialize(time_source_delegate delegate);
+    void initialize(time_source_delegate time_source,
+                    time_source_delegate monotonic_time_source);
     void finalize();
 
     class scoped_time_source_delegate
     {
     public:
-      explicit scoped_time_source_delegate(time_source_delegate delegate);
+      scoped_time_source_delegate(time_source_delegate time_source,
+                                  time_source_delegate monotonic_time_source);
       scoped_time_source_delegate(const scoped_time_source_delegate&) = delete;
       ~scoped_time_source_delegate();
 

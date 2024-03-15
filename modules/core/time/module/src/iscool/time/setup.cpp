@@ -15,26 +15,32 @@
 */
 #include <iscool/time/setup.hpp>
 
+#include <iscool/time/detail/monotonic_time_source.hpp>
 #include <iscool/time/detail/time_source.hpp>
 
 #include <cassert>
 
-void iscool::time::initialize(time_source_delegate delegate)
+void iscool::time::initialize(time_source_delegate time_source,
+                              time_source_delegate monotonic_time_source)
 {
-  assert(delegate);
+  assert(time_source);
+  assert(monotonic_time_source);
 
-  detail::time_source = std::move(delegate);
+  detail::time_source = std::move(time_source);
+  detail::monotonic_time_source = std::move(monotonic_time_source);
 }
 
 void iscool::time::finalize()
 {
   detail::time_source = time_source_delegate();
+  detail::monotonic_time_source = time_source_delegate();
 }
 
 iscool::time::scoped_time_source_delegate::scoped_time_source_delegate(
-    time_source_delegate delegate)
+    time_source_delegate time_source,
+    time_source_delegate monotonic_time_source)
 {
-  initialize(std::move(delegate));
+  initialize(std::move(time_source), std::move(monotonic_time_source));
 }
 
 iscool::time::scoped_time_source_delegate::~scoped_time_source_delegate()
