@@ -13,9 +13,9 @@
   See the License for the specific language governing permissions and
   limitations under the License.
 */
-#include <boost/range/algorithm/random_shuffle.hpp>
-
 #include <boost/random/uniform_int_distribution.hpp>
+#include <boost/range/algorithm/random_shuffle.hpp>
+#include <boost/range/iterator_range.hpp>
 
 #include <iterator>
 
@@ -39,13 +39,13 @@ InputIterator iscool::random::rand::random_in_sequence(InputIterator first,
   return first;
 }
 
-template <typename randomIterator>
-void iscool::random::rand::random_shuffle(randomIterator first,
-                                          randomIterator last)
+template <typename RandomIterator>
+void iscool::random::rand::random_shuffle(RandomIterator first,
+                                          RandomIterator last)
 {
-  boost::random_shuffle(first, last,
-                        [this](int max) -> int
-                        {
-                          return random(0, max - 1);
-                        });
+  auto generator = [this](int max) -> int
+  {
+    return random(0, max - 1);
+  };
+  boost::random_shuffle(boost::make_iterator_range(first, last), generator);
 }
