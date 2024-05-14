@@ -15,6 +15,8 @@
 */
 package iscool.system;
 
+import androidx.annotation.Keep;
+
 import android.content.Context;
 import android.content.Intent;
 import android.content.pm.PackageInfo;
@@ -27,6 +29,7 @@ import java.util.Calendar;
 import java.util.Locale;
 import java.util.TimeZone;
 
+@Keep
 public class SystemService
 {
     static private Context _context;
@@ -34,7 +37,7 @@ public class SystemService
     static public void init( Context context ) {
         _context = context;
     }
-    
+
     static public String getLanguageCode() {
 
         final String language = Locale.getDefault().toString();
@@ -42,14 +45,14 @@ public class SystemService
 
         if ( separator == - 1 )
             return language;
-        
+
         return language.substring( 0, separator );
     }
 
     static public long getDeviceTime() {
 
         final TimeZone timeZone = TimeZone.getDefault();
-        
+
         return
             Calendar.getInstance().getTimeInMillis()
             + timeZone.getRawOffset()
@@ -69,7 +72,7 @@ public class SystemService
             final PackageInfo info =
                 _context.getPackageManager().getPackageInfo
                 ( _context.getPackageName(), 0 );
-        
+
             return info.versionName;
         } catch ( PackageManager.NameNotFoundException e ) {
             return "n/a";
@@ -104,5 +107,5 @@ public class SystemService
             _context.startActivity( intent );
         }
     }
-    
+
 }

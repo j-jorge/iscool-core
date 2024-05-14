@@ -18,24 +18,26 @@ package iscool.social;
 import android.content.*;
 import android.content.pm.PackageManager;
 import android.net.Uri;
+import androidx.annotation.Keep;
 
 import java.io.UnsupportedEncodingException;
 
+@Keep
 public class LinkService
 {
     private static Context _context = null;
-    
+
     public static void init( Context context ) {
         assert _context == null;
         assert context != null;
-        
+
         _context = context;
     }
 
     public static void openInFacebook( byte[] pageBytes ) {
 
         assert _context != null;
-        
+
         final String page = makeString( pageBytes );
 
         if ( page == null )
@@ -49,7 +51,7 @@ public class LinkService
     public static void openInTwitter( byte[] pageBytes ) {
 
         assert _context != null;
-        
+
         final String page = makeString( pageBytes );
 
         if ( page == null )
@@ -59,7 +61,7 @@ public class LinkService
             ( "com.twitter.android", "twitter://user?screen_name=" + page,
               "https://twitter.com/" + page );
     }
-    
+
     private static String makeString( byte[] bytes ) {
 
         try {
@@ -74,12 +76,12 @@ public class LinkService
         ( String packageName, String appUrl, String fallbackUrl ) {
 
         String selectedUrl;
-        
+
         if ( applicationIsAvailable( packageName ) )
             selectedUrl = appUrl;
         else
             selectedUrl = fallbackUrl;
-        
+
         final Intent browserIntent =
             new Intent( Intent.ACTION_VIEW, Uri.parse( selectedUrl ) );
         _context.startActivity( browserIntent );

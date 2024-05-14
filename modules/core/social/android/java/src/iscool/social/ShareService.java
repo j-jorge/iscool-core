@@ -17,24 +17,26 @@ package iscool.social;
 
 import android.content.*;
 import android.net.Uri;
+import androidx.annotation.Keep;
 import androidx.core.content.FileProvider;
 
 import java.io.*;
 
+@Keep
 public class ShareService
 {
     private static Context _context = null;
     private static String _fileProviderAuthority = null;
-    
+
     public static void init( Context context, String fileProviderAuthority ) {
         assert _context == null;
         assert context != null;
-        
+
         _context = context;
 
         assert _fileProviderAuthority == null;
         assert fileProviderAuthority != null;
-        
+
         _fileProviderAuthority = fileProviderAuthority;
     }
 
@@ -46,7 +48,7 @@ public class ShareService
 
         if ( shareIntent == null )
             return;
-        
+
         shareIntent.setType( "text/plain" );
         _context.startActivity( Intent.createChooser( shareIntent, null ) );
     }
@@ -54,7 +56,7 @@ public class ShareService
     public static void shareFile( String filePath, byte[] message ) {
 
         assert _context != null;
-        
+
         final Intent shareIntent = createShareIntent( message );
 
         if ( shareIntent == null )
@@ -88,7 +90,7 @@ public class ShareService
 
         return result;
     }
-    
+
     private static String deduceIntentType( String filePath ) {
         String dotSplit[] = filePath.split("\\.");
         String extension = dotSplit[ dotSplit.length - 1 ];

@@ -16,23 +16,25 @@
 package iscool.notification;
 
 import android.app.Activity;
+import androidx.annotation.Keep;
 import androidx.core.app.NotificationManagerCompat;
 
+@Keep
 public final class NotificationService {
 
     private static Activity _activity;
     private static Scheduler _scheduler;
-    
+
     public static void init
         ( Activity activity, String smallIcon, String largeIcon ) {
 
         assert _activity == null;
         assert activity != null;
         assert _scheduler == null;
-        
+
         _activity = activity;
         _scheduler = new Scheduler( activity, smallIcon, largeIcon );
-        
+
         cancelAll();
     }
 
@@ -57,9 +59,9 @@ public final class NotificationService {
 
         _scheduler.schedule( id, delayInSeconds, title, body );
     }
-    
+
     private NotificationService() {
-        
+
     }
 
 }
