@@ -36,6 +36,8 @@ public class SystemService
 
     static public void init( Context context ) {
         _context = context;
+
+        HapticFeedbackService.init(context);
     }
 
     static public String getLanguageCode() {

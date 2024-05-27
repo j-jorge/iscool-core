@@ -13,17 +13,10 @@
   See the License for the specific language governing permissions and
   limitations under the License.
 */
-#ifndef ISCOOL_SYSTEM_HAPTIC_FEEDBACK_H
-#define ISCOOL_SYSTEM_HAPTIC_FEEDBACK_H
+#pragma once
 
-#if defined __APPLE__
-  #include "TargetConditionals.h"
-#endif
-
-#if (TARGET_OS_IPHONE == 1)
-  #include <iscool/system/ios/haptic_feedback.hpp>
+#ifdef __ANDROID__
+  #include <iscool/system/android/haptic_feedback.hpp>
 #else
   #include <iscool/system/detail/haptic_feedback_mockup.hpp>
-#endif
-
 #endif

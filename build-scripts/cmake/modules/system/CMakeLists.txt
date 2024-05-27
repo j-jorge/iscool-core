@@ -21,6 +21,7 @@ if( TARGET_ANDROID )
     "android/application_version.cpp"
     "android/device_date.cpp"
     "android/device_model.cpp"
+    "android/haptic_feedback.cpp"
     "android/language_code.cpp"
     "android/os_name.cpp"
     "android/os_version.cpp"
@@ -28,22 +29,21 @@ if( TARGET_ANDROID )
     "android/send_to_background.cpp"
 
     "android/detail/device_time_milliseconds.cpp"
-
-    "detail/haptic_feedback_mockup.cpp"
     )
   set( libraries iscool_jni )
   set( platform_arguments ANDROID )
-  
+
 elseif( TARGET_IOS )
 
   set( files
     ${files}
     "device_date.cpp"
-    
+
+    "detail/haptic_feedback_mockup.cpp"
+
     "ios/application_id.mm"
     "ios/application_version.mm"
     "ios/device_model.mm"
-    "ios/haptic_feedback.mm"
     "ios/language_code.mm"
     "ios/os_name.mm"
     "ios/os_version.mm"
@@ -57,7 +57,7 @@ elseif( TARGET_IOS )
     iscool_ios
     iscool_schedule
     )
-  
+
 else()
 
   set( files
@@ -75,14 +75,14 @@ else()
 
     "detail/device_time_milliseconds.cpp"
     "detail/haptic_feedback_mockup.cpp"
-    )    
+    )
 
 endif()
 
 declare_iscool_library( NAME system
   FILES
   ${files}
-  
+
   LINK
   ${libraries}
   iscool_log
