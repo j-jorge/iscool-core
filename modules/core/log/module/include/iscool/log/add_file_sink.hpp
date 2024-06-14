@@ -16,6 +16,7 @@
 #ifndef ISCOOL_LOG_ADD_FILE_SINK_H
 #define ISCOOL_LOG_ADD_FILE_SINK_H
 
+#include <ios>
 #include <string>
 
 namespace iscool
@@ -23,6 +24,7 @@ namespace iscool
   namespace log
   {
     void add_file_sink(const std::string& path);
+    void add_file_sink(const std::string& path, std::ios_base::openmode mode);
   }
 }
 

@@ -26,12 +26,19 @@
 #include <iscool/strings/format.hpp>
 
 #include <fstream>
+#include <iomanip>
 #include <memory>
 
 void iscool::log::add_file_sink(const std::string& path)
 {
-  std::shared_ptr<std::ofstream> log_file(std::make_shared<std::ofstream>(
-      path, std::ios_base::out | std::ios_base::trunc));
+  add_file_sink(path, std::ios_base::out | std::ios_base::trunc);
+}
+
+void iscool::log::add_file_sink(const std::string& path,
+                                std::ios_base::openmode mode)
+{
+  std::shared_ptr<std::ofstream> log_file(
+      std::make_shared<std::ofstream>(path, mode));
 
   const auto write_log(
       [log_file](const iscool::log::nature::nature& nature,
@@ -40,7 +47,9 @@ void iscool::log::add_file_sink(const std::string& path)
         detail::queue_in_logger_thread(
             [=]() -> void
             {
-              *log_file << '[' << nature.string() << "]["
+              const std::time_t t = std::time(nullptr);
+              *log_file << '[' << std::put_time(std::gmtime(&t), "%F %T")
+                        << "][" << nature.string() << "]["
                         << context.get_reporter() << "] " << message
                         << std::endl;
             });
