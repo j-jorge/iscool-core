@@ -41,8 +41,7 @@ void iscool::log::add_file_sink(const std::string& path)
             [=]() -> void
             {
               *log_file << '[' << nature.string() << "]["
-                        << context.get_reporter() << "]["
-                        << context.get_origin() << "] " << message
+                        << context.get_reporter() << "] " << message
                         << std::endl;
             });
       });

@@ -17,7 +17,7 @@
 
 #include <iscool/files/log_context.hpp>
 
-#include <iscool/log/causeless_log.hpp>
+#include <iscool/log/log.hpp>
 #include <iscool/log/nature/error.hpp>
 
 #include <filesystem>
@@ -28,6 +28,6 @@ void iscool::files::delete_file(const std::string& path)
   std::filesystem::remove(path, error);
 
   if (error)
-    ic_causeless_log(iscool::log::nature::error(), log_context(),
-                     "Could not delete file '%s': %s", path, error.message());
+    ic_log(iscool::log::nature::error(), log_context(),
+           "Could not delete file '%s': %s", path, error.message());
 }

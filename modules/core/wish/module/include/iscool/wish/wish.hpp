@@ -84,7 +84,7 @@ namespace iscool
 #define DETAIL_WISH_KIND(name)                                                \
   static constexpr iscool::wish::kind kind()                                  \
   {                                                                           \
-    return BOOST_PP_STRINGIZE( name );                                        \
+    return BOOST_PP_STRINGIZE( name );                                          \
   };
 
 #define DECLARE_WISH(name, fields)                                            \

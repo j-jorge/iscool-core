@@ -17,7 +17,7 @@
 
 #include <iscool/files/log_context.hpp>
 
-#include <iscool/log/causeless_log.hpp>
+#include <iscool/log/log.hpp>
 #include <iscool/log/nature/error.hpp>
 
 #include <filesystem>
@@ -33,9 +33,9 @@ bool iscool::files::create_parent_directories(const std::string& path)
   if (!error)
     return true;
 
-  ic_causeless_log(iscool::log::nature::error(), log_context(),
-                   "Could not create directory '%s' for '%s': %s",
-                   parent_path.string(), path, error.message());
+  ic_log(iscool::log::nature::error(), log_context(),
+         "Could not create directory '%s' for '%s': %s", parent_path.string(),
+         path, error.message());
 
   return false;
 }

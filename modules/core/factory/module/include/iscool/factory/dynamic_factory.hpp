@@ -40,8 +40,7 @@ namespace iscool
       T create_by_typename(std::string_view name, A... arguments) const;
 
     private:
-      iscool::strings::unordered_string_map<dynamic_factory_function>
-          _factory;
+      iscool::strings::unordered_string_map<dynamic_factory_function> _factory;
     };
   }
 }

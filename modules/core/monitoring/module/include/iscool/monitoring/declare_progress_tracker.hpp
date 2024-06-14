@@ -38,10 +38,11 @@
     typedef unsigned int bit_field;                                           \
                                                                               \
     static_assert(BOOST_PP_SEQ_SIZE(names) != 0,                              \
-                  "progress_tracker " BOOST_PP_STRINGIZE( type ) " needs at least one state.");                   \
+                  "progress_tracker " BOOST_PP_STRINGIZE( type ) " needs at least one state.");                    \
                                                                               \
-    static_assert(BOOST_PP_SEQ_SIZE(names) < sizeof(bit_field) * CHAR_BIT,    \
-                  "Too many steps in progress_tracker " BOOST_PP_STRINGIZE( type ) ".");                                            \
+    static_assert(                                                            \
+        BOOST_PP_SEQ_SIZE(names) < sizeof(bit_field) * CHAR_BIT,              \
+        "Too many steps in progress_tracker " BOOST_PP_STRINGIZE( type ) ".");  \
                                                                               \
   public:                                                                     \
     enum class step : bit_field                                               \

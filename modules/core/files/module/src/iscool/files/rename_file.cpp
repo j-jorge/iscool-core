@@ -17,7 +17,7 @@
 
 #include <iscool/files/log_context.hpp>
 
-#include <iscool/log/causeless_log.hpp>
+#include <iscool/log/log.hpp>
 #include <iscool/log/nature/error.hpp>
 
 #include <filesystem>
@@ -30,9 +30,8 @@ bool iscool::files::rename_file(const std::string& from, const std::string& to)
   if (!error)
     return true;
 
-  ic_causeless_log(iscool::log::nature::error(), log_context(),
-                   "Could not rename file '%s' as '%s': %s", from, to,
-                   error.message());
+  ic_log(iscool::log::nature::error(), log_context(),
+         "Could not rename file '%s' as '%s': %s", from, to, error.message());
 
   return false;
 }

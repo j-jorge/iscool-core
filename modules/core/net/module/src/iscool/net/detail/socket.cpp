@@ -17,7 +17,7 @@
 
 #include <iscool/net/log_context.hpp>
 
-#include <iscool/log/causeless_log.hpp>
+#include <iscool/log/log.hpp>
 #include <iscool/log/nature/error.hpp>
 #include <iscool/log/nature/info.hpp>
 #include <iscool/net/byte_array.hpp>
@@ -86,8 +86,8 @@ void iscool::net::detail::socket::send(const endpoint& endpoint,
     }
   catch (const std::exception& e)
     {
-      ic_causeless_log(iscool::log::nature::error(), log_context(),
-                       "the data could not be sent: %s", e.what());
+      ic_log(iscool::log::nature::error(), log_context(),
+             "the data could not be sent: %s", e.what());
     }
 }
 
@@ -110,8 +110,8 @@ void iscool::net::detail::socket::allocate_server_socket()
 iscool::net::endpoint
 iscool::net::detail::socket::build_endpoint(const std::string& host)
 {
-  ic_causeless_log(iscool::log::nature::info(), log_context(),
-                   "connecting to '%s'", host);
+  ic_log(iscool::log::nature::info(), log_context(), "connecting to '%s'",
+         host);
 
   const std::string::size_type colon(host.find_first_of(':'));
 
@@ -147,8 +147,8 @@ void iscool::net::detail::socket::bytes_sent(
     const boost::system::error_code& error, std::size_t bytes_transferred)
 {
   if (error)
-    ic_causeless_log(iscool::log::nature::error(), log_context(),
-                     "the data could not be sent: %s", error.message());
+    ic_log(iscool::log::nature::error(), log_context(),
+           "the data could not be sent: %s", error.message());
 }
 
 void iscool::net::detail::socket::receive()
@@ -166,8 +166,8 @@ void iscool::net::detail::socket::bytes_received(
 {
   if (error)
     {
-      ic_causeless_log(iscool::log::nature::error(), log_context(),
-                       "the data could not be received: %s", error.message());
+      ic_log(iscool::log::nature::error(), log_context(),
+             "the data could not be received: %s", error.message());
       return;
     }
 
@@ -190,8 +190,8 @@ bool iscool::net::detail::socket::read_available_bytes()
     }
   catch (const std::exception& e)
     {
-      ic_causeless_log(iscool::log::nature::error(), log_context(),
-                       "could not read from socket: %s", e.what());
+      ic_log(iscool::log::nature::error(), log_context(),
+             "could not read from socket: %s", e.what());
       _socket = nullptr;
       return false;
     }

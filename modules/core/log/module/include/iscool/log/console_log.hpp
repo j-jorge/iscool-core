@@ -26,14 +26,15 @@
   #define ic_console_log(reporter, ...)                                       \
     ::iscool::log::detail::print_to_console(                                  \
         ::iscool::log::nature::debug(),                                       \
-        ::iscool::log::context(reporter, "Unknown", __FILE__, __LINE__),      \
+        ::iscool::log::context(reporter, __FILE__, __LINE__),                 \
         ::iscool::strings::format(__VA_ARGS__))
 
 #else
 
   #define ic_console_log(context, ...)                                        \
     do                                                                        \
-      {}                                                                      \
+      {                                                                       \
+      }                                                                       \
     while (0);
 
 #endif

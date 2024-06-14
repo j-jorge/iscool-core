@@ -17,7 +17,7 @@
 
 #include <iscool/time/monotonic_now.hpp>
 
-#include <iscool/log/causeless_log.hpp>
+#include <iscool/log/log.hpp>
 #include <iscool/log/nature/warning.hpp>
 #include <iscool/schedule/detail/call_later.hpp>
 #include <iscool/signals/signal.impl.tpp>
@@ -192,8 +192,8 @@ void iscool::schedule::detail::delayed_call_manager::trigger_cumulated()
 
   if (!_short_call_cumulated.empty())
     {
-      ic_causeless_log(iscool::log::nature::warning(), "Scheduler",
-                       "Too many recursively cumulated calls.");
+      ic_log(iscool::log::nature::warning(), "Scheduler",
+             "Too many recursively cumulated calls.");
 
       schedule_client_cumulated();
     }

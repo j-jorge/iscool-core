@@ -29,7 +29,7 @@
   {                                                                           \
     static const char* name()                                                 \
     {                                                                         \
-      return __FILE__ ":" BOOST_PP_STRINGIZE( __LINE__ ) ":" BOOST_PP_STRINGIZE( Name ) "(signal)";               \
+      return __FILE__ ":" BOOST_PP_STRINGIZE( __LINE__ ) ":" BOOST_PP_STRINGIZE( Name ) "(signal)";                  \
     }                                                                         \
   };
 

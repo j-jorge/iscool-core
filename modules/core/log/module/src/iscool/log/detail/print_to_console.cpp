@@ -47,13 +47,12 @@ void iscool::log::detail::print_to_console(const nature::nature& nature,
     priority = ANDROID_LOG_DEBUG;
 
   const std::string& reporter(context.get_reporter());
-  const std::string& origin(context.get_origin());
 
-  __android_log_print(priority, "IsCool", "[%s][%s] %s:%d", reporter.c_str(),
-                      origin.c_str(), context.get_file().c_str(),
+  __android_log_print(priority, "IsCool", "[%s] %s:%d", reporter.c_str(),
+                      context.get_file().c_str(),
                       (unsigned int)context.get_line());
-  __android_log_print(priority, "IsCool", "[%s][%s] %s", reporter.c_str(),
-                      origin.c_str(), message.c_str());
+  __android_log_print(priority, "IsCool", "[%s] %s", reporter.c_str(),
+                      message.c_str());
 }
 
 #elif (TARGET_OS_IPHONE == 1)
@@ -66,15 +65,13 @@ void iscool::log::detail::print_to_console(const nature::nature& nature,
                                            const std::string& message)
 {
   const std::string& reporter(context.get_reporter());
-  const std::string& origin(context.get_origin());
 
   asl_add_log_file(NULL, STDERR_FILENO);
-  asl_log(nullptr, nullptr, ASL_LEVEL_INFO, "[%s][%s][%s] %s:%d",
-          nature.string().c_str(), reporter.c_str(), origin.c_str(),
+  asl_log(nullptr, nullptr, ASL_LEVEL_INFO, "[%s][%s] %s:%d",
+          nature.string().c_str(), reporter.c_str(),
           context.get_file().c_str(), (unsigned int)context.get_line());
-  asl_log(nullptr, nullptr, ASL_LEVEL_INFO, "[%s][%s][%s] %s",
-          nature.string().c_str(), reporter.c_str(), origin.c_str(),
-          message.c_str());
+  asl_log(nullptr, nullptr, ASL_LEVEL_INFO, "[%s][%s] %s",
+          nature.string().c_str(), reporter.c_str(), message.c_str());
 }
 
 #elif ISCOOL_LOG_PRETTY_PRINT != 0
@@ -88,7 +85,7 @@ void iscool::log::detail::print_to_console(const nature::nature& nature,
                                            const std::string& message)
 {
   std::clog << prettify("[" + nature.string() + "][" + context.get_reporter()
-                        + "][" + context.get_origin() + "] " + message)
+                        + "] " + message)
             << '\n';
 }
 
@@ -100,8 +97,8 @@ void iscool::log::detail::print_to_console(const nature::nature& nature,
                                            const context& context,
                                            const std::string& message)
 {
-  std::clog << '[' << nature.string() << "][" << context.get_reporter() << "]["
-            << context.get_origin() << "] " << message << '\n';
+  std::clog << '[' << nature.string() << "][" << context.get_reporter() << "] "
+            << message << '\n';
 }
 
 #endif

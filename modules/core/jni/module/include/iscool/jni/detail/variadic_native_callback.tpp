@@ -21,7 +21,7 @@
 #include <iscool/jni/log_context.hpp>
 #include <iscool/jni/throw_java_exception.hpp>
 
-#include <iscool/log/causeless_log.hpp>
+#include <iscool/log/log.hpp>
 #include <iscool/log/nature/error.hpp>
 
 template <typename... Args>
@@ -42,8 +42,8 @@ void iscool::jni::detail::variadic_native_callback<Args...>::operator()(
     }
   catch (const iscool::jni::bad_cast& exception)
     {
-      ic_causeless_log(iscool::log::nature::error(), log_context(),
-                       "Invalid cast: %s", exception.what());
+      ic_log(iscool::log::nature::error(), log_context(), "Invalid cast: %s",
+             exception.what());
       throw_java_exception(exception.what());
     }
 }

@@ -19,7 +19,7 @@
 #include <iscool/preferences/detail/global_properties.hpp>
 #include <iscool/preferences/log_context.hpp>
 
-#include <iscool/log/causeless_log.hpp>
+#include <iscool/log/log.hpp>
 #include <iscool/log/nature/error.hpp>
 
 #include <boost/lexical_cast.hpp>
@@ -59,9 +59,9 @@ T iscool::preferences::detail::get_global_property(const property<T>& property)
     }
   catch (const boost::bad_lexical_cast& e)
     {
-      ic_causeless_log(iscool::log::nature::error(), log_context(),
-                       "Failed to convert global property value '%s=%s': %s",
-                       property_name, it->second, e.what());
+      ic_log(iscool::log::nature::error(), log_context(),
+             "Failed to convert global property value '%s=%s': %s",
+             property_name, it->second, e.what());
     }
 
   return property.fallback;

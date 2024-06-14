@@ -22,10 +22,10 @@
 iscool::files::test::file_system_delegates_mockup::
     file_system_delegates_mockup()
   : read_file_impl(
-      [](const std::string& path) -> std::unique_ptr<std::istream>
-      {
-        return std::unique_ptr<std::istream>(new std::ifstream(path));
-      })
+        [](const std::string& path) -> std::unique_ptr<std::istream>
+        {
+          return std::unique_ptr<std::istream>(new std::ifstream(path));
+        })
   , get_writable_path_impl(
         []() -> std::string
         {

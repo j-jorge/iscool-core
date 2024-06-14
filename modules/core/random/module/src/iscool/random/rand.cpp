@@ -25,7 +25,7 @@ iscool::random::rand& iscool::random::rand::get_default()
 
 iscool::random::rand::rand()
   : rand(static_cast<std::size_t>(
-      std::chrono::high_resolution_clock::now().time_since_epoch().count()))
+        std::chrono::high_resolution_clock::now().time_since_epoch().count()))
 {}
 
 iscool::random::rand::rand(std::size_t seed)

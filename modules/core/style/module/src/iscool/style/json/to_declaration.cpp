@@ -17,7 +17,7 @@
 
 #include <iscool/style/log_context.hpp>
 
-#include <iscool/log/causeless_log.hpp>
+#include <iscool/log/log.hpp>
 #include <iscool/log/nature/error.hpp>
 #include <iscool/style/detail/set_property_from_json_value.hpp>
 
@@ -29,8 +29,8 @@ iscool::style::json::to_declaration(const Json::Value& value)
   declaration result;
   if (!value.isObject())
     {
-      ic_causeless_log(iscool::log::nature::error(), log_context(),
-                       "value is not a json object.");
+      ic_log(iscool::log::nature::error(), log_context(),
+             "value is not a json object.");
       return result;
     }
 
@@ -41,8 +41,8 @@ iscool::style::json::to_declaration(const Json::Value& value)
       const std::string& key(it.key().asString());
 
       if (key.empty())
-        ic_causeless_log(iscool::log::nature::error(), log_context(),
-                         "the name cannot be emtpy.");
+        ic_log(iscool::log::nature::error(), log_context(),
+               "the name cannot be emtpy.");
       else
         detail::set_property_from_json_value(result, key, *it);
     }

@@ -36,7 +36,7 @@ assert( _test.is_end_state() );
 
 */
 
-#include <iscool/log/causeless_log.hpp>
+#include <iscool/log/log.hpp>
 #include <iscool/log/nature/error.hpp>
 #include <iscool/memory/pimpl.impl.tpp>
 #include <iscool/monitoring/declare_state_monitor.hpp>
@@ -134,9 +134,9 @@ case ic_detail_state_monitor_state_enum_value(seq):                           \
   }
 
 #define ic_detail_state_monitor_successor_failed(name, new_state)             \
-  ic_causeless_log(iscool::log::nature::error(), #name,                       \
-                   "%s -> %s is not a valid transition.",                     \
-                   state_to_string(_state), state_to_string(new_state));      \
+  ic_log(iscool::log::nature::error(), #name,                                 \
+         "%s -> %s is not a valid transition.", state_to_string(_state),      \
+         state_to_string(new_state));                                         \
   assert(is_current_state_successor(new_state))
 
 #define ic_detail_implement_state_monitor(scope, field_name, initial_state,   \

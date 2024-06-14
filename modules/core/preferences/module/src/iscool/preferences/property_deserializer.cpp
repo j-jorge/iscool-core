@@ -17,7 +17,7 @@
 
 #include <iscool/preferences/log_context.hpp>
 
-#include <iscool/log/causeless_log.hpp>
+#include <iscool/log/log.hpp>
 #include <iscool/log/nature/error.hpp>
 #include <iscool/log/nature/info.hpp>
 #include <iscool/preferences/property_map.impl.hpp>
@@ -117,9 +117,9 @@ void iscool::preferences::property_deserializer::operator()(
     else if (_string.find(entry.first) != _string.end())
       set_string_value(entry.first, entry.second, result);
     else
-      ic_causeless_log(iscool::log::nature::info(), log_context(),
-                       "Skipping unexpected property '%s=%s'", entry.first,
-                       entry.second);
+      ic_log(iscool::log::nature::info(), log_context(),
+             "Skipping unexpected property '%s=%s'", entry.first,
+             entry.second);
 }
 
 void iscool::preferences::property_deserializer::add_key(
@@ -143,9 +143,9 @@ void iscool::preferences::property_deserializer::set_int64_value(
     }
   catch (const boost::bad_lexical_cast& e)
     {
-      ic_causeless_log(iscool::log::nature::error(), log_context(),
-                       "Failed to convert value to int64 '%s=%s': %s", key,
-                       value, e.what());
+      ic_log(iscool::log::nature::error(), log_context(),
+             "Failed to convert value to int64 '%s=%s': %s", key, value,
+             e.what());
     }
 }
 
@@ -159,9 +159,9 @@ void iscool::preferences::property_deserializer::set_bool_value(
     }
   catch (const boost::bad_lexical_cast& e)
     {
-      ic_causeless_log(iscool::log::nature::error(), log_context(),
-                       "Failed to convert value to bool '%s=%s': %s", key,
-                       value, e.what());
+      ic_log(iscool::log::nature::error(), log_context(),
+             "Failed to convert value to bool '%s=%s': %s", key, value,
+             e.what());
     }
 }
 
@@ -175,9 +175,9 @@ void iscool::preferences::property_deserializer::set_float_value(
     }
   catch (const boost::bad_lexical_cast& e)
     {
-      ic_causeless_log(iscool::log::nature::error(), log_context(),
-                       "Failed to convert value to float '%s=%s': %s", key,
-                       value, e.what());
+      ic_log(iscool::log::nature::error(), log_context(),
+             "Failed to convert value to float '%s=%s': %s", key, value,
+             e.what());
     }
 }
 

@@ -14,8 +14,7 @@
   limitations under the License.
 */
 #include <iscool/error/synopsis.hpp>
-#include <iscool/log/causeless_log.hpp>
-#include <iscool/log/log_error.hpp>
+#include <iscool/log/log.hpp>
 #include <iscool/log/message_delegates_registry.hpp>
 #include <iscool/log/nature/nature.hpp>
 #include <iscool/log/setup.hpp>
@@ -89,51 +88,13 @@ TEST_F(iscool_log_test, log)
   const iscool::log::nature::nature nature("nature");
 
   const std::size_t line(__LINE__);
-  ic_log(nature, "reporter", "origin", "message %1%: %2%", 24, 42);
+  ic_log(nature, "reporter", "message %1%: %2%", 24, 42);
 
   EXPECT_EQ(nature, _nature);
   EXPECT_EQ("reporter", _context.get_reporter());
-  EXPECT_EQ("origin", _context.get_origin());
   EXPECT_EQ(__FILE__, _context.get_file());
   EXPECT_EQ(line + 1, _context.get_line());
   EXPECT_EQ("message 24: 42", _message);
 
   EXPECT_FALSE(!!_error);
-}
-
-TEST_F(iscool_log_test, causeless_log)
-{
-  const iscool::log::nature::nature nature("log-nature");
-
-  const std::size_t line(__LINE__);
-  ic_causeless_log(nature, "log-reporter", "msg %1%", 94);
-
-  EXPECT_EQ(nature, _nature);
-  EXPECT_EQ("log-reporter", _context.get_reporter());
-  EXPECT_FALSE(_context.get_origin().empty());
-  EXPECT_EQ(__FILE__, _context.get_file());
-  EXPECT_EQ(line + 1, _context.get_line());
-  EXPECT_EQ("msg 94", _message);
-
-  EXPECT_FALSE(!!_error);
-}
-
-TEST_F(iscool_log_test, log_error)
-{
-  const iscool::error::synopsis error(24, "category", "title", "msg");
-
-  const std::size_t line(__LINE__);
-  ic_log_error("reporter", "origin", error);
-
-  EXPECT_EQ("reporter", _context.get_reporter());
-  EXPECT_EQ("origin", _context.get_origin());
-  EXPECT_EQ(__FILE__, _context.get_file());
-  EXPECT_EQ(line + 1, _context.get_line());
-
-  EXPECT_TRUE(!!_error);
-
-  EXPECT_EQ(error.get_code(), _error->get_code());
-  EXPECT_EQ(error.get_category(), _error->get_category());
-  EXPECT_EQ(error.get_title(), _error->get_title());
-  EXPECT_EQ(error.get_message(), _error->get_message());
 }

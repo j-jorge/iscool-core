@@ -101,7 +101,6 @@ iscool::test::child_context_references_parent_test::
   : _context(root_context)
 {}
 
-
 iscool::test::child_context_references_parent_test::context&
 iscool::test::child_context_references_parent_test::get_context()
 {

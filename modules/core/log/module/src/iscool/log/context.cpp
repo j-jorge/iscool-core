@@ -17,12 +17,10 @@
 
 iscool::log::context::context() = default;
 
-iscool::log::context::context(const std::string& reporter,
-                              const std::string origin,
-                              const std::string& file, std::size_t line)
-  : _reporter(reporter)
-  , _origin(origin)
-  , _file(file)
+iscool::log::context::context(std::string reporter, std::string file,
+                              std::size_t line)
+  : _reporter(std::move(reporter))
+  , _file(std::move(file))
   , _line(line)
 {}
 
@@ -31,11 +29,6 @@ iscool::log::context::~context() = default;
 const std::string& iscool::log::context::get_reporter() const
 {
   return _reporter;
-}
-
-const std::string& iscool::log::context::get_origin() const
-{
-  return _origin;
 }
 
 const std::string& iscool::log::context::get_file() const

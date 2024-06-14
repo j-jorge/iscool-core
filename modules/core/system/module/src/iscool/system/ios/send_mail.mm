@@ -18,7 +18,7 @@
 
 #include <iscool/ios/get_root_view_controller.hpp>
 #include <iscool/ios/std_to_nsstring.hpp>
-#include <iscool/log/causeless_log.hpp>
+#include <iscool/log/log.hpp>
 #include <iscool/log/nature/warning.hpp>
 
 #import <MessageUI/MessageUI.h>
@@ -54,7 +54,7 @@ void iscool::system::send_mail
 {
     if ( ![ MFMailComposeViewController canSendMail ] )
     {
-        ic_causeless_log
+        ic_log
             ( iscool::log::nature::warning(), "iscool::system::send_mail",
               "This device cannot send an e-mail." );
         return;

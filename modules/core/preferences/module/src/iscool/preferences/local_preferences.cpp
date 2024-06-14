@@ -21,7 +21,7 @@
 #include <iscool/files/rename_file.hpp>
 #include <iscool/json/from_file.hpp>
 #include <iscool/json/write_to_stream.hpp>
-#include <iscool/log/causeless_log.hpp>
+#include <iscool/log/log.hpp>
 #include <iscool/log/nature/error.hpp>
 #include <iscool/log/nature/info.hpp>
 #include <iscool/log/nature/warning.hpp>
@@ -225,8 +225,8 @@ bool iscool::preferences::local_preferences::save_to_file()
     }
   else
     {
-      ic_causeless_log(iscool::log::nature::error(), log_context(),
-                       "Could not save the local preferences");
+      ic_log(iscool::log::nature::error(), log_context(),
+             "Could not save the local preferences");
       return false;
     }
 }
@@ -275,8 +275,8 @@ bool iscool::preferences::detail::backup_thread::create_temporary_backup()
 {
   if (iscool::files::file_exists(_temporary_file_path))
     {
-      ic_causeless_log(iscool::log::nature::warning(), log_context(),
-                       "Deleting already present temporary backup file.");
+      ic_log(iscool::log::nature::warning(), log_context(),
+             "Deleting already present temporary backup file.");
       iscool::files::delete_file(_temporary_file_path);
     }
 
@@ -337,10 +337,9 @@ Json::Value iscool::preferences::detail::load_preferences_file(
   if (!result.isNull())
     return result;
 
-  ic_causeless_log(
-      iscool::log::nature::error(), log_context(),
-      "Could not load local preferences from '%s'. Trying the backups",
-      file_path);
+  ic_log(iscool::log::nature::error(), log_context(),
+         "Could not load local preferences from '%s'. Trying the backups",
+         file_path);
 
   return load_backup_file(file_path, backup_extension_format,
                           backup_max_count);
@@ -361,15 +360,15 @@ Json::Value iscool::preferences::detail::load_backup_file(
       if (!iscool::files::file_exists(full_path))
         return result;
 
-      ic_causeless_log(iscool::log::nature::info(), log_context(),
-                       "Trying backup file '%s'", full_path);
+      ic_log(iscool::log::nature::info(), log_context(),
+             "Trying backup file '%s'", full_path);
 
       result = iscool::json::from_file(full_path);
     }
 
   if (result.isNull())
-    ic_causeless_log(iscool::log::nature::error(), log_context(),
-                     "No valid backup file found for '%s'", file_path);
+    ic_log(iscool::log::nature::error(), log_context(),
+           "No valid backup file found for '%s'", file_path);
 
   return result;
 }

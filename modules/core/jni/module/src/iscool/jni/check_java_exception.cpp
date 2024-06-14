@@ -19,7 +19,7 @@
 #include <iscool/jni/log_context.hpp>
 #include <iscool/jni/method_jstring.hpp>
 #include <iscool/jni/to_string.hpp>
-#include <iscool/log/causeless_log.hpp>
+#include <iscool/log/log.hpp>
 #include <iscool/log/nature/error.hpp>
 
 bool iscool::jni::check_java_exception()
@@ -34,8 +34,8 @@ bool iscool::jni::check_java_exception()
 
   const std::string message(to_string(method((env->ExceptionOccurred()))));
 
-  ic_causeless_log(iscool::log::nature::error(), log_context(),
-                   "Java Exception: %s", message);
+  ic_log(iscool::log::nature::error(), log_context(), "Java Exception: %s",
+         message);
 
   return false;
 }

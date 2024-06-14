@@ -19,7 +19,7 @@
 
 #include <iscool/files/read_file.hpp>
 #include <iscool/json/parse_stream.hpp>
-#include <iscool/log/causeless_log.hpp>
+#include <iscool/log/log.hpp>
 #include <iscool/log/nature/error.hpp>
 
 Json::Value iscool::json::from_file(const std::string& path)
@@ -28,8 +28,8 @@ Json::Value iscool::json::from_file(const std::string& path)
   const Json::Value result(parse_stream(*file));
 
   if (result == Json::nullValue)
-    ic_causeless_log(iscool::log::nature::error(), log_context(),
-                     "could not parse json file: %s", path);
+    ic_log(iscool::log::nature::error(), log_context(),
+           "could not parse json file: %s", path);
 
   return result;
 }

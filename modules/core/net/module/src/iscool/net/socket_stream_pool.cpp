@@ -17,7 +17,7 @@
 
 #include <iscool/net/log_context.hpp>
 
-#include <iscool/log/causeless_log.hpp>
+#include <iscool/log/log.hpp>
 #include <iscool/log/nature/error.hpp>
 #include <iscool/net/socket_stream.hpp>
 
@@ -47,9 +47,8 @@ iscool::net::socket_stream_pool::get_for_host(const std::string& host)
     }
   catch (const boost::system::system_error& e)
     {
-      ic_causeless_log(iscool::log::nature::error(), log_context(),
-                       "could not create the socket for host '%s': %s", host,
-                       e.what());
+      ic_log(iscool::log::nature::error(), log_context(),
+             "could not create the socket for host '%s': %s", host, e.what());
       return nullptr;
     }
 

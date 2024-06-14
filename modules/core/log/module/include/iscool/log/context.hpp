@@ -26,18 +26,15 @@ namespace iscool
     {
     public:
       context();
-      context(const std::string& reporter, const std::string origin,
-              const std::string& file, std::size_t line);
+      context(std::string reporter, std::string file, std::size_t line);
       ~context();
 
       const std::string& get_reporter() const;
-      const std::string& get_origin() const;
       const std::string& get_file() const;
       std::size_t get_line() const;
 
     private:
       std::string _reporter;
-      std::string _origin;
       std::string _file;
       std::size_t _line;
     };

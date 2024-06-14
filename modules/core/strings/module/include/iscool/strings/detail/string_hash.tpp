@@ -21,7 +21,7 @@
 template <std::size_t N>
 constexpr iscool::strings::string_hash::string_hash(const char (&s)[N])
   : _hash(str_const(s).hash()) DEBUG_STRING_HASH_FIELD(_string(s))
-      DEBUG_STRING_HASH_FIELD(_checked(false))
+        DEBUG_STRING_HASH_FIELD(_checked(false))
 {}
 
 #endif

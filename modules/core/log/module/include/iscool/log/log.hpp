@@ -21,9 +21,9 @@
 #include <iscool/log/detail/message_dispatcher.hpp>
 #include <iscool/log/detail/message_dispatcher.impl.tpp>
 
-#define ic_log(nature, reporter, origin, ...)                                 \
+#define ic_log(nature, reporter, ...)                                         \
   ::iscool::log::detail::get_message_dispatcher().dispatch(                   \
-      nature, ::iscool::log::context(reporter, origin, __FILE__, __LINE__),   \
+      nature, ::iscool::log::context(reporter, __FILE__, __LINE__),           \
       __VA_ARGS__)
 
 #endif

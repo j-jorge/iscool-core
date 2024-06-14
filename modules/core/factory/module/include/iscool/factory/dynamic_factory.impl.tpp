@@ -16,7 +16,7 @@
 #ifndef ISCOOL_FACTORY_DYNAMIC_FACTORY_IMPL_TPP
 #define ISCOOL_FACTORY_DYNAMIC_FACTORY_IMPL_TPP
 
-#include <iscool/log/causeless_log.hpp>
+#include <iscool/log/log.hpp>
 #include <iscool/log/nature/error.hpp>
 
 #include <cassert>
@@ -38,9 +38,8 @@ T iscool::factory::dynamic_factory<T, A...>::create_by_typename(
 
   if (it == _factory.end())
     {
-      ic_causeless_log(iscool::log::nature::error(),
-                       "iscool::factory::dynamic_factory",
-                       "Type not found in factory: %s", name);
+      ic_log(iscool::log::nature::error(), "iscool::factory::dynamic_factory",
+             "Type not found in factory: %s", name);
       assert(false);
     }
 

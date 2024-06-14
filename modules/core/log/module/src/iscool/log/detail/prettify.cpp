@@ -29,8 +29,7 @@ std::string iscool::log::detail::prettify(const std::string& message)
   static const std::string blue("\33[34m");
   static const std::string magenta("\33[35m");
 
-  static const std::regex prefix(
-      "^(\\[[^\\]]+\\])(\\[[^\\]]+\\])(\\[[^\\]]+\\]) ");
+  static const std::regex prefix("^(\\[[^\\]]+\\])(\\[[^\\]]+\\]) ");
 
   std::string result;
   std::string remaining;
@@ -50,7 +49,7 @@ std::string iscool::log::detail::prettify(const std::string& message)
 
       result += nature + reset;
 
-      result += blue + match[2].str() + match[3].str() + reset + ' ';
+      result += blue + match[2].str() + reset + ' ';
       remaining = match.suffix().str();
     }
   else

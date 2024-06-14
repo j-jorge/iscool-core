@@ -28,7 +28,7 @@
 #include <iscool/json/is_of_type_bool.hpp>
 #include <iscool/json/is_of_type_float.hpp>
 #include <iscool/json/is_of_type_string.hpp>
-#include <iscool/log/causeless_log.hpp>
+#include <iscool/log/log.hpp>
 #include <iscool/log/nature/info.hpp>
 
 #include <json/value.h>
@@ -129,9 +129,8 @@ void iscool::style::detail::set_property_value(declaration& style,
     style.set_declaration(key, get_merged_json_style_property(property));
   else
     {
-      ic_causeless_log(iscool::log::nature::info(), log_context(),
-                       "Invalid property type: %s %d", key,
-                       int(property.type()));
+      ic_log(iscool::log::nature::info(), log_context(),
+             "Invalid property type: %s %d", key, int(property.type()));
       assert(false);
     }
 }
@@ -155,9 +154,8 @@ iscool::style::detail::get_merged_json_style_property(
             iscool::json::cast<std::string>(value)));
       else
         {
-          ic_causeless_log(iscool::log::nature::info(), log_context(),
-                           "invalid json value : [ %d ] %d", i,
-                           int(value.type()));
+          ic_log(iscool::log::nature::info(), log_context(),
+                 "invalid json value : [ %d ] %d", i, int(value.type()));
           assert(false);
         }
 

@@ -24,7 +24,7 @@
 #include <iscool/jni/static_method_void.hpp>
 #include <iscool/jni/string_bytes.hpp>
 
-#include <iscool/log/causeless_log.hpp>
+#include <iscool/log/log.hpp>
 #include <iscool/log/nature/error.hpp>
 
 #include <fstream>
@@ -114,9 +114,8 @@ iscool::social::android::detail::copy_asset(const std::string& path)
 
   if (!input_file)
     {
-      ic_causeless_log(iscool::log::nature::error(),
-                       "iscool::social::share_file",
-                       "Could not read file '%1%'", path);
+      ic_log(iscool::log::nature::error(), "iscool::social::share_file",
+             "Could not read file '%1%'", path);
       return "";
     }
 

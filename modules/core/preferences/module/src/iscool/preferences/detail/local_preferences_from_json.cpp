@@ -23,7 +23,7 @@
 #include <iscool/json/is_of_type_bool.hpp>
 #include <iscool/json/is_of_type_int64.hpp>
 #include <iscool/json/is_of_type_string.hpp>
-#include <iscool/log/causeless_log.hpp>
+#include <iscool/log/log.hpp>
 #include <iscool/log/nature/error.hpp>
 #include <iscool/preferences/property_map.impl.hpp>
 
@@ -37,9 +37,9 @@ iscool::preferences::detail::local_preferences_from_json(
 
   if (!values.isObject())
     {
-      ic_causeless_log(iscool::log::nature::error(), log_context(),
-                       "Property map cannot be built from non object: %s",
-                       values.toStyledString());
+      ic_log(iscool::log::nature::error(), log_context(),
+             "Property map cannot be built from non object: %s",
+             values.toStyledString());
       return result;
     }
 
@@ -54,9 +54,8 @@ iscool::preferences::detail::local_preferences_from_json(
       else if (iscool::json::is_of_type<std::string>(member))
         result.set(m, iscool::json::cast<std::string>(member));
       else
-        ic_causeless_log(iscool::log::nature::error(), log_context(),
-                         "Property map cannot store value: %s",
-                         member.toStyledString());
+        ic_log(iscool::log::nature::error(), log_context(),
+               "Property map cannot store value: %s", member.toStyledString());
     }
 
   return result;

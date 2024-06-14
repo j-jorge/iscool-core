@@ -24,7 +24,7 @@
 
 iscool::strings::string_hash::string_hash(const std::string& s)
   : _hash(dynamic_hash(s.c_str())) DEBUG_STRING_HASH_FIELD(_string(s))
-      DEBUG_STRING_HASH_FIELD(_checked(false))
+        DEBUG_STRING_HASH_FIELD(_checked(false))
 {
   DEBUG_STRING_HASH(check_duplicate());
 }

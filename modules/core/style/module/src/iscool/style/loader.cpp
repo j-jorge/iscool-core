@@ -22,7 +22,7 @@
 #include <iscool/json/cast_string.hpp>
 #include <iscool/json/from_file.hpp>
 #include <iscool/json/is_member.hpp>
-#include <iscool/log/causeless_log.hpp>
+#include <iscool/log/log.hpp>
 #include <iscool/log/nature/error.hpp>
 #include <iscool/style/detail/get_style_cache.hpp>
 #include <iscool/style/detail/loader_merge_path_list.hpp>
@@ -115,8 +115,8 @@ iscool::style::detail::loader::merge_with_platform_override(
     }
 
   if (result.is_empty())
-    ic_causeless_log(iscool::log::nature::error(), log_context(),
-                     "empty style: '%s'.", style_name);
+    ic_log(iscool::log::nature::error(), log_context(), "empty style: '%s'.",
+           style_name);
 
   return result;
 }
@@ -157,8 +157,8 @@ iscool::style::detail::loader::merge_from_json_meta(const Json::Value& meta)
 {
   if (!meta.isObject())
     {
-      ic_causeless_log(iscool::log::nature::error(), log_context(),
-                       "meta is not a json object.");
+      ic_log(iscool::log::nature::error(), log_context(),
+             "meta is not a json object.");
       return declaration();
     }
 
@@ -173,8 +173,8 @@ iscool::style::detail::loader::merge_overrides(const Json::Value& overrides)
 
   if (!overrides.isArray())
     {
-      ic_causeless_log(iscool::log::nature::error(), log_context(),
-                       "overrides is not a json array.");
+      ic_log(iscool::log::nature::error(), log_context(),
+             "overrides is not a json array.");
       return declaration();
     }
 
@@ -192,9 +192,9 @@ iscool::style::detail::loader::merge_overrides(const Json::Value& overrides)
         }
       catch (iscool::json::bad_cast& e)
         {
-          ic_causeless_log(iscool::log::nature::error(), log_context(),
-                           "override value '%s' is not a string.",
-                           override.toStyledString());
+          ic_log(iscool::log::nature::error(), log_context(),
+                 "override value '%s' is not a string.",
+                 override.toStyledString());
         }
     }
 

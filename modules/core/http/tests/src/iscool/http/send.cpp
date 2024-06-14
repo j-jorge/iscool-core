@@ -303,7 +303,6 @@ TEST(iscool_http_send_test, send_in_response)
   auto second_result(
       [&second_result_value](std::vector<char> result) -> void
       {
-        std::cout << "secnod\n";
         second_result_value = std::string(result.begin(), result.end());
       });
 
