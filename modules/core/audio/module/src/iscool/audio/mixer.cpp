@@ -43,6 +43,16 @@ void iscool::audio::mixer::tick()
     command();
 }
 
+void iscool::audio::mixer::pause()
+{
+  _impl.pause();
+}
+
+void iscool::audio::mixer::resume()
+{
+  _impl.resume();
+}
+
 void iscool::audio::mixer::set_effects_muted(bool muted)
 {
   if (_effects_muting == 0)

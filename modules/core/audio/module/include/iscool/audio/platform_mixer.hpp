@@ -31,6 +31,9 @@ namespace iscool
     public:
       virtual ~platform_mixer() = default;
 
+      virtual void pause() = 0;
+      virtual void resume() = 0;
+
       virtual void set_effects_muted(bool muted) = 0;
       virtual void set_music_muted(bool muted) = 0;
 

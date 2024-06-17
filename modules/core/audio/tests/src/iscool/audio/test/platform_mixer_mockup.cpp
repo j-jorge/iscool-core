@@ -15,6 +15,16 @@
 */
 #include <iscool/audio/test/platform_mixer_mockup.hpp>
 
+void iscool::audio::tests::platform_mixer_mockup::pause()
+{
+  paused = true;
+}
+
+void iscool::audio::tests::platform_mixer_mockup::resume()
+{
+  resumed = true;
+}
+
 void iscool::audio::tests::platform_mixer_mockup::set_effects_muted(bool muted)
 {
   effects_muted = muted;

@@ -30,6 +30,9 @@ namespace iscool
       class platform_mixer_mockup : public iscool::audio::platform_mixer
       {
       public:
+        void pause() override;
+        void resume() override;
+
         void set_effects_muted(bool muted) override;
         void set_music_muted(bool muted) override;
 
@@ -41,6 +44,9 @@ namespace iscool
         void stop_effect(track_id id) override;
 
       public:
+        bool paused = false;
+        bool resumed = false;
+
         bool effects_muted = false;
         bool music_muted = false;
 

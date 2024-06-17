@@ -43,6 +43,9 @@ namespace iscool
 
       void tick();
 
+      void pause();
+      void resume();
+
       void set_effects_muted(bool muted);
       bool get_effects_muted() const;
 

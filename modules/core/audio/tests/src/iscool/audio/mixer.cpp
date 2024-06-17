@@ -59,6 +59,23 @@ iscool_audio_mixer_test::~iscool_audio_mixer_test()
   iscool::files::finalize();
 }
 
+TEST_F(iscool_audio_mixer_test, pause_resume)
+{
+  EXPECT_FALSE(_implementation.paused);
+  EXPECT_FALSE(_implementation.resumed);
+
+  _mixer.pause();
+
+  EXPECT_TRUE(_implementation.paused);
+  EXPECT_FALSE(_implementation.resumed);
+
+  _implementation.paused = false;
+  _mixer.resume();
+
+  EXPECT_FALSE(_implementation.paused);
+  EXPECT_TRUE(_implementation.resumed);
+}
+
 TEST_F(iscool_audio_mixer_test, mute_effects)
 {
   EXPECT_FALSE(_mixer.get_effects_muted());
