@@ -1,9 +1,10 @@
 set( _iscool_core_boost_libraries system )
 
-if( NOT @TARGET_IOS@ AND NOT @TARGET_ANDROID@ )
+if( NOT iscool-core_FIND_COMPONENTS
+    OR "locale" IN_LIST iscool-core_FIND_COMPONENTS )
   set(
     _iscool_core_boost_libraries
-    ${_iscool_core_boost_libraries} locale thread
+    ${_iscool_core_boost_libraries} locale
     )
   find_package( ICU REQUIRED data i18n io tu uc )
 endif()
@@ -13,18 +14,26 @@ find_package(
   ${_iscool_core_boost_libraries}
   )
 
-find_package( jsoncpp )
-find_package( moFileReader )
+if( NOT iscool-core_FIND_COMPONENTS
+    OR "http" IN_LIST iscool-core_FIND_COMPONENTS
+    OR "json" IN_LIST iscool-core_FIND_COMPONENTS
+    OR "preferences" IN_LIST iscool-core_FIND_COMPONENTS
+    OR "resources" IN_LIST iscool-core_FIND_COMPONENTS
+    OR "style" IN_LIST iscool-core_FIND_COMPONENTS )
+  find_package( jsoncpp )
+endif()
 
-find_library( avcodec_library avcodec )
-find_library( avformat_library avformat )
-find_library( avutil_library avutil )
-find_library( swscale_library swscale )
+if( NOT iscool-core_FIND_COMPONENTS
+    OR "i18n" IN_LIST iscool-core_FIND_COMPONENTS )
+  find_package( moFileReader )
+endif()
 
-if( avcodec_library
-    AND avformat_library
-    AND avutil_library
-    AND swscale_library )
+if( NOT iscool-core_FIND_COMPONENTS
+    OR "video" IN_LIST iscool-core_FIND_COMPONENTS )
+  find_library( avcodec_library avcodec REQUIRED )
+  find_library( avformat_library avformat REQUIRED )
+  find_library( avutil_library avutil REQUIRED )
+  find_library( swscale_library swscale REQUIRED )
 
   find_package( ZLIB )
   find_package( Threads REQUIRED )
