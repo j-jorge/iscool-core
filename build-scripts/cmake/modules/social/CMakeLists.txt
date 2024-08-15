@@ -56,3 +56,9 @@ declare_iscool_library( NAME social
 
   ${platform_arguments}
   )
+
+if( TARGET_ANDROID )
+  target_compile_definitions(
+    iscool_social PUBLIC ISCOOL_TARGET_ANDROID=1
+  )
+endif()

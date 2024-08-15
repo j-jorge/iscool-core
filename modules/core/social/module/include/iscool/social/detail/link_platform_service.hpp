@@ -20,7 +20,7 @@
   #include "TargetConditionals.h"
 #endif
 
-#if defined __ANDROID__
+#if ISCOOL_TARGET_ANDROID
   #include <iscool/social/android/link_service.hpp>
 #elif (TARGET_OS_IPHONE == 1)
   #include <iscool/social/ios/link_service.hpp>
@@ -34,7 +34,7 @@ namespace iscool
   {
     namespace detail
     {
-#if defined __ANDROID__
+#if ISCOOL_TARGET_ANDROID
       typedef android::link_service link_platform_service;
 #elif (TARGET_OS_IPHONE == 1)
       typedef ios::link_service link_platform_service;

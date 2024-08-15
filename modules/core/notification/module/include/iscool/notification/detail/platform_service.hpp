@@ -20,7 +20,7 @@
   #include "TargetConditionals.h"
 #endif
 
-#if defined __ANDROID__
+#if ISCOOL_TARGET_ANDROID
   #include <iscool/notification/android/service.hpp>
 #elif (TARGET_OS_IPHONE == 1)
   #include <iscool/notification/ios/service.hpp>
@@ -34,7 +34,7 @@ namespace iscool
   {
     namespace detail
     {
-#if defined __ANDROID__
+#if ISCOOL_TARGET_ANDROID
       typedef android::service platform_service;
 #elif (TARGET_OS_IPHONE == 1)
       typedef ios::service platform_service;

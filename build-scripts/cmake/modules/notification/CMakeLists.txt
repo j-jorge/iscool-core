@@ -40,3 +40,9 @@ declare_iscool_library( NAME notification
 
   ${platform_arguments}
   )
+
+if( TARGET_ANDROID )
+  target_compile_definitions(
+    iscool_notification PUBLIC ISCOOL_TARGET_ANDROID=1
+  )
+endif()

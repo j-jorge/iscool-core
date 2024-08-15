@@ -3,7 +3,9 @@ project( iscool-log )
 include( declare-iscool-library )
 include( declare-iscool-library-test )
 
-if( NOT TARGET_IOS AND NOT TARGET_ANDROID )
+if( TARGET_ANDROID )
+  set( iscool_log_definitions ISCOOL_TARGET_ANDROID=1 )
+elseif( NOT TARGET_IOS )
   set( iscool_log_definitions ISCOOL_LOG_PRETTY_PRINT=1 )
 endif()
 

@@ -22,7 +22,7 @@
   #include "TargetConditionals.h"
 #endif
 
-#if defined __ANDROID__
+#if ISCOOL_TARGET_ANDROID
 
   #include <iscool/log/nature/debug.hpp>
   #include <iscool/log/nature/error.hpp>
