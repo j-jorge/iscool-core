@@ -27,21 +27,28 @@ iscool::net::byte_array::byte_array(const Iterator& first,
 template <typename T>
 void iscool::net::byte_array::append(T value)
 {
-  typedef typename iscool::meta::underlying_type<T>::type raw_type;
-
-  const raw_type raw_value(
-      to_network_endianness(static_cast<const raw_type>(value)));
-
-  const std::uint8_t* p(reinterpret_cast<const std::uint8_t*>(&raw_value));
-  _content.insert(_content.end(), p, p + sizeof(T));
+  append(&value, &value + 1);
 }
 
 template <typename Iterator>
 void iscool::net::byte_array::append(const Iterator& first,
                                      const Iterator& last)
 {
-  _content.reserve(_content.size() + last - first);
+  using value_type = std::iterator_traits<Iterator>::value_type;
 
-  for (Iterator it(first); it != last; ++it)
-    append(*it);
+  std::size_t i = _content.size();
+  _content.resize(_content.size() + (last - first) * sizeof(value_type));
+
+  for (Iterator it(first); it != last; ++it, i += sizeof(value_type))
+    {
+      using raw_type =
+          typename iscool::meta::underlying_type<value_type>::type;
+
+      const raw_type raw_value(
+          to_network_endianness(static_cast<const raw_type>(*it)));
+      const uint8_t* const p =
+          reinterpret_cast<const std::uint8_t*>(&raw_value);
+
+      std::copy_n(p, sizeof(value_type), _content.begin() + i);
+    }
 }
