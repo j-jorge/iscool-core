@@ -56,7 +56,7 @@ namespace iscool
       channel_id _channel_id;
       const message_stream& _stream;
 
-      const iscool::signals::scoped_connection _received_signal_connection;
+      iscool::signals::scoped_connection _received_signal_connection;
     };
   }
 }

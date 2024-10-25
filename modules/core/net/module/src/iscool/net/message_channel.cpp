@@ -23,11 +23,6 @@ IMPLEMENT_SIGNAL(iscool::net::message_channel, message, _message);
 
 iscool::net::message_channel::message_channel(const message_stream& stream)
   : _stream(stream)
-  , _received_signal_connection(_stream.connect_to_message(
-        [this](const endpoint& endpoint, const message& message)
-        {
-          process_incoming_message(endpoint, message);
-        }))
 {}
 
 iscool::net::message_channel::message_channel(const message_stream& stream,
@@ -45,6 +40,15 @@ void iscool::net::message_channel::rebind(session_id session_id,
 {
   _session_id = session_id;
   _channel_id = channel_id;
+
+  if (_received_signal_connection.connected())
+    return;
+
+  _received_signal_connection = _stream.connect_to_message(
+      [this](const endpoint& endpoint, const message& message)
+      {
+        process_incoming_message(endpoint, message);
+      });
 }
 
 void iscool::net::message_channel::send(const message& message) const
@@ -61,8 +65,10 @@ void iscool::net::message_channel::send(const endpoint& endpoint,
 void iscool::net::message_channel::process_incoming_message(
     const endpoint& endpoint, const message& message) const
 {
-  if ((message.get_session_id() != _session_id)
-      || (message.get_channel_id() != _channel_id))
+  if (message.get_session_id() != _session_id)
+    return;
+
+  if (message.get_channel_id() != _channel_id)
     return;
 
   _message(endpoint, message);
