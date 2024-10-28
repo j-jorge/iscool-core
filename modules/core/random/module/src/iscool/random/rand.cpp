@@ -31,9 +31,3 @@ iscool::random::rand::rand()
 iscool::random::rand::rand(std::size_t seed)
   : _generator(seed)
 {}
-
-int iscool::random::rand::random()
-{
-  return random(std::numeric_limits<int>::min(),
-                std::numeric_limits<int>::max());
-}

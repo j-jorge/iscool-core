@@ -13,41 +13,37 @@
   See the License for the specific language governing permissions and
   limitations under the License.
 */
-#ifndef ISCOOL_RANDOM_RAND_H
-#define ISCOOL_RANDOM_RAND_H
+#pragma once
 
 #include <boost/random/mersenne_twister.hpp>
 
-namespace iscool
+#include <concepts>
+
+namespace iscool::random
 {
-  namespace random
+  class rand
   {
-    class rand
-    {
-    public:
-      static rand& get_default();
+  public:
+    static rand& get_default();
 
-      rand();
-      explicit rand(std::size_t seed);
+    rand();
+    explicit rand(std::size_t seed);
 
-      int random();
+    template <std::integral T = int>
+    T random();
 
-      template <typename T>
-      T random(T min, T max);
+    template <std::integral T>
+    T random(T min, T max);
 
-      template <typename InputIterator>
-      InputIterator random_in_sequence(InputIterator first,
-                                       InputIterator last);
+    template <typename InputIterator>
+    InputIterator random_in_sequence(InputIterator first, InputIterator last);
 
-      template <typename randomIterator>
-      void random_shuffle(randomIterator first, randomIterator last);
+    template <typename randomIterator>
+    void random_shuffle(randomIterator first, randomIterator last);
 
-    private:
-      boost::mt19937 _generator;
-    };
-  }
+  private:
+    boost::mt19937_64 _generator;
+  };
 }
 
 #include <iscool/random/rand.tpp>
-
-#endif

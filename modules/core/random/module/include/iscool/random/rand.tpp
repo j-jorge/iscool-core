@@ -19,7 +19,14 @@
 
 #include <iterator>
 
-template <typename T>
+template <std::integral T>
+T iscool::random::rand::random()
+{
+  return random(std::numeric_limits<T>::lowest(),
+                std::numeric_limits<T>::max());
+}
+
+template <std::integral T>
 T iscool::random::rand::random(T min, T max)
 {
   boost::random::uniform_int_distribution<T> rand(min, max);
