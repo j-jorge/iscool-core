@@ -68,5 +68,16 @@ void iscool::net::message_stream::send(const endpoint& target,
 void iscool::net::message_stream::dispatch_message(
     const iscool::net::endpoint& target, const byte_array& bytes) const
 {
-  _message(target, deserialize_message(bytes, _key));
+  message m;
+
+  try
+    {
+      m = deserialize_message(bytes, _key);
+    }
+  catch (const std::out_of_range&)
+    {
+      return;
+    }
+
+  _message(target, m);
 }

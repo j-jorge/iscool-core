@@ -1,9 +1,9 @@
 cmake_minimum_required( VERSION 3.22 )
 
-project( iscool-core VERSION 1.9.1 )
+project( iscool-core VERSION 1.9.3 )
 
 set( source_root "${CMAKE_CURRENT_SOURCE_DIR}/../.." )
-set( required_boost_version 1.58.0 )
+set( required_boost_version 1.74.0 )
 set( CMAKE_MODULE_PATH "${CMAKE_CURRENT_SOURCE_DIR}/cmake-modules" )
 set( CMAKE_CXX_STANDARD 20 )
 
