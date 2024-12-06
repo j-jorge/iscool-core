@@ -7,6 +7,12 @@ set( required_boost_version 1.74.0 )
 set( CMAKE_MODULE_PATH "${CMAKE_CURRENT_SOURCE_DIR}/cmake-modules" )
 set( CMAKE_CXX_STANDARD 20 )
 
+# Use the CMake config provided by Boost instead of the deprecated one
+# provided by CMake.
+if(POLICY CMP0167)
+  cmake_policy(SET CMP0167 NEW)
+endif()
+
 include( platform )
 include( boost )
 
