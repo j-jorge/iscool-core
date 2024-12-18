@@ -13,8 +13,7 @@
   See the License for the specific language governing permissions and
   limitations under the License.
 */
-#ifndef ISCOOL_PREFERENCES_LOCAL_PREFERENCES_H
-#define ISCOOL_PREFERENCES_LOCAL_PREFERENCES_H
+#pragma once
 
 #include <iscool/preferences/store.hpp>
 
@@ -94,5 +93,3 @@ namespace iscool
     };
   }
 }
-
-#endif

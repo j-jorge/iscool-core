@@ -16,9 +16,9 @@
 #include <iscool/schedule/task.hpp>
 
 #include <iscool/signals/implement_signal.hpp>
-#include <iscool/strings/format.hpp>
 
 #include <cassert>
+#include <format>
 
 IMPLEMENT_SIGNAL(iscool::schedule::task, complete, _complete);
 
@@ -90,7 +90,6 @@ void iscool::schedule::task::end_profiler()
 {
   assert(_profiler.started());
   if (_update_count != 0)
-    _profiler.append_tag(
-        iscool::strings::format("update-count=%u", _update_count));
+    _profiler.append_tag(std::format("update-count={}", _update_count));
   _profiler.end();
 }

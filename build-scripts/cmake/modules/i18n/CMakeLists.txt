@@ -19,7 +19,6 @@ declare_iscool_library( NAME i18n
   LINK
   moFileReader
   iscool_files
-  iscool_strings
   iscool_time
   )
 

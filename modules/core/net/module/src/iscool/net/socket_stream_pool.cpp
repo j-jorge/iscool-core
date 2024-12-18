@@ -48,7 +48,7 @@ iscool::net::socket_stream_pool::get_for_host(const std::string& host)
   catch (const boost::system::system_error& e)
     {
       ic_log(iscool::log::nature::error(), log_context(),
-             "could not create the socket for host '%s': %s", host, e.what());
+             "could not create the socket for host '{}': {}", host, e.what());
       return nullptr;
     }
 

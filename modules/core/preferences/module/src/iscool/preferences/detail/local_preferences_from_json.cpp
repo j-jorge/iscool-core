@@ -38,7 +38,7 @@ iscool::preferences::detail::local_preferences_from_json(
   if (!values.isObject())
     {
       ic_log(iscool::log::nature::error(), log_context(),
-             "Property map cannot be built from non object: %s",
+             "Property map cannot be built from non object: {}",
              values.toStyledString());
       return result;
     }
@@ -55,7 +55,7 @@ iscool::preferences::detail::local_preferences_from_json(
         result.set(m, iscool::json::cast<std::string>(member));
       else
         ic_log(iscool::log::nature::error(), log_context(),
-               "Property map cannot store value: %s", member.toStyledString());
+               "Property map cannot store value: {}", member.toStyledString());
     }
 
   return result;

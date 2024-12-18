@@ -29,7 +29,7 @@ Json::Value iscool::json::from_file(const std::string& path)
 
   if (result == Json::nullValue)
     ic_log(iscool::log::nature::error(), log_context(),
-           "could not parse json file: %s", path);
+           "could not parse json file: {}", path);
 
   return result;
 }

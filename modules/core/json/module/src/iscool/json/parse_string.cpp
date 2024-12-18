@@ -39,7 +39,7 @@ Json::Value iscool::json::parse_string(const std::string& string)
 
   if (!reader->parse(begin, end, &result, &errors))
     {
-      ic_log(iscool::log::nature::error(), log_context(), "%s", errors);
+      ic_log(iscool::log::nature::error(), log_context(), "{}", errors);
       return Json::nullValue;
     }
 

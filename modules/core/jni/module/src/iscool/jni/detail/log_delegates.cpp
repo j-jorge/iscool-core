@@ -83,5 +83,5 @@ void iscool::jni::detail::java_log(int level, const std::string& tag,
       nature = &iscool::log::nature::info();
     }
 
-  ic_log(*nature, tag, "Java", "%1%", message);
+  ic_log(*nature, tag, "Java", "{0}", message);
 }

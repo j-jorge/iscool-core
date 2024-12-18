@@ -34,7 +34,7 @@ bool iscool::jni::check_java_exception()
 
   const std::string message(to_string(method((env->ExceptionOccurred()))));
 
-  ic_log(iscool::log::nature::error(), log_context(), "Java Exception: %s",
+  ic_log(iscool::log::nature::error(), log_context(), "Java Exception: {}",
          message);
 
   return false;

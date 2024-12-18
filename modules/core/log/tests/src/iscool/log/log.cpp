@@ -88,7 +88,7 @@ TEST_F(iscool_log_test, log)
   const iscool::log::nature::nature nature("nature");
 
   const std::size_t line(__LINE__);
-  ic_log(nature, "reporter", "message %1%: %2%", 24, 42);
+  ic_log(nature, "reporter", "message {0}: {1}", 24, 42);
 
   EXPECT_EQ(nature, _nature);
   EXPECT_EQ("reporter", _context.get_reporter());

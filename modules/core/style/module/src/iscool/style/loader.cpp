@@ -115,7 +115,7 @@ iscool::style::detail::loader::merge_with_platform_override(
     }
 
   if (result.is_empty())
-    ic_log(iscool::log::nature::error(), log_context(), "empty style: '%s'.",
+    ic_log(iscool::log::nature::error(), log_context(), "empty style: '{}'.",
            style_name);
 
   return result;
@@ -193,7 +193,7 @@ iscool::style::detail::loader::merge_overrides(const Json::Value& overrides)
       catch (iscool::json::bad_cast& e)
         {
           ic_log(iscool::log::nature::error(), log_context(),
-                 "override value '%s' is not a string.",
+                 "override value '{}' is not a string.",
                  override.toStyledString());
         }
     }

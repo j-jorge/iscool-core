@@ -21,7 +21,8 @@
 #include <iscool/error/synopsis.hpp>
 #include <iscool/log/detail/print_to_console.hpp>
 #include <iscool/log/nature/error.hpp>
-#include <iscool/strings/format.hpp>
+
+#include <format>
 
 void iscool::log::enable_console_log()
 {
@@ -31,10 +32,10 @@ void iscool::log::enable_console_log()
   delegates.print_error = [](const context& context,
                              const error::synopsis& synopsis) -> void
   {
-    detail::print_to_console(
-        nature::error(), context,
-        iscool::strings::format("%1%-%2%: %3%", synopsis.get_category(),
-                                synopsis.get_code(), synopsis.get_message()));
+    detail::print_to_console(nature::error(), context,
+                             std::format("{}-{}: {}", synopsis.get_category(),
+                                         synopsis.get_code(),
+                                         synopsis.get_message()));
   };
 
   detail::get_message_dispatcher().register_delegates(delegates);

@@ -13,16 +13,14 @@
   See the License for the specific language governing permissions and
   limitations under the License.
 */
-#ifndef ISCOOL_I18N_RELATIVE_PAST_DURATION_TPP
-#define ISCOOL_I18N_RELATIVE_PAST_DURATION_TPP
+#pragma once
 
 #include <iscool/i18n/gettext.hpp>
 #include <iscool/time/days.hpp>
 #include <iscool/time/round.hpp>
 
-#include <boost/format.hpp>
-
 #include <cassert>
+#include <format>
 
 template <class Rep, class Period>
 std::string iscool::i18n::relative_past_duration(
@@ -34,39 +32,37 @@ std::string iscool::i18n::relative_past_duration(
     return ic_gettext("now");
 
   std::size_t count;
-  std::string format;
+  const char* format;
 
   if (duration < std::chrono::seconds(1))
     {
       count = time::round<std::chrono::milliseconds>(duration).count();
-      format = ic_gettext("%d ms. ago");
+      format = ic_gettext("{} ms. ago");
     }
   else if (duration < std::chrono::minutes(1))
     {
       count = time::round<std::chrono::seconds>(duration).count();
-      format = ic_gettext("%d s. ago");
+      format = ic_gettext("{} s. ago");
     }
   else if (duration < std::chrono::hours(1))
     {
       count = time::round<std::chrono::minutes>(duration).count();
-      format = ic_gettext("%d min. ago");
+      format = ic_gettext("{} min. ago");
     }
   else if (duration < iscool::time::days(1))
     {
       count = time::round<std::chrono::hours>(duration).count();
-      format = ic_gettext("%d h. ago");
+      format = ic_gettext("{} h. ago");
     }
   else
     {
       count = time::round<iscool::time::days>(duration).count();
 
       if (count == 1)
-        format = ic_gettext("%d day ago");
+        format = ic_gettext("{} day ago");
       else
-        format = ic_gettext("%d days ago");
+        format = ic_gettext("{} days ago");
     }
 
-  return (boost::format(format) % count).str();
+  return std::vformat(format, std::make_format_args(count));
 }
-
-#endif

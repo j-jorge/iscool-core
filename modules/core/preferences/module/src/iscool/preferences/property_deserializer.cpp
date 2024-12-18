@@ -118,7 +118,7 @@ void iscool::preferences::property_deserializer::operator()(
       set_string_value(entry.first, entry.second, result);
     else
       ic_log(iscool::log::nature::info(), log_context(),
-             "Skipping unexpected property '%s=%s'", entry.first,
+             "Skipping unexpected property '{}={}'", entry.first,
              entry.second);
 }
 
@@ -144,7 +144,7 @@ void iscool::preferences::property_deserializer::set_int64_value(
   catch (const boost::bad_lexical_cast& e)
     {
       ic_log(iscool::log::nature::error(), log_context(),
-             "Failed to convert value to int64 '%s=%s': %s", key, value,
+             "Failed to convert value to int64 '{}={}': {}", key, value,
              e.what());
     }
 }
@@ -160,7 +160,7 @@ void iscool::preferences::property_deserializer::set_bool_value(
   catch (const boost::bad_lexical_cast& e)
     {
       ic_log(iscool::log::nature::error(), log_context(),
-             "Failed to convert value to bool '%s=%s': %s", key, value,
+             "Failed to convert value to bool '{}={}': {}", key, value,
              e.what());
     }
 }
@@ -176,7 +176,7 @@ void iscool::preferences::property_deserializer::set_float_value(
   catch (const boost::bad_lexical_cast& e)
     {
       ic_log(iscool::log::nature::error(), log_context(),
-             "Failed to convert value to float '%s=%s': %s", key, value,
+             "Failed to convert value to float '{}={}': {}", key, value,
              e.what());
     }
 }

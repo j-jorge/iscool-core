@@ -22,6 +22,6 @@ void iscool::system::send_mail(const std::string& address,
                                const std::string& body)
 {
   ic_console_log("iscool::system",
-                 "Send mail to %1%, subject='%2%', body follows:\n%3%.",
+                 "Send mail to {0}, subject='{1}', body follows:\n{2}.",
                  address, subject, body);
 }

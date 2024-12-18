@@ -135,7 +135,7 @@ case ic_detail_state_monitor_state_enum_value(seq):                           \
 
 #define ic_detail_state_monitor_successor_failed(name, new_state)             \
   ic_log(iscool::log::nature::error(), #name,                                 \
-         "%s -> %s is not a valid transition.", state_to_string(_state),      \
+         "{} -> {} is not a valid transition.", state_to_string(_state),      \
          state_to_string(new_state));                                         \
   assert(is_current_state_successor(new_state))
 

@@ -60,7 +60,7 @@ T iscool::preferences::detail::get_global_property(const property<T>& property)
   catch (const boost::bad_lexical_cast& e)
     {
       ic_log(iscool::log::nature::error(), log_context(),
-             "Failed to convert global property value '%s=%s': %s",
+             "Failed to convert global property value '{}={}': {}",
              property_name, it->second, e.what());
     }
 

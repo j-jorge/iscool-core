@@ -42,7 +42,7 @@ void iscool::jni::detail::variadic_native_callback<Args...>::operator()(
     }
   catch (const iscool::jni::bad_cast& exception)
     {
-      ic_log(iscool::log::nature::error(), log_context(), "Invalid cast: %s",
+      ic_log(iscool::log::nature::error(), log_context(), "Invalid cast: {}",
              exception.what());
       throw_java_exception(exception.what());
     }

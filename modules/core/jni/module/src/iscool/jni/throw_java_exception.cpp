@@ -18,7 +18,8 @@
 #include <iscool/jni/detail/get_jni_env.hpp>
 #include <iscool/jni/get_class.hpp>
 #include <iscool/jni/new_java_string.hpp>
-#include <iscool/strings/format.hpp>
+
+#include <format>
 
 void iscool::jni::throw_java_exception(const std::string& type,
                                        const std::string& what)
@@ -28,8 +29,8 @@ void iscool::jni::throw_java_exception(const std::string& type,
   if (class_id.get() != nullptr)
     detail::get_jni_env()->ThrowNew(class_id.get(), what.c_str());
   else
-    throw_java_exception(iscool::strings::format(
-        "Invalid exception type( %s ): %s", type, what));
+    throw_java_exception(
+        std::format("Invalid exception type({}): {}", type, what));
 }
 
 void iscool::jni::throw_java_exception(const std::string& what)

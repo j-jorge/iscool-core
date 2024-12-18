@@ -15,9 +15,8 @@
 */
 #include <iscool/log/detail/message_dispatcher.hpp>
 
-#include <iscool/strings/format.hpp>
-
 #include <cassert>
+#include <format>
 
 iscool::log::detail::message_dispatcher::message_dispatcher()
   : _next_id(0)
@@ -71,10 +70,9 @@ void iscool::log::detail::message_dispatcher::dispatch_to_delegates(
 
   if (_last_message_counter != 0)
     for (const auto& e : _delegates)
-      e.second.print_message(
-          _last_nature, _last_context,
-          iscool::strings::format("Last message repeated %d time(s).",
-                                  _last_message_counter));
+      e.second.print_message(_last_nature, _last_context,
+                             std::format("Last message repeated {} time(s).",
+                                         _last_message_counter));
 
   _last_message_counter = 0;
   _last_nature = nature;

@@ -34,7 +34,7 @@ bool iscool::files::create_parent_directories(const std::string& path)
     return true;
 
   ic_log(iscool::log::nature::error(), log_context(),
-         "Could not create directory '%s' for '%s': %s", parent_path.string(),
+         "Could not create directory '{}' for '{}': {}", parent_path.string(),
          path, error.message());
 
   return false;

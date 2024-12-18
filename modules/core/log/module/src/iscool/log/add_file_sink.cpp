@@ -23,8 +23,8 @@
 #include <iscool/log/nature/nature.hpp>
 
 #include <iscool/error/synopsis.hpp>
-#include <iscool/strings/format.hpp>
 
+#include <format>
 #include <fstream>
 #include <iomanip>
 #include <memory>
@@ -62,9 +62,8 @@ void iscool::log::add_file_sink(const std::string& path,
                                       const error::synopsis& synopsis) -> void
   {
     write_log(nature::error(), context,
-              iscool::strings::format("%1%-%2%: %3%", synopsis.get_category(),
-                                      synopsis.get_code(),
-                                      synopsis.get_message()));
+              std::format("{}-{}: {}", synopsis.get_category(),
+                          synopsis.get_code(), synopsis.get_message()));
   };
 
   detail::get_message_dispatcher().register_delegates(delegates);

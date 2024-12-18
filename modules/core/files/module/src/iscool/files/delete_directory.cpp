@@ -29,5 +29,5 @@ void iscool::files::delete_directory(const std::string& path)
 
   if (error)
     ic_log(iscool::log::nature::error(), log_context(),
-           "Could not delete directory '%s': %s", path, error.message());
+           "Could not delete directory '{}': {}", path, error.message());
 }

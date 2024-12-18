@@ -155,7 +155,7 @@ iscool::video::decoder::decode(const std::string& path)
   if (video_stream_index == -1)
     {
       ic_log(iscool::log::nature::error(), "iscool::video::decoder",
-             "No video stream found in '%s'.", path.c_str());
+             "No video stream found in '{}'.", path.c_str());
       return iscool::none;
     }
 
@@ -167,7 +167,7 @@ iscool::video::decoder::decode(const std::string& path)
   if (codec == nullptr)
     {
       ic_log(iscool::log::nature::error(), "iscool::video::decoder",
-             "Unsupported codec in '%s': %d.", path.c_str(),
+             "Unsupported codec in '{}': {}.", path.c_str(),
              static_cast<int>(codec_context->codec_id));
       return iscool::none;
     }
@@ -229,7 +229,7 @@ bool iscool::video::detail::log_av_error(int result_code)
 
   static char string_buffer[AV_ERROR_MAX_STRING_SIZE];
   av_strerror(result_code, string_buffer, sizeof(string_buffer));
-  ic_log(iscool::log::nature::error(), "iscool::video::decoder", "%s",
+  ic_log(iscool::log::nature::error(), "iscool::video::decoder", "{}",
          static_cast<const char*>(string_buffer));
 
   return true;
@@ -242,7 +242,7 @@ void iscool::video::detail::log_hardware_device_types()
 
   for (AVHWDeviceType type(av_hwdevice_iterate_types(AV_HWDEVICE_TYPE_NONE));
        type != AV_HWDEVICE_TYPE_NONE; type = av_hwdevice_iterate_types(type))
-    ic_log(iscool::log::nature::info(), "iscool::video::decoder", "- %1%",
+    ic_log(iscool::log::nature::info(), "iscool::video::decoder", "- {0}",
            av_hwdevice_get_type_name(type));
 }
 
@@ -250,7 +250,7 @@ void iscool::video::detail::log_codec_details(const AVCodecContext& context,
                                               const AVCodec& codec)
 {
   ic_log(iscool::log::nature::info(), "iscool::video::decoder",
-         "Selected codec is '%1%', '%2%'.", codec.name, codec.long_name);
+         "Selected codec is '{0}', '{1}'.", codec.name, codec.long_name);
 
   int index(0);
   const AVCodecHWConfig* hw_config(avcodec_get_hw_config(&codec, index));
@@ -258,7 +258,7 @@ void iscool::video::detail::log_codec_details(const AVCodecContext& context,
   while (hw_config != nullptr)
     {
       ic_log(iscool::log::nature::info(), "iscool::video::decoder",
-             "- HW accel pix_fmt=%1%, method=%2%",
+             "- HW accel pix_fmt={0}, method={1}",
              av_get_pix_fmt_name(hw_config->pix_fmt), hw_config->methods);
       ++index;
       hw_config = avcodec_get_hw_config(&codec, index);
@@ -269,7 +269,7 @@ void iscool::video::detail::log_codec_details(const AVCodecContext& context,
            "Hardware acceleration disabled.");
   else
     ic_log(iscool::log::nature::info(), "iscool::video::decoder",
-           "Hardware acceleration enabled: '%1%'", context.hwaccel->name);
+           "Hardware acceleration enabled: '{0}'", context.hwaccel->name);
 }
 
 iscool::video::detail::decoder_thread::decoder_thread(

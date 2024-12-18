@@ -27,7 +27,7 @@ bool iscool::system::haptic_feedback::is_enabled() const
 
 void iscool::system::haptic_feedback::set_enabled(bool enabled)
 {
-  ic_console_log("iscool::system", "Set haptic feedback enabled: %1%.",
+  ic_console_log("iscool::system", "Set haptic feedback enabled: {0}.",
                  enabled ? "true" : "false");
 }
 

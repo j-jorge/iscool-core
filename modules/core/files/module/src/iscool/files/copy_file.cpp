@@ -31,7 +31,7 @@ bool iscool::files::copy_file(const std::string& from, const std::string& to)
     return true;
 
   ic_log(iscool::log::nature::error(), log_context(),
-         "Could not copy file '%s' to '%s': %s", from, to, error.message());
+         "Could not copy file '{}' to '{}': {}", from, to, error.message());
 
   return false;
 }

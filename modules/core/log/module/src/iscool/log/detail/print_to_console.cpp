@@ -67,10 +67,10 @@ void iscool::log::detail::print_to_console(const nature::nature& nature,
   const std::string& reporter(context.get_reporter());
 
   asl_add_log_file(NULL, STDERR_FILENO);
-  asl_log(nullptr, nullptr, ASL_LEVEL_INFO, "[%s][%s] %s:%d",
+  asl_log(nullptr, nullptr, ASL_LEVEL_INFO, "[{}][{}] {}:{}",
           nature.string().c_str(), reporter.c_str(),
           context.get_file().c_str(), (unsigned int)context.get_line());
-  asl_log(nullptr, nullptr, ASL_LEVEL_INFO, "[%s][%s] %s",
+  asl_log(nullptr, nullptr, ASL_LEVEL_INFO, "[{}][{}] {}",
           nature.string().c_str(), reporter.c_str(), message.c_str());
 }
 

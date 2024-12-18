@@ -13,21 +13,21 @@
   See the License for the specific language governing permissions and
   limitations under the License.
 */
-#ifndef ISCOOL_CONSOLE_LOG_H
-#define ISCOOL_CONSOLE_LOG_H
+#pragma once
 
 #ifndef NDEBUG
 
   #include <iscool/log/context.hpp>
   #include <iscool/log/detail/print_to_console.hpp>
   #include <iscool/log/nature/debug.hpp>
-  #include <iscool/strings/format.hpp>
+
+  #include <format>
 
   #define ic_console_log(reporter, ...)                                       \
     ::iscool::log::detail::print_to_console(                                  \
         ::iscool::log::nature::debug(),                                       \
         ::iscool::log::context(reporter, __FILE__, __LINE__),                 \
-        ::iscool::strings::format(__VA_ARGS__))
+        std::format(__VA_ARGS__))
 
 #else
 
@@ -36,7 +36,5 @@
       {                                                                       \
       }                                                                       \
     while (0);
-
-#endif
 
 #endif

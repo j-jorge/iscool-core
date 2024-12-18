@@ -107,7 +107,7 @@ void iscool::notification::ios::service::schedule
                          ( iscool::log::nature::error(),
                            "iscool::notification::ios::service",
                            "schedule",
-                           "code=%d, domain=%s, %s", error.code,
+                           "code={}, domain={}, {}", error.code,
                            error.domain.UTF8String,
                            error.localizedDescription.UTF8String );
              }

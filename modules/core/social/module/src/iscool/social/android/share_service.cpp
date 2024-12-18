@@ -115,7 +115,7 @@ iscool::social::android::detail::copy_asset(const std::string& path)
   if (!input_file)
     {
       ic_log(iscool::log::nature::error(), "iscool::social::share_file",
-             "Could not read file '%1%'", path);
+             "Could not read file '{0}'", path);
       return "";
     }
 

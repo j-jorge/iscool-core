@@ -31,7 +31,7 @@ bool iscool::files::rename_file(const std::string& from, const std::string& to)
     return true;
 
   ic_log(iscool::log::nature::error(), log_context(),
-         "Could not rename file '%s' as '%s': %s", from, to, error.message());
+         "Could not rename file '{}' as '{}': {}", from, to, error.message());
 
   return false;
 }

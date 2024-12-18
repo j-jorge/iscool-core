@@ -35,8 +35,8 @@ void iscool::notification::detail::mockup_service::schedule(
     const std::string& title, const std::string& message)
 {
   ic_console_log("iscool::notification::service",
-                 "Schedule notification in %1% seconds:"
-                 " id=%2%, title='%3%', message='%4%'.",
+                 "Schedule notification in {0} seconds:"
+                 " id={1}, title='{2}', message='{3}'.",
                  delay.count(), id, title, message);
 }
 

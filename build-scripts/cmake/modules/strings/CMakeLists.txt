@@ -12,8 +12,6 @@ declare_iscool_library( NAME strings
   "dynamic_hash.cpp"
   "hash.cpp"
   "string_hash.cpp"
-  "detail/formatter.cpp"
-  "detail/formatter_bridge.cpp"
 
   LINK
   iscool_memory
@@ -22,7 +20,6 @@ declare_iscool_library( NAME strings
 
 declare_iscool_library_test( NAME strings
   FILES
-  "format.cpp"
   "str_const.cpp"
   "string_hash.cpp"
   "vector_to_string.cpp"

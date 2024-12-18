@@ -39,7 +39,7 @@ T iscool::factory::dynamic_factory<T, A...>::create_by_typename(
   if (it == _factory.end())
     {
       ic_log(iscool::log::nature::error(), "iscool::factory::dynamic_factory",
-             "Type not found in factory: %s", name);
+             "Type not found in factory: {}", name);
       assert(false);
     }
 

@@ -29,5 +29,5 @@ void iscool::files::delete_file(const std::string& path)
 
   if (error)
     ic_log(iscool::log::nature::error(), log_context(),
-           "Could not delete file '%s': %s", path, error.message());
+           "Could not delete file '{}': {}", path, error.message());
 }

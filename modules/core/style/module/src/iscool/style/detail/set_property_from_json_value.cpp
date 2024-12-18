@@ -130,7 +130,7 @@ void iscool::style::detail::set_property_value(declaration& style,
   else
     {
       ic_log(iscool::log::nature::info(), log_context(),
-             "Invalid property type: %s %d", key, int(property.type()));
+             "Invalid property type: {} {}", key, int(property.type()));
       assert(false);
     }
 }
@@ -155,7 +155,7 @@ iscool::style::detail::get_merged_json_style_property(
       else
         {
           ic_log(iscool::log::nature::info(), log_context(),
-                 "invalid json value : [ %d ] %d", i, int(value.type()));
+                 "invalid json value : [ {} ] {}", i, int(value.type()));
           assert(false);
         }
 

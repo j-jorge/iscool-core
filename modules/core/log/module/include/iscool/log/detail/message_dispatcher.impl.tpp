@@ -15,13 +15,12 @@
 */
 #pragma once
 
-#include <iscool/strings/format.hpp>
-
 template <typename... Args>
 void iscool::log::detail::message_dispatcher::dispatch(
-    const nature::nature& nature, const context& context, const char* pattern,
-    Args&&... args)
+    const nature::nature& nature, const context& context,
+    std::format_string<Args...> pattern, Args&&... args)
 {
-  const std::string message(strings::format(pattern, args...));
+  const std::string message(
+      std::vformat(pattern.get(), std::make_format_args(args...)));
   dispatch_to_delegates(nature, context, message);
 }

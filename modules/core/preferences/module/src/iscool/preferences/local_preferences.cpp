@@ -32,6 +32,7 @@
 #include <iscool/preferences/store.impl.tpp>
 #include <iscool/signals/implement_signal.hpp>
 
+#include <format>
 #include <fstream>
 
 namespace iscool
@@ -322,7 +323,8 @@ std::string iscool::preferences::detail::get_backup_file_path(
     const std::string& file_path, const std::string& extension_format,
     std::size_t index)
 {
-  return file_path + iscool::strings::format(extension_format.c_str(), index);
+  return file_path
+         + std::vformat(extension_format, std::make_format_args(index));
 }
 
 Json::Value iscool::preferences::detail::load_preferences_file(
@@ -338,7 +340,7 @@ Json::Value iscool::preferences::detail::load_preferences_file(
     return result;
 
   ic_log(iscool::log::nature::error(), log_context(),
-         "Could not load local preferences from '%s'. Trying the backups",
+         "Could not load local preferences from '{}'. Trying the backups",
          file_path);
 
   return load_backup_file(file_path, backup_extension_format,
@@ -361,14 +363,14 @@ Json::Value iscool::preferences::detail::load_backup_file(
         return result;
 
       ic_log(iscool::log::nature::info(), log_context(),
-             "Trying backup file '%s'", full_path);
+             "Trying backup file '{}'", full_path);
 
       result = iscool::json::from_file(full_path);
     }
 
   if (result.isNull())
     ic_log(iscool::log::nature::error(), log_context(),
-           "No valid backup file found for '%s'", file_path);
+           "No valid backup file found for '{}'", file_path);
 
   return result;
 }

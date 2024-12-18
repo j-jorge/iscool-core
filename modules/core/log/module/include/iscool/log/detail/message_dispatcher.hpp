@@ -19,6 +19,7 @@
 #include <iscool/log/message_delegates.hpp>
 #include <iscool/log/nature/nature.hpp>
 
+#include <format>
 #include <unordered_map>
 
 namespace iscool
@@ -49,7 +50,7 @@ namespace iscool
 
         template <typename... Args>
         void dispatch(const nature::nature& nature, const context& context,
-                      const char* pattern, Args&&... args);
+                      std::format_string<Args...> pattern, Args&&... args);
 
         void dispatch_error(const context& context,
                             const error::synopsis& synopsis);

@@ -16,7 +16,8 @@
 #include <iscool/i18n/compact_number_string.hpp>
 
 #include <iscool/i18n/numeric.hpp>
-#include <iscool/strings/format.hpp>
+
+#include <format>
 
 std::string iscool::i18n::compact_number_string(std::uint64_t value)
 {
@@ -37,5 +38,5 @@ std::string iscool::i18n::compact_number_string(std::uint64_t value)
       suffix = "M";
     }
 
-  return iscool::strings::format("%.1f%s", result, suffix);
+  return std::format("{:.1f}{}", result, suffix);
 }

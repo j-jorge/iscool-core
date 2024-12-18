@@ -87,7 +87,7 @@ void iscool::net::detail::socket::send(const endpoint& endpoint,
   catch (const std::exception& e)
     {
       ic_log(iscool::log::nature::error(), log_context(),
-             "the data could not be sent: %s", e.what());
+             "the data could not be sent: {}", e.what());
     }
 }
 
@@ -110,7 +110,7 @@ void iscool::net::detail::socket::allocate_server_socket()
 iscool::net::endpoint
 iscool::net::detail::socket::build_endpoint(const std::string& host)
 {
-  ic_log(iscool::log::nature::info(), log_context(), "connecting to '%s'",
+  ic_log(iscool::log::nature::info(), log_context(), "connecting to '{}'",
          host);
 
   const std::string::size_type colon(host.find_first_of(':'));
@@ -148,7 +148,7 @@ void iscool::net::detail::socket::bytes_sent(
 {
   if (error)
     ic_log(iscool::log::nature::error(), log_context(),
-           "the data could not be sent: %s", error.message());
+           "the data could not be sent: {}", error.message());
 }
 
 void iscool::net::detail::socket::receive()
@@ -167,7 +167,7 @@ void iscool::net::detail::socket::bytes_received(
   if (error)
     {
       ic_log(iscool::log::nature::error(), log_context(),
-             "the data could not be received: %s", error.message());
+             "the data could not be received: {}", error.message());
       return;
     }
 
@@ -191,7 +191,7 @@ bool iscool::net::detail::socket::read_available_bytes()
   catch (const std::exception& e)
     {
       ic_log(iscool::log::nature::error(), log_context(),
-             "could not read from socket: %s", e.what());
+             "could not read from socket: {}", e.what());
       _socket = nullptr;
       return false;
     }
