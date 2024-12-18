@@ -13,10 +13,11 @@
   See the License for the specific language governing permissions and
   limitations under the License.
 */
-#ifndef ISCOOL_LOG_DETAIL_MESSAGE_DISPATCHER_H
-#define ISCOOL_LOG_DETAIL_MESSAGE_DISPATCHER_H
+#pragma once
 
+#include <iscool/log/context.hpp>
 #include <iscool/log/message_delegates.hpp>
+#include <iscool/log/nature/nature.hpp>
 
 #include <unordered_map>
 
@@ -48,22 +49,25 @@ namespace iscool
 
         template <typename... Args>
         void dispatch(const nature::nature& nature, const context& context,
-                      const char* pattern, Args&&... args) const;
+                      const char* pattern, Args&&... args);
 
         void dispatch_error(const context& context,
-                            const error::synopsis& synopsis) const;
+                            const error::synopsis& synopsis);
 
       private:
         void dispatch_to_delegates(const nature::nature& nature,
                                    const context& context,
-                                   const std::string& message) const;
+                                   const std::string& message);
 
       private:
         std::size_t _next_id;
         std::unordered_map<std::size_t, message_delegates> _delegates;
+
+        std::size_t _last_message_counter;
+        nature::nature _last_nature;
+        context _last_context;
+        std::string _last_message;
       };
     }
   }
 }
-
-#endif

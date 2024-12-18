@@ -13,8 +13,7 @@
   See the License for the specific language governing permissions and
   limitations under the License.
 */
-#ifndef ISCOOL_LOG_CONTEXT_H
-#define ISCOOL_LOG_CONTEXT_H
+#pragma once
 
 #include <string>
 
@@ -34,11 +33,21 @@ namespace iscool
       std::size_t get_line() const;
 
     private:
+      friend bool operator==(const context& lhs, const context& rhs)
+      {
+        return (lhs._line == rhs._line) && (lhs._reporter == rhs._reporter)
+               && (lhs._file == rhs._file);
+      }
+
+      friend bool operator!=(const context& lhs, const context& rhs)
+      {
+        return !(lhs == rhs);
+      }
+
+    private:
       std::string _reporter;
       std::string _file;
       std::size_t _line;
     };
   }
 }
-
-#endif

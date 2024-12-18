@@ -15,10 +15,13 @@
 */
 #include <iscool/log/detail/message_dispatcher.hpp>
 
+#include <iscool/strings/format.hpp>
+
 #include <cassert>
 
 iscool::log::detail::message_dispatcher::message_dispatcher()
   : _next_id(0)
+  , _last_message_counter(0)
 {}
 
 std::size_t iscool::log::detail::message_dispatcher::register_delegates(
@@ -47,16 +50,37 @@ void iscool::log::detail::message_dispatcher::clear()
 }
 
 void iscool::log::detail::message_dispatcher::dispatch_error(
-    const context& context, const error::synopsis& synopsis) const
+    const context& context, const error::synopsis& synopsis)
 {
+  _last_message_counter = 0;
+
   for (const auto& e : _delegates)
     e.second.print_error(context, synopsis);
 }
 
 void iscool::log::detail::message_dispatcher::dispatch_to_delegates(
     const nature::nature& nature, const context& context,
-    const std::string& message) const
+    const std::string& message)
 {
+  if ((nature == _last_nature) && (context == _last_context)
+      && (message == _last_message))
+    {
+      ++_last_message_counter;
+      return;
+    }
+
+  if (_last_message_counter != 0)
+    for (const auto& e : _delegates)
+      e.second.print_message(
+          _last_nature, _last_context,
+          iscool::strings::format("Last message repeated %d time(s).",
+                                  _last_message_counter));
+
+  _last_message_counter = 0;
+  _last_nature = nature;
+  _last_context = context;
+  _last_message = message;
+
   for (const auto& e : _delegates)
     e.second.print_message(nature, context, message);
 }

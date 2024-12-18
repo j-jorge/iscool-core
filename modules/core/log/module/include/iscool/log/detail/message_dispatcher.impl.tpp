@@ -13,18 +13,15 @@
   See the License for the specific language governing permissions and
   limitations under the License.
 */
-#ifndef ISCOOL_LOG_DETAIL_MESSAGE_DISPATCHER_IMPL_TPP
-#define ISCOOL_LOG_DETAIL_MESSAGE_DISPATCHER_IMPL_TPP
+#pragma once
 
 #include <iscool/strings/format.hpp>
 
 template <typename... Args>
 void iscool::log::detail::message_dispatcher::dispatch(
     const nature::nature& nature, const context& context, const char* pattern,
-    Args&&... args) const
+    Args&&... args)
 {
   const std::string message(strings::format(pattern, args...));
   dispatch_to_delegates(nature, context, message);
 }
-
-#endif
