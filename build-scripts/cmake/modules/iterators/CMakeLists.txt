@@ -7,7 +7,6 @@ declare_iscool_interface_library(
   iterators
 
   TEST
-  "back_emplace_iterator.cpp"
   "cycle_iterator.cpp"
 
   TEST_LINK
