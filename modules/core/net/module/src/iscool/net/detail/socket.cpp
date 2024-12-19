@@ -27,7 +27,7 @@ IMPLEMENT_SIGNAL(iscool::net::detail::socket, received, _received);
 
 iscool::net::detail::socket::socket(const std::string& host,
                                     socket_mode::client)
-  : _work(_io_service)
+  : _work(_io_context.get_executor())
   , _send_endpoint(build_endpoint(host))
   , _allocate_socket(&socket::allocate_client_socket)
 {
@@ -36,7 +36,7 @@ iscool::net::detail::socket::socket(const std::string& host,
 
 iscool::net::detail::socket::socket(const std::string& host,
                                     socket_mode::server)
-  : _work(_io_service)
+  : _work(_io_context.get_executor())
   , _receive_endpoint(build_endpoint(host))
   , _allocate_socket(&socket::allocate_server_socket)
 {
@@ -44,8 +44,8 @@ iscool::net::detail::socket::socket(const std::string& host,
 }
 
 iscool::net::detail::socket::socket(unsigned short port)
-  : _work(_io_service)
-  , _receive_endpoint(boost::asio::ip::udp::v4(), port)
+  : _work(_io_context.get_executor())
+  , _receive_endpoint(build_endpoint("0.0.0.0", std::to_string(port)))
   , _allocate_socket(&socket::allocate_server_socket)
 {
   receive();
@@ -53,12 +53,12 @@ iscool::net::detail::socket::socket(unsigned short port)
 
 void iscool::net::detail::socket::run()
 {
-  _io_service.run();
+  _io_context.run();
 }
 
 void iscool::net::detail::socket::close()
 {
-  _io_service.stop();
+  _io_context.stop();
 }
 
 void iscool::net::detail::socket::send(const byte_array& bytes)
@@ -95,7 +95,7 @@ void iscool::net::detail::socket::allocate_client_socket()
 {
   assert(_socket == nullptr);
 
-  _socket.reset(new boost::asio::ip::udp::socket(_io_service,
+  _socket.reset(new boost::asio::ip::udp::socket(_io_context,
                                                  _send_endpoint.protocol()));
 }
 
@@ -104,7 +104,7 @@ void iscool::net::detail::socket::allocate_server_socket()
   assert(_socket == nullptr);
 
   _socket.reset(
-      new boost::asio::ip::udp::socket(_io_service, _receive_endpoint));
+      new boost::asio::ip::udp::socket(_io_context, _receive_endpoint));
 }
 
 iscool::net::endpoint
@@ -125,9 +125,8 @@ iscool::net::endpoint
 iscool::net::detail::socket::build_endpoint(const std::string& address,
                                             const std::string& port)
 {
-  boost::asio::ip::udp::resolver resolver(_io_service);
-  boost::asio::ip::udp::resolver::query query(address, port);
-  return *resolver.resolve(query);
+  boost::asio::ip::udp::resolver resolver(_io_context);
+  return *resolver.resolve(boost::asio::ip::udp::v4(), address, port).begin();
 }
 
 void iscool::net::detail::socket::send_bytes_no_error_check(

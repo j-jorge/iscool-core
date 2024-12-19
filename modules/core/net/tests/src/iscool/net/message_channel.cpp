@@ -43,7 +43,6 @@ protected:
 
 private:
   iscool::schedule::scoped_scheduler_delegate _scheduler_initializer;
-  boost::asio::io_service _io_service;
   iscool::net::socket_stream _socket;
   iscool::optional<iscool::net::endpoint> _client_endpoint;
 };

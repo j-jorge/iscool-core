@@ -13,14 +13,13 @@
   See the License for the specific language governing permissions and
   limitations under the License.
 */
-#ifndef ISCOOL_NET_SOCKET_H
-#define ISCOOL_NET_SOCKET_H
+#pragma once
 
 #include <iscool/net/endpoint.hpp>
 #include <iscool/net/socket_mode.hpp>
 #include <iscool/signals/declare_signal.hpp>
 
-#include <boost/asio/io_service.hpp>
+#include <boost/asio/io_context.hpp>
 
 #include <mutex>
 
@@ -89,8 +88,11 @@ namespace iscool
                             std::size_t bytes_transferred) const;
 
       private:
-        boost::asio::io_service _io_service;
-        boost::asio::io_service::work _work;
+        boost::asio::io_context _io_context;
+        const boost::asio::executor_work_guard<
+            boost::asio::io_context::executor_type>
+            _work;
+
         endpoint _send_endpoint;
         endpoint _receive_endpoint;
         const socket_allocator _allocate_socket;
@@ -101,5 +103,3 @@ namespace iscool
     }
   }
 }
-
-#endif
