@@ -64,6 +64,8 @@ namespace iscool
         std::size_t _next_id;
         std::unordered_map<std::size_t, message_delegates> _delegates;
 
+        std::string _message;
+
         std::size_t _last_message_counter;
         nature::nature _last_nature;
         context _last_context;
