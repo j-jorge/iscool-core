@@ -29,11 +29,8 @@ declare_iscool_library( NAME json
   "detail/cast_uint8.cpp"
   "detail/cast_uint.cpp"
 
-  INCLUDE
-  ${jsoncpp_INCLUDE_DIRS}
-  
   LINK
-  jsoncpp
+  JsonCpp::JsonCpp
   iscool_files
 
   ${platform_arguments}

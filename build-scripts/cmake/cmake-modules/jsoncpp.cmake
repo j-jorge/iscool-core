@@ -9,7 +9,7 @@ include( install-dependency )
 download_project(
   PROJ jsoncpp
   GIT_REPOSITORY https://github.com/open-source-parsers/jsoncpp.git
-  GIT_TAG 1.8.4
+  GIT_TAG 1.9.6
   UPDATE_DISCONNECTED 1
   )
 
@@ -25,10 +25,10 @@ install_dependency(
   EXCLUDE "CMakeLists.txt"
   )
 
-add_library( jsoncpp INTERFACE IMPORTED )
+add_library( JsonCpp::JsonCpp INTERFACE IMPORTED )
 set_target_properties(
-  jsoncpp
+  JsonCpp::JsonCpp
   PROPERTIES
-  INTERFACE_LINK_LIBRARIES "jsoncpp_lib_static"
+  INTERFACE_LINK_LIBRARIES jsoncpp_static
   INTERFACE_INCLUDE_DIRECTORIES ${jsoncpp_SOURCE_DIR}/include
   )
