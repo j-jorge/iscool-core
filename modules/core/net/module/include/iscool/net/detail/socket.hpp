@@ -42,13 +42,13 @@ namespace iscool
          * Open a socket with the given remote host. This kind of socket
          * can send with no explicit end point.
          */
-        socket(const std::string& host, socket_mode::client);
+        socket(std::string_view host, socket_mode::client);
 
         /**
          * Open a socket locally. The remote endpoint must be explicited
          * with every send.
          */
-        socket(const std::string& host, socket_mode::server);
+        socket(std::string_view host, socket_mode::server);
 
         /**
          * Open a socket in server mode, locally on the given port. The
@@ -70,9 +70,9 @@ namespace iscool
         void allocate_client_socket();
         void allocate_server_socket();
 
-        endpoint build_endpoint(const std::string& host);
-        endpoint build_endpoint(const std::string& address,
-                                const std::string& port);
+        endpoint build_endpoint(std::string_view host);
+        endpoint build_endpoint(std::string_view address,
+                                std::string_view port);
 
         void send_bytes_no_error_check(const endpoint& endpoint,
                                        const byte_array& bytes);
