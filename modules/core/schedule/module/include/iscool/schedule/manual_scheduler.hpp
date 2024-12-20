@@ -50,6 +50,7 @@ namespace iscool
     private:
       std::chrono::nanoseconds _current_date;
       std::vector<call> _calls;
+      std::vector<iscool::signals::void_signal_function> _calls_to_do;
       std::mutex _mutex;
     };
   }

@@ -41,13 +41,13 @@ iscool::schedule::manual_scheduler::delay_until_next_non_immediate_call() const
 void iscool::schedule::manual_scheduler::update_interval(
     std::chrono::nanoseconds interval)
 {
-  std::vector<iscool::signals::void_signal_function> calls_to_do;
+  _calls_to_do.clear();
 
   {
     const std::unique_lock<std::mutex> lock(_mutex);
     _current_date += interval;
 
-    calls_to_do.reserve(_calls.size());
+    _calls_to_do.reserve(_calls.size());
 
     const std::vector<call>::iterator begin(_calls.begin());
     const std::vector<call>::iterator end(_calls.end());
@@ -55,14 +55,14 @@ void iscool::schedule::manual_scheduler::update_interval(
 
     for (split = begin; split != end; ++split)
       if (split->at_date <= _current_date)
-        calls_to_do.emplace_back(std::move(split->function));
+        _calls_to_do.emplace_back(std::move(split->function));
       else
         break;
 
     _calls.erase(begin, split);
   }
 
-  for (iscool::signals::void_signal_function& s : calls_to_do)
+  for (iscool::signals::void_signal_function& s : _calls_to_do)
     s();
 }
 
