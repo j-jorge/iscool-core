@@ -32,6 +32,7 @@ std::string iscool::log::detail::prettify(const std::string& message)
   static const std::regex prefix("^(\\[[^\\]]+\\])(\\[[^\\]]+\\]) ");
 
   std::string result;
+  result.reserve(2 * message.size());
   std::string remaining;
 
   std::smatch match;
@@ -40,16 +41,20 @@ std::string iscool::log::detail::prettify(const std::string& message)
     {
       const std::string nature(match[1].str());
 
+      result += bold;
+
       if (nature == "[" + iscool::log::nature::error().string() + "]")
-        result += bold + red;
+        result += red;
       else if (nature == "[" + iscool::log::nature::warning().string() + "]")
-        result += bold + yellow;
-      else
-        result += bold;
+        result += yellow;
 
-      result += nature + reset;
+      result += nature;
+      result += reset;
 
-      result += blue + match[2].str() + reset + ' ';
+      result += blue;
+      result += match[2].str();
+      result += reset;
+      result += ' ';
       remaining = match.suffix().str();
     }
   else
@@ -59,7 +64,12 @@ std::string iscool::log::detail::prettify(const std::string& message)
 
   if (std::regex_search(remaining, match, type_name))
     {
-      result += match.prefix().str() + magenta + bold + match[0].str() + reset;
+      result += match.prefix().str();
+      result += magenta;
+      result += bold;
+      result += match[0].str();
+      result += reset;
+
       remaining = match.suffix().str();
     }
 
@@ -67,8 +77,16 @@ std::string iscool::log::detail::prettify(const std::string& message)
 
   while (std::regex_search(remaining, match, key_value))
     {
-      result += match.prefix().str() + bold + match[1].str() + reset + '='
-                + blue + bold + match[2].str() + reset;
+      result += match.prefix().str();
+      result += bold;
+      result += match[1].str();
+      result += reset;
+      result += '=';
+      result += blue;
+      result += bold;
+      result += match[2].str();
+      result += reset;
+
       remaining = match.suffix();
     }
 
@@ -76,7 +94,11 @@ std::string iscool::log::detail::prettify(const std::string& message)
 
   while (std::regex_search(remaining, match, string))
     {
-      result += match.prefix().str() + red + match[0].str() + reset;
+      result += match.prefix().str();
+      result += red;
+      result += match[0].str();
+      result += reset;
+
       remaining = match.suffix();
     }
 
