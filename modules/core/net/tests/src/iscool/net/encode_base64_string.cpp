@@ -15,20 +15,20 @@
 */
 #include <iscool/net/encode_base64_string.hpp>
 
-#include "gtest/gtest.h"
-#include <iscool/net/byte_array_test_helper.hpp>
+#include <gtest/gtest.h>
 
 static void expect_encode_base64_eq(const std::string& output,
-                                    const std::string& input_string)
+                                    const std::string& input)
 {
-  const iscool::net::byte_array input(
-      iscool::net::tests::std_string_to_byte_array(input_string));
-  EXPECT_EQ(output, iscool::net::encode_base64_string(input));
+  const std::byte* const data =
+      reinterpret_cast<const std::byte*>(input.data());
+  EXPECT_EQ(output,
+            iscool::net::encode_base64_string(std::span(data, input.size())));
 }
 
 TEST(encode_base64_string, empty)
 {
-  EXPECT_EQ("", iscool::net::encode_base64_string(iscool::net::byte_array()));
+  EXPECT_EQ("", iscool::net::encode_base64_string({}));
 }
 
 TEST(encode_base64_string, exhaustive_string)
