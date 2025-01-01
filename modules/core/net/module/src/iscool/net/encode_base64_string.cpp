@@ -17,27 +17,20 @@
 
 #include <iscool/net/detail/base64_chars.hpp>
 
-namespace iscool
+namespace iscool::net::detail
 {
-  namespace net
-  {
-    namespace detail
-    {
-      static std::array<std::uint8_t, 4>
-      encode_character(const std::array<std::uint8_t, 3>& character);
-    }
-  }
+  static std::array<std::uint8_t, 4>
+  encode_character(const std::array<std::byte, 3>& character);
 }
 
-std::string iscool::net::encode_base64_string(const byte_array& input)
+std::string iscool::net::encode_base64_string(std::span<const std::byte> input)
 {
-  std::vector<char> result;
+  std::string result;
 
-  std::array<std::uint8_t, 3> character;
-  const std::array<std::uint8_t, 3>::iterator character_begin(
-      character.begin());
-  const std::array<std::uint8_t, 3>::iterator character_end(character.end());
-  const byte_array::const_iterator input_end(input.end());
+  std::array<std::byte, 3> character;
+  const std::array<std::byte, 3>::iterator character_begin(character.begin());
+  const std::array<std::byte, 3>::iterator character_end(character.end());
+  const std::span<const std::byte>::iterator input_end(input.end());
 
   auto cursor(character_begin);
   for (auto it(input.begin()); it != input_end; ++it)
@@ -49,38 +42,42 @@ std::string iscool::net::encode_base64_string(const byte_array& input)
         continue;
 
       for (auto c : detail::encode_character(character))
-        result.emplace_back(detail::base64_chars[c]);
+        result += detail::base64_chars[c];
       cursor = character_begin;
     }
 
   if (cursor != character_begin)
     {
-      std::fill(cursor, character_end, '\0');
+      std::fill(cursor, character_end, std::byte(0));
 
       const std::array<std::uint8_t, 4> encoded_character(
           detail::encode_character(character));
 
       const std::size_t remaining_count(cursor - character_begin + 1);
       for (std::size_t i(0); i != remaining_count; ++i)
-        result.emplace_back(detail::base64_chars[encoded_character[i]]);
+        result += detail::base64_chars[encoded_character[i]];
 
       for (; cursor != character_end; ++cursor)
-        result.emplace_back('=');
+        result += '=';
     }
 
-  return std::string(result.begin(), result.end());
+  return result;
 }
 
 std::array<std::uint8_t, 4> iscool::net::detail::encode_character(
-    const std::array<std::uint8_t, 3>& character)
+    const std::array<std::byte, 3>& character)
 {
   std::array<std::uint8_t, 4> resulting_array;
-  resulting_array[0] = (character[0] & 0xfc) >> 2;
+  resulting_array[0] =
+      std::to_integer<std::uint8_t>((character[0] & std::byte(0xfc)) >> 2);
   resulting_array[1] =
-      ((character[0] & 0x03) << 4) | ((character[1] & 0xf0) >> 4);
+      std::to_integer<std::uint8_t>(((character[0] & std::byte(0x03)) << 4)
+                                    | ((character[1] & std::byte(0xf0)) >> 4));
   resulting_array[2] =
-      ((character[1] & 0x0f) << 2) | ((character[2] & 0xc0) >> 6);
-  resulting_array[3] = character[2] & 0x3f;
+      std::to_integer<std::uint8_t>(((character[1] & std::byte(0x0f)) << 2)
+                                    | ((character[2] & std::byte(0xc0)) >> 6));
+  resulting_array[3] =
+      std::to_integer<std::uint8_t>(character[2] & std::byte(0x3f));
 
   return resulting_array;
 }
