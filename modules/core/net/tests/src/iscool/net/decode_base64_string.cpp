@@ -15,21 +15,27 @@
 */
 #include <iscool/net/decode_base64_string.hpp>
 
-#include "gtest/gtest.h"
-#include <iscool/net/byte_array_test_helper.hpp>
+#include <algorithm>
+
+#include <gtest/gtest.h>
 
 TEST(decode_base64_string, empty)
 {
-  iscool::net::tests::expect_eq(iscool::net::byte_array(),
-                                iscool::net::decode_base64_string(""));
+
+  EXPECT_EQ(0, iscool::net::size_of_decoded_base64_string(""));
+  iscool::net::decode_base64_string({}, "");
 }
 
-static void expect_eq(const std::string& encoded, const std::string& decoded)
+static void expect_eq(const std::string& encoded, const std::string& expected)
 {
-  const iscool::net::byte_array expected(
-      iscool::net::tests::std_string_to_byte_array(decoded));
-  iscool::net::tests::expect_eq(expected,
-                                iscool::net::decode_base64_string(encoded));
+  const std::size_t n = iscool::net::size_of_decoded_base64_string(encoded);
+  ASSERT_EQ(n, expected.size());
+
+  std::vector<char> decoded(n);
+  iscool::net::decode_base64_string(
+      std::span(reinterpret_cast<std::byte*>(decoded.data()), n), encoded);
+
+  EXPECT_TRUE(std::equal(expected.begin(), expected.end(), decoded.begin()));
 }
 
 TEST(decode_base64_string, exhaustive_string)
