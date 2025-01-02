@@ -13,19 +13,15 @@
   See the License for the specific language governing permissions and
   limitations under the License.
 */
-#ifndef ISCOOL_NET_DECODE_BASE64_STRING_H
-#define ISCOOL_NET_DECODE_BASE64_STRING_H
+#pragma once
 
-#include <iscool/net/byte_array.hpp>
-
+#include <cstddef>
+#include <span>
 #include <string>
 
-namespace iscool
+namespace iscool::net
 {
-  namespace net
-  {
-    byte_array decode_base64_string(const std::string& string);
-  }
+  std::size_t size_of_decoded_base64_string(const std::string& string);
+  void decode_base64_string(std::span<std::byte> out,
+                            const std::string& string);
 }
-
-#endif
