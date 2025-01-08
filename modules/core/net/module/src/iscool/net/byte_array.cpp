@@ -61,14 +61,29 @@ iscool::net::byte_array::const_iterator iscool::net::byte_array::end() const
   return _content.end();
 }
 
+std::uint8_t* iscool::net::byte_array::data()
+{
+  return _content.data();
+}
+
 void iscool::net::byte_array::reserve(std::size_t size)
 {
   _content.reserve(size);
 }
 
+void iscool::net::byte_array::resize(std::size_t size)
+{
+  _content.resize(size);
+}
+
 std::size_t iscool::net::byte_array::size() const
 {
   return _content.size();
+}
+
+void iscool::net::byte_array::clear()
+{
+  return _content.clear();
 }
 
 void iscool::net::byte_array::swap(byte_array& that)

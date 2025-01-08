@@ -56,8 +56,12 @@ namespace iscool
       const_iterator begin() const;
       const_iterator end() const;
 
+      std::uint8_t* data();
+
       void reserve(std::size_t size);
+      void resize(std::size_t size);
       std::size_t size() const;
+      void clear();
 
       void swap(byte_array& that);
 

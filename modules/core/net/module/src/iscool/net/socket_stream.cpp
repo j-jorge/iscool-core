@@ -78,9 +78,11 @@ void iscool::net::socket_stream::send(const endpoint& target,
 
 void iscool::net::socket_stream::start()
 {
-  _socket->connect_to_received(std::bind(&socket_stream::queue_bytes, this,
-                                         std::placeholders::_1,
-                                         std::placeholders::_2));
+  _socket->connect_to_received(
+      [this](const endpoint& e, std::size_t id, const byte_array& b) -> void
+      {
+        queue_bytes(e, id, b);
+      });
 
   _update_thread = std::thread(std::bind(&detail::socket::run, _socket.get()));
 }
@@ -100,11 +102,12 @@ void iscool::net::socket_stream::stop()
   _update_thread.join();
 }
 
-void iscool::net::socket_stream::queue_bytes(
-    const iscool::net::endpoint& target, const byte_array& bytes)
+void iscool::net::socket_stream::queue_bytes(const endpoint& target,
+                                             std::size_t id,
+                                             const byte_array& bytes)
 {
   const std::unique_lock<std::mutex> lock(_queue_access_mutex);
-  _bytes_queue.push_back(queued_bytes{ target, bytes });
+  _main_bytes_queue.push_back(queued_bytes{ target, id, &bytes });
 
   if (_dispatch_connection.connected())
     return;
@@ -117,15 +120,16 @@ void iscool::net::socket_stream::queue_bytes(
 
 void iscool::net::socket_stream::dispatch_bytes()
 {
-  bytes_queue bytes;
-
   {
     const std::unique_lock<std::mutex> lock(_queue_access_mutex);
 
-    bytes.reserve(_bytes_queue.capacity());
-    bytes.swap(_bytes_queue);
+    _tmp_bytes_queue.swap(_main_bytes_queue);
+    _main_bytes_queue.clear();
   }
 
-  for (bytes_queue::value_type& entry : bytes)
-    _received(entry.target, entry.bytes);
+  for (const bytes_queue::value_type& entry : _tmp_bytes_queue)
+    _received(entry.target, *entry.bytes);
+
+  for (const bytes_queue::value_type& entry : _tmp_bytes_queue)
+    _socket->recycle_buffer(entry.id);
 }

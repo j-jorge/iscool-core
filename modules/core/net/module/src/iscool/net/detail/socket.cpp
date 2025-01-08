@@ -23,12 +23,19 @@
 #include <iscool/net/byte_array.hpp>
 #include <iscool/signals/implement_signal.hpp>
 
+bool iscool::net::detail::socket::byte_array_pool_traits::clear(byte_array& b)
+{
+  b.clear();
+  return true;
+}
+
 IMPLEMENT_SIGNAL(iscool::net::detail::socket, received, _received);
 
 iscool::net::detail::socket::socket(std::string_view host, socket_mode::client)
   : _work(_io_context.get_executor())
   , _send_endpoint(build_endpoint(host))
   , _allocate_socket(&socket::allocate_client_socket)
+  , _buffers(64)
 {
   receive();
 }
@@ -37,6 +44,7 @@ iscool::net::detail::socket::socket(std::string_view host, socket_mode::server)
   : _work(_io_context.get_executor())
   , _receive_endpoint(build_endpoint(host))
   , _allocate_socket(&socket::allocate_server_socket)
+  , _buffers(64)
 {
   receive();
 }
@@ -45,6 +53,7 @@ iscool::net::detail::socket::socket(unsigned short port)
   : _work(_io_context.get_executor())
   , _receive_endpoint(build_endpoint("0.0.0.0", std::to_string(port)))
   , _allocate_socket(&socket::allocate_server_socket)
+  , _buffers(64)
 {
   receive();
 }
@@ -87,6 +96,12 @@ void iscool::net::detail::socket::send(const endpoint& endpoint,
       ic_log(iscool::log::nature::error(), log_context(),
              "the data could not be sent: {}", e.what());
     }
+}
+
+void iscool::net::detail::socket::recycle_buffer(std::size_t id)
+{
+  const std::unique_lock<std::mutex> lock(_receive_bytes);
+  _buffers.release(id);
 }
 
 void iscool::net::detail::socket::allocate_client_socket()
@@ -174,32 +189,39 @@ void iscool::net::detail::socket::bytes_received(
 
 bool iscool::net::detail::socket::read_available_bytes()
 {
-  std::unique_lock<std::mutex> lock(_receive_bytes);
-
-  const std::size_t available(_socket->available());
-  const std::unique_ptr<std::uint8_t[]> buffer(new std::uint8_t[available]);
+  buffer_pool::slot buffer;
   std::size_t bytes_transferred(0);
 
-  try
-    {
-      bytes_transferred = _socket->receive_from(
-          boost::asio::buffer(buffer.get(), available), _receive_endpoint);
-    }
-  catch (const std::exception& e)
-    {
-      ic_log(iscool::log::nature::error(), log_context(),
-             "could not read from socket: {}", e.what());
-      _socket = nullptr;
-      return false;
-    }
+  {
+    const std::unique_lock<std::mutex> lock(_receive_bytes);
 
-  dispatch_bytes(buffer.get(), bytes_transferred);
+    const std::size_t available(_socket->available());
+    buffer = _buffers.pick_available();
+    buffer.value->resize(available);
+
+    try
+      {
+        bytes_transferred = _socket->receive_from(
+            boost::asio::buffer(buffer.value->data(), available),
+            _receive_endpoint);
+      }
+    catch (const std::exception& e)
+      {
+        ic_log(iscool::log::nature::error(), log_context(),
+               "could not read from socket: {}", e.what());
+        _socket = nullptr;
+        return false;
+      }
+  }
+
+  buffer.value->resize(bytes_transferred);
+  dispatch_bytes(buffer.id, *buffer.value);
+
   return true;
 }
 
-void iscool::net::detail::socket::dispatch_bytes(
-    std::uint8_t* buffer, std::size_t bytes_transferred) const
+void iscool::net::detail::socket::dispatch_bytes(std::size_t id,
+                                                 const byte_array& bytes) const
 {
-  const byte_array bytes(buffer, buffer + bytes_transferred);
-  _received(_receive_endpoint, bytes);
+  _received(_receive_endpoint, id, bytes);
 }

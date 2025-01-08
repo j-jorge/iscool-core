@@ -85,7 +85,8 @@ namespace iscool::net
     struct queued_bytes
     {
       endpoint target;
-      byte_array bytes;
+      std::size_t id;
+      const byte_array* bytes;
     };
 
     typedef std::vector<queued_bytes> bytes_queue;
@@ -94,13 +95,15 @@ namespace iscool::net
     void start();
     void stop();
 
-    void queue_bytes(const endpoint& target, const byte_array& bytes);
+    void queue_bytes(const endpoint& target, std::size_t id,
+                     const byte_array& bytes);
     void dispatch_bytes();
 
   private:
     std::unique_ptr<iscool::net::detail::socket> _socket;
 
-    bytes_queue _bytes_queue;
+    bytes_queue _main_bytes_queue;
+    bytes_queue _tmp_bytes_queue;
     std::mutex _queue_access_mutex;
     std::thread _update_thread;
 
