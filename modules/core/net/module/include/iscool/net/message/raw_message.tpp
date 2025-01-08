@@ -27,14 +27,14 @@ template <iscool::net::message_type type_code, typename... fields_types>
 iscool::net::message
 iscool::net::raw_message<type_code, fields_types...>::build_message() const
 {
-  byte_array content;
-  content << _fields;
-  return message(get_type(), content);
+  byte_array storage;
+  storage << _fields;
+  return message(get_type(), std::move(storage));
 }
 
 template <iscool::net::message_type type_code, typename... fields_types>
 iscool::net::raw_message<type_code, fields_types...>::raw_message(
-    const byte_array& raw_content)
+    const std::span<const std::uint8_t>& raw_content)
 {
   byte_array_reader reader(raw_content);
   reader >> _fields;

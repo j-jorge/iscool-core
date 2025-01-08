@@ -32,8 +32,10 @@ iscool::net::message_stream::message_stream(iscool::net::socket_stream& socket,
   : _socket(socket)
   , _key(std::move(key))
   , _socket_connection(socket.connect_to_received(
-        std::bind(&message_stream::dispatch_message, this,
-                  std::placeholders::_1, std::placeholders::_2)))
+        [this](const endpoint& target, const byte_array& bytes) -> void
+        {
+          dispatch_message(target, bytes);
+        }))
 {}
 
 iscool::net::message_stream::~message_stream() = default;

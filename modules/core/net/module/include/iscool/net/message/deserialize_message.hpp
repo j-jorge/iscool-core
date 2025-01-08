@@ -13,20 +13,13 @@
   See the License for the specific language governing permissions and
   limitations under the License.
 */
-#ifndef ISCOOL_NET_DESERIALIZE_MESSAGE_H
-#define ISCOOL_NET_DESERIALIZE_MESSAGE_H
+#pragma once
 
 #include <iscool/net/message/message.hpp>
 #include <iscool/net/xor_key.hpp>
 
-namespace iscool
+namespace iscool::net
 {
-  namespace net
-  {
-    message deserialize_message(const byte_array& bytes);
-
-    message deserialize_message(const byte_array& bytes, const xor_key& key);
-  }
+  message deserialize_message(const byte_array& bytes);
+  message deserialize_message(const byte_array& bytes, const xor_key& key);
 }
-
-#endif

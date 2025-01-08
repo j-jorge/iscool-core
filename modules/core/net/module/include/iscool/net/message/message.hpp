@@ -13,42 +13,36 @@
   See the License for the specific language governing permissions and
   limitations under the License.
 */
-#ifndef ISCOOL_NET_MESSAGE_H
-#define ISCOOL_NET_MESSAGE_H
+#pragma once
 
 #include <iscool/net/byte_array.hpp>
 #include <iscool/net/message/channel_id.hpp>
 #include <iscool/net/message/message_type.hpp>
 #include <iscool/net/message/session_id.hpp>
 
-namespace iscool
+namespace iscool::net
 {
-  namespace net
+  class message
   {
-    class message
-    {
-    public:
-      message();
-      message(message_type type, const byte_array& content);
-      message(message_type type, session_id session, channel_id channel,
-              const byte_array& content);
+  public:
+    message();
+    message(message_type type, byte_array content);
+    message(message_type type, session_id session, channel_id channel,
+            byte_array content);
 
-      void set_session_id(session_id session_id);
-      session_id get_session_id() const;
+    void set_session_id(session_id session_id);
+    session_id get_session_id() const;
 
-      void set_channel_id(channel_id channel_id);
-      channel_id get_channel_id() const;
+    void set_channel_id(channel_id channel_id);
+    channel_id get_channel_id() const;
 
-      message_type get_type() const;
-      const byte_array& get_content() const;
+    message_type get_type() const;
+    const byte_array& get_content() const;
 
-    private:
-      message_type _type;
-      session_id _session_id;
-      channel_id _channel_id;
-      byte_array _content;
-    };
-  }
+  private:
+    message_type _type;
+    session_id _session_id;
+    channel_id _channel_id;
+    byte_array _content;
+  };
 }
-
-#endif

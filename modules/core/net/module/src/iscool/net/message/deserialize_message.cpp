@@ -28,7 +28,7 @@ iscool::net::message iscool::net::deserialize_message(const byte_array& bytes)
 iscool::net::message iscool::net::deserialize_message(const byte_array& bytes,
                                                       const xor_key& key)
 {
-  byte_array_reader reader(bytes);
+  byte_array_reader reader(bytes.span());
 
   const message_type type(reader.get<message_type>());
 
@@ -39,10 +39,11 @@ iscool::net::message iscool::net::deserialize_message(const byte_array& bytes,
   const session_id session(reader.get<session_id>());
   const channel_id channel(reader.get<channel_id>());
 
-  byte_array content(reader.slice());
+  const std::span<const std::uint8_t> content_bytes = reader.slice();
+  byte_array content(content_bytes.begin(), content_bytes.end());
 
   if (!key.empty())
-    detail::apply_xor(content, key);
+    detail::apply_xor(content.span(), key);
 
-  return message(type, session, channel, content);
+  return message(type, session, channel, std::move(content));
 }

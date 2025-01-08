@@ -13,10 +13,10 @@
   See the License for the specific language governing permissions and
   limitations under the License.
 */
-#ifndef ISCOOL_NET_BYTE_ARRAY_READER_H
-#define ISCOOL_NET_BYTE_ARRAY_READER_H
+#pragma once
 
-#include <iscool/net/byte_array.hpp>
+#include <cstdint>
+#include <span>
 
 namespace iscool
 {
@@ -25,25 +25,23 @@ namespace iscool
     class byte_array_reader
     {
     public:
-      explicit byte_array_reader(byte_array byte_array);
+      explicit byte_array_reader(std::span<const std::uint8_t> bytes);
 
-      template <typename t>
-      t get();
+      template <typename T>
+      T get();
 
-      byte_array get_raw(std::size_t size);
+      std::span<const std::uint8_t> get_raw(std::size_t size);
 
-      byte_array slice() const;
-      byte_array slice(std::size_t size) const;
+      std::span<const std::uint8_t> slice() const;
+      std::span<const std::uint8_t> slice(std::size_t size) const;
 
       bool has_next() const;
 
     private:
-      byte_array _byte_array;
+      std::span<const std::uint8_t> _bytes;
       std::size_t _current_index;
     };
   }
 }
 
 #include <iscool/net/byte_array_reader.tpp>
-
-#endif

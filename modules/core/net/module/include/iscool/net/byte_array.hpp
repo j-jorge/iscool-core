@@ -13,10 +13,10 @@
   See the License for the specific language governing permissions and
   limitations under the License.
 */
-#ifndef ISCOOL_NET_BYTE_ARRAY_H
-#define ISCOOL_NET_BYTE_ARRAY_H
+#pragma once
 
 #include <cstdint>
+#include <span>
 #include <vector>
 
 namespace iscool
@@ -37,6 +37,9 @@ namespace iscool
 
       template <typename Iterator>
       byte_array(const Iterator& first, const Iterator& last);
+
+      std::span<std::uint8_t> span();
+      std::span<const std::uint8_t> span() const;
 
       template <typename T>
       void append(T value);
@@ -65,5 +68,3 @@ namespace iscool
 }
 
 #include <iscool/net/detail/byte_array.tpp>
-
-#endif

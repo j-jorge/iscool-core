@@ -31,7 +31,7 @@ TEST(message_test, constructor_sets_fields)
 
   EXPECT_EQ(6, message.get_type());
 
-  const iscool::net::byte_array message_content(message.get_content());
+  const std::span<const std::uint8_t> message_content(message.get_content());
   ASSERT_EQ(content.size(), message_content.size());
 
   for (std::size_t i(0); i != content.size(); ++i)
@@ -59,14 +59,17 @@ TEST(message_test, serialization)
   reference.set_session_id(12);
   reference.set_channel_id(24);
 
-  const iscool::net::message serialized(iscool::net::deserialize_message(
-      iscool::net::serialize_message(reference)));
+  iscool::net::byte_array serialized_bytes =
+      iscool::net::serialize_message(reference);
+  const iscool::net::message serialized(
+      iscool::net::deserialize_message(serialized_bytes));
 
   EXPECT_EQ(reference.get_type(), serialized.get_type());
   EXPECT_EQ(reference.get_session_id(), serialized.get_session_id());
   EXPECT_EQ(reference.get_channel_id(), serialized.get_channel_id());
 
-  const iscool::net::byte_array serialized_content(serialized.get_content());
+  const std::span<const std::uint8_t> serialized_content(
+      serialized.get_content());
   ASSERT_EQ(content.size(), serialized_content.size());
 
   for (std::size_t i(0); i != content.size(); ++i)
@@ -120,11 +123,13 @@ TEST(message_test, serialization_xor)
 
   const iscool::net::xor_key key({ 0xa5, 0x5a });
 
-  const iscool::net::byte_array serialized(
+  iscool::net::byte_array serialized(
       iscool::net::serialize_message(reference, key));
 
-  const iscool::net::byte_array crypted(
-      iscool::net::deserialize_message(serialized).get_content());
+  const iscool::net::message message =
+      iscool::net::deserialize_message(serialized);
+  const iscool::net::byte_array crypted(message.get_content().begin(),
+                                        message.get_content().end());
 
   ASSERT_EQ(content.size(), crypted.size());
   EXPECT_EQ(std::uint8_t(0xf0) ^ std::uint8_t(0xa5), crypted[0]);
@@ -140,7 +145,8 @@ TEST(message_test, serialization_xor)
   EXPECT_EQ(iscool::net::session_id(12), deserialized.get_session_id());
   EXPECT_EQ(iscool::net::channel_id(24), deserialized.get_channel_id());
 
-  const iscool::net::byte_array decrypted(deserialized.get_content());
+  const iscool::net::byte_array decrypted(deserialized.get_content().begin(),
+                                          deserialized.get_content().end());
 
   ASSERT_EQ(content.size(), decrypted.size());
 
@@ -164,7 +170,7 @@ TEST(message_test, serialization_explicit_session_and_channel)
 
   const iscool::net::xor_key key({ 0xa5, 0x5a });
 
-  const iscool::net::byte_array serialized(
+  iscool::net::byte_array serialized(
       iscool::net::serialize_message(reference, 34, 92, key));
 
   const iscool::net::message deserialized(

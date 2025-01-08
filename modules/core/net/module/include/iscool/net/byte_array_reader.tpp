@@ -24,12 +24,12 @@
 template <typename T>
 T iscool::net::byte_array_reader::get()
 {
-  if (_current_index + sizeof(T) > _byte_array.size())
+  if (_current_index + sizeof(T) > _bytes.size())
     throw std::out_of_range("can't read value out of remaining bytes.");
 
-  typedef typename iscool::meta::underlying_type<T>::type raw_type;
+  using raw_type = typename iscool::meta::underlying_type<T>::type;
 
-  const std::uint8_t* const begin(&_byte_array[_current_index]);
+  const std::uint8_t* const begin(&_bytes[_current_index]);
   const std::uint8_t* const end(begin + sizeof(T));
 
   raw_type result;

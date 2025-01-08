@@ -34,21 +34,25 @@ iscool::net::byte_array iscool::net::serialize_message(const message& m,
                                                        channel_id channel,
                                                        const xor_key& key)
 {
-  byte_array content(m.get_content());
-
-  if (!key.empty())
-    detail::apply_xor(content, key);
+  const std::span<const std::uint8_t> content(m.get_content());
 
   const std::uint16_t size(sizeof(message_type) + sizeof(size)
                            + sizeof(session_id) + sizeof(channel_id)
                            + content.size());
 
   byte_array result;
+  result.reserve(size);
+
   result.append(m.get_type());
   result.append(size);
   result.append(session);
   result.append(channel);
-  result.append(content);
+
+  const std::size_t offset = result.size();
+  result.append(content.begin(), content.end());
+
+  if (!key.empty())
+    detail::apply_xor(result.span().subspan(offset), key);
 
   return result;
 }

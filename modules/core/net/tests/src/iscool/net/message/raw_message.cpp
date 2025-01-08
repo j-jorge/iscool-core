@@ -15,13 +15,6 @@
 */
 #include <iscool/net/message/raw_message.hpp>
 
-// #include <iscool/net/byte_array_reader.hpp>
-// #include <iscool/net/message/deserialize_message.hpp>
-
-// #include
-// <iscool/net/byte_array_serialization/byte_array_array_serialization.hpp>
-// #include <iscool/net/message/serialize_message.hpp>
-
 #include <gtest/gtest.h>
 
 TEST(raw_message_test, getters)
@@ -51,7 +44,6 @@ TEST(raw_message_test, serialization)
                       ((std::uint32_t)(some_int))((array_type)(some_array)));
 
   const message_type message(24, { 1, 3, 2 });
-
   const iscool::net::message wrapped = message.build_message();
 
   EXPECT_EQ(123, wrapped.get_type());

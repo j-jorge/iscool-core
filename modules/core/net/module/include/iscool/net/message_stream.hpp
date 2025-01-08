@@ -13,8 +13,7 @@
   See the License for the specific language governing permissions and
   limitations under the License.
 */
-#ifndef ISCOOL_NET_MESSAGE_STREAM_H
-#define ISCOOL_NET_MESSAGE_STREAM_H
+#pragma once
 
 #include <iscool/net/endpoint.hpp>
 #include <iscool/net/message/channel_id.hpp>
@@ -23,44 +22,39 @@
 #include <iscool/signals/declare_signal.hpp>
 #include <iscool/signals/scoped_connection.hpp>
 
-namespace iscool
+namespace iscool::net
 {
-  namespace net
+  class byte_array;
+  class message;
+  class socket_stream;
+
+  class message_stream
   {
-    class byte_array;
-    class message;
-    class socket_stream;
+  public:
+    DECLARE_SIGNAL(void(const endpoint&, const iscool::net::message&), message,
+                   _message);
 
-    class message_stream
-    {
-    public:
-      DECLARE_SIGNAL(void(const endpoint&, const iscool::net::message&),
-                     message, _message);
+  public:
+    explicit message_stream(socket_stream& socket);
+    message_stream(socket_stream& socket, xor_key key);
+    ~message_stream();
 
-    public:
-      explicit message_stream(socket_stream& socket);
-      message_stream(socket_stream& socket, xor_key key);
-      ~message_stream();
+    void send(const iscool::net::message& message) const;
+    void send(const iscool::net::message& message, session_id session,
+              channel_id channel) const;
 
-      void send(const iscool::net::message& message) const;
-      void send(const iscool::net::message& message, session_id session,
-                channel_id channel) const;
+    void send(const endpoint& target,
+              const iscool::net::message& message) const;
+    void send(const endpoint& target, const iscool::net::message& message,
+              session_id session, channel_id channel) const;
 
-      void send(const endpoint& target,
-                const iscool::net::message& message) const;
-      void send(const endpoint& target, const iscool::net::message& message,
-                session_id session, channel_id channel) const;
+  private:
+    void dispatch_message(const endpoint& endpoint,
+                          const byte_array& bytes) const;
 
-    private:
-      void dispatch_message(const endpoint& endpoint,
-                            const byte_array& bytes) const;
-
-    private:
-      socket_stream& _socket;
-      const xor_key _key;
-      iscool::signals::scoped_connection _socket_connection;
-    };
-  }
+  private:
+    socket_stream& _socket;
+    const xor_key _key;
+    iscool::signals::scoped_connection _socket_connection;
+  };
 }
-
-#endif

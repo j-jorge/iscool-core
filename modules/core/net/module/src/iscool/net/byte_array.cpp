@@ -15,6 +15,16 @@
 */
 #include <iscool/net/byte_array.hpp>
 
+std::span<std::uint8_t> iscool::net::byte_array::span()
+{
+  return std::span(_content.data(), _content.size());
+}
+
+std::span<const std::uint8_t> iscool::net::byte_array::span() const
+{
+  return std::span(_content.data(), _content.size());
+}
+
 void iscool::net::byte_array::append(const byte_array& array)
 {
   _content.insert(_content.end(), array.begin(), array.end());

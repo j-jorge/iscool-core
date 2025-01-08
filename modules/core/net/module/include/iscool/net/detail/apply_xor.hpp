@@ -13,22 +13,14 @@
   See the License for the specific language governing permissions and
   limitations under the License.
 */
-#ifndef ISCOOL_NET_DETAIL_APPLY_XOR_H
-#define ISCOOL_NET_DETAIL_APPLY_XOR_H
+#pragma once
 
 #include <iscool/net/xor_key.hpp>
 
-namespace iscool
+#include <cstdint>
+#include <span>
+
+namespace iscool::net::detail
 {
-  namespace net
-  {
-    class byte_array;
-
-    namespace detail
-    {
-      void apply_xor(byte_array& bytes, const xor_key& key);
-    }
-  }
+  void apply_xor(const std::span<std::uint8_t>& bytes, const xor_key& key);
 }
-
-#endif

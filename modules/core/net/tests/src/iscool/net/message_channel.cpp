@@ -257,7 +257,8 @@ TEST_F(message_channel_test, serialization_xor)
   EXPECT_EQ(channel, message_sent.get_channel_id());
   EXPECT_EQ(type, message_sent.get_type());
 
-  const iscool::net::byte_array crypted(message_sent.get_content());
+  const iscool::net::byte_array crypted(message_sent.get_content().begin(),
+                                        message_sent.get_content().end());
 
   ASSERT_EQ(content.size(), crypted.size());
   EXPECT_EQ(std::uint8_t(0xf0) ^ std::uint8_t(0xa5), crypted[0]);
@@ -284,7 +285,9 @@ TEST_F(message_channel_test, serialization_xor)
   EXPECT_EQ(channel, message_received.get_channel_id());
   EXPECT_EQ(type, message_received.get_type());
 
-  const iscool::net::byte_array decrypted(message_received.get_content());
+  const iscool::net::byte_array decrypted(
+      message_received.get_content().begin(),
+      message_received.get_content().end());
 
   ASSERT_EQ(content.size(), decrypted.size());
   EXPECT_EQ(content[0], decrypted[0]);

@@ -17,16 +17,16 @@
 
 iscool::net::message::message() = default;
 
-iscool::net::message::message(message_type type, const byte_array& content)
-  : message(type, 0, 0, content)
+iscool::net::message::message(message_type type, byte_array content)
+  : message(type, 0, 0, std::move(content))
 {}
 
 iscool::net::message::message(message_type type, session_id session,
-                              channel_id channel, const byte_array& content)
+                              channel_id channel, byte_array content)
   : _type(type)
   , _session_id(session)
   , _channel_id(channel)
-  , _content(content)
+  , _content(std::move(content))
 {}
 
 void iscool::net::message::set_session_id(session_id session_id)

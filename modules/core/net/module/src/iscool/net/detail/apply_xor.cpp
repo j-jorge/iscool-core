@@ -15,15 +15,14 @@
 */
 #include <iscool/net/detail/apply_xor.hpp>
 
-#include <iscool/net/byte_array.hpp>
-
 #include <iscool/iterators/cycle_iterator.hpp>
 #include <iscool/iterators/cycle_iterator.impl.tpp>
 
 #include <algorithm>
 #include <functional>
 
-void iscool::net::detail::apply_xor(byte_array& bytes, const xor_key& key)
+void iscool::net::detail::apply_xor(const std::span<std::uint8_t>& bytes,
+                                    const xor_key& key)
 {
   std::transform(bytes.begin(), bytes.end(),
                  iterators::cycle_iterator<xor_key::const_iterator>(

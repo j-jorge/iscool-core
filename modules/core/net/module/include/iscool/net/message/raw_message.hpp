@@ -13,9 +13,9 @@
   See the License for the specific language governing permissions and
   limitations under the License.
 */
-#ifndef ISCOOL_NET_RAW_MESSAGE_H
-#define ISCOOL_NET_RAW_MESSAGE_H
+#pragma once
 
+#include <iscool/net/byte_array.hpp>
 #include <iscool/net/byte_array_reader.hpp>
 #include <iscool/net/message/message.hpp>
 
@@ -41,7 +41,7 @@ namespace iscool
       message build_message() const;
 
     protected:
-      explicit raw_message(const byte_array& raw_content);
+      explicit raw_message(const std::span<const std::uint8_t>& raw_content);
       explicit raw_message(fields_types... fields);
 
       template <std::size_t I>
@@ -106,7 +106,7 @@ namespace iscool
         super;                                                                \
                                                                               \
   public:                                                                     \
-    class_name(const iscool::net::byte_array& raw_content)                    \
+    class_name(const std::span<const std::uint8_t>& raw_content)              \
       : super(raw_content)                                                    \
     {}                                                                        \
                                                                               \
@@ -119,5 +119,3 @@ namespace iscool
 
 #define DECLARE_EMPTY_RAW_MESSAGE(class_name, type_code)                      \
   DECLARE_RAW_MESSAGE(class_name, type_code, BOOST_PP_EMPTY())
-
-#endif

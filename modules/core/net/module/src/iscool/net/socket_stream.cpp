@@ -126,6 +126,6 @@ void iscool::net::socket_stream::dispatch_bytes()
     bytes.swap(_bytes_queue);
   }
 
-  for (const bytes_queue::value_type& entry : bytes)
+  for (bytes_queue::value_type& entry : bytes)
     _received(entry.target, entry.bytes);
 }
