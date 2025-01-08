@@ -109,7 +109,7 @@ void iscool::style::detail::properties_handle::alloc()
 
   const auto slot(get_properties_pool().pick_available());
   _pool_id = slot.id;
-  _properties = &slot.value;
+  _properties = slot.value;
 
   _properties->add_reference();
 }

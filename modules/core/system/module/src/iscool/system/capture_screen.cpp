@@ -40,7 +40,7 @@ iscool::system::capture_screen(const std::string& file_name,
   assert(detail::capture_screen_delegate);
 
   const auto slot(detail::signal_pool.pick_available_signal());
-  const iscool::signals::connection result(slot.value.connect(on_done));
+  const iscool::signals::connection result(slot.value->connect(on_done));
 
   detail::capture_screen_delegate(
       file_name,

@@ -47,7 +47,7 @@ TEST(iscool_memory_dynamic_pool, zero_size)
   iscool::memory::test::int_pool pool(0);
 
   auto slot(pool.pick_available());
-  slot.value = 24;
+  *slot.value = 24;
 
   EXPECT_EQ(24, pool.get(slot.id));
 }
@@ -64,9 +64,9 @@ TEST(iscool_memory_dynamic_pool, pick_available)
   EXPECT_NE(slot1.id, slot3.id);
   EXPECT_NE(slot2.id, slot3.id);
 
-  EXPECT_NE(&slot1.value, &slot2.value);
-  EXPECT_NE(&slot1.value, &slot3.value);
-  EXPECT_NE(&slot2.value, &slot3.value);
+  EXPECT_NE(slot1.value, slot2.value);
+  EXPECT_NE(slot1.value, slot3.value);
+  EXPECT_NE(slot2.value, slot3.value);
 }
 
 TEST(iscool_memory_dynamic_pool, grows)
@@ -74,13 +74,13 @@ TEST(iscool_memory_dynamic_pool, grows)
   iscool::memory::test::int_pool pool(1);
 
   auto slot1(pool.pick_available());
-  slot1.value = 1;
+  *slot1.value = 1;
 
   auto slot2(pool.pick_available());
-  slot2.value = 2;
+  *slot2.value = 2;
 
   auto slot3(pool.pick_available());
-  slot3.value = 3;
+  *slot3.value = 3;
 
   EXPECT_EQ(1, pool.get(slot1.id));
   EXPECT_EQ(2, pool.get(slot2.id));
@@ -93,12 +93,12 @@ TEST(iscool_memory_dynamic_pool, release_and_reuse)
 
   auto slot_1(pool.pick_available());
   const std::size_t id(slot_1.id);
-  slot_1.value = 24;
+  *slot_1.value = 24;
   pool.release(id);
 
   auto slot_2(pool.pick_available());
   EXPECT_EQ(id, slot_2.id);
-  EXPECT_EQ(int(0xdeadc0de), slot_2.value);
+  EXPECT_EQ(int(0xdeadc0de), *slot_2.value);
 }
 
 TEST(iscool_memory_dynamic_pool, copy)
@@ -107,7 +107,7 @@ TEST(iscool_memory_dynamic_pool, copy)
 
   auto slot_1(pool_1.pick_available());
   const std::size_t id(slot_1.id);
-  slot_1.value = 742;
+  *slot_1.value = 742;
 
   iscool::memory::test::int_pool pool_2(pool_1);
 
@@ -211,7 +211,8 @@ TEST(iscool_memory_dynamic_pool, destruction_order)
       dead[i] = false;
 
       auto slot(pool.pick_available());
-      slot.value.configure(i, std::min(pool_size, 2 * i + 1), dead, destroyed);
+      slot.value->configure(i, std::min(pool_size, 2 * i + 1), dead,
+                            destroyed);
     }
 
   pool.clear();

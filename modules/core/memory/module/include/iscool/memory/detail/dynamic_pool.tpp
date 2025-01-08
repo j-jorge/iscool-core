@@ -13,8 +13,7 @@
   See the License for the specific language governing permissions and
   limitations under the License.
 */
-#ifndef ISCOOL_MEMORY_DYNAMIC_POOL_TPP
-#define ISCOOL_MEMORY_DYNAMIC_POOL_TPP
+#pragma once
 
 #include <iscool/contract/verify.hpp>
 
@@ -50,7 +49,7 @@ iscool::memory::dynamic_pool<T, TypeTraits>::pick_available()
       _available.pop_back();
     }
 
-  return { index, _pool[index] };
+  return { index, &_pool[index] };
 }
 
 template <typename T, typename TypeTraits>
@@ -115,5 +114,3 @@ bool iscool::memory::dynamic_pool<T, TypeTraits>::release_checked(
 
   return false;
 }
-
-#endif

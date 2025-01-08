@@ -92,7 +92,7 @@ iscool::schedule::detail::delayed_call_manager::schedule_delayed(
   assert(delay.count() > 0);
 
   const auto slot(_pool.pick_available());
-  const iscool::signals::connection result = slot.value.connect(f);
+  const iscool::signals::connection result = slot.value->connect(f);
 
   schedule_client(slot.id, delay);
 

@@ -154,13 +154,13 @@ iscool::signals::shared_connection_set iscool::http::detail::configure_request(
   const auto tag_failure(
       std::bind(&service_statistics::add_failure, &get_service_statistics()));
 
-  slot.value.connect_to_result(tag_success);
-  slot.value.connect_to_error(tag_failure);
+  slot.value->connect_to_result(tag_success);
+  slot.value->connect_to_error(tag_failure);
 
   iscool::signals::shared_connection_set result;
 
-  result.insert(slot.value.connect_to_result(on_result));
-  result.insert(slot.value.connect_to_error(on_error));
+  result.insert(slot.value->connect_to_result(on_result));
+  result.insert(slot.value->connect_to_error(on_error));
 
   output.set_url(url);
   output.set_response_handler(
