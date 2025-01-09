@@ -20,6 +20,7 @@
 
 namespace iscool::net
 {
-  message deserialize_message(const byte_array& bytes);
-  message deserialize_message(const byte_array& bytes, const xor_key& key);
+  void deserialize_message(message& out, const byte_array& bytes);
+  void deserialize_message(message& out, const byte_array& bytes,
+                           const xor_key& key);
 }

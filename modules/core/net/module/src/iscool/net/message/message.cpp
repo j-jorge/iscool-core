@@ -29,6 +29,18 @@ iscool::net::message::message(message_type type, session_id session,
   , _content(std::move(content))
 {}
 
+void iscool::net::message::reset(message_type type, session_id session,
+                                 channel_id channel,
+                                 const std::span<const std::uint8_t>& content)
+{
+  _type = type;
+  _session_id = session;
+  _channel_id = channel;
+
+  _content.resize(content.size());
+  std::copy(content.begin(), content.end(), _content.begin());
+}
+
 void iscool::net::message::set_session_id(session_id session_id)
 {
   _session_id = session_id;
@@ -57,4 +69,9 @@ iscool::net::message_type iscool::net::message::get_type() const
 const iscool::net::byte_array& iscool::net::message::get_content() const
 {
   return _content;
+}
+
+std::span<std::uint8_t> iscool::net::message::span()
+{
+  return _content.span();
 }

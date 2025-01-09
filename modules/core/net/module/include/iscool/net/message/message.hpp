@@ -30,6 +30,9 @@ namespace iscool::net
     message(message_type type, session_id session, channel_id channel,
             byte_array content);
 
+    void reset(message_type type, session_id session, channel_id channel,
+               const std::span<const std::uint8_t>& content);
+
     void set_session_id(session_id session_id);
     session_id get_session_id() const;
 
@@ -38,6 +41,8 @@ namespace iscool::net
 
     message_type get_type() const;
     const byte_array& get_content() const;
+
+    std::span<std::uint8_t> span();
 
   private:
     message_type _type;

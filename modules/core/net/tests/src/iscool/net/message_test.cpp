@@ -61,8 +61,8 @@ TEST(message_test, serialization)
 
   iscool::net::byte_array serialized_bytes =
       iscool::net::serialize_message(reference);
-  const iscool::net::message serialized(
-      iscool::net::deserialize_message(serialized_bytes));
+  iscool::net::message serialized;
+  iscool::net::deserialize_message(serialized, serialized_bytes);
 
   EXPECT_EQ(reference.get_type(), serialized.get_type());
   EXPECT_EQ(reference.get_session_id(), serialized.get_session_id());
@@ -126,8 +126,8 @@ TEST(message_test, serialization_xor)
   iscool::net::byte_array serialized(
       iscool::net::serialize_message(reference, key));
 
-  const iscool::net::message message =
-      iscool::net::deserialize_message(serialized);
+  iscool::net::message message;
+  iscool::net::deserialize_message(message, serialized);
   const iscool::net::byte_array crypted(message.get_content().begin(),
                                         message.get_content().end());
 
@@ -138,8 +138,8 @@ TEST(message_test, serialization_xor)
   EXPECT_EQ(std::uint8_t(0xaa) ^ std::uint8_t(0x5a), crypted[3]);
   EXPECT_EQ(std::uint8_t(0x0f) ^ std::uint8_t(0xa5), crypted[4]);
 
-  const iscool::net::message deserialized(
-      iscool::net::deserialize_message(serialized, key));
+  iscool::net::message deserialized;
+  iscool::net::deserialize_message(deserialized, serialized, key);
 
   EXPECT_EQ(iscool::net::message_type(72), deserialized.get_type());
   EXPECT_EQ(iscool::net::session_id(12), deserialized.get_session_id());
@@ -173,8 +173,8 @@ TEST(message_test, serialization_explicit_session_and_channel)
   iscool::net::byte_array serialized(
       iscool::net::serialize_message(reference, 34, 92, key));
 
-  const iscool::net::message deserialized(
-      iscool::net::deserialize_message(serialized, key));
+  iscool::net::message deserialized;
+  iscool::net::deserialize_message(deserialized, serialized, key);
 
   EXPECT_EQ(iscool::net::message_type(72), deserialized.get_type());
   EXPECT_EQ(iscool::net::session_id(34), deserialized.get_session_id());

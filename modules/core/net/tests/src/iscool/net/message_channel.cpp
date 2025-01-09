@@ -95,8 +95,8 @@ TEST_F(message_channel_test, set_session_and_channel_no_endpoint)
 
   server_receive();
 
-  const iscool::net::message message_sent(
-      iscool::net::deserialize_message(_server_received_bytes, key));
+  iscool::net::message message_sent;
+  iscool::net::deserialize_message(message_sent, _server_received_bytes, key);
 
   EXPECT_EQ(session, message_sent.get_session_id());
   EXPECT_EQ(channel, message_sent.get_channel_id());
@@ -119,8 +119,8 @@ TEST_F(message_channel_test, set_session_and_channel_with_endpoint)
 
   server_receive();
 
-  const iscool::net::message message_sent(
-      iscool::net::deserialize_message(_server_received_bytes, key));
+  iscool::net::message message_sent;
+  iscool::net::deserialize_message(message_sent, _server_received_bytes, key);
 
   EXPECT_EQ(session, message_sent.get_session_id());
   EXPECT_EQ(channel, message_sent.get_channel_id());
@@ -250,8 +250,9 @@ TEST_F(message_channel_test, serialization_xor)
   message_channel.send(reference);
   server_receive();
 
-  const iscool::net::message message_sent(
-      iscool::net::deserialize_message(_server_received_bytes, { 0 }));
+  iscool::net::message message_sent;
+  iscool::net::deserialize_message(message_sent, _server_received_bytes,
+                                   { 0 });
 
   EXPECT_EQ(session, message_sent.get_session_id());
   EXPECT_EQ(channel, message_sent.get_channel_id());

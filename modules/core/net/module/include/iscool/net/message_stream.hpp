@@ -18,7 +18,9 @@
 #include <iscool/net/endpoint.hpp>
 #include <iscool/net/message/channel_id.hpp>
 #include <iscool/net/message/session_id.hpp>
+#include <iscool/net/message_pool.hpp>
 #include <iscool/net/xor_key.hpp>
+
 #include <iscool/signals/declare_signal.hpp>
 #include <iscool/signals/scoped_connection.hpp>
 
@@ -49,12 +51,12 @@ namespace iscool::net
               session_id session, channel_id channel) const;
 
   private:
-    void dispatch_message(const endpoint& endpoint,
-                          const byte_array& bytes) const;
+    void dispatch_message(const endpoint& endpoint, const byte_array& bytes);
 
   private:
     socket_stream& _socket;
     const xor_key _key;
     iscool::signals::scoped_connection _socket_connection;
+    message_pool _message_pool;
   };
 }

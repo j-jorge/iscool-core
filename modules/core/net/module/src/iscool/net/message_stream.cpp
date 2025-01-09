@@ -36,6 +36,7 @@ iscool::net::message_stream::message_stream(iscool::net::socket_stream& socket,
         {
           dispatch_message(target, bytes);
         }))
+  , _message_pool(64)
 {}
 
 iscool::net::message_stream::~message_stream() = default;
@@ -68,18 +69,20 @@ void iscool::net::message_stream::send(const endpoint& target,
 }
 
 void iscool::net::message_stream::dispatch_message(
-    const iscool::net::endpoint& target, const byte_array& bytes) const
+    const iscool::net::endpoint& target, const byte_array& bytes)
 {
-  message m;
+  message_pool::slot s = _message_pool.pick_available();
 
   try
     {
-      m = deserialize_message(bytes, _key);
+      deserialize_message(*s.value, bytes, _key);
     }
   catch (const std::out_of_range&)
     {
+      _message_pool.release(s.id);
       return;
     }
 
-  _message(target, m);
+  _message(target, *s.value);
+  _message_pool.release(s.id);
 }

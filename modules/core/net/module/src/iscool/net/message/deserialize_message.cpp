@@ -20,13 +20,13 @@
 
 #include <cassert>
 
-iscool::net::message iscool::net::deserialize_message(const byte_array& bytes)
+void iscool::net::deserialize_message(message& out, const byte_array& bytes)
 {
-  return deserialize_message(bytes, {});
+  return deserialize_message(out, bytes, {});
 }
 
-iscool::net::message iscool::net::deserialize_message(const byte_array& bytes,
-                                                      const xor_key& key)
+void iscool::net::deserialize_message(message& out, const byte_array& bytes,
+                                      const xor_key& key)
 {
   byte_array_reader reader(bytes.span());
 
@@ -40,10 +40,8 @@ iscool::net::message iscool::net::deserialize_message(const byte_array& bytes,
   const channel_id channel(reader.get<channel_id>());
 
   const std::span<const std::uint8_t> content_bytes = reader.slice();
-  byte_array content(content_bytes.begin(), content_bytes.end());
+  out.reset(type, session, channel, content_bytes);
 
   if (!key.empty())
-    detail::apply_xor(content.span(), key);
-
-  return message(type, session, channel, std::move(content));
+    detail::apply_xor(out.span(), key);
 }
