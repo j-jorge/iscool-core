@@ -16,6 +16,7 @@
 #pragma once
 
 #include <deque>
+#include <vector>
 
 namespace iscool::memory
 {
@@ -43,7 +44,7 @@ namespace iscool::memory
     bool release_checked(std::size_t id);
 
   private:
-    std::deque<std::size_t> _available;
+    std::vector<std::size_t> _available;
     std::deque<T> _pool;
   };
 }
