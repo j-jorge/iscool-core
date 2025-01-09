@@ -85,8 +85,7 @@ namespace iscool::net
 
       void send_bytes_no_error_check(const endpoint& endpoint,
                                      const byte_array& bytes);
-      void bytes_sent(const std::shared_ptr<byte_array>& bytes,
-                      const boost::system::error_code& error,
+      void bytes_sent(const boost::system::error_code& error,
                       std::size_t bytes_transferred);
 
       void receive();

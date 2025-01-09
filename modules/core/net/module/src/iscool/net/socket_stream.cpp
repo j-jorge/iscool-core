@@ -84,7 +84,11 @@ void iscool::net::socket_stream::start()
         queue_bytes(e, id, b);
       });
 
-  _update_thread = std::thread(std::bind(&detail::socket::run, _socket.get()));
+  _update_thread = std::thread(
+      [this]() -> void
+      {
+        _socket->run();
+      });
 }
 
 void iscool::net::socket_stream::stop()
@@ -115,7 +119,10 @@ void iscool::net::socket_stream::queue_bytes(const endpoint& target,
   assert(!_dispatch_connection.connected());
 
   _dispatch_connection = iscool::schedule::delayed_call(
-      std::bind(&socket_stream::dispatch_bytes, this));
+      [this]() -> void
+      {
+        dispatch_bytes();
+      });
 }
 
 void iscool::net::socket_stream::dispatch_bytes()
