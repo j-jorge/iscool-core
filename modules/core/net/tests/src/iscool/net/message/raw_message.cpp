@@ -44,7 +44,8 @@ TEST(raw_message_test, serialization)
                       ((std::uint32_t)(some_int))((array_type)(some_array)));
 
   const message_type message(24, { 1, 3, 2 });
-  const iscool::net::message wrapped = message.build_message();
+  iscool::net::message wrapped;
+  message.build_message(wrapped);
 
   EXPECT_EQ(123, wrapped.get_type());
   EXPECT_EQ(0, wrapped.get_session_id());

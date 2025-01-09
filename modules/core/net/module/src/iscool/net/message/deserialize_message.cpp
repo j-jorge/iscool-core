@@ -43,5 +43,5 @@ void iscool::net::deserialize_message(message& out, const byte_array& bytes,
   out.reset(type, session, channel, content_bytes);
 
   if (!key.empty())
-    detail::apply_xor(out.span(), key);
+    detail::apply_xor(out.get_content().span(), key);
 }

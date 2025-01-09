@@ -38,7 +38,7 @@ namespace iscool
     public:
       static message_type get_type();
 
-      message build_message() const;
+      void build_message(message& out) const;
 
     protected:
       explicit raw_message(const std::span<const std::uint8_t>& raw_content);

@@ -24,12 +24,11 @@ iscool::net::raw_message<type_code, fields_types...>::get_type()
 }
 
 template <iscool::net::message_type type_code, typename... fields_types>
-iscool::net::message
-iscool::net::raw_message<type_code, fields_types...>::build_message() const
+void iscool::net::raw_message<type_code, fields_types...>::build_message(
+    message& out) const
 {
-  byte_array storage;
-  storage << _fields;
-  return message(get_type(), std::move(storage));
+  out.reset(get_type());
+  out.get_content() << _fields;
 }
 
 template <iscool::net::message_type type_code, typename... fields_types>
