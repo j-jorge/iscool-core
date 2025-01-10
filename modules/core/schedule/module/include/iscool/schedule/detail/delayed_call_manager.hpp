@@ -13,8 +13,7 @@
   See the License for the specific language governing permissions and
   limitations under the License.
 */
-#ifndef ISCOOL_SCHEDULE_DETAIL_DELAYED_CALL_MANAGER_H
-#define ISCOOL_SCHEDULE_DETAIL_DELAYED_CALL_MANAGER_H
+#pragma once
 
 #include <iscool/memory/dynamic_pool.hpp>
 #include <iscool/memory/pool_signal_traits.hpp>
@@ -77,6 +76,9 @@ namespace iscool
       private:
         iscool::signals::void_signal _short_call_cumulated;
         iscool::signals::void_signal _short_call_non_cumulated;
+
+        pool_type _tmp_signals;
+
         pool_type _pool;
 
         bool _client_guard;
@@ -87,5 +89,3 @@ namespace iscool
     }
   }
 }
-
-#endif

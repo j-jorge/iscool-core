@@ -26,6 +26,7 @@ iscool::schedule::detail::delayed_call_manager::delayed_call_manager(
     std::size_t pool_size)
   : _short_call_cumulated("delayed_call_manager::short_call_cumulated")
   , _short_call_non_cumulated("delayed_call_manager::short_call_non_cumulated")
+  , _tmp_signals(pool_size)
   , _pool(pool_size)
   , _client_guard(false)
   , _in_cumulated_loop(false)
@@ -36,7 +37,7 @@ iscool::schedule::detail::delayed_call_manager::schedule_call(
     iscool::signals::void_signal_function f, duration delay)
 {
   assert(delay.count() > 0);
-  return schedule_delayed(f, delay);
+  return schedule_delayed(std::move(f), delay);
 }
 
 iscool::signals::connection
@@ -44,10 +45,10 @@ iscool::schedule::detail::delayed_call_manager::schedule_call(
     iscool::signals::void_signal_function f, short_call_policy policy)
 {
   if (policy == short_call_policy::cumulated)
-    return schedule_cumulated(f);
+    return schedule_cumulated(std::move(f));
 
   assert(policy == short_call_policy::non_cumulated);
-  return schedule_non_cumulated(f);
+  return schedule_non_cumulated(std::move(f));
 }
 
 void iscool::schedule::detail::delayed_call_manager::clear()
@@ -68,7 +69,7 @@ iscool::schedule::detail::delayed_call_manager::schedule_cumulated(
   if (!_in_cumulated_loop && _short_call_cumulated.empty())
     schedule_client_cumulated();
 
-  return _short_call_cumulated.connect(f);
+  return _short_call_cumulated.connect(std::move(f));
 }
 
 iscool::signals::connection
@@ -80,7 +81,7 @@ iscool::schedule::detail::delayed_call_manager::schedule_non_cumulated(
   if (_short_call_non_cumulated.empty())
     schedule_client_non_cumulated();
 
-  return _short_call_non_cumulated.connect(f);
+  return _short_call_non_cumulated.connect(std::move(f));
 }
 
 iscool::signals::connection
@@ -92,7 +93,7 @@ iscool::schedule::detail::delayed_call_manager::schedule_delayed(
   assert(delay.count() > 0);
 
   const auto slot(_pool.pick_available());
-  const iscool::signals::connection result = slot.value->connect(f);
+  const iscool::signals::connection result = slot.value->connect(std::move(f));
 
   schedule_client(slot.id, delay);
 
@@ -104,9 +105,12 @@ void iscool::schedule::detail::delayed_call_manager::schedule_client(
 {
   assert(detail::call_later);
 
-  detail::call_later(std::bind(&delayed_call_manager::trigger, this, id,
-                               time::monotonic_now<duration>() + delay),
-                     delay);
+  detail::call_later(
+      [this, id, d = time::monotonic_now<duration>() + delay]() -> void
+      {
+        trigger(id, d);
+      },
+      delay);
 }
 
 void iscool::schedule::detail::delayed_call_manager::
@@ -117,8 +121,12 @@ void iscool::schedule::detail::delayed_call_manager::
 
   assert(detail::call_later);
 
-  detail::call_later(std::bind(&delayed_call_manager::trigger_cumulated, this),
-                     duration::zero());
+  detail::call_later(
+      [this]() -> void
+      {
+        trigger_cumulated();
+      },
+      duration::zero());
 
   _client_guard = false;
 }
@@ -133,7 +141,10 @@ void iscool::schedule::detail::delayed_call_manager::
   assert(detail::call_later);
 
   detail::call_later(
-      std::bind(&delayed_call_manager::trigger_non_cumulated, this),
+      [this]() -> void
+      {
+        trigger_non_cumulated();
+      },
       duration::zero());
 
   _client_guard = false;
@@ -151,15 +162,21 @@ void iscool::schedule::detail::delayed_call_manager::trigger(
     }
   else
     {
-      iscool::signals::void_signal calls;
+      pool_type::slot slot;
 
       {
         std::unique_lock<std::recursive_mutex> lock(_mutex);
-        calls.swap(_pool.get(id));
+        slot = _tmp_signals.pick_available();
+        slot.value->swap(_pool.get(id));
         _pool.release(id);
       }
 
-      calls();
+      (*slot.value)();
+      {
+        std::unique_lock<std::recursive_mutex> lock(_mutex);
+        _tmp_signals.release(slot.id);
+      }
+
       trigger_cumulated();
     }
 }
@@ -179,12 +196,14 @@ void iscool::schedule::detail::delayed_call_manager::trigger_cumulated()
     {
       --limit;
 
-      iscool::signals::void_signal calls;
-      calls.swap(_short_call_cumulated);
+      const pool_type::slot slot = _tmp_signals.pick_available();
+      slot.value->swap(_short_call_cumulated);
 
       _mutex.unlock();
-      calls();
+      (*slot.value)();
       _mutex.lock();
+
+      _tmp_signals.release(slot.id);
     }
   while ((limit != 0) && !_short_call_cumulated.empty());
 
@@ -203,13 +222,19 @@ void iscool::schedule::detail::delayed_call_manager::trigger_cumulated()
 
 void iscool::schedule::detail::delayed_call_manager::trigger_non_cumulated()
 {
-  iscool::signals::void_signal calls;
+  pool_type::slot slot;
 
   {
     std::unique_lock<std::recursive_mutex> lock(_mutex);
     assert(!_client_guard);
-    calls.swap(_short_call_non_cumulated);
+    slot = _tmp_signals.pick_available();
+    slot.value->swap(_short_call_non_cumulated);
   }
 
-  calls();
+  (*slot.value)();
+
+  {
+    std::unique_lock<std::recursive_mutex> lock(_mutex);
+    _tmp_signals.release(slot.id);
+  }
 }
