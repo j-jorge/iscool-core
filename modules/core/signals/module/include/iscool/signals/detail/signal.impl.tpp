@@ -180,7 +180,7 @@ void iscool::signals::detail::signal<Signature>::swap(
       if (that._storage_kind == storage_kind::pointer)
         that.swap_pointer_vector(*this);
       else if (that._storage_kind == storage_kind::none)
-        swap_vector_none(*this);
+        swap_vector_none(that);
       else
         get_storage_as_vector().swap(that.get_storage_as_vector());
     }
