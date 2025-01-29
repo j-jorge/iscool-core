@@ -26,10 +26,9 @@ namespace iscool
     {
       class toggle_field_test
       {
-        ic_declare_toggle_field(enabled);
+      ic_declare_toggle_field(enabled)
 
-      public:
-        toggle_field_test();
+          public : toggle_field_test();
         explicit toggle_field_test(bool initial_value);
 
         void changed();

@@ -28,8 +28,8 @@ namespace iscool
     {
       class request_handler
       {
-        DECLARE_SIGNAL(void(std::vector<char>), result, _on_result);
-        DECLARE_SIGNAL(void(std::vector<char>), error, _on_error);
+        DECLARE_SIGNAL(void(std::vector<char>), result, _on_result)
+        DECLARE_SIGNAL(void(std::vector<char>), error, _on_error)
 
       public:
         request_handler();

@@ -28,7 +28,7 @@ namespace iscool
   {
     class time_bounded_for_each
     {
-      DECLARE_VOID_SIGNAL(completed, _completed);
+      DECLARE_VOID_SIGNAL(completed, _completed)
 
     private:
       typedef std::chrono::milliseconds duration_type;

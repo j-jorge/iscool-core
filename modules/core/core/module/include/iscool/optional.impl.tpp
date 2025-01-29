@@ -13,8 +13,7 @@
   See the License for the specific language governing permissions and
   limitations under the License.
 */
-#ifndef ISCOOL_OPTIONAL_IMPL_TPP
-#define ISCOOL_OPTIONAL_IMPL_TPP
+#pragma once
 
 #include <cassert>
 #include <new>
@@ -70,7 +69,7 @@ iscool::optional<T>::optional(const none_t&)
 {}
 
 template <typename T>
-iscool::optional<T>::~optional()
+iscool::optional<T>::optional::~optional()
 {
   reset();
 }
@@ -235,7 +234,7 @@ iscool::optional<T&>::optional(const none_t&)
 {}
 
 template <typename T>
-iscool::optional<T&>::~optional()
+iscool::optional<T&>::optional::~optional()
 {}
 
 template <typename T>
@@ -345,5 +344,3 @@ iscool::optional<T> iscool::make_optional(T value)
 {
   return iscool::optional<T>(value);
 }
-
-#endif

@@ -13,8 +13,7 @@
   See the License for the specific language governing permissions and
   limitations under the License.
 */
-#ifndef ISCOOL_SIGNALS_DETAIL_SIGNAL_IMPL_TPP
-#define ISCOOL_SIGNALS_DETAIL_SIGNAL_IMPL_TPP
+#pragma once
 
 #include <cassert>
 
@@ -24,7 +23,7 @@ iscool::signals::detail::signal<Signature>::signal()
 {}
 
 template <typename Signature>
-iscool::signals::detail::signal<Signature>::~signal()
+iscool::signals::detail::signal<Signature>::signal::~signal()
 {
   switch (_storage_kind)
     {
@@ -278,5 +277,3 @@ iscool::signals::detail::signal<Signature>::internal_slot::internal_slot(
 template <typename Signature>
 iscool::signals::detail::signal<Signature>::internal_slot::~internal_slot() =
     default;
-
-#endif

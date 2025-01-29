@@ -13,8 +13,7 @@
   See the License for the specific language governing permissions and
   limitations under the License.
 */
-#ifndef ISCOOL_SIGNALS_SIGNAL_TPP
-#define ISCOOL_SIGNALS_SIGNAL_TPP
+#pragma once
 
 #include <iscool/profile/scoped_profiler.hpp>
 #include <iscool/signals/detail/resolve_identifier.hpp>
@@ -37,7 +36,7 @@ iscool::signals::signal<Signature, void>::signal(const std::string& identifier)
 {}
 
 template <typename Signature>
-iscool::signals::signal<Signature, void>::~signal()
+iscool::signals::signal<Signature, void>::signal::~signal()
 {}
 
 template <typename Signature>
@@ -89,7 +88,5 @@ iscool::signals::signal<Signature, Identifier>::signal()
 {}
 
 template <typename Signature, typename Identifier>
-iscool::signals::signal<Signature, Identifier>::~signal()
+iscool::signals::signal<Signature, Identifier>::signal::~signal()
 {}
-
-#endif

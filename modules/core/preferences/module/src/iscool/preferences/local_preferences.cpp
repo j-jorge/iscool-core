@@ -179,7 +179,7 @@ void iscool::preferences::local_preferences::set_value(
 std::vector<std::string>
 iscool::preferences::local_preferences::get_keys() const
 {
-  return std::move(_store.get_keys());
+  return _store.get_keys();
 }
 
 const iscool::preferences::property_map&

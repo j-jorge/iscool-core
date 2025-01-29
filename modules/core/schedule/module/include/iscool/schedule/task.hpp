@@ -26,7 +26,7 @@ namespace iscool
   {
     class task
     {
-      DECLARE_VOID_SIGNAL(complete, _complete);
+      DECLARE_VOID_SIGNAL(complete, _complete)
 
     public:
       static constexpr std::chrono::milliseconds no_update_interval{

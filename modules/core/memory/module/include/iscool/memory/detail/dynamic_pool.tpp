@@ -30,7 +30,8 @@ iscool::memory::dynamic_pool<T, TypeTraits>::dynamic_pool(std::size_t size)
 }
 
 template <typename T, typename TypeTraits>
-iscool::memory::dynamic_pool<T, TypeTraits>::~dynamic_pool() = default;
+iscool::memory::dynamic_pool<T, TypeTraits>::dynamic_pool::~dynamic_pool() =
+    default;
 
 template <typename T, typename TypeTraits>
 typename iscool::memory::dynamic_pool<T, TypeTraits>::slot

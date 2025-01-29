@@ -34,7 +34,7 @@ namespace iscool
     class message_channel
     {
     public:
-      DECLARE_SIGNAL(void(const endpoint&, const message&), message, _message);
+      DECLARE_SIGNAL(void(const endpoint&, const message&), message, _message)
 
     public:
       message_channel(const message_stream& stream);

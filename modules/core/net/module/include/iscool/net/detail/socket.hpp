@@ -35,7 +35,7 @@ namespace iscool::net
     {
     public:
       DECLARE_SIGNAL(void(const endpoint&, std::size_t, const byte_array&),
-                     received, _received);
+                     received, _received)
 
     public:
       /**

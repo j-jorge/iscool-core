@@ -163,7 +163,7 @@
   BOOST_PP_SEQ_FOR_EACH(ic_detail_context_ro_member, _, fields)
 
 #define ic_detail_context_rw_member(r, data, seq)                             \
-  ic_detail_context_member_rw_declaration(seq);
+  ic_detail_context_member_rw_declaration(seq)
 
 #define ic_detail_context_rw_member_for_each(fields)                          \
   BOOST_PP_SEQ_FOR_EACH(ic_detail_context_rw_member, _, fields)
@@ -173,21 +173,20 @@ public:                                                                       \
   class context                                                               \
   {                                                                           \
   public:                                                                     \
-    ic_detail_context_constructor(parent_fields)                              \
+  ic_detail_context_constructor(parent_fields)                                \
                                                                               \
-        public                                                                \
-      : ic_detail_context_ro_method_for_each(parent_fields)                   \
-            ic_detail_context_rw_method_for_each(new_fields)                  \
-                ic_detail_context_set_all_properties_method(new_fields)       \
+      public                                                                  \
+    : ic_detail_context_ro_method_for_each(parent_fields)                     \
+          ic_detail_context_rw_method_for_each(new_fields)                    \
+              ic_detail_context_set_all_properties_method(new_fields)         \
                                                                               \
-                    private                                                   \
-      : ic_detail_context_ro_member_for_each(parent_fields)                   \
-            ic_detail_context_rw_member_for_each(new_fields)                  \
+                  private                                                     \
+    : ic_detail_context_ro_member_for_each(parent_fields)                     \
+          ic_detail_context_rw_member_for_each(new_fields)                    \
   };
 
 #define ic_declare_context(field_name, parent_fields, new_fields)             \
-  ic_declare_context_type(parent_fields, new_fields) private                  \
-    : context field_name
+ic_declare_context_type(parent_fields, new_fields) private : context field_name
 
 #define ic_context_declare_parent_properties(properties) properties
 #define ic_context_no_parent_properties

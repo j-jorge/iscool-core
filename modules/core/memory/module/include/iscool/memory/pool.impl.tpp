@@ -13,8 +13,7 @@
   See the License for the specific language governing permissions and
   limitations under the License.
 */
-#ifndef ISCOOL_MEMORY_POOL_IMPL_TPP
-#define ISCOOL_MEMORY_POOL_IMPL_TPP
+#pragma once
 
 #include <iscool/memory/pool.hpp>
 
@@ -26,7 +25,7 @@ iscool::memory::pool<T, Mutex>::pool()
 {}
 
 template <typename T, typename Mutex>
-iscool::memory::pool<T, Mutex>::~pool()
+iscool::memory::pool<T, Mutex>::pool::~pool()
 {
   assert(_allocated_count == 0);
 }
@@ -57,5 +56,3 @@ void iscool::memory::pool<T, Mutex>::destroy(pointer p)
   p->~T();
   _allocator.deallocate(p);
 }
-
-#endif

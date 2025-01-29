@@ -24,8 +24,6 @@
 
 TEST(iscool_schedule_delayed_call, concurrent_calls_delayed)
 {
-  static constexpr useconds_t milliseconds(1000);
-
   iscool::schedule::manual_scheduler scheduler;
   iscool::schedule::initialize(scheduler.get_delayed_call_delegate());
 
@@ -79,8 +77,6 @@ TEST(iscool_schedule_delayed_call, concurrent_calls_delayed)
 
 TEST(iscool_schedule_delayed_call, concurrent_calls_cumulated)
 {
-  static constexpr useconds_t milliseconds(1000);
-
   iscool::schedule::manual_scheduler scheduler;
   iscool::schedule::initialize(scheduler.get_delayed_call_delegate());
 
@@ -142,8 +138,6 @@ TEST(iscool_schedule_delayed_call, concurrent_calls_cumulated)
 
 TEST(iscool_schedule_delayed_call, concurrent_calls_non_cumulated)
 {
-  static constexpr useconds_t milliseconds(1000);
-
   iscool::schedule::manual_scheduler scheduler;
   iscool::schedule::initialize(scheduler.get_delayed_call_delegate());
 
@@ -205,8 +199,6 @@ TEST(iscool_schedule_delayed_call, concurrent_calls_non_cumulated)
 
 TEST(iscool_schedule_delayed_call, recursive_schedule_from_two_threads)
 {
-  static constexpr useconds_t milliseconds(1000);
-
   iscool::schedule::manual_scheduler scheduler;
   iscool::schedule::initialize(scheduler.get_delayed_call_delegate());
 

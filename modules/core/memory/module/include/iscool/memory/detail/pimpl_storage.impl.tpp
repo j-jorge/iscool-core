@@ -13,8 +13,7 @@
   See the License for the specific language governing permissions and
   limitations under the License.
 */
-#ifndef ISCOOL_MEMORY_DETAIL_PIMPL_STORAGE_IMPL_TPP
-#define ISCOOL_MEMORY_DETAIL_PIMPL_STORAGE_IMPL_TPP
+#pragma once
 
 #include <iscool/memory/detail/pimpl_storage.hpp>
 
@@ -47,7 +46,7 @@ iscool::memory::detail::pimpl_storage<T, N>::pimpl_storage(Args&&... args)
 }
 
 template <typename T, std::size_t N>
-iscool::memory::detail::pimpl_storage<T, N>::~pimpl_storage()
+iscool::memory::detail::pimpl_storage<T, N>::pimpl_storage::~pimpl_storage()
 {
   get()->~T();
 }
@@ -65,7 +64,7 @@ iscool::memory::detail::pimpl_storage<T, 0>::pimpl_storage(Args&&... args)
 {}
 
 template <typename T>
-iscool::memory::detail::pimpl_storage<T, 0>::~pimpl_storage()
+iscool::memory::detail::pimpl_storage<T, 0>::pimpl_storage::~pimpl_storage()
 {}
 
 template <typename T>
@@ -73,5 +72,3 @@ T* iscool::memory::detail::pimpl_storage<T, 0>::get() const
 {
   return _pointer.get();
 }
-
-#endif

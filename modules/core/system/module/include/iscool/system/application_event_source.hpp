@@ -24,8 +24,8 @@ namespace iscool
   {
     class application_event_source
     {
-      DECLARE_VOID_SIGNAL(enter_background, _enter_background);
-      DECLARE_VOID_SIGNAL(enter_foreground, _enter_foreground);
+      DECLARE_VOID_SIGNAL(enter_background, _enter_background)
+      DECLARE_VOID_SIGNAL(enter_foreground, _enter_foreground)
 
     public:
       application_event_source();

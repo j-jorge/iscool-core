@@ -13,8 +13,7 @@
   See the License for the specific language governing permissions and
   limitations under the License.
 */
-#ifndef ISCOOL_SIGNALS_DECLARE_SIGNAL_H
-#define ISCOOL_SIGNALS_DECLARE_SIGNAL_H
+#pragma once
 
 #include <iscool/signals/identifier.hpp>
 #include <iscool/signals/signal.hpp>
@@ -32,7 +31,7 @@ public:                                                                       \
       const DETAIL_SIGNAL_FUNCTION_TYPE_NAME(NAME) & function) const;         \
                                                                               \
 private:                                                                      \
-  DECLARE_SIGNAL_IDENTIFIER(TYPE, NAME);                                      \
+  DECLARE_SIGNAL_IDENTIFIER(TYPE, NAME)                                       \
   mutable iscool::signals::signal<TYPE,                                       \
                                   DETAIL_SIGNAL_IDENTIFIER_TYPE_NAME(NAME)>   \
       MEMBER;
@@ -55,5 +54,3 @@ public:                                                                       \
 
 #define DECLARE_VOID_SIGNAL_NO_MEMBER(NAME)                                   \
   DECLARE_SIGNAL_NO_MEMBER(void(), NAME)
-
-#endif

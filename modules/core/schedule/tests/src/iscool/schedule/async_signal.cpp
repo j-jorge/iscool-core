@@ -22,7 +22,7 @@
 
 class iscool_schedule_async_signal_macro_void_test
 {
-  DECLARE_ASYNC_VOID_SIGNAL(test, _signal);
+  DECLARE_ASYNC_VOID_SIGNAL(test, _signal)
 
 public:
   void trigger();
@@ -105,7 +105,7 @@ TEST(iscool_schedule_async_signal, multiple_calls)
 
 class iscool_schedule_async_signal_macro_arguments_test
 {
-  DECLARE_ASYNC_SIGNAL(void(int, std::string), test, _signal);
+  DECLARE_ASYNC_SIGNAL(void(int, std::string), test, _signal)
 
 public:
   void trigger(int i, std::string s);

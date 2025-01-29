@@ -83,7 +83,7 @@ typedef testing::Types<int, int&, const int&,
                        std::string, std::string&, const std::string&>
     value_types;
 
-TYPED_TEST_CASE(iscool_optional_test, value_types);
+TYPED_TEST_SUITE(iscool_optional_test, value_types);
 
 TYPED_TEST(iscool_optional_test, empty)
 {

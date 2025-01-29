@@ -13,8 +13,7 @@
   See the License for the specific language governing permissions and
   limitations under the License.
 */
-#ifndef ISCOOL_NET_MESSAGE_DESERIALIZER_IMPL_TPP
-#define ISCOOL_NET_MESSAGE_DESERIALIZER_IMPL_TPP
+#pragma once
 
 #include <iscool/net/message/message.hpp>
 #include <iscool/signals/declare_signal.hpp>
@@ -33,7 +32,7 @@ class iscool::net::message_deserializer::typed_deserializer
   : public deserializer_base
 {
   DECLARE_SIGNAL_IN_TEMPLATE(void(const endpoint&, const M&), message,
-                             _message);
+                             _message)
 
 public:
   void dispatch(const endpoint& endpoint,
@@ -83,5 +82,3 @@ iscool::signals::connection iscool::net::message_deserializer::connect_signal(
 {
   return _deserializers.connect<M>(f);
 }
-
-#endif

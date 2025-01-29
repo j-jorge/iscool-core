@@ -224,7 +224,7 @@ TEST_F(iscool_schedule_time_bounded_for_each_test, abort_in_break)
   iscool::schedule::time_bounded_for_each loop;
 
   auto f(
-      [this, &loop](std::size_t value) -> void
+      [this](std::size_t value) -> void
       {
         process_item(value);
       });
@@ -246,7 +246,7 @@ TEST_F(iscool_schedule_time_bounded_for_each_test, abort_after)
   iscool::schedule::time_bounded_for_each loop;
 
   auto f(
-      [this, &loop](std::size_t value) -> void
+      [this](std::size_t value) -> void
       {
         process_item(value);
       });

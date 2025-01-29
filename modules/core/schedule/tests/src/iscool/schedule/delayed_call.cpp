@@ -333,7 +333,7 @@ TEST(iscool_schedule_delayed_call, cumulated_large)
   const std::size_t bound(1000);
   iscool::signals::void_signal_function f;
 
-  f = [&f, &calls, bound]() -> void
+  f = [&f, &calls]() -> void
   {
     ++calls;
 

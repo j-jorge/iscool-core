@@ -22,7 +22,6 @@
 TEST(iscool_schedule_timer, get_duration)
 {
   iscool::schedule::timer timer;
-  static constexpr useconds_t milliseconds(1000);
 
   timer.resume();
   std::this_thread::sleep_for(std::chrono::milliseconds(200));

@@ -26,7 +26,7 @@ namespace iscool
     {
       class task_life_cycle
       {
-        DECLARE_VOID_SIGNAL(complete, _complete);
+        DECLARE_VOID_SIGNAL(complete, _complete)
 
       public:
         typedef std::unique_ptr<task> task_pointer;

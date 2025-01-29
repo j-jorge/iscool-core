@@ -34,7 +34,7 @@ namespace iscool::net
   {
   public:
     DECLARE_SIGNAL(void(const endpoint&, const iscool::net::message&), message,
-                   _message);
+                   _message)
 
   public:
     explicit message_stream(socket_stream& socket);

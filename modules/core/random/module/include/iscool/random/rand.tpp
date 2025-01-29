@@ -14,10 +14,9 @@
   limitations under the License.
 */
 #include <boost/random/uniform_int_distribution.hpp>
-#include <boost/range/algorithm/random_shuffle.hpp>
-#include <boost/range/iterator_range.hpp>
 
 #include <iterator>
+#include <random>
 
 template <std::integral T>
 T iscool::random::rand::random()
@@ -50,9 +49,11 @@ template <typename RandomIterator>
 void iscool::random::rand::random_shuffle(RandomIterator first,
                                           RandomIterator last)
 {
-  auto generator = [this](int max) -> int
-  {
-    return random(0, max - 1);
-  };
-  boost::random_shuffle(boost::make_iterator_range(first, last), generator);
+  for (std::size_t i = last - first; i != 0;)
+    {
+      --i;
+
+      using std::swap;
+      swap(first[i], first[random<std::size_t>(0, i)]);
+    }
 }

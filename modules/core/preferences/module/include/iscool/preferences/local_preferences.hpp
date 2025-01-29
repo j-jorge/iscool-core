@@ -43,7 +43,7 @@ namespace iscool
     class local_preferences
     {
     public:
-      DECLARE_SIGNAL(void(const property_map&), saving, _saving);
+      DECLARE_SIGNAL(void(const property_map&), saving, _saving)
 
     public:
       explicit local_preferences(const property_map& values);

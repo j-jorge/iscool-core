@@ -46,7 +46,7 @@ namespace iscool
     public:
       using rgb24_data_pointer = std::uint8_t*;
 
-      DECLARE_SIGNAL(void(rgb24_data_pointer), frame_ready, _frame_ready);
+      DECLARE_SIGNAL(void(rgb24_data_pointer), frame_ready, _frame_ready)
 
     public:
       decoder();

@@ -13,8 +13,7 @@
   See the License for the specific language governing permissions and
   limitations under the License.
 */
-#ifndef ISCOOL_SCHEDULE_ASYNC_FUNCTION_TPP
-#define ISCOOL_SCHEDULE_ASYNC_FUNCTION_TPP
+#pragma once
 
 #include <iscool/schedule/delayed_call.hpp>
 
@@ -35,7 +34,7 @@ iscool::schedule::async_function<Signature>::async_function(
 {}
 
 template <typename Signature>
-iscool::schedule::async_function<Signature>::~async_function()
+iscool::schedule::async_function<Signature>::async_function::~async_function()
 {
   for (iscool::signals::connection& c : _connections)
     c.disconnect();
@@ -72,5 +71,3 @@ void iscool::schedule::async_function<Signature>::trigger(Args... args)
   _connections.pop_front();
   _function(std::forward<Args>(args)...);
 }
-
-#endif

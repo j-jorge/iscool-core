@@ -433,8 +433,8 @@ TEST(iscool_signals_signal, connections_of_swapped_signals)
 
 class dummy_class_with_signal
 {
-  DECLARE_SIGNAL(void(int), int, _int);
-  DECLARE_VOID_SIGNAL(void, _void);
+  DECLARE_SIGNAL(void(int), int, _int)
+  DECLARE_VOID_SIGNAL(void, _void)
 
 public:
   dummy_class_with_signal();
@@ -486,8 +486,8 @@ TEST(iscool_signals_signal, declare_macro)
 template <typename T>
 class dummy_template_class_with_signal
 {
-  DECLARE_SIGNAL_IN_TEMPLATE(void(T), typed, _typed);
-  DECLARE_VOID_SIGNAL(void, _void);
+  DECLARE_SIGNAL_IN_TEMPLATE(void(T), typed, _typed)
+  DECLARE_VOID_SIGNAL(void, _void)
 
 public:
   dummy_template_class_with_signal();

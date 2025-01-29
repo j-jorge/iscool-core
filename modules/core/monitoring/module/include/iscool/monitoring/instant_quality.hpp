@@ -13,8 +13,7 @@
   See the License for the specific language governing permissions and
   limitations under the License.
 */
-#ifndef ISCOOL_MONITORING_INSTANT_QUALITY_H
-#define ISCOOL_MONITORING_INSTANT_QUALITY_H
+#pragma once
 
 #include <iscool/signals/declare_signal.hpp>
 
@@ -26,7 +25,7 @@ namespace iscool
   {
     class instant_quality
     {
-      DECLARE_SIGNAL(void(float), quality_changed, _quality_changed);
+      DECLARE_SIGNAL(void(float), quality_changed, _quality_changed)
 
     public:
       explicit instant_quality(std::size_t log_length);
@@ -53,5 +52,3 @@ namespace iscool
     };
   }
 }
-
-#endif

@@ -29,7 +29,7 @@ namespace iscool::net
   {
   public:
     DECLARE_SIGNAL(void(const endpoint&, const byte_array&), received,
-                   _received);
+                   _received)
 
   public:
     socket_stream();
