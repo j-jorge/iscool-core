@@ -13,11 +13,10 @@
   See the License for the specific language governing permissions and
   limitations under the License.
 */
-#ifndef ISCOOL_CONTAINERS_DETAIL_HETEROGENEOUS_MAP_EMPTY_TPP
-#define ISCOOL_CONTAINERS_DETAIL_HETEROGENEOUS_MAP_EMPTY_TPP
+#pragma once
 
 template <typename T>
-bool iscool::containers::detail::heterogeneous_map_empty<0>::run(T)
+bool iscool::containers::detail::heterogeneous_map_empty<0>::run(const T&)
 {
   return true;
 }
@@ -30,5 +29,3 @@ bool iscool::containers::detail::heterogeneous_map_empty<N>::run(
   return std::get<N - 1>(maps).empty()
          && heterogeneous_map_empty<N - 1>::run(maps);
 }
-
-#endif

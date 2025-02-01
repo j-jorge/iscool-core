@@ -13,11 +13,11 @@
   See the License for the specific language governing permissions and
   limitations under the License.
 */
-#ifndef ISCOOL_CONTAINERS_DETAIL_HETEROGENEOUS_MAP_VISIT_TPP
-#define ISCOOL_CONTAINERS_DETAIL_HETEROGENEOUS_MAP_VISIT_TPP
+#pragma once
 
 template <typename T, typename U>
-void iscool::containers::detail::heterogeneous_map_visit<0>::run(T, U)
+void iscool::containers::detail::heterogeneous_map_visit<0>::run(const T&,
+                                                                 const U&)
 {}
 
 template <std::size_t N>
@@ -30,5 +30,3 @@ void iscool::containers::detail::heterogeneous_map_visit<N>::run(
 
   heterogeneous_map_visit<N - 1>::run(maps, visitor);
 }
-
-#endif

@@ -23,7 +23,7 @@ void iscool::http::initialize(send_function delegate)
 {
   assert(delegate);
   assert(!detail::send_delegate);
-  detail::send_delegate = delegate;
+  detail::send_delegate = std::move(delegate);
   detail::get_service_statistics().reset();
 }
 

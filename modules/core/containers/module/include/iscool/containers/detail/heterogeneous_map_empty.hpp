@@ -13,8 +13,7 @@
   See the License for the specific language governing permissions and
   limitations under the License.
 */
-#ifndef ISCOOL_CONTAINERS_DETAIL_HETEROGENEOUS_MAP_EMPTY_H
-#define ISCOOL_CONTAINERS_DETAIL_HETEROGENEOUS_MAP_EMPTY_H
+#pragma once
 
 namespace iscool
 {
@@ -29,7 +28,7 @@ namespace iscool
       struct heterogeneous_map_empty<0>
       {
         template <typename T>
-        static bool run(T);
+        static bool run(const T&);
       };
 
       template <std::size_t N>
@@ -43,5 +42,3 @@ namespace iscool
 }
 
 #include <iscool/containers/detail/heterogeneous_map_empty.tpp>
-
-#endif

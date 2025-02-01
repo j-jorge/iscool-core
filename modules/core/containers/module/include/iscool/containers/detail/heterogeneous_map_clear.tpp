@@ -13,11 +13,10 @@
   See the License for the specific language governing permissions and
   limitations under the License.
 */
-#ifndef ISCOOL_CONTAINERS_DETAIL_HETEROGENEOUS_MAP_CLEAR_TPP
-#define ISCOOL_CONTAINERS_DETAIL_HETEROGENEOUS_MAP_CLEAR_TPP
+#pragma once
 
 template <typename T>
-void iscool::containers::detail::heterogeneous_map_clear<0>::run(T)
+void iscool::containers::detail::heterogeneous_map_clear<0>::run(const T&)
 {}
 
 template <std::size_t N>
@@ -28,5 +27,3 @@ void iscool::containers::detail::heterogeneous_map_clear<N>::run(
   std::get<N - 1>(maps).clear();
   heterogeneous_map_clear<N - 1>::run(maps);
 }
-
-#endif

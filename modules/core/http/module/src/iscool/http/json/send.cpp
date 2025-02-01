@@ -39,10 +39,11 @@ iscool::signals::shared_connection_set
 iscool::http::json::get(const std::string& url, response_handler on_result,
                         http::response_handler on_error)
 {
-  const http::response_handler convert_result_to_json(
-      detail::build_json_result_handler(on_result, on_error));
+  http::response_handler convert_result_to_json(
+      detail::build_json_result_handler(std::move(on_result), on_error));
 
-  return http::get(url, convert_result_to_json, on_error);
+  return http::get(url, std::move(convert_result_to_json),
+                   std::move(on_error));
 }
 
 iscool::signals::shared_connection_set
@@ -50,22 +51,25 @@ iscool::http::json::post(const std::string& url, Json::Value body,
                          response_handler on_result,
                          http::response_handler on_error)
 {
-  const std::string body_data(body.toStyledString());
-  const http::response_handler convert_result_to_json(
-      detail::build_json_result_handler(on_result, on_error));
+  std::string body_data(body.toStyledString());
+  http::response_handler convert_result_to_json(
+      detail::build_json_result_handler(std::move(on_result), on_error));
 
   std::vector<std::string> headers;
+  headers.reserve(2);
   headers.push_back("Content-Type: application/json; charset=utf-8");
   headers.push_back("Accept: application/json");
 
-  return http::post(url, headers, body_data, convert_result_to_json, on_error);
+  return http::post(url, std::move(headers), std::move(body_data),
+                    std::move(convert_result_to_json), std::move(on_error));
 }
 
 iscool::http::response_handler
 iscool::http::json::detail::build_json_result_handler(
     response_handler on_result, http::response_handler on_error)
 {
-  return [on_result, on_error](std::vector<char> response) -> void
+  return [on_result = std::move(on_result), on_error = std::move(on_error)](
+             const std::vector<char>& response) -> void
   {
     if (response.empty())
       {

@@ -47,7 +47,7 @@ iscool::monitoring::progress_monitor::connect_to_updated(
     std::function<void(float)> f) const
 {
   assert(_master == nullptr);
-  return _updated.connect(f);
+  return _updated.connect(std::move(f));
 }
 
 void iscool::monitoring::progress_monitor::begin_monitoring(

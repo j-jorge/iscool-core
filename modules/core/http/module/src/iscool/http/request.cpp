@@ -59,7 +59,7 @@ const std::vector<std::string>& iscool::http::request::get_headers() const
 void iscool::http::request::set_response_handler(response_handler handler)
 {
   assert(handler);
-  _response_handler = handler;
+  _response_handler = std::move(handler);
 }
 
 iscool::http::request::response_handler

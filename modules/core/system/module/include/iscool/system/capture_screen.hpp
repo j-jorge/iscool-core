@@ -13,8 +13,7 @@
   See the License for the specific language governing permissions and
   limitations under the License.
 */
-#ifndef ISCOOL_SYSTEM_CAPTURE_SCREEN_H
-#define ISCOOL_SYSTEM_CAPTURE_SCREEN_H
+#pragma once
 
 #include <iscool/signals/connection.hpp>
 
@@ -26,8 +25,6 @@ namespace iscool
   {
     iscool::signals::connection
     capture_screen(const std::string& file_name,
-                   std::function<void(std::string)> on_capture);
+                   std::function<void(const std::string&)> on_capture);
   }
 }
-
-#endif

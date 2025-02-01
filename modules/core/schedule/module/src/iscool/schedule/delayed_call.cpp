@@ -25,7 +25,7 @@ iscool::schedule::delayed_call(iscool::signals::void_signal_function f,
 {
   assert(f);
 
-  return detail::call_manager.schedule_call(f, policy);
+  return detail::call_manager.schedule_call(std::move(f), policy);
 }
 
 iscool::signals::connection
@@ -36,7 +36,7 @@ iscool::schedule::delayed_call(iscool::signals::void_signal_function f,
   assert(delay.count() >= 0);
 
   if (delay == std::chrono::nanoseconds::zero())
-    return delayed_call(f, short_call_policy::non_cumulated);
+    return delayed_call(std::move(f), short_call_policy::non_cumulated);
 
-  return detail::call_manager.schedule_call(f, delay);
+  return detail::call_manager.schedule_call(std::move(f), delay);
 }
