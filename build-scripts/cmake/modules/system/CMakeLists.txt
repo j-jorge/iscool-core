@@ -22,6 +22,7 @@ if( TARGET_ANDROID )
     "android/device_date.cpp"
     "android/device_model.cpp"
     "android/haptic_feedback.cpp"
+    "android/keep_screen_on.cpp"
     "android/language_code.cpp"
     "android/os_name.cpp"
     "android/os_version.cpp"
@@ -38,6 +39,7 @@ elseif( TARGET_IOS )
   set( files
     ${files}
     "device_date.cpp"
+    "keep_screen_on.cpp"
 
     "detail/haptic_feedback_mockup.cpp"
 
@@ -67,6 +69,7 @@ else()
     "application_version.cpp"
     "device_date.cpp"
     "device_model.cpp"
+    "keep_screen_on.cpp"
     "language_code.cpp"
     "os_name.cpp"
     "os_version.cpp"
