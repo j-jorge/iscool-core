@@ -14,6 +14,7 @@
   limitations under the License.
 */
 #include <boost/random/uniform_int_distribution.hpp>
+#include <boost/random/uniform_real_distribution.hpp>
 
 #include <iterator>
 #include <random>
@@ -29,6 +30,13 @@ template <std::integral T>
 T iscool::random::rand::random(T min, T max)
 {
   boost::random::uniform_int_distribution<T> rand(min, max);
+  return rand(_generator);
+}
+
+template <std::floating_point T>
+T iscool::random::rand::random(T min, T max)
+{
+  boost::random::uniform_real_distribution<T> rand(min, max);
   return rand(_generator);
 }
 

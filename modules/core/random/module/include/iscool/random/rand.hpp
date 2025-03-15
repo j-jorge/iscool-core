@@ -35,6 +35,9 @@ namespace iscool::random
     template <std::integral T>
     T random(T min, T max);
 
+    template <std::floating_point T>
+    T random(T min, T max);
+
     template <typename InputIterator>
     InputIterator random_in_sequence(InputIterator first, InputIterator last);
 
