@@ -133,4 +133,12 @@ public class SystemService
         }
     }
 
+    static public void openUrl(String url) {
+
+        final Intent intent = new Intent(Intent.ACTION_VIEW);
+        intent.setData(Uri.parse(url));
+
+        if (intent.resolveActivity(_activity.getPackageManager()) != null)
+            _activity.startActivity(intent);
+    }
 }
