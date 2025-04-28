@@ -15,7 +15,20 @@
 */
 #include <iscool/system/language_code.hpp>
 
+#include <cstdlib>
+#include <cstring>
+
 std::string iscool::system::get_language_code()
 {
-  return "en";
+  const char* const lang = std::getenv("LANG");
+
+  if (lang == nullptr)
+    return "en";
+
+  const char* const underscore = std::strchr(lang, '_');
+
+  if (underscore == nullptr)
+    return lang;
+
+  return std::string(lang, underscore);
 }
