@@ -18,10 +18,11 @@
 #include <iscool/log/detail/get_message_dispatcher.hpp>
 #include <iscool/log/detail/logger_thread.hpp>
 #include <iscool/log/detail/message_dispatcher.hpp>
+#include <iscool/log/detail/print_to_console.hpp>
 
-void iscool::log::initialize()
+void iscool::log::initialize(const std::string_view& android_tag)
 {
-  // Nothing to do.
+  iscool::log::detail::set_android_tag(android_tag);
 }
 
 void iscool::log::finalize()
@@ -32,7 +33,13 @@ void iscool::log::finalize()
 
 iscool::log::scoped_initializer::scoped_initializer()
 {
-  initialize();
+  initialize("IsCool");
+}
+
+iscool::log::scoped_initializer::scoped_initializer(
+    const std::string_view& android_tag)
+{
+  initialize(android_tag);
 }
 
 iscool::log::scoped_initializer::~scoped_initializer()

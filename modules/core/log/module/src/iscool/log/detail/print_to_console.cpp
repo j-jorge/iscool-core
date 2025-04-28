@@ -31,6 +31,13 @@
 
   #include <android/log.h>
 
+static std::string g_android_tag = "IsCool";
+
+void iscool::log::detail::set_android_tag(const std::string_view& tag)
+{
+  g_android_tag = tag;
+}
+
 void iscool::log::detail::print_to_console(const nature::nature& nature,
                                            const context& context,
                                            const std::string& message)
@@ -48,17 +55,20 @@ void iscool::log::detail::print_to_console(const nature::nature& nature,
 
   const std::string& reporter(context.get_reporter());
 
-  __android_log_print(priority, "IsCool", "[%s] %s:%d", reporter.c_str(),
-                      context.get_file().c_str(),
+  __android_log_print(priority, g_android_tag.c_str(), "[%s] %s:%d",
+                      reporter.c_str(), context.get_file().c_str(),
                       (unsigned int)context.get_line());
-  __android_log_print(priority, "IsCool", "[%s] %s", reporter.c_str(),
-                      message.c_str());
+  __android_log_print(priority, g_android_tag.c_str(), "[%s] %s",
+                      reporter.c_str(), message.c_str());
 }
 
 #elif (TARGET_OS_IPHONE == 1)
 
   #include <asl.h>
   #include <unistd.h>
+
+void iscool::log::detail::set_android_tag(const std::string_view&)
+{}
 
 void iscool::log::detail::print_to_console(const nature::nature& nature,
                                            const context& context,
@@ -80,6 +90,9 @@ void iscool::log::detail::print_to_console(const nature::nature& nature,
 
   #include <iostream>
 
+void iscool::log::detail::set_android_tag(const std::string_view&)
+{}
+
 void iscool::log::detail::print_to_console(const nature::nature& nature,
                                            const context& context,
                                            const std::string& message)
@@ -92,6 +105,9 @@ void iscool::log::detail::print_to_console(const nature::nature& nature,
 #else
 
   #include <iostream>
+
+void iscool::log::detail::set_android_tag(const std::string_view&)
+{}
 
 void iscool::log::detail::print_to_console(const nature::nature& nature,
                                            const context& context,

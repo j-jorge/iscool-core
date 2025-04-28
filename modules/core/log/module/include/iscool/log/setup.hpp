@@ -13,26 +13,23 @@
   See the License for the specific language governing permissions and
   limitations under the License.
 */
-#ifndef ISCOOL_LOG_SETUP_H
-#define ISCOOL_LOG_SETUP_H
+#pragma once
 
-namespace iscool
+#include <string_view>
+
+namespace iscool::log
 {
-  namespace log
+  void initialize(const std::string_view& android_tag);
+  void finalize();
+
+  class scoped_initializer
   {
-    void initialize();
-    void finalize();
+  public:
+    explicit scoped_initializer();
+    explicit scoped_initializer(const std::string_view& android_tag);
+    scoped_initializer(const scoped_initializer&) = delete;
+    ~scoped_initializer();
 
-    class scoped_initializer
-    {
-    public:
-      explicit scoped_initializer();
-      scoped_initializer(const scoped_initializer&) = delete;
-      ~scoped_initializer();
-
-      scoped_initializer& operator=(const scoped_initializer&) = delete;
-    };
-  }
+    scoped_initializer& operator=(const scoped_initializer&) = delete;
+  };
 }
-
-#endif

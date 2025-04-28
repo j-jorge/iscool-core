@@ -13,29 +13,24 @@
   See the License for the specific language governing permissions and
   limitations under the License.
 */
-#ifndef ISCOOL_LOG_DETAIL_PRINT_TO_CONSOLE_H
-#define ISCOOL_LOG_DETAIL_PRINT_TO_CONSOLE_H
+#pragma once
 
 #include <string>
+#include <string_view>
 
-namespace iscool
+namespace iscool::log
 {
-  namespace log
+  namespace nature
   {
-    namespace nature
-    {
-      class nature;
-    }
+    class nature;
+  }
 
-    class context;
+  class context;
 
-    namespace detail
-    {
-      void print_to_console(const nature::nature& nature,
-                            const context& context,
-                            const std::string& message);
-    }
+  namespace detail
+  {
+    void set_android_tag(const std::string_view& tag);
+    void print_to_console(const nature::nature& nature, const context& context,
+                          const std::string& message);
   }
 }
-
-#endif
