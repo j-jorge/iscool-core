@@ -1,6 +1,8 @@
 // SPDX-License-Identifier: Apache-2.0
 #pragma once
 
+#include <iscool/net/message/message.hpp>
+
 #include <iscool/memory/dynamic_pool.hpp>
 
 namespace iscool::net
