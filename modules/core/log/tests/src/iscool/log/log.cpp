@@ -57,7 +57,7 @@ iscool_log_test::iscool_log_test()
       std::bind(&iscool_log_test::print_error, this, std::placeholders::_1,
                 std::placeholders::_2);
 
-  iscool::log::initialize();
+  iscool::log::initialize("tag");
   _delegates_id = iscool::log::register_delegates(delegates);
 }
 
