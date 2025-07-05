@@ -24,6 +24,7 @@ if( ISCOOL_TEST_ENABLED )
   include( google-test )
 endif()
 
+option(BUILD_SHARED_LIBS "Build using shared libraries" OFF)
 option(
   ISCOOL_CORE_WITH_CMAKE_PACKAGE
   "Generate and install cmake package files" OFF
