@@ -78,7 +78,7 @@ void iscool::net::socket_stream::send(const endpoint& target,
 
 void iscool::net::socket_stream::start()
 {
-  _socket->connect_to_received(
+  _received_connection = _socket->connect_to_received(
       [this](const endpoint& e, std::size_t id, const byte_array& b) -> void
       {
         queue_bytes(e, id, b);
@@ -101,6 +101,7 @@ void iscool::net::socket_stream::stop()
   {
     const std::unique_lock<std::mutex> lock(_queue_access_mutex);
     _dispatch_connection.disconnect();
+    _received_connection.disconnect();
   }
 
   _update_thread.join();

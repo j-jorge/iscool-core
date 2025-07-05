@@ -107,6 +107,7 @@ namespace iscool::net
     std::mutex _queue_access_mutex;
     std::thread _update_thread;
 
+    iscool::signals::connection _received_connection;
     iscool::signals::connection _dispatch_connection;
   };
 }
