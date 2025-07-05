@@ -1,0 +1,77 @@
+---
+name: Build, test.
+
+on:
+  push:
+  pull_request:
+
+concurrency:
+  group: >
+    ${{github.workflow }}
+    -${{ github.event.pull_request.number || github.ref}}
+
+  cancel-in-progress: true
+
+jobs:
+  build:
+    runs-on: ubuntu-latest
+    container: ${{ matrix.container }}
+
+    strategy:
+      matrix:
+        # Last LTS and last non-LTS.
+        container: ["ubuntu:24.04", "ubuntu:25.04"]
+        build_type: [Release, Debug]
+        compiler: [g++, clang-18, clang-20]
+        exclude:
+          - container: "ubuntu:24.04"
+            compiler: clang-20
+          - container: "ubuntu:25.04"
+            compiler: clang-18
+
+    steps:
+      - name: Checkout repository
+        uses: actions/checkout@v3
+
+      - name: Install dependencies
+        run: >
+          apt-get update
+          && apt-get install --no-install-recommends --assume-yes
+          ${{matrix.compiler}}
+          ca-certificates
+          cmake
+          gettext
+          git
+          googletest
+          libboost-locale-dev
+          libjsoncpp-dev
+          libicu-dev
+          ninja-build
+          valgrind
+
+      - name: Launch build
+        run: >
+          cc=$(echo ${{matrix.compiler}} | sed 's/++/cc/') ;
+          cxx=$(echo ${{matrix.compiler}} | sed 's/-/++-/') ;
+          export CC=$cc ;
+          export CXX=$cxx ;
+          mkdir build
+          && cd build
+          && cmake -G Ninja
+          ../build-scripts/cmake
+          -DCMAKE_BUILD_TYPE=${{matrix.build_type}}
+          && ninja
+
+      # Valgrind tests runs for a single configuration only because
+      # they are very slow.
+      - name: Valgrind tests
+        if: |
+          (matrix.container == 'ubuntu:25.04')
+          && (matrix.build_type == 'Release')
+          && (matrix.compiler == 'g++')
+        run: >
+          find ./modules -name "*_test"
+          | while read -r test ;
+          do
+            valgrind --exit-on-first-error=yes --error-exit-code=1 "$test" ;
+          done
