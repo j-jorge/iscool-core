@@ -25,10 +25,10 @@ std::string iscool::system::get_language_code()
   if (lang == nullptr)
     return "en";
 
-  const char* const underscore = std::strchr(lang, '_');
+  const char* const dot = std::strchr(lang, '.');
 
-  if (underscore == nullptr)
+  if (dot == nullptr)
     return lang;
 
-  return std::string(lang, underscore);
+  return std::string(lang, dot);
 }

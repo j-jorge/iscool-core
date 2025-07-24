@@ -46,7 +46,7 @@ public class SystemService
     static public String getLanguageCode() {
 
         final String language = Locale.getDefault().toString();
-        final int separator = language.indexOf( '_' );
+        final int separator = language.indexOf( '.' );
 
         if ( separator == - 1 )
             return language;
