@@ -30,14 +30,18 @@
   }
 
 void iscool::i18n::detail::assign_plural_index(
-    const std::string& language_code)
+    const std::string_view& locale_name)
 {
+  const std::string::size_type underscore =
+      std::min(locale_name.find_first_of('_'), locale_name.size());
+  const std::string_view language_code = locale_name.substr(0, underscore);
+
   /*
     See the table on this page for updates:
     http://localization-guide.readthedocs.org/en/latest/l10n/pluralforms.html
   */
 
-  if ((language_code == "fr") || (language_code == "pt_BR")
+  if ((language_code == "fr") || (locale_name == "pt_BR")
       || (language_code == "tr"))
     assign_index_expression_and_return((n > 1) ? 1 : 0);
 
@@ -48,8 +52,8 @@ void iscool::i18n::detail::assign_plural_index(
     assign_index_expression_and_return((n != 1) ? 1 : 0);
 
   if ((language_code == "ja") || (language_code == "ko")
-      || (language_code == "th") || (language_code == "zh_CN")
-      || (language_code == "zh_TW"))
+      || (language_code == "th") || (locale_name == "zh_CN")
+      || (locale_name == "zh_TW"))
     assign_index_expression_and_return(0);
 
   if (language_code == "pl")

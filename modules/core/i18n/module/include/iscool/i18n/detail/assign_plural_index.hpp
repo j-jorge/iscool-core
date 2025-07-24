@@ -13,20 +13,11 @@
   See the License for the specific language governing permissions and
   limitations under the License.
 */
-#ifndef ISCOOL_I18N_DETAIL_ASSIGN_PLURAL_INDEX_H
-#define ISCOOL_I18N_DETAIL_ASSIGN_PLURAL_INDEX_H
+#pragma once
 
-#include <string>
+#include <string_view>
 
-namespace iscool
+namespace iscool::i18n::detail
 {
-  namespace i18n
-  {
-    namespace detail
-    {
-      void assign_plural_index(const std::string& language_code);
-    }
-  }
+  void assign_plural_index(const std::string_view& locale_name);
 }
-
-#endif
