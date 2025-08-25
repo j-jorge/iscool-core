@@ -3,7 +3,7 @@
 
 #include <iscool/language_name_fwd.hpp>
 
-namespace iscool::i18n::detail
+namespace iscool::system
 {
-  void assign_plural_index(iscool::language_name language_name);
+  iscool::language_name get_language_name();
 }

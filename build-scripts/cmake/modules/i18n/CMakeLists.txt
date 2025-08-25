@@ -11,7 +11,7 @@ declare_iscool_library( NAME i18n
   "numeric_punctuation.cpp"
 
   "detail/assign_plural_index.cpp"
-  "detail/default_language_code.cpp"
+  "detail/default_language_name.cpp"
   "detail/get_locale_for_numeric_display.cpp"
   "detail/localize.cpp"
   "detail/plural_index.cpp"
@@ -20,6 +20,7 @@ declare_iscool_library( NAME i18n
   moFileReader
   iscool_files
   iscool_time
+  iscool_core
   )
 
 declare_iscool_library_test( NAME i18n

@@ -10,6 +10,8 @@ find_package(
 declare_iscool_library( NAME core
   FILES
   "digits.cpp"
+  "iso_639_language_code.cpp"
+  "language_name.cpp"
   "none.cpp"
   "optional.cpp"
 

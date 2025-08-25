@@ -1,22 +1,7 @@
-/*
-  Copyright 2018-present IsCool Entertainment
+// SPDX-License-Identifier: Apache-2.0
+#pragma once
 
-  Licensed under the Apache License, Version 2.0 (the "License");
-  you may not use this file except in compliance with the License.
-  You may obtain a copy of the License at
-
-  http://www.apache.org/licenses/LICENSE-2.0
-
-  Unless required by applicable law or agreed to in writing, software
-  distributed under the License is distributed on an "AS IS" BASIS,
-  WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
-  See the License for the specific language governing permissions and
-  limitations under the License.
-*/
-#ifndef ISCOOL_I18N_NUMERIC_TPP
-#define ISCOOL_I18N_NUMERIC_TPP
-
-#include <iscool/i18n/detail/default_language_code.hpp>
+#include <iscool/i18n/detail/default_language_name.hpp>
 #include <iscool/i18n/detail/get_locale_for_numeric_display.hpp>
 #include <iscool/i18n/detail/num_put_disambiguation.hpp>
 
@@ -29,7 +14,7 @@ iscool::i18n::numeric::to_string(const T& value)
   std::ostringstream formatter;
 
   formatter.imbue(detail::get_locale_for_numeric_display(
-      formatter.getloc(), iscool::i18n::detail::default_language_code));
+      formatter.getloc(), iscool::i18n::detail::default_language_name));
 
   const std::num_put<char>& facet(
       std::use_facet<std::num_put<char>>(formatter.getloc()));
@@ -40,5 +25,3 @@ iscool::i18n::numeric::to_string(const T& value)
 
   return formatter.str();
 }
-
-#endif

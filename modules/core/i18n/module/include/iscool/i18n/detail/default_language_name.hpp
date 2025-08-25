@@ -5,5 +5,5 @@
 
 namespace iscool::i18n::detail
 {
-  void assign_plural_index(iscool::language_name language_name);
+  extern iscool::language_name default_language_name;
 }

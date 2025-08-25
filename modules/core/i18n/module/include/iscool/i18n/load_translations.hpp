@@ -1,31 +1,15 @@
-/*
-  Copyright 2018-present IsCool Entertainment
+// SPDX-License-Identifier: Apache-2.0
+#pragma once
 
-  Licensed under the Apache License, Version 2.0 (the "License");
-  you may not use this file except in compliance with the License.
-  You may obtain a copy of the License at
+#include <iscool/language_name.hpp>
 
-  http://www.apache.org/licenses/LICENSE-2.0
-
-  Unless required by applicable law or agreed to in writing, software
-  distributed under the License is distributed on an "AS IS" BASIS,
-  WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
-  See the License for the specific language governing permissions and
-  limitations under the License.
-*/
-#ifndef ISCOOL_I18N_LOAD_TRANSLATIONS_H
-#define ISCOOL_I18N_LOAD_TRANSLATIONS_H
-
-#include <iostream>
-#include <string>
+#include <iosfwd>
 
 namespace iscool
 {
   namespace i18n
   {
-    bool load_translations(const std::string& language_code,
+    bool load_translations(iscool::language_name language_code,
                            std::istream& stream);
   }
 }
-
-#endif
