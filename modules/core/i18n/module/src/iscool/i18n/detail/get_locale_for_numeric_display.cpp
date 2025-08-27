@@ -40,7 +40,8 @@ iscool::i18n::numeric::detail::allocate_numeric_punctuation(
   const iscool::iso_639_language_code language_code =
       iscool::to_language_code(language_name);
 
-  if (language_code == iscool::iso_639_language_code::fr)
+  if ((language_code == iscool::iso_639_language_code::br)
+      || (language_code == iscool::iso_639_language_code::fr))
     {
       thousands_separator = ' ';
       decimal_point = ',';

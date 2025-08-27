@@ -8,6 +8,7 @@ namespace iscool
   // To be completed as needed.
   enum class language_name : std::uint8_t
   {
+    br_FR,
     de_DE,
     en_GB,
     es_ES,

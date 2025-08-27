@@ -37,6 +37,7 @@ void iscool::i18n::detail::assign_plural_index(
 
   switch (language_code)
     {
+    case iscool::iso_639_language_code::br:
     case iscool::iso_639_language_code::fr:
     case iscool::iso_639_language_code::tr:
       assign_index_expression_and_return((n > 1) ? 1 : 0);

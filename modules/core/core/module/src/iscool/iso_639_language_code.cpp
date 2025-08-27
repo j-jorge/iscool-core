@@ -7,6 +7,8 @@ std::string_view iscool::to_string(iso_639_language_code c)
 {
   switch (c)
     {
+    case iso_639_language_code::br:
+      return "br";
     case iso_639_language_code::de:
       return "de";
     case iso_639_language_code::en:

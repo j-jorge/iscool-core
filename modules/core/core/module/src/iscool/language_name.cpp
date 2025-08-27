@@ -7,6 +7,8 @@ iscool::iso_639_language_code iscool::to_language_code(language_name c)
 {
   switch (c)
     {
+    case language_name::br_FR:
+      return iso_639_language_code::br;
     case language_name::de_DE:
       return iso_639_language_code::de;
     case language_name::en_GB:
@@ -50,6 +52,8 @@ std::string_view iscool::to_string(iscool::language_name c)
 {
   switch (c)
     {
+    case language_name::br_FR:
+      return "br_FR";
     case language_name::de_DE:
       return "de_DE";
     case language_name::en_GB:
@@ -96,6 +100,9 @@ iscool::language_name iscool::from_string_with_fallback(std::string_view s)
   const std::string_view::size_type underscore = s.find_first_of('_');
   const std::string_view language_code =
       (underscore == std::string_view::npos) ? s : s.substr(0, underscore);
+
+  if (language_code == "br")
+    return language_name::br_FR;
 
   if (language_code == "de")
     return language_name::de_DE;
@@ -162,6 +169,8 @@ std::string_view iscool::to_human_string(iscool::language_name c)
 {
   switch (c)
     {
+    case language_name::br_FR:
+      return "Brezhoneg";
     case language_name::de_DE:
       return "Deutsch";
     case language_name::en_GB:

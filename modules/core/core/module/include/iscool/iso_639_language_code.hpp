@@ -8,6 +8,7 @@ namespace iscool
   // To be completed as needed.
   enum class iso_639_language_code : std::uint8_t
   {
+    br,
     de,
     en,
     es,

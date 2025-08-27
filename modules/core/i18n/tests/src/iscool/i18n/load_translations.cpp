@@ -64,6 +64,25 @@ TEST_F(iscool_i18n_test, invalid_file)
   EXPECT_EQ("test_not_translated", ic_gettext("test_not_translated"));
 }
 
+TEST_F(iscool_i18n_test, numeric_br)
+{
+  EXPECT_TRUE(iscool::i18n::load_translations(
+      iscool::language_name::br_FR,
+      *iscool::files::read_file("translations/fr.mo")));
+  EXPECT_EQ("20 400 200 300", iscool::i18n::numeric::to_string(20400200300ll));
+}
+
+TEST_F(iscool_i18n_test, plurals_br)
+{
+  EXPECT_TRUE(iscool::i18n::load_translations(
+      iscool::language_name::br_FR,
+      *iscool::files::read_file("translations/fr.mo")));
+
+  EXPECT_EQ(std::string("Singular"), ic_ngettext("singular", "plural", 0));
+  EXPECT_EQ(std::string("Singular"), ic_ngettext("singular", "plural", 1));
+  EXPECT_EQ(std::string("Plural"), ic_ngettext("singular", "plural", 2));
+}
+
 TEST_F(iscool_i18n_test, numeric_en)
 {
   EXPECT_TRUE(iscool::i18n::load_translations(
