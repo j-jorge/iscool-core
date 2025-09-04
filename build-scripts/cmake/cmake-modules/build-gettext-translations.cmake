@@ -14,7 +14,7 @@ function( build_gettext_translations )
   else()
     set( ARG_OUTPUT_DIR ${CMAKE_CURRENT_BINARY_DIR} )
   endif()
-  
+
   foreach( po_file ${ARG_FILES} )
     get_filename_component( po_file_absolute ${po_file} ABSOLUTE )
     get_filename_component( language_code ${po_file} NAME_WE )
@@ -24,7 +24,6 @@ function( build_gettext_translations )
       TARGET ${ARG_TARGET}
       PRE_BUILD
       COMMAND ${GETTEXT_MSGFMT_EXECUTABLE} -o ${mo_file} ${po_file_absolute}
-      DEPENDS ${po_file_absolute}
       )
   endforeach()
 
