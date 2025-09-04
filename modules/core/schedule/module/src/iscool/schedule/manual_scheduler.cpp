@@ -62,12 +62,12 @@ void iscool::schedule::manual_scheduler::update_interval(
     _calls.erase(begin, split);
   }
 
-  for (iscool::signals::void_signal_function& s : _calls_to_do)
+  for (std::function<void()>& s : _calls_to_do)
     s();
 }
 
 void iscool::schedule::manual_scheduler::schedule_call(
-    iscool::signals::void_signal_function f, std::chrono::nanoseconds delay)
+    std::function<void()> f, std::chrono::nanoseconds delay)
 {
   assert(delay.count() >= 0);
 

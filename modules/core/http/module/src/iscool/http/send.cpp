@@ -31,8 +31,7 @@ namespace iscool
     {
       static iscool::signals::shared_connection_set
       create_predefined_response_connections(
-          const std::vector<char>& response,
-          const response_handler& on_result);
+          std::vector<char> body, const response_handler& on_result);
 
       static iscool::signals::shared_connection_set
       send_get_request(const std::string& url,
@@ -66,7 +65,7 @@ iscool::http::get(const std::string& url, response_handler on_result,
 
       if (predefined_response)
         return detail::create_predefined_response_connections(
-            *predefined_response, on_result);
+            std::move(*predefined_response), on_result);
     }
 
   return detail::send_get_request(url, on_result, on_error);
@@ -87,7 +86,7 @@ iscool::http::post(const std::string& url,
 
       if (predefined_response)
         return detail::create_predefined_response_connections(
-            *predefined_response, on_result);
+            std::move(*predefined_response), on_result);
     }
 
   return detail::send_post_request(url, headers, body, on_result, on_error);
@@ -95,11 +94,20 @@ iscool::http::post(const std::string& url,
 
 iscool::signals::shared_connection_set
 iscool::http::detail::create_predefined_response_connections(
-    const std::vector<char>& response, const response_handler& on_result)
+    std::vector<char> body, const response_handler& on_result)
 {
   iscool::signals::shared_connection_set result;
-  result.insert(
-      iscool::schedule::delayed_call(std::bind(on_result, response)));
+
+  const detail::request_handler_pool::slot slot =
+      detail::handler_pool.pick_available_handler();
+
+  result.insert(slot.value->connect_to_result(on_result));
+
+  iscool::schedule::delayed_call(
+      [body = std::move(body), slot_id = slot.id]()
+      {
+        detail::handler_pool.process_response(slot_id, response(200, body));
+      });
 
   return result;
 }

@@ -6,9 +6,11 @@ include( declare-iscool-library-test )
 declare_iscool_library( NAME schedule
   FILES
   "command_queue.cpp"
+  "connection.cpp"
   "delayed_call.cpp"
   "manual_scheduler.cpp"
   "scaled_timer.cpp"
+  "scoped_connection.cpp"
   "setup.cpp"
   "task.cpp"
   "task_group.cpp"
@@ -36,6 +38,7 @@ declare_iscool_library_test( NAME schedule
   "manual_scheduler.cpp"
   "real_clock.cpp"
   "scaled_timer.cpp"
+  "scoped_connection.cpp"
   "task_group.cpp"
   "time_bounded_for_each.cpp"
   "timer.cpp"

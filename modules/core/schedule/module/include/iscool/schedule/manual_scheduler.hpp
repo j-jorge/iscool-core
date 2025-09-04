@@ -40,17 +40,17 @@ namespace iscool
       struct call
       {
         std::chrono::nanoseconds at_date;
-        iscool::signals::void_signal_function function;
+        std::function<void()> function;
       };
 
     private:
-      void schedule_call(iscool::signals::void_signal_function f,
+      void schedule_call(std::function<void()> f,
                          std::chrono::nanoseconds delay);
 
     private:
       std::chrono::nanoseconds _current_date;
       std::vector<call> _calls;
-      std::vector<iscool::signals::void_signal_function> _calls_to_do;
+      std::vector<std::function<void()>> _calls_to_do;
       std::mutex _mutex;
     };
   }

@@ -1,18 +1,4 @@
-/*
-  Copyright 2018-present IsCool Entertainment
-
-  Licensed under the Apache License, Version 2.0 (the "License");
-  you may not use this file except in compliance with the License.
-  You may obtain a copy of the License at
-
-  http://www.apache.org/licenses/LICENSE-2.0
-
-  Unless required by applicable law or agreed to in writing, software
-  distributed under the License is distributed on an "AS IS" BASIS,
-  WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
-  See the License for the specific language governing permissions and
-  limitations under the License.
-*/
+// SPDX-License-Identifier: Apache-2.0
 #include <iscool/schedule/detail/delayed_call_manager.hpp>
 
 #include <iscool/time/monotonic_now.hpp>
@@ -32,23 +18,37 @@ iscool::schedule::detail::delayed_call_manager::delayed_call_manager(
   , _in_cumulated_loop(false)
 {}
 
-iscool::signals::connection
+iscool::schedule::connection
 iscool::schedule::detail::delayed_call_manager::schedule_call(
-    iscool::signals::void_signal_function f, duration delay)
+    std::function<void()> f, duration delay)
 {
   assert(delay.count() > 0);
   return schedule_delayed(std::move(f), delay);
 }
 
-iscool::signals::connection
+iscool::schedule::connection
 iscool::schedule::detail::delayed_call_manager::schedule_call(
-    iscool::signals::void_signal_function f, short_call_policy policy)
+    std::function<void()> f, short_call_policy policy)
 {
   if (policy == short_call_policy::cumulated)
     return schedule_cumulated(std::move(f));
 
   assert(policy == short_call_policy::non_cumulated);
   return schedule_non_cumulated(std::move(f));
+}
+
+bool iscool::schedule::detail::delayed_call_manager::connected(
+    const connection& c)
+{
+  const std::unique_lock<std::recursive_mutex> lock(_mutex);
+  return c._signal_connection.connected();
+}
+
+void iscool::schedule::detail::delayed_call_manager::disconnect(
+    const connection& c)
+{
+  const std::unique_lock<std::recursive_mutex> lock(_mutex);
+  c._signal_connection.disconnect();
 }
 
 void iscool::schedule::detail::delayed_call_manager::clear()
@@ -60,40 +60,40 @@ void iscool::schedule::detail::delayed_call_manager::clear()
   _pool.clear();
 }
 
-iscool::signals::connection
+iscool::schedule::connection
 iscool::schedule::detail::delayed_call_manager::schedule_cumulated(
-    iscool::signals::void_signal_function f)
+    std::function<void()> f)
 {
   std::unique_lock<std::recursive_mutex> lock(_mutex);
 
   if (!_in_cumulated_loop && _short_call_cumulated.empty())
     schedule_client_cumulated();
 
-  return _short_call_cumulated.connect(std::move(f));
+  return connection(_short_call_cumulated.connect(std::move(f)));
 }
 
-iscool::signals::connection
+iscool::schedule::connection
 iscool::schedule::detail::delayed_call_manager::schedule_non_cumulated(
-    iscool::signals::void_signal_function f)
+    std::function<void()> f)
 {
   std::unique_lock<std::recursive_mutex> lock(_mutex);
 
   if (_short_call_non_cumulated.empty())
     schedule_client_non_cumulated();
 
-  return _short_call_non_cumulated.connect(std::move(f));
+  return connection(_short_call_non_cumulated.connect(std::move(f)));
 }
 
-iscool::signals::connection
+iscool::schedule::connection
 iscool::schedule::detail::delayed_call_manager::schedule_delayed(
-    iscool::signals::void_signal_function f, duration delay)
+    std::function<void()> f, duration delay)
 {
   std::unique_lock<std::recursive_mutex> lock(_mutex);
 
   assert(delay.count() > 0);
 
   const auto slot(_pool.pick_available());
-  const iscool::signals::connection result = slot.value->connect(std::move(f));
+  connection result(slot.value->connect(std::move(f)));
 
   schedule_client(slot.id, delay);
 

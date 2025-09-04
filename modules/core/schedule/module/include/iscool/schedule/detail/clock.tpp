@@ -20,7 +20,7 @@
 
 template <typename Tick>
 iscool::signals::connection iscool::schedule::clock<Tick>::connect_to_tick(
-    iscool::signals::void_signal_function f)
+    std::function<void()> f)
 {
   return _tick.connect(f);
 }

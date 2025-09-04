@@ -1,18 +1,4 @@
-/*
-  Copyright 2018-present IsCool Entertainment
-
-  Licensed under the Apache License, Version 2.0 (the "License");
-  you may not use this file except in compliance with the License.
-  You may obtain a copy of the License at
-
-  http://www.apache.org/licenses/LICENSE-2.0
-
-  Unless required by applicable law or agreed to in writing, software
-  distributed under the License is distributed on an "AS IS" BASIS,
-  WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
-  See the License for the specific language governing permissions and
-  limitations under the License.
-*/
+// SPDX-License-Identifier: Apache-2.0
 #include <iscool/schedule/delayed_call.hpp>
 #include <iscool/schedule/manual_scheduler.hpp>
 #include <iscool/schedule/setup.hpp>
@@ -71,6 +57,59 @@ TEST(iscool_schedule_delayed_call, concurrent_calls_delayed)
   scheduler_thread.join();
 
   EXPECT_EQ(num_calls, num_threads);
+
+  iscool::schedule::finalize();
+}
+
+// This test does not test much but is used with ThreadSanitizer to ensure
+// there is no data race between multiple threads scheduling calls and
+// cancelling them
+TEST(iscool_schedule_delayed_call, concurrent_calls_delayed_disconnect)
+{
+  iscool::schedule::manual_scheduler scheduler;
+  iscool::schedule::initialize(scheduler.get_delayed_call_delegate());
+
+  std::atomic<bool> stop(false);
+  std::thread scheduler_thread(
+      [&stop, &scheduler]() -> void
+      {
+        while (!stop)
+          {
+            std::this_thread::sleep_for(std::chrono::milliseconds(10));
+            scheduler.update_interval(std::chrono::milliseconds(10));
+          }
+      });
+
+  auto test_func(
+      []() -> void
+      {
+      });
+
+  std::atomic<bool> start(false);
+  auto thread_func(
+      [&start, &test_func]() -> void
+      {
+        while (!start)
+          std::this_thread::sleep_for(std::chrono::milliseconds(10));
+
+        iscool::schedule::connection c = iscool::schedule::delayed_call(
+            test_func, std::chrono::milliseconds(50));
+        c.disconnect();
+      });
+
+  const std::size_t num_threads(100);
+  std::vector<std::thread> threads;
+  for (std::size_t i(0); i < num_threads; ++i)
+    threads.push_back(std::thread(thread_func));
+
+  start = true;
+  for (std::thread& t : threads)
+    t.join();
+
+  std::this_thread::sleep_for(std::chrono::milliseconds(200));
+
+  stop = true;
+  scheduler_thread.join();
 
   iscool::schedule::finalize();
 }
@@ -136,6 +175,68 @@ TEST(iscool_schedule_delayed_call, concurrent_calls_cumulated)
   iscool::schedule::finalize();
 }
 
+// This test does not test much but is used with ThreadSanitizer to ensure
+// there is no data race between multiple threads scheduling calls and
+// cancelling them
+TEST(iscool_schedule_delayed_call, concurrent_calls_cumulated_disconnect)
+{
+  iscool::schedule::manual_scheduler scheduler;
+  iscool::schedule::initialize(scheduler.get_delayed_call_delegate());
+
+  std::atomic<bool> stop(false);
+  std::thread scheduler_thread(
+      [&stop, &scheduler]() -> void
+      {
+        while (!stop)
+          {
+            std::this_thread::sleep_for(std::chrono::milliseconds(10));
+
+            scheduler.update_interval(std::chrono::milliseconds(10));
+          }
+      });
+
+  auto test_func(
+      []() -> void
+      {
+      });
+
+  auto cumulated_test_func(
+      [&test_func]() -> void
+      {
+        iscool::schedule::connection c = iscool::schedule::delayed_call(
+            test_func, iscool::schedule::short_call_policy::cumulated);
+        c.disconnect();
+      });
+
+  std::atomic<bool> start(false);
+  auto thread_func(
+      [&start, &cumulated_test_func]() -> void
+      {
+        while (!start)
+          std::this_thread::sleep_for(std::chrono::milliseconds(10));
+
+        iscool::schedule::connection c = iscool::schedule::delayed_call(
+            cumulated_test_func, std::chrono::milliseconds(50));
+        c.disconnect();
+      });
+
+  const std::size_t num_threads(100);
+  std::vector<std::thread> threads;
+  for (std::size_t i(0); i < num_threads; ++i)
+    threads.push_back(std::thread(thread_func));
+
+  start = true;
+  for (std::thread& t : threads)
+    t.join();
+
+  std::this_thread::sleep_for(std::chrono::milliseconds(200));
+
+  stop = true;
+  scheduler_thread.join();
+
+  iscool::schedule::finalize();
+}
+
 TEST(iscool_schedule_delayed_call, concurrent_calls_non_cumulated)
 {
   iscool::schedule::manual_scheduler scheduler;
@@ -193,6 +294,68 @@ TEST(iscool_schedule_delayed_call, concurrent_calls_non_cumulated)
   scheduler_thread.join();
 
   EXPECT_EQ(num_calls, num_threads);
+
+  iscool::schedule::finalize();
+}
+
+// This test does not test much but is used with ThreadSanitizer to ensure
+// there is no data race between multiple threads scheduling calls and
+// cancelling them
+TEST(iscool_schedule_delayed_call, concurrent_calls_non_cumulated_disconnect)
+{
+  iscool::schedule::manual_scheduler scheduler;
+  iscool::schedule::initialize(scheduler.get_delayed_call_delegate());
+
+  std::atomic<bool> stop(false);
+  std::thread scheduler_thread(
+      [&stop, &scheduler]() -> void
+      {
+        while (!stop)
+          {
+            std::this_thread::sleep_for(std::chrono::milliseconds(10));
+
+            scheduler.update_interval(std::chrono::milliseconds(10));
+          }
+      });
+
+  auto test_func(
+      []() -> void
+      {
+      });
+
+  auto non_cumulated_test_func(
+      [&test_func]() -> void
+      {
+        iscool::schedule::connection c = iscool::schedule::delayed_call(
+            test_func, iscool::schedule::short_call_policy::non_cumulated);
+        c.disconnect();
+      });
+
+  std::atomic<bool> start(false);
+  auto thread_func(
+      [&start, &non_cumulated_test_func]() -> void
+      {
+        while (!start)
+          std::this_thread::sleep_for(std::chrono::milliseconds(10));
+
+        iscool::schedule::connection c = iscool::schedule::delayed_call(
+            non_cumulated_test_func, std::chrono::milliseconds(50));
+        c.disconnect();
+      });
+
+  const std::size_t num_threads(100);
+  std::vector<std::thread> threads;
+  for (std::size_t i(0); i < num_threads; ++i)
+    threads.push_back(std::thread(thread_func));
+
+  start = true;
+  for (std::thread& t : threads)
+    t.join();
+
+  std::this_thread::sleep_for(std::chrono::milliseconds(200));
+
+  stop = true;
+  scheduler_thread.join();
 
   iscool::schedule::finalize();
 }

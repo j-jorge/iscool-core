@@ -29,7 +29,7 @@ namespace iscool
       virtual ~clock() = default;
 
       iscool::signals::connection
-      connect_to_tick(iscool::signals::void_signal_function f);
+      connect_to_tick(std::function<void()> f);
 
       Tick get_date() const;
 

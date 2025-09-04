@@ -23,7 +23,7 @@ iscool::schedule::worker::~worker()
 }
 
 iscool::signals::connection iscool::schedule::worker::connect_to_complete(
-    iscool::signals::void_signal_function f)
+    std::function<void()> f)
 {
   assert(_task != nullptr);
   return _task->connect_to_complete(f);

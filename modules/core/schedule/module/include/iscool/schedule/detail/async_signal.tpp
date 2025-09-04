@@ -20,7 +20,7 @@
 template <typename Signature>
 iscool::schedule::async_signal<Signature>::async_signal::~async_signal()
 {
-  for (iscool::signals::connection& c : _trigger_connection)
+  for (connection& c : _trigger_connection)
     c.disconnect();
 }
 
@@ -33,16 +33,15 @@ iscool::signals::connection iscool::schedule::async_signal<Signature>::connect(
 
 template <typename Signature>
 template <typename... Arg>
-void iscool::schedule::async_signal<Signature>::operator()(Arg... args)
+void iscool::schedule::async_signal<Signature>::operator()(Arg&&... args)
 {
-  _trigger_connection.push_back(
-      delayed_call(std::bind(&async_signal<Signature>::trigger_signal<Arg...>,
-                             this, std::forward<Arg>(args)...)));
+  _trigger_connection.push_back(delayed_call(std::bind(
+      &async_signal<Signature>::trigger_signal<Arg...>, this, args...)));
 }
 
 template <typename Signature>
 template <typename... Arg>
-void iscool::schedule::async_signal<Signature>::trigger_signal(Arg... args)
+void iscool::schedule::async_signal<Signature>::trigger_signal(Arg&&... args)
 {
   assert(!_trigger_connection.empty());
   _trigger_connection.erase(_trigger_connection.begin());

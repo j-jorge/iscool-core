@@ -1,18 +1,4 @@
-/*
-  Copyright 2018-present IsCool Entertainment
-
-  Licensed under the Apache License, Version 2.0 (the "License");
-  you may not use this file except in compliance with the License.
-  You may obtain a copy of the License at
-
-  http://www.apache.org/licenses/LICENSE-2.0
-
-  Unless required by applicable law or agreed to in writing, software
-  distributed under the License is distributed on an "AS IS" BASIS,
-  WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
-  See the License for the specific language governing permissions and
-  limitations under the License.
-*/
+// SPDX-License-Identifier: Apache-2.0
 #include <iscool/schedule/delayed_call.hpp>
 #include <iscool/schedule/manual_scheduler.hpp>
 #include <iscool/schedule/setup.hpp>
@@ -28,8 +14,7 @@ TEST(iscool_schedule_delayed_call, default_delay)
 {
   iscool::optional<std::chrono::nanoseconds> scheduled_delay;
   auto delegate(
-      [&](iscool::signals::void_signal_function f,
-          std::chrono::nanoseconds delay) -> void
+      [&](std::function<void()> f, std::chrono::nanoseconds delay) -> void
       {
         scheduled_delay = delay;
       });
@@ -50,8 +35,7 @@ TEST(iscool_schedule_delayed_call, delay_cast)
 {
   iscool::optional<std::chrono::nanoseconds> scheduled_delay;
   auto delegate(
-      [&](iscool::signals::void_signal_function f,
-          std::chrono::nanoseconds delay) -> void
+      [&](std::function<void()> f, std::chrono::nanoseconds delay) -> void
       {
         scheduled_delay = delay;
       });
@@ -71,10 +55,9 @@ TEST(iscool_schedule_delayed_call, delay_cast)
 
 TEST(iscool_schedule_delayed_call, call)
 {
-  iscool::signals::void_signal_function callback;
+  std::function<void()> callback;
   auto delegate(
-      [&](iscool::signals::void_signal_function f,
-          std::chrono::nanoseconds delay) -> void
+      [&](std::function<void()> f, std::chrono::nanoseconds delay) -> void
       {
         callback = f;
       });
@@ -100,10 +83,9 @@ TEST(iscool_schedule_delayed_call, call)
 
 TEST(iscool_schedule_delayed_call, connection)
 {
-  iscool::signals::void_signal_function callback;
+  std::function<void()> callback;
   auto delegate(
-      [&](iscool::signals::void_signal_function f,
-          std::chrono::nanoseconds delay) -> void
+      [&](std::function<void()> f, std::chrono::nanoseconds delay) -> void
       {
         callback = f;
       });
@@ -126,10 +108,9 @@ TEST(iscool_schedule_delayed_call, connection)
 
 TEST(iscool_schedule_delayed_call, disconnect_in_callback)
 {
-  std::vector<iscool::signals::void_signal_function> calls;
+  std::vector<std::function<void()>> calls;
   auto delegate(
-      [&](iscool::signals::void_signal_function f,
-          std::chrono::nanoseconds delay) -> void
+      [&](std::function<void()> f, std::chrono::nanoseconds delay) -> void
       {
         calls.push_back(f);
       });
@@ -143,7 +124,7 @@ TEST(iscool_schedule_delayed_call, disconnect_in_callback)
         second_call_called = true;
       });
 
-  iscool::signals::connection second_call_connection;
+  iscool::schedule::connection second_call_connection;
   auto first_call(
       [&second_call_connection]() -> void
       {
@@ -162,10 +143,9 @@ TEST(iscool_schedule_delayed_call, disconnect_in_callback)
 
 TEST(iscool_schedule_delayed_call, short_call_cumulated)
 {
-  std::vector<iscool::signals::void_signal_function> calls;
+  std::vector<std::function<void()>> calls;
   auto delegate(
-      [&](iscool::signals::void_signal_function f,
-          std::chrono::nanoseconds delay) -> void
+      [&](std::function<void()> f, std::chrono::nanoseconds delay) -> void
       {
         calls.push_back(f);
       });
@@ -197,10 +177,9 @@ TEST(iscool_schedule_delayed_call, short_call_cumulated)
 
 TEST(iscool_schedule_delayed_call, short_call_non_cumulated)
 {
-  std::vector<iscool::signals::void_signal_function> calls;
+  std::vector<std::function<void()>> calls;
   auto delegate(
-      [&](iscool::signals::void_signal_function f,
-          std::chrono::nanoseconds delay) -> void
+      [&](std::function<void()> f, std::chrono::nanoseconds delay) -> void
       {
         calls.push_back(f);
       });
@@ -236,10 +215,9 @@ TEST(iscool_schedule_delayed_call, short_call_non_cumulated)
 
 TEST(iscool_schedule_delayed_call, independent_connections)
 {
-  std::vector<iscool::signals::void_signal_function> calls;
+  std::vector<std::function<void()>> calls;
   auto delegate(
-      [&](iscool::signals::void_signal_function f,
-          std::chrono::nanoseconds delay) -> void
+      [&](std::function<void()> f, std::chrono::nanoseconds delay) -> void
       {
         calls.push_back(f);
       });
@@ -260,9 +238,9 @@ TEST(iscool_schedule_delayed_call, independent_connections)
         second_call_called = true;
       });
 
-  iscool::signals::connection first_connection(
+  iscool::schedule::connection first_connection(
       iscool::schedule::delayed_call(first_call));
-  const iscool::signals::connection second_connection(
+  const iscool::schedule::connection second_connection(
       iscool::schedule::delayed_call(second_call));
 
   first_connection.disconnect();
@@ -278,10 +256,9 @@ TEST(iscool_schedule_delayed_call, independent_connections)
 
 TEST(iscool_schedule_delayed_call, independent_immediate_calls)
 {
-  std::vector<iscool::signals::void_signal_function> calls;
+  std::vector<std::function<void()>> calls;
   auto delegate(
-      [&](iscool::signals::void_signal_function f,
-          std::chrono::nanoseconds delay) -> void
+      [&](std::function<void()> f, std::chrono::nanoseconds delay) -> void
       {
         calls.push_back(f);
       });
@@ -318,10 +295,9 @@ TEST(iscool_schedule_delayed_call, independent_immediate_calls)
 
 TEST(iscool_schedule_delayed_call, cumulated_large)
 {
-  iscool::signals::void_signal_function client;
+  std::function<void()> client;
   auto delegate(
-      [&](iscool::signals::void_signal_function f,
-          std::chrono::nanoseconds delay) -> void
+      [&](std::function<void()> f, std::chrono::nanoseconds delay) -> void
       {
         EXPECT_FALSE(client);
         client = f;
@@ -331,7 +307,7 @@ TEST(iscool_schedule_delayed_call, cumulated_large)
 
   std::size_t calls(0);
   const std::size_t bound(1000);
-  iscool::signals::void_signal_function f;
+  std::function<void()> f;
 
   f = [&f, &calls]() -> void
   {
@@ -349,8 +325,7 @@ TEST(iscool_schedule_delayed_call, cumulated_large)
 
       EXPECT_TRUE(client);
 
-      const iscool::signals::void_signal_function client_call(
-          std::move(client));
+      const std::function<void()> client_call(std::move(client));
       client_call();
 
       EXPECT_LE(calls, bound);
@@ -362,10 +337,9 @@ TEST(iscool_schedule_delayed_call, cumulated_large)
 
 TEST(iscool_schedule_delayed_call, cumulated_after_delay)
 {
-  std::vector<iscool::signals::void_signal_function> calls;
+  std::vector<std::function<void()>> calls;
   auto delegate(
-      [&](iscool::signals::void_signal_function f,
-          std::chrono::nanoseconds delay) -> void
+      [&](std::function<void()> f, std::chrono::nanoseconds delay) -> void
       {
         calls.push_back(f);
       });
