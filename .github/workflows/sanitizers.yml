@@ -1,0 +1,46 @@
+---
+name: Sanitizers
+
+on:
+  push:
+  pull_request:
+
+concurrency:
+  group: >
+    ${{github.workflow }}
+    -${{ github.event.pull_request.number || github.ref}}
+
+  cancel-in-progress: true
+
+jobs:
+  build:
+    runs-on: ubuntu-latest
+
+    strategy:
+      matrix:
+        sanitizers: [ "address,undefined", "thread" ]
+
+    steps:
+      - name: Checkout repository
+        uses: actions/checkout@v3
+
+      - name: Install dependencies
+        run: >
+          sudo apt-get update
+          && sudo apt-get install --no-install-recommends --assume-yes
+          ${{matrix.compiler}}
+          gettext
+          googletest
+          libboost-locale-dev
+          libjsoncpp-dev
+          libicu-dev
+
+      - name: Launch build
+        run: >
+          mkdir build &&
+          cd build &&
+          UBSAN_OPTIONS=halt_on_error=1 cmake -G Ninja
+          ../build-scripts/cmake
+          -DCMAKE_BUILD_TYPE=Release
+          -DCMAKE_CXX_FLAGS=-fsanitize=${{matrix.sanitizers}}
+          && ninja
