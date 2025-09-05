@@ -62,6 +62,16 @@ void iscool::net::socket_stream::send(const endpoint& target,
   _socket->send(target, bytes);
 }
 
+std::uint64_t iscool::net::socket_stream::sent_bytes() const
+{
+  return _socket->sent_bytes();
+}
+
+std::uint64_t iscool::net::socket_stream::received_bytes() const
+{
+  return _socket->received_bytes();
+}
+
 void iscool::net::socket_stream::start()
 {
   _received_connection = _socket->connect_to_received(

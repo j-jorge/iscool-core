@@ -1,18 +1,4 @@
-/*
-  Copyright 2018-present IsCool Entertainment
-
-  Licensed under the Apache License, Version 2.0 (the "License");
-  you may not use this file except in compliance with the License.
-  You may obtain a copy of the License at
-
-  http://www.apache.org/licenses/LICENSE-2.0
-
-  Unless required by applicable law or agreed to in writing, software
-  distributed under the License is distributed on an "AS IS" BASIS,
-  WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
-  See the License for the specific language governing permissions and
-  limitations under the License.
-*/
+// SPDX-License-Identifier: Apache-2.0
 #pragma once
 
 #include <iscool/net/endpoint.hpp>
@@ -23,6 +9,8 @@
 
 #include <boost/asio/io_context.hpp>
 
+#include <atomic>
+#include <cstdint>
 #include <mutex>
 
 namespace iscool::net
@@ -63,6 +51,9 @@ namespace iscool::net
       void send(const endpoint& endpoint, const byte_array& bytes);
 
       void recycle_buffer(std::size_t id);
+
+      std::uint64_t sent_bytes() const;
+      std::uint64_t received_bytes() const;
 
     private:
       using socket_pointer = std::unique_ptr<boost::asio::ip::udp::socket>;
@@ -108,6 +99,9 @@ namespace iscool::net
       std::mutex _receive_bytes;
 
       buffer_pool _buffers;
+
+      std::atomic<std::uint64_t> _sent_bytes;
+      std::atomic<std::uint64_t> _received_bytes;
     };
   }
 }

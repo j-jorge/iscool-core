@@ -1,18 +1,4 @@
-/*
-  Copyright 2018-present IsCool Entertainment
-
-  Licensed under the Apache License, Version 2.0 (the "License");
-  you may not use this file except in compliance with the License.
-  You may obtain a copy of the License at
-
-  http://www.apache.org/licenses/LICENSE-2.0
-
-  Unless required by applicable law or agreed to in writing, software
-  distributed under the License is distributed on an "AS IS" BASIS,
-  WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
-  See the License for the specific language governing permissions and
-  limitations under the License.
-*/
+// SPDX-License-Identifier: Apache-2.0
 #include <iscool/net/detail/socket.hpp>
 
 #include <iscool/net/log_context.hpp>
@@ -36,6 +22,8 @@ iscool::net::detail::socket::socket(std::string_view host, socket_mode::client)
   , _send_endpoint(build_endpoint(host))
   , _allocate_socket(&socket::allocate_client_socket)
   , _buffers(64)
+  , _sent_bytes(0)
+  , _received_bytes(0)
 {
   receive();
 }
@@ -45,6 +33,8 @@ iscool::net::detail::socket::socket(std::string_view host, socket_mode::server)
   , _receive_endpoint(build_endpoint(host))
   , _allocate_socket(&socket::allocate_server_socket)
   , _buffers(64)
+  , _sent_bytes(0)
+  , _received_bytes(0)
 {
   receive();
 }
@@ -54,6 +44,8 @@ iscool::net::detail::socket::socket(unsigned short port)
   , _receive_endpoint(build_endpoint("0.0.0.0", std::to_string(port)))
   , _allocate_socket(&socket::allocate_server_socket)
   , _buffers(64)
+  , _sent_bytes(0)
+  , _received_bytes(0)
 {
   receive();
 }
@@ -96,6 +88,16 @@ void iscool::net::detail::socket::send(const endpoint& endpoint,
       ic_log(iscool::log::nature::error(), log_context(),
              "the data could not be sent: {}", e.what());
     }
+}
+
+std::uint64_t iscool::net::detail::socket::sent_bytes() const
+{
+  return _sent_bytes;
+}
+
+std::uint64_t iscool::net::detail::socket::received_bytes() const
+{
+  return _received_bytes;
 }
 
 void iscool::net::detail::socket::recycle_buffer(std::size_t id)
@@ -147,6 +149,8 @@ void iscool::net::detail::socket::send_bytes_no_error_check(
 {
   std::unique_ptr<byte_array> raw(new byte_array(bytes));
   boost::asio::const_buffer buffer(&*raw->begin(), raw->size());
+
+  _sent_bytes += raw->size();
 
   _socket->async_send_to(
       boost::asio::buffer(buffer), endpoint,
@@ -218,6 +222,8 @@ bool iscool::net::detail::socket::read_available_bytes()
         return false;
       }
   }
+
+  _received_bytes += bytes_transferred;
 
   buffer.value->resize(bytes_transferred);
   dispatch_bytes(buffer.id, *buffer.value);

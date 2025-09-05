@@ -68,6 +68,9 @@ namespace iscool::net
     void send(const iscool::net::byte_array& bytes);
     void send(const endpoint& target, const iscool::net::byte_array& bytes);
 
+    std::uint64_t sent_bytes() const;
+    std::uint64_t received_bytes() const;
+
   private:
     struct queued_bytes
     {

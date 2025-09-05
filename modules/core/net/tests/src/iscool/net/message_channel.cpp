@@ -1,18 +1,4 @@
-/*
-  Copyright 2018-present IsCool Entertainment
-
-  Licensed under the Apache License, Version 2.0 (the "License");
-  you may not use this file except in compliance with the License.
-  You may obtain a copy of the License at
-
-  http://www.apache.org/licenses/LICENSE-2.0
-
-  Unless required by applicable law or agreed to in writing, software
-  distributed under the License is distributed on an "AS IS" BASIS,
-  WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
-  See the License for the specific language governing permissions and
-  limitations under the License.
-*/
+// SPDX-License-Identifier: Apache-2.0
 #include <iscool/net/message/deserialize_message.hpp>
 #include <iscool/net/message/serialize_message.hpp>
 #include <iscool/net/message_channel.hpp>
@@ -40,10 +26,10 @@ public:
 protected:
   iscool::net::byte_array _server_received_bytes;
   iscool::schedule::manual_scheduler _scheduler;
-
-private:
   iscool::schedule::scoped_scheduler_delegate _scheduler_initializer;
   iscool::net::socket_stream _socket;
+
+private:
   iscool::optional<iscool::net::endpoint> _client_endpoint;
 };
 
@@ -155,10 +141,15 @@ TEST_F(message_channel_test, dispatch_message_matching_session_and_channel)
   message.set_session_id(session);
   message.set_channel_id(channel);
 
-  server_send(iscool::net::serialize_message(message, key));
+  const iscool::net::byte_array serialized =
+      iscool::net::serialize_message(message, key);
+  server_send(serialized);
   wait();
 
   EXPECT_TRUE(message_sent);
+
+  EXPECT_EQ(serialized.size(), socket.sent_bytes());
+  EXPECT_EQ(serialized.size(), _socket.received_bytes());
 }
 
 TEST_F(message_channel_test, ignore_message_matching_non_matching_session)
@@ -188,10 +179,15 @@ TEST_F(message_channel_test, ignore_message_matching_non_matching_session)
   message.set_session_id(session * 2);
   message.set_channel_id(channel);
 
-  server_send(iscool::net::serialize_message(message, key));
+  const iscool::net::byte_array serialized =
+      iscool::net::serialize_message(message, key);
+  server_send(serialized);
   wait();
 
   EXPECT_FALSE(message_sent);
+
+  EXPECT_EQ(serialized.size(), socket.sent_bytes());
+  EXPECT_EQ(serialized.size(), _socket.received_bytes());
 }
 
 TEST_F(message_channel_test, ignore_message_matching_non_matching_channel)
@@ -221,10 +217,15 @@ TEST_F(message_channel_test, ignore_message_matching_non_matching_channel)
   message.set_session_id(session);
   message.set_channel_id(channel * 2);
 
-  server_send(iscool::net::serialize_message(message, key));
+  const iscool::net::byte_array serialized =
+      iscool::net::serialize_message(message, key);
+  server_send(serialized);
   wait();
 
   EXPECT_FALSE(message_sent);
+
+  EXPECT_EQ(serialized.size(), socket.sent_bytes());
+  EXPECT_EQ(serialized.size(), _socket.received_bytes());
 }
 
 TEST_F(message_channel_test, serialization_xor)
