@@ -39,7 +39,7 @@ void iscool::net::deserialize_message(message& out, const byte_array& bytes,
   const session_id session(reader.get<session_id>());
   const channel_id channel(reader.get<channel_id>());
 
-  const std::span<const std::uint8_t> content_bytes = reader.slice();
+  const std::span<const std::uint8_t> content_bytes = reader.raw();
   out.reset(type, session, channel, content_bytes);
 
   if (!key.empty())
