@@ -1,4 +1,4 @@
-set( _iscool_core_boost_libraries system )
+set( _iscool_core_boost_libraries )
 
 if( NOT iscool-core_FIND_COMPONENTS
     OR "locale" IN_LIST iscool-core_FIND_COMPONENTS )

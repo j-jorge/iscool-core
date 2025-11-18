@@ -4,9 +4,7 @@ include( declare-iscool-library )
 include( declare-iscool-library-test )
 include( install )
 
-find_package(
-  Boost ${required_boost_version} REQUIRED system
-  )
+find_package(Boost ${required_boost_version} REQUIRED)
 
 declare_iscool_library( NAME files
   FILES
@@ -27,7 +25,6 @@ declare_iscool_library( NAME files
 
   LINK
   iscool_log
-  Boost::system
   )
 
 iscool_module_directory( test_source_root files tests/src )

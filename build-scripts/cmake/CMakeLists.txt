@@ -14,7 +14,8 @@ if(POLICY CMP0167)
 endif()
 
 include( platform )
-include( boost )
+
+find_package(Boost ${required_boost_version} REQUIRED)
 
 if( NOT TARGET_ANDROID AND NOT TARGET_IOS AND NOT DEFINED ISCOOL_TEST_ENABLED )
   set( ISCOOL_TEST_ENABLED 1 )

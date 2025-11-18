@@ -3,9 +3,7 @@ project( iscool-net )
 include( declare-iscool-library )
 include( declare-iscool-library-test )
 
-find_package(
-  Boost ${required_boost_version} REQUIRED COMPONENTS system
-  )
+find_package(Boost ${required_boost_version} REQUIRED)
 
 declare_iscool_library( NAME net
   FILES
@@ -34,7 +32,7 @@ declare_iscool_library( NAME net
   "message/serialize_message.cpp"
 
   LINK
-  Boost::system
+  Boost::boost
   iscool_iterators
   iscool_meta
   iscool_schedule
