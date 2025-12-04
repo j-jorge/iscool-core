@@ -23,10 +23,14 @@ std::string_view iscool::to_string(iso_639_language_code c)
       return "it";
     case iso_639_language_code::ja:
       return "ja";
+    case iso_639_language_code::kab:
+      return "kab";
     case iso_639_language_code::ko:
       return "ko";
     case iso_639_language_code::nl:
       return "nl";
+    case iso_639_language_code::oc:
+      return "oc";
     case iso_639_language_code::pl:
       return "pl";
     case iso_639_language_code::pt:

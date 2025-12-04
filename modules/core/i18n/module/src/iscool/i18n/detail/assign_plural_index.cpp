@@ -30,6 +30,8 @@ void iscool::i18n::detail::assign_plural_index(
     {
     case iscool::language_name::pt_BR:
       assign_index_expression_and_return((n > 1) ? 1 : 0);
+    default:
+      break;
     }
 
   const iscool::iso_639_language_code language_code =
@@ -39,6 +41,8 @@ void iscool::i18n::detail::assign_plural_index(
     {
     case iscool::iso_639_language_code::br:
     case iscool::iso_639_language_code::fr:
+    case iscool::iso_639_language_code::kab:
+    case iscool::iso_639_language_code::oc:
     case iscool::iso_639_language_code::tr:
       assign_index_expression_and_return((n > 1) ? 1 : 0);
 

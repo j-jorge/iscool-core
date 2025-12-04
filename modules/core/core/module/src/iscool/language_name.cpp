@@ -23,10 +23,14 @@ iscool::iso_639_language_code iscool::to_language_code(language_name c)
       return iso_639_language_code::it;
     case language_name::ja_JP:
       return iso_639_language_code::ja;
+    case language_name::kab_DZ:
+      return iso_639_language_code::kab;
     case language_name::ko_KR:
       return iso_639_language_code::ko;
     case language_name::nl_NL:
       return iso_639_language_code::nl;
+    case language_name::oc_FR:
+      return iso_639_language_code::oc;
     case language_name::pl_PL:
       return iso_639_language_code::pl;
     case language_name::pt_BR:
@@ -68,10 +72,14 @@ std::string_view iscool::to_string(iscool::language_name c)
       return "it_IT";
     case language_name::ja_JP:
       return "ja_JP";
+    case language_name::kab_DZ:
+      return "kab_DZ";
     case language_name::ko_KR:
       return "ko_KR";
     case language_name::nl_NL:
       return "nl_NL";
+    case language_name::oc_FR:
+      return "oc_FR";
     case language_name::pl_PL:
       return "pl_PL";
     case language_name::pt_BR:
@@ -125,11 +133,17 @@ iscool::language_name iscool::from_string_with_fallback(std::string_view s)
   if (language_code == "ja")
     return language_name::ja_JP;
 
+  if (language_code == "kab")
+    return language_name::kab_DZ;
+
   if (language_code == "ko")
     return language_name::ko_KR;
 
   if (language_code == "nl")
     return language_name::nl_NL;
+
+  if (language_code == "oc")
+    return language_name::oc_FR;
 
   if (language_code == "pl")
     return language_name::pl_PL;
@@ -185,10 +199,14 @@ std::string_view iscool::to_human_string(iscool::language_name c)
       return "Italiano";
     case language_name::ja_JP:
       return "日本語";
+    case language_name::kab_DZ:
+      return "Taqbaylit";
     case language_name::ko_KR:
       return "한국어";
     case language_name::nl_NL:
       return "Nederlands";
+    case language_name::oc_FR:
+      return "Lenga d'òc";
     case language_name::pl_PL:
       return "Polski";
     case language_name::pt_BR:
