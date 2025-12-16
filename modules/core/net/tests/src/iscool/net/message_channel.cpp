@@ -98,7 +98,7 @@ TEST_F(message_channel_test, set_session_and_channel_with_endpoint)
   const iscool::net::message_stream stream(socket, key);
   const iscool::net::message_channel message_channel(stream, session, channel);
   const iscool::net::endpoint endpoint(
-      boost::asio::ip::address::from_string("127.0.0.1"), 32567);
+      boost::asio::ip::make_address("127.0.0.1"), 32567);
 
   message_channel.send(endpoint,
                        iscool::net::message(24, iscool::net::byte_array()));
