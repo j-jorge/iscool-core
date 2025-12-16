@@ -1,18 +1,4 @@
-/*
-  Copyright 2018-present IsCool Entertainment
-
-  Licensed under the Apache License, Version 2.0 (the "License");
-  you may not use this file except in compliance with the License.
-  You may obtain a copy of the License at
-
-  http://www.apache.org/licenses/LICENSE-2.0
-
-  Unless required by applicable law or agreed to in writing, software
-  distributed under the License is distributed on an "AS IS" BASIS,
-  WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
-  See the License for the specific language governing permissions and
-  limitations under the License.
-*/
+// SPDX-License-Identifier: Apache-2.0
 #include <iscool/log/detail/message_dispatcher.hpp>
 
 #include <cassert>
@@ -26,6 +12,8 @@ iscool::log::detail::message_dispatcher::message_dispatcher()
 std::size_t iscool::log::detail::message_dispatcher::register_delegates(
     const message_delegates& delegates)
 {
+  const std::unique_lock lock(_mutex);
+
   assert(delegates.is_valid());
   assert(_delegates.find(_next_id) == _delegates.end());
 
@@ -39,18 +27,24 @@ std::size_t iscool::log::detail::message_dispatcher::register_delegates(
 void iscool::log::detail::message_dispatcher::unregister_delegates(
     std::size_t id)
 {
+  const std::unique_lock lock(_mutex);
+
   assert(_delegates.find(id) != _delegates.end());
   _delegates.erase(id);
 }
 
 void iscool::log::detail::message_dispatcher::clear()
 {
+  const std::unique_lock lock(_mutex);
+
   _delegates.clear();
 }
 
 void iscool::log::detail::message_dispatcher::dispatch_error(
     const context& context, const error::synopsis& synopsis)
 {
+  const std::unique_lock lock(_mutex);
+
   _last_message_counter = 0;
 
   for (const auto& e : _delegates)

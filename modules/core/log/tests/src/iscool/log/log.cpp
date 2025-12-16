@@ -16,9 +16,12 @@
 #include <iscool/error/synopsis.hpp>
 #include <iscool/log/log.hpp>
 #include <iscool/log/message_delegates_registry.hpp>
+#include <iscool/log/nature/info.hpp>
 #include <iscool/log/nature/nature.hpp>
 #include <iscool/log/setup.hpp>
 #include <iscool/optional.hpp>
+
+#include <thread>
 
 #include <gtest/gtest.h>
 
@@ -97,4 +100,23 @@ TEST_F(iscool_log_test, log)
   EXPECT_EQ("message 24: 42", _message);
 
   EXPECT_FALSE(!!_error);
+}
+
+TEST_F(iscool_log_test, multithread_logging)
+{
+  constexpr std::size_t thread_count = 24;
+  std::vector<std::thread> threads;
+  threads.reserve(thread_count);
+
+  for (std::size_t i = 0; i != thread_count; ++i)
+    threads.emplace_back(
+        [i]()
+        {
+          ic_log(iscool::log::nature::info(), "thread",
+                 "message from thread #{}.", i);
+        });
+
+  for (std::thread& t : threads)
+    if (t.joinable())
+      t.join();
 }
