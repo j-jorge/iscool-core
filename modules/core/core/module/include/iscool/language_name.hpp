@@ -27,6 +27,7 @@ namespace iscool
     sv_SE,
     th_TH,
     tr_TR,
+    uk_UA,
     zh_CN,
     zh_TW
   };

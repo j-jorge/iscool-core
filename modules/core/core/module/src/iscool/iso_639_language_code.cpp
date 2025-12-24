@@ -43,6 +43,8 @@ std::string_view iscool::to_string(iso_639_language_code c)
       return "th";
     case iso_639_language_code::tr:
       return "tr";
+    case iso_639_language_code::uk:
+      return "uk";
     case iso_639_language_code::zh:
       return "zh";
     }

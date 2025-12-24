@@ -71,6 +71,7 @@ void iscool::i18n::detail::assign_plural_index(
                           : 2));
 
     case iscool::iso_639_language_code::ru:
+    case iscool::iso_639_language_code::uk:
       assign_index_expression_and_return(
           ((n % 10 == 1) && (n % 100 != 11))
               ? 0
