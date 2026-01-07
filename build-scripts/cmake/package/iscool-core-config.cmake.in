@@ -36,6 +36,16 @@ if( NOT iscool-core_FIND_COMPONENTS
   find_library( swscale_library swscale REQUIRED )
 
   find_package( ZLIB )
+endif()
+
+if( NOT iscool-core_FIND_COMPONENTS
+    OR "jni" IN_LIST iscool-core_FIND_COMPONENTS
+    OR "log" IN_LIST iscool-core_FIND_COMPONENTS
+    OR "memory" IN_LIST iscool-core_FIND_COMPONENTS
+    OR "net" IN_LIST iscool-core_FIND_COMPONENTS
+    OR "preferences" IN_LIST iscool-core_FIND_COMPONENTS
+    OR "schedule" IN_LIST iscool-core_FIND_COMPONENTS
+    OR "video" IN_LIST iscool-core_FIND_COMPONENTS )
   find_package( Threads REQUIRED )
 endif()
 
