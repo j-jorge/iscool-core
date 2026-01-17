@@ -1,21 +1,7 @@
-/*
-  Copyright 2018-present IsCool Entertainment
+// SPDX-License-Identifier: Apache-2.0
+#pragma once
 
-  Licensed under the Apache License, Version 2.0 (the "License");
-  you may not use this file except in compliance with the License.
-  You may obtain a copy of the License at
-
-  http://www.apache.org/licenses/LICENSE-2.0
-
-  Unless required by applicable law or agreed to in writing, software
-  distributed under the License is distributed on an "AS IS" BASIS,
-  WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
-  See the License for the specific language governing permissions and
-  limitations under the License.
-*/
-#ifndef ISCOOL_OPTIONAL_H
-#define ISCOOL_OPTIONAL_H
-
+#include <cstddef>
 #include <type_traits>
 
 namespace iscool
@@ -66,7 +52,7 @@ namespace iscool
     const T* get() const;
 
   private:
-    typename std::aligned_storage<sizeof(T), alignof(T)>::type _storage;
+    alignas(T) std::byte _storage[sizeof(T)];
     bool _initialized;
   };
 
@@ -131,5 +117,3 @@ extern template class iscool::optional<long long>;
 extern template class iscool::optional<unsigned long long>;
 extern template class iscool::optional<float>;
 extern template class iscool::optional<double>;
-
-#endif

@@ -1,25 +1,11 @@
-/*
-  Copyright 2018-present IsCool Entertainment
-
-  Licensed under the Apache License, Version 2.0 (the "License");
-  you may not use this file except in compliance with the License.
-  You may obtain a copy of the License at
-
-  http://www.apache.org/licenses/LICENSE-2.0
-
-  Unless required by applicable law or agreed to in writing, software
-  distributed under the License is distributed on an "AS IS" BASIS,
-  WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
-  See the License for the specific language governing permissions and
-  limitations under the License.
-*/
-#ifndef ISCOOL_SIGNALS_DETAIL_SIGNAL_H
-#define ISCOOL_SIGNALS_DETAIL_SIGNAL_H
+// SPDX-License-Identifier: Apache-2.0
+#pragma once
 
 #include <iscool/signals/connection.hpp>
 #include <iscool/signals/detail/slot.hpp>
 
 #include <cassert>
+#include <cstddef>
 #include <functional>
 #include <memory>
 #include <type_traits>
@@ -69,10 +55,10 @@ namespace iscool
         typedef std::shared_ptr<internal_slot> shared_slot_ptr;
         typedef std::vector<shared_slot_ptr> shared_slot_ptr_vector;
 
-        typedef typename std::aligned_storage<
-            (sizeof(shared_slot_ptr) > sizeof(shared_slot_ptr_vector))
-                ? sizeof(shared_slot_ptr)
-                : sizeof(shared_slot_ptr_vector)>::type slot_storage;
+        using slot_storage_type =
+            std::conditional_t<(sizeof(shared_slot_ptr)
+                                > sizeof(shared_slot_ptr_vector)),
+                               shared_slot_ptr, shared_slot_ptr_vector>;
 
         enum class storage_kind : char
         {
@@ -92,11 +78,11 @@ namespace iscool
         void swap_vector_none(signal<Signature>& that) noexcept;
 
       private:
-        slot_storage _slot_storage;
+        alignas(slot_storage_type) std::byte
+            _slot_storage[sizeof(slot_storage_type)];
+
         storage_kind _storage_kind;
       };
     }
   }
 }
-
-#endif

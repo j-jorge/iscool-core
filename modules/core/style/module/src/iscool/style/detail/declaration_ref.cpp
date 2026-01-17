@@ -19,18 +19,18 @@
 
 iscool::style::detail::declaration_ref::declaration_ref()
 {
-  new (&_storage) iscool::style::declaration();
+  new (_storage) iscool::style::declaration();
 }
 
 iscool::style::detail::declaration_ref::declaration_ref(
     const declaration_ref& that)
 {
-  new (&_storage) iscool::style::declaration(*that);
+  new (_storage) iscool::style::declaration(*that);
 }
 
 iscool::style::detail::declaration_ref::declaration_ref(declaration_ref&& that)
 {
-  new (&_storage) iscool::style::declaration(std::move(*that));
+  new (_storage) iscool::style::declaration(std::move(*that));
 }
 
 iscool::style::detail::declaration_ref::~declaration_ref()
@@ -57,13 +57,13 @@ iscool::style::detail::declaration_ref::operator=(declaration_ref&& that)
 
 iscool::style::declaration& iscool::style::detail::declaration_ref::operator*()
 {
-  return *reinterpret_cast<declaration*>(&_storage);
+  return *reinterpret_cast<declaration*>(_storage);
 }
 
 const iscool::style::declaration&
 iscool::style::detail::declaration_ref::operator*() const
 {
-  return *reinterpret_cast<const declaration*>(&_storage);
+  return *reinterpret_cast<const declaration*>(_storage);
 }
 
 iscool::style::declaration*

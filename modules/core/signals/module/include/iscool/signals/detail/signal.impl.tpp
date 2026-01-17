@@ -45,7 +45,7 @@ iscool::signals::detail::signal<Signature>::connect(std::function<Signature> f)
   if (_storage_kind == storage_kind::none)
     {
       _storage_kind = storage_kind::pointer;
-      new (&_slot_storage)
+      new (_slot_storage)
           shared_slot_ptr(std::make_shared<internal_slot>(std::move(f)));
       return connection(get_storage_as_pointer());
     }
@@ -64,7 +64,7 @@ iscool::signals::detail::signal<Signature>::connect(std::function<Signature> f)
       pointer.~shared_slot_ptr();
 
       _storage_kind = storage_kind::vector;
-      new (&_slot_storage) shared_slot_ptr_vector(2);
+      new (_slot_storage) shared_slot_ptr_vector(2);
 
       shared_slot_ptr_vector& vector(get_storage_as_vector());
       vector[0] = std::move(old_pointer);
@@ -190,7 +190,7 @@ typename iscool::signals::detail::signal<Signature>::shared_slot_ptr&
 iscool::signals::detail::signal<Signature>::get_storage_as_pointer()
 {
   assert(_storage_kind == storage_kind::pointer);
-  return *reinterpret_cast<shared_slot_ptr*>(&_slot_storage);
+  return *reinterpret_cast<shared_slot_ptr*>(_slot_storage);
 }
 
 template <typename Signature>
@@ -198,7 +198,7 @@ const typename iscool::signals::detail::signal<Signature>::shared_slot_ptr&
 iscool::signals::detail::signal<Signature>::get_storage_as_pointer() const
 {
   assert(_storage_kind == storage_kind::pointer);
-  return *reinterpret_cast<const shared_slot_ptr*>(&_slot_storage);
+  return *reinterpret_cast<const shared_slot_ptr*>(_slot_storage);
 }
 
 template <typename Signature>
@@ -206,7 +206,7 @@ typename iscool::signals::detail::signal<Signature>::shared_slot_ptr_vector&
 iscool::signals::detail::signal<Signature>::get_storage_as_vector()
 {
   assert(_storage_kind == storage_kind::vector);
-  return *reinterpret_cast<shared_slot_ptr_vector*>(&_slot_storage);
+  return *reinterpret_cast<shared_slot_ptr_vector*>(_slot_storage);
 }
 
 template <typename Signature>
@@ -215,7 +215,7 @@ const typename iscool::signals::detail::signal<
 iscool::signals::detail::signal<Signature>::get_storage_as_vector() const
 {
   assert(_storage_kind == storage_kind::vector);
-  return *reinterpret_cast<const shared_slot_ptr_vector*>(&_slot_storage);
+  return *reinterpret_cast<const shared_slot_ptr_vector*>(_slot_storage);
 }
 template <typename Signature>
 void iscool::signals::detail::signal<Signature>::swap_pointer_vector(
@@ -229,7 +229,7 @@ void iscool::signals::detail::signal<Signature>::swap_pointer_vector(
   pointer.~shared_slot_ptr();
 
   shared_slot_ptr_vector& vector(that.get_storage_as_vector());
-  new (&_slot_storage) shared_slot_ptr_vector(std::move(vector));
+  new (_slot_storage) shared_slot_ptr_vector(std::move(vector));
   vector.~shared_slot_ptr_vector();
 
   new (&that._slot_storage) shared_slot_ptr(std::move(old_pointer));
