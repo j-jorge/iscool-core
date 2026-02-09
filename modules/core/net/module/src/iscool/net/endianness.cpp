@@ -44,6 +44,11 @@
   #endif
 #endif
 
+bool iscool::net::to_host_endianness(bool value)
+{
+  return value;
+}
+
 std::uint8_t iscool::net::to_host_endianness(std::uint8_t value)
 {
   return value;
@@ -65,6 +70,11 @@ std::uint64_t iscool::net::to_host_endianness(std::uint64_t value)
 }
 
 std::uint8_t iscool::net::to_network_endianness(std::uint8_t value)
+{
+  return value;
+}
+
+bool iscool::net::to_network_endianness(bool value)
 {
   return value;
 }
