@@ -1,18 +1,4 @@
-/*
-  Copyright 2018-present IsCool Entertainment
-
-  Licensed under the Apache License, Version 2.0 (the "License");
-  you may not use this file except in compliance with the License.
-  You may obtain a copy of the License at
-
-  http://www.apache.org/licenses/LICENSE-2.0
-
-  Unless required by applicable law or agreed to in writing, software
-  distributed under the License is distributed on an "AS IS" BASIS,
-  WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
-  See the License for the specific language governing permissions and
-  limitations under the License.
-*/
+// SPDX-License-Identifier: Apache-2.0
 #include <iscool/http/mockup.hpp>
 
 #include <iscool/files/get_full_path.hpp>
@@ -24,20 +10,15 @@
 #include <boost/algorithm/string/classification.hpp>
 #include <boost/algorithm/string/split.hpp>
 
-namespace iscool
+namespace iscool::http::detail
 {
-  namespace http
-  {
-    namespace detail
-    {
-      static iscool::optional<std::vector<char>>
-      get_predefined_response(const Json::Value& responses,
-                              const std::string& url);
+  static iscool::optional<std::vector<char>>
+  get_predefined_response(const std::filesystem::path& base_dir,
+                          const Json::Value& responses,
+                          const std::string& url);
 
-      static iscool::optional<std::vector<char>>
-      get_file_content(const std::string& path);
-    }
-  }
+  static iscool::optional<std::vector<char>>
+  get_file_content(const std::filesystem::path& path);
 }
 
 iscool::http::mockup::mockup()
@@ -67,7 +48,8 @@ iscool::http::mockup::get_predefined_response(const std::string& url) const
   for (auto it(_responses.rbegin()); it != end; ++it)
     {
       const iscool::optional<std::vector<char>> result(
-          detail::get_predefined_response(iscool::json::from_file(*it), url));
+          detail::get_predefined_response(
+              it->parent_path(), iscool::json::from_file(it->string()), url));
 
       if (result)
         return result;
@@ -77,8 +59,9 @@ iscool::http::mockup::get_predefined_response(const std::string& url) const
 }
 
 iscool::optional<std::vector<char>>
-iscool::http::detail::get_predefined_response(const Json::Value& responses,
-                                              const std::string& url)
+iscool::http::detail::get_predefined_response(
+    const std::filesystem::path& base_dir, const Json::Value& responses,
+    const std::string& url)
 {
   std::string clean_url(url);
   const std::string::size_type separator(clean_url.find_first_of('?'));
@@ -91,7 +74,7 @@ iscool::http::detail::get_predefined_response(const Json::Value& responses,
                boost::token_compress_on);
 
   const std::size_t count(path.size());
-  assert(count >= 3);
+  assert(count >= 2);
 
   Json::Value candidate(responses);
 
@@ -108,14 +91,14 @@ iscool::http::detail::get_predefined_response(const Json::Value& responses,
     }
 
   assert(candidate.isString());
-  return detail::get_file_content(candidate.asString());
+  return detail::get_file_content(base_dir / candidate.asString());
 }
 
 iscool::optional<std::vector<char>>
-iscool::http::detail::get_file_content(const std::string& path)
+iscool::http::detail::get_file_content(const std::filesystem::path& path)
 {
   const std::unique_ptr<std::istream> content(
-      iscool::files::read_file(iscool::files::get_full_path(path)));
+      iscool::files::read_file(iscool::files::get_full_path(path.string())));
 
   if ((content == nullptr) || !(*content))
     return iscool::none;
