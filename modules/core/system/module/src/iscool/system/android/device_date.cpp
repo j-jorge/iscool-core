@@ -23,5 +23,7 @@ std::tm iscool::system::device_date()
       std::chrono::system_clock::time_point(
           detail::device_time_milliseconds())));
 
-  return *std::gmtime(&now);
+  std::tm result;
+  gmtime_r(&now, &result);
+  return result;
 }

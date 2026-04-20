@@ -43,28 +43,31 @@ void iscool::log::add_file_sink(const std::string& path,
   const auto write_log(
       [log_file](const iscool::log::nature::nature& nature,
                  const context& context, const std::string& message)
-      {
-        detail::queue_in_logger_thread(
-            [=]() -> void
-            {
-              const std::time_t t = std::time(nullptr);
-              *log_file << '[' << std::put_time(std::gmtime(&t), "%F %T")
-                        << "][" << nature.string() << "]["
-                        << context.get_reporter() << "] " << message
-                        << std::endl;
-            });
-      });
+        {
+          detail::queue_in_logger_thread(
+              [=]() -> void
+                {
+                  const std::time_t t = std::time(nullptr);
+                  std::tm tm;
+                  gmtime_r(&t, &tm);
+
+                  *log_file << '[' << std::put_time(&tm, "%F %T") << "]["
+                            << nature.string() << "]["
+                            << context.get_reporter() << "] " << message
+                            << std::endl;
+                });
+        });
 
   message_delegates delegates;
   delegates.print_message = write_log;
 
   delegates.print_error = [write_log](const context& context,
                                       const error::synopsis& synopsis) -> void
-  {
-    write_log(nature::error(), context,
-              std::format("{}-{}: {}", synopsis.get_category(),
-                          synopsis.get_code(), synopsis.get_message()));
-  };
+    {
+      write_log(nature::error(), context,
+                std::format("{}-{}: {}", synopsis.get_category(),
+                            synopsis.get_code(), synopsis.get_message()));
+    };
 
   detail::get_message_dispatcher().register_delegates(delegates);
 }

@@ -22,5 +22,7 @@ std::tm iscool::system::device_date()
   const std::time_t now(
       std::chrono::system_clock::to_time_t(std::chrono::system_clock::now()));
 
-  return *std::localtime(&now);
+  std::tm result;
+  localtime_r(&now, &result);
+  return result;
 }
