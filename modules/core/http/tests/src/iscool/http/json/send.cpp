@@ -1,18 +1,4 @@
-/*
-  Copyright 2018-present IsCool Entertainment
-
-  Licensed under the Apache License, Version 2.0 (the "License");
-  you may not use this file except in compliance with the License.
-  You may obtain a copy of the License at
-
-  http://www.apache.org/licenses/LICENSE-2.0
-
-  Unless required by applicable law or agreed to in writing, software
-  distributed under the License is distributed on an "AS IS" BASIS,
-  WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
-  See the License for the specific language governing permissions and
-  limitations under the License.
-*/
+// SPDX-License-Identifier: Apache-2.0
 #include <iscool/http/json/send.hpp>
 #include <iscool/http/request.hpp>
 #include <iscool/http/setup.hpp>
@@ -47,9 +33,9 @@ json_send_mockup::json_send_mockup()
 {
   auto request_handler(
       [this](const iscool::http::request& request) -> void
-      {
-        _request = request;
-      });
+        {
+          _request = request;
+        });
 
   iscool::http::initialize(request_handler);
 }
@@ -64,17 +50,17 @@ json_send_mockup::get(const std::string& url)
 {
   auto on_result(
       [this](Json::Value result) -> void
-      {
-        _last_error = iscool::none;
-        _last_result = result;
-      });
+        {
+          _last_error = iscool::none;
+          _last_result = result;
+        });
 
   auto on_error(
-      [this](std::vector<char> error) -> void
-      {
-        _last_result = iscool::none;
-        _last_error = error;
-      });
+      [this](std::span<const char> error) -> void
+        {
+          _last_result = iscool::none;
+          _last_error = std::vector(error.begin(), error.end());
+        });
 
   return iscool::http::json::get(url, on_result, on_error);
 }
@@ -83,18 +69,18 @@ iscool::signals::shared_connection_set
 json_send_mockup::post(const std::string& url, const Json::Value& body)
 {
   auto on_result(
-      [this](Json::Value result) -> void
-      {
-        _last_error = iscool::none;
-        _last_result = result;
-      });
+      [this](const Json::Value& result) -> void
+        {
+          _last_error = iscool::none;
+          _last_result = result;
+        });
 
   auto on_error(
-      [this](std::vector<char> error) -> void
-      {
-        _last_result = iscool::none;
-        _last_error = error;
-      });
+      [this](std::span<const char> error) -> void
+        {
+          _last_result = iscool::none;
+          _last_error = std::vector(error.begin(), error.end());
+        });
 
   return iscool::http::json::post(url, body, on_result, on_error);
 }
@@ -103,7 +89,7 @@ void json_send_mockup::dispatch_response(int code, const std::string& body)
 {
   assert(_request);
 
-  _request->get_response_handler()(iscool::http::response(
+  _request->result_handler(iscool::http::response(
       code, std::vector<char>(body.begin(), body.end())));
 }
 
@@ -121,8 +107,8 @@ TEST(iscool_http_json_send_test, get_result)
   const iscool::signals::shared_connection_set connections(mockup.get(url));
 
   ASSERT_TRUE(!!mockup._request);
-  EXPECT_EQ(iscool::http::request::type::get, mockup._request->get_type());
-  EXPECT_EQ(url, mockup._request->get_url());
+  EXPECT_EQ(iscool::http::request::type::get, mockup._request->request_type);
+  EXPECT_EQ(url, mockup._request->url);
 
   Json::Value response;
   response["string"] = "yep";
@@ -143,8 +129,8 @@ TEST(iscool_http_json_send_test, get_empty_result)
   const iscool::signals::shared_connection_set connections(mockup.get(url));
 
   ASSERT_TRUE(!!mockup._request);
-  EXPECT_EQ(iscool::http::request::type::get, mockup._request->get_type());
-  EXPECT_EQ(url, mockup._request->get_url());
+  EXPECT_EQ(iscool::http::request::type::get, mockup._request->request_type);
+  EXPECT_EQ(url, mockup._request->url);
 
   mockup.dispatch_response(200, std::string());
 
@@ -181,14 +167,14 @@ TEST(iscool_http_json_send_test, post_result)
       mockup.post(url, body));
 
   ASSERT_TRUE(!!mockup._request);
-  EXPECT_EQ(iscool::http::request::type::post, mockup._request->get_type());
-  EXPECT_EQ(url, mockup._request->get_url());
+  EXPECT_EQ(iscool::http::request::type::post, mockup._request->request_type);
+  EXPECT_EQ(url, mockup._request->url);
 
   const Json::Value request_body(
-      iscool::json::parse_string(mockup._request->get_body()));
+      iscool::json::parse_string(mockup._request->body));
   EXPECT_TRUE(request_body == body);
 
-  const std::vector<std::string> headers(mockup._request->get_headers());
+  const std::vector<std::string> headers(mockup._request->headers);
 
   ASSERT_FALSE(headers.empty());
   bool content_type_set(false);
@@ -234,8 +220,8 @@ TEST(iscool_http_json_send_test, post_empty_result)
       mockup.post(url, body));
 
   ASSERT_TRUE(!!mockup._request);
-  EXPECT_EQ(iscool::http::request::type::post, mockup._request->get_type());
-  EXPECT_EQ(url, mockup._request->get_url());
+  EXPECT_EQ(iscool::http::request::type::post, mockup._request->request_type);
+  EXPECT_EQ(url, mockup._request->url);
 
   mockup.dispatch_response(200, std::string());
 

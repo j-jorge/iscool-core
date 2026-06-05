@@ -1,18 +1,4 @@
-/*
-  Copyright 2018-present IsCool Entertainment
-
-  Licensed under the Apache License, Version 2.0 (the "License");
-  you may not use this file except in compliance with the License.
-  You may obtain a copy of the License at
-
-  http://www.apache.org/licenses/LICENSE-2.0
-
-  Unless required by applicable law or agreed to in writing, software
-  distributed under the License is distributed on an "AS IS" BASIS,
-  WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
-  See the License for the specific language governing permissions and
-  limitations under the License.
-*/
+// SPDX-License-Identifier: Apache-2.0
 #include <iscool/http/request.hpp>
 #include <iscool/http/send.hpp>
 #include <iscool/http/setup.hpp>
@@ -30,10 +16,9 @@ public:
   send_mockup();
   ~send_mockup();
 
-  iscool::signals::shared_connection_set get(const std::string& url);
+  iscool::signals::shared_connection_set get(std::string url);
   iscool::signals::shared_connection_set
-  post(const std::string& url, const std::vector<std::string>& headers,
-       const std::string& body);
+  post(std::string url, std::vector<std::string> headers, std::string body);
 
   void dispatch_response(int code, const std::string& body);
   std::string result_string() const;
@@ -43,15 +28,17 @@ public:
   std::vector<iscool::http::request> _requests;
   iscool::optional<std::vector<char>> _last_result;
   iscool::optional<std::vector<char>> _last_error;
+  const char* _active_response_body;
 };
 
 send_mockup::send_mockup()
+  : _active_response_body(nullptr)
 {
   auto request_handler(
-      [this](const iscool::http::request& request) -> void
-      {
-        _requests.push_back(request);
-      });
+      [this](iscool::http::request request) -> void
+        {
+          _requests.push_back(std::move(request));
+        });
 
   iscool::http::initialize(request_handler);
 }
@@ -61,56 +48,68 @@ send_mockup::~send_mockup()
   iscool::http::finalize();
 }
 
-iscool::signals::shared_connection_set send_mockup::get(const std::string& url)
+iscool::signals::shared_connection_set send_mockup::get(std::string url)
 {
   auto on_result(
-      [this](std::vector<char> result) -> void
-      {
-        _last_error = iscool::none;
-        _last_result = result;
-      });
+      [this](std::span<const char> result) -> void
+        {
+          // There should be no copy from the call site to this callback.
+          EXPECT_EQ(_active_response_body, result.data());
+          _last_error = iscool::none;
+          _last_result = std::vector(result.begin(), result.end());
+        });
 
   auto on_error(
-      [this](std::vector<char> error) -> void
-      {
-        _last_result = iscool::none;
-        _last_error = error;
-      });
+      [this](std::span<const char> error) -> void
+        {
+          // There should be no copy from the call site to this callback.
+          EXPECT_EQ(_active_response_body, error.data());
+          _last_result = iscool::none;
+          _last_error = std::vector(error.begin(), error.end());
+        });
 
-  return iscool::http::get(url, on_result, on_error);
+  return iscool::http::get(std::move(url), on_result, on_error);
 }
 
 iscool::signals::shared_connection_set
-send_mockup::post(const std::string& url,
-                  const std::vector<std::string>& headers,
-                  const std::string& body)
+send_mockup::post(std::string url, std::vector<std::string> headers,
+                  std::string body)
 {
   auto on_result(
-      [this](std::vector<char> result) -> void
-      {
-        _last_error = iscool::none;
-        _last_result = result;
-      });
+      [this](std::span<const char> result) -> void
+        {
+          // There should be no copy from the call site to this callback.
+          EXPECT_EQ(_active_response_body, result.data());
+          _last_error = iscool::none;
+          _last_result = std::vector(result.begin(), result.end());
+        });
 
   auto on_error(
-      [this](std::vector<char> error) -> void
-      {
-        _last_result = iscool::none;
-        _last_error = error;
-      });
+      [this](std::span<const char> error) -> void
+        {
+          // There should be no copy from the call site to this callback.
+          EXPECT_EQ(_active_response_body, error.data());
+          _last_result = iscool::none;
+          _last_error = std::vector(error.begin(), error.end());
+        });
 
-  return iscool::http::post(url, headers, body, on_result, on_error);
+  return iscool::http::post(std::move(url), std::move(headers),
+                            std::move(body), on_result, on_error);
 }
 
 void send_mockup::dispatch_response(int code, const std::string& body)
 {
   assert(!_requests.empty());
 
-  const iscool::http::request request(_requests.front());
+  const iscool::http::request request(std::move(_requests.front()));
   _requests.erase(_requests.begin());
 
-  request.get_response_handler()(iscool::http::response(
-      code, std::vector<char>(body.begin(), body.end())));
+  const iscool::http::response response(
+      code, std::span<const char>(body.begin(), body.end()));
+
+  _active_response_body = response.body.data();
+  request.result_handler(response);
+  _active_response_body = nullptr;
 }
 
 std::string send_mockup::result_string() const
@@ -129,12 +128,18 @@ TEST(iscool_http_send_test, get_result)
 {
   send_mockup mockup;
 
-  const std::string url("http://www.example.org");
-  const iscool::signals::shared_connection_set connections(mockup.get(url));
+  std::string url("http://www.example.org");
+  const char* url_ptr = url.data();
+  const iscool::signals::shared_connection_set connections(
+      mockup.get(std::move(url)));
 
   ASSERT_EQ(1ull, mockup._requests.size());
-  EXPECT_EQ(iscool::http::request::type::get, mockup._requests[0].get_type());
-  EXPECT_EQ(url, mockup._requests[0].get_url());
+
+  EXPECT_EQ(iscool::http::request::type::get,
+            mockup._requests[0].request_type);
+
+  // The url should have been moved down to the request.
+  EXPECT_EQ(url_ptr, mockup._requests[0].url.data());
 
   mockup.dispatch_response(200, "yep");
 
@@ -266,10 +271,11 @@ TEST(iscool_http_send_test, post_result)
       mockup.post(url, headers, body));
 
   ASSERT_EQ(1ull, mockup._requests.size());
-  EXPECT_EQ(iscool::http::request::type::post, mockup._requests[0].get_type());
-  EXPECT_EQ(url, mockup._requests[0].get_url());
-  EXPECT_EQ(body, mockup._requests[0].get_body());
-  EXPECT_EQ(headers, mockup._requests[0].get_headers());
+  EXPECT_EQ(iscool::http::request::type::post,
+            mockup._requests[0].request_type);
+  EXPECT_EQ(url, mockup._requests[0].url);
+  EXPECT_EQ(body, mockup._requests[0].body);
+  EXPECT_EQ(headers, mockup._requests[0].headers);
 
   mockup.dispatch_response(200, "yep");
 
@@ -301,52 +307,54 @@ TEST(iscool_http_send_test, send_in_response)
   std::string second_result_value;
 
   auto second_result(
-      [&second_result_value](std::vector<char> result) -> void
-      {
-        second_result_value = std::string(result.begin(), result.end());
-      });
+      [&second_result_value](std::span<const char> result) -> void
+        {
+          second_result_value = std::string(result.begin(), result.end());
+        });
 
   auto second_error(
-      [](std::vector<char> error) -> void
-      {
-        EXPECT_TRUE(false);
-      });
+      [](std::span<const char> error) -> void
+        {
+          EXPECT_TRUE(false);
+        });
 
   iscool::signals::shared_connection_set connections;
 
   std::string first_result_value;
   auto first_result(
       [&connections, &first_result_value, second_result,
-       second_error](std::vector<char> result) -> void
-      {
-        first_result_value = std::string(result.begin(), result.end());
-        connections.insert(
-            iscool::http::get("b", second_result, second_error));
-      });
+       second_error](std::span<const char> result) -> void
+        {
+          first_result_value = std::string(result.begin(), result.end());
+          connections.insert(
+              iscool::http::get("b", second_result, second_error));
+        });
 
   auto first_error(
-      [](std::vector<char> error) -> void
-      {
-        EXPECT_TRUE(false);
-      });
+      [this](std::span<const char> error) -> void
+        {
+          EXPECT_TRUE(false);
+        });
 
   std::vector<iscool::http::request> requests;
 
   auto mockup(
       [&requests](const iscool::http::request& r) -> void
-      {
-        requests.push_back(r);
-      });
+        {
+          requests.push_back(r);
+        });
 
   iscool::http::initialize(mockup);
   connections = iscool::http::get("a", first_result, first_error);
 
   EXPECT_EQ(1ull, requests.size());
-  requests[0].get_response_handler()(iscool::http::response(200, { '1' }));
+  const char first_body[] = { '1' };
+  requests[0].result_handler(iscool::http::response(200, first_body));
   EXPECT_EQ("1", first_result_value);
 
   EXPECT_EQ(2ull, requests.size());
-  requests[1].get_response_handler()(iscool::http::response(200, { '2' }));
+  const char second_body[] = { '2' };
+  requests[1].result_handler(iscool::http::response(200, second_body));
   EXPECT_EQ("2", second_result_value);
 
   iscool::http::finalize();

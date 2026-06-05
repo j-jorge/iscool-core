@@ -1,18 +1,4 @@
-/*
-  Copyright 2018-present IsCool Entertainment
-
-  Licensed under the Apache License, Version 2.0 (the "License");
-  you may not use this file except in compliance with the License.
-  You may obtain a copy of the License at
-
-  http://www.apache.org/licenses/LICENSE-2.0
-
-  Unless required by applicable law or agreed to in writing, software
-  distributed under the License is distributed on an "AS IS" BASIS,
-  WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
-  See the License for the specific language governing permissions and
-  limitations under the License.
-*/
+// SPDX-License-Identifier: Apache-2.0
 #include <iscool/http/request.hpp>
 #include <iscool/http/send.hpp>
 #include <iscool/http/service_statistics.hpp>
@@ -35,15 +21,16 @@ public:
 
 public:
   std::vector<iscool::http::request> _requests;
+  iscool::signals::shared_connection_set _connections;
 };
 
 iscool_http_service_statistics_test::iscool_http_service_statistics_test()
 {
   auto request_handler(
       [this](const iscool::http::request& request) -> void
-      {
-        _requests.push_back(request);
-      });
+        {
+          _requests.push_back(request);
+        });
 
   iscool::http::initialize(request_handler);
 }
@@ -55,16 +42,7 @@ iscool_http_service_statistics_test::~iscool_http_service_statistics_test()
 
 void iscool_http_service_statistics_test::get()
 {
-  auto on_result(
-      [](std::vector<char> result) -> void
-      {
-      });
-  auto on_error(
-      [](std::vector<char> error) -> void
-      {
-      });
-
-  iscool::http::get("http://www.example.org/", on_result, on_error);
+  _connections = iscool::http::get("http://www.example.org/", {}, {});
 }
 
 void iscool_http_service_statistics_test::dispatch_response(int code)
@@ -76,7 +54,7 @@ void iscool_http_service_statistics_test::dispatch_response(int code)
 
   assert(_requests.empty());
 
-  request.get_response_handler()(iscool::http::response(code, {}));
+  request.result_handler(iscool::http::response(code, {}));
 }
 
 TEST_F(iscool_http_service_statistics_test, initial_quality)
@@ -123,9 +101,9 @@ TEST_F(iscool_http_service_statistics_test, dispatch_changes)
 
   auto change(
       [&calls](float q) -> void
-      {
-        ++calls;
-      });
+        {
+          ++calls;
+        });
 
   const iscool::signals::scoped_connection connection(
       iscool::http::connect_to_service_quality_changed(change));

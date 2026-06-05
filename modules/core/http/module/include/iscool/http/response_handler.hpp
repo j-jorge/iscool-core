@@ -1,30 +1,10 @@
-/*
-  Copyright 2018-present IsCool Entertainment
-
-  Licensed under the Apache License, Version 2.0 (the "License");
-  you may not use this file except in compliance with the License.
-  You may obtain a copy of the License at
-
-  http://www.apache.org/licenses/LICENSE-2.0
-
-  Unless required by applicable law or agreed to in writing, software
-  distributed under the License is distributed on an "AS IS" BASIS,
-  WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
-  See the License for the specific language governing permissions and
-  limitations under the License.
-*/
-#ifndef ISCOOL_HTTP_RESPONSE_HANDLER_H
-#define ISCOOL_HTTP_RESPONSE_HANDLER_H
+// SPDX-License-Identifier: Apache-2.0
+#pragma once
 
 #include <functional>
-#include <vector>
+#include <span>
 
-namespace iscool
+namespace iscool::http
 {
-  namespace http
-  {
-    typedef std::function<void(std::vector<char>)> response_handler;
-  }
+  typedef std::function<void(std::span<const char>)> response_handler;
 }
-
-#endif
