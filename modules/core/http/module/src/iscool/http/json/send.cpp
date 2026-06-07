@@ -1,6 +1,8 @@
 // SPDX-License-Identifier: Apache-2.0
 #include <iscool/http/json/send.hpp>
 
+#include <iscool/http/json/headers.hpp>
+
 #include <iscool/http/send.hpp>
 
 #include <iscool/json/parse_string.hpp>
@@ -34,8 +36,8 @@ iscool::http::json::post(std::string url, const Json::Value& body,
 
   std::vector<std::string> headers;
   headers.reserve(2);
-  headers.push_back("Content-Type: application/json; charset=utf-8");
-  headers.push_back("Accept: application/json");
+  headers.emplace_back(headers::content_type);
+  headers.emplace_back(headers::accept);
 
   return http::post(std::move(url), std::move(headers), std::move(body_data),
                     std::move(convert_result_to_json), std::move(on_error));
