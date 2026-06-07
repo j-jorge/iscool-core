@@ -18,6 +18,7 @@ declare_iscool_library( NAME json
   "parse_stream.cpp"
   "parse_string.cpp"
   "write_to_stream.cpp"
+  "write_to_string.cpp"
 
   "detail/cast_bool.cpp"
   "detail/cast_double.cpp"
@@ -61,4 +62,5 @@ declare_iscool_library_test( NAME json
   "parse_stream.cpp"
   "to_array.cpp"
   "write_to_stream.cpp"
+  "write_to_string.cpp"
   )

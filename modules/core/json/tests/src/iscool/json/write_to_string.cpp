@@ -1,13 +1,13 @@
 // SPDX-License-Identifier: Apache-2.0
-#include <iscool/json/write_to_stream.hpp>
+#include <iscool/json/write_to_string.hpp>
 
 #include <iscool/json/cast_int.hpp>
 #include <iscool/json/cast_string.hpp>
-#include <iscool/json/parse_stream.hpp>
+#include <iscool/json/parse_string.hpp>
 
 #include <gtest/gtest.h>
 
-TEST(iscool_json_write_to_stream, valid)
+TEST(iscool_json_write_to_string, valid)
 {
   Json::Value source_value;
   source_value["int"] = 24;
@@ -17,11 +17,11 @@ TEST(iscool_json_write_to_stream, valid)
   source_value["array"][2]["id"] = 72;
   source_value["array"][3] = 1.8;
 
-  std::stringstream oss;
+  std::string str;
 
-  EXPECT_TRUE(iscool::json::write_to_stream(oss, source_value));
+  EXPECT_TRUE(iscool::json::write_to_string(str, source_value));
 
-  const Json::Value result(iscool::json::parse_stream(oss));
+  const Json::Value result(iscool::json::parse_string(str));
 
   EXPECT_EQ(24, iscool::json::cast<int>(result["int"]));
   EXPECT_EQ("value",
@@ -34,16 +34,32 @@ TEST(iscool_json_write_to_stream, valid)
   EXPECT_EQ(1.8f, result["array"][3].asFloat());
 }
 
-TEST(iscool_json_write_to_stream, compact)
+TEST(iscool_json_write_to_string, compact)
 {
   Json::Value source_value;
   source_value["array"][0] = 10;
   source_value["array"][1]["property"] = "value";
   source_value["array"][2] = 72;
 
-  std::stringstream oss;
+  std::string str;
 
-  EXPECT_TRUE(iscool::json::write_to_stream(oss, source_value));
+  EXPECT_TRUE(iscool::json::write_to_string(str, source_value));
 
-  EXPECT_EQ(R"({"array":[10,{"property":"value"},72]})", oss.str());
+  EXPECT_EQ(R"({"array":[10,{"property":"value"},72]})", str);
+}
+
+TEST(iscool_json_write_to_string, large_enough_output_is_not_reallocated)
+{
+  Json::Value source_value;
+  source_value["array"][0] = 10;
+  source_value["array"][1]["property"] = "value";
+  source_value["array"][2] = 72;
+
+  std::string str;
+  str.reserve(1024);
+  const char* const str_ptr = str.c_str();
+
+  EXPECT_TRUE(iscool::json::write_to_string(str, source_value));
+
+  EXPECT_EQ(str_ptr, str.c_str());
 }
