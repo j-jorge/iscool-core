@@ -37,7 +37,7 @@ public:                                                                       \
   typedef std::function<TYPE> DETAIL_SIGNAL_FUNCTION_TYPE_NAME(NAME);         \
                                                                               \
   ::iscool::signals::connection DETAIL_SIGNAL_CONNECT_FUNCTION_NAME(NAME)(    \
-      const DETAIL_SIGNAL_FUNCTION_TYPE_NAME(NAME) & function) const;         \
+      DETAIL_SIGNAL_FUNCTION_TYPE_NAME(NAME) function) const;                 \
                                                                               \
 private:                                                                      \
   mutable ::iscool::schedule::async_signal<TYPE> MEMBER;
