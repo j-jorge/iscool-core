@@ -40,6 +40,8 @@ iscool::iso_639_language_code iscool::to_language_code(language_name c)
       return iso_639_language_code::ru;
     case language_name::sv_SE:
       return iso_639_language_code::sv;
+    case language_name::ta_IN:
+      return iso_639_language_code::ta;
     case language_name::th_TH:
       return iso_639_language_code::th;
     case language_name::tr_TR:
@@ -92,6 +94,8 @@ std::string_view iscool::to_string(iscool::language_name c)
       return "ru_RU";
     case language_name::sv_SE:
       return "sv_SE";
+    case language_name::ta_IN:
+      return "ta_IN";
     case language_name::th_TH:
       return "th_TH";
     case language_name::tr_TR:
@@ -166,6 +170,9 @@ iscool::language_name iscool::from_string_with_fallback(std::string_view s)
   if (language_code == "sv")
     return language_name::sv_SE;
 
+  if (language_code == "ta")
+    return language_name::ta_IN;
+
   if (language_code == "th")
     return language_name::th_TH;
 
@@ -224,6 +231,8 @@ std::string_view iscool::to_human_string(iscool::language_name c)
       return "Русский";
     case language_name::sv_SE:
       return "Svenska";
+    case language_name::ta_IN:
+      return "தமிழ்";
     case language_name::th_TH:
       return "อักษรไทย";
     case language_name::tr_TR:

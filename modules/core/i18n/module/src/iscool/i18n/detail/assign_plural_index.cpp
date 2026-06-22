@@ -11,9 +11,9 @@
 #define assign_index_expression_and_return(expression)                        \
   {                                                                           \
     plural_index = [](std::uint64_t n) -> std::uint8_t                        \
-    {                                                                         \
-      return expression;                                                      \
-    };                                                                        \
+      {                                                                       \
+        return expression;                                                    \
+      };                                                                      \
                                                                               \
     return;                                                                   \
   }
@@ -54,6 +54,7 @@ void iscool::i18n::detail::assign_plural_index(
     case iscool::iso_639_language_code::nl:
     case iscool::iso_639_language_code::pt:
     case iscool::iso_639_language_code::sv:
+    case iscool::iso_639_language_code::ta:
       assign_index_expression_and_return((n != 1) ? 1 : 0);
 
     case iscool::iso_639_language_code::ja:

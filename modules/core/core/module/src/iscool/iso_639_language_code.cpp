@@ -39,6 +39,8 @@ std::string_view iscool::to_string(iso_639_language_code c)
       return "ru";
     case iso_639_language_code::sv:
       return "sv";
+    case iso_639_language_code::ta:
+      return "ta";
     case iso_639_language_code::th:
       return "th";
     case iso_639_language_code::tr:

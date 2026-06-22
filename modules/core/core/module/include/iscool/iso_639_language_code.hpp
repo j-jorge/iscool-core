@@ -24,6 +24,7 @@ namespace iscool
     pt,
     ru,
     sv,
+    ta,
     th,
     tr,
     uk,
