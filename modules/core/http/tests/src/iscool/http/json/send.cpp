@@ -20,7 +20,7 @@ public:
   iscool::signals::shared_connection_set post(const std::string& url,
                                               const Json::Value& body);
 
-  void dispatch_response(int code, const std::string& body);
+  void dispatch_response(int status, const std::string& body);
   std::string error_string() const;
 
 public:
@@ -56,7 +56,7 @@ json_send_mockup::get(const std::string& url)
         });
 
   auto on_error(
-      [this](std::span<const char> error) -> void
+      [this](int status, std::span<const char> error) -> void
         {
           _last_result = iscool::none;
           _last_error = std::vector(error.begin(), error.end());
@@ -76,7 +76,7 @@ json_send_mockup::post(const std::string& url, const Json::Value& body)
         });
 
   auto on_error(
-      [this](std::span<const char> error) -> void
+      [this](int status, std::span<const char> error) -> void
         {
           _last_result = iscool::none;
           _last_error = std::vector(error.begin(), error.end());
@@ -85,12 +85,12 @@ json_send_mockup::post(const std::string& url, const Json::Value& body)
   return iscool::http::json::post(url, body, on_result, on_error);
 }
 
-void json_send_mockup::dispatch_response(int code, const std::string& body)
+void json_send_mockup::dispatch_response(int status, const std::string& body)
 {
   assert(_request);
 
   _request->result_handler(iscool::http::response(
-      code, std::vector<char>(body.begin(), body.end())));
+      status, std::vector<char>(body.begin(), body.end())));
 }
 
 std::string json_send_mockup::error_string() const

@@ -20,7 +20,7 @@ public:
   iscool::signals::shared_connection_set
   post(std::string url, std::vector<std::string> headers, std::string body);
 
-  void dispatch_response(int code, const std::string& body);
+  void dispatch_response(int status, const std::string& body);
   std::string result_string() const;
   std::string error_string() const;
 
@@ -60,7 +60,7 @@ iscool::signals::shared_connection_set send_mockup::get(std::string url)
         });
 
   auto on_error(
-      [this](std::span<const char> error) -> void
+      [this](int status, std::span<const char> error) -> void
         {
           // There should be no copy from the call site to this callback.
           EXPECT_EQ(_active_response_body, error.data());
@@ -85,7 +85,7 @@ send_mockup::post(std::string url, std::vector<std::string> headers,
         });
 
   auto on_error(
-      [this](std::span<const char> error) -> void
+      [this](int status, std::span<const char> error) -> void
         {
           // There should be no copy from the call site to this callback.
           EXPECT_EQ(_active_response_body, error.data());
@@ -97,7 +97,7 @@ send_mockup::post(std::string url, std::vector<std::string> headers,
                             std::move(body), on_result, on_error);
 }
 
-void send_mockup::dispatch_response(int code, const std::string& body)
+void send_mockup::dispatch_response(int status, const std::string& body)
 {
   assert(!_requests.empty());
 
@@ -105,7 +105,7 @@ void send_mockup::dispatch_response(int code, const std::string& body)
   _requests.erase(_requests.begin());
 
   const iscool::http::response response(
-      code, std::span<const char>(body.begin(), body.end()));
+      status, std::span<const char>(body.begin(), body.end()));
 
   _active_response_body = response.body.data();
   request.result_handler(response);
@@ -313,7 +313,7 @@ TEST(iscool_http_send_test, send_in_response)
         });
 
   auto second_error(
-      [](std::span<const char> error) -> void
+      [](int status, std::span<const char> error) -> void
         {
           EXPECT_TRUE(false);
         });
@@ -331,7 +331,7 @@ TEST(iscool_http_send_test, send_in_response)
         });
 
   auto first_error(
-      [this](std::span<const char> error) -> void
+      [this](int status, std::span<const char> error) -> void
         {
           EXPECT_TRUE(false);
         });

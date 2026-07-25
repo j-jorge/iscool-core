@@ -17,7 +17,7 @@ public:
 
   void get();
 
-  void dispatch_response(int code);
+  void dispatch_response(int status);
 
 public:
   std::vector<iscool::http::request> _requests;
@@ -45,7 +45,7 @@ void iscool_http_service_statistics_test::get()
   _connections = iscool::http::get("http://www.example.org/", {}, {});
 }
 
-void iscool_http_service_statistics_test::dispatch_response(int code)
+void iscool_http_service_statistics_test::dispatch_response(int status)
 {
   assert(!_requests.empty());
 
@@ -54,7 +54,7 @@ void iscool_http_service_statistics_test::dispatch_response(int code)
 
   assert(_requests.empty());
 
-  request.result_handler(iscool::http::response(code, {}));
+  request.result_handler(iscool::http::response(status, {}));
 }
 
 TEST_F(iscool_http_service_statistics_test, initial_quality)

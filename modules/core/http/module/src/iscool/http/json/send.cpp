@@ -11,12 +11,12 @@ namespace iscool::http::json::detail
 {
   static http::response_handler
   build_json_result_handler(response_handler on_result,
-                            http::response_handler on_error);
+                            http::error_handler on_error);
 }
 
 iscool::signals::shared_connection_set
 iscool::http::json::get(std::string url, response_handler on_result,
-                        http::response_handler on_error)
+                        http::error_handler on_error)
 {
   http::response_handler convert_result_to_json(
       detail::build_json_result_handler(std::move(on_result), on_error));
@@ -28,7 +28,7 @@ iscool::http::json::get(std::string url, response_handler on_result,
 iscool::signals::shared_connection_set
 iscool::http::json::post(std::string url, const Json::Value& body,
                          response_handler on_result,
-                         http::response_handler on_error)
+                         http::error_handler on_error)
 {
   std::string body_data(body.toStyledString());
   http::response_handler convert_result_to_json(
@@ -45,7 +45,7 @@ iscool::http::json::post(std::string url, const Json::Value& body,
 
 iscool::http::response_handler
 iscool::http::json::detail::build_json_result_handler(
-    response_handler on_result, http::response_handler on_error)
+    response_handler on_result, http::error_handler on_error)
 {
   return [on_result = std::move(on_result), on_error = std::move(on_error)](
              std::span<const char> response) -> void
@@ -56,12 +56,7 @@ iscool::http::json::detail::build_json_result_handler(
                  return;
                }
 
-             const Json::Value result_value(iscool::json::parse_string(
+             on_result(iscool::json::parse_string(
                  std::string_view(response.data(), response.size())));
-
-             if (result_value != Json::nullValue)
-               on_result(result_value);
-             else
-               on_error(response);
            };
 }

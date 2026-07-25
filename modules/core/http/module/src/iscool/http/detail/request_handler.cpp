@@ -15,7 +15,7 @@ void iscool::http::detail::request_handler::process_response(const response& r)
   if (r.status == 200)
     _on_result(r.body);
   else
-    _on_error(r.body);
+    _on_error(r.status, r.body);
 }
 
 void iscool::http::detail::request_handler::clear()
