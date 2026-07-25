@@ -25,7 +25,8 @@ namespace iscool::http::detail
 
     slot pick_available_handler();
 
-    void process_response(std::size_t handler_index, const response& r);
+    request_handler& get(std::size_t handler_index);
+    void release(std::size_t handler_index);
 
   private:
     pool_type _pool;

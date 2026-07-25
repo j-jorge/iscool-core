@@ -3,10 +3,15 @@
 #include <iscool/http/send.hpp>
 #include <iscool/http/setup.hpp>
 
+#include <iscool/schedule/manual_scheduler.hpp>
+#include <iscool/schedule/setup.hpp>
+
+#include <iscool/time/setup.hpp>
+
 #include <iscool/none.hpp>
 #include <iscool/optional.hpp>
 
-#include "gtest/gtest.h"
+#include <gtest/gtest.h>
 
 #include <boost/lexical_cast.hpp>
 
@@ -16,9 +21,10 @@ public:
   send_mockup();
   ~send_mockup();
 
-  iscool::signals::shared_connection_set get(std::string url);
-  iscool::signals::shared_connection_set
-  post(std::string url, std::vector<std::string> headers, std::string body);
+  iscool::signals::shared_connection_set get(const std::string& url);
+  iscool::signals::shared_connection_set post(const std::string& url,
+                                              std::vector<std::string> headers,
+                                              std::string body);
 
   void dispatch_response(int status, const std::string& body);
   std::string result_string() const;
@@ -27,6 +33,7 @@ public:
 public:
   std::vector<iscool::http::request> _requests;
   iscool::optional<std::vector<char>> _last_result;
+  iscool::optional<int> _last_error_status;
   iscool::optional<std::vector<char>> _last_error;
   const char* _active_response_body;
 };
@@ -48,7 +55,7 @@ send_mockup::~send_mockup()
   iscool::http::finalize();
 }
 
-iscool::signals::shared_connection_set send_mockup::get(std::string url)
+iscool::signals::shared_connection_set send_mockup::get(const std::string& url)
 {
   auto on_result(
       [this](std::span<const char> result) -> void
@@ -56,6 +63,7 @@ iscool::signals::shared_connection_set send_mockup::get(std::string url)
           // There should be no copy from the call site to this callback.
           EXPECT_EQ(_active_response_body, result.data());
           _last_error = iscool::none;
+          _last_error_status = iscool::none;
           _last_result = std::vector(result.begin(), result.end());
         });
 
@@ -65,14 +73,15 @@ iscool::signals::shared_connection_set send_mockup::get(std::string url)
           // There should be no copy from the call site to this callback.
           EXPECT_EQ(_active_response_body, error.data());
           _last_result = iscool::none;
+          _last_error_status = status;
           _last_error = std::vector(error.begin(), error.end());
         });
 
-  return iscool::http::get(std::move(url), on_result, on_error);
+  return iscool::http::get(url, on_result, on_error);
 }
 
 iscool::signals::shared_connection_set
-send_mockup::post(std::string url, std::vector<std::string> headers,
+send_mockup::post(const std::string& url, std::vector<std::string> headers,
                   std::string body)
 {
   auto on_result(
@@ -93,8 +102,8 @@ send_mockup::post(std::string url, std::vector<std::string> headers,
           _last_error = std::vector(error.begin(), error.end());
         });
 
-  return iscool::http::post(std::move(url), std::move(headers),
-                            std::move(body), on_result, on_error);
+  return iscool::http::post(url, std::move(headers), std::move(body),
+                            on_result, on_error);
 }
 
 void send_mockup::dispatch_response(int status, const std::string& body)
@@ -124,30 +133,6 @@ std::string send_mockup::error_string() const
   return std::string(_last_error->begin(), _last_error->end());
 }
 
-TEST(iscool_http_send_test, get_result)
-{
-  send_mockup mockup;
-
-  std::string url("http://www.example.org");
-  const char* url_ptr = url.data();
-  const iscool::signals::shared_connection_set connections(
-      mockup.get(std::move(url)));
-
-  ASSERT_EQ(1ull, mockup._requests.size());
-
-  EXPECT_EQ(iscool::http::request::type::get,
-            mockup._requests[0].request_type);
-
-  // The url should have been moved down to the request.
-  EXPECT_EQ(url_ptr, mockup._requests[0].url.data());
-
-  mockup.dispatch_response(200, "yep");
-
-  ASSERT_TRUE(!!mockup._last_result);
-  EXPECT_FALSE(!!mockup._last_error);
-  EXPECT_EQ("yep", mockup.result_string());
-}
-
 TEST(iscool_http_send_test, get_error)
 {
   send_mockup mockup;
@@ -156,6 +141,9 @@ TEST(iscool_http_send_test, get_error)
   const iscool::signals::shared_connection_set connections(mockup.get(url));
 
   mockup.dispatch_response(404, "nope");
+
+  ASSERT_TRUE(!!mockup._last_error_status);
+  EXPECT_EQ(404, *mockup._last_error_status);
 
   ASSERT_TRUE(!!mockup._last_error);
   EXPECT_FALSE(!!mockup._last_result);
@@ -358,4 +346,59 @@ TEST(iscool_http_send_test, send_in_response)
   EXPECT_EQ("2", second_result_value);
 
   iscool::http::finalize();
+}
+
+class iscool_http_send_retry_test : public testing::Test
+{
+public:
+  iscool_http_send_retry_test()
+    : m_current_date{}
+    , m_time_source_initializer(
+          [this]() -> std::chrono::nanoseconds
+            {
+              return m_current_date;
+            },
+          [this]() -> std::chrono::nanoseconds
+            {
+              return m_current_date;
+            })
+    , m_scheduler_initializer(m_scheduler.get_delayed_call_delegate())
+  {}
+
+protected:
+  std::chrono::nanoseconds m_current_date;
+  iscool::time::scoped_time_source_delegate m_time_source_initializer;
+  iscool::schedule::manual_scheduler m_scheduler;
+  iscool::schedule::scoped_scheduler_delegate m_scheduler_initializer;
+};
+
+TEST_F(iscool_http_send_retry_test, retry_on_error)
+{
+  send_mockup mockup;
+
+  const std::string url("http://www.example.com");
+  const iscool::signals::shared_connection_set connections(mockup.get(url));
+
+  for (int i = 0; i != 5; ++i)
+    {
+      mockup.dispatch_response(408, "retry");
+
+      EXPECT_FALSE(!!mockup._last_error_status);
+      EXPECT_FALSE(!!mockup._last_error);
+      EXPECT_FALSE(!!mockup._last_result);
+
+      const std::chrono::seconds d(i);
+      m_current_date += d;
+      m_scheduler.update_interval(d);
+    }
+
+  mockup.dispatch_response(408, "retry");
+
+  ASSERT_TRUE(!!mockup._last_error_status);
+  EXPECT_EQ(408, *mockup._last_error_status);
+
+  ASSERT_TRUE(!!mockup._last_error);
+  EXPECT_FALSE(!!mockup._last_result);
+
+  EXPECT_EQ("retry", mockup.error_string());
 }

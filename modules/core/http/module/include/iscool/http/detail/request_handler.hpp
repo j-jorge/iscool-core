@@ -1,27 +1,31 @@
 // SPDX-License-Identifier: Apache-2.0
 #pragma once
 
-#include <iscool/signals/declare_signal.hpp>
+#include <iscool/http/request.hpp>
+#include <iscool/schedule/connection.hpp>
+#include <iscool/signals/signal.hpp>
 
 #include <span>
 
 namespace iscool::http
 {
-  class response;
-
   namespace detail
   {
     class request_handler
     {
-      DECLARE_SIGNAL(void(std::span<const char>), result, _on_result)
-      DECLARE_SIGNAL(void(int, std::span<const char>), error, _on_error)
-
     public:
       request_handler();
       ~request_handler();
 
-      void process_response(const response& r);
       void clear();
+
+    public:
+      iscool::signals::signal<void(std::span<const char>)> on_result;
+      iscool::signals::signal<void(int, std::span<const char>)> on_error;
+
+      iscool::http::request request;
+      iscool::schedule::connection retry_connection;
+      std::chrono::seconds retry_delay;
     };
   }
 }

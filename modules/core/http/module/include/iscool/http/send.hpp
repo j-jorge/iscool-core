@@ -10,11 +10,12 @@ namespace iscool
 {
   namespace http
   {
-    iscool::signals::shared_connection_set
-    get(std::string url, response_handler on_result, error_handler on_error);
+    iscool::signals::shared_connection_set get(const std::string& url,
+                                               response_handler on_result,
+                                               error_handler on_error);
 
     iscool::signals::shared_connection_set
-    post(std::string url, std::vector<std::string> headers, std::string body,
-         response_handler on_result, error_handler on_error);
+    post(const std::string& url, std::vector<std::string> headers,
+         std::string body, response_handler on_result, error_handler on_error);
   }
 }

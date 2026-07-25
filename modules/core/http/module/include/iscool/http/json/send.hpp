@@ -8,11 +8,11 @@
 
 namespace iscool::http::json
 {
-  iscool::signals::shared_connection_set get(std::string url,
+  iscool::signals::shared_connection_set get(const std::string& url,
                                              response_handler on_result,
                                              http::error_handler on_error);
 
-  iscool::signals::shared_connection_set post(std::string url,
+  iscool::signals::shared_connection_set post(const std::string& url,
                                               const Json::Value& body,
                                               response_handler on_result,
                                               http::error_handler on_error);

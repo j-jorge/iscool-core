@@ -20,10 +20,15 @@ iscool::http::detail::request_handler_pool::pick_available_handler()
   return _pool.pick_available();
 }
 
-void iscool::http::detail::request_handler_pool::process_response(
-    std::size_t handler_index, const response& r)
+iscool::http::detail::request_handler&
+iscool::http::detail::request_handler_pool::get(std::size_t handler_index)
 {
-  _pool.get(handler_index).process_response(r);
+  return _pool.get(handler_index);
+}
+
+void iscool::http::detail::request_handler_pool::release(
+    std::size_t handler_index)
+{
   _pool.release(handler_index);
 }
 

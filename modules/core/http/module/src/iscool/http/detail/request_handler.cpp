@@ -1,25 +1,24 @@
 // SPDX-License-Identifier: Apache-2.0
 #include <iscool/http/detail/request_handler.hpp>
 
-#include <iscool/http/response.hpp>
-#include <iscool/signals/implement_signal.hpp>
+#include <iscool/signals/signal.impl.tpp>
 
-IMPLEMENT_SIGNAL(iscool::http::detail::request_handler, result, _on_result);
-IMPLEMENT_SIGNAL(iscool::http::detail::request_handler, error, _on_error);
+iscool::http::detail::request_handler::request_handler()
+  : retry_delay(0)
+{}
 
-iscool::http::detail::request_handler::request_handler() = default;
 iscool::http::detail::request_handler::~request_handler() = default;
-
-void iscool::http::detail::request_handler::process_response(const response& r)
-{
-  if (r.status == 200)
-    _on_result(r.body);
-  else
-    _on_error(r.status, r.body);
-}
 
 void iscool::http::detail::request_handler::clear()
 {
-  _on_result.disconnect_all_slots();
-  _on_error.disconnect_all_slots();
+  request.url.clear();
+  request.body.clear();
+  request.headers.clear();
+  request.result_handler = {};
+
+  retry_connection.disconnect();
+  retry_delay = std::chrono::seconds(0);
+
+  on_result.disconnect_all_slots();
+  on_error.disconnect_all_slots();
 }
