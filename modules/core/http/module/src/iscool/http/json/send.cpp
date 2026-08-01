@@ -6,6 +6,7 @@
 #include <iscool/http/send.hpp>
 
 #include <iscool/json/parse_string.hpp>
+#include <iscool/json/write_to_string.hpp>
 
 namespace iscool::http::json::detail
 {
@@ -30,7 +31,9 @@ iscool::http::json::post(const std::string& url, const Json::Value& body,
                          response_handler on_result,
                          http::error_handler on_error)
 {
-  std::string body_data(body.toStyledString());
+  std::string body_data;
+
+  iscool::json::write_to_string(body_data, body);
   http::response_handler convert_result_to_json(
       detail::build_json_result_handler(std::move(on_result), on_error));
 
