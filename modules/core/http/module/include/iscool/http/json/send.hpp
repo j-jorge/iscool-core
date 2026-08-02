@@ -6,6 +6,9 @@
 
 #include <iscool/signals/shared_connection_set.hpp>
 
+#include <string>
+#include <vector>
+
 namespace iscool::http::json
 {
   iscool::signals::shared_connection_set get(const std::string& url,
@@ -13,6 +16,12 @@ namespace iscool::http::json
                                              http::error_handler on_error);
 
   iscool::signals::shared_connection_set post(const std::string& url,
+                                              const Json::Value& body,
+                                              response_handler on_result,
+                                              http::error_handler on_error);
+
+  iscool::signals::shared_connection_set post(const std::string& url,
+                                              std::vector<std::string> headers,
                                               const Json::Value& body,
                                               response_handler on_result,
                                               http::error_handler on_error);
