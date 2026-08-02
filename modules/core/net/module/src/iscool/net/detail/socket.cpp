@@ -5,7 +5,6 @@
 
 #include <iscool/log/log.hpp>
 #include <iscool/log/nature/error.hpp>
-#include <iscool/log/nature/info.hpp>
 #include <iscool/net/byte_array.hpp>
 #include <iscool/signals/implement_signal.hpp>
 
@@ -125,9 +124,6 @@ void iscool::net::detail::socket::allocate_server_socket()
 iscool::net::endpoint
 iscool::net::detail::socket::build_endpoint(std::string_view host)
 {
-  ic_log(iscool::log::nature::info(), log_context(), "connecting to '{}'",
-         host);
-
   const std::string::size_type colon(host.find_first_of(':'));
 
   if (colon == std::string::npos)
@@ -156,9 +152,9 @@ void iscool::net::detail::socket::send_bytes_no_error_check(
       boost::asio::buffer(buffer), endpoint,
       [this, raw = std::move(raw)](const boost::system::error_code& error,
                                    std::size_t bytes_transferred) -> void
-      {
-        bytes_sent(error, bytes_transferred);
-      });
+        {
+          bytes_sent(error, bytes_transferred);
+        });
 }
 
 void iscool::net::detail::socket::bytes_sent(
@@ -177,9 +173,9 @@ void iscool::net::detail::socket::receive()
   _socket->async_receive_from(
       boost::asio::null_buffers(), _receive_endpoint,
       [this](const boost::system::error_code& error, std::size_t) -> void
-      {
-        bytes_received(error);
-      });
+        {
+          bytes_received(error);
+        });
 }
 
 void iscool::net::detail::socket::bytes_received(
