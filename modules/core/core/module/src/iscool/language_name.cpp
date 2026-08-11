@@ -220,7 +220,7 @@ std::string_view iscool::to_human_string(iscool::language_name c)
     case language_name::nl_NL:
       return "Nederlands";
     case language_name::oc_FR:
-      return "Lenga d'òc";
+      return "Occitan";
     case language_name::pl_PL:
       return "Polski";
     case language_name::pt_BR:
