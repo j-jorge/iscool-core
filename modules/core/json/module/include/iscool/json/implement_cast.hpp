@@ -7,4 +7,4 @@
     template T cast<T>(const Json::Value&);                                   \
     template T cast<T>(const Json::Value&, const T&);                         \
     template T member_cast<T>(const Json::Value&, std::string_view);          \
-  }\
+  }
