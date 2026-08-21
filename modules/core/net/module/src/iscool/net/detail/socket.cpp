@@ -5,6 +5,7 @@
 
 #include <iscool/log/log.hpp>
 #include <iscool/log/nature/error.hpp>
+#include <iscool/memory/dynamic_pool.impl.hpp>
 #include <iscool/net/byte_array.hpp>
 #include <iscool/signals/implement_signal.hpp>
 

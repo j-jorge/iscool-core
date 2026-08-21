@@ -5,6 +5,7 @@
 
 #include <iscool/log/log.hpp>
 #include <iscool/log/nature/warning.hpp>
+#include <iscool/memory/dynamic_pool.impl.hpp>
 #include <iscool/schedule/detail/call_later.hpp>
 #include <iscool/signals/signal.impl.tpp>
 
@@ -107,9 +108,9 @@ void iscool::schedule::detail::delayed_call_manager::schedule_client(
 
   detail::call_later(
       [this, id, d = time::monotonic_now<duration>() + delay]() -> void
-      {
-        trigger(id, d);
-      },
+        {
+          trigger(id, d);
+        },
       delay);
 }
 
@@ -123,9 +124,9 @@ void iscool::schedule::detail::delayed_call_manager::
 
   detail::call_later(
       [this]() -> void
-      {
-        trigger_cumulated();
-      },
+        {
+          trigger_cumulated();
+        },
       duration::zero());
 
   _client_guard = false;
@@ -142,9 +143,9 @@ void iscool::schedule::detail::delayed_call_manager::
 
   detail::call_later(
       [this]() -> void
-      {
-        trigger_non_cumulated();
-      },
+        {
+          trigger_non_cumulated();
+        },
       duration::zero());
 
   _client_guard = false;
