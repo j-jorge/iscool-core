@@ -16,9 +16,9 @@ public:
   json_send_mockup();
   ~json_send_mockup();
 
-  iscool::signals::shared_connection_set get(const std::string& url);
-  iscool::signals::shared_connection_set post(const std::string& url,
-                                              const Json::Value& body);
+  iscool::http::request_connection get(const std::string& url);
+  iscool::http::request_connection post(const std::string& url,
+                                        const Json::Value& body);
 
   void dispatch_response(int status, const std::string& body);
   std::string error_string() const;
@@ -45,8 +45,7 @@ json_send_mockup::~json_send_mockup()
   iscool::http::finalize();
 }
 
-iscool::signals::shared_connection_set
-json_send_mockup::get(const std::string& url)
+iscool::http::request_connection json_send_mockup::get(const std::string& url)
 {
   auto on_result(
       [this](Json::Value result) -> void
@@ -65,7 +64,7 @@ json_send_mockup::get(const std::string& url)
   return iscool::http::json::get(url, on_result, on_error);
 }
 
-iscool::signals::shared_connection_set
+iscool::http::request_connection
 json_send_mockup::post(const std::string& url, const Json::Value& body)
 {
   auto on_result(
@@ -104,7 +103,7 @@ TEST(iscool_http_json_send_test, get_result)
   json_send_mockup mockup;
 
   const std::string url("http://www.example.org");
-  const iscool::signals::shared_connection_set connections(mockup.get(url));
+  const iscool::http::request_connection connections(mockup.get(url));
 
   ASSERT_TRUE(!!mockup._request);
   EXPECT_EQ(iscool::http::request::type::get, mockup._request->request_type);
@@ -126,7 +125,7 @@ TEST(iscool_http_json_send_test, get_empty_result)
   json_send_mockup mockup;
 
   const std::string url("http://www.example.org");
-  const iscool::signals::shared_connection_set connections(mockup.get(url));
+  const iscool::http::request_connection connections(mockup.get(url));
 
   ASSERT_TRUE(!!mockup._request);
   EXPECT_EQ(iscool::http::request::type::get, mockup._request->request_type);
@@ -144,7 +143,7 @@ TEST(iscool_http_json_send_test, get_error)
   json_send_mockup mockup;
 
   const std::string url("http://www.example.org");
-  const iscool::signals::shared_connection_set connections(mockup.get(url));
+  const iscool::http::request_connection connections(mockup.get(url));
   const std::string response("{ \"string\": yep, \"number\": 24 }");
 
   mockup.dispatch_response(300, response);
@@ -163,8 +162,7 @@ TEST(iscool_http_json_send_test, post_result)
   body[0] = "yep";
   body[1] = 24;
 
-  const iscool::signals::shared_connection_set connections(
-      mockup.post(url, body));
+  const iscool::http::request_connection connections(mockup.post(url, body));
 
   ASSERT_TRUE(!!mockup._request);
   EXPECT_EQ(iscool::http::request::type::post, mockup._request->request_type);
@@ -216,8 +214,7 @@ TEST(iscool_http_json_send_test, post_empty_result)
   body[0] = "yep";
   body[1] = 24;
 
-  const iscool::signals::shared_connection_set connections(
-      mockup.post(url, body));
+  const iscool::http::request_connection connections(mockup.post(url, body));
 
   ASSERT_TRUE(!!mockup._request);
   EXPECT_EQ(iscool::http::request::type::post, mockup._request->request_type);
@@ -237,8 +234,7 @@ TEST(iscool_http_json_send_test, post_error)
   const std::string url("http://www.example.org");
   Json::Value body("24");
 
-  const iscool::signals::shared_connection_set connections(
-      mockup.post(url, body));
+  const iscool::http::request_connection connections(mockup.post(url, body));
   const std::string response("system failure");
 
   mockup.dispatch_response(300, response);

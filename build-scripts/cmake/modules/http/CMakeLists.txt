@@ -8,6 +8,8 @@ declare_iscool_library( NAME http
   "compose_url.cpp"
   "get_global_mockup.cpp"
   "mockup.cpp"
+  "request_connection.cpp"
+  "request_connection_pool.cpp"
   "send.cpp"
   "service_statistics.cpp"
   "setup.cpp"
@@ -22,6 +24,7 @@ declare_iscool_library( NAME http
 
   LINK
   iscool_json
+  iscool_memory
   iscool_monitoring
   iscool_schedule
   iscool_signals

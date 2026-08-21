@@ -21,10 +21,10 @@ public:
   send_mockup();
   ~send_mockup();
 
-  iscool::signals::shared_connection_set get(const std::string& url);
-  iscool::signals::shared_connection_set post(const std::string& url,
-                                              std::vector<std::string> headers,
-                                              std::string body);
+  iscool::http::request_connection get(const std::string& url);
+  iscool::http::request_connection post(const std::string& url,
+                                        std::vector<std::string> headers,
+                                        std::string body);
 
   void dispatch_response(int status, const std::string& body);
   std::string result_string() const;
@@ -55,7 +55,7 @@ send_mockup::~send_mockup()
   iscool::http::finalize();
 }
 
-iscool::signals::shared_connection_set send_mockup::get(const std::string& url)
+iscool::http::request_connection send_mockup::get(const std::string& url)
 {
   auto on_result(
       [this](std::span<const char> result) -> void
@@ -80,7 +80,7 @@ iscool::signals::shared_connection_set send_mockup::get(const std::string& url)
   return iscool::http::get(url, on_result, on_error);
 }
 
-iscool::signals::shared_connection_set
+iscool::http::request_connection
 send_mockup::post(const std::string& url, std::vector<std::string> headers,
                   std::string body)
 {
@@ -138,7 +138,7 @@ TEST(iscool_http_send_test, get_error)
   send_mockup mockup;
 
   const std::string url("http://www.example.com");
-  const iscool::signals::shared_connection_set connections(mockup.get(url));
+  const iscool::http::request_connection connections(mockup.get(url));
 
   mockup.dispatch_response(404, "nope");
 
@@ -155,10 +155,10 @@ TEST(iscool_http_send_test, disconnected_result)
   send_mockup mockup;
 
   const std::string url("http://www.example.info");
-  iscool::signals::shared_connection_set connections(mockup.get(url));
+  iscool::http::request_connection connections(mockup.get(url));
 
-  EXPECT_FALSE(connections.empty());
-  connections.clear();
+  EXPECT_TRUE(connections.connected());
+  connections.disconnect();
 
   mockup.dispatch_response(200, "yep");
 
@@ -171,10 +171,10 @@ TEST(iscool_http_send_test, disconnected_error)
   send_mockup mockup;
 
   const std::string url("http://www.example.net");
-  iscool::signals::shared_connection_set connections(mockup.get(url));
+  iscool::http::request_connection connections(mockup.get(url));
 
-  EXPECT_FALSE(connections.empty());
-  connections.clear();
+  EXPECT_TRUE(connections.connected());
+  connections.disconnect();
 
   mockup.dispatch_response(500, "nope");
 
@@ -187,12 +187,12 @@ TEST(iscool_http_send_test, one_hundred_get_requests)
   send_mockup mockup;
 
   const std::string url("http://www.example.org");
-  iscool::signals::shared_connection_set connections;
+  std::vector<iscool::http::request_connection> connections;
 
   const std::size_t request_count(100);
 
   for (std::size_t i(0); i != request_count; ++i)
-    connections.insert(mockup.get(boost::lexical_cast<std::string>(i)));
+    connections.push_back(mockup.get(boost::lexical_cast<std::string>(i)));
 
   std::size_t errors(0);
   std::size_t results(0);
@@ -221,7 +221,7 @@ TEST(iscool_http_send_test, mixed_requests_and_results)
   send_mockup mockup;
 
   const std::string url("http://www.example.org");
-  iscool::signals::shared_connection_set connections;
+  std::vector<iscool::http::request_connection> connections;
 
   const std::size_t request_count(10);
   std::vector<std::string> results;
@@ -229,7 +229,7 @@ TEST(iscool_http_send_test, mixed_requests_and_results)
   for (std::size_t i(0); i != request_count; ++i)
     {
       if (i <= 6)
-        connections.insert(mockup.get(boost::lexical_cast<std::string>(i)));
+        connections.push_back(mockup.get(boost::lexical_cast<std::string>(i)));
 
       if (i >= 3)
         {
@@ -255,7 +255,7 @@ TEST(iscool_http_send_test, post_result)
   const std::vector<std::string> headers({ "head 1", "more", "head 24" });
   const std::string body("the body");
 
-  const iscool::signals::shared_connection_set connections(
+  const iscool::http::request_connection connections(
       mockup.post(url, headers, body));
 
   ASSERT_EQ(1ull, mockup._requests.size());
@@ -280,7 +280,7 @@ TEST(iscool_http_send_test, post_error)
   const std::vector<std::string> headers({ "head 1", "more", "head 24" });
   const std::string body("the body");
 
-  const iscool::signals::shared_connection_set connections(
+  const iscool::http::request_connection connections(
       mockup.post(url, headers, body));
 
   mockup.dispatch_response(300, "nope");
@@ -306,7 +306,7 @@ TEST(iscool_http_send_test, send_in_response)
           EXPECT_TRUE(false);
         });
 
-  iscool::signals::shared_connection_set connections;
+  std::vector<iscool::http::request_connection> connections;
 
   std::string first_result_value;
   auto first_result(
@@ -314,7 +314,7 @@ TEST(iscool_http_send_test, send_in_response)
        second_error](std::span<const char> result) -> void
         {
           first_result_value = std::string(result.begin(), result.end());
-          connections.insert(
+          connections.push_back(
               iscool::http::get("b", second_result, second_error));
         });
 
@@ -333,7 +333,7 @@ TEST(iscool_http_send_test, send_in_response)
         });
 
   iscool::http::initialize(mockup);
-  connections = iscool::http::get("a", first_result, first_error);
+  connections.push_back(iscool::http::get("a", first_result, first_error));
 
   EXPECT_EQ(1ull, requests.size());
   const char first_body[] = { '1' };
@@ -377,7 +377,7 @@ TEST_F(iscool_http_send_retry_test, retry_on_error)
   send_mockup mockup;
 
   const std::string url("http://www.example.com");
-  const iscool::signals::shared_connection_set connections(mockup.get(url));
+  const iscool::http::request_connection connections(mockup.get(url));
 
   for (int i = 0; i != 5; ++i)
     {

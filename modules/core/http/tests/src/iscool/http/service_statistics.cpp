@@ -21,7 +21,7 @@ public:
 
 public:
   std::vector<iscool::http::request> _requests;
-  iscool::signals::shared_connection_set _connections;
+  iscool::http::request_connection _connections;
 };
 
 iscool_http_service_statistics_test::iscool_http_service_statistics_test()

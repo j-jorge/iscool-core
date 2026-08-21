@@ -15,7 +15,7 @@ namespace iscool::http::json::detail
                             http::error_handler on_error);
 }
 
-iscool::signals::shared_connection_set
+iscool::http::request_connection
 iscool::http::json::get(const std::string& url, response_handler on_result,
                         http::error_handler on_error)
 {
@@ -26,7 +26,7 @@ iscool::http::json::get(const std::string& url, response_handler on_result,
                    std::move(on_error));
 }
 
-iscool::signals::shared_connection_set
+iscool::http::request_connection
 iscool::http::json::post(const std::string& url, const Json::Value& body,
                          response_handler on_result,
                          http::error_handler on_error)
@@ -35,7 +35,7 @@ iscool::http::json::post(const std::string& url, const Json::Value& body,
               std::move(on_error));
 }
 
-iscool::signals::shared_connection_set
+iscool::http::request_connection
 iscool::http::json::post(const std::string& url,
                          std::vector<std::string> headers,
                          const Json::Value& body, response_handler on_result,

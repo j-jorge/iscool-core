@@ -12,20 +12,20 @@
 
 namespace iscool::http::detail
 {
-  static iscool::signals::shared_connection_set
+  static iscool::http::request_connection
   create_predefined_response_connections(std::vector<char> body,
                                          const response_handler& on_result);
 
-  static iscool::signals::shared_connection_set
+  static iscool::http::request_connection
   send_get_request(const std::string& url, response_handler on_result,
                    error_handler on_error);
 
-  static iscool::signals::shared_connection_set
+  static iscool::http::request_connection
   send_post_request(const std::string& url, std::vector<std::string> headers,
                     std::string body, response_handler on_result,
                     error_handler on_error);
 
-  static iscool::signals::shared_connection_set
+  static iscool::http::request_connection
   configure_request(request*& output, const std::string& url,
                     response_handler on_result, error_handler on_error);
 
@@ -34,9 +34,9 @@ namespace iscool::http::detail
   static request_handler_pool g_handler_pool(16);
 }
 
-iscool::signals::shared_connection_set
-iscool::http::get(const std::string& url, response_handler on_result,
-                  error_handler on_error)
+iscool::http::request_connection iscool::http::get(const std::string& url,
+                                                   response_handler on_result,
+                                                   error_handler on_error)
 {
   const mockup& http_mockup(get_global_mockup());
 
@@ -54,7 +54,7 @@ iscool::http::get(const std::string& url, response_handler on_result,
                                   std::move(on_error));
 }
 
-iscool::signals::shared_connection_set
+iscool::http::request_connection
 iscool::http::post(const std::string& url, std::vector<std::string> headers,
                    std::string body, response_handler on_result,
                    error_handler on_error)
@@ -75,16 +75,16 @@ iscool::http::post(const std::string& url, std::vector<std::string> headers,
                                    std::move(on_result), std::move(on_error));
 }
 
-iscool::signals::shared_connection_set
+iscool::http::request_connection
 iscool::http::detail::create_predefined_response_connections(
     std::vector<char> body, const response_handler& on_result)
 {
-  iscool::signals::shared_connection_set result;
+  iscool::http::request_connection result;
 
   const detail::request_handler_pool::slot slot =
       g_handler_pool.pick_available_handler();
 
-  result.insert(slot.value->on_result.connect(on_result));
+  result.result = slot.value->on_result.connect(on_result);
 
   iscool::schedule::delayed_call(
       [body = std::move(body), slot_id = slot.id]()
@@ -95,15 +95,14 @@ iscool::http::detail::create_predefined_response_connections(
   return result;
 }
 
-iscool::signals::shared_connection_set iscool::http::detail::send_get_request(
+iscool::http::request_connection iscool::http::detail::send_get_request(
     const std::string& url, response_handler on_result, error_handler on_error)
 {
   assert(detail::send_delegate);
 
   request* r;
-  const iscool::signals::shared_connection_set result(
-      detail::configure_request(r, url, std::move(on_result),
-                                std::move(on_error)));
+  const iscool::http::request_connection result(detail::configure_request(
+      r, url, std::move(on_result), std::move(on_error)));
 
   r->request_type = request::type::get;
 
@@ -112,16 +111,15 @@ iscool::signals::shared_connection_set iscool::http::detail::send_get_request(
   return result;
 }
 
-iscool::signals::shared_connection_set iscool::http::detail::send_post_request(
+iscool::http::request_connection iscool::http::detail::send_post_request(
     const std::string& url, std::vector<std::string> headers, std::string body,
     response_handler on_result, error_handler on_error)
 {
   assert(detail::send_delegate);
 
   request* r;
-  const iscool::signals::shared_connection_set result(
-      detail::configure_request(r, url, std::move(on_result),
-                                std::move(on_error)));
+  const iscool::http::request_connection result(detail::configure_request(
+      r, url, std::move(on_result), std::move(on_error)));
 
   r->body = std::move(body);
   r->request_type = request::type::post;
@@ -132,7 +130,7 @@ iscool::signals::shared_connection_set iscool::http::detail::send_post_request(
   return result;
 }
 
-iscool::signals::shared_connection_set iscool::http::detail::configure_request(
+iscool::http::request_connection iscool::http::detail::configure_request(
     request*& request, const std::string& url, response_handler on_result,
     error_handler on_error)
 {
@@ -142,24 +140,24 @@ iscool::signals::shared_connection_set iscool::http::detail::configure_request(
   request_handler& handler = *slot.value;
   request = &handler.request;
 
-  iscool::signals::shared_connection_set connections;
+  iscool::http::request_connection connections;
 
-  connections.insert(handler.on_result.connect(
+  connections.result = handler.on_result.connect(
       [=](std::span<const char> body)
         {
           get_service_statistics().add_success();
 
           if (on_result)
             on_result(body);
-        }));
-  connections.insert(handler.on_error.connect(
+        });
+  connections.error = handler.on_error.connect(
       [=](int status, std::span<const char> body)
         {
           get_service_statistics().add_failure();
 
           if (on_error)
             on_error(status, body);
-        }));
+        });
 
   request->url = url;
   request->result_handler = [id = slot.id](const response& r)
