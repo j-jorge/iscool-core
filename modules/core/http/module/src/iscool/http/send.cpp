@@ -1,10 +1,8 @@
 // SPDX-License-Identifier: Apache-2.0
 #include <iscool/http/send.hpp>
 
-#include <iscool/http/detail/get_service_statistics.hpp>
 #include <iscool/http/detail/request_handler_pool.hpp>
 #include <iscool/http/detail/send_delegate.hpp>
-#include <iscool/http/detail/service_statistics.hpp>
 #include <iscool/http/get_global_mockup.hpp>
 #include <iscool/http/request.hpp>
 #include <iscool/http/response.hpp>
@@ -134,30 +132,17 @@ iscool::http::request_connection iscool::http::detail::configure_request(
     request*& request, const std::string& url, response_handler on_result,
     error_handler on_error)
 {
-  get_service_statistics().add_attempt();
-
   const auto slot(g_handler_pool.pick_available_handler());
   request_handler& handler = *slot.value;
   request = &handler.request;
 
   iscool::http::request_connection connections;
 
-  connections.result = handler.on_result.connect(
-      [=](std::span<const char> body)
-        {
-          get_service_statistics().add_success();
+  if (on_result)
+    connections.result = handler.on_result.connect(on_result);
 
-          if (on_result)
-            on_result(body);
-        });
-  connections.error = handler.on_error.connect(
-      [=](int status, std::span<const char> body)
-        {
-          get_service_statistics().add_failure();
-
-          if (on_error)
-            on_error(status, body);
-        });
+  if (on_error)
+    connections.error = handler.on_error.connect(on_error);
 
   request->url = url;
   request->result_handler = [id = slot.id](const response& r)

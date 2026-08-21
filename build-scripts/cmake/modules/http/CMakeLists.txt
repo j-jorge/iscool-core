@@ -11,11 +11,9 @@ declare_iscool_library( NAME http
   "request_connection.cpp"
   "request_connection_pool.cpp"
   "send.cpp"
-  "service_statistics.cpp"
   "setup.cpp"
   "url_encode.cpp"
 
-  "detail/get_service_statistics.cpp"
   "detail/request_handler.cpp"
   "detail/request_handler_pool.cpp"
   "detail/send_delegate.cpp"
@@ -34,7 +32,6 @@ declare_iscool_library_test( NAME http
   FILES
   "compose_url.cpp"
   "send.cpp"
-  "service_statistics.cpp"
   "url_encode.cpp"
 
   "json/send.cpp"
