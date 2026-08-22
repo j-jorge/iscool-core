@@ -19,5 +19,7 @@ namespace iscool::net
 
   using message_pool =
       iscool::memory::dynamic_pool<message, detail::message_pool_traits>;
-
 }
+
+extern template class iscool::memory::dynamic_pool<
+    iscool::net::message, iscool::net::detail::message_pool_traits>;

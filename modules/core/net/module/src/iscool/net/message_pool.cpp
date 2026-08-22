@@ -1,7 +1,7 @@
 // SPDX-License-Identifier: Apache-2.0
 #include <iscool/net/message_pool.hpp>
 
-#include <iscool/net/message/message.hpp>
+#include <iscool/memory/dynamic_pool.impl.hpp>
 
 bool iscool::net::detail::message_pool_traits::clear(message& m)
 {
@@ -9,3 +9,6 @@ bool iscool::net::detail::message_pool_traits::clear(message& m)
   // message::reset() with the correct pameters.
   return true;
 }
+
+template class iscool::memory::dynamic_pool<
+    iscool::net::message, iscool::net::detail::message_pool_traits>;
