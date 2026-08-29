@@ -29,5 +29,8 @@ T iscool::json::member_cast(const Json::Value& value, std::string_view key)
 
   const Json::Value* const m = value.find(key.begin(), key.end());
 
+  if (!m)
+    throw bad_cast(value, "member");
+
   return detail::cast<T>::value(*m);
 }
