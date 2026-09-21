@@ -7,6 +7,7 @@ declare_iscool_library(
   NAME time
 
   FILES
+  "parse_timestamp.cpp"
   "setup.cpp"
   "detail/monotonic_time_source.cpp"
   "detail/time_source.cpp"
@@ -18,6 +19,7 @@ declare_iscool_library_test(
   FILES
   "backward_duration_to_unit_change.cpp"
   "days.cpp"
+  "parse_timestamp.cpp"
   "round.cpp"
   "time_source.cpp"
 )
