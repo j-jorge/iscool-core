@@ -171,12 +171,11 @@ void iscool::net::detail::socket::receive()
   if (_socket == nullptr)
     (this->*_allocate_socket)();
 
-  _socket->async_receive_from(
-      boost::asio::null_buffers(), _receive_endpoint,
-      [this](const boost::system::error_code& error, std::size_t) -> void
-        {
-          bytes_received(error);
-        });
+  _socket->async_wait(boost::asio::ip::udp::socket::wait_read,
+                      [this](const boost::system::error_code& error) -> void
+                        {
+                          bytes_received(error);
+                        });
 }
 
 void iscool::net::detail::socket::bytes_received(
