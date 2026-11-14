@@ -29,7 +29,7 @@ namespace iscool
     th_TH,
     tr_TR,
     uk_UA,
-    zh_CN,
+    zh_Hans,
     zh_TW
   };
 }

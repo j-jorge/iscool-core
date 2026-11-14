@@ -292,19 +292,19 @@ TEST_F(iscool_i18n_test, plurals_th)
   EXPECT_EQ(std::string("Singular"), ic_ngettext("singular", "plural", 2));
 }
 
-TEST_F(iscool_i18n_test, numeric_zh_CN)
+TEST_F(iscool_i18n_test, numeric_zh_Hans)
 {
   EXPECT_TRUE(iscool::i18n::load_translations(
-      iscool::language_name::zh_CN,
-      *iscool::files::read_file("translations/zh_CN.mo")));
+      iscool::language_name::zh_Hans,
+      *iscool::files::read_file("translations/zh_Hans.mo")));
   EXPECT_EQ("20,400,200,300", iscool::i18n::numeric::to_string(20400200300ll));
 }
 
-TEST_F(iscool_i18n_test, plurals_zh_CN)
+TEST_F(iscool_i18n_test, plurals_zh_Hans)
 {
   EXPECT_TRUE(iscool::i18n::load_translations(
-      iscool::language_name::zh_CN,
-      *iscool::files::read_file("translations/zh_CN.mo")));
+      iscool::language_name::zh_Hans,
+      *iscool::files::read_file("translations/zh_Hans.mo")));
 
   EXPECT_EQ(std::string("Singular"), ic_ngettext("singular", "plural", 0));
   EXPECT_EQ(std::string("Singular"), ic_ngettext("singular", "plural", 1));

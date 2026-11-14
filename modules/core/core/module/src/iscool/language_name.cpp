@@ -48,7 +48,7 @@ iscool::iso_639_language_code iscool::to_language_code(language_name c)
       return iso_639_language_code::tr;
     case language_name::uk_UA:
       return iso_639_language_code::uk;
-    case language_name::zh_CN:
+    case language_name::zh_Hans:
     case language_name::zh_TW:
       return iso_639_language_code::zh;
     }
@@ -102,8 +102,8 @@ std::string_view iscool::to_string(iscool::language_name c)
       return "tr_TR";
     case language_name::uk_UA:
       return "uk_UA";
-    case language_name::zh_CN:
-      return "zh_CN";
+    case language_name::zh_Hans:
+      return "zh_Hans";
     case language_name::zh_TW:
       return "zh_TW";
     }
@@ -187,7 +187,7 @@ iscool::language_name iscool::from_string_with_fallback(std::string_view s)
       if (s == "zh_TW")
         return language_name::zh_TW;
 
-      return language_name::zh_CN;
+      return language_name::zh_Hans;
     }
 
   return language_name::en_GB;
@@ -239,7 +239,7 @@ std::string_view iscool::to_human_string(iscool::language_name c)
       return "Türkçe";
     case language_name::uk_UA:
       return "українська";
-    case language_name::zh_CN:
+    case language_name::zh_Hans:
       return "简体中文";
     case language_name::zh_TW:
       return "繁體中文";

@@ -52,7 +52,7 @@ if( TARGET iscool_i18n_test )
     pt_BR.po
     pt.po
     th.po
-    zh_CN.po
+    zh_Hans.po
     zh_TW.po
     )
 
